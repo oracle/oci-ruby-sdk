@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A command's execution summary.
+  # Execution details for a command.
   class ComputeInstanceAgent::Models::InstanceAgentCommandExecutionSummary
     DELIVERY_STATE_ENUM = [
       DELIVERY_STATE_VISIBLE = 'VISIBLE'.freeze,
@@ -27,52 +27,56 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the command
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the command.
     # @return [String]
     attr_accessor :instance_agent_command_id
 
-    # **[Required]** The OCID of the instance
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance.
     # @return [String]
     attr_accessor :instance_id
 
-    # **[Required]** Specifies the command delivery state.
-    #  * `VISIBLE` - The command is visible to instance.
-    #  * `PENDING` - The command is pending ack from the instance.
-    #  * `ACKED` - The command has been received and acked by the instance.
-    #  * `ACKED_CANCELED` - The canceled command has been received and acked by the instance.
-    #  * `EXPIRED` - The instance has not requested for commands and its delivery has expired.
+    # **[Required]** The command delivery state.
+    #  * `VISIBLE` - The command is visible to the instance.
+    #  * `PENDING` - The command is pending acknowledgment from the instance.
+    #  * `ACKED` - The command has been received and acknowledged by the instance.
+    #  * `ACKED_CANCELED` - The canceled command has been received and acknowledged by the instance.
+    #  * `EXPIRED` - The instance has not requested for commands and the command's delivery has expired.
     #
     # @return [String]
     attr_reader :delivery_state
 
-    # **[Required]** command execution life cycle state.
-    # * `ACCEPTED` - The command execution has been accepted to run.
-    # * `IN_PROGRESS` - The command execution is in progress.
-    # * `SUCCEEDED` - The command execution is successful.
-    # * `FAILED` - The command execution has failed.
-    # * `TIMED_OUT` - The command execution has timedout.
-    # * `CANCELED` - The command execution has canceled.
+    # **[Required]** The command execution lifecycle state.
+    # * `ACCEPTED` - The command has been accepted to run.
+    # * `IN_PROGRESS` - The command is in progress.
+    # * `SUCCEEDED` - The command was successfully executed.
+    # * `FAILED` - The command failed to execute.
+    # * `TIMED_OUT` - The command execution timed out.
+    # * `CANCELED` - The command execution was canceled.
     #
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** The command creation date
+    # **[Required]** The date and time the command was created, in the format defined by
+    # [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The command last updated at date.
+    # **[Required]** The date and time the command was last updated, in the format defined by
+    # [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
     # @return [DateTime]
     attr_accessor :time_updated
 
-    # **[Required]** The large non-consecutive number that Run Command Service assigns to each created command.
+    # **[Required]** A large, non-consecutive number that Oracle Cloud Agent assigns to each created command.
     # @return [Integer]
     attr_accessor :sequence_number
 
-    # The user friendly display name of the command.
+    # A user-friendly name. Does not have to be unique.
     # @return [String]
     attr_accessor :display_name
 
-    # This attribute is required.
+    # **[Required]** The execution output from a command.
     # @return [OCI::ComputeInstanceAgent::Models::InstanceAgentCommandExecutionOutputContent]
     attr_accessor :content
 

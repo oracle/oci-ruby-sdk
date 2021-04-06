@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,8 +8,12 @@ require_relative 'update_auto_scaling_policy_details'
 module OCI
   # UpdateScheduledPolicyDetails model.
   class Autoscaling::Models::UpdateScheduledPolicyDetails < Autoscaling::Models::UpdateAutoScalingPolicyDetails
+    # The schedule for executing the autoscaling policy.
     # @return [OCI::Autoscaling::Models::ExecutionSchedule]
     attr_accessor :execution_schedule
+
+    # @return [OCI::Autoscaling::Models::ResourceAction]
+    attr_accessor :resource_action
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -19,7 +23,8 @@ module OCI
         'capacity': :'capacity',
         'policy_type': :'policyType',
         'is_enabled': :'isEnabled',
-        'execution_schedule': :'executionSchedule'
+        'execution_schedule': :'executionSchedule',
+        'resource_action': :'resourceAction'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -32,7 +37,8 @@ module OCI
         'capacity': :'OCI::Autoscaling::Models::Capacity',
         'policy_type': :'String',
         'is_enabled': :'BOOLEAN',
-        'execution_schedule': :'OCI::Autoscaling::Models::ExecutionSchedule'
+        'execution_schedule': :'OCI::Autoscaling::Models::ExecutionSchedule',
+        'resource_action': :'OCI::Autoscaling::Models::ResourceAction'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -47,6 +53,7 @@ module OCI
     # @option attributes [OCI::Autoscaling::Models::Capacity] :capacity The value to assign to the {OCI::Autoscaling::Models::UpdateAutoScalingPolicyDetails#capacity #capacity} proprety
     # @option attributes [BOOLEAN] :is_enabled The value to assign to the {OCI::Autoscaling::Models::UpdateAutoScalingPolicyDetails#is_enabled #is_enabled} proprety
     # @option attributes [OCI::Autoscaling::Models::ExecutionSchedule] :execution_schedule The value to assign to the {#execution_schedule} property
+    # @option attributes [OCI::Autoscaling::Models::ResourceAction] :resource_action The value to assign to the {#resource_action} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -62,6 +69,12 @@ module OCI
       raise 'You cannot provide both :executionSchedule and :execution_schedule' if attributes.key?(:'executionSchedule') && attributes.key?(:'execution_schedule')
 
       self.execution_schedule = attributes[:'execution_schedule'] if attributes[:'execution_schedule']
+
+      self.resource_action = attributes[:'resourceAction'] if attributes[:'resourceAction']
+
+      raise 'You cannot provide both :resourceAction and :resource_action' if attributes.key?(:'resourceAction') && attributes.key?(:'resource_action')
+
+      self.resource_action = attributes[:'resource_action'] if attributes[:'resource_action']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -79,7 +92,8 @@ module OCI
         capacity == other.capacity &&
         policy_type == other.policy_type &&
         is_enabled == other.is_enabled &&
-        execution_schedule == other.execution_schedule
+        execution_schedule == other.execution_schedule &&
+        resource_action == other.resource_action
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -95,7 +109,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, capacity, policy_type, is_enabled, execution_schedule].hash
+      [display_name, capacity, policy_type, is_enabled, execution_schedule, resource_action].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

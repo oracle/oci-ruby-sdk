@@ -2,7 +2,7 @@
 
 This is Oracle Cloud Infrastructure SDK for Ruby. This project is open source, in active development and maintained by Oracle Corp. The home page for the project is <a href="https://docs.cloud.oracle.com/en-us/iaas/Content/API/SDKDocs/rubysdk.htm">here</a>.
 
-**Version 2.10.0**
+**Version 2.13.0**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -14,6 +14,7 @@ The Ruby SDK supports the following services:
 * Announcements
 * API Gateway
 * Application Migration
+* Application Performance Monitoring
 * Audit
 * Autoscaling (Compute)
 * Big Data
@@ -32,12 +33,14 @@ The Ruby SDK supports the following services:
 * Data Safe
 * Data Transfer 
 * Database
+* Database Management
 * Digital Assistant
 * Domain Name System
 * Email
 * Events
 * File Storage
 * Functions
+* Golden Gate
 * Health Checks
 * Identity and Access Management
 * Incident Management
@@ -54,7 +57,9 @@ The Ruby SDK supports the following services:
 * Marketplace
 * Monitoring
 * MySQL Database service
+* Network Load Balancing
 * Notification
+* OCI Registry
 * Oracle Content and Experience
 * Oracle Roving Edge Infrastructure
 * Object Storage
@@ -69,6 +74,7 @@ The Ruby SDK supports the following services:
 * Support Management
 * Usage
 * VMWare Solution
+* Vulnerability Scanning
 * Web Application Acceleration and Security
 * Work Requests
 

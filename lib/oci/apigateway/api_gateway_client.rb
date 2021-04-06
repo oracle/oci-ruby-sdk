@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -364,6 +364,67 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a new SDK.
+    # @param [OCI::Apigateway::Models::CreateSdkDetails] create_sdk_details Details for the new SDK.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #    (default to null)
+    # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
+    # @return [Response] A Response object with data of type {OCI::Apigateway::Models::Sdk Sdk}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/create_sdk.rb.html) to see an example of how to use create_sdk API.
+    def create_sdk(create_sdk_details, opts = {})
+      logger.debug 'Calling operation ApiGatewayClient#create_sdk.' if logger
+
+      raise "Missing the required parameter 'create_sdk_details' when calling create_sdk." if create_sdk_details.nil?
+
+      path = '/sdks'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_sdk_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#create_sdk') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Apigateway::Models::Sdk'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes the API with the given identifier.
     # @param [String] api_id The ocid of the API.
     # @param [Hash] opts the optional parameters
@@ -463,6 +524,66 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#delete_certificate') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes provided SDK.
+    # @param [String] sdk_id The ocid of the SDK.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #    (default to null)
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/delete_sdk.rb.html) to see an example of how to use delete_sdk API.
+    def delete_sdk(sdk_id, opts = {})
+      logger.debug 'Calling operation ApiGatewayClient#delete_sdk.' if logger
+
+      raise "Missing the required parameter 'sdk_id' when calling delete_sdk." if sdk_id.nil?
+      raise "Parameter value for 'sdk_id' must not be blank" if OCI::Internal::Util.blank_string?(sdk_id)
+
+      path = '/sdks/{sdkId}'.sub('{sdkId}', sdk_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#delete_sdk') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -821,6 +942,60 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Return object store downloadable URL and metadata.
+    # @param [String] sdk_id The ocid of the SDK.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
+    # @return [Response] A Response object with data of type {OCI::Apigateway::Models::Sdk Sdk}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/get_sdk.rb.html) to see an example of how to use get_sdk API.
+    def get_sdk(sdk_id, opts = {})
+      logger.debug 'Calling operation ApiGatewayClient#get_sdk.' if logger
+
+      raise "Missing the required parameter 'sdk_id' when calling get_sdk." if sdk_id.nil?
+      raise "Parameter value for 'sdk_id' must not be blank" if OCI::Internal::Util.blank_string?(sdk_id)
+
+      path = '/sdks/{sdkId}'.sub('{sdkId}', sdk_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#get_sdk') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Apigateway::Models::Sdk'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of APIs.
     #
     # @param [String] compartment_id The ocid of the compartment in which to list resources.
@@ -1003,6 +1178,178 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists programming languages in which SDK can be generated.
+    # @param [String] compartment_id The ocid of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :display_name A user-friendly name. Does not have to be unique, and it's changeable.
+    #
+    #   Example: `My new resource`
+    #    (default to null)
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call. (default to null)
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. The default order depends on the sortBy value. (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`).
+    #   Default order for `timeCreated` is descending. Default order for
+    #   `displayName` is ascending. The `displayName` sort order is case
+    #   sensitive.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
+    # @return [Response] A Response object with data of type {OCI::Apigateway::Models::SdkLanguageTypeCollection SdkLanguageTypeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/list_sdk_language_types.rb.html) to see an example of how to use list_sdk_language_types API.
+    def list_sdk_language_types(compartment_id, opts = {})
+      logger.debug 'Calling operation ApiGatewayClient#list_sdk_language_types.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_sdk_language_types." if compartment_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      path = '/sdkLanguageTypes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#list_sdk_language_types') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Apigateway::Models::SdkLanguageTypeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns list of generated SDKs.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :sdk_id The ocid of the SDK. (default to null)
+    # @option opts [String] :display_name A user-friendly name. Does not have to be unique, and it's changeable.
+    #
+    #   Example: `My new resource`
+    #    (default to null)
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state.
+    #
+    #   Example: `ACTIVE` or `DELETED`
+    #    (default to null)
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call. (default to null)
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. The default order depends on the sortBy value. (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`).
+    #   Default order for `timeCreated` is descending. Default order for
+    #   `displayName` is ascending. The `displayName` sort order is case
+    #   sensitive.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :api_id The ocid of the API. (default to null)
+    # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
+    # @return [Response] A Response object with data of type {OCI::Apigateway::Models::SdkCollection SdkCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/list_sdks.rb.html) to see an example of how to use list_sdks API.
+    def list_sdks(opts = {})
+      logger.debug 'Calling operation ApiGatewayClient#list_sdks.' if logger
+
+
+      if opts[:lifecycle_state] && !OCI::Apigateway::Models::Sdk::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Apigateway::Models::Sdk::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      path = '/sdks'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:sdkId] = opts[:sdk_id] if opts[:sdk_id]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:apiId] = opts[:api_id] if opts[:api_id]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#list_sdks') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Apigateway::Models::SdkCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates the API with the given identifier.
     # @param [String] api_id The ocid of the API.
     # @param [OCI::Apigateway::Models::UpdateApiDetails] update_api_details The information to be updated.
@@ -1106,6 +1453,68 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#update_certificate') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the SDK with the given identifier.
+    # @param [String] sdk_id The ocid of the SDK.
+    # @param [OCI::Apigateway::Models::UpdateSdkDetails] update_sdk_details The information to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #    (default to null)
+    # @option opts [String] :opc_request_id The client request id for tracing. (default to null)
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apigateway/update_sdk.rb.html) to see an example of how to use update_sdk API.
+    def update_sdk(sdk_id, update_sdk_details, opts = {})
+      logger.debug 'Calling operation ApiGatewayClient#update_sdk.' if logger
+
+      raise "Missing the required parameter 'sdk_id' when calling update_sdk." if sdk_id.nil?
+      raise "Missing the required parameter 'update_sdk_details' when calling update_sdk." if update_sdk_details.nil?
+      raise "Parameter value for 'sdk_id' must not be blank" if OCI::Internal::Util.blank_string?(sdk_id)
+
+      path = '/sdks/{sdkId}'.sub('{sdkId}', sdk_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_sdk_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApiGatewayClient#update_sdk') do
         @api_client.call_api(
           :PUT,
           path,

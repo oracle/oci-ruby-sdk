@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -52,6 +52,14 @@ module OCI
     # Max allowed length of the attribute value.
     # @return [Integer]
     attr_accessor :length
+
+    # Precision of the attribute value usually applies to float data type.
+    # @return [Integer]
+    attr_accessor :precision
+
+    # Scale of the attribute value usually applies to float data type.
+    # @return [Integer]
+    attr_accessor :scale
 
     # Property that identifies if this attribute can be assigned null values.
     # @return [BOOLEAN]
@@ -120,6 +128,8 @@ module OCI
         'entity_key': :'entityKey',
         'external_key': :'externalKey',
         'length': :'length',
+        'precision': :'precision',
+        'scale': :'scale',
         'is_nullable': :'isNullable',
         'uri': :'uri',
         'lifecycle_state': :'lifecycleState',
@@ -147,6 +157,8 @@ module OCI
         'entity_key': :'String',
         'external_key': :'String',
         'length': :'Integer',
+        'precision': :'Integer',
+        'scale': :'Integer',
         'is_nullable': :'BOOLEAN',
         'uri': :'String',
         'lifecycle_state': :'String',
@@ -176,6 +188,8 @@ module OCI
     # @option attributes [String] :entity_key The value to assign to the {#entity_key} property
     # @option attributes [String] :external_key The value to assign to the {#external_key} property
     # @option attributes [Integer] :length The value to assign to the {#length} property
+    # @option attributes [Integer] :precision The value to assign to the {#precision} property
+    # @option attributes [Integer] :scale The value to assign to the {#scale} property
     # @option attributes [BOOLEAN] :is_nullable The value to assign to the {#is_nullable} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -218,6 +232,10 @@ module OCI
       self.external_key = attributes[:'external_key'] if attributes[:'external_key']
 
       self.length = attributes[:'length'] if attributes[:'length']
+
+      self.precision = attributes[:'precision'] if attributes[:'precision']
+
+      self.scale = attributes[:'scale'] if attributes[:'scale']
 
       self.is_nullable = attributes[:'isNullable'] unless attributes[:'isNullable'].nil?
 
@@ -340,6 +358,8 @@ module OCI
         entity_key == other.entity_key &&
         external_key == other.external_key &&
         length == other.length &&
+        precision == other.precision &&
+        scale == other.scale &&
         is_nullable == other.is_nullable &&
         uri == other.uri &&
         lifecycle_state == other.lifecycle_state &&
@@ -368,7 +388,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, entity_key, external_key, length, is_nullable, uri, lifecycle_state, time_created, external_data_type, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, path, associated_rule_types].hash
+      [key, display_name, description, entity_key, external_key, length, precision, scale, is_nullable, uri, lifecycle_state, time_created, external_data_type, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, path, associated_rule_types].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

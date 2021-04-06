@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
@@ -28,7 +28,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#add_public_ip_pool_capacity} and then waits for the {OCI::Core::Models::PublicIpPool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] public_ip_pool_id The OCID of the Public Ip Pool object.
+    # @param [String] public_ip_pool_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the public IP pool.
     # @param [OCI::Core::Models::AddPublicIpPoolCapacityDetails] add_public_ip_pool_capacity_details Byoip Range prefix and a cidr from it
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::PublicIpPool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#add_public_ip_pool_capacity}
@@ -65,10 +65,60 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Core::VirtualNetworkClient#add_vcn_cidr} and then waits for the {OCI::Core::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN.
+    # @param [OCI::Core::Models::AddVcnCidrDetails] add_vcn_cidr_details Details object for deleting a VCN CIDR.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#add_vcn_cidr}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Core::Models::WorkRequest}
+    def add_vcn_cidr_and_wait_for_state(vcn_id, add_vcn_cidr_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.add_vcn_cidr(vcn_id, add_vcn_cidr_details, base_operation_opts)
+      use_util = OCI::Core::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Core::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Core::VirtualNetworkClient#attach_service_id} and then waits for the {OCI::Core::Models::ServiceGateway} acted upon
     # to enter the given state(s).
     #
-    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Core::Models::ServiceIdRequestDetails] attach_service_details ServiceId of Service to be attached to a service gateway.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::ServiceGateway#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#attach_service_id}
@@ -105,10 +155,210 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Core::VirtualNetworkClient#change_drg_compartment} and then waits for the {OCI::Core::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] drg_id The OCID of the DRG.
+    # @param [OCI::Core::Models::ChangeDrgCompartmentDetails] change_drg_compartment_details Request to change the compartment of a DRG.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#change_drg_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Core::Models::WorkRequest}
+    def change_drg_compartment_and_wait_for_state(drg_id, change_drg_compartment_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_drg_compartment(drg_id, change_drg_compartment_details, base_operation_opts)
+      use_util = OCI::Core::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Core::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Core::VirtualNetworkClient#change_subnet_compartment} and then waits for the {OCI::Core::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] subnet_id The OCID of the subnet.
+    # @param [OCI::Core::Models::ChangeSubnetCompartmentDetails] change_subnet_compartment_details Request to change the compartment of a given subnet.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#change_subnet_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Core::Models::WorkRequest}
+    def change_subnet_compartment_and_wait_for_state(subnet_id, change_subnet_compartment_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_subnet_compartment(subnet_id, change_subnet_compartment_details, base_operation_opts)
+      use_util = OCI::Core::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Core::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Core::VirtualNetworkClient#change_vcn_compartment} and then waits for the {OCI::Core::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN.
+    # @param [OCI::Core::Models::ChangeVcnCompartmentDetails] change_vcn_compartment_details Request to change the compartment of a given VCN.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#change_vcn_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Core::Models::WorkRequest}
+    def change_vcn_compartment_and_wait_for_state(vcn_id, change_vcn_compartment_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_vcn_compartment(vcn_id, change_vcn_compartment_details, base_operation_opts)
+      use_util = OCI::Core::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Core::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Core::VirtualNetworkClient#change_vlan_compartment} and then waits for the {OCI::Core::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] vlan_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VLAN.
+    # @param [OCI::Core::Models::ChangeVlanCompartmentDetails] change_vlan_compartment_details Request to change the compartment of a given VLAN.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#change_vlan_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Core::Models::WorkRequest}
+    def change_vlan_compartment_and_wait_for_state(vlan_id, change_vlan_compartment_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_vlan_compartment(vlan_id, change_vlan_compartment_details, base_operation_opts)
+      use_util = OCI::Core::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Core::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Core::VirtualNetworkClient#create_byoip_range} and then waits for the {OCI::Core::Models::ByoipRange} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::Core::Models::CreateByoipRangeDetails] create_byoip_range_details Create Byoip Range details.
+    # @param [OCI::Core::Models::CreateByoipRangeDetails] create_byoip_range_details Details needed to create a BYOIP CIDR block subrange.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::ByoipRange#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#create_byoip_range}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -963,32 +1213,41 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Core::VirtualNetworkClient#delete_byoip_range} and then waits for the {OCI::Core::Models::ByoipRange} acted upon
+    # Calls {OCI::Core::VirtualNetworkClient#delete_byoip_range} and then waits for the {OCI::Core::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] byoip_range_id The OCID of the Byoip Range object.
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::ByoipRange#lifecycle_state}
+    # @param [String] byoip_range_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the `ByoipRange` resource containing the BYOIP CIDR block.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#delete_byoip_range}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Core::Models::WorkRequest}
     def delete_byoip_range_and_wait_for_state(byoip_range_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      initial_get_result = @service_client.get_byoip_range(byoip_range_id)
       operation_result = @service_client.delete_byoip_range(byoip_range_id, base_operation_opts)
+      use_util = OCI::Core::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = initial_get_result.wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
-          succeed_on_not_found: true
-        )
+        if use_util
+          waiter_result = OCI::Core::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -1286,7 +1545,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#delete_ipv6} and then waits for the {OCI::Core::Models::Ipv6} acted upon
     # to enter the given state(s).
     #
-    # @param [String] ipv6_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the IPv6.
+    # @param [String] ipv6_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the IPv6.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::Ipv6#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#delete_ipv6}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -1366,7 +1625,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#delete_nat_gateway} and then waits for the {OCI::Core::Models::NatGateway} acted upon
     # to enter the given state(s).
     #
-    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::NatGateway#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#delete_nat_gateway}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -1406,7 +1665,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#delete_network_security_group} and then waits for the {OCI::Core::Models::NetworkSecurityGroup} acted upon
     # to enter the given state(s).
     #
-    # @param [String] network_security_group_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security group.
+    # @param [String] network_security_group_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the network security group.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::NetworkSecurityGroup#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#delete_network_security_group}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -1486,7 +1745,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#delete_public_ip_pool} and then waits for the {OCI::Core::Models::PublicIpPool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] public_ip_pool_id The OCID of the Public Ip Pool object.
+    # @param [String] public_ip_pool_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the public IP pool.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::PublicIpPool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#delete_public_ip_pool}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -1646,7 +1905,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#delete_service_gateway} and then waits for the {OCI::Core::Models::ServiceGateway} acted upon
     # to enter the given state(s).
     #
-    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::ServiceGateway#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#delete_service_gateway}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -1726,7 +1985,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#delete_vcn} and then waits for the {OCI::Core::Models::Vcn} acted upon
     # to enter the given state(s).
     #
-    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
+    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::Vcn#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#delete_vcn}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -1806,7 +2065,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#delete_vlan} and then waits for the {OCI::Core::Models::Vlan} acted upon
     # to enter the given state(s).
     #
-    # @param [String] vlan_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VLAN.
+    # @param [String] vlan_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VLAN.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::Vlan#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#delete_vlan}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -1846,7 +2105,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#detach_service_id} and then waits for the {OCI::Core::Models::ServiceGateway} acted upon
     # to enter the given state(s).
     #
-    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Core::Models::ServiceIdRequestDetails] detach_service_details ServiceId of Service to be detached from a service gateway.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::ServiceGateway#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#detach_service_id}
@@ -1883,11 +2142,61 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Core::VirtualNetworkClient#modify_vcn_cidr} and then waits for the {OCI::Core::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN.
+    # @param [OCI::Core::Models::ModifyVcnCidrDetails] modify_vcn_cidr_details Details object for updating a VCN CIDR.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#modify_vcn_cidr}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Core::Models::WorkRequest}
+    def modify_vcn_cidr_and_wait_for_state(vcn_id, modify_vcn_cidr_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.modify_vcn_cidr(vcn_id, modify_vcn_cidr_details, base_operation_opts)
+      use_util = OCI::Core::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Core::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Core::VirtualNetworkClient#remove_public_ip_pool_capacity} and then waits for the {OCI::Core::Models::PublicIpPool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] public_ip_pool_id The OCID of the Public Ip Pool object.
-    # @param [OCI::Core::Models::RemovePublicIpPoolCapacityDetails] remove_public_ip_pool_capacity_details The Cidr to be removed from the Public Ip Pool
+    # @param [String] public_ip_pool_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the public IP pool.
+    # @param [OCI::Core::Models::RemovePublicIpPoolCapacityDetails] remove_public_ip_pool_capacity_details The CIDR block to remove from the IP pool.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::PublicIpPool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#remove_public_ip_pool_capacity}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -1923,10 +2232,60 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Core::VirtualNetworkClient#remove_vcn_cidr} and then waits for the {OCI::Core::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN.
+    # @param [OCI::Core::Models::RemoveVcnCidrDetails] remove_vcn_cidr_details Details object for removing a VCN CIDR.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#remove_vcn_cidr}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Core::Models::WorkRequest}
+    def remove_vcn_cidr_and_wait_for_state(vcn_id, remove_vcn_cidr_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.remove_vcn_cidr(vcn_id, remove_vcn_cidr_details, base_operation_opts)
+      use_util = OCI::Core::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Core::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Core::VirtualNetworkClient#update_byoip_range} and then waits for the {OCI::Core::Models::ByoipRange} acted upon
     # to enter the given state(s).
     #
-    # @param [String] byoip_range_id The OCID of the Byoip Range object.
+    # @param [String] byoip_range_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the `ByoipRange` resource containing the BYOIP CIDR block.
     # @param [OCI::Core::Models::UpdateByoipRangeDetails] update_byoip_range_details Byoip Range details.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::ByoipRange#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#update_byoip_range}
@@ -2247,7 +2606,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [String] ipsc_id The OCID of the IPSec connection.
-    # @param [String] tunnel_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the tunnel.
+    # @param [String] tunnel_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the tunnel.
     # @param [OCI::Core::Models::UpdateIPSecConnectionTunnelDetails] update_ip_sec_connection_tunnel_details Details object for updating a IPSecConnection tunnel's details.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::IPSecConnectionTunnel#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#update_ip_sec_connection_tunnel}
@@ -2287,7 +2646,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#update_ipv6} and then waits for the {OCI::Core::Models::Ipv6} acted upon
     # to enter the given state(s).
     #
-    # @param [String] ipv6_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the IPv6.
+    # @param [String] ipv6_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the IPv6.
     # @param [OCI::Core::Models::UpdateIpv6Details] update_ipv6_details IPv6 details to be updated.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::Ipv6#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#update_ipv6}
@@ -2367,7 +2726,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#update_nat_gateway} and then waits for the {OCI::Core::Models::NatGateway} acted upon
     # to enter the given state(s).
     #
-    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] nat_gateway_id The NAT gateway's [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Core::Models::UpdateNatGatewayDetails] update_nat_gateway_details Details object for updating a NAT gateway.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::NatGateway#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#update_nat_gateway}
@@ -2407,7 +2766,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#update_network_security_group} and then waits for the {OCI::Core::Models::NetworkSecurityGroup} acted upon
     # to enter the given state(s).
     #
-    # @param [String] network_security_group_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security group.
+    # @param [String] network_security_group_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the network security group.
     # @param [OCI::Core::Models::UpdateNetworkSecurityGroupDetails] update_network_security_group_details Details object for updating a network security group.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::NetworkSecurityGroup#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#update_network_security_group}
@@ -2487,8 +2846,8 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#update_public_ip_pool} and then waits for the {OCI::Core::Models::PublicIpPool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] public_ip_pool_id The OCID of the Public Ip Pool object.
-    # @param [OCI::Core::Models::UpdatePublicIpPoolDetails] update_public_ip_pool_details Public Ip Pool details.
+    # @param [String] public_ip_pool_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the public IP pool.
+    # @param [OCI::Core::Models::UpdatePublicIpPoolDetails] update_public_ip_pool_details Public IP pool details.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::PublicIpPool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#update_public_ip_pool}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -2647,7 +3006,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#update_service_gateway} and then waits for the {OCI::Core::Models::ServiceGateway} acted upon
     # to enter the given state(s).
     #
-    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] service_gateway_id The service gateway's [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Core::Models::UpdateServiceGatewayDetails] update_service_gateway_details Details object for updating a service gateway.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::ServiceGateway#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#update_service_gateway}
@@ -2727,7 +3086,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#update_vcn} and then waits for the {OCI::Core::Models::Vcn} acted upon
     # to enter the given state(s).
     #
-    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
+    # @param [String] vcn_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN.
     # @param [OCI::Core::Models::UpdateVcnDetails] update_vcn_details Details object for updating a VCN.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::Vcn#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#update_vcn}
@@ -2807,7 +3166,7 @@ module OCI
     # Calls {OCI::Core::VirtualNetworkClient#update_vlan} and then waits for the {OCI::Core::Models::Vlan} acted upon
     # to enter the given state(s).
     #
-    # @param [String] vlan_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VLAN.
+    # @param [String] vlan_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VLAN.
     # @param [OCI::Core::Models::UpdateVlanDetails] update_vlan_details Details object for updating a subnet.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::Vlan#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#update_vlan}
@@ -2870,6 +3229,55 @@ module OCI
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
         )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Core::VirtualNetworkClient#validate_byoip_range} and then waits for the {OCI::Core::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] byoip_range_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the `ByoipRange` resource containing the BYOIP CIDR block.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::VirtualNetworkClient#validate_byoip_range}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Core::Models::WorkRequest}
+    def validate_byoip_range_and_wait_for_state(byoip_range_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.validate_byoip_range(byoip_range_id, base_operation_opts)
+      use_util = OCI::Core::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Core::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return

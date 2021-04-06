@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -11,7 +11,7 @@ module OCI
   # {IScsiVolumeAttachment}.
   #
   # For general information about volume attachments, see
-  # [Overview of Block Volume Storage](https://docs.cloud.oracle.com/Content/Block/Concepts/overview.htm).
+  # [Overview of Block Volume Storage](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/overview.htm).
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you
   # supply string values using the API.
@@ -65,7 +65,11 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_read_only
 
-    # Whether the attachment should be created in shareable mode. If an attachment is created in shareable mode, then other instances can attach the same volume, provided that they also create their attachments in shareable mode. Only certain volume types can be attached in shareable mode. Defaults to false if not specified.
+    # Whether the attachment should be created in shareable mode. If an attachment
+    # is created in shareable mode, then other instances can attach the same volume, provided
+    # that they also create their attachments in shareable mode. Only certain volume types can
+    # be attached in shareable mode. Defaults to false if not specified.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_shareable
 

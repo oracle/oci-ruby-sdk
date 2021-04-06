@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of the TenantManager API
+  # The Organizations API allows you to consolidate multiple OCI tenancies into an organization, and centrally manage your tenancies and its resources.
   class TenantManagerControlPlane::WorkRequestClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -155,21 +155,19 @@ module OCI
     # Return a (paginated) list of errors for a given work request.
     #
     # @param [String] work_request_id The ID of the asynchronous request.
-    # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    # @option opts [String] :sort_order The sort order to use, whether 'asc' or 'desc'.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::WorkRequestErrorCollection WorkRequestErrorCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
-    def list_work_request_errors(work_request_id, compartment_id, opts = {})
+    def list_work_request_errors(work_request_id, opts = {})
       logger.debug 'Calling operation WorkRequestClient#list_work_request_errors.' if logger
 
       raise "Missing the required parameter 'work_request_id' when calling list_work_request_errors." if work_request_id.nil?
-      raise "Missing the required parameter 'compartment_id' when calling list_work_request_errors." if compartment_id.nil?
 
       if opts[:sort_order] && !OCI::TenantManagerControlPlane::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of the values in OCI::TenantManagerControlPlane::Models::SORT_ORDER_ENUM.'
@@ -182,7 +180,6 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
-      query_params[:compartmentId] = compartment_id
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
@@ -223,21 +220,19 @@ module OCI
     # Return a (paginated) list of logs for a given work request.
     #
     # @param [String] work_request_id The ID of the asynchronous request.
-    # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    # @option opts [String] :sort_order The sort order to use, whether 'asc' or 'desc'.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::WorkRequestLogEntryCollection WorkRequestLogEntryCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
-    def list_work_request_logs(work_request_id, compartment_id, opts = {})
+    def list_work_request_logs(work_request_id, opts = {})
       logger.debug 'Calling operation WorkRequestClient#list_work_request_logs.' if logger
 
       raise "Missing the required parameter 'work_request_id' when calling list_work_request_logs." if work_request_id.nil?
-      raise "Missing the required parameter 'compartment_id' when calling list_work_request_logs." if compartment_id.nil?
 
       if opts[:sort_order] && !OCI::TenantManagerControlPlane::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of the values in OCI::TenantManagerControlPlane::Models::SORT_ORDER_ENUM.'
@@ -250,7 +245,6 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
-      query_params[:compartmentId] = compartment_id
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
@@ -297,7 +291,7 @@ module OCI
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    # @option opts [String] :sort_order The sort order to use, whether 'asc' or 'desc'.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::WorkRequestCollection WorkRequestCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})

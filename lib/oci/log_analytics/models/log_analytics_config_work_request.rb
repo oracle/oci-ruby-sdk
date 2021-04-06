@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -11,6 +11,9 @@ module OCI
     OPERATION_TYPE_ENUM = [
       OPERATION_TYPE_CREATE_ASSOCIATIONS = 'CREATE_ASSOCIATIONS'.freeze,
       OPERATION_TYPE_DELETE_ASSOCIATIONS = 'DELETE_ASSOCIATIONS'.freeze,
+      OPERATION_TYPE_APPEND_LOOKUP_DATA = 'APPEND_LOOKUP_DATA'.freeze,
+      OPERATION_TYPE_UPDATE_LOOKUP_DATA = 'UPDATE_LOOKUP_DATA'.freeze,
+      OPERATION_TYPE_DELETE_LOOKUP = 'DELETE_LOOKUP'.freeze,
       OPERATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -22,39 +25,44 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # workrequest id
+    # The workrequest unique identifier.
     # @return [String]
     attr_accessor :id
 
-    # compartment id
+    # The compartment unique identifier.
     # @return [String]
     attr_accessor :compartment_id
 
-    # operation type
+    # The operation type.  There are two classes of operations, association operations and
+    # lookup operations.  Associations may be created or deleted, and lookup operations include
+    # append, update and delete.
+    #
     # @return [String]
     attr_reader :operation_type
 
-    # list of log group summary objects
+    # The list of config work request responses.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsConfigWorkRequestPayload>]
     attr_accessor :payload
 
-    # percentage complete
+    # The completion percentage.
     # @return [Integer]
     attr_accessor :percent_complete
 
-    # when the work request was started
+    # The time at which the work request was started.
     # @return [DateTime]
     attr_accessor :time_started
 
-    # when the work request was accepted
+    # The time at which the work request was accepted.
     # @return [DateTime]
     attr_accessor :time_accepted
 
-    # when the work request finished
+    # The time at which the work request was finished.
     # @return [DateTime]
     attr_accessor :time_finished
 
-    # status
+    # The lifecycle status.  Valid values are ACCEPTED, IN_PROGRESS, SUCCEEDED
+    # or FAILED
+    #
     # @return [String]
     attr_reader :lifecycle_state
 

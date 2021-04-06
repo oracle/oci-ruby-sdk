@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -25,12 +25,16 @@ module OCI
     # @return [String]
     attr_reader :type
 
+    # @return [OCI::DataIntegration::Models::Compression]
+    attr_accessor :compression_config
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'format_attribute': :'formatAttribute',
-        'type': :'type'
+        'type': :'type',
+        'compression_config': :'compressionConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -40,7 +44,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'format_attribute': :'OCI::DataIntegration::Models::AbstractFormatAttribute',
-        'type': :'String'
+        'type': :'String',
+        'compression_config': :'OCI::DataIntegration::Models::Compression'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -53,6 +58,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [OCI::DataIntegration::Models::AbstractFormatAttribute] :format_attribute The value to assign to the {#format_attribute} property
     # @option attributes [String] :type The value to assign to the {#type} property
+    # @option attributes [OCI::DataIntegration::Models::Compression] :compression_config The value to assign to the {#compression_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -66,6 +72,12 @@ module OCI
       self.format_attribute = attributes[:'format_attribute'] if attributes[:'format_attribute']
 
       self.type = attributes[:'type'] if attributes[:'type']
+
+      self.compression_config = attributes[:'compressionConfig'] if attributes[:'compressionConfig']
+
+      raise 'You cannot provide both :compressionConfig and :compression_config' if attributes.key?(:'compressionConfig') && attributes.key?(:'compression_config')
+
+      self.compression_config = attributes[:'compression_config'] if attributes[:'compression_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -93,7 +105,8 @@ module OCI
 
       self.class == other.class &&
         format_attribute == other.format_attribute &&
-        type == other.type
+        type == other.type &&
+        compression_config == other.compression_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -109,7 +122,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [format_attribute, type].hash
+      [format_attribute, type, compression_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

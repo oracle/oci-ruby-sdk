@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -101,7 +101,7 @@ module OCI
     # Activates the specified Exadata infrastructure resource. Applies to Exadata Cloud@Customer instances only.
     #
     # @param [String] exadata_infrastructure_id The Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [OCI::Database::Models::ActivateExadataInfrastructureDetails] activate_exadata_infrastructure_details The activation details for the Exadata infrastructure.
+    # @param [OCI::Database::Models::ActivateExadataInfrastructureDetails] activate_exadata_infrastructure_details The activation details for the Exadata infrastructure and the additional storage servers requested.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -812,6 +812,11 @@ module OCI
     # [Moving Database Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Database/Concepts/databaseoverview.htm#moveRes).
     #
     # @param [OCI::Database::Models::ChangeCompartmentDetails] change_compartment_details Request to move the DB system to a different compartment.
+    #
+    #   **Note:** Deprecated for Exadata Cloud Service systems. Use the [new resource model APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem.htm#exaflexsystem_topic-resource_model) instead.
+    #
+    #   For Exadata Cloud Service instances, support for this API will end on May 15th, 2021. See [Switching an Exadata DB System to the New Resource Model and APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem_topic-resource_model_conversion.htm) for details on converting existing Exadata DB systems to the new resource model.
+    #
     # @param [String] db_system_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -929,6 +934,227 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#change_exadata_infrastructure_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Move the {#create_external_container_database_details create_external_container_database_details}
+    # and its dependent resources to the specified compartment.
+    # For more information about moving external container databases, see
+    # [Moving Database Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Database/Concepts/databaseoverview.htm#moveRes).
+    #
+    # @param [OCI::Database::Models::ChangeCompartmentDetails] change_compartment_details Request to move the external container database to a different compartment.
+    # @param [String] external_container_database_id The ExternalContainerDatabase [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/change_external_container_database_compartment.rb.html) to see an example of how to use change_external_container_database_compartment API.
+    def change_external_container_database_compartment(change_compartment_details, external_container_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#change_external_container_database_compartment.' if logger
+
+      raise "Missing the required parameter 'change_compartment_details' when calling change_external_container_database_compartment." if change_compartment_details.nil?
+      raise "Missing the required parameter 'external_container_database_id' when calling change_external_container_database_compartment." if external_container_database_id.nil?
+      raise "Parameter value for 'external_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_container_database_id)
+
+      path = '/externalcontainerdatabases/{externalContainerDatabaseId}/actions/changeCompartment'.sub('{externalContainerDatabaseId}', external_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#change_external_container_database_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Move the external non-container database and its dependent resources to the specified compartment.
+    # For more information about moving external non-container databases, see
+    # [Moving Database Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Database/Concepts/databaseoverview.htm#moveRes).
+    #
+    # @param [OCI::Database::Models::ChangeCompartmentDetails] change_compartment_details Request to move the external non-container database to a different compartment.
+    # @param [String] external_non_container_database_id The external non-container database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/change_external_non_container_database_compartment.rb.html) to see an example of how to use change_external_non_container_database_compartment API.
+    def change_external_non_container_database_compartment(change_compartment_details, external_non_container_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#change_external_non_container_database_compartment.' if logger
+
+      raise "Missing the required parameter 'change_compartment_details' when calling change_external_non_container_database_compartment." if change_compartment_details.nil?
+      raise "Missing the required parameter 'external_non_container_database_id' when calling change_external_non_container_database_compartment." if external_non_container_database_id.nil?
+      raise "Parameter value for 'external_non_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_non_container_database_id)
+
+      path = '/externalnoncontainerdatabases/{externalNonContainerDatabaseId}/actions/changeCompartment'.sub('{externalNonContainerDatabaseId}', external_non_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#change_external_non_container_database_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Move the {#create_external_pluggable_database_details create_external_pluggable_database_details} and
+    # its dependent resources to the specified compartment.
+    # For more information about moving external pluggable databases, see
+    # [Moving Database Resources to a Different Compartment](https://docs.cloud.oracle.com/Content/Database/Concepts/databaseoverview.htm#moveRes).
+    #
+    # @param [OCI::Database::Models::ChangeCompartmentDetails] change_compartment_details Request to move the
+    #   {#create_external_pluggable_database_details create_external_pluggable_database_details} resource
+    #   to a different compartment.
+    #
+    # @param [String] external_pluggable_database_id The ExternalPluggableDatabaseId [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/change_external_pluggable_database_compartment.rb.html) to see an example of how to use change_external_pluggable_database_compartment API.
+    def change_external_pluggable_database_compartment(change_compartment_details, external_pluggable_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#change_external_pluggable_database_compartment.' if logger
+
+      raise "Missing the required parameter 'change_compartment_details' when calling change_external_pluggable_database_compartment." if change_compartment_details.nil?
+      raise "Missing the required parameter 'external_pluggable_database_id' when calling change_external_pluggable_database_compartment." if external_pluggable_database_id.nil?
+      raise "Parameter value for 'external_pluggable_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_pluggable_database_id)
+
+      path = '/externalpluggabledatabases/{externalPluggableDatabaseId}/actions/changeCompartment'.sub('{externalPluggableDatabaseId}', external_pluggable_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#change_external_pluggable_database_compartment') do
         @api_client.call_api(
           :POST,
           path,
@@ -1073,6 +1299,77 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#change_vm_cluster_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Check the status of the external database connection specified in this connector.
+    # This operation will refresh the connectionStatus and timeConnectionStatusLastUpdated fields.
+    #
+    # @param [String] external_database_connector_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the
+    #   external database connector resource (`ExternalDatabaseConnectorId`).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/check_external_database_connector_connection_status.rb.html) to see an example of how to use check_external_database_connector_connection_status API.
+    def check_external_database_connector_connection_status(external_database_connector_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#check_external_database_connector_connection_status.' if logger
+
+      raise "Missing the required parameter 'external_database_connector_id' when calling check_external_database_connector_connection_status." if external_database_connector_id.nil?
+      raise "Parameter value for 'external_database_connector_id' must not be blank" if OCI::Internal::Util.blank_string?(external_database_connector_id)
+
+      path = '/externaldatabaseconnectors/{externalDatabaseConnectorId}/actions/checkConnectionStatus'.sub('{externalDatabaseConnectorId}', external_database_connector_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#check_external_database_connector_connection_status') do
         @api_client.call_api(
           :POST,
           path,
@@ -1603,7 +1900,7 @@ module OCI
 
     # Creates a cloud VM cluster.
     #
-    # @param [OCI::Database::Models::CreateCloudVmClusterDetails] create_cloud_vm_cluster_details Request to create a cloud VM cluster. Applies to Exadata Cloud Service instances only. See [The New Exadata Cloud Service Resource Model](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem.htm#exaflexsystem_topic-resource_model) for information on this resource type.
+    # @param [OCI::Database::Models::CreateCloudVmClusterDetails] create_cloud_vm_cluster_details Request to create a cloud VM cluster. Applies to Exadata Cloud Service instances only. See [The New Exadata Cloud Service Resource Model](https://docs.cloud.oracle.com/iaas/Content/Database/iaas/Content/Database/Concepts/exaflexsystem.htm#exaflexsystem_topic-resource_model) for information on this resource type.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2096,6 +2393,257 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Database::Models::ExternalBackupJob'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new external container database resource.
+    # @param [OCI::Database::Models::CreateExternalContainerDatabaseDetails] create_external_container_database_details Request to create a new external container database resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalContainerDatabase ExternalContainerDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_external_container_database.rb.html) to see an example of how to use create_external_container_database API.
+    def create_external_container_database(create_external_container_database_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#create_external_container_database.' if logger
+
+      raise "Missing the required parameter 'create_external_container_database_details' when calling create_external_container_database." if create_external_container_database_details.nil?
+
+      path = '/externalcontainerdatabases'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_external_container_database_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#create_external_container_database') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::ExternalContainerDatabase'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new external database connector.
+    # @param [OCI::Database::Models::CreateExternalDatabaseConnectorDetails] create_external_database_connector_details Request to create a connector to an external database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalDatabaseConnector ExternalDatabaseConnector}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_external_database_connector.rb.html) to see an example of how to use create_external_database_connector API.
+    def create_external_database_connector(create_external_database_connector_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#create_external_database_connector.' if logger
+
+      raise "Missing the required parameter 'create_external_database_connector_details' when calling create_external_database_connector." if create_external_database_connector_details.nil?
+
+      path = '/externaldatabaseconnectors'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_external_database_connector_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#create_external_database_connector') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::ExternalDatabaseConnector'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new ExternalNonContainerDatabase resource
+    #
+    # @param [OCI::Database::Models::CreateExternalNonContainerDatabaseDetails] create_external_non_container_database_details Request to create a new external non-container database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalNonContainerDatabase ExternalNonContainerDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_external_non_container_database.rb.html) to see an example of how to use create_external_non_container_database API.
+    def create_external_non_container_database(create_external_non_container_database_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#create_external_non_container_database.' if logger
+
+      raise "Missing the required parameter 'create_external_non_container_database_details' when calling create_external_non_container_database." if create_external_non_container_database_details.nil?
+
+      path = '/externalnoncontainerdatabases'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_external_non_container_database_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#create_external_non_container_database') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::ExternalNonContainerDatabase'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Registers a new {#create_external_pluggable_database_details create_external_pluggable_database_details}
+    # resource.
+    #
+    # @param [OCI::Database::Models::CreateExternalPluggableDatabaseDetails] create_external_pluggable_database_details Request to create a new external pluggable database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalPluggableDatabase ExternalPluggableDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_external_pluggable_database.rb.html) to see an example of how to use create_external_pluggable_database API.
+    def create_external_pluggable_database(create_external_pluggable_database_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#create_external_pluggable_database.' if logger
+
+      raise "Missing the required parameter 'create_external_pluggable_database_details' when calling create_external_pluggable_database." if create_external_pluggable_database_details.nil?
+
+      path = '/externalpluggabledatabases'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_external_pluggable_database_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#create_external_pluggable_database') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::ExternalPluggableDatabase'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -3059,6 +3607,253 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes the {#create_external_container_database_details create_external_container_database_details}
+    # resource. Any external pluggable databases registered under this container database must be deleted in
+    # your Oracle Cloud Infrastructure tenancy prior to this operation.
+    #
+    # @param [String] external_container_database_id The ExternalContainerDatabase [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_external_container_database.rb.html) to see an example of how to use delete_external_container_database API.
+    def delete_external_container_database(external_container_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#delete_external_container_database.' if logger
+
+      raise "Missing the required parameter 'external_container_database_id' when calling delete_external_container_database." if external_container_database_id.nil?
+      raise "Parameter value for 'external_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_container_database_id)
+
+      path = '/externalcontainerdatabases/{externalContainerDatabaseId}'.sub('{externalContainerDatabaseId}', external_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#delete_external_container_database') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes an external database connector.
+    # Any services enabled using the external database connector must be
+    # deleted prior to this operation.
+    #
+    # @param [String] external_database_connector_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the
+    #   external database connector resource (`ExternalDatabaseConnectorId`).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_external_database_connector.rb.html) to see an example of how to use delete_external_database_connector API.
+    def delete_external_database_connector(external_database_connector_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#delete_external_database_connector.' if logger
+
+      raise "Missing the required parameter 'external_database_connector_id' when calling delete_external_database_connector." if external_database_connector_id.nil?
+      raise "Parameter value for 'external_database_connector_id' must not be blank" if OCI::Internal::Util.blank_string?(external_database_connector_id)
+
+      path = '/externaldatabaseconnectors/{externalDatabaseConnectorId}'.sub('{externalDatabaseConnectorId}', external_database_connector_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#delete_external_database_connector') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the Oracle Cloud Infrastructure resource representing an external non-container database.
+    #
+    # @param [String] external_non_container_database_id The external non-container database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_external_non_container_database.rb.html) to see an example of how to use delete_external_non_container_database API.
+    def delete_external_non_container_database(external_non_container_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#delete_external_non_container_database.' if logger
+
+      raise "Missing the required parameter 'external_non_container_database_id' when calling delete_external_non_container_database." if external_non_container_database_id.nil?
+      raise "Parameter value for 'external_non_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_non_container_database_id)
+
+      path = '/externalnoncontainerdatabases/{externalNonContainerDatabaseId}'.sub('{externalNonContainerDatabaseId}', external_non_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#delete_external_non_container_database') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the {#create_external_pluggable_database_details create_external_pluggable_database_details}.
+    # resource.
+    #
+    # @param [String] external_pluggable_database_id The ExternalPluggableDatabaseId [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_external_pluggable_database.rb.html) to see an example of how to use delete_external_pluggable_database API.
+    def delete_external_pluggable_database(external_pluggable_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#delete_external_pluggable_database.' if logger
+
+      raise "Missing the required parameter 'external_pluggable_database_id' when calling delete_external_pluggable_database." if external_pluggable_database_id.nil?
+      raise "Parameter value for 'external_pluggable_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_pluggable_database_id)
+
+      path = '/externalpluggabledatabases/{externalPluggableDatabaseId}'.sub('{externalPluggableDatabaseId}', external_pluggable_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#delete_external_pluggable_database') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes a key store.
     #
     # @param [String] key_store_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the key store.
@@ -3354,6 +4149,214 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Disable Database Management service for the external container database.
+    #
+    # @param [String] external_container_database_id The ExternalContainerDatabase [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/disable_external_container_database_database_management.rb.html) to see an example of how to use disable_external_container_database_database_management API.
+    def disable_external_container_database_database_management(external_container_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#disable_external_container_database_database_management.' if logger
+
+      raise "Missing the required parameter 'external_container_database_id' when calling disable_external_container_database_database_management." if external_container_database_id.nil?
+      raise "Parameter value for 'external_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_container_database_id)
+
+      path = '/externalcontainerdatabases/{externalContainerDatabaseId}/actions/disableDatabaseManagement'.sub('{externalContainerDatabaseId}', external_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#disable_external_container_database_database_management') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Disable Database Management Service for the external non-container database.
+    # For more information about the Database Management Service, see
+    # [Database Management Service](https://docs.cloud.oracle.com/Content/ExternalDatabase/Concepts/databasemanagementservice.htm).
+    #
+    # @param [String] external_non_container_database_id The external non-container database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/disable_external_non_container_database_database_management.rb.html) to see an example of how to use disable_external_non_container_database_database_management API.
+    def disable_external_non_container_database_database_management(external_non_container_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#disable_external_non_container_database_database_management.' if logger
+
+      raise "Missing the required parameter 'external_non_container_database_id' when calling disable_external_non_container_database_database_management." if external_non_container_database_id.nil?
+      raise "Parameter value for 'external_non_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_non_container_database_id)
+
+      path = '/externalnoncontainerdatabases/{externalNonContainerDatabaseId}/actions/disableDatabaseManagement'.sub('{externalNonContainerDatabaseId}', external_non_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#disable_external_non_container_database_database_management') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Disable Database Management Service for the external pluggable database.
+    # For more information about the Database Management Service, see
+    # [Database Management Service](https://docs.cloud.oracle.com/Content/ExternalDatabase/Concepts/databasemanagementservice.htm).
+    #
+    # @param [String] external_pluggable_database_id The ExternalPluggableDatabaseId [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/disable_external_pluggable_database_database_management.rb.html) to see an example of how to use disable_external_pluggable_database_database_management API.
+    def disable_external_pluggable_database_database_management(external_pluggable_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#disable_external_pluggable_database_database_management.' if logger
+
+      raise "Missing the required parameter 'external_pluggable_database_id' when calling disable_external_pluggable_database_database_management." if external_pluggable_database_id.nil?
+      raise "Parameter value for 'external_pluggable_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_pluggable_database_id)
+
+      path = '/externalpluggabledatabases/{externalPluggableDatabaseId}/actions/disableDatabaseManagement'.sub('{externalPluggableDatabaseId}', external_pluggable_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#disable_external_pluggable_database_database_management') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Downloads the configuration file for the specified Exadata Cloud@Customer infrastructure.
     #
     # @param [String] exadata_infrastructure_id The Exadata infrastructure [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -3611,6 +4614,222 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#enable_autonomous_database_operations_insights') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Enables Database Management Service for the external container database.
+    # For more information about the Database Management Service, see
+    # [Database Management Service](https://docs.cloud.oracle.com/Content/ExternalDatabase/Concepts/databasemanagementservice.htm).
+    #
+    # @param [String] external_container_database_id The ExternalContainerDatabase [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Database::Models::EnableExternalContainerDatabaseDatabaseManagementDetails] enable_external_container_database_database_management_details Request to enable the Database Management Service for an external container database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/enable_external_container_database_database_management.rb.html) to see an example of how to use enable_external_container_database_database_management API.
+    def enable_external_container_database_database_management(external_container_database_id, enable_external_container_database_database_management_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#enable_external_container_database_database_management.' if logger
+
+      raise "Missing the required parameter 'external_container_database_id' when calling enable_external_container_database_database_management." if external_container_database_id.nil?
+      raise "Missing the required parameter 'enable_external_container_database_database_management_details' when calling enable_external_container_database_database_management." if enable_external_container_database_database_management_details.nil?
+      raise "Parameter value for 'external_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_container_database_id)
+
+      path = '/externalcontainerdatabases/{externalContainerDatabaseId}/actions/enableDatabaseManagement'.sub('{externalContainerDatabaseId}', external_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(enable_external_container_database_database_management_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#enable_external_container_database_database_management') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Enable Database Management Service for the external non-container database.
+    # For more information about the Database Management Service, see
+    # [Database Management Service](https://docs.cloud.oracle.com/Content/ExternalDatabase/Concepts/databasemanagementservice.htm).
+    #
+    # @param [String] external_non_container_database_id The external non-container database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Database::Models::EnableExternalNonContainerDatabaseDatabaseManagementDetails] enable_external_non_container_database_database_management_details Request to enable the Database Management Service for an external non-container database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/enable_external_non_container_database_database_management.rb.html) to see an example of how to use enable_external_non_container_database_database_management API.
+    def enable_external_non_container_database_database_management(external_non_container_database_id, enable_external_non_container_database_database_management_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#enable_external_non_container_database_database_management.' if logger
+
+      raise "Missing the required parameter 'external_non_container_database_id' when calling enable_external_non_container_database_database_management." if external_non_container_database_id.nil?
+      raise "Missing the required parameter 'enable_external_non_container_database_database_management_details' when calling enable_external_non_container_database_database_management." if enable_external_non_container_database_database_management_details.nil?
+      raise "Parameter value for 'external_non_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_non_container_database_id)
+
+      path = '/externalnoncontainerdatabases/{externalNonContainerDatabaseId}/actions/enableDatabaseManagement'.sub('{externalNonContainerDatabaseId}', external_non_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(enable_external_non_container_database_database_management_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#enable_external_non_container_database_database_management') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Enable Database Management Service for the external pluggable database.
+    # For more information about the Database Management Service, see
+    # [Database Management Service](https://docs.cloud.oracle.com/Content/ExternalDatabase/Concepts/databasemanagementservice.htm).
+    #
+    # @param [String] external_pluggable_database_id The ExternalPluggableDatabaseId [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Database::Models::EnableExternalPluggableDatabaseDatabaseManagementDetails] enable_external_pluggable_database_database_management_details Request to enable the Database Management Service for an external database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/enable_external_pluggable_database_database_management.rb.html) to see an example of how to use enable_external_pluggable_database_database_management API.
+    def enable_external_pluggable_database_database_management(external_pluggable_database_id, enable_external_pluggable_database_database_management_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#enable_external_pluggable_database_database_management.' if logger
+
+      raise "Missing the required parameter 'external_pluggable_database_id' when calling enable_external_pluggable_database_database_management." if external_pluggable_database_id.nil?
+      raise "Missing the required parameter 'enable_external_pluggable_database_database_management_details' when calling enable_external_pluggable_database_database_management." if enable_external_pluggable_database_database_management_details.nil?
+      raise "Parameter value for 'external_pluggable_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_pluggable_database_id)
+
+      path = '/externalpluggabledatabases/{externalPluggableDatabaseId}/actions/enableDatabaseManagement'.sub('{externalPluggableDatabaseId}', external_pluggable_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(enable_external_pluggable_database_database_management_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#enable_external_pluggable_database_database_management') do
         @api_client.call_api(
           :POST,
           path,
@@ -5468,6 +6687,11 @@ module OCI
 
 
     # Gets information about the specified DB system.
+    #
+    # **Note:** Deprecated for Exadata Cloud Service systems. Use the [new resource model APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem.htm#exaflexsystem_topic-resource_model) instead.
+    #
+    # For Exadata Cloud Service instances, support for this API will end on May 15th, 2021. See [Switching an Exadata DB System to the New Resource Model and APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem_topic-resource_model_conversion.htm) for details on converting existing Exadata DB systems to the new resource model.
+    #
     # @param [String] db_system_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -5749,8 +6973,15 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the IORM configuration settings for the specified cloud Exadata system.
+    # Gets the IORM configuration settings for the specified cloud Exadata DB system.
     # All Exadata service instances have default IORM settings.
+    #
+    # **Note:** Deprecated for Exadata Cloud Service systems. Use the [new resource model APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem.htm#exaflexsystem_topic-resource_model) instead.
+    #
+    # For Exadata Cloud Service instances, support for this API will end on May 15th, 2021. See [Switching an Exadata DB System to the New Resource Model and APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem_topic-resource_model_conversion.htm) for details on converting existing Exadata DB systems to the new resource model.
+    #
+    # The {#get_cloud_vm_cluster_iorm_config get_cloud_vm_cluster_iorm_config} API is used for this operation with Exadata systems using the
+    # new resource model.
     #
     # @param [String] db_system_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -5857,6 +7088,230 @@ module OCI
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets information about the specified external container database.
+    # @param [String] external_container_database_id The ExternalContainerDatabase [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalContainerDatabase ExternalContainerDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_external_container_database.rb.html) to see an example of how to use get_external_container_database API.
+    def get_external_container_database(external_container_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#get_external_container_database.' if logger
+
+      raise "Missing the required parameter 'external_container_database_id' when calling get_external_container_database." if external_container_database_id.nil?
+      raise "Parameter value for 'external_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_container_database_id)
+
+      path = '/externalcontainerdatabases/{externalContainerDatabaseId}'.sub('{externalContainerDatabaseId}', external_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_external_container_database') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::ExternalContainerDatabase'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets information about the specified external database connector.
+    # @param [String] external_database_connector_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the
+    #   external database connector resource (`ExternalDatabaseConnectorId`).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalDatabaseConnector ExternalDatabaseConnector}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_external_database_connector.rb.html) to see an example of how to use get_external_database_connector API.
+    def get_external_database_connector(external_database_connector_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#get_external_database_connector.' if logger
+
+      raise "Missing the required parameter 'external_database_connector_id' when calling get_external_database_connector." if external_database_connector_id.nil?
+      raise "Parameter value for 'external_database_connector_id' must not be blank" if OCI::Internal::Util.blank_string?(external_database_connector_id)
+
+      path = '/externaldatabaseconnectors/{externalDatabaseConnectorId}'.sub('{externalDatabaseConnectorId}', external_database_connector_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_external_database_connector') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::ExternalDatabaseConnector'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets information about a specific external non-container database.
+    # @param [String] external_non_container_database_id The external non-container database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalNonContainerDatabase ExternalNonContainerDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_external_non_container_database.rb.html) to see an example of how to use get_external_non_container_database API.
+    def get_external_non_container_database(external_non_container_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#get_external_non_container_database.' if logger
+
+      raise "Missing the required parameter 'external_non_container_database_id' when calling get_external_non_container_database." if external_non_container_database_id.nil?
+      raise "Parameter value for 'external_non_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_non_container_database_id)
+
+      path = '/externalnoncontainerdatabases/{externalNonContainerDatabaseId}'.sub('{externalNonContainerDatabaseId}', external_non_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_external_non_container_database') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::ExternalNonContainerDatabase'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets information about a specific
+    # {#create_external_pluggable_database_details create_external_pluggable_database_details} resource.
+    #
+    # @param [String] external_pluggable_database_id The ExternalPluggableDatabaseId [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalPluggableDatabase ExternalPluggableDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_external_pluggable_database.rb.html) to see an example of how to use get_external_pluggable_database API.
+    def get_external_pluggable_database(external_pluggable_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#get_external_pluggable_database.' if logger
+
+      raise "Missing the required parameter 'external_pluggable_database_id' when calling get_external_pluggable_database." if external_pluggable_database_id.nil?
+      raise "Parameter value for 'external_pluggable_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_pluggable_database_id)
+
+      path = '/externalpluggabledatabases/{externalPluggableDatabaseId}'.sub('{externalPluggableDatabaseId}', external_pluggable_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_external_pluggable_database') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::ExternalPluggableDatabase'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -6269,12 +7724,20 @@ module OCI
     # Database edition that you specify applies to all the databases on that DB system. The selected edition cannot be changed.
     #
     # An initial database is created on the DB system based on the request parameters you provide and some default
-    # options. For detailed information about default options, see the following:
+    # options. For detailed information about default options, see [Bare metal and virtual machine DB system default options.](https://docs.cloud.oracle.com/Content/Database/Tasks/creatingDBsystem.htm#Default)
     #
-    # - [Bare metal and virtual machine DB system default options](https://docs.cloud.oracle.com/Content/Database/Tasks/creatingDBsystem.htm#DefaultOptionsfortheInitialDatabase)
-    # - [Exadata DB system default options](https://docs.cloud.oracle.com/Content/Database/Tasks/exacreatingDBsystem.htm#DefaultOptionsfortheInitialDatabase)
+    # **Note:** Deprecated for Exadata Cloud Service systems. Use the [new resource model APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem.htm#exaflexsystem_topic-resource_model) instead.
+    #
+    # For Exadata Cloud Service instances, support for this API will end on May 15th, 2021. See [Switching an Exadata DB System to the New Resource Model and APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem_topic-resource_model_conversion.htm) for details on converting existing Exadata DB systems to the new resource model.
+    #
+    # Use the {#create_cloud_exadata_infrastructure create_cloud_exadata_infrastructure} and {#create_cloud_vm_cluster create_cloud_vm_cluster} APIs to provision a new Exadata Cloud Service instance.
     #
     # @param [OCI::Database::Models::LaunchDbSystemBase] launch_db_system_details Request to launch a DB system.
+    #
+    #   **Note:** Deprecated for Exadata Cloud Service systems. Use the [new resource model APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem.htm#exaflexsystem_topic-resource_model) instead.
+    #
+    #   For Exadata Cloud Service instances, support for this API will end on May 15th, 2021. See [Switching an Exadata DB System to the New Resource Model and APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem_topic-resource_model_conversion.htm) for details on converting existing Exadata DB systems to the new resource model.
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -7425,7 +8888,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :update_type A filter to return only resources that match the given update type exactly.
-    #   Allowed values are: GI_UPGRADE, GI_PATCH
+    #   Allowed values are: GI_UPGRADE, GI_PATCH, OS_UPDATE
     # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :opc_request_id Unique identifier for the request.
@@ -7437,8 +8900,8 @@ module OCI
 
       raise "Missing the required parameter 'cloud_vm_cluster_id' when calling list_cloud_vm_cluster_update_history_entries." if cloud_vm_cluster_id.nil?
 
-      if opts[:update_type] && !%w[GI_UPGRADE GI_PATCH].include?(opts[:update_type])
-        raise 'Invalid value for "update_type", must be one of GI_UPGRADE, GI_PATCH.'
+      if opts[:update_type] && !%w[GI_UPGRADE GI_PATCH OS_UPDATE].include?(opts[:update_type])
+        raise 'Invalid value for "update_type", must be one of GI_UPGRADE, GI_PATCH, OS_UPDATE.'
       end
       raise "Parameter value for 'cloud_vm_cluster_id' must not be blank" if OCI::Internal::Util.blank_string?(cloud_vm_cluster_id)
 
@@ -7492,7 +8955,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :update_type A filter to return only resources that match the given update type exactly.
-    #   Allowed values are: GI_UPGRADE, GI_PATCH
+    #   Allowed values are: GI_UPGRADE, GI_PATCH, OS_UPDATE
     # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :opc_request_id Unique identifier for the request.
@@ -7504,8 +8967,8 @@ module OCI
 
       raise "Missing the required parameter 'cloud_vm_cluster_id' when calling list_cloud_vm_cluster_updates." if cloud_vm_cluster_id.nil?
 
-      if opts[:update_type] && !%w[GI_UPGRADE GI_PATCH].include?(opts[:update_type])
-        raise 'Invalid value for "update_type", must be one of GI_UPGRADE, GI_PATCH.'
+      if opts[:update_type] && !%w[GI_UPGRADE GI_PATCH OS_UPDATE].include?(opts[:update_type])
+        raise 'Invalid value for "update_type", must be one of GI_UPGRADE, GI_PATCH, OS_UPDATE.'
       end
       raise "Parameter value for 'cloud_vm_cluster_id' must not be blank" if OCI::Internal::Util.blank_string?(cloud_vm_cluster_id)
 
@@ -7903,7 +9366,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # gets the upgrade history for a specified database.
+    # Gets the upgrade history for a specified database in a bare metal or virtual machine DB system.
     #
     # @param [String] database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -8529,6 +9992,10 @@ module OCI
 
     # Lists the DB systems in the specified compartment. You can specify a `backupId` to list only the DB systems that support creating a database using this backup in this compartment.
     #
+    # **Note:** Deprecated for Exadata Cloud Service systems. Use the [new resource model APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem.htm#exaflexsystem_topic-resource_model) instead.
+    #
+    # For Exadata Cloud Service instances, support for this API will end on May 15th, 2021. See [Switching an Exadata DB System to the New Resource Model and APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem_topic-resource_model_conversion.htm) for details on converting existing Exadata DB systems to the new resource model.
+    #
     # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -8755,6 +10222,357 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Database::Models::ExadataInfrastructureSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of the external container databases in the specified compartment.
+    #
+    # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
+    # @option opts [String] :page The pagination token to continue listing from.
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`).
+    #   Default order for TIMECREATED is descending.
+    #   Default order for DISPLAYNAME is ascending.
+    #   The DISPLAYNAME sort order is case sensitive.
+    #
+    #   Allowed values are: DISPLAYNAME, TIMECREATED
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state.
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @return [Response] A Response object with data of type Array<{OCI::Database::Models::ExternalContainerDatabaseSummary ExternalContainerDatabaseSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_external_container_databases.rb.html) to see an example of how to use list_external_container_databases API.
+    def list_external_container_databases(compartment_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#list_external_container_databases.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_external_container_databases." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[DISPLAYNAME TIMECREATED].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of DISPLAYNAME, TIMECREATED.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Database::Models::ExternalDatabaseBase::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Database::Models::ExternalDatabaseBase::LIFECYCLE_STATE_ENUM.'
+      end
+
+      path = '/externalcontainerdatabases'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_external_container_databases') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::ExternalContainerDatabaseSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of the external database connectors in the specified compartment.
+    #
+    # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] external_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the external database whose connectors will be listed.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
+    # @option opts [String] :page The pagination token to continue listing from.
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`).
+    #   Default order for TIMECREATED is descending.
+    #   Default order for DISPLAYNAME is ascending.
+    #   The DISPLAYNAME sort order is case sensitive.
+    #
+    #   Allowed values are: DISPLAYNAME, TIMECREATED
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state.
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @return [Response] A Response object with data of type Array<{OCI::Database::Models::ExternalDatabaseConnectorSummary ExternalDatabaseConnectorSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_external_database_connectors.rb.html) to see an example of how to use list_external_database_connectors API.
+    def list_external_database_connectors(compartment_id, external_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#list_external_database_connectors.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_external_database_connectors." if compartment_id.nil?
+      raise "Missing the required parameter 'external_database_id' when calling list_external_database_connectors." if external_database_id.nil?
+
+      if opts[:sort_by] && !%w[DISPLAYNAME TIMECREATED].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of DISPLAYNAME, TIMECREATED.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Database::Models::ExternalDatabaseConnector::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Database::Models::ExternalDatabaseConnector::LIFECYCLE_STATE_ENUM.'
+      end
+
+      path = '/externaldatabaseconnectors'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:externalDatabaseId] = external_database_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_external_database_connectors') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::ExternalDatabaseConnectorSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of the ExternalNonContainerDatabases in the specified compartment.
+    #
+    # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
+    # @option opts [String] :page The pagination token to continue listing from.
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`).
+    #   Default order for TIMECREATED is descending.
+    #   Default order for DISPLAYNAME is ascending.
+    #   The DISPLAYNAME sort order is case sensitive.
+    #
+    #   Allowed values are: DISPLAYNAME, TIMECREATED
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state.
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @return [Response] A Response object with data of type Array<{OCI::Database::Models::ExternalNonContainerDatabaseSummary ExternalNonContainerDatabaseSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_external_non_container_databases.rb.html) to see an example of how to use list_external_non_container_databases API.
+    def list_external_non_container_databases(compartment_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#list_external_non_container_databases.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_external_non_container_databases." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[DISPLAYNAME TIMECREATED].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of DISPLAYNAME, TIMECREATED.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Database::Models::ExternalDatabaseBase::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Database::Models::ExternalDatabaseBase::LIFECYCLE_STATE_ENUM.'
+      end
+
+      path = '/externalnoncontainerdatabases'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_external_non_container_databases') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::ExternalNonContainerDatabaseSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of the {#create_external_pluggable_database_details create_external_pluggable_database_details}
+    # resources in the specified compartment.
+    #
+    # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :external_container_database_id The ExternalContainerDatabase [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
+    # @option opts [String] :page The pagination token to continue listing from.
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`).
+    #   Default order for TIMECREATED is descending.
+    #   Default order for DISPLAYNAME is ascending.
+    #   The DISPLAYNAME sort order is case sensitive.
+    #
+    #   Allowed values are: DISPLAYNAME, TIMECREATED
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state.
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @return [Response] A Response object with data of type Array<{OCI::Database::Models::ExternalPluggableDatabaseSummary ExternalPluggableDatabaseSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_external_pluggable_databases.rb.html) to see an example of how to use list_external_pluggable_databases API.
+    def list_external_pluggable_databases(compartment_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#list_external_pluggable_databases.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_external_pluggable_databases." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[DISPLAYNAME TIMECREATED].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of DISPLAYNAME, TIMECREATED.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Database::Models::ExternalDatabaseBase::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Database::Models::ExternalDatabaseBase::LIFECYCLE_STATE_ENUM.'
+      end
+
+      path = '/externalpluggabledatabases'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:externalContainerDatabaseId] = opts[:external_container_database_id] if opts[:external_container_database_id]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_external_pluggable_databases') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::ExternalPluggableDatabaseSummary>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -9348,7 +11166,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Migrates the Exadata DB system to the cloud Exadata infrastructure model. All related resources will be migrated.
+    # Migrates the Exadata DB system to the new [Exadata resource model](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem.htm#exaflexsystem_topic-resource_model).
+    # All related resources will be migrated.
     #
     # @param [String] db_system_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
@@ -10246,6 +12065,75 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Scans for pluggable databases in the specified external container database.
+    # This operation will return un-registered pluggable databases in the `GetWorkRequest` operation.
+    #
+    # @param [String] external_container_database_id The ExternalContainerDatabase [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] external_database_connector_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the
+    #   external database connector resource (`ExternalDatabaseConnectorId`).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/scan_external_container_database_pluggable_databases.rb.html) to see an example of how to use scan_external_container_database_pluggable_databases API.
+    def scan_external_container_database_pluggable_databases(external_container_database_id, external_database_connector_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#scan_external_container_database_pluggable_databases.' if logger
+
+      raise "Missing the required parameter 'external_container_database_id' when calling scan_external_container_database_pluggable_databases." if external_container_database_id.nil?
+      raise "Missing the required parameter 'external_database_connector_id' when calling scan_external_container_database_pluggable_databases." if external_database_connector_id.nil?
+      raise "Parameter value for 'external_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_container_database_id)
+
+      path = '/externalcontainerdatabases/{externalContainerDatabaseId}/actions/scanPluggableDatabases'.sub('{externalContainerDatabaseId}', external_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:externalDatabaseConnectorId] = external_database_connector_id
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#scan_external_container_database_pluggable_databases') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Starts the specified Autonomous Database.
     #
     # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -10676,6 +12564,11 @@ module OCI
 
 
     # Terminates a DB system and permanently deletes it and any databases running on it, and any storage volumes attached to it. The database data is local to the DB system and will be lost when the system is terminated. Oracle recommends that you back up any data in the DB system prior to terminating it.
+    #
+    # **Note:** Deprecated for Exadata Cloud Service systems. Use the [new resource model APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem.htm#exaflexsystem_topic-resource_model) instead.
+    #
+    # For Exadata Cloud Service instances, support for this API will end on May 15th, 2021. See [Switching an Exadata DB System to the New Resource Model and APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem_topic-resource_model_conversion.htm) for details on converting existing Exadata DB systems to the new resource model.
+    #
     # @param [String] db_system_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -11521,6 +13414,11 @@ module OCI
 
 
     # Updates the properties of the specified DB system.
+    #
+    # **Note:** Deprecated for Exadata Cloud Service systems. Use the [new resource model APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem.htm#exaflexsystem_topic-resource_model) instead.
+    #
+    # For Exadata Cloud Service instances, support for this API will end on May 15th, 2021. See [Switching an Exadata DB System to the New Resource Model and APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem_topic-resource_model_conversion.htm) for details on converting existing Exadata DB systems to the new resource model.
+    #
     # @param [String] db_system_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::UpdateDbSystemDetails] update_db_system_details Request to update the properties of a DB system.
     # @param [Hash] opts the optional parameters
@@ -11643,7 +13541,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates IORM settings for the specified Exadata system.
+    # Updates IORM settings for the specified Exadata DB system.
+    #
+    # **Note:** Deprecated for Exadata Cloud Service systems. Use the [new resource model APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem.htm#exaflexsystem_topic-resource_model) instead.
+    #
+    # For Exadata Cloud Service instances, support for this API will end on May 15th, 2021. See [Switching an Exadata DB System to the New Resource Model and APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem_topic-resource_model_conversion.htm) for details on converting existing Exadata DB systems to the new resource model.
+    #
+    # The {#update_cloud_vm_cluster_iorm_config update_cloud_vm_cluster_iorm_config} API is used for Exadata systems using the
+    # new resource model.
     #
     # @param [String] db_system_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [OCI::Database::Models::ExadataIormConfigUpdateDetails] exadata_iorm_config_update_details Request to perform database update.
@@ -11693,6 +13598,264 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Database::Models::ExadataIormConfig'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the properties of
+    # an {#create_external_container_database_details create_external_container_database_details} resource,
+    # such as the display name.
+    #
+    # @param [String] external_container_database_id The ExternalContainerDatabase [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Database::Models::UpdateExternalContainerDatabaseDetails] update_external_container_database_details Request to update the properties of an
+    #   {#create_external_container_database_details create_external_container_database_details} resource.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalContainerDatabase ExternalContainerDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_external_container_database.rb.html) to see an example of how to use update_external_container_database API.
+    def update_external_container_database(external_container_database_id, update_external_container_database_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#update_external_container_database.' if logger
+
+      raise "Missing the required parameter 'external_container_database_id' when calling update_external_container_database." if external_container_database_id.nil?
+      raise "Missing the required parameter 'update_external_container_database_details' when calling update_external_container_database." if update_external_container_database_details.nil?
+      raise "Parameter value for 'external_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_container_database_id)
+
+      path = '/externalcontainerdatabases/{externalContainerDatabaseId}'.sub('{externalContainerDatabaseId}', external_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_external_container_database_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#update_external_container_database') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::ExternalContainerDatabase'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the properties of an external database connector, such as the display name.
+    # @param [String] external_database_connector_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the
+    #   external database connector resource (`ExternalDatabaseConnectorId`).
+    #
+    # @param [OCI::Database::Models::UpdateExternalDatabaseConnectorDetails] update_external_database_connector_details Request to update the properties of an external database connector.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalDatabaseConnector ExternalDatabaseConnector}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_external_database_connector.rb.html) to see an example of how to use update_external_database_connector API.
+    def update_external_database_connector(external_database_connector_id, update_external_database_connector_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#update_external_database_connector.' if logger
+
+      raise "Missing the required parameter 'external_database_connector_id' when calling update_external_database_connector." if external_database_connector_id.nil?
+      raise "Missing the required parameter 'update_external_database_connector_details' when calling update_external_database_connector." if update_external_database_connector_details.nil?
+      raise "Parameter value for 'external_database_connector_id' must not be blank" if OCI::Internal::Util.blank_string?(external_database_connector_id)
+
+      path = '/externaldatabaseconnectors/{externalDatabaseConnectorId}'.sub('{externalDatabaseConnectorId}', external_database_connector_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_external_database_connector_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#update_external_database_connector') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::ExternalDatabaseConnector'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the properties of an external non-container database, such as the display name.
+    # @param [String] external_non_container_database_id The external non-container database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Database::Models::UpdateExternalNonContainerDatabaseDetails] update_external_non_container_database_details Request to update the properties of an external non-container database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalNonContainerDatabase ExternalNonContainerDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_external_non_container_database.rb.html) to see an example of how to use update_external_non_container_database API.
+    def update_external_non_container_database(external_non_container_database_id, update_external_non_container_database_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#update_external_non_container_database.' if logger
+
+      raise "Missing the required parameter 'external_non_container_database_id' when calling update_external_non_container_database." if external_non_container_database_id.nil?
+      raise "Missing the required parameter 'update_external_non_container_database_details' when calling update_external_non_container_database." if update_external_non_container_database_details.nil?
+      raise "Parameter value for 'external_non_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_non_container_database_id)
+
+      path = '/externalnoncontainerdatabases/{externalNonContainerDatabaseId}'.sub('{externalNonContainerDatabaseId}', external_non_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_external_non_container_database_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#update_external_non_container_database') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::ExternalNonContainerDatabase'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the properties of an
+    # {#create_external_pluggable_database_details create_external_pluggable_database_details} resource,
+    # such as the display name.
+    #
+    # @param [String] external_pluggable_database_id The ExternalPluggableDatabaseId [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Database::Models::UpdateExternalPluggableDatabaseDetails] update_external_pluggable_database_details Request to update the properties of an external pluggable database resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::ExternalPluggableDatabase ExternalPluggableDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_external_pluggable_database.rb.html) to see an example of how to use update_external_pluggable_database API.
+    def update_external_pluggable_database(external_pluggable_database_id, update_external_pluggable_database_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#update_external_pluggable_database.' if logger
+
+      raise "Missing the required parameter 'external_pluggable_database_id' when calling update_external_pluggable_database." if external_pluggable_database_id.nil?
+      raise "Missing the required parameter 'update_external_pluggable_database_details' when calling update_external_pluggable_database." if update_external_pluggable_database_details.nil?
+      raise "Parameter value for 'external_pluggable_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_pluggable_database_id)
+
+      path = '/externalpluggabledatabases/{externalPluggableDatabaseId}'.sub('{externalPluggableDatabaseId}', external_pluggable_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_external_pluggable_database_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#update_external_pluggable_database') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::ExternalPluggableDatabase'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -11959,10 +14122,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Upgrade the specified database.
+    # Upgrades the specified Oracle Database instance.
     #
     # @param [String] database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [OCI::Database::Models::UpgradeDatabaseDetails] upgrade_database_details Request to perform database upgrade.
+    # @param [OCI::Database::Models::UpgradeDatabaseDetails] upgrade_database_details Request to perform a database upgrade.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

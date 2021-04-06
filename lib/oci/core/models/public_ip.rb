@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -14,10 +14,7 @@ module OCI
   # 2. Reserved
   #
   # For more information and comparison of the two types,
-  # see [Public IP Addresses](https://docs.cloud.oracle.com/Content/Network/Tasks/managingpublicIPs.htm).
-  #
-  # **Warning:** Oracle recommends that you avoid using any confidential information when you
-  # supply string values using the API.
+  # see [Public IP Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingpublicIPs.htm).
   #
   class Core::Models::PublicIp
     ASSIGNED_ENTITY_TYPE_ENUM = [
@@ -80,7 +77,7 @@ module OCI
     attr_accessor :compartment_id
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -94,7 +91,7 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -129,7 +126,7 @@ module OCI
     # whenever you like. It does not need to be assigned to a private IP at all times.
     #
     # For more information and comparison of the two types,
-    # see [Public IP Addresses](https://docs.cloud.oracle.com/Content/Network/Tasks/managingpublicIPs.htm).
+    # see [Public IP Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingpublicIPs.htm).
     #
     # @return [String]
     attr_reader :lifetime
@@ -166,7 +163,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # OCID of the pool object created by the current tenancy
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the pool object created in the current tenancy.
     # @return [String]
     attr_accessor :public_ip_pool_id
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -35,7 +35,7 @@ module OCI
       VERSIONING_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The Object Storage namespace in which the bucket lives.
+    # **[Required]** The Object Storage namespace in which the bucket resides.
     # @return [String]
     attr_accessor :namespace
 
@@ -74,10 +74,10 @@ module OCI
     # @return [String]
     attr_reader :public_access_type
 
-    # The storage tier type assigned to the bucket. A bucket is set to 'Standard' tier by default, which means
-    # objects uploaded or copied to the bucket will be in the standard storage tier. When the 'Archive' tier type
+    # The storage tier type assigned to the bucket. A bucket is set to `Standard` tier by default, which means
+    # objects uploaded or copied to the bucket will be in the standard storage tier. When the `Archive` tier type
     # is set explicitly for a bucket, objects uploaded or copied to the bucket will be stored in archive storage.
-    # The 'storageTier' property is immutable after bucket is created.
+    # The `storageTier` property is immutable after bucket is created.
     #
     # @return [String]
     attr_reader :storage_tier

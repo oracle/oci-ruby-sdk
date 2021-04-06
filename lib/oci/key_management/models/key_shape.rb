@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -11,24 +11,40 @@ module OCI
     ALGORITHM_ENUM = [
       ALGORITHM_AES = 'AES'.freeze,
       ALGORITHM_RSA = 'RSA'.freeze,
+      ALGORITHM_ECDSA = 'ECDSA'.freeze,
       ALGORITHM_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    CURVE_ID_ENUM = [
+      CURVE_ID_NIST_P256 = 'NIST_P256'.freeze,
+      CURVE_ID_NIST_P384 = 'NIST_P384'.freeze,
+      CURVE_ID_NIST_P521 = 'NIST_P521'.freeze,
+      CURVE_ID_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The algorithm used by a key's key versions to encrypt or decrypt.
     # @return [String]
     attr_reader :algorithm
 
-    # **[Required]** The length of the key, expressed as an integer. Values of 16, 24, or 32 are supported.
+    # **[Required]** The length of the key in bytes, expressed as an integer. Supported values include the following:
+    #   - AES: 16, 24, or 32
+    #   - RSA: 256, 384, or 512
+    #   - ECDSA: 32, 48, or 66
     #
     # @return [Integer]
     attr_accessor :length
+
+    # Supported curve IDs for ECDSA keys.
+    # @return [String]
+    attr_reader :curve_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'algorithm': :'algorithm',
-        'length': :'length'
+        'length': :'length',
+        'curve_id': :'curveId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -38,7 +54,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'algorithm': :'String',
-        'length': :'Integer'
+        'length': :'Integer',
+        'curve_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -51,6 +68,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :algorithm The value to assign to the {#algorithm} property
     # @option attributes [Integer] :length The value to assign to the {#length} property
+    # @option attributes [String] :curve_id The value to assign to the {#curve_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -60,6 +78,12 @@ module OCI
       self.algorithm = attributes[:'algorithm'] if attributes[:'algorithm']
 
       self.length = attributes[:'length'] if attributes[:'length']
+
+      self.curve_id = attributes[:'curveId'] if attributes[:'curveId']
+
+      raise 'You cannot provide both :curveId and :curve_id' if attributes.key?(:'curveId') && attributes.key?(:'curve_id')
+
+      self.curve_id = attributes[:'curve_id'] if attributes[:'curve_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -77,6 +101,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] curve_id Object to be assigned
+    def curve_id=(curve_id)
+      # rubocop:disable Style/ConditionalAssignment
+      if curve_id && !CURVE_ID_ENUM.include?(curve_id)
+        OCI.logger.debug("Unknown value for 'curve_id' [" + curve_id + "]. Mapping to 'CURVE_ID_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @curve_id = CURVE_ID_UNKNOWN_ENUM_VALUE
+      else
+        @curve_id = curve_id
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -87,7 +124,8 @@ module OCI
 
       self.class == other.class &&
         algorithm == other.algorithm &&
-        length == other.length
+        length == other.length &&
+        curve_id == other.curve_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -103,7 +141,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [algorithm, length].hash
+      [algorithm, length, curve_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

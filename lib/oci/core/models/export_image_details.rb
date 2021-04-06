@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -17,17 +17,40 @@ module OCI
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Core::Models::ExportImageDetails
+    EXPORT_FORMAT_ENUM = [
+      EXPORT_FORMAT_QCOW2 = 'QCOW2'.freeze,
+      EXPORT_FORMAT_VMDK = 'VMDK'.freeze,
+      EXPORT_FORMAT_OCI = 'OCI'.freeze,
+      EXPORT_FORMAT_VHD = 'VHD'.freeze,
+      EXPORT_FORMAT_VDI = 'VDI'.freeze
+    ].freeze
+
     # **[Required]** The destination type. Use `objectStorageTuple` when specifying the namespace, bucket name, and object name.
     # Use `objectStorageUri` when specifying the Object Storage URL.
     #
     # @return [String]
     attr_accessor :destination_type
 
+    # The format to export the image to. The default value is `OCI`.
+    #
+    # The following image formats are available:
+    #
+    # - `OCI` - Oracle Cloud Infrastructure file with a QCOW2 image and Oracle Cloud Infrastructure metadata (.oci).
+    # Use this format to export a custom image that you want to import into other tenancies or regions.
+    # - `QCOW2` - QEMU Copy On Write (.qcow2)
+    # - `VDI` - Virtual Disk Image (.vdi) for Oracle VM VirtualBox
+    # - `VHD` - Virtual Hard Disk (.vhd) for Hyper-V
+    # - `VMDK` - Virtual Machine Disk (.vmdk)
+    #
+    # @return [String]
+    attr_reader :export_format
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'destination_type': :'destinationType'
+        'destination_type': :'destinationType',
+        'export_format': :'exportFormat'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,7 +59,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'destination_type': :'String'
+        'destination_type': :'String',
+        'export_format': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -64,6 +88,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :destination_type The value to assign to the {#destination_type} property
+    # @option attributes [String] :export_format The value to assign to the {#export_format} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -75,9 +100,23 @@ module OCI
       raise 'You cannot provide both :destinationType and :destination_type' if attributes.key?(:'destinationType') && attributes.key?(:'destination_type')
 
       self.destination_type = attributes[:'destination_type'] if attributes[:'destination_type']
+
+      self.export_format = attributes[:'exportFormat'] if attributes[:'exportFormat']
+
+      raise 'You cannot provide both :exportFormat and :export_format' if attributes.key?(:'exportFormat') && attributes.key?(:'export_format')
+
+      self.export_format = attributes[:'export_format'] if attributes[:'export_format']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] export_format Object to be assigned
+    def export_format=(export_format)
+      raise "Invalid value for 'export_format': this must be one of the values in EXPORT_FORMAT_ENUM." if export_format && !EXPORT_FORMAT_ENUM.include?(export_format)
+
+      @export_format = export_format
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -88,7 +127,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        destination_type == other.destination_type
+        destination_type == other.destination_type &&
+        export_format == other.export_format
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -104,7 +144,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [destination_type].hash
+      [destination_type, export_format].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

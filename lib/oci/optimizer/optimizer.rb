@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -14,6 +14,7 @@ end
 require 'oci/optimizer/models/action'
 require 'oci/optimizer/models/action_type'
 require 'oci/optimizer/models/bulk_apply_recommendations_details'
+require 'oci/optimizer/models/bulk_apply_resource_action'
 require 'oci/optimizer/models/category'
 require 'oci/optimizer/models/category_collection'
 require 'oci/optimizer/models/category_summary'
@@ -36,6 +37,8 @@ require 'oci/optimizer/models/profile_summary'
 require 'oci/optimizer/models/recommendation'
 require 'oci/optimizer/models/recommendation_collection'
 require 'oci/optimizer/models/recommendation_count'
+require 'oci/optimizer/models/recommendation_strategy_collection'
+require 'oci/optimizer/models/recommendation_strategy_summary'
 require 'oci/optimizer/models/recommendation_summary'
 require 'oci/optimizer/models/resource_action'
 require 'oci/optimizer/models/resource_action_collection'
@@ -43,8 +46,15 @@ require 'oci/optimizer/models/resource_action_summary'
 require 'oci/optimizer/models/resource_count'
 require 'oci/optimizer/models/sort_order'
 require 'oci/optimizer/models/status'
+require 'oci/optimizer/models/strategy'
+require 'oci/optimizer/models/strategy_parameter'
+require 'oci/optimizer/models/strategy_parameter_type'
 require 'oci/optimizer/models/supported_level'
 require 'oci/optimizer/models/supported_levels'
+require 'oci/optimizer/models/tag_value_type'
+require 'oci/optimizer/models/target_compartments'
+require 'oci/optimizer/models/target_tag'
+require 'oci/optimizer/models/target_tags'
 require 'oci/optimizer/models/update_enrollment_status_details'
 require 'oci/optimizer/models/update_profile_details'
 require 'oci/optimizer/models/update_recommendation_details'

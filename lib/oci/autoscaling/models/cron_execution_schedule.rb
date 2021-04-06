@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,10 +6,18 @@ require_relative 'execution_schedule'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the execution schedule of CRON type.
+  # An autoscaling execution schedule that uses a cron expression.
   #
   class Autoscaling::Models::CronExecutionSchedule < Autoscaling::Models::ExecutionSchedule
-    # **[Required]** The value representing the execution schedule, as defined by cron format.
+    # **[Required]** A cron expression that represents the time at which to execute the autoscaling policy.
+    #
+    # Cron expressions have this format: `<second> <minute> <hour> <day of month> <month> <day of week> <year>`
+    #
+    # You can use special characters that are supported with the Quartz cron implementation.
+    #
+    # You must specify `0` as the value for seconds.
+    #
+    # Example: `0 15 10 ? * *`
     #
     # @return [String]
     attr_accessor :expression

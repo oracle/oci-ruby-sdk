@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -15,6 +15,10 @@ module OCI
     # @return [Integer]
     attr_accessor :int_value
 
+    # An object value of the parameter.
+    # @return [Object]
+    attr_accessor :object_value
+
     # The root object reference value.
     # @return [Object]
     attr_accessor :ref_value
@@ -29,6 +33,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'string_value': :'stringValue',
         'int_value': :'intValue',
+        'object_value': :'objectValue',
         'ref_value': :'refValue',
         'parameter_value': :'parameterValue'
         # rubocop:enable Style/SymbolLiteral
@@ -41,6 +46,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'string_value': :'String',
         'int_value': :'Integer',
+        'object_value': :'Object',
         'ref_value': :'Object',
         'parameter_value': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -55,6 +61,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :string_value The value to assign to the {#string_value} property
     # @option attributes [Integer] :int_value The value to assign to the {#int_value} property
+    # @option attributes [Object] :object_value The value to assign to the {#object_value} property
     # @option attributes [Object] :ref_value The value to assign to the {#ref_value} property
     # @option attributes [String] :parameter_value The value to assign to the {#parameter_value} property
     def initialize(attributes = {})
@@ -74,6 +81,12 @@ module OCI
       raise 'You cannot provide both :intValue and :int_value' if attributes.key?(:'intValue') && attributes.key?(:'int_value')
 
       self.int_value = attributes[:'int_value'] if attributes[:'int_value']
+
+      self.object_value = attributes[:'objectValue'] if attributes[:'objectValue']
+
+      raise 'You cannot provide both :objectValue and :object_value' if attributes.key?(:'objectValue') && attributes.key?(:'object_value')
+
+      self.object_value = attributes[:'object_value'] if attributes[:'object_value']
 
       self.ref_value = attributes[:'refValue'] if attributes[:'refValue']
 
@@ -101,6 +114,7 @@ module OCI
       self.class == other.class &&
         string_value == other.string_value &&
         int_value == other.int_value &&
+        object_value == other.object_value &&
         ref_value == other.ref_value &&
         parameter_value == other.parameter_value
     end
@@ -118,7 +132,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [string_value, int_value, ref_value, parameter_value].hash
+      [string_value, int_value, object_value, ref_value, parameter_value].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

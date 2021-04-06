@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -662,6 +662,73 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Adds a routing policy to a load balancer. For more information, see
+    # [Managing Request Routing](https://docs.cloud.oracle.com/Content/Balance/Tasks/managingrequest.htm).
+    #
+    # @param [OCI::LoadBalancer::Models::CreateRoutingPolicyDetails] create_routing_policy_details The details of the routing policy rules to add.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer to add the routing policy rule list to.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/create_routing_policy.rb.html) to see an example of how to use create_routing_policy API.
+    def create_routing_policy(create_routing_policy_details, load_balancer_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#create_routing_policy.' if logger
+
+      raise "Missing the required parameter 'create_routing_policy_details' when calling create_routing_policy." if create_routing_policy_details.nil?
+      raise "Missing the required parameter 'load_balancer_id' when calling create_routing_policy." if load_balancer_id.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}/routingPolicies'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_routing_policy_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LoadBalancerClient#create_routing_policy') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new rule set associated with the specified load balancer. For more information, see
     # [Managing Rule Sets](https://docs.cloud.oracle.com/Content/Balance/Tasks/managingrulesets.htm).
     #
@@ -1203,6 +1270,71 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LoadBalancerClient#delete_path_route_set') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a routing policy from the specified load balancer.
+    #
+    # To delete a routing rule from a routing policy, use the
+    # {#update_routing_policy update_routing_policy} operation.
+    #
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the routing policy to delete.
+    # @param [String] routing_policy_name The name of the routing policy to delete.
+    #
+    #   Example: `example_routing_policy`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/delete_routing_policy.rb.html) to see an example of how to use delete_routing_policy API.
+    def delete_routing_policy(load_balancer_id, routing_policy_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#delete_routing_policy.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling delete_routing_policy." if load_balancer_id.nil?
+      raise "Missing the required parameter 'routing_policy_name' when calling delete_routing_policy." if routing_policy_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'routing_policy_name' must not be blank" if OCI::Internal::Util.blank_string?(routing_policy_name)
+
+      path = '/loadBalancers/{loadBalancerId}/routingPolicies/{routingPolicyName}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{routingPolicyName}', routing_policy_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LoadBalancerClient#delete_routing_policy') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -1896,6 +2028,68 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::LoadBalancer::Models::PathRouteSet'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the specified routing policy.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the specified load balancer.
+    # @param [String] routing_policy_name The name of the routing policy to retrieve.
+    #
+    #   Example: `example_routing_policy`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @return [Response] A Response object with data of type {OCI::LoadBalancer::Models::RoutingPolicy RoutingPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/get_routing_policy.rb.html) to see an example of how to use get_routing_policy API.
+    def get_routing_policy(load_balancer_id, routing_policy_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#get_routing_policy.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling get_routing_policy." if load_balancer_id.nil?
+      raise "Missing the required parameter 'routing_policy_name' when calling get_routing_policy." if routing_policy_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'routing_policy_name' must not be blank" if OCI::Internal::Util.blank_string?(routing_policy_name)
+
+      path = '/loadBalancers/{loadBalancerId}/routingPolicies/{routingPolicyName}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{routingPolicyName}', routing_policy_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LoadBalancerClient#get_routing_policy') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LoadBalancer::Models::RoutingPolicy'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2744,6 +2938,75 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::LoadBalancer::Models::LoadBalancerProtocol>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists all routing policies associated with the specified load balancer.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the routing policies.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated \"List\" call.
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #    (default to 10)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call.
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `3`
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::LoadBalancer::Models::RoutingPolicy RoutingPolicy}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/list_routing_policies.rb.html) to see an example of how to use list_routing_policies API.
+    def list_routing_policies(load_balancer_id, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#list_routing_policies.' if logger
+
+      raise "Missing the required parameter 'load_balancer_id' when calling list_routing_policies." if load_balancer_id.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+
+      path = '/loadBalancers/{loadBalancerId}/routingPolicies'.sub('{loadBalancerId}', load_balancer_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LoadBalancerClient#list_routing_policies') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::LoadBalancer::Models::RoutingPolicy>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -3620,6 +3883,81 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LoadBalancerClient#update_path_route_set') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Overwrites an existing routing policy on the specified load balancer. Use this operation to add, delete, or alter
+    # routing policy rules in a routing policy.
+    #
+    # To add a new routing rule to a routing policy, the body must include both the new routing rule to add and the existing rules to retain.
+    #
+    # @param [OCI::LoadBalancer::Models::UpdateRoutingPolicyDetails] update_routing_policy_details The configuration details needed to update a routing policy.
+    # @param [String] load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer associated with the routing policy to update.
+    # @param [String] routing_policy_name The name of the routing policy to update.
+    #
+    #   Example: `example_routing_policy_name`
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #    (default to )
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loadbalancer/update_routing_policy.rb.html) to see an example of how to use update_routing_policy API.
+    def update_routing_policy(update_routing_policy_details, load_balancer_id, routing_policy_name, opts = {})
+      logger.debug 'Calling operation LoadBalancerClient#update_routing_policy.' if logger
+
+      raise "Missing the required parameter 'update_routing_policy_details' when calling update_routing_policy." if update_routing_policy_details.nil?
+      raise "Missing the required parameter 'load_balancer_id' when calling update_routing_policy." if load_balancer_id.nil?
+      raise "Missing the required parameter 'routing_policy_name' when calling update_routing_policy." if routing_policy_name.nil?
+      raise "Parameter value for 'load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(load_balancer_id)
+      raise "Parameter value for 'routing_policy_name' must not be blank" if OCI::Internal::Util.blank_string?(routing_policy_name)
+
+      path = '/loadBalancers/{loadBalancerId}/routingPolicies/{routingPolicyName}'.sub('{loadBalancerId}', load_balancer_id.to_s).sub('{routingPolicyName}', routing_policy_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(update_routing_policy_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LoadBalancerClient#update_routing_policy') do
         @api_client.call_api(
           :PUT,
           path,

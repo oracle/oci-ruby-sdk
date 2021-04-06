@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -16,7 +16,7 @@ module OCI
     attr_accessor :block_traffic
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -30,7 +30,7 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -39,7 +39,7 @@ module OCI
 
     # The OCID of the route table the service gateway will use.
     # For information about why you would associate a route table with a service gateway, see
-    # [Transit Routing: Private Access to Oracle Services](https://docs.cloud.oracle.com/Content/Network/Tasks/transitroutingoracleservices.htm).
+    # [Transit Routing: Private Access to Oracle Services](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/transitroutingoracleservices.htm).
     #
     # @return [String]
     attr_accessor :route_table_id

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,7 +8,7 @@ module OCI
   # The data to create an instance pool in a cluster network.
   class Core::Models::CreateClusterNetworkInstancePoolDetails
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -21,7 +21,7 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -35,12 +35,6 @@ module OCI
     attr_accessor :instance_configuration_id
 
     # **[Required]** The number of instances that should be in the instance pool.
-    #
-    # For cluster networks with 10 or more instances, the cluster network is created if the required
-    # number of instances is available and at least 95% of the instances in the pool launch
-    # successfully. For cluster networks with less than 10 instances, all instances in the pool must
-    # launch successfully. If the cluster network fails to launch, wait a few minutes, and then try
-    # creating it again.
     #
     # @return [Integer]
     attr_accessor :size

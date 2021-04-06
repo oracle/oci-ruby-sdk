@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Use the Usage API to view your Oracle Cloud usage and costs. The API allows you to request data that meets the specified filter criteria, and to group that data by the dimension of your choosing. The Usage API is used by the Cost Analysis tool in the Console.
+  # Use the Usage API to view your Oracle Cloud usage and costs. The API allows you to request data that meets the specified filter criteria, and to group that data by the dimension of your choosing. The Usage API is used by the Cost Analysis tool in the Console. Also see [Using the Usage API](/Content/Billing/Concepts/costanalysisoverview.htm#cost_analysis_using_the_api) for more information.
   class UsageApi::UsageapiClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -98,6 +98,268 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns the created query.
+    #
+    # @param [OCI::UsageApi::Models::CreateQueryDetails] create_query_details New query details. It is up to 10 saved query.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::UsageApi::Models::Query Query}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/usageapi/create_query.rb.html) to see an example of how to use create_query API.
+    def create_query(create_query_details, opts = {})
+      logger.debug 'Calling operation UsageapiClient#create_query.' if logger
+
+      raise "Missing the required parameter 'create_query_details' when calling create_query." if create_query_details.nil?
+
+      path = '/queries'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_query_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'UsageapiClient#create_query') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::UsageApi::Models::Query'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Delete a saved query by the OCID.
+    #
+    # @param [String] query_id The query unique OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted, only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/usageapi/delete_query.rb.html) to see an example of how to use delete_query API.
+    def delete_query(query_id, opts = {})
+      logger.debug 'Calling operation UsageapiClient#delete_query.' if logger
+
+      raise "Missing the required parameter 'query_id' when calling delete_query." if query_id.nil?
+      raise "Parameter value for 'query_id' must not be blank" if OCI::Internal::Util.blank_string?(query_id)
+
+      path = '/queries/{queryId}'.sub('{queryId}', query_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'UsageapiClient#delete_query') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns the saved query.
+    #
+    # @param [String] query_id The query unique OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::UsageApi::Models::Query Query}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/usageapi/get_query.rb.html) to see an example of how to use get_query API.
+    def get_query(query_id, opts = {})
+      logger.debug 'Calling operation UsageapiClient#get_query.' if logger
+
+      raise "Missing the required parameter 'query_id' when calling get_query." if query_id.nil?
+      raise "Parameter value for 'query_id' must not be blank" if OCI::Internal::Util.blank_string?(query_id)
+
+      path = '/queries/{queryId}'.sub('{queryId}', query_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'UsageapiClient#get_query') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::UsageApi::Models::Query'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns the saved query list.
+    #
+    # @param [String] compartment_id The compartment ID in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [Integer] :limit The maximumimum number of items to return. (default to 25)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results.
+    #   This is usually retrieved from a previous list call.
+    #
+    # @option opts [String] :sort_by The field to sort by. If not specified, the default is displayName.
+    #    (default to displayName)
+    #   Allowed values are: displayName
+    # @option opts [String] :sort_order The sort order to use, whether 'asc' or 'desc'. (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @return [Response] A Response object with data of type {OCI::UsageApi::Models::QueryCollection QueryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/usageapi/list_queries.rb.html) to see an example of how to use list_queries API.
+    def list_queries(compartment_id, opts = {})
+      logger.debug 'Calling operation UsageapiClient#list_queries.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_queries." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of displayName.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      path = '/queries'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'UsageapiClient#list_queries') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::UsageApi::Models::QueryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns the configurations list for the UI drop-down list.
     #
     # @param [String] tenant_id tenant id
@@ -168,7 +430,7 @@ module OCI
     # @option opts [String] :page The page token representing the page at which to start retrieving results.
     #   This is usually retrieved from a previous list call.
     #
-    # @option opts [Integer] :limit The maximum number of items to return. (default to 25)
+    # @option opts [Integer] :limit The maximumimum number of items to return. (default to 25)
     # @return [Response] A Response object with data of type {OCI::UsageApi::Models::UsageAggregation UsageAggregation}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/usageapi/request_summarized_usages.rb.html) to see an example of how to use request_summarized_usages API.
     def request_summarized_usages(request_summarized_usages_details, opts = {})
@@ -205,6 +467,72 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::UsageApi::Models::UsageAggregation'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Update a saved query by the OCID.
+    #
+    # @param [OCI::UsageApi::Models::UpdateQueryDetails] update_query_details The information to be updated.
+    # @param [String] query_id The query unique OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted, only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::UsageApi::Models::Query Query}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/usageapi/update_query.rb.html) to see an example of how to use update_query API.
+    def update_query(update_query_details, query_id, opts = {})
+      logger.debug 'Calling operation UsageapiClient#update_query.' if logger
+
+      raise "Missing the required parameter 'update_query_details' when calling update_query." if update_query_details.nil?
+      raise "Missing the required parameter 'query_id' when calling update_query." if query_id.nil?
+      raise "Parameter value for 'query_id' must not be blank" if OCI::Internal::Util.blank_string?(query_id)
+
+      path = '/queries/{queryId}'.sub('{queryId}', query_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_query_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'UsageapiClient#update_query') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::UsageApi::Models::Query'
         )
       end
       # rubocop:enable Metrics/BlockLength

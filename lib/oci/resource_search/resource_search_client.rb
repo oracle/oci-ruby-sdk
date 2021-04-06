@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -84,7 +84,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://query.{region}.{secondLevelDomain}') + '/20180409'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://query.{region}.oci.{secondLevelDomain}') + '/20180409'
       logger.info "ResourceSearchClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -217,7 +217,8 @@ module OCI
     # Results include resources that you have permission to view and can span different resource types.
     # You can also sort results based on a specified resource attribute.
     #
-    # @param [OCI::ResourceSearch::Models::SearchDetails] search_details Request parameters that describe query criteria.
+    # @param [OCI::ResourceSearch::Models::SearchDetails] search_details Request parameters that describe query criteria. For more information, see {#search_details search_details}.
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

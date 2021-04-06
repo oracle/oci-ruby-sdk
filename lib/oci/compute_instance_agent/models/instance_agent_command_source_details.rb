@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Command content.
+  # The source of the command.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class ComputeInstanceAgent::Models::InstanceAgentCommandSourceDetails
     SOURCE_TYPE_ENUM = [
@@ -16,8 +16,14 @@ module OCI
       SOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The source type of the command. Use `TEXT` for inlining the command. Use `OBJECT_STORAGE_TUPLE` when specifying
-    # the namespace, bucket name, and object name. Use `OBJECT_STORAGE_URI` when specifying the Object Storage URL.
+    # **[Required]** The source type for the command. The following values are supported:
+    #
+    # - `TEXT` - uses a plain text command that is specified inline with the request.
+    # - `OBJECT_STORAGE_URI` - imports a command from an Object Storage URL.
+    # - `OBJECT_STORAGE_TUPLE` - imports a command from an Object Storage bucket.
+    #
+    # For background information about Object Storage buckets and URLs, see
+    # [Overview of Object Storage](https://docs.cloud.oracle.com/Content/Object/Concepts/objectstorageoverview.htm).
     #
     # @return [String]
     attr_reader :source_type

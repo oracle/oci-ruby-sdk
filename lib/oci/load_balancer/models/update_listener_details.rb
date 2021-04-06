@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -34,6 +34,8 @@ module OCI
     # @return [Array<String>]
     attr_accessor :hostname_names
 
+    # Deprecated. Please use `routingPolicies` instead.
+    #
     # The name of the set of path-based routing rules, {PathRouteSet},
     # applied to this listener's traffic.
     #
@@ -41,6 +43,13 @@ module OCI
     #
     # @return [String]
     attr_accessor :path_route_set_name
+
+    # The name of the routing policy applied to this listener's traffic.
+    #
+    # Example: `example_routing_policy`
+    #
+    # @return [String]
+    attr_accessor :routing_policy_name
 
     # @return [OCI::LoadBalancer::Models::SSLConfigurationDetails]
     attr_accessor :ssl_configuration
@@ -64,6 +73,7 @@ module OCI
         'protocol': :'protocol',
         'hostname_names': :'hostnameNames',
         'path_route_set_name': :'pathRouteSetName',
+        'routing_policy_name': :'routingPolicyName',
         'ssl_configuration': :'sslConfiguration',
         'connection_configuration': :'connectionConfiguration',
         'rule_set_names': :'ruleSetNames'
@@ -80,6 +90,7 @@ module OCI
         'protocol': :'String',
         'hostname_names': :'Array<String>',
         'path_route_set_name': :'String',
+        'routing_policy_name': :'String',
         'ssl_configuration': :'OCI::LoadBalancer::Models::SSLConfigurationDetails',
         'connection_configuration': :'OCI::LoadBalancer::Models::ConnectionConfiguration',
         'rule_set_names': :'Array<String>'
@@ -98,6 +109,7 @@ module OCI
     # @option attributes [String] :protocol The value to assign to the {#protocol} property
     # @option attributes [Array<String>] :hostname_names The value to assign to the {#hostname_names} property
     # @option attributes [String] :path_route_set_name The value to assign to the {#path_route_set_name} property
+    # @option attributes [String] :routing_policy_name The value to assign to the {#routing_policy_name} property
     # @option attributes [OCI::LoadBalancer::Models::SSLConfigurationDetails] :ssl_configuration The value to assign to the {#ssl_configuration} property
     # @option attributes [OCI::LoadBalancer::Models::ConnectionConfiguration] :connection_configuration The value to assign to the {#connection_configuration} property
     # @option attributes [Array<String>] :rule_set_names The value to assign to the {#rule_set_names} property
@@ -128,6 +140,12 @@ module OCI
       raise 'You cannot provide both :pathRouteSetName and :path_route_set_name' if attributes.key?(:'pathRouteSetName') && attributes.key?(:'path_route_set_name')
 
       self.path_route_set_name = attributes[:'path_route_set_name'] if attributes[:'path_route_set_name']
+
+      self.routing_policy_name = attributes[:'routingPolicyName'] if attributes[:'routingPolicyName']
+
+      raise 'You cannot provide both :routingPolicyName and :routing_policy_name' if attributes.key?(:'routingPolicyName') && attributes.key?(:'routing_policy_name')
+
+      self.routing_policy_name = attributes[:'routing_policy_name'] if attributes[:'routing_policy_name']
 
       self.ssl_configuration = attributes[:'sslConfiguration'] if attributes[:'sslConfiguration']
 
@@ -164,6 +182,7 @@ module OCI
         protocol == other.protocol &&
         hostname_names == other.hostname_names &&
         path_route_set_name == other.path_route_set_name &&
+        routing_policy_name == other.routing_policy_name &&
         ssl_configuration == other.ssl_configuration &&
         connection_configuration == other.connection_configuration &&
         rule_set_names == other.rule_set_names
@@ -182,7 +201,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [default_backend_set_name, port, protocol, hostname_names, path_route_set_name, ssl_configuration, connection_configuration, rule_set_names].hash
+      [default_backend_set_name, port, protocol, hostname_names, path_route_set_name, routing_policy_name, ssl_configuration, connection_configuration, rule_set_names].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

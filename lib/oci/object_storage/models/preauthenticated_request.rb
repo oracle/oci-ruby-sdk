@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -16,11 +16,19 @@ module OCI
   # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class ObjectStorage::Models::PreauthenticatedRequest
+    BUCKET_LISTING_ACTION_ENUM = [
+      BUCKET_LISTING_ACTION_DENY = 'Deny'.freeze,
+      BUCKET_LISTING_ACTION_LIST_OBJECTS = 'ListObjects'.freeze,
+      BUCKET_LISTING_ACTION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     ACCESS_TYPE_ENUM = [
       ACCESS_TYPE_OBJECT_READ = 'ObjectRead'.freeze,
       ACCESS_TYPE_OBJECT_WRITE = 'ObjectWrite'.freeze,
       ACCESS_TYPE_OBJECT_READ_WRITE = 'ObjectReadWrite'.freeze,
       ACCESS_TYPE_ANY_OBJECT_WRITE = 'AnyObjectWrite'.freeze,
+      ACCESS_TYPE_ANY_OBJECT_READ = 'AnyObjectRead'.freeze,
+      ACCESS_TYPE_ANY_OBJECT_READ_WRITE = 'AnyObjectReadWrite'.freeze,
       ACCESS_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -42,6 +50,13 @@ module OCI
     #
     # @return [String]
     attr_accessor :object_name
+
+    # Specifies whether a list operation is allowed on a PAR with accessType \"AnyObjectRead\" or \"AnyObjectReadWrite\".
+    # Deny: Prevents the user from performing a list operation.
+    # ListObjects: Authorizes the user to perform a list operation.
+    #
+    # @return [String]
+    attr_reader :bucket_listing_action
 
     # **[Required]** The operation that can be performed on this resource.
     # @return [String]
@@ -67,6 +82,7 @@ module OCI
         'name': :'name',
         'access_uri': :'accessUri',
         'object_name': :'objectName',
+        'bucket_listing_action': :'bucketListingAction',
         'access_type': :'accessType',
         'time_expires': :'timeExpires',
         'time_created': :'timeCreated'
@@ -82,6 +98,7 @@ module OCI
         'name': :'String',
         'access_uri': :'String',
         'object_name': :'String',
+        'bucket_listing_action': :'String',
         'access_type': :'String',
         'time_expires': :'DateTime',
         'time_created': :'DateTime'
@@ -99,6 +116,7 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :access_uri The value to assign to the {#access_uri} property
     # @option attributes [String] :object_name The value to assign to the {#object_name} property
+    # @option attributes [String] :bucket_listing_action The value to assign to the {#bucket_listing_action} property
     # @option attributes [String] :access_type The value to assign to the {#access_type} property
     # @option attributes [DateTime] :time_expires The value to assign to the {#time_expires} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -124,6 +142,12 @@ module OCI
 
       self.object_name = attributes[:'object_name'] if attributes[:'object_name']
 
+      self.bucket_listing_action = attributes[:'bucketListingAction'] if attributes[:'bucketListingAction']
+
+      raise 'You cannot provide both :bucketListingAction and :bucket_listing_action' if attributes.key?(:'bucketListingAction') && attributes.key?(:'bucket_listing_action')
+
+      self.bucket_listing_action = attributes[:'bucket_listing_action'] if attributes[:'bucket_listing_action']
+
       self.access_type = attributes[:'accessType'] if attributes[:'accessType']
 
       raise 'You cannot provide both :accessType and :access_type' if attributes.key?(:'accessType') && attributes.key?(:'access_type')
@@ -144,6 +168,19 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] bucket_listing_action Object to be assigned
+    def bucket_listing_action=(bucket_listing_action)
+      # rubocop:disable Style/ConditionalAssignment
+      if bucket_listing_action && !BUCKET_LISTING_ACTION_ENUM.include?(bucket_listing_action)
+        OCI.logger.debug("Unknown value for 'bucket_listing_action' [" + bucket_listing_action + "]. Mapping to 'BUCKET_LISTING_ACTION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @bucket_listing_action = BUCKET_LISTING_ACTION_UNKNOWN_ENUM_VALUE
+      else
+        @bucket_listing_action = bucket_listing_action
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] access_type Object to be assigned
@@ -171,6 +208,7 @@ module OCI
         name == other.name &&
         access_uri == other.access_uri &&
         object_name == other.object_name &&
+        bucket_listing_action == other.bucket_listing_action &&
         access_type == other.access_type &&
         time_expires == other.time_expires &&
         time_created == other.time_created
@@ -189,7 +227,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, access_uri, object_name, access_type, time_expires, time_created].hash
+      [id, name, access_uri, object_name, bucket_listing_action, access_type, time_expires, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

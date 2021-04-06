@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -40,6 +40,11 @@ module OCI
     # @return [String]
     attr_accessor :key_id
 
+    # The public key in PEM format. (This value pertains only to RSA and ECDSA keys.)
+    #
+    # @return [String]
+    attr_accessor :public_key
+
     # The key version's current lifecycle state.
     #
     # Example: `ENABLED`
@@ -75,6 +80,12 @@ module OCI
     # @return [String]
     attr_accessor :restored_from_key_version_id
 
+    # @return [OCI::KeyManagement::Models::KeyVersionReplicaDetails]
+    attr_accessor :replica_details
+
+    # @return [BOOLEAN]
+    attr_accessor :is_primary
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -82,12 +93,15 @@ module OCI
         'compartment_id': :'compartmentId',
         'id': :'id',
         'key_id': :'keyId',
+        'public_key': :'publicKey',
         'lifecycle_state': :'lifecycleState',
         'origin': :'origin',
         'time_created': :'timeCreated',
         'time_of_deletion': :'timeOfDeletion',
         'vault_id': :'vaultId',
-        'restored_from_key_version_id': :'restoredFromKeyVersionId'
+        'restored_from_key_version_id': :'restoredFromKeyVersionId',
+        'replica_details': :'replicaDetails',
+        'is_primary': :'isPrimary'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -99,12 +113,15 @@ module OCI
         'compartment_id': :'String',
         'id': :'String',
         'key_id': :'String',
+        'public_key': :'String',
         'lifecycle_state': :'String',
         'origin': :'String',
         'time_created': :'DateTime',
         'time_of_deletion': :'DateTime',
         'vault_id': :'String',
-        'restored_from_key_version_id': :'String'
+        'restored_from_key_version_id': :'String',
+        'replica_details': :'OCI::KeyManagement::Models::KeyVersionReplicaDetails',
+        'is_primary': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -118,12 +135,15 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :key_id The value to assign to the {#key_id} property
+    # @option attributes [String] :public_key The value to assign to the {#public_key} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :origin The value to assign to the {#origin} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_of_deletion The value to assign to the {#time_of_deletion} property
     # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
     # @option attributes [String] :restored_from_key_version_id The value to assign to the {#restored_from_key_version_id} property
+    # @option attributes [OCI::KeyManagement::Models::KeyVersionReplicaDetails] :replica_details The value to assign to the {#replica_details} property
+    # @option attributes [BOOLEAN] :is_primary The value to assign to the {#is_primary} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -143,6 +163,12 @@ module OCI
       raise 'You cannot provide both :keyId and :key_id' if attributes.key?(:'keyId') && attributes.key?(:'key_id')
 
       self.key_id = attributes[:'key_id'] if attributes[:'key_id']
+
+      self.public_key = attributes[:'publicKey'] if attributes[:'publicKey']
+
+      raise 'You cannot provide both :publicKey and :public_key' if attributes.key?(:'publicKey') && attributes.key?(:'public_key')
+
+      self.public_key = attributes[:'public_key'] if attributes[:'public_key']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -175,6 +201,18 @@ module OCI
       raise 'You cannot provide both :restoredFromKeyVersionId and :restored_from_key_version_id' if attributes.key?(:'restoredFromKeyVersionId') && attributes.key?(:'restored_from_key_version_id')
 
       self.restored_from_key_version_id = attributes[:'restored_from_key_version_id'] if attributes[:'restored_from_key_version_id']
+
+      self.replica_details = attributes[:'replicaDetails'] if attributes[:'replicaDetails']
+
+      raise 'You cannot provide both :replicaDetails and :replica_details' if attributes.key?(:'replicaDetails') && attributes.key?(:'replica_details')
+
+      self.replica_details = attributes[:'replica_details'] if attributes[:'replica_details']
+
+      self.is_primary = attributes[:'isPrimary'] unless attributes[:'isPrimary'].nil?
+
+      raise 'You cannot provide both :isPrimary and :is_primary' if attributes.key?(:'isPrimary') && attributes.key?(:'is_primary')
+
+      self.is_primary = attributes[:'is_primary'] unless attributes[:'is_primary'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -217,12 +255,15 @@ module OCI
         compartment_id == other.compartment_id &&
         id == other.id &&
         key_id == other.key_id &&
+        public_key == other.public_key &&
         lifecycle_state == other.lifecycle_state &&
         origin == other.origin &&
         time_created == other.time_created &&
         time_of_deletion == other.time_of_deletion &&
         vault_id == other.vault_id &&
-        restored_from_key_version_id == other.restored_from_key_version_id
+        restored_from_key_version_id == other.restored_from_key_version_id &&
+        replica_details == other.replica_details &&
+        is_primary == other.is_primary
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -238,7 +279,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, id, key_id, lifecycle_state, origin, time_created, time_of_deletion, vault_id, restored_from_key_version_id].hash
+      [compartment_id, id, key_id, public_key, lifecycle_state, origin, time_created, time_of_deletion, vault_id, restored_from_key_version_id, replica_details, is_primary].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

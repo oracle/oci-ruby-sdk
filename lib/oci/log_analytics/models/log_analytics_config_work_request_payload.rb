@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,17 +7,21 @@ require 'date'
 module OCI
   # LogAnalyticsConfigWorkRequestPayload
   class LogAnalytics::Models::LogAnalyticsConfigWorkRequestPayload
-    # sourceName
+    # The source name.
     # @return [String]
     attr_accessor :source_name
 
-    # entityId
+    # The entity unique identifier.
     # @return [String]
     attr_accessor :entity_id
 
-    # lookupReference
+    # The lookup reference as an integer.
     # @return [Integer]
     attr_accessor :lookup_reference
+
+    # lookupReference
+    # @return [String]
+    attr_accessor :lookup_reference_string
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -25,7 +29,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'source_name': :'sourceName',
         'entity_id': :'entityId',
-        'lookup_reference': :'lookupReference'
+        'lookup_reference': :'lookupReference',
+        'lookup_reference_string': :'lookupReferenceString'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,7 +41,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'source_name': :'String',
         'entity_id': :'String',
-        'lookup_reference': :'Integer'
+        'lookup_reference': :'Integer',
+        'lookup_reference_string': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -50,6 +56,7 @@ module OCI
     # @option attributes [String] :source_name The value to assign to the {#source_name} property
     # @option attributes [String] :entity_id The value to assign to the {#entity_id} property
     # @option attributes [Integer] :lookup_reference The value to assign to the {#lookup_reference} property
+    # @option attributes [String] :lookup_reference_string The value to assign to the {#lookup_reference_string} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -73,6 +80,12 @@ module OCI
       raise 'You cannot provide both :lookupReference and :lookup_reference' if attributes.key?(:'lookupReference') && attributes.key?(:'lookup_reference')
 
       self.lookup_reference = attributes[:'lookup_reference'] if attributes[:'lookup_reference']
+
+      self.lookup_reference_string = attributes[:'lookupReferenceString'] if attributes[:'lookupReferenceString']
+
+      raise 'You cannot provide both :lookupReferenceString and :lookup_reference_string' if attributes.key?(:'lookupReferenceString') && attributes.key?(:'lookup_reference_string')
+
+      self.lookup_reference_string = attributes[:'lookup_reference_string'] if attributes[:'lookup_reference_string']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -88,7 +101,8 @@ module OCI
       self.class == other.class &&
         source_name == other.source_name &&
         entity_id == other.entity_id &&
-        lookup_reference == other.lookup_reference
+        lookup_reference == other.lookup_reference &&
+        lookup_reference_string == other.lookup_reference_string
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -104,7 +118,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [source_name, entity_id, lookup_reference].hash
+      [source_name, entity_id, lookup_reference, lookup_reference_string].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

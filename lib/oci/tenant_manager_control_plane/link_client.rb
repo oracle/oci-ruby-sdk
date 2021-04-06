@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of the TenantManager API
+  # The Organizations API allows you to consolidate multiple OCI tenancies into an organization, and centrally manage your tenancies and its resources.
   class TenantManagerControlPlane::LinkClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -222,7 +222,7 @@ module OCI
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    # @option opts [String] :sort_order The sort order to use, whether 'asc' or 'desc'.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::LinkCollection LinkCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/list_links.rb.html) to see an example of how to use list_links API.
     def list_links(opts = {})

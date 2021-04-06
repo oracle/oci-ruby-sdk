@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,6 +7,12 @@ require 'date'
 module OCI
   # EncryptDataDetails model.
   class KeyManagement::Models::EncryptDataDetails
+    ENCRYPTION_ALGORITHM_ENUM = [
+      ENCRYPTION_ALGORITHM_AES_256_GCM = 'AES_256_GCM'.freeze,
+      ENCRYPTION_ALGORITHM_RSA_OAEP_SHA_1 = 'RSA_OAEP_SHA_1'.freeze,
+      ENCRYPTION_ALGORITHM_RSA_OAEP_SHA_256 = 'RSA_OAEP_SHA_256'.freeze
+    ].freeze
+
     # Information that can be used to provide an encryption context for the
     # encrypted data. The length of the string representation of the associated data
     # must be fewer than 4096 characters.
@@ -28,6 +34,20 @@ module OCI
     # @return [String]
     attr_accessor :plaintext
 
+    # The OCID of the key version used to encrypt the ciphertext.
+    # @return [String]
+    attr_accessor :key_version_id
+
+    # The encryption algorithm to use to encrypt and decrypt data with a customer-managed key.
+    # `AES_256_GCM` indicates that the key is a symmetric key that uses the Advanced Encryption Standard (AES) algorithm and
+    # that the mode of encryption is the Galois/Counter Mode (GCM). `RSA_OAEP_SHA_1` indicates that the
+    # key is an asymmetric key that uses the RSA encryption algorithm and uses Optimal Asymmetric Encryption Padding (OAEP).
+    # `RSA_OAEP_SHA_256` indicates that the key is an asymmetric key that uses the RSA encryption algorithm with a SHA-256 hash
+    # and uses OAEP.
+    #
+    # @return [String]
+    attr_reader :encryption_algorithm
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -35,7 +55,9 @@ module OCI
         'associated_data': :'associatedData',
         'key_id': :'keyId',
         'logging_context': :'loggingContext',
-        'plaintext': :'plaintext'
+        'plaintext': :'plaintext',
+        'key_version_id': :'keyVersionId',
+        'encryption_algorithm': :'encryptionAlgorithm'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -47,7 +69,9 @@ module OCI
         'associated_data': :'Hash<String, String>',
         'key_id': :'String',
         'logging_context': :'Hash<String, String>',
-        'plaintext': :'String'
+        'plaintext': :'String',
+        'key_version_id': :'String',
+        'encryption_algorithm': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -62,6 +86,8 @@ module OCI
     # @option attributes [String] :key_id The value to assign to the {#key_id} property
     # @option attributes [Hash<String, String>] :logging_context The value to assign to the {#logging_context} property
     # @option attributes [String] :plaintext The value to assign to the {#plaintext} property
+    # @option attributes [String] :key_version_id The value to assign to the {#key_version_id} property
+    # @option attributes [String] :encryption_algorithm The value to assign to the {#encryption_algorithm} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -87,9 +113,31 @@ module OCI
       self.logging_context = attributes[:'logging_context'] if attributes[:'logging_context']
 
       self.plaintext = attributes[:'plaintext'] if attributes[:'plaintext']
+
+      self.key_version_id = attributes[:'keyVersionId'] if attributes[:'keyVersionId']
+
+      raise 'You cannot provide both :keyVersionId and :key_version_id' if attributes.key?(:'keyVersionId') && attributes.key?(:'key_version_id')
+
+      self.key_version_id = attributes[:'key_version_id'] if attributes[:'key_version_id']
+
+      self.encryption_algorithm = attributes[:'encryptionAlgorithm'] if attributes[:'encryptionAlgorithm']
+      self.encryption_algorithm = "AES_256_GCM" if encryption_algorithm.nil? && !attributes.key?(:'encryptionAlgorithm') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :encryptionAlgorithm and :encryption_algorithm' if attributes.key?(:'encryptionAlgorithm') && attributes.key?(:'encryption_algorithm')
+
+      self.encryption_algorithm = attributes[:'encryption_algorithm'] if attributes[:'encryption_algorithm']
+      self.encryption_algorithm = "AES_256_GCM" if encryption_algorithm.nil? && !attributes.key?(:'encryptionAlgorithm') && !attributes.key?(:'encryption_algorithm') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] encryption_algorithm Object to be assigned
+    def encryption_algorithm=(encryption_algorithm)
+      raise "Invalid value for 'encryption_algorithm': this must be one of the values in ENCRYPTION_ALGORITHM_ENUM." if encryption_algorithm && !ENCRYPTION_ALGORITHM_ENUM.include?(encryption_algorithm)
+
+      @encryption_algorithm = encryption_algorithm
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -103,7 +151,9 @@ module OCI
         associated_data == other.associated_data &&
         key_id == other.key_id &&
         logging_context == other.logging_context &&
-        plaintext == other.plaintext
+        plaintext == other.plaintext &&
+        key_version_id == other.key_version_id &&
+        encryption_algorithm == other.encryption_algorithm
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -119,7 +169,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [associated_data, key_id, logging_context, plaintext].hash
+      [associated_data, key_id, logging_context, plaintext, key_version_id, encryption_algorithm].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,14 +8,15 @@ require_relative 'volume_attachment'
 module OCI
   # An ISCSI volume attachment.
   class Core::Models::IScsiVolumeAttachment < Core::Models::VolumeAttachment
-    # The Challenge-Handshake-Authentication-Protocol (CHAP) secret valid for the associated CHAP user name.
+    # The Challenge-Handshake-Authentication-Protocol (CHAP) secret
+    # valid for the associated CHAP user name.
     # (Also called the \"CHAP password\".)
-    #
     #
     # @return [String]
     attr_accessor :chap_secret
 
-    # The volume's system-generated Challenge-Handshake-Authentication-Protocol (CHAP) user name. See [RFC 1994](https://tools.ietf.org/html/rfc1994) for more on CHAP.
+    # The volume's system-generated Challenge-Handshake-Authentication-Protocol
+    # (CHAP) user name. See [RFC 1994](https://tools.ietf.org/html/rfc1994) for more on CHAP.
     #
     # Example: `ocid1.volume.oc1.phx.<unique_ID>`
     #
@@ -29,7 +30,8 @@ module OCI
     # @return [String]
     attr_accessor :ipv4
 
-    # **[Required]** The target volume's iSCSI Qualified Name in the format defined by [RFC 3720](https://tools.ietf.org/html/rfc3720#page-32).
+    # **[Required]** The target volume's iSCSI Qualified Name in the format defined
+    # by [RFC 3720](https://tools.ietf.org/html/rfc3720#page-32).
     #
     # Example: `iqn.2015-12.us.oracle.com:<CHAP_username>`
     #

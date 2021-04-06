@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,6 +6,7 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Either instanceId or imageSourceDetails must be provided in addition to other required parameters.
+  #
   class Core::Models::CreateImageDetails
     LAUNCH_MODE_ENUM = [
       LAUNCH_MODE_NATIVE = 'NATIVE'.freeze,
@@ -19,7 +20,7 @@ module OCI
     attr_accessor :compartment_id
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -37,18 +38,18 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # Details for creating an image through import
     # @return [OCI::Core::Models::ImageSourceDetails]
     attr_accessor :image_source_details
 
     # The OCID of the instance you want to use as the basis for the image.
+    #
     # @return [String]
     attr_accessor :instance_id
 

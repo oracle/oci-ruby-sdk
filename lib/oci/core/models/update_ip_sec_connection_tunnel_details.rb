@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -9,7 +9,8 @@ module OCI
   class Core::Models::UpdateIPSecConnectionTunnelDetails
     ROUTING_ENUM = [
       ROUTING_BGP = 'BGP'.freeze,
-      ROUTING_STATIC = 'STATIC'.freeze
+      ROUTING_STATIC = 'STATIC'.freeze,
+      ROUTING_POLICY = 'POLICY'.freeze
     ].freeze
 
     IKE_VERSION_ENUM = [
@@ -33,10 +34,11 @@ module OCI
     # @return [String]
     attr_reader :ike_version
 
-    # Information for establishing a BGP session for the IPSec tunnel.
-    #
     # @return [OCI::Core::Models::UpdateIPSecTunnelBgpSessionDetails]
     attr_accessor :bgp_session_config
+
+    # @return [OCI::Core::Models::UpdateIPSecTunnelEncryptionDomainDetails]
+    attr_accessor :encryption_domain_config
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -45,7 +47,8 @@ module OCI
         'display_name': :'displayName',
         'routing': :'routing',
         'ike_version': :'ikeVersion',
-        'bgp_session_config': :'bgpSessionConfig'
+        'bgp_session_config': :'bgpSessionConfig',
+        'encryption_domain_config': :'encryptionDomainConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,7 +60,8 @@ module OCI
         'display_name': :'String',
         'routing': :'String',
         'ike_version': :'String',
-        'bgp_session_config': :'OCI::Core::Models::UpdateIPSecTunnelBgpSessionDetails'
+        'bgp_session_config': :'OCI::Core::Models::UpdateIPSecTunnelBgpSessionDetails',
+        'encryption_domain_config': :'OCI::Core::Models::UpdateIPSecTunnelEncryptionDomainDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -72,6 +76,7 @@ module OCI
     # @option attributes [String] :routing The value to assign to the {#routing} property
     # @option attributes [String] :ike_version The value to assign to the {#ike_version} property
     # @option attributes [OCI::Core::Models::UpdateIPSecTunnelBgpSessionDetails] :bgp_session_config The value to assign to the {#bgp_session_config} property
+    # @option attributes [OCI::Core::Models::UpdateIPSecTunnelEncryptionDomainDetails] :encryption_domain_config The value to assign to the {#encryption_domain_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -97,6 +102,12 @@ module OCI
       raise 'You cannot provide both :bgpSessionConfig and :bgp_session_config' if attributes.key?(:'bgpSessionConfig') && attributes.key?(:'bgp_session_config')
 
       self.bgp_session_config = attributes[:'bgp_session_config'] if attributes[:'bgp_session_config']
+
+      self.encryption_domain_config = attributes[:'encryptionDomainConfig'] if attributes[:'encryptionDomainConfig']
+
+      raise 'You cannot provide both :encryptionDomainConfig and :encryption_domain_config' if attributes.key?(:'encryptionDomainConfig') && attributes.key?(:'encryption_domain_config')
+
+      self.encryption_domain_config = attributes[:'encryption_domain_config'] if attributes[:'encryption_domain_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -129,7 +140,8 @@ module OCI
         display_name == other.display_name &&
         routing == other.routing &&
         ike_version == other.ike_version &&
-        bgp_session_config == other.bgp_session_config
+        bgp_session_config == other.bgp_session_config &&
+        encryption_domain_config == other.encryption_domain_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -145,7 +157,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, routing, ike_version, bgp_session_config].hash
+      [display_name, routing, ike_version, bgp_session_config, encryption_domain_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

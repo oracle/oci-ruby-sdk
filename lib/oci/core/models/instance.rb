@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -9,11 +9,11 @@ module OCI
   # A compute host. The image used to launch the instance determines its operating system and other
   # software. The shape specified during the launch process determines the number of CPUs and memory
   # allocated to the instance. For more information, see
-  # [Overview of the Compute Service](https://docs.cloud.oracle.com/Content/Compute/Concepts/computeoverview.htm).
+  # [Overview of the Compute Service](https://docs.cloud.oracle.com/iaas/Content/Compute/Concepts/computeoverview.htm).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
-  # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+  # [Getting Started with Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you
   # supply string values using the API.
@@ -47,6 +47,13 @@ module OCI
     # @return [String]
     attr_accessor :availability_domain
 
+    # The OCID of the compute capacity reservation this instance is launched under.
+    # When this field contains an empty string or is null, the instance is not currently in a capacity reservation.
+    # For more information, see [Capacity Reservations](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/reserve-capacity.htm#default).
+    #
+    # @return [String]
+    attr_accessor :capacity_reservation_id
+
     # **[Required]** The OCID of the compartment that contains the instance.
     # @return [String]
     attr_accessor :compartment_id
@@ -57,7 +64,7 @@ module OCI
     attr_accessor :dedicated_vm_host_id
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -97,7 +104,7 @@ module OCI
     attr_accessor :fault_domain
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -132,7 +139,7 @@ module OCI
     #
     # For more information about the Bring Your Own Image feature of
     # Oracle Cloud Infrastructure, see
-    # [Bring Your Own Image](https://docs.cloud.oracle.com/Content/Compute/References/bringyourownimage.htm).
+    # [Bring Your Own Image](https://docs.cloud.oracle.com/iaas/Content/Compute/References/bringyourownimage.htm).
     #
     # For more information about iPXE, see http://ipxe.org.
     #
@@ -148,16 +155,12 @@ module OCI
     # @return [String]
     attr_reader :launch_mode
 
-    # Options for tuning the compatibility and performance of VM shapes. The values that you specify override any default values.
-    #
     # @return [OCI::Core::Models::LaunchOptions]
     attr_accessor :launch_options
 
     # @return [OCI::Core::Models::InstanceOptions]
     attr_accessor :instance_options
 
-    # Options for defining the availability of a VM instance after a maintenance event that impacts the underlying hardware.
-    #
     # @return [OCI::Core::Models::InstanceAvailabilityConfig]
     attr_accessor :availability_config
 
@@ -189,7 +192,6 @@ module OCI
     # @return [OCI::Core::Models::InstanceShapeConfig]
     attr_accessor :shape_config
 
-    # Details for creating an instance
     # @return [OCI::Core::Models::InstanceSourceDetails]
     attr_accessor :source_details
 
@@ -217,11 +219,15 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_maintenance_reboot_due
 
+    # @return [OCI::Core::Models::PlatformConfig]
+    attr_accessor :platform_config
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'availabilityDomain',
+        'capacity_reservation_id': :'capacityReservationId',
         'compartment_id': :'compartmentId',
         'dedicated_vm_host_id': :'dedicatedVmHostId',
         'defined_tags': :'definedTags',
@@ -245,7 +251,8 @@ module OCI
         'system_tags': :'systemTags',
         'time_created': :'timeCreated',
         'agent_config': :'agentConfig',
-        'time_maintenance_reboot_due': :'timeMaintenanceRebootDue'
+        'time_maintenance_reboot_due': :'timeMaintenanceRebootDue',
+        'platform_config': :'platformConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -255,6 +262,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'String',
+        'capacity_reservation_id': :'String',
         'compartment_id': :'String',
         'dedicated_vm_host_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -278,7 +286,8 @@ module OCI
         'system_tags': :'Hash<String, Hash<String, Object>>',
         'time_created': :'DateTime',
         'agent_config': :'OCI::Core::Models::InstanceAgentConfig',
-        'time_maintenance_reboot_due': :'DateTime'
+        'time_maintenance_reboot_due': :'DateTime',
+        'platform_config': :'OCI::Core::Models::PlatformConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -290,6 +299,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
+    # @option attributes [String] :capacity_reservation_id The value to assign to the {#capacity_reservation_id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :dedicated_vm_host_id The value to assign to the {#dedicated_vm_host_id} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -314,6 +324,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [OCI::Core::Models::InstanceAgentConfig] :agent_config The value to assign to the {#agent_config} property
     # @option attributes [DateTime] :time_maintenance_reboot_due The value to assign to the {#time_maintenance_reboot_due} property
+    # @option attributes [OCI::Core::Models::PlatformConfig] :platform_config The value to assign to the {#platform_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -325,6 +336,12 @@ module OCI
       raise 'You cannot provide both :availabilityDomain and :availability_domain' if attributes.key?(:'availabilityDomain') && attributes.key?(:'availability_domain')
 
       self.availability_domain = attributes[:'availability_domain'] if attributes[:'availability_domain']
+
+      self.capacity_reservation_id = attributes[:'capacityReservationId'] if attributes[:'capacityReservationId']
+
+      raise 'You cannot provide both :capacityReservationId and :capacity_reservation_id' if attributes.key?(:'capacityReservationId') && attributes.key?(:'capacity_reservation_id')
+
+      self.capacity_reservation_id = attributes[:'capacity_reservation_id'] if attributes[:'capacity_reservation_id']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -453,6 +470,12 @@ module OCI
       raise 'You cannot provide both :timeMaintenanceRebootDue and :time_maintenance_reboot_due' if attributes.key?(:'timeMaintenanceRebootDue') && attributes.key?(:'time_maintenance_reboot_due')
 
       self.time_maintenance_reboot_due = attributes[:'time_maintenance_reboot_due'] if attributes[:'time_maintenance_reboot_due']
+
+      self.platform_config = attributes[:'platformConfig'] if attributes[:'platformConfig']
+
+      raise 'You cannot provide both :platformConfig and :platform_config' if attributes.key?(:'platformConfig') && attributes.key?(:'platform_config')
+
+      self.platform_config = attributes[:'platform_config'] if attributes[:'platform_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -493,6 +516,7 @@ module OCI
 
       self.class == other.class &&
         availability_domain == other.availability_domain &&
+        capacity_reservation_id == other.capacity_reservation_id &&
         compartment_id == other.compartment_id &&
         dedicated_vm_host_id == other.dedicated_vm_host_id &&
         defined_tags == other.defined_tags &&
@@ -516,7 +540,8 @@ module OCI
         system_tags == other.system_tags &&
         time_created == other.time_created &&
         agent_config == other.agent_config &&
-        time_maintenance_reboot_due == other.time_maintenance_reboot_due
+        time_maintenance_reboot_due == other.time_maintenance_reboot_due &&
+        platform_config == other.platform_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -532,7 +557,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, id, image_id, ipxe_script, launch_mode, launch_options, instance_options, availability_config, lifecycle_state, metadata, region, shape, shape_config, source_details, system_tags, time_created, agent_config, time_maintenance_reboot_due].hash
+      [availability_domain, capacity_reservation_id, compartment_id, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, id, image_id, ipxe_script, launch_mode, launch_options, instance_options, availability_config, lifecycle_state, metadata, region, shape, shape_config, source_details, system_tags, time_created, agent_config, time_maintenance_reboot_due, platform_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

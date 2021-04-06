@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of workrequest status.
+  # A description of work request status.
   class TenantManagerControlPlane::Models::WorkRequest
     OPERATION_TYPE_ENUM = [
       OPERATION_TYPE_CREATE_SENDER_INVITATION = 'CREATE_SENDER_INVITATION'.freeze,
@@ -37,10 +37,7 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The ocid of the compartment that contains the work request. Work requests should be scoped to
-    # the same compartment as the resource the work request affects. If the work request affects multiple resources,
-    # and those resources are not in the same compartment, it is up to the service team to pick the primary
-    # resource whose compartment should be used.
+    # **[Required]** The OCID of the compartment that contains the work request.
     #
     # @return [String]
     attr_accessor :compartment_id

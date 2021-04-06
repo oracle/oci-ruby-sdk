@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,7 +6,7 @@ require_relative 'target_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The notifications target.
+  # The topic used for the Notifications target.
   #
   class Sch::Models::NotificationsTargetDetails < Sch::Models::TargetDetails
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the topic.
@@ -14,12 +14,20 @@ module OCI
     # @return [String]
     attr_accessor :topic_id
 
+    # Whether to apply a simplified, user-friendly format to the message. Applies only when friendly formatting is supported by the service connector source and the subscription protocol.
+    #
+    # Example: `true`
+    #
+    # @return [BOOLEAN]
+    attr_accessor :enable_formatted_messaging
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'kind': :'kind',
-        'topic_id': :'topicId'
+        'topic_id': :'topicId',
+        'enable_formatted_messaging': :'enableFormattedMessaging'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -29,7 +37,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'kind': :'String',
-        'topic_id': :'String'
+        'topic_id': :'String',
+        'enable_formatted_messaging': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -41,6 +50,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :topic_id The value to assign to the {#topic_id} property
+    # @option attributes [BOOLEAN] :enable_formatted_messaging The value to assign to the {#enable_formatted_messaging} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -56,6 +66,12 @@ module OCI
       raise 'You cannot provide both :topicId and :topic_id' if attributes.key?(:'topicId') && attributes.key?(:'topic_id')
 
       self.topic_id = attributes[:'topic_id'] if attributes[:'topic_id']
+
+      self.enable_formatted_messaging = attributes[:'enableFormattedMessaging'] unless attributes[:'enableFormattedMessaging'].nil?
+
+      raise 'You cannot provide both :enableFormattedMessaging and :enable_formatted_messaging' if attributes.key?(:'enableFormattedMessaging') && attributes.key?(:'enable_formatted_messaging')
+
+      self.enable_formatted_messaging = attributes[:'enable_formatted_messaging'] unless attributes[:'enable_formatted_messaging'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -70,7 +86,8 @@ module OCI
 
       self.class == other.class &&
         kind == other.kind &&
-        topic_id == other.topic_id
+        topic_id == other.topic_id &&
+        enable_formatted_messaging == other.enable_formatted_messaging
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -86,7 +103,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [kind, topic_id].hash
+      [kind, topic_id, enable_formatted_messaging].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

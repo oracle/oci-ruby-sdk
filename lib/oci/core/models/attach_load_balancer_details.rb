@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # Represents a load balancer that is to be attached to an instance pool.
   class Core::Models::AttachLoadBalancerDetails
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the load balancer to attach to the instance pool.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the load balancer to attach to the instance pool.
     #
     # @return [String]
     attr_accessor :load_balancer_id
@@ -20,7 +20,10 @@ module OCI
     # @return [Integer]
     attr_accessor :port
 
-    # **[Required]** Indicates which VNIC on each instance in the pool should be used to associate with the load balancer. Possible values are \"PrimaryVnic\" or the displayName of one of the secondary VNICs on the instance configuration that is associated with the instance pool.
+    # **[Required]** Indicates which VNIC on each instance in the pool should be used to associate with the load balancer.
+    # Possible values are \"PrimaryVnic\" or the displayName of one of the secondary VNICs on the instance configuration
+    # that is associated with the instance pool.
+    #
     # @return [String]
     attr_accessor :vnic_selection
 

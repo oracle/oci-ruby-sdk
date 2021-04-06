@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -15,6 +15,7 @@ module OCI
       STATUS_UP = 'UP'.freeze,
       STATUS_DOWN = 'DOWN'.freeze,
       STATUS_DOWN_FOR_MAINTENANCE = 'DOWN_FOR_MAINTENANCE'.freeze,
+      STATUS_PARTIAL_UP = 'PARTIAL_UP'.freeze,
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -35,15 +36,16 @@ module OCI
     ROUTING_ENUM = [
       ROUTING_BGP = 'BGP'.freeze,
       ROUTING_STATIC = 'STATIC'.freeze,
+      ROUTING_POLICY = 'POLICY'.freeze,
       ROUTING_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the tunnel.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the tunnel.
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the tunnel.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the tunnel.
     # @return [String]
     attr_accessor :id
 
@@ -80,10 +82,11 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # Information for establishing the tunnel's BGP session.
-    #
     # @return [OCI::Core::Models::BgpSessionInfo]
     attr_accessor :bgp_session_info
+
+    # @return [OCI::Core::Models::EncryptionDomainConfig]
+    attr_accessor :encryption_domain_config
 
     # The type of routing used for this tunnel (either BGP dynamic routing or static routing).
     #
@@ -117,6 +120,7 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'display_name': :'displayName',
         'bgp_session_info': :'bgpSessionInfo',
+        'encryption_domain_config': :'encryptionDomainConfig',
         'routing': :'routing',
         'time_created': :'timeCreated',
         'time_status_updated': :'timeStatusUpdated'
@@ -137,6 +141,7 @@ module OCI
         'lifecycle_state': :'String',
         'display_name': :'String',
         'bgp_session_info': :'OCI::Core::Models::BgpSessionInfo',
+        'encryption_domain_config': :'OCI::Core::Models::EncryptionDomainConfig',
         'routing': :'String',
         'time_created': :'DateTime',
         'time_status_updated': :'DateTime'
@@ -159,6 +164,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [OCI::Core::Models::BgpSessionInfo] :bgp_session_info The value to assign to the {#bgp_session_info} property
+    # @option attributes [OCI::Core::Models::EncryptionDomainConfig] :encryption_domain_config The value to assign to the {#encryption_domain_config} property
     # @option attributes [String] :routing The value to assign to the {#routing} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_status_updated The value to assign to the {#time_status_updated} property
@@ -213,6 +219,12 @@ module OCI
       raise 'You cannot provide both :bgpSessionInfo and :bgp_session_info' if attributes.key?(:'bgpSessionInfo') && attributes.key?(:'bgp_session_info')
 
       self.bgp_session_info = attributes[:'bgp_session_info'] if attributes[:'bgp_session_info']
+
+      self.encryption_domain_config = attributes[:'encryptionDomainConfig'] if attributes[:'encryptionDomainConfig']
+
+      raise 'You cannot provide both :encryptionDomainConfig and :encryption_domain_config' if attributes.key?(:'encryptionDomainConfig') && attributes.key?(:'encryption_domain_config')
+
+      self.encryption_domain_config = attributes[:'encryption_domain_config'] if attributes[:'encryption_domain_config']
 
       self.routing = attributes[:'routing'] if attributes[:'routing']
 
@@ -301,6 +313,7 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         display_name == other.display_name &&
         bgp_session_info == other.bgp_session_info &&
+        encryption_domain_config == other.encryption_domain_config &&
         routing == other.routing &&
         time_created == other.time_created &&
         time_status_updated == other.time_status_updated
@@ -319,7 +332,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, id, vpn_ip, cpe_ip, status, ike_version, lifecycle_state, display_name, bgp_session_info, routing, time_created, time_status_updated].hash
+      [compartment_id, id, vpn_ip, cpe_ip, status, ike_version, lifecycle_state, display_name, bgp_session_info, encryption_domain_config, routing, time_created, time_status_updated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

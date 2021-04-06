@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -23,6 +23,12 @@ module OCI
       LIFECYCLE_STATE_DISCONNECTED = 'DISCONNECTED'.freeze,
       LIFECYCLE_STATE_MAINTENANCE_IN_PROGRESS = 'MAINTENANCE_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    MAINTENANCE_SLO_STATUS_ENUM = [
+      MAINTENANCE_SLO_STATUS_OK = 'OK'.freeze,
+      MAINTENANCE_SLO_STATUS_DEGRADED = 'DEGRADED'.freeze,
+      MAINTENANCE_SLO_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Exadata infrastructure.
@@ -135,6 +141,10 @@ module OCI
     # @return [Array<OCI::Database::Models::ExadataInfrastructureContact>]
     attr_accessor :contacts
 
+    # A field to capture \u2018Maintenance SLO Status\u2019 for the Exadata infrastructure with values \u2018OK\u2019, \u2018DEGRADED\u2019. Default is \u2018OK\u2019 when the infrastructure is provisioned.
+    # @return [String]
+    attr_reader :maintenance_slo_status
+
     # @return [OCI::Database::Models::MaintenanceWindow]
     attr_accessor :maintenance_window
 
@@ -183,6 +193,7 @@ module OCI
         'lifecycle_details': :'lifecycleDetails',
         'csi_number': :'csiNumber',
         'contacts': :'contacts',
+        'maintenance_slo_status': :'maintenanceSLOStatus',
         'maintenance_window': :'maintenanceWindow',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
@@ -221,6 +232,7 @@ module OCI
         'lifecycle_details': :'String',
         'csi_number': :'String',
         'contacts': :'Array<OCI::Database::Models::ExadataInfrastructureContact>',
+        'maintenance_slo_status': :'String',
         'maintenance_window': :'OCI::Database::Models::MaintenanceWindow',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
@@ -261,6 +273,7 @@ module OCI
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [String] :csi_number The value to assign to the {#csi_number} property
     # @option attributes [Array<OCI::Database::Models::ExadataInfrastructureContact>] :contacts The value to assign to the {#contacts} property
+    # @option attributes [String] :maintenance_slo_status The value to assign to the {#maintenance_slo_status} property
     # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window The value to assign to the {#maintenance_window} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -412,6 +425,12 @@ module OCI
 
       self.contacts = attributes[:'contacts'] if attributes[:'contacts']
 
+      self.maintenance_slo_status = attributes[:'maintenanceSLOStatus'] if attributes[:'maintenanceSLOStatus']
+
+      raise 'You cannot provide both :maintenanceSLOStatus and :maintenance_slo_status' if attributes.key?(:'maintenanceSLOStatus') && attributes.key?(:'maintenance_slo_status')
+
+      self.maintenance_slo_status = attributes[:'maintenance_slo_status'] if attributes[:'maintenance_slo_status']
+
       self.maintenance_window = attributes[:'maintenanceWindow'] if attributes[:'maintenanceWindow']
 
       raise 'You cannot provide both :maintenanceWindow and :maintenance_window' if attributes.key?(:'maintenanceWindow') && attributes.key?(:'maintenance_window')
@@ -442,6 +461,19 @@ module OCI
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] maintenance_slo_status Object to be assigned
+    def maintenance_slo_status=(maintenance_slo_status)
+      # rubocop:disable Style/ConditionalAssignment
+      if maintenance_slo_status && !MAINTENANCE_SLO_STATUS_ENUM.include?(maintenance_slo_status)
+        OCI.logger.debug("Unknown value for 'maintenance_slo_status' [" + maintenance_slo_status + "]. Mapping to 'MAINTENANCE_SLO_STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @maintenance_slo_status = MAINTENANCE_SLO_STATUS_UNKNOWN_ENUM_VALUE
+      else
+        @maintenance_slo_status = maintenance_slo_status
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -482,6 +514,7 @@ module OCI
         lifecycle_details == other.lifecycle_details &&
         csi_number == other.csi_number &&
         contacts == other.contacts &&
+        maintenance_slo_status == other.maintenance_slo_status &&
         maintenance_window == other.maintenance_window &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
@@ -500,7 +533,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, display_name, shape, time_zone, cpus_enabled, max_cpu_count, memory_size_in_gbs, max_memory_in_gbs, db_node_storage_size_in_gbs, max_db_node_storage_in_g_bs, data_storage_size_in_tbs, max_data_storage_in_t_bs, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, dns_server, ntp_server, time_created, lifecycle_details, csi_number, contacts, maintenance_window, freeform_tags, defined_tags].hash
+      [id, compartment_id, lifecycle_state, display_name, shape, time_zone, cpus_enabled, max_cpu_count, memory_size_in_gbs, max_memory_in_gbs, db_node_storage_size_in_gbs, max_db_node_storage_in_g_bs, data_storage_size_in_tbs, max_data_storage_in_t_bs, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, dns_server, ntp_server, time_created, lifecycle_details, csi_number, contacts, maintenance_slo_status, maintenance_window, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

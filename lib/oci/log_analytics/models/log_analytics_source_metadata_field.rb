@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,23 +7,26 @@ require 'date'
 module OCI
   # LogAnalyticsSourceMetadataField
   class LogAnalytics::Models::LogAnalyticsSourceMetadataField
-    # field internal name
+    # The field internal name.
     # @return [String]
     attr_accessor :field_name
 
-    # is enabled flag
+    # A flag inidcating whether or not the source metadata field is enabled.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
-    # is system flag
+    # The system flag.  A value of false denotes a custom, or user
+    # defined object.  A value of true denotes a built in object.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_system
 
-    # key
+    # The key.
     # @return [String]
     attr_accessor :key
 
-    # source internal name
+    # The source internal name.
     # @return [String]
     attr_accessor :source_name
 

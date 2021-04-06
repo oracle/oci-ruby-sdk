@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -28,6 +28,8 @@ module OCI
         'autonomous_container_database_id': :'autonomousContainerDatabaseId',
         'is_access_control_enabled': :'isAccessControlEnabled',
         'whitelisted_ips': :'whitelistedIps',
+        'are_primary_whitelisted_ips_used': :'arePrimaryWhitelistedIpsUsed',
+        'standby_whitelisted_ips': :'standbyWhitelistedIps',
         'is_data_guard_enabled': :'isDataGuardEnabled',
         'subnet_id': :'subnetId',
         'nsg_ids': :'nsgIds',
@@ -59,6 +61,8 @@ module OCI
         'autonomous_container_database_id': :'String',
         'is_access_control_enabled': :'BOOLEAN',
         'whitelisted_ips': :'Array<String>',
+        'are_primary_whitelisted_ips_used': :'BOOLEAN',
+        'standby_whitelisted_ips': :'Array<String>',
         'is_data_guard_enabled': :'BOOLEAN',
         'subnet_id': :'String',
         'nsg_ids': :'Array<String>',
@@ -92,6 +96,8 @@ module OCI
     # @option attributes [String] :autonomous_container_database_id The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#autonomous_container_database_id #autonomous_container_database_id} proprety
     # @option attributes [BOOLEAN] :is_access_control_enabled The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_access_control_enabled #is_access_control_enabled} proprety
     # @option attributes [Array<String>] :whitelisted_ips The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#whitelisted_ips #whitelisted_ips} proprety
+    # @option attributes [BOOLEAN] :are_primary_whitelisted_ips_used The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#are_primary_whitelisted_ips_used #are_primary_whitelisted_ips_used} proprety
+    # @option attributes [Array<String>] :standby_whitelisted_ips The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#standby_whitelisted_ips #standby_whitelisted_ips} proprety
     # @option attributes [BOOLEAN] :is_data_guard_enabled The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_data_guard_enabled #is_data_guard_enabled} proprety
     # @option attributes [String] :subnet_id The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#subnet_id #subnet_id} proprety
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#nsg_ids #nsg_ids} proprety
@@ -133,6 +139,8 @@ module OCI
         autonomous_container_database_id == other.autonomous_container_database_id &&
         is_access_control_enabled == other.is_access_control_enabled &&
         whitelisted_ips == other.whitelisted_ips &&
+        are_primary_whitelisted_ips_used == other.are_primary_whitelisted_ips_used &&
+        standby_whitelisted_ips == other.standby_whitelisted_ips &&
         is_data_guard_enabled == other.is_data_guard_enabled &&
         subnet_id == other.subnet_id &&
         nsg_ids == other.nsg_ids &&
@@ -156,7 +164,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source].hash
+      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

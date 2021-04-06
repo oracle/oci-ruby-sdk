@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,11 +7,11 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A boot disk image for launching an instance. For more information, see
-  # [Overview of the Compute Service](https://docs.cloud.oracle.com/Content/Compute/Concepts/computeoverview.htm).
+  # [Overview of the Compute Service](https://docs.cloud.oracle.com/iaas/Content/Compute/Concepts/computeoverview.htm).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
-  # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+  # [Getting Started with Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you
   # supply string values using the API.
@@ -35,6 +35,12 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    LISTING_TYPE_ENUM = [
+      LISTING_TYPE_COMMUNITY = 'COMMUNITY'.freeze,
+      LISTING_TYPE_NONE = 'NONE'.freeze,
+      LISTING_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # The OCID of the image originally used to launch the instance.
     # @return [String]
     attr_accessor :base_image_id
@@ -53,7 +59,7 @@ module OCI
     attr_accessor :create_image_allowed
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -71,7 +77,7 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -115,7 +121,11 @@ module OCI
     # @return [OCI::Core::Models::InstanceAgentFeatures]
     attr_accessor :agent_features
 
-    # The boot volume size for an instance launched from this image, (1 MB = 1048576 bytes).
+    # The listing type of the image. The default value is \"NONE\".
+    # @return [String]
+    attr_reader :listing_type
+
+    # The boot volume size for an instance launched from this image (1 MB = 1,048,576 bytes).
     # Note this is not the same as the size of the image when it was exported or the actual size of the image.
     #
     # Example: `47694`
@@ -147,6 +157,7 @@ module OCI
         'operating_system': :'operatingSystem',
         'operating_system_version': :'operatingSystemVersion',
         'agent_features': :'agentFeatures',
+        'listing_type': :'listingType',
         'size_in_mbs': :'sizeInMBs',
         'time_created': :'timeCreated'
         # rubocop:enable Style/SymbolLiteral
@@ -170,6 +181,7 @@ module OCI
         'operating_system': :'String',
         'operating_system_version': :'String',
         'agent_features': :'OCI::Core::Models::InstanceAgentFeatures',
+        'listing_type': :'String',
         'size_in_mbs': :'Integer',
         'time_created': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
@@ -195,6 +207,7 @@ module OCI
     # @option attributes [String] :operating_system The value to assign to the {#operating_system} property
     # @option attributes [String] :operating_system_version The value to assign to the {#operating_system_version} property
     # @option attributes [OCI::Core::Models::InstanceAgentFeatures] :agent_features The value to assign to the {#agent_features} property
+    # @option attributes [String] :listing_type The value to assign to the {#listing_type} property
     # @option attributes [Integer] :size_in_mbs The value to assign to the {#size_in_mbs} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     def initialize(attributes = {})
@@ -277,6 +290,12 @@ module OCI
 
       self.agent_features = attributes[:'agent_features'] if attributes[:'agent_features']
 
+      self.listing_type = attributes[:'listingType'] if attributes[:'listingType']
+
+      raise 'You cannot provide both :listingType and :listing_type' if attributes.key?(:'listingType') && attributes.key?(:'listing_type')
+
+      self.listing_type = attributes[:'listing_type'] if attributes[:'listing_type']
+
       self.size_in_mbs = attributes[:'sizeInMBs'] if attributes[:'sizeInMBs']
 
       raise 'You cannot provide both :sizeInMBs and :size_in_mbs' if attributes.key?(:'sizeInMBs') && attributes.key?(:'size_in_mbs')
@@ -318,6 +337,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] listing_type Object to be assigned
+    def listing_type=(listing_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if listing_type && !LISTING_TYPE_ENUM.include?(listing_type)
+        OCI.logger.debug("Unknown value for 'listing_type' [" + listing_type + "]. Mapping to 'LISTING_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @listing_type = LISTING_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @listing_type = listing_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -340,6 +372,7 @@ module OCI
         operating_system == other.operating_system &&
         operating_system_version == other.operating_system_version &&
         agent_features == other.agent_features &&
+        listing_type == other.listing_type &&
         size_in_mbs == other.size_in_mbs &&
         time_created == other.time_created
     end
@@ -357,7 +390,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [base_image_id, compartment_id, create_image_allowed, defined_tags, display_name, freeform_tags, id, launch_mode, launch_options, lifecycle_state, operating_system, operating_system_version, agent_features, size_in_mbs, time_created].hash
+      [base_image_id, compartment_id, create_image_allowed, defined_tags, display_name, freeform_tags, id, launch_mode, launch_options, lifecycle_state, operating_system, operating_system_version, agent_features, listing_type, size_in_mbs, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

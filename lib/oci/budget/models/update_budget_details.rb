@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -23,6 +23,10 @@ module OCI
     #
     # @return [Float]
     attr_accessor :amount
+
+    # The number of days offset from the first day of the month, at which the budget processing period starts. In months that have fewer days than this value, processing will begin on the last day of that month. For example, for a value of 12, processing starts every month on the 12th at midnight.
+    # @return [Integer]
+    attr_accessor :budget_processing_period_start_offset
 
     # The reset period for the budget.
     #
@@ -52,6 +56,7 @@ module OCI
         'display_name': :'displayName',
         'description': :'description',
         'amount': :'amount',
+        'budget_processing_period_start_offset': :'budgetProcessingPeriodStartOffset',
         'reset_period': :'resetPeriod',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
@@ -66,6 +71,7 @@ module OCI
         'display_name': :'String',
         'description': :'String',
         'amount': :'Float',
+        'budget_processing_period_start_offset': :'Integer',
         'reset_period': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
@@ -82,6 +88,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [Float] :amount The value to assign to the {#amount} property
+    # @option attributes [Integer] :budget_processing_period_start_offset The value to assign to the {#budget_processing_period_start_offset} property
     # @option attributes [String] :reset_period The value to assign to the {#reset_period} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -100,6 +107,12 @@ module OCI
       self.description = attributes[:'description'] if attributes[:'description']
 
       self.amount = attributes[:'amount'] if attributes[:'amount']
+
+      self.budget_processing_period_start_offset = attributes[:'budgetProcessingPeriodStartOffset'] if attributes[:'budgetProcessingPeriodStartOffset']
+
+      raise 'You cannot provide both :budgetProcessingPeriodStartOffset and :budget_processing_period_start_offset' if attributes.key?(:'budgetProcessingPeriodStartOffset') && attributes.key?(:'budget_processing_period_start_offset')
+
+      self.budget_processing_period_start_offset = attributes[:'budget_processing_period_start_offset'] if attributes[:'budget_processing_period_start_offset']
 
       self.reset_period = attributes[:'resetPeriod'] if attributes[:'resetPeriod']
 
@@ -142,6 +155,7 @@ module OCI
         display_name == other.display_name &&
         description == other.description &&
         amount == other.amount &&
+        budget_processing_period_start_offset == other.budget_processing_period_start_offset &&
         reset_period == other.reset_period &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
@@ -160,7 +174,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, amount, reset_period, freeform_tags, defined_tags].hash
+      [display_name, description, amount, budget_processing_period_start_offset, reset_period, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

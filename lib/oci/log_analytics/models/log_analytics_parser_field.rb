@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -10,38 +10,38 @@ module OCI
     # @return [OCI::LogAnalytics::Models::LogAnalyticsField]
     attr_accessor :field
 
-    # parser field map Id
+    # The parser field unique identifier.
     # @return [Integer]
     attr_accessor :parser_field_id
 
-    # field expression
+    # the parser field expression.
     # @return [String]
     attr_accessor :parser_field_expression
 
-    # field internal name
+    # The parser field internal name.
     # @return [String]
     attr_accessor :parser_field_name
 
-    # internal name
+    # The storage field name.
     # @return [String]
     attr_accessor :storage_field_name
 
-    # integrator name
+    # The integrator name.
     # @return [String]
     attr_accessor :parser_field_integrator_name
 
-    # parser internal name
+    # The parser internal name.
     # @return [String]
     attr_accessor :parser_name
 
-    # sequence
+    # The parser field sequence.
     # @return [Integer]
     attr_accessor :parser_field_sequence
 
     # @return [OCI::LogAnalytics::Models::LogAnalyticsParser]
     attr_accessor :parser
 
-    # structured column information
+    # The structured column information.
     # @return [String]
     attr_accessor :structured_column_info
 

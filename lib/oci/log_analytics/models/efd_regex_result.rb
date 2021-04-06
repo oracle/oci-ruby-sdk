@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,42 +7,43 @@ require 'date'
 module OCI
   # EfdRegexResult
   class LogAnalytics::Models::EfdRegexResult
-    # baseFieldName
+    # The base field name.
     # @return [String]
     attr_accessor :base_field_name
 
-    # id
+    # the unique identifier.
     # @return [Integer]
     attr_accessor :id
 
     # @return [OCI::LogAnalytics::Models::RegexMatchResult]
     attr_accessor :match_result
 
-    # parsedFieldCount
+    # The parsed field count.
     # @return [Integer]
     attr_accessor :parsed_field_count
 
-    # parsedFields
+    # The parsed fields.
     # @return [Hash<String, String>]
     attr_accessor :parsed_fields
 
-    # regex
+    # The regular expression.
     # @return [String]
     attr_accessor :regex
 
-    # status
+    # The status.
     # @return [String]
     attr_accessor :status
 
-    # statusDescription
+    # The Status description.
     # @return [String]
     attr_accessor :status_description
 
-    # isValidRegexSyntax
+    # A flag indicating whether or not the regular expression is valid.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_valid_regex_syntax
 
-    # violations
+    # The list of violations (if any).
     # @return [Array<OCI::LogAnalytics::Models::Violation>]
     attr_accessor :violations
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,13 +8,13 @@ module OCI
   # Details for updating a model.
   #
   class DataScience::Models::UpdateModelDetails
-    # A user-friendly display name for the resource. Does not have to be unique, and can be modified. Avoid entering confidential information.
+    # A user-friendly display name for the resource. It does not have to be unique and can be modified. Avoid entering confidential information.
     #  Example: `My Model`
     #
     # @return [String]
     attr_accessor :display_name
 
-    # A short blurb describing the model.
+    # A short description of the model.
     # @return [String]
     attr_accessor :description
 

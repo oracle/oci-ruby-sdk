@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,11 +8,11 @@ require 'logger'
 module OCI
   # A detachable block volume device that allows you to dynamically expand
   # the storage capacity of an instance. For more information, see
-  # [Overview of Cloud Volume Storage](https://docs.cloud.oracle.com/Content/Block/Concepts/overview.htm).
+  # [Overview of Cloud Volume Storage](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/overview.htm).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
-  # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+  # [Getting Started with Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you
   # supply string values using the API.
@@ -40,7 +40,7 @@ module OCI
     attr_accessor :compartment_id
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -54,7 +54,7 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -72,10 +72,12 @@ module OCI
     attr_accessor :id
 
     # Specifies whether the cloned volume's data has finished copying from the source volume or backup.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_hydrated
 
     # The OCID of the Key Management key which is the master encryption key for the volume.
+    #
     # @return [String]
     attr_accessor :kms_key_id
 
@@ -85,7 +87,7 @@ module OCI
 
     # The number of volume performance units (VPUs) that will be applied to this volume per GB,
     # representing the Block Volume service's elastic performance options.
-    # See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
+    # See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
     #
     # Allowed values:
     #
@@ -102,13 +104,12 @@ module OCI
     # @return [Integer]
     attr_accessor :size_in_gbs
 
-    # **[Required]** The size of the volume in MBs. This field is deprecated. Use sizeInGBs instead.
+    # **[Required]** The size of the volume in MBs. This field is deprecated. Use
+    # sizeInGBs instead.
+    #
     # @return [Integer]
     attr_accessor :size_in_mbs
 
-    # The volume source, either an existing volume in the same availability domain or a volume backup.
-    # If null, an empty volume is created.
-    #
     # @return [OCI::Core::Models::VolumeSourceDetails]
     attr_accessor :source_details
 
@@ -129,6 +130,10 @@ module OCI
     #
     # @return [Integer]
     attr_accessor :auto_tuned_vpus_per_gb
+
+    # The list of block volume replicas of this volume.
+    # @return [Array<OCI::Core::Models::BlockVolumeReplicaInfo>]
+    attr_accessor :block_volume_replicas
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -151,7 +156,8 @@ module OCI
         'time_created': :'timeCreated',
         'volume_group_id': :'volumeGroupId',
         'is_auto_tune_enabled': :'isAutoTuneEnabled',
-        'auto_tuned_vpus_per_gb': :'autoTunedVpusPerGB'
+        'auto_tuned_vpus_per_gb': :'autoTunedVpusPerGB',
+        'block_volume_replicas': :'blockVolumeReplicas'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -177,7 +183,8 @@ module OCI
         'time_created': :'DateTime',
         'volume_group_id': :'String',
         'is_auto_tune_enabled': :'BOOLEAN',
-        'auto_tuned_vpus_per_gb': :'Integer'
+        'auto_tuned_vpus_per_gb': :'Integer',
+        'block_volume_replicas': :'Array<OCI::Core::Models::BlockVolumeReplicaInfo>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -206,6 +213,7 @@ module OCI
     # @option attributes [String] :volume_group_id The value to assign to the {#volume_group_id} property
     # @option attributes [BOOLEAN] :is_auto_tune_enabled The value to assign to the {#is_auto_tune_enabled} property
     # @option attributes [Integer] :auto_tuned_vpus_per_gb The value to assign to the {#auto_tuned_vpus_per_gb} property
+    # @option attributes [Array<OCI::Core::Models::BlockVolumeReplicaInfo>] :block_volume_replicas The value to assign to the {#block_volume_replicas} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -315,6 +323,12 @@ module OCI
       raise 'You cannot provide both :autoTunedVpusPerGB and :auto_tuned_vpus_per_gb' if attributes.key?(:'autoTunedVpusPerGB') && attributes.key?(:'auto_tuned_vpus_per_gb')
 
       self.auto_tuned_vpus_per_gb = attributes[:'auto_tuned_vpus_per_gb'] if attributes[:'auto_tuned_vpus_per_gb']
+
+      self.block_volume_replicas = attributes[:'blockVolumeReplicas'] if attributes[:'blockVolumeReplicas']
+
+      raise 'You cannot provide both :blockVolumeReplicas and :block_volume_replicas' if attributes.key?(:'blockVolumeReplicas') && attributes.key?(:'block_volume_replicas')
+
+      self.block_volume_replicas = attributes[:'block_volume_replicas'] if attributes[:'block_volume_replicas']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -358,7 +372,8 @@ module OCI
         time_created == other.time_created &&
         volume_group_id == other.volume_group_id &&
         is_auto_tune_enabled == other.is_auto_tune_enabled &&
-        auto_tuned_vpus_per_gb == other.auto_tuned_vpus_per_gb
+        auto_tuned_vpus_per_gb == other.auto_tuned_vpus_per_gb &&
+        block_volume_replicas == other.block_volume_replicas
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -374,7 +389,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, system_tags, id, is_hydrated, kms_key_id, lifecycle_state, vpus_per_gb, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id, is_auto_tune_enabled, auto_tuned_vpus_per_gb].hash
+      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, system_tags, id, is_hydrated, kms_key_id, lifecycle_state, vpus_per_gb, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id, is_auto_tune_enabled, auto_tuned_vpus_per_gb, block_volume_replicas].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

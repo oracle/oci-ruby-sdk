@@ -1,0 +1,13 @@
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
+
+module OCI
+  module ApmSynthetics::Models
+    MONITOR_TYPES_ENUM = [
+      MONITOR_TYPES_SCRIPTED_BROWSER = 'SCRIPTED_BROWSER'.freeze,
+      MONITOR_TYPES_BROWSER = 'BROWSER'.freeze,
+      MONITOR_TYPES_SCRIPTED_REST = 'SCRIPTED_REST'.freeze,
+      MONITOR_TYPES_REST = 'REST'.freeze
+    ].freeze
+  end
+end

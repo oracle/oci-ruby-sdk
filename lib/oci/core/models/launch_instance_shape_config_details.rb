@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -13,9 +13,6 @@ module OCI
   #
   # Each shape only supports certain configurable values. If the values that you provide are not valid for the
   # specified `shape`, an error is returned.
-  #
-  # For more information about customizing the resources that are allocated to a flexible shapes,
-  # see [Flexible Shapes](https://docs.cloud.oracle.com/Content/Compute/References/computeshapes.htm#flexible).
   #
   class Core::Models::LaunchInstanceShapeConfigDetails
     # The total number of OCPUs available to the instance.

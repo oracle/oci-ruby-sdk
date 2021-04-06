@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # An object that represents one or multiple Oracle services that you can enable for a
   # {ServiceGateway}. In the User Guide topic
-  # [Access to Oracle Services: Service Gateway](https://docs.cloud.oracle.com/Content/Network/Tasks/servicegateway.htm), the
+  # [Access to Oracle Services: Service Gateway](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/servicegateway.htm), the
   # term *service CIDR label* is used to refer to the string that represents the regional public
   # IP address ranges of the Oracle service or services covered by a given `Service` object. That
   # unique string is the value of the `Service` object's `cidrBlock` attribute.
@@ -35,7 +35,7 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** The `Service` object's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # **[Required]** The `Service` object's [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     # @return [String]
     attr_accessor :id
 

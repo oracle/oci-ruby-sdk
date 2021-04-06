@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,8 +7,15 @@ require 'date'
 module OCI
   # UpdateInstanceDetails model.
   class Core::Models::UpdateInstanceDetails
+    # The OCID of the compute capacity reservation this instance is launched under.
+    # You can remove the instance from a reservation by specifying an empty string as input for this field.
+    # For more information, see [Capacity Reservations](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/reserve-capacity.htm#default).
+    #
+    # @return [String]
+    attr_accessor :capacity_reservation_id
+
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -24,15 +31,13 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # Instance agent configuration options to choose for updating the instance
-    #
     # @return [OCI::Core::Models::UpdateInstanceAgentConfigDetails]
     attr_accessor :agent_config
 
@@ -76,13 +81,9 @@ module OCI
     # @return [String]
     attr_accessor :fault_domain
 
-    # Options for tuning the compatibility and performance of VM shapes.
-    #
     # @return [OCI::Core::Models::UpdateLaunchOptions]
     attr_accessor :launch_options
 
-    # Options for defining the availability of a VM instance after a maintenance event that impacts the underlying hardware.
-    #
     # @return [OCI::Core::Models::UpdateInstanceAvailabilityConfigDetails]
     attr_accessor :availability_config
 
@@ -90,6 +91,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'capacity_reservation_id': :'capacityReservationId',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
@@ -108,6 +110,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'capacity_reservation_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
@@ -128,6 +131,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :capacity_reservation_id The value to assign to the {#capacity_reservation_id} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -143,6 +147,12 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.capacity_reservation_id = attributes[:'capacityReservationId'] if attributes[:'capacityReservationId']
+
+      raise 'You cannot provide both :capacityReservationId and :capacity_reservation_id' if attributes.key?(:'capacityReservationId') && attributes.key?(:'capacity_reservation_id')
+
+      self.capacity_reservation_id = attributes[:'capacity_reservation_id'] if attributes[:'capacity_reservation_id']
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -212,6 +222,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        capacity_reservation_id == other.capacity_reservation_id &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
@@ -237,7 +248,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, agent_config, shape, shape_config, instance_options, fault_domain, launch_options, availability_config].hash
+      [capacity_reservation_id, defined_tags, display_name, freeform_tags, agent_config, shape, shape_config, instance_options, fault_domain, launch_options, availability_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

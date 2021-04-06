@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -25,6 +25,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'destination_type': :'destinationType',
+        'export_format': :'exportFormat',
         'bucket_name': :'bucketName',
         'namespace_name': :'namespaceName',
         'object_name': :'objectName'
@@ -37,6 +38,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'destination_type': :'String',
+        'export_format': :'String',
         'bucket_name': :'String',
         'namespace_name': :'String',
         'object_name': :'String'
@@ -50,6 +52,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :export_format The value to assign to the {OCI::Core::Models::ExportImageDetails#export_format #export_format} proprety
     # @option attributes [String] :bucket_name The value to assign to the {#bucket_name} property
     # @option attributes [String] :namespace_name The value to assign to the {#namespace_name} property
     # @option attributes [String] :object_name The value to assign to the {#object_name} property
@@ -94,6 +97,7 @@ module OCI
 
       self.class == other.class &&
         destination_type == other.destination_type &&
+        export_format == other.export_format &&
         bucket_name == other.bucket_name &&
         namespace_name == other.namespace_name &&
         object_name == other.object_name
@@ -112,7 +116,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [destination_type, bucket_name, namespace_name, object_name].hash
+      [destination_type, export_format, bucket_name, namespace_name, object_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

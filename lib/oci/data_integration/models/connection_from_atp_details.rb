@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -15,6 +15,9 @@ module OCI
     # The password for the connection.
     # @return [String]
     attr_accessor :password
+
+    # @return [OCI::DataIntegration::Models::SensitiveAttribute]
+    attr_accessor :password_secret
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -34,7 +37,8 @@ module OCI
         'is_default': :'isDefault',
         'metadata': :'metadata',
         'username': :'username',
-        'password': :'password'
+        'password': :'password',
+        'password_secret': :'passwordSecret'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,7 +61,8 @@ module OCI
         'is_default': :'BOOLEAN',
         'metadata': :'OCI::DataIntegration::Models::ObjectMetadata',
         'username': :'String',
-        'password': :'String'
+        'password': :'String',
+        'password_secret': :'OCI::DataIntegration::Models::SensitiveAttribute'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -82,6 +87,7 @@ module OCI
     # @option attributes [OCI::DataIntegration::Models::ObjectMetadata] :metadata The value to assign to the {OCI::DataIntegration::Models::ConnectionDetails#metadata #metadata} proprety
     # @option attributes [String] :username The value to assign to the {#username} property
     # @option attributes [String] :password The value to assign to the {#password} property
+    # @option attributes [OCI::DataIntegration::Models::SensitiveAttribute] :password_secret The value to assign to the {#password_secret} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -95,6 +101,12 @@ module OCI
       self.username = attributes[:'username'] if attributes[:'username']
 
       self.password = attributes[:'password'] if attributes[:'password']
+
+      self.password_secret = attributes[:'passwordSecret'] if attributes[:'passwordSecret']
+
+      raise 'You cannot provide both :passwordSecret and :password_secret' if attributes.key?(:'passwordSecret') && attributes.key?(:'password_secret')
+
+      self.password_secret = attributes[:'password_secret'] if attributes[:'password_secret']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -122,7 +134,8 @@ module OCI
         is_default == other.is_default &&
         metadata == other.metadata &&
         username == other.username &&
-        password == other.password
+        password == other.password &&
+        password_secret == other.password_secret
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -138,7 +151,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, parent_ref, name, description, object_version, object_status, identifier, primary_schema, connection_properties, is_default, metadata, username, password].hash
+      [model_type, key, model_version, parent_ref, name, description, object_version, object_status, identifier, primary_schema, connection_properties, is_default, metadata, username, password, password_secret].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

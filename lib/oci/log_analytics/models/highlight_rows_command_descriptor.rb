@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -9,6 +9,11 @@ module OCI
   # Command descriptor for querylanguage HIGHLIGHTROWS command.
   #
   class LogAnalytics::Models::HighlightRowsCommandDescriptor < LogAnalytics::Models::AbstractCommandDescriptor
+    # User specified color to highlight matches with if found.
+    #
+    # @return [String]
+    attr_accessor :color
+
     # List of terms or phrases to find to mark the result row as highlighted.
     #
     # @return [Array<String>]
@@ -24,6 +29,7 @@ module OCI
         'category': :'category',
         'referenced_fields': :'referencedFields',
         'declared_fields': :'declaredFields',
+        'color': :'color',
         'keywords': :'keywords'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -39,6 +45,7 @@ module OCI
         'category': :'String',
         'referenced_fields': :'Array<OCI::LogAnalytics::Models::AbstractField>',
         'declared_fields': :'Array<OCI::LogAnalytics::Models::AbstractField>',
+        'color': :'String',
         'keywords': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -55,6 +62,7 @@ module OCI
     # @option attributes [String] :category The value to assign to the {OCI::LogAnalytics::Models::AbstractCommandDescriptor#category #category} proprety
     # @option attributes [Array<OCI::LogAnalytics::Models::AbstractField>] :referenced_fields The value to assign to the {OCI::LogAnalytics::Models::AbstractCommandDescriptor#referenced_fields #referenced_fields} proprety
     # @option attributes [Array<OCI::LogAnalytics::Models::AbstractField>] :declared_fields The value to assign to the {OCI::LogAnalytics::Models::AbstractCommandDescriptor#declared_fields #declared_fields} proprety
+    # @option attributes [String] :color The value to assign to the {#color} property
     # @option attributes [Array<String>] :keywords The value to assign to the {#keywords} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -65,6 +73,8 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.color = attributes[:'color'] if attributes[:'color']
 
       self.keywords = attributes[:'keywords'] if attributes[:'keywords']
     end
@@ -86,6 +96,7 @@ module OCI
         category == other.category &&
         referenced_fields == other.referenced_fields &&
         declared_fields == other.declared_fields &&
+        color == other.color &&
         keywords == other.keywords
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -102,7 +113,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, display_query_string, internal_query_string, category, referenced_fields, declared_fields, keywords].hash
+      [name, display_query_string, internal_query_string, category, referenced_fields, declared_fields, color, keywords].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

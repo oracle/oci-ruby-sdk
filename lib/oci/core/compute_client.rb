@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -220,7 +220,7 @@ module OCI
 
     # Creates a secondary VNIC and attaches it to the specified instance.
     # For more information about secondary VNICs, see
-    # [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/Content/Network/Tasks/managingVNICs.htm).
+    # [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingVNICs.htm).
     #
     # @param [OCI::Core::Models::AttachVnicDetails] attach_vnic_details Attach VNIC details.
     # @param [Hash] opts the optional parameters
@@ -416,6 +416,79 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a compute capacity reservation into a different compartment. For information about
+    # moving resources between compartments, see
+    # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
+    # @param [String] capacity_reservation_id The OCID of the compute capacity reservation.
+    # @param [OCI::Core::Models::ChangeComputeCapacityReservationCompartmentDetails] change_compute_capacity_reservation_compartment_details The configuration details for the move operation.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/change_compute_capacity_reservation_compartment.rb.html) to see an example of how to use change_compute_capacity_reservation_compartment API.
+    def change_compute_capacity_reservation_compartment(capacity_reservation_id, change_compute_capacity_reservation_compartment_details, opts = {})
+      logger.debug 'Calling operation ComputeClient#change_compute_capacity_reservation_compartment.' if logger
+
+      raise "Missing the required parameter 'capacity_reservation_id' when calling change_compute_capacity_reservation_compartment." if capacity_reservation_id.nil?
+      raise "Missing the required parameter 'change_compute_capacity_reservation_compartment_details' when calling change_compute_capacity_reservation_compartment." if change_compute_capacity_reservation_compartment_details.nil?
+      raise "Parameter value for 'capacity_reservation_id' must not be blank" if OCI::Internal::Util.blank_string?(capacity_reservation_id)
+
+      path = '/computeCapacityReservations/{capacityReservationId}/actions/changeCompartment'.sub('{capacityReservationId}', capacity_reservation_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_compute_capacity_reservation_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#change_compute_capacity_reservation_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves a compute image capability schema into a different compartment within the same tenancy.
     # For information about moving resources between compartments, see
     #         [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
@@ -426,7 +499,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_request_id Unique identifier for the request.
@@ -496,7 +569,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_request_id Unique identifier for the request.
@@ -569,7 +642,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_request_id Unique identifier for the request.
@@ -639,13 +712,13 @@ module OCI
     # When you move an instance to a different compartment, associated resources such as boot volumes and VNICs
     # are not moved.
     #
-    # @param [String] instance_id The OCID of the instance.
+    # @param [String] instance_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance.
     # @param [OCI::Core::Models::ChangeInstanceCompartmentDetails] change_instance_compartment_details Request to change the compartment of a given instance.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_request_id Unique identifier for the request.
@@ -755,6 +828,77 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Core::Models::AppCatalogSubscription'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new compute capacity reservation in the specified compartment and availability domain.
+    # Compute capacity reservations let you reserve instances in a compartment.
+    # When you launch an instance using this reservation, you are assured that you have enough space for your instance,
+    # and you won't get out of capacity errors.
+    # For more information, see [Reserved Capacity](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/reserve-capacity.htm).
+    #
+    # @param [OCI::Core::Models::CreateComputeCapacityReservationDetails] create_compute_capacity_reservation_details Details for creating a new compute capacity reservation.
+    #
+    #   **Caution:** Avoid using any confidential information when you use the API to supply string values.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::ComputeCapacityReservation ComputeCapacityReservation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/create_compute_capacity_reservation.rb.html) to see an example of how to use create_compute_capacity_reservation API.
+    def create_compute_capacity_reservation(create_compute_capacity_reservation_details, opts = {})
+      logger.debug 'Calling operation ComputeClient#create_compute_capacity_reservation.' if logger
+
+      raise "Missing the required parameter 'create_compute_capacity_reservation_details' when calling create_compute_capacity_reservation." if create_compute_capacity_reservation_details.nil?
+
+      path = '/computeCapacityReservations'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_compute_capacity_reservation_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#create_compute_capacity_reservation') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::ComputeCapacityReservation'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -899,7 +1043,7 @@ module OCI
     #
     # When creating a new image, you must provide the OCID of the instance you want to use as the basis for the image, and
     # the OCID of the compartment containing that instance. For more information about images,
-    # see [Managing Custom Images](https://docs.cloud.oracle.com/Content/Compute/Tasks/managingcustomimages.htm).
+    # see [Managing Custom Images](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/managingcustomimages.htm).
     #
     # When importing an exported image from Object Storage, you specify the source information
     # in {#image_source_details image_source_details}.
@@ -909,11 +1053,11 @@ module OCI
     #
     # When importing an image based on the Object Storage URL, use
     # {#image_source_via_object_storage_uri_details image_source_via_object_storage_uri_details}.
-    # See [Object Storage URLs](https://docs.cloud.oracle.com/Content/Compute/Tasks/imageimportexport.htm#URLs) and [Using Pre-Authenticated Requests](https://docs.cloud.oracle.com/Content/Object/Tasks/usingpreauthenticatedrequests.htm)
+    # See [Object Storage URLs](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/imageimportexport.htm#URLs) and [Using Pre-Authenticated Requests](https://docs.cloud.oracle.com/iaas/Content/Object/Tasks/usingpreauthenticatedrequests.htm)
     # for constructing URLs for image import/export.
     #
     # For more information about importing exported images, see
-    # [Image Import/Export](https://docs.cloud.oracle.com/Content/Compute/Tasks/imageimportexport.htm).
+    # [Image Import/Export](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/imageimportexport.htm).
     #
     # You may optionally specify a *display name* for the image, which is simply a friendly name or description.
     # It does not have to be unique, and you can change it. See {#update_image update_image}.
@@ -981,7 +1125,7 @@ module OCI
     # After the console connection has been created and is available,
     # you connect to the console using SSH.
     #
-    # For more information about console access, see [Accessing the Console](https://docs.cloud.oracle.com/Content/Compute/References/serialconsole.htm).
+    # For more information about instance console connections, see [Troubleshooting Instances Using Instance Console Connections](https://docs.cloud.oracle.com/iaas/Content/Compute/References/serialconsole.htm).
     #
     # @param [OCI::Core::Models::CreateInstanceConsoleConnectionDetails] create_instance_console_connection_details Request object for creating an InstanceConsoleConnection
     # @param [Hash] opts the optional parameters
@@ -1044,7 +1188,7 @@ module OCI
 
     # Delete a subscription for a listing resource version for a compartment.
     # @param [String] listing_id The OCID of the listing.
-    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [String] resource_version Listing Resource Version.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1100,6 +1244,66 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes the specified compute capacity reservation.
+    # @param [String] capacity_reservation_id The OCID of the compute capacity reservation.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/delete_compute_capacity_reservation.rb.html) to see an example of how to use delete_compute_capacity_reservation API.
+    def delete_compute_capacity_reservation(capacity_reservation_id, opts = {})
+      logger.debug 'Calling operation ComputeClient#delete_compute_capacity_reservation.' if logger
+
+      raise "Missing the required parameter 'capacity_reservation_id' when calling delete_compute_capacity_reservation." if capacity_reservation_id.nil?
+      raise "Parameter value for 'capacity_reservation_id' must not be blank" if OCI::Internal::Util.blank_string?(capacity_reservation_id)
+
+      path = '/computeCapacityReservations/{capacityReservationId}'.sub('{capacityReservationId}', capacity_reservation_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#delete_compute_capacity_reservation') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes the specified Compute Image Capability Schema
     #
     # @param [String] compute_image_capability_schema_id The id of the compute image capability schema or the image ocid
@@ -1107,7 +1311,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
@@ -1158,12 +1362,13 @@ module OCI
 
 
     # Deletes the specified console history metadata and the console history data.
+    #
     # @param [String] instance_console_history_id The OCID of the console history.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
@@ -1278,7 +1483,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
@@ -1334,7 +1539,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
@@ -1394,7 +1599,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
@@ -1451,7 +1656,7 @@ module OCI
     #
     # **Important:** If the VNIC has a
     # {PrivateIp} that is the
-    # [target of a route rule](https://docs.cloud.oracle.com/Content/Network/Tasks/managingroutetables.htm#privateip),
+    # [target of a route rule](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingroutetables.htm#privateip),
     # deleting the VNIC causes that route rule to blackhole and the traffic
     # will be dropped.
     #
@@ -1460,7 +1665,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
@@ -1520,7 +1725,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
@@ -1573,12 +1778,12 @@ module OCI
     # Exports the specified image to the Oracle Cloud Infrastructure Object Storage service. You can use the Object Storage URL,
     # or the namespace, bucket name, and object name when specifying the location to export to.
     #
-    # For more information about exporting images, see [Image Import/Export](https://docs.cloud.oracle.com/Content/Compute/Tasks/imageimportexport.htm).
+    # For more information about exporting images, see [Image Import/Export](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/imageimportexport.htm).
     #
     # To perform an image export, you need write access to the Object Storage bucket for the image,
-    # see [Let Users Write Objects to Object Storage Buckets](https://docs.cloud.oracle.com/Content/Identity/Concepts/commonpolicies.htm#Let4).
+    # see [Let Users Write Objects to Object Storage Buckets](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/commonpolicies.htm#Let4).
     #
-    # See [Object Storage URLs](https://docs.cloud.oracle.com/Content/Compute/Tasks/imageimportexport.htm#URLs) and [Using Pre-Authenticated Requests](https://docs.cloud.oracle.com/Content/Object/Tasks/usingpreauthenticatedrequests.htm)
+    # See [Object Storage URLs](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/imageimportexport.htm#URLs) and [Using Pre-Authenticated Requests](https://docs.cloud.oracle.com/iaas/Content/Object/Tasks/usingpreauthenticatedrequests.htm)
     # for constructing URLs for image import/export.
     #
     # @param [String] image_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the image.
@@ -1593,7 +1798,7 @@ module OCI
     #   may be rejected).
     #
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Image Image}
@@ -1867,11 +2072,67 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets information about the specified compute capacity reservation.
+    # @param [String] capacity_reservation_id The OCID of the compute capacity reservation.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::ComputeCapacityReservation ComputeCapacityReservation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_compute_capacity_reservation.rb.html) to see an example of how to use get_compute_capacity_reservation API.
+    def get_compute_capacity_reservation(capacity_reservation_id, opts = {})
+      logger.debug 'Calling operation ComputeClient#get_compute_capacity_reservation.' if logger
+
+      raise "Missing the required parameter 'capacity_reservation_id' when calling get_compute_capacity_reservation." if capacity_reservation_id.nil?
+      raise "Parameter value for 'capacity_reservation_id' must not be blank" if OCI::Internal::Util.blank_string?(capacity_reservation_id)
+
+      path = '/computeCapacityReservations/{capacityReservationId}'.sub('{capacityReservationId}', capacity_reservation_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#get_compute_capacity_reservation') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::ComputeCapacityReservation'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Gets the specified Compute Global Image Capability Schema
-    # @param [String] compute_global_image_capability_schema_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compute global image capability schema
+    # @param [String] compute_global_image_capability_schema_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compute global image capability schema
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1925,7 +2186,7 @@ module OCI
 
 
     # Gets the specified Compute Global Image Capability Schema Version
-    # @param [String] compute_global_image_capability_schema_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compute global image capability schema
+    # @param [String] compute_global_image_capability_schema_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compute global image capability schema
     # @param [String] compute_global_image_capability_schema_version_name The name of the compute global image capability schema version
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2323,7 +2584,7 @@ module OCI
 
 
     # Gets information about the specified instance.
-    # @param [String] instance_id The OCID of the instance.
+    # @param [String] instance_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2542,7 +2803,7 @@ module OCI
     # Gets the generated credentials for the instance. Only works for instances that require a password to log in, such as Windows.
     # For certain operating systems, users will be forced to change the initial credentials.
     #
-    # @param [String] instance_id The OCID of the instance.
+    # @param [String] instance_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2603,16 +2864,27 @@ module OCI
     # - **RESET** - Powers off the instance and then powers it back on.
     #
     # - **SOFTSTOP** - Gracefully shuts down the instance by sending a shutdown command to the operating system.
-    # If the applications that run on the instance take a long time to shut down, they could be improperly stopped, resulting
-    # in data corruption. To avoid this, shut down the instance using the commands available in the OS before you softstop the
+    # After waiting 15 minutes for the OS to shut down, the instance is powered off.
+    # If the applications that run on the instance take more than 15 minutes to shut down, they could be improperly stopped, resulting
+    # in data corruption. To avoid this, manually shut down the instance using the commands available in the OS before you softstop the
     # instance.
     #
-    # - **SOFTRESET** - Gracefully reboots the instance by sending a shutdown command to the operating system, and
-    # then powers the instance back on.
+    # - **SOFTRESET** - Gracefully reboots the instance by sending a shutdown command to the operating system.
+    # After waiting 15 minutes for the OS to shut down, the instance is powered off and
+    # then powered back on.
     #
-    # For more information, see [Stopping and Starting an Instance](https://docs.cloud.oracle.com/Content/Compute/Tasks/restartinginstance.htm).
+    # - **SENDDIAGNOSTICINTERRUPT** - For advanced users. **Warning: Sending a diagnostic interrupt to a live system can
+    # cause data corruption or system failure.** Sends a diagnostic interrupt that causes the instance's
+    # OS to crash and then reboot. Before you send a diagnostic interrupt, you must configure the instance to generate a
+    # crash dump file when it crashes. The crash dump captures information about the state of the OS at the time of
+    # the crash. After the OS restarts, you can analyze the crash dump to diagnose the issue. For more information, see
+    # [Sending a Diagnostic Interrupt](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/sendingdiagnosticinterrupt.htm).
     #
-    # @param [String] instance_id The OCID of the instance.
+    #
+    # For more information about managing instance lifecycle states, see
+    # [Stopping and Starting an Instance](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/restartinginstance.htm).
+    #
+    # @param [String] instance_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance.
     # @param [String] action The action to perform on the instance.
     #   Allowed values are: STOP, START, SOFTRESET, RESET, SOFTSTOP, SENDDIAGNOSTICINTERRUPT
     # @param [Hash] opts the optional parameters
@@ -2625,7 +2897,7 @@ module OCI
     #   may be rejected).
     #
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Instance Instance}
@@ -2685,13 +2957,13 @@ module OCI
 
     # Creates a new instance in the specified compartment and the specified availability domain.
     # For general information about instances, see
-    # [Overview of the Compute Service](https://docs.cloud.oracle.com/Content/Compute/Concepts/computeoverview.htm).
+    # [Overview of the Compute Service](https://docs.cloud.oracle.com/iaas/Content/Compute/Concepts/computeoverview.htm).
     #
     # For information about access control and compartments, see
-    # [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
+    # [Overview of the IAM Service](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/overview.htm).
     #
     # For information about availability domains, see
-    # [Regions and Availability Domains](https://docs.cloud.oracle.com/Content/General/Concepts/regions.htm).
+    # [Regions and Availability Domains](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm).
     # To get a list of availability domains, use the `ListAvailabilityDomains` operation
     # in the Identity and Access Management Service API.
     #
@@ -2713,7 +2985,7 @@ module OCI
     # {#get_vnic get_vnic} with the VNIC ID.
     #
     # You can later add secondary VNICs to an instance. For more information, see
-    # [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/Content/Network/Tasks/managingVNICs.htm).
+    # [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingVNICs.htm).
     #
     # To launch an instance from a Marketplace image listing, you must provide the image ID of the
     # listing resource version that you want, but you also must subscribe to the listing before you try
@@ -2934,7 +3206,7 @@ module OCI
 
 
     # Lists subscriptions for a compartment.
-    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3031,7 +3303,7 @@ module OCI
     #
     #   Example: `Uocm:PHX-AD-1`
     #
-    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3100,9 +3372,320 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the shapes that can be reserved within the specified compartment.
+    #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :availability_domain The name of the availability domain.
+    #
+    #   Example: `Uocm:PHX-AD-1`
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::ComputeCapacityReservationInstanceShapeSummary ComputeCapacityReservationInstanceShapeSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_compute_capacity_reservation_instance_shapes.rb.html) to see an example of how to use list_compute_capacity_reservation_instance_shapes API.
+    def list_compute_capacity_reservation_instance_shapes(compartment_id, opts = {})
+      logger.debug 'Calling operation ComputeClient#list_compute_capacity_reservation_instance_shapes.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_compute_capacity_reservation_instance_shapes." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      path = '/computeCapacityReservationInstanceShapes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:availabilityDomain] = opts[:availability_domain] if opts[:availability_domain]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#list_compute_capacity_reservation_instance_shapes') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::ComputeCapacityReservationInstanceShapeSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the instances launched under a capacity reservation. You can filter results by specifying criteria.
+    #
+    # @param [String] capacity_reservation_id The OCID of the compute capacity reservation.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :availability_domain The name of the availability domain.
+    #
+    #   Example: `Uocm:PHX-AD-1`
+    #
+    # @option opts [String] :compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::CapacityReservationInstanceSummary CapacityReservationInstanceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_compute_capacity_reservation_instances.rb.html) to see an example of how to use list_compute_capacity_reservation_instances API.
+    def list_compute_capacity_reservation_instances(capacity_reservation_id, opts = {})
+      logger.debug 'Calling operation ComputeClient#list_compute_capacity_reservation_instances.' if logger
+
+      raise "Missing the required parameter 'capacity_reservation_id' when calling list_compute_capacity_reservation_instances." if capacity_reservation_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'capacity_reservation_id' must not be blank" if OCI::Internal::Util.blank_string?(capacity_reservation_id)
+
+      path = '/computeCapacityReservations/{capacityReservationId}/instances'.sub('{capacityReservationId}', capacity_reservation_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:availabilityDomain] = opts[:availability_domain] if opts[:availability_domain]
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json, application/x-json-stream'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#list_compute_capacity_reservation_instances') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::CapacityReservationInstanceSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the compute capacity reservations that match the specified criteria and compartment.
+    #
+    # You can limit the list by specifying a compute capacity reservation display name
+    # (the list will include all the identically-named compute capacity reservations in the compartment).
+    #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :availability_domain The name of the availability domain.
+    #
+    #   Example: `Uocm:PHX-AD-1`
+    #
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.
+    # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::ComputeCapacityReservationSummary ComputeCapacityReservationSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_compute_capacity_reservations.rb.html) to see an example of how to use list_compute_capacity_reservations API.
+    def list_compute_capacity_reservations(compartment_id, opts = {})
+      logger.debug 'Calling operation ComputeClient#list_compute_capacity_reservations.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_compute_capacity_reservations." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::Core::Models::ComputeCapacityReservation::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Core::Models::ComputeCapacityReservation::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      path = '/computeCapacityReservations'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:availabilityDomain] = opts[:availability_domain] if opts[:availability_domain]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json, application/x-json-stream'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#list_compute_capacity_reservations') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::ComputeCapacityReservationSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists Compute Global Image Capability Schema versions in the specified compartment.
     #
-    # @param [String] compute_global_image_capability_schema_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compute global image capability schema
+    # @param [String] compute_global_image_capability_schema_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compute global image capability schema
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3380,7 +3963,7 @@ module OCI
 
     # Lists the console history metadata for the specified compartment or instance.
     #
-    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3413,7 +3996,8 @@ module OCI
     #   is case sensitive.
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state. The state
+    #   value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::ConsoleHistory ConsoleHistory}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_console_histories.rb.html) to see an example of how to use list_console_histories API.
@@ -3484,7 +4068,7 @@ module OCI
     # Lists the shapes that can be used to launch a virtual machine instance on a dedicated virtual machine host within the specified compartment.
     # You can filter the list by compatibility with a specific dedicated virtual machine host shape.
     #
-    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3561,7 +4145,7 @@ module OCI
 
     # Returns the list of instances on the dedicated virtual machine hosts that match the specified criteria.
     #
-    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [String] dedicated_vm_host_id The OCID of the dedicated VM host.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3662,7 +4246,7 @@ module OCI
 
     # Lists the shapes that can be used to launch a dedicated virtual machine host within the specified compartment.
     #
-    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3742,7 +4326,7 @@ module OCI
     # You can limit the list by specifying a dedicated virtual machine host display name. The list will include all the identically-named
     # dedicated virtual machine hosts in the compartment.
     #
-    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3783,6 +4367,8 @@ module OCI
     #   is case sensitive.
     #
     #   Allowed values are: ASC, DESC
+    # @option opts [Float] :remaining_memory_in_gbs_greater_than_or_equal_to The remaining memory of the dedicated VM host, in GBs.
+    # @option opts [Float] :remaining_ocpus_greater_than_or_equal_to The available OCPUs of the dedicated VM host.
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::DedicatedVmHostSummary DedicatedVmHostSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_dedicated_vm_hosts.rb.html) to see an example of how to use list_dedicated_vm_hosts API.
     def list_dedicated_vm_hosts(compartment_id, opts = {})
@@ -3817,6 +4403,8 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:remainingMemoryInGBsGreaterThanOrEqualTo] = opts[:remaining_memory_in_gbs_greater_than_or_equal_to] if opts[:remaining_memory_in_gbs_greater_than_or_equal_to]
+      query_params[:remainingOcpusGreaterThanOrEqualTo] = opts[:remaining_ocpus_greater_than_or_equal_to] if opts[:remaining_ocpus_greater_than_or_equal_to]
 
       # Header Params
       header_params = {}
@@ -3920,14 +4508,14 @@ module OCI
 
 
     # Lists the available images in the specified compartment, including both
-    # [Oracle-provided images](https://docs.cloud.oracle.com/Content/Compute/References/images.htm) and
-    # [custom images](https://docs.cloud.oracle.com/Content/Compute/Tasks/managingcustomimages.htm) that have
+    # [Oracle-provided images](https://docs.cloud.oracle.com/iaas/Content/Compute/References/images.htm) and
+    # [custom images](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/managingcustomimages.htm) that have
     # been created. The list of images returned is ordered to first show all
     # Oracle-provided images, then all custom images.
     #
     # The order of images returned may change when new images are released.
     #
-    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3966,7 +4554,8 @@ module OCI
     #   is case sensitive.
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state. The state
+    #   value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Image Image}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_images.rb.html) to see an example of how to use list_images API.
@@ -4038,9 +4627,9 @@ module OCI
 
     # Lists the console connections for the specified compartment or instance.
     #
-    # For more information about console access, see [Accessing the Console](https://docs.cloud.oracle.com/Content/Compute/References/serialconsole.htm).
+    # For more information about instance console connections, see [Troubleshooting Instances Using Instance Console Connections](https://docs.cloud.oracle.com/iaas/Content/Compute/References/serialconsole.htm).
     #
-    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4106,7 +4695,7 @@ module OCI
 
 
     # Gets a list of all the devices for given instance. You can optionally filter results by device availability.
-    # @param [String] instance_id The OCID of the instance.
+    # @param [String] instance_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4207,7 +4796,7 @@ module OCI
     # You can filter the results by specifying an instance name (the list will include all the identically-named
     # instances in the compartment).
     #
-    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4215,6 +4804,7 @@ module OCI
     #
     #   Example: `Uocm:PHX-AD-1`
     #
+    # @option opts [String] :capacity_reservation_id The OCID of the compute capacity reservation.
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
@@ -4241,7 +4831,8 @@ module OCI
     #   is case sensitive.
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state. The state
+    #   value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::Instance Instance}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_instances.rb.html) to see an example of how to use list_instances API.
@@ -4270,6 +4861,7 @@ module OCI
       query_params = {}
       query_params[:compartmentId] = compartment_id
       query_params[:availabilityDomain] = opts[:availability_domain] if opts[:availability_domain]
+      query_params[:capacityReservationId] = opts[:capacity_reservation_id] if opts[:capacity_reservation_id]
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
@@ -4312,7 +4904,7 @@ module OCI
     # Lists the shapes that can be used to launch an instance within the specified compartment. You can
     # filter the list by compatibility with a specific image.
     #
-    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4386,7 +4978,7 @@ module OCI
     # resides in the same compartment as the attached instance. The list can be
     # filtered by instance, VNIC, or availability domain.
     #
-    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4464,7 +5056,7 @@ module OCI
     # Currently, the only supported volume attachment type are {IScsiVolumeAttachment} and
     # {ParavirtualizedVolumeAttachment}.
     #
-    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4601,12 +5193,12 @@ module OCI
     # This is an asynchronous operation. The instance's `lifecycleState` will change to TERMINATING temporarily
     # until the instance is completely removed.
     #
-    # @param [String] instance_id The OCID of the instance.
+    # @param [String] instance_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @option opts [BOOLEAN] :preserve_boot_volume Specifies whether to delete or preserve the boot volume when terminating an instance.
@@ -4660,6 +5252,72 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Updates the display name, defined tag, and freeform tag fields for the specified compute capacity reservation.
+    # Fields that are not provided in the request will not be updated. Avoid entering confidential information.
+    #
+    # The update also modifies the reservation configurations of the specified compute capacity reservation.
+    #
+    # @param [String] capacity_reservation_id The OCID of the compute capacity reservation.
+    # @param [OCI::Core::Models::UpdateComputeCapacityReservationDetails] update_compute_capacity_reservation_details Update compute capacity reservation details.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_compute_capacity_reservation.rb.html) to see an example of how to use update_compute_capacity_reservation API.
+    def update_compute_capacity_reservation(capacity_reservation_id, update_compute_capacity_reservation_details, opts = {})
+      logger.debug 'Calling operation ComputeClient#update_compute_capacity_reservation.' if logger
+
+      raise "Missing the required parameter 'capacity_reservation_id' when calling update_compute_capacity_reservation." if capacity_reservation_id.nil?
+      raise "Missing the required parameter 'update_compute_capacity_reservation_details' when calling update_compute_capacity_reservation." if update_compute_capacity_reservation_details.nil?
+      raise "Parameter value for 'capacity_reservation_id' must not be blank" if OCI::Internal::Util.blank_string?(capacity_reservation_id)
+
+      path = '/computeCapacityReservations/{capacityReservationId}'.sub('{capacityReservationId}', capacity_reservation_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_compute_capacity_reservation_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#update_compute_capacity_reservation') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates the specified Compute Image Capability Schema
     #
     # @param [String] compute_image_capability_schema_id The id of the compute image capability schema or the image ocid
@@ -4668,7 +5326,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ComputeImageCapabilitySchema ComputeImageCapabilitySchema}
@@ -4727,7 +5385,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::ConsoleHistory ConsoleHistory}
@@ -4788,7 +5446,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_request_id Unique identifier for the request.
@@ -4853,8 +5511,10 @@ module OCI
 
 
     # Updates the display name of the image. Avoid entering confidential information.
+    #
     # @param [String] image_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the image.
     # @param [OCI::Core::Models::UpdateImageDetails] update_image_details Updates the image display name field. Avoid entering confidential information.
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4865,7 +5525,7 @@ module OCI
     #   may be rejected).
     #
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Image Image}
@@ -4924,7 +5584,7 @@ module OCI
     #
     # The OCID of the instance remains the same.
     #
-    # @param [String] instance_id The OCID of the instance.
+    # @param [String] instance_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance.
     # @param [OCI::Core::Models::UpdateInstanceDetails] update_instance_details Update instance fields
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -4936,7 +5596,7 @@ module OCI
     #   may be rejected).
     #
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::Instance Instance}
@@ -5000,7 +5660,7 @@ module OCI
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
-    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Core::Models::InstanceConsoleConnection InstanceConsoleConnection}

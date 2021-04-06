@@ -1,33 +1,37 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # command summary.
+  # Summary information for a command.
   class ComputeInstanceAgent::Models::InstanceAgentCommandSummary
-    # **[Required]** The command OCID
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the command.
     # @return [String]
     attr_accessor :instance_agent_command_id
 
-    # The user friendly display name of the command.
+    # A user-friendly name. Does not have to be unique.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The OCID of the compartment the command is created in.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the command.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The command creation date
+    # **[Required]** The date and time the command was created, in the format defined by
+    # [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The command last updated at date.
+    # **[Required]** The date and time the command was last updated, in the format defined by
+    # [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
     # @return [DateTime]
     attr_accessor :time_updated
 
-    # Set to true, if the command has been canceled.
+    # Whether a request was made to cancel the command. Canceling a command is a best-effort attempt.
     # @return [BOOLEAN]
     attr_accessor :is_canceled
 

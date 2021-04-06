@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -21,9 +21,7 @@ module OCI
 
     # **[Required]** The VMware software bundle to install on the ESXi hosts in the SDDC. To get a
     # list of the available versions, use
-    # {#
-    # _list_supported_vmware_software_versions
-    # _list_supported_vmware_software_versions}.
+    # {#list_supported_vmware_software_versions list_supported_vmware_software_versions}.
     #
     # @return [String]
     attr_accessor :vmware_software_version
@@ -53,12 +51,13 @@ module OCI
     # @return [Integer]
     attr_accessor :esxi_hosts_count
 
-    # This flag tells us if HCX is enabled or not.
+    # Indicates whether to enable HCX for this SDDC.
     #
     # @return [BOOLEAN]
     attr_accessor :is_hcx_enabled
 
-    # This id is required only when hcxEnabled is true
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VLAN to use for the HCX
+    # component of the VMware environment. This value is required only when `isHcxEnabled` is true.
     #
     # @return [String]
     attr_accessor :hcx_vlan_id
@@ -121,8 +120,22 @@ module OCI
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VLAN to use for the NSX Edge
     # Uplink 2 component of the VMware environment.
     #
+    # **Note:** This VLAN is reserved for future use to deploy public-facing applications on the VMware SDDC.
+    #
     # @return [String]
     attr_accessor :nsx_edge_uplink2_vlan_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VLAN used by the SDDC
+    # for the vSphere Replication component of the VMware environment.
+    #
+    # @return [String]
+    attr_accessor :replication_vlan_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VLAN used by the SDDC
+    # for the Provisioning component of the VMware environment.
+    #
+    # @return [String]
+    attr_accessor :provisioning_vlan_id
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -162,6 +175,8 @@ module OCI
         'nsx_edge_v_tep_vlan_id': :'nsxEdgeVTepVlanId',
         'nsx_edge_uplink1_vlan_id': :'nsxEdgeUplink1VlanId',
         'nsx_edge_uplink2_vlan_id': :'nsxEdgeUplink2VlanId',
+        'replication_vlan_id': :'replicationVlanId',
+        'provisioning_vlan_id': :'provisioningVlanId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -190,6 +205,8 @@ module OCI
         'nsx_edge_v_tep_vlan_id': :'String',
         'nsx_edge_uplink1_vlan_id': :'String',
         'nsx_edge_uplink2_vlan_id': :'String',
+        'replication_vlan_id': :'String',
+        'provisioning_vlan_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -220,6 +237,8 @@ module OCI
     # @option attributes [String] :nsx_edge_v_tep_vlan_id The value to assign to the {#nsx_edge_v_tep_vlan_id} property
     # @option attributes [String] :nsx_edge_uplink1_vlan_id The value to assign to the {#nsx_edge_uplink1_vlan_id} property
     # @option attributes [String] :nsx_edge_uplink2_vlan_id The value to assign to the {#nsx_edge_uplink2_vlan_id} property
+    # @option attributes [String] :replication_vlan_id The value to assign to the {#replication_vlan_id} property
+    # @option attributes [String] :provisioning_vlan_id The value to assign to the {#provisioning_vlan_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -338,6 +357,18 @@ module OCI
 
       self.nsx_edge_uplink2_vlan_id = attributes[:'nsx_edge_uplink2_vlan_id'] if attributes[:'nsx_edge_uplink2_vlan_id']
 
+      self.replication_vlan_id = attributes[:'replicationVlanId'] if attributes[:'replicationVlanId']
+
+      raise 'You cannot provide both :replicationVlanId and :replication_vlan_id' if attributes.key?(:'replicationVlanId') && attributes.key?(:'replication_vlan_id')
+
+      self.replication_vlan_id = attributes[:'replication_vlan_id'] if attributes[:'replication_vlan_id']
+
+      self.provisioning_vlan_id = attributes[:'provisioningVlanId'] if attributes[:'provisioningVlanId']
+
+      raise 'You cannot provide both :provisioningVlanId and :provisioning_vlan_id' if attributes.key?(:'provisioningVlanId') && attributes.key?(:'provisioning_vlan_id')
+
+      self.provisioning_vlan_id = attributes[:'provisioning_vlan_id'] if attributes[:'provisioning_vlan_id']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -380,6 +411,8 @@ module OCI
         nsx_edge_v_tep_vlan_id == other.nsx_edge_v_tep_vlan_id &&
         nsx_edge_uplink1_vlan_id == other.nsx_edge_uplink1_vlan_id &&
         nsx_edge_uplink2_vlan_id == other.nsx_edge_uplink2_vlan_id &&
+        replication_vlan_id == other.replication_vlan_id &&
+        provisioning_vlan_id == other.provisioning_vlan_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -397,7 +430,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compute_availability_domain, display_name, vmware_software_version, compartment_id, instance_display_name_prefix, esxi_hosts_count, is_hcx_enabled, hcx_vlan_id, ssh_authorized_keys, workload_network_cidr, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, freeform_tags, defined_tags].hash
+      [compute_availability_domain, display_name, vmware_software_version, compartment_id, instance_display_name_prefix, esxi_hosts_count, is_hcx_enabled, hcx_vlan_id, ssh_authorized_keys, workload_network_cidr, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, replication_vlan_id, provisioning_vlan_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -215,6 +215,16 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # The FQDN of the DNS record for the SCAN IP addresses that are associated with the cloud VM cluster.
+    #
+    # @return [String]
+    attr_accessor :scan_dns_name
+
+    # The OCID of the zone the cloud VM cluster is associated with.
+    #
+    # @return [String]
+    attr_accessor :zone_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -253,7 +263,9 @@ module OCI
         'vip_ids': :'vipIds',
         'scan_dns_record_id': :'scanDnsRecordId',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'scan_dns_name': :'scanDnsName',
+        'zone_id': :'zoneId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -296,7 +308,9 @@ module OCI
         'vip_ids': :'Array<String>',
         'scan_dns_record_id': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'scan_dns_name': :'String',
+        'zone_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -342,6 +356,8 @@ module OCI
     # @option attributes [String] :scan_dns_record_id The value to assign to the {#scan_dns_record_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :scan_dns_name The value to assign to the {#scan_dns_name} property
+    # @option attributes [String] :zone_id The value to assign to the {#zone_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -541,6 +557,18 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.scan_dns_name = attributes[:'scanDnsName'] if attributes[:'scanDnsName']
+
+      raise 'You cannot provide both :scanDnsName and :scan_dns_name' if attributes.key?(:'scanDnsName') && attributes.key?(:'scan_dns_name')
+
+      self.scan_dns_name = attributes[:'scan_dns_name'] if attributes[:'scan_dns_name']
+
+      self.zone_id = attributes[:'zoneId'] if attributes[:'zoneId']
+
+      raise 'You cannot provide both :zoneId and :zone_id' if attributes.key?(:'zoneId') && attributes.key?(:'zone_id')
+
+      self.zone_id = attributes[:'zone_id'] if attributes[:'zone_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -627,7 +655,9 @@ module OCI
         vip_ids == other.vip_ids &&
         scan_dns_record_id == other.scan_dns_record_id &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        scan_dns_name == other.scan_dns_name &&
+        zone_id == other.zone_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -643,7 +673,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, last_update_history_entry_id, shape, listener_port, lifecycle_state, node_count, storage_size_in_gbs, display_name, time_created, lifecycle_details, time_zone, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, is_local_backup_enabled, cloud_exadata_infrastructure_id, is_sparse_diskgroup_enabled, gi_version, system_version, ssh_public_keys, license_model, disk_redundancy, scan_ip_ids, vip_ids, scan_dns_record_id, freeform_tags, defined_tags].hash
+      [id, compartment_id, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, last_update_history_entry_id, shape, listener_port, lifecycle_state, node_count, storage_size_in_gbs, display_name, time_created, lifecycle_details, time_zone, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, is_local_backup_enabled, cloud_exadata_infrastructure_id, is_sparse_diskgroup_enabled, gi_version, system_version, ssh_public_keys, license_model, disk_redundancy, scan_ip_ids, vip_ids, scan_dns_record_id, freeform_tags, defined_tags, scan_dns_name, zone_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

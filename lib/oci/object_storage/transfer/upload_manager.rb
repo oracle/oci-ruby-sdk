@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require_relative 'upload_manager_config'
@@ -51,6 +51,7 @@ module OCI
         # @option opts [String] :content_encoding The content encoding of the object.
         # @option opts [String] :content_md5 The base-64 encoded MD5 hash of the body. This will be ignored for multipart uploads.
         # @option opts [Hash<String, String>] :metadata A hash of string keys to string values representing any custom metadata to be applied to the object.
+        # @option opts [String] :storage_tier :The storage tier that the object should be stored in. If not specified, the object will be stored in the same storage tier as the bucket.
         #
         # @return [Response] A Response object with data of type nil. For a multipart upload, the headers of the response will contain
         # an opc-multipart-md5 key. For scenarios where the object was uploaded in a single part, the opc-content-md5 key will be

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -29,6 +29,13 @@ module OCI
       PROTECTION_MODE_HSM = 'HSM'.freeze,
       PROTECTION_MODE_SOFTWARE = 'SOFTWARE'.freeze,
       PROTECTION_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    ALGORITHM_ENUM = [
+      ALGORITHM_AES = 'AES'.freeze,
+      ALGORITHM_RSA = 'RSA'.freeze,
+      ALGORITHM_ECDSA = 'ECDSA'.freeze,
+      ALGORITHM_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The OCID of the compartment that contains the key.
@@ -86,6 +93,10 @@ module OCI
     # @return [String]
     attr_reader :protection_mode
 
+    # The algorithm used by a key's key versions to encrypt or decrypt data.
+    # @return [String]
+    attr_reader :algorithm
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -98,7 +109,8 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'vault_id': :'vaultId',
-        'protection_mode': :'protectionMode'
+        'protection_mode': :'protectionMode',
+        'algorithm': :'algorithm'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -115,7 +127,8 @@ module OCI
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'vault_id': :'String',
-        'protection_mode': :'String'
+        'protection_mode': :'String',
+        'algorithm': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -135,6 +148,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
     # @option attributes [String] :protection_mode The value to assign to the {#protection_mode} property
+    # @option attributes [String] :algorithm The value to assign to the {#algorithm} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -190,6 +204,8 @@ module OCI
       raise 'You cannot provide both :protectionMode and :protection_mode' if attributes.key?(:'protectionMode') && attributes.key?(:'protection_mode')
 
       self.protection_mode = attributes[:'protection_mode'] if attributes[:'protection_mode']
+
+      self.algorithm = attributes[:'algorithm'] if attributes[:'algorithm']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -220,6 +236,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] algorithm Object to be assigned
+    def algorithm=(algorithm)
+      # rubocop:disable Style/ConditionalAssignment
+      if algorithm && !ALGORITHM_ENUM.include?(algorithm)
+        OCI.logger.debug("Unknown value for 'algorithm' [" + algorithm + "]. Mapping to 'ALGORITHM_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @algorithm = ALGORITHM_UNKNOWN_ENUM_VALUE
+      else
+        @algorithm = algorithm
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -237,7 +266,8 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         vault_id == other.vault_id &&
-        protection_mode == other.protection_mode
+        protection_mode == other.protection_mode &&
+        algorithm == other.algorithm
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -253,7 +283,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, time_created, vault_id, protection_mode].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, time_created, vault_id, protection_mode, algorithm].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

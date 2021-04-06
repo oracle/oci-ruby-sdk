@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -48,6 +48,10 @@ module OCI
       NAME_MULTI_SEARCH = 'MULTI_SEARCH'.freeze,
       NAME_HIGHLIGHT = 'HIGHLIGHT'.freeze,
       NAME_HIGHLIGHT_ROWS = 'HIGHLIGHT_ROWS'.freeze,
+      NAME_HIGHLIGHT_GROUPS = 'HIGHLIGHT_GROUPS'.freeze,
+      NAME_CREATE_VIEW = 'CREATE_VIEW'.freeze,
+      NAME_MAP = 'MAP'.freeze,
+      NAME_NLP = 'NLP'.freeze,
       NAME_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -128,7 +132,9 @@ module OCI
       return 'OCI::LogAnalytics::Models::LookupCommandDescriptor' if type == 'LOOKUP'
       return 'OCI::LogAnalytics::Models::DemoModeCommandDescriptor' if type == 'DEMO_MODE'
       return 'OCI::LogAnalytics::Models::FieldSummaryCommandDescriptor' if type == 'FIELD_SUMMARY'
+      return 'OCI::LogAnalytics::Models::MapCommandDescriptor' if type == 'MAP'
       return 'OCI::LogAnalytics::Models::EventStatsCommandDescriptor' if type == 'EVENT_STATS'
+      return 'OCI::LogAnalytics::Models::HighlightGroupsCommandDescriptor' if type == 'HIGHLIGHT_GROUPS'
       return 'OCI::LogAnalytics::Models::WhereCommandDescriptor' if type == 'WHERE'
       return 'OCI::LogAnalytics::Models::ClusterSplitCommandDescriptor' if type == 'CLUSTER_SPLIT'
       return 'OCI::LogAnalytics::Models::TimeStatsCommandDescriptor' if type == 'TIME_STATS'
@@ -143,6 +149,7 @@ module OCI
       return 'OCI::LogAnalytics::Models::LinkCommandDescriptor' if type == 'LINK'
       return 'OCI::LogAnalytics::Models::SortCommandDescriptor' if type == 'SORT'
       return 'OCI::LogAnalytics::Models::ExtractCommandDescriptor' if type == 'EXTRACT'
+      return 'OCI::LogAnalytics::Models::NlpCommandDescriptor' if type == 'NLP'
       return 'OCI::LogAnalytics::Models::BottomCommandDescriptor' if type == 'BOTTOM'
       return 'OCI::LogAnalytics::Models::FieldsCommandDescriptor' if type == 'FIELDS'
       return 'OCI::LogAnalytics::Models::HighlightRowsCommandDescriptor' if type == 'HIGHLIGHT_ROWS'
@@ -151,6 +158,7 @@ module OCI
       return 'OCI::LogAnalytics::Models::LinkDetailsCommandDescriptor' if type == 'LINK_DETAILS'
       return 'OCI::LogAnalytics::Models::SearchLookupCommandDescriptor' if type == 'SEARCH_LOOKUP'
       return 'OCI::LogAnalytics::Models::HeadCommandDescriptor' if type == 'HEAD'
+      return 'OCI::LogAnalytics::Models::CreateViewCommandDescriptor' if type == 'CREATE_VIEW'
       return 'OCI::LogAnalytics::Models::AddFieldsCommandDescriptor' if type == 'ADD_FIELDS'
       return 'OCI::LogAnalytics::Models::EvalCommandDescriptor' if type == 'EVAL'
       return 'OCI::LogAnalytics::Models::RenameCommandDescriptor' if type == 'RENAME'

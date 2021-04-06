@@ -1,49 +1,68 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # LogAnalyticsLookup
   class LogAnalytics::Models::LogAnalyticsLookup
-    # active edit version
+    TYPE_ENUM = [
+      TYPE_LOOKUP = 'Lookup'.freeze,
+      TYPE_DICTIONARY = 'Dictionary'.freeze,
+      TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # The active edit version.
     # @return [Integer]
     attr_accessor :active_edit_version
 
-    # canonical link
+    # The canonical link.
     # @return [String]
     attr_accessor :canonical_link
 
-    # description
+    # The lookup description.
     # @return [String]
     attr_accessor :description
 
-    # edit version
+    # The edit version.
     # @return [Integer]
     attr_accessor :edit_version
 
-    # fields
+    # The lookup fields.
     # @return [Array<OCI::LogAnalytics::Models::LookupField>]
     attr_accessor :fields
 
-    # lookupReference
+    # The lookup reference as an integer.
     # @return [Integer]
     attr_accessor :lookup_reference
 
-    # iname
+    # The lookup reference as a string.
+    # @return [String]
+    attr_accessor :lookup_reference_string
+
+    # The lookup type.  Valid values are LOOKUP or DICTIONARY.
+    # @return [String]
+    attr_reader :type
+
+    # The lookup name.
     # @return [String]
     attr_accessor :name
 
-    # is built in
+    # A flag indicating if the lookup is custom (user-defined) or
+    # built in.
+    #
     # @return [Integer]
     attr_accessor :is_built_in
 
-    # is hidden
+    # A flag indicating if the lookup is hidden or not.  A hidden lookup will
+    # not be returned in list operations by default.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_hidden
 
-    # name
+    # The lookup display name.
     # @return [String]
     attr_accessor :lookup_display_name
 
@@ -53,7 +72,7 @@ module OCI
     # @return [OCI::LogAnalytics::Models::StatusSummary]
     attr_accessor :status_summary
 
-    # last updated date
+    # The last updated date.
     # @return [DateTime]
     attr_accessor :time_updated
 
@@ -67,6 +86,8 @@ module OCI
         'edit_version': :'editVersion',
         'fields': :'fields',
         'lookup_reference': :'lookupReference',
+        'lookup_reference_string': :'lookupReferenceString',
+        'type': :'type',
         'name': :'name',
         'is_built_in': :'isBuiltIn',
         'is_hidden': :'isHidden',
@@ -88,6 +109,8 @@ module OCI
         'edit_version': :'Integer',
         'fields': :'Array<OCI::LogAnalytics::Models::LookupField>',
         'lookup_reference': :'Integer',
+        'lookup_reference_string': :'String',
+        'type': :'String',
         'name': :'String',
         'is_built_in': :'Integer',
         'is_hidden': :'BOOLEAN',
@@ -111,6 +134,8 @@ module OCI
     # @option attributes [Integer] :edit_version The value to assign to the {#edit_version} property
     # @option attributes [Array<OCI::LogAnalytics::Models::LookupField>] :fields The value to assign to the {#fields} property
     # @option attributes [Integer] :lookup_reference The value to assign to the {#lookup_reference} property
+    # @option attributes [String] :lookup_reference_string The value to assign to the {#lookup_reference_string} property
+    # @option attributes [String] :type The value to assign to the {#type} property
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [Integer] :is_built_in The value to assign to the {#is_built_in} property
     # @option attributes [BOOLEAN] :is_hidden The value to assign to the {#is_hidden} property
@@ -151,6 +176,15 @@ module OCI
       raise 'You cannot provide both :lookupReference and :lookup_reference' if attributes.key?(:'lookupReference') && attributes.key?(:'lookup_reference')
 
       self.lookup_reference = attributes[:'lookup_reference'] if attributes[:'lookup_reference']
+
+      self.lookup_reference_string = attributes[:'lookupReferenceString'] if attributes[:'lookupReferenceString']
+
+      raise 'You cannot provide both :lookupReferenceString and :lookup_reference_string' if attributes.key?(:'lookupReferenceString') && attributes.key?(:'lookup_reference_string')
+
+      self.lookup_reference_string = attributes[:'lookup_reference_string'] if attributes[:'lookup_reference_string']
+
+      self.type = attributes[:'type'] if attributes[:'type']
+      self.type = "Lookup" if type.nil? && !attributes.key?(:'type') # rubocop:disable Style/StringLiterals
 
       self.name = attributes[:'name'] if attributes[:'name']
 
@@ -193,6 +227,19 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] type Object to be assigned
+    def type=(type)
+      # rubocop:disable Style/ConditionalAssignment
+      if type && !TYPE_ENUM.include?(type)
+        OCI.logger.debug("Unknown value for 'type' [" + type + "]. Mapping to 'TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @type = TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @type = type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -208,6 +255,8 @@ module OCI
         edit_version == other.edit_version &&
         fields == other.fields &&
         lookup_reference == other.lookup_reference &&
+        lookup_reference_string == other.lookup_reference_string &&
+        type == other.type &&
         name == other.name &&
         is_built_in == other.is_built_in &&
         is_hidden == other.is_hidden &&
@@ -230,7 +279,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [active_edit_version, canonical_link, description, edit_version, fields, lookup_reference, name, is_built_in, is_hidden, lookup_display_name, referring_sources, status_summary, time_updated].hash
+      [active_edit_version, canonical_link, description, edit_version, fields, lookup_reference, lookup_reference_string, type, name, is_built_in, is_hidden, lookup_display_name, referring_sources, status_summary, time_updated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -320,9 +320,10 @@ module OCI
     #     * `CUSTOM_HTTPS`
     #     * `EMAIL`
     #     * `HTTPS` (deprecated; for PagerDuty endpoints, use `PAGERDUTY`)
+    #     * `ORACLE_FUNCTIONS`
     #     * `PAGERDUTY`
     #     * `SLACK`
-    #     * `ORACLE_FUNCTIONS`
+    #     * `SMS`
     #
     #   For information about subscription protocols, see
     #   [To create a subscription](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/managingtopicsandsubscriptions.htm#createSub).
@@ -445,7 +446,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the unsubscription details for the specified subscription.
+    # Unsubscribes the subscription from the topic.
     #
     # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60.
     #
@@ -458,9 +459,10 @@ module OCI
     #     * `CUSTOM_HTTPS`
     #     * `EMAIL`
     #     * `HTTPS` (deprecated; for PagerDuty endpoints, use `PAGERDUTY`)
+    #     * `ORACLE_FUNCTIONS`
     #     * `PAGERDUTY`
     #     * `SLACK`
-    #     * `ORACLE_FUNCTIONS`
+    #     * `SMS`
     #
     #   For information about subscription protocols, see
     #   [To create a subscription](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/managingtopicsandsubscriptions.htm#createSub).
@@ -607,7 +609,7 @@ module OCI
     # Message delivery rate limit per endpoint: 60 messages per minute for HTTP-based protocols, 10 messages per minute for the `EMAIL` protocol.
     # HTTP-based protocols use URL endpoints that begin with \"http:\" or \"https:\".
     #
-    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60 per topic.
+    # Transactions Per Minute (TPM) per-tenancy limit for this operation: 60 per topic. (This TPM limit represents messages per minute.)
     #
     # For more information about publishing messages, see [Publishing Messages](https://docs.cloud.oracle.com/iaas/Content/Notification/Tasks/publishingmessages.htm).
     # For steps to request a limit increase, see [Requesting a Service Limit Increase](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/servicelimits.htm#three).
@@ -621,8 +623,14 @@ module OCI
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
     #
-    # @option opts [String] :message_type Type of message body in the request.
-    #    (default to JSON)
+    # @option opts [String] :message_type **Deprecated.**
+    #   Support for JSON is deprecated.
+    #   You can send a JSON payload even when transmitting the payload as a raw string.
+    #   Configure your receiving system to read the raw payload as JSON format.
+    #
+    #   Type of message body in the request.
+    #   For `messageType` of JSON, a default key-value pair is required. Example: `{\"default\": \"Alarm breached\", \"Email\": \"Alarm breached: <url>\"}.`
+    #    (default to RAW_TEXT)
     #   Allowed values are: JSON, RAW_TEXT
     # @return [Response] A Response object with data of type {OCI::Ons::Models::PublishResult PublishResult}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ons/publish_message.rb.html) to see an example of how to use publish_message API.

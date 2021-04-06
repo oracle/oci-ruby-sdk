@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -31,6 +31,15 @@ module OCI
       TRANSACTION_ISOLATION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    GROUP_REPLICATION_CONSISTENCY_ENUM = [
+      GROUP_REPLICATION_CONSISTENCY_EVENTUAL = 'EVENTUAL'.freeze,
+      GROUP_REPLICATION_CONSISTENCY_BEFORE_ON_PRIMARY_FAILOVER = 'BEFORE_ON_PRIMARY_FAILOVER'.freeze,
+      GROUP_REPLICATION_CONSISTENCY_BEFORE = 'BEFORE'.freeze,
+      GROUP_REPLICATION_CONSISTENCY_AFTER = 'AFTER'.freeze,
+      GROUP_REPLICATION_CONSISTENCY_BEFORE_AND_AFTER = 'BEFORE_AND_AFTER'.freeze,
+      GROUP_REPLICATION_CONSISTENCY_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # (\"completion_type\")
     # @return [String]
     attr_reader :completion_type
@@ -58,6 +67,39 @@ module OCI
     # (\"foreign_key_checks\")
     # @return [BOOLEAN]
     attr_accessor :foreign_key_checks
+
+    # - EVENTUAL:
+    #     Both RO and RW transactions do not wait for preceding transactions to be applied before executing.
+    #     A RW transaction does not wait for other members to apply a transaction. This means that a transaction
+    #     could be externalized on one member before the others. This also means that in the event of a primary failover,
+    #     the new primary can accept new RO and RW transactions before the previous primary transactions are all applied.
+    #     RO transactions could result in outdated values, RW transactions could result in a rollback due to conflicts.
+    # - BEFORE_ON_PRIMARY_FAILOVER:
+    #     New RO or RW transactions with a newly elected primary that is applying backlog from the old
+    #     primary are held (not applied) until any backlog has been applied. This ensures that when a primary failover happens,
+    #     intentionally or not, clients always see the latest value on the primary. This guarantees consistency, but means that
+    #     clients must be able to handle the delay in the event that a backlog is being applied. Usually this delay should be minimal,
+    #     but does depend on the size of the backlog.
+    # - BEFORE:
+    #     A RW transaction waits for all preceding transactions to complete before being applied. A RO transaction waits for all preceding
+    #     transactions to complete before being executed. This ensures that this transaction reads the latest value by only affecting the
+    #     latency of the transaction. This reduces the overhead of synchronization on every RW transaction, by ensuring synchronization is
+    #     used only on RO transactions. This consistency level also includes the consistency guarantees provided by BEFORE_ON_PRIMARY_FAILOVER.
+    # - AFTER:
+    #     A RW transaction waits until its changes have been applied to all of the other members. This value has no effect on RO transactions.
+    #     This mode ensures that when a transaction is committed on the local member, any subsequent transaction reads the written value or
+    #     a more recent value on any group member. Use this mode with a group that is used for predominantly RO operations to ensure that
+    #     applied RW transactions are applied everywhere once they commit. This could be used by your application to ensure that subsequent
+    #     reads fetch the latest data which includes the latest writes. This reduces the overhead of synchronization on every RO transaction,
+    #     by ensuring synchronization is used only on RW transactions. This consistency level also includes the consistency guarantees
+    #     provided by BEFORE_ON_PRIMARY_FAILOVER.
+    # - BEFORE_AND_AFTER:
+    #     A RW transaction waits for 1) all preceding transactions to complete before being applied and 2) until its changes have been
+    #     applied on other members. A RO transaction waits for all preceding transactions to complete before execution takes place.
+    #     This consistency level also includes the consistency guarantees provided by BEFORE_ON_PRIMARY_FAILOVER.
+    #
+    # @return [String]
+    attr_reader :group_replication_consistency
 
     # (\"innodb_ft_enable_stopword\")
     # @return [BOOLEAN]
@@ -242,6 +284,7 @@ module OCI
         'mandatory_roles': :'mandatoryRoles',
         'autocommit': :'autocommit',
         'foreign_key_checks': :'foreignKeyChecks',
+        'group_replication_consistency': :'groupReplicationConsistency',
         'innodb_ft_enable_stopword': :'innodbFtEnableStopword',
         'local_infile': :'localInfile',
         'mysql_firewall_mode': :'mysqlFirewallMode',
@@ -300,6 +343,7 @@ module OCI
         'mandatory_roles': :'String',
         'autocommit': :'BOOLEAN',
         'foreign_key_checks': :'BOOLEAN',
+        'group_replication_consistency': :'String',
         'innodb_ft_enable_stopword': :'BOOLEAN',
         'local_infile': :'BOOLEAN',
         'mysql_firewall_mode': :'BOOLEAN',
@@ -360,6 +404,7 @@ module OCI
     # @option attributes [String] :mandatory_roles The value to assign to the {#mandatory_roles} property
     # @option attributes [BOOLEAN] :autocommit The value to assign to the {#autocommit} property
     # @option attributes [BOOLEAN] :foreign_key_checks The value to assign to the {#foreign_key_checks} property
+    # @option attributes [String] :group_replication_consistency The value to assign to the {#group_replication_consistency} property
     # @option attributes [BOOLEAN] :innodb_ft_enable_stopword The value to assign to the {#innodb_ft_enable_stopword} property
     # @option attributes [BOOLEAN] :local_infile The value to assign to the {#local_infile} property
     # @option attributes [BOOLEAN] :mysql_firewall_mode The value to assign to the {#mysql_firewall_mode} property
@@ -459,6 +504,14 @@ module OCI
 
       self.foreign_key_checks = attributes[:'foreign_key_checks'] unless attributes[:'foreign_key_checks'].nil?
       self.foreign_key_checks = true if foreign_key_checks.nil? && !attributes.key?(:'foreignKeyChecks') && !attributes.key?(:'foreign_key_checks') # rubocop:disable Style/StringLiterals
+
+      self.group_replication_consistency = attributes[:'groupReplicationConsistency'] if attributes[:'groupReplicationConsistency']
+      self.group_replication_consistency = "BEFORE_ON_PRIMARY_FAILOVER" if group_replication_consistency.nil? && !attributes.key?(:'groupReplicationConsistency') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :groupReplicationConsistency and :group_replication_consistency' if attributes.key?(:'groupReplicationConsistency') && attributes.key?(:'group_replication_consistency')
+
+      self.group_replication_consistency = attributes[:'group_replication_consistency'] if attributes[:'group_replication_consistency']
+      self.group_replication_consistency = "BEFORE_ON_PRIMARY_FAILOVER" if group_replication_consistency.nil? && !attributes.key?(:'groupReplicationConsistency') && !attributes.key?(:'group_replication_consistency') # rubocop:disable Style/StringLiterals
 
       self.innodb_ft_enable_stopword = attributes[:'innodbFtEnableStopword'] unless attributes[:'innodbFtEnableStopword'].nil?
       self.innodb_ft_enable_stopword = true if innodb_ft_enable_stopword.nil? && !attributes.key?(:'innodbFtEnableStopword') # rubocop:disable Style/StringLiterals
@@ -776,6 +829,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] group_replication_consistency Object to be assigned
+    def group_replication_consistency=(group_replication_consistency)
+      # rubocop:disable Style/ConditionalAssignment
+      if group_replication_consistency && !GROUP_REPLICATION_CONSISTENCY_ENUM.include?(group_replication_consistency)
+        OCI.logger.debug("Unknown value for 'group_replication_consistency' [" + group_replication_consistency + "]. Mapping to 'GROUP_REPLICATION_CONSISTENCY_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @group_replication_consistency = GROUP_REPLICATION_CONSISTENCY_UNKNOWN_ENUM_VALUE
+      else
+        @group_replication_consistency = group_replication_consistency
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -792,6 +858,7 @@ module OCI
         mandatory_roles == other.mandatory_roles &&
         autocommit == other.autocommit &&
         foreign_key_checks == other.foreign_key_checks &&
+        group_replication_consistency == other.group_replication_consistency &&
         innodb_ft_enable_stopword == other.innodb_ft_enable_stopword &&
         local_infile == other.local_infile &&
         mysql_firewall_mode == other.mysql_firewall_mode &&
@@ -850,7 +917,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [completion_type, default_authentication_plugin, transaction_isolation, innodb_ft_server_stopword_table, mandatory_roles, autocommit, foreign_key_checks, innodb_ft_enable_stopword, local_infile, mysql_firewall_mode, mysqlx_enable_hello_notice, sql_require_primary_key, sql_warnings, binlog_expire_logs_seconds, innodb_buffer_pool_size, innodb_ft_result_cache_limit, max_connections, max_prepared_stmt_count, connect_timeout, cte_max_recursion_depth, generated_random_password_length, information_schema_stats_expiry, innodb_buffer_pool_instances, innodb_ft_max_token_size, innodb_ft_min_token_size, innodb_ft_num_word_optimize, innodb_lock_wait_timeout, innodb_max_purge_lag, innodb_max_purge_lag_delay, max_execution_time, mysqlx_connect_timeout, mysqlx_document_id_unique_prefix, mysqlx_idle_worker_thread_timeout, mysqlx_interactive_timeout, mysqlx_max_allowed_packet, mysqlx_min_worker_threads, mysqlx_read_timeout, mysqlx_wait_timeout, mysqlx_write_timeout, parser_max_mem_size, query_alloc_block_size, query_prealloc_size, sql_mode, mysqlx_deflate_default_compression_level, mysqlx_deflate_max_client_compression_level, mysqlx_lz4_max_client_compression_level, mysqlx_lz4_default_compression_level, mysqlx_zstd_max_client_compression_level, mysqlx_zstd_default_compression_level, mysql_zstd_default_compression_level].hash
+      [completion_type, default_authentication_plugin, transaction_isolation, innodb_ft_server_stopword_table, mandatory_roles, autocommit, foreign_key_checks, group_replication_consistency, innodb_ft_enable_stopword, local_infile, mysql_firewall_mode, mysqlx_enable_hello_notice, sql_require_primary_key, sql_warnings, binlog_expire_logs_seconds, innodb_buffer_pool_size, innodb_ft_result_cache_limit, max_connections, max_prepared_stmt_count, connect_timeout, cte_max_recursion_depth, generated_random_password_length, information_schema_stats_expiry, innodb_buffer_pool_instances, innodb_ft_max_token_size, innodb_ft_min_token_size, innodb_ft_num_word_optimize, innodb_lock_wait_timeout, innodb_max_purge_lag, innodb_max_purge_lag_delay, max_execution_time, mysqlx_connect_timeout, mysqlx_document_id_unique_prefix, mysqlx_idle_worker_thread_timeout, mysqlx_interactive_timeout, mysqlx_max_allowed_packet, mysqlx_min_worker_threads, mysqlx_read_timeout, mysqlx_wait_timeout, mysqlx_write_timeout, parser_max_mem_size, query_alloc_block_size, query_prealloc_size, sql_mode, mysqlx_deflate_default_compression_level, mysqlx_deflate_max_client_compression_level, mysqlx_lz4_max_client_compression_level, mysqlx_lz4_default_compression_level, mysqlx_zstd_max_client_compression_level, mysqlx_zstd_default_compression_level, mysql_zstd_default_compression_level].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

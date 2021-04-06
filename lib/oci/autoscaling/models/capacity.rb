@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,17 +8,29 @@ module OCI
   # Capacity limits for the instance pool.
   #
   class Autoscaling::Models::Capacity
-    # The maximum number of instances the instance pool is allowed to increase to (scale out).
+    # For a threshold-based autoscaling policy, this value is the maximum number of instances the instance pool is allowed
+    # to increase to (scale out).
+    #
+    # For a schedule-based autoscaling policy, this value is not used.
+    #
     # @return [Integer]
     attr_accessor :max
 
-    # The minimum number of instances the instance pool is allowed to decrease to (scale in).
+    # For a threshold-based autoscaling policy, this value is the minimum number of instances the instance pool is allowed
+    # to decrease to (scale in).
+    #
+    # For a schedule-based autoscaling policy, this value is not used.
+    #
     # @return [Integer]
     attr_accessor :min
 
-    # The initial number of instances to launch in the instance pool immediately after autoscaling is
-    # enabled. After autoscaling retrieves performance metrics, the number of instances is automatically adjusted from this
-    # initial number to a number that is based on the limits that you set.
+    # For a threshold-based autoscaling policy, this value is the initial number of instances to launch in the instance pool
+    # immediately after autoscaling is enabled. After autoscaling retrieves performance metrics, the number of
+    # instances is automatically adjusted from this initial number to a number that is based on the limits that
+    # you set.
+    #
+    # For a schedule-based autoscaling policy, this value is the target pool size to scale to when executing the schedule
+    # that's defined in the autoscaling policy.
     #
     # @return [Integer]
     attr_accessor :initial

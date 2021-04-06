@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -12,6 +12,7 @@ end
 
 # Require models
 require 'oci/mysql/models/add_analytics_cluster_details'
+require 'oci/mysql/models/add_heat_wave_cluster_details'
 require 'oci/mysql/models/analytics_cluster'
 require 'oci/mysql/models/analytics_cluster_memory_estimate'
 require 'oci/mysql/models/analytics_cluster_memory_estimate_status'
@@ -48,12 +49,20 @@ require 'oci/mysql/models/create_db_system_source_import_from_url_details'
 require 'oci/mysql/models/create_maintenance_details'
 require 'oci/mysql/models/db_system'
 require 'oci/mysql/models/db_system_endpoint'
+require 'oci/mysql/models/db_system_placement'
 require 'oci/mysql/models/db_system_snapshot'
 require 'oci/mysql/models/db_system_source'
 require 'oci/mysql/models/db_system_source_from_backup'
 require 'oci/mysql/models/db_system_source_from_none'
 require 'oci/mysql/models/db_system_source_import_from_url'
 require 'oci/mysql/models/db_system_summary'
+require 'oci/mysql/models/heat_wave_cluster'
+require 'oci/mysql/models/heat_wave_cluster_memory_estimate'
+require 'oci/mysql/models/heat_wave_cluster_memory_estimate_status'
+require 'oci/mysql/models/heat_wave_cluster_schema_memory_estimate'
+require 'oci/mysql/models/heat_wave_cluster_summary'
+require 'oci/mysql/models/heat_wave_cluster_table_memory_estimate'
+require 'oci/mysql/models/heat_wave_node'
 require 'oci/mysql/models/inno_db_shutdown_mode'
 require 'oci/mysql/models/maintenance_details'
 require 'oci/mysql/models/pem_ca_certificate'
@@ -70,6 +79,7 @@ require 'oci/mysql/models/update_channel_target_details'
 require 'oci/mysql/models/update_channel_target_from_db_system_details'
 require 'oci/mysql/models/update_configuration_details'
 require 'oci/mysql/models/update_db_system_details'
+require 'oci/mysql/models/update_heat_wave_cluster_details'
 require 'oci/mysql/models/update_maintenance_details'
 require 'oci/mysql/models/version'
 require 'oci/mysql/models/version_summary'

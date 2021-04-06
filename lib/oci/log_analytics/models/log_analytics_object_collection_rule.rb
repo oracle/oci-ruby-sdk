@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -19,6 +19,7 @@ module OCI
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -48,22 +49,21 @@ module OCI
     # @return [String]
     attr_accessor :os_bucket_name
 
-    # **[Required]** The type of collection.
-    # Supported collection types: LIVE, HISTORIC, HISTORIC_LIVE
+    # **[Required]** The type of log collection.
     #
     # @return [String]
     attr_reader :collection_type
 
     # **[Required]** The oldest time of the file in the bucket to consider for collection.
     # Accepted values are: BEGINNING or CURRENT_TIME or RFC3339 formatted datetime string.
-    # When collectionType is LIVE, specifying pollSince value other than CURRENT_TIME will result in error.
+    # Use this for HISTORIC or HISTORIC_LIVE collection types. When collectionType is LIVE, specifying pollSince value other than CURRENT_TIME will result in error.
     #
     # @return [String]
     attr_accessor :poll_since
 
-    # The oldest time of the file in the bucket to consider for collection.
+    # The newest time of the file in the bucket to consider for collection.
     # Accepted values are: CURRENT_TIME or RFC3339 formatted datetime string.
-    # When collectionType is LIVE, specifying pollTill will result in error.
+    # Use this for HISTORIC collection type. When collectionType is LIVE or HISTORIC_LIVE, specifying pollTill will result in error.
     #
     # @return [String]
     attr_accessor :poll_till
@@ -81,7 +81,7 @@ module OCI
     attr_accessor :entity_id
 
     # An optional character encoding to aid in detecting the character encoding of the contents of the objects while processing.
-    # It is recommended to set this value as ISO_8589_1 when configuring content of the objects having more numeric characters,
+    # It is recommended to set this value as ISO_8859_1 when configuring content of the objects having more numeric characters,
     # and very few alphabets.
     # For e.g. this applies when configuring VCN Flow Logs.
     #
@@ -89,7 +89,7 @@ module OCI
     attr_accessor :char_encoding
 
     # Use this to override some property values which are defined at bucket level to the scope of object.
-    # Supported propeties for override are, logSourceName, charEncoding.
+    # Supported propeties for override are: logSourceName, charEncoding, entityId.
     # Supported matchType for override are \"contains\".
     #
     # @return [Hash<String, Array<OCI::LogAnalytics::Models::PropertyOverride>>]
@@ -111,6 +111,11 @@ module OCI
     # **[Required]** The time when this rule was last updated. An RFC3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_updated
+
+    # **[Required]** Whether or not this rule is currently enabled.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_enabled
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
@@ -146,6 +151,7 @@ module OCI
         'lifecycle_details': :'lifecycleDetails',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
+        'is_enabled': :'isEnabled',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags'
         # rubocop:enable Style/SymbolLiteral
@@ -174,6 +180,7 @@ module OCI
         'lifecycle_details': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
+        'is_enabled': :'BOOLEAN',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
@@ -204,6 +211,7 @@ module OCI
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [BOOLEAN] :is_enabled The value to assign to the {#is_enabled} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     def initialize(attributes = {})
@@ -310,6 +318,14 @@ module OCI
 
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
 
+      self.is_enabled = attributes[:'isEnabled'] unless attributes[:'isEnabled'].nil?
+      self.is_enabled = true if is_enabled.nil? && !attributes.key?(:'isEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isEnabled and :is_enabled' if attributes.key?(:'isEnabled') && attributes.key?(:'is_enabled')
+
+      self.is_enabled = attributes[:'is_enabled'] unless attributes[:'is_enabled'].nil?
+      self.is_enabled = true if is_enabled.nil? && !attributes.key?(:'isEnabled') && !attributes.key?(:'is_enabled') # rubocop:disable Style/StringLiterals
+
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
@@ -378,6 +394,7 @@ module OCI
         lifecycle_details == other.lifecycle_details &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
+        is_enabled == other.is_enabled &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags
     end
@@ -395,7 +412,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, description, compartment_id, os_namespace, os_bucket_name, collection_type, poll_since, poll_till, log_group_id, log_source_name, entity_id, char_encoding, overrides, lifecycle_state, lifecycle_details, time_created, time_updated, defined_tags, freeform_tags].hash
+      [id, name, description, compartment_id, os_namespace, os_bucket_name, collection_type, poll_since, poll_till, log_group_id, log_source_name, entity_id, char_encoding, overrides, lifecycle_state, lifecycle_details, time_created, time_updated, is_enabled, defined_tags, freeform_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

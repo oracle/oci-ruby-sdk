@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,78 +7,85 @@ require 'date'
 module OCI
   # LogAnalyticsSourcePattern
   class LogAnalytics::Models::LogAnalyticsSourcePattern
-    # converted text
+    # The converted text.
     # @return [String]
     attr_accessor :converted_text
 
-    # parser Id
+    # The parser unique identifier.
     # @return [Integer]
     attr_accessor :db_parser_id
 
-    # date time columns
+    # The date time columns.
     # @return [String]
     attr_accessor :db_pattern_date_time_columns
 
-    # date time field
+    # The date time field.
     # @return [String]
     attr_accessor :db_pattern_date_time_field
 
-    # sequence column
+    # The sequence column.
     # @return [String]
     attr_accessor :db_pattern_sequence_column
 
-    # field list
+    # The parser field list.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsParserField>]
     attr_accessor :fields
 
-    # is include flag
+    # A flag indicating if this is source pattern is included.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_include
 
-    # is default flag
+    # A flag indicating if this is the default source pattern.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_default
 
     # @return [OCI::LogAnalytics::Models::LogAnalyticsPatternFilter]
     attr_accessor :pattern_filter
 
-    # alias
+    # The source pattern alias.
     # @return [String]
     attr_accessor :_alias
 
-    # description
+    # The source pattern description.
     # @return [String]
     attr_accessor :description
 
-    # is enabled flag
+    # A flag inidcating whether or not the source pattern is enabled.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
-    # pattern Id
+    # The source pattern unique identifier.
     # @return [Integer]
     attr_accessor :pattern_id
 
-    # is system flag
+    # The system flag.  A value of false denotes a custom, or user
+    # defined object.  A value of true denotes a built in object.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_system
 
-    # source Id
+    # The source unique identifier.
     # @return [Integer]
     attr_accessor :source_id
 
-    # suppress agent warning
+    # A flag indicating whether or not agent warnings are suppressed for
+    # this source pattern.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_agent_warning_suppressed
 
-    # pattern text
+    # The pattern text.
     # @return [String]
     attr_accessor :pattern_text
 
-    # pattern type
+    # The pattern type.
     # @return [Integer]
     attr_accessor :pattern_type
 
-    # source entity types
+    # The source entity type.
     # @return [Array<String>]
     attr_accessor :entity_type
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -23,9 +23,10 @@ module OCI
 
     # The target of the object lifecycle policy rule. The values of target can be either \"objects\",
     # \"multipart-uploads\" or \"previous-object-versions\".
-    # This field when declared as \"objects\" is used to specify ARCHIVE or DELETE rule for objects.
-    # This field when declared as \"previous-object-versions\" is used to specify ARCHIVE or DELETE
-    # rule for previous versions of existing objects.
+    # This field when declared as \"objects\" is used to specify ARCHIVE, INFREQUENT_ACCESS
+    # or DELETE rule for objects.
+    # This field when declared as \"previous-object-versions\" is used to specify ARCHIVE,
+    # INFREQUENT_ACCESS or DELETE rule for previous versions of existing objects.
     # This field when declared as \"multipart-uploads\" is used to specify the ABORT (only) rule for
     # uncommitted multipart-uploads.
     #
@@ -33,8 +34,11 @@ module OCI
     attr_accessor :target
 
     # **[Required]** The action of the object lifecycle policy rule.
-    # Rules using the action 'ARCHIVE' move objects from Standard storage tier into the
-    # [Archive Storage tier] (https://docs.cloud.oracle.com/Content/Archive/Concepts/archivestorageoverview.htm).
+    # Rules using the action 'ARCHIVE' move objects from Standard and InfrequentAccess storage tiers
+    # into the [Archive storage tier](https://docs.cloud.oracle.com/Content/Archive/Concepts/archivestorageoverview.htm).
+    # Rules using the action 'INFREQUENT_ACCESS' move objects from Standard storage tier into the
+    # Infrequent Access Storage tier. Objects that are already in InfrequentAccess tier or in Archive
+    # tier are left untouched.
     # Rules using the action 'DELETE' permanently delete objects from buckets.
     # Rules using 'ABORT' abort the uncommitted multipart-uploads and permanently delete their parts from buckets.
     #

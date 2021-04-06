@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -41,14 +41,14 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** action for upgrading database.
+    # **[Required]** The database upgrade action.
     # @return [String]
     attr_reader :action
 
-    # The source of the database upgrade
-    # Use 'DB_HOME' for using existing db home to upgrade the database
-    # Use 'DB_VERSION' for using database version to upgrade the database
-    # Use 'DB_SOFTWARE_IMAGE' for using database software image to upgrade the database
+    # The source of the Oracle Database software to be used for the upgrade.
+    #  - Use `DB_HOME` to specify an existing Database Home to upgrade the database. The database is moved to the target Database Home and makes use of the Oracle Database software version of the target Database Home.
+    #  - Use `DB_VERSION` to specify a generally-available Oracle Database software version to upgrade the database.
+    #  - Use `DB_SOFTWARE_IMAGE` to specify a [database software image](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/databasesoftwareimage.htm) to upgrade the database.
     #
     # @return [String]
     attr_reader :source
@@ -85,6 +85,12 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_ended
 
+    # Additional upgrade options supported by DBUA(Database Upgrade Assistant).
+    # Example: \"-upgradeTimezone false -keepEvents\"
+    #
+    # @return [String]
+    attr_accessor :options
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -99,7 +105,8 @@ module OCI
         'target_db_home_id': :'targetDbHomeId',
         'source_db_home_id': :'sourceDbHomeId',
         'time_started': :'timeStarted',
-        'time_ended': :'timeEnded'
+        'time_ended': :'timeEnded',
+        'options': :'options'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -118,7 +125,8 @@ module OCI
         'target_db_home_id': :'String',
         'source_db_home_id': :'String',
         'time_started': :'DateTime',
-        'time_ended': :'DateTime'
+        'time_ended': :'DateTime',
+        'options': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -140,6 +148,7 @@ module OCI
     # @option attributes [String] :source_db_home_id The value to assign to the {#source_db_home_id} property
     # @option attributes [DateTime] :time_started The value to assign to the {#time_started} property
     # @option attributes [DateTime] :time_ended The value to assign to the {#time_ended} property
+    # @option attributes [String] :options The value to assign to the {#options} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -196,6 +205,8 @@ module OCI
       raise 'You cannot provide both :timeEnded and :time_ended' if attributes.key?(:'timeEnded') && attributes.key?(:'time_ended')
 
       self.time_ended = attributes[:'time_ended'] if attributes[:'time_ended']
+
+      self.options = attributes[:'options'] if attributes[:'options']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -258,7 +269,8 @@ module OCI
         target_db_home_id == other.target_db_home_id &&
         source_db_home_id == other.source_db_home_id &&
         time_started == other.time_started &&
-        time_ended == other.time_ended
+        time_ended == other.time_ended &&
+        options == other.options
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -274,7 +286,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, action, source, lifecycle_state, lifecycle_details, target_db_version, target_database_software_image_id, target_db_home_id, source_db_home_id, time_started, time_ended].hash
+      [id, action, source, lifecycle_state, lifecycle_details, target_db_version, target_database_software_image_id, target_db_home_id, source_db_home_id, time_started, time_ended, options].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

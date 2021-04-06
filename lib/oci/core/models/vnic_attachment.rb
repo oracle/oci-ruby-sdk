@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,7 +7,7 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Represents an attachment between a VNIC and an instance. For more information, see
-  # [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/Content/Network/Tasks/managingVNICs.htm).
+  # [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingVNICs.htm).
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you
   # supply string values using the API.
@@ -56,7 +56,7 @@ module OCI
     # Certain bare metal instance shapes have two active physical NICs (0 and 1). If
     # you add a secondary VNIC to one of these instances, you can specify which NIC
     # the VNIC will use. For more information, see
-    # [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/Content/Network/Tasks/managingVNICs.htm).
+    # [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingVNICs.htm).
     #
     # @return [Integer]
     attr_accessor :nic_index
@@ -94,6 +94,7 @@ module OCI
     attr_accessor :vlan_tag
 
     # The OCID of the VNIC. Available after the attachment process is complete.
+    #
     # @return [String]
     attr_accessor :vnic_id
 

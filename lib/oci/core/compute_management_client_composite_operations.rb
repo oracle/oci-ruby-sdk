@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
@@ -25,10 +25,50 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Core::ComputeManagementClient#attach_instance_pool_instance} and then waits for the {OCI::Core::Models::InstancePoolInstance} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance pool.
+    # @param [OCI::Core::Models::AttachInstancePoolInstanceDetails] attach_instance_pool_instance_details Attach an instance to a pool
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePoolInstance#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#attach_instance_pool_instance}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Core::Models::InstancePoolInstance}
+    def attach_instance_pool_instance_and_wait_for_state(instance_pool_id, attach_instance_pool_instance_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.attach_instance_pool_instance(instance_pool_id, attach_instance_pool_instance_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_instance_pool_instance(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Core::ComputeManagementClient#attach_load_balancer} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [OCI::Core::Models::AttachLoadBalancerDetails] attach_load_balancer_details Load balancer being attached
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#attach_load_balancer}
@@ -143,10 +183,60 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Core::ComputeManagementClient#detach_instance_pool_instance} and then waits for the {OCI::Core::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance pool.
+    # @param [OCI::Core::Models::DetachInstancePoolInstanceDetails] detach_instance_pool_instance_details Instance being detached
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#detach_instance_pool_instance}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Core::Models::WorkRequest}
+    def detach_instance_pool_instance_and_wait_for_state(instance_pool_id, detach_instance_pool_instance_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.detach_instance_pool_instance(instance_pool_id, detach_instance_pool_instance_details, base_operation_opts)
+      use_util = OCI::Core::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Core::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Core::ComputeManagementClient#detach_load_balancer} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [OCI::Core::Models::DetachLoadBalancerDetails] detach_load_balancer_details Load balancer being detached
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#detach_load_balancer}
@@ -186,7 +276,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#reset_instance_pool} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#reset_instance_pool}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -225,7 +315,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#softreset_instance_pool} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#softreset_instance_pool}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -264,7 +354,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#start_instance_pool} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#start_instance_pool}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -303,7 +393,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#stop_instance_pool} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#stop_instance_pool}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -339,32 +429,41 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
-    # Calls {OCI::Core::ComputeManagementClient#terminate_cluster_network} and then waits for the {OCI::Core::Models::ClusterNetwork} acted upon
+    # Calls {OCI::Core::ComputeManagementClient#terminate_cluster_network} and then waits for the {OCI::Core::Models::WorkRequest}
     # to enter the given state(s).
     #
     # @param [String] cluster_network_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the cluster network.
-    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::ClusterNetwork#lifecycle_state}
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#terminate_cluster_network}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
     #   * max_interval_seconds: The maximum interval between queries, in seconds.
     #   * max_wait_seconds The maximum time to wait, in seconds
     #
-    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Core::Models::WorkRequest}
     def terminate_cluster_network_and_wait_for_state(cluster_network_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
-      initial_get_result = @service_client.get_cluster_network(cluster_network_id)
       operation_result = @service_client.terminate_cluster_network(cluster_network_id, base_operation_opts)
+      use_util = OCI::Core::Util.respond_to?(:wait_on_work_request)
 
-      return operation_result if wait_for_states.empty?
+      return operation_result if wait_for_states.empty? && !use_util
 
       lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
 
       begin
-        waiter_result = initial_get_result.wait_until(
-          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
-          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
-          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
-          succeed_on_not_found: true
-        )
+        if use_util
+          waiter_result = OCI::Core::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return
@@ -382,7 +481,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#terminate_instance_pool} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#terminate_instance_pool}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -462,7 +561,7 @@ module OCI
     # Calls {OCI::Core::ComputeManagementClient#update_instance_pool} and then waits for the {OCI::Core::Models::InstancePool} acted upon
     # to enter the given state(s).
     #
-    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance pool.
+    # @param [String] instance_pool_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance pool.
     # @param [OCI::Core::Models::UpdateInstancePoolDetails] update_instance_pool_details Update instance pool configuration
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::InstancePool#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeManagementClient#update_instance_pool}

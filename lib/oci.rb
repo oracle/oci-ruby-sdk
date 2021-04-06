@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'oci/api_client'
@@ -80,6 +80,14 @@ require 'oci/compute_instance_agent/compute_instance_agent'
 require 'oci/tenant_manager_control_plane/tenant_manager_control_plane'
 require 'oci/optimizer/optimizer'
 require 'oci/rover/rover'
+require 'oci/database_management/database_management'
+require 'oci/artifacts/artifacts'
+require 'oci/apm_traces/apm_traces'
+require 'oci/golden_gate/golden_gate'
+require 'oci/apm_synthetics/apm_synthetics'
+require 'oci/apm_control_plane/apm_control_plane'
+require 'oci/network_load_balancer/network_load_balancer'
+require 'oci/vulnerability_scanning/vulnerability_scanning'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI

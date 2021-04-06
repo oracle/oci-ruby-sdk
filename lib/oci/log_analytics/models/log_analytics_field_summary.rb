@@ -1,11 +1,11 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # summary of fields
+  # A summary of a field.
   class LogAnalytics::Models::LogAnalyticsFieldSummary
     # The name this field is given in the common event expression standard from mitre.org.
     # This is used for reference when exporting content conforming to CEE standard
@@ -13,83 +13,95 @@ module OCI
     # @return [String]
     attr_accessor :cee_alias
 
-    # data type
+    # The field data type.
     # @return [String]
     attr_accessor :data_type
 
-    # default regular expression
+    # The field default regular expression.
     # @return [String]
     attr_accessor :regular_expression
 
-    # description
+    # The field description.
     # @return [String]
     attr_accessor :description
 
-    # display name
+    # The field display name.
     # @return [String]
     attr_accessor :display_name
 
-    # edit version
+    # The field edit version.
     # @return [Integer]
     attr_accessor :edit_version
 
-    # facet priority
+    # The facet priority.
     # @return [Integer]
     attr_accessor :facet_priority
 
-    # internal name
+    # The field internal name.
     # @return [String]
     attr_accessor :name
 
-    # is facet eligible flag
+    # A flag inidcating whether or not the facet is elibigle for use.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_facet_eligible
 
-    # is high cardinality flag
+    # A flag inidcating whether or not the cardinality of the field is high.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_high_cardinality
 
-    # is larget data flag
+    # A flag inidcating whether or not the field is a large data field.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_large_data
 
-    # is multi-valued flag
+    # A flag indicating whether or not the field is multi-valued.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_multi_valued
 
-    # is primary flag
+    # A flag inidcating whether or not this is a primary field.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_primary
 
-    # is system flag
+    # The system flag.  A value of false denotes a custom, or user
+    # defined object.  A value of true denotes a built in object.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_system
 
-    # is summarizable flag
+    # A flag inidcating whether or not the field can be summarized.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_summarizable
 
-    # mappable
+    # The mapped value.
     # @return [String]
     attr_accessor :mapped_value
 
-    # metric key eligible
+    # A flag inidcating whether or not the field is metric key eligible.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_metric_key_eligible
 
-    # metric value eligible
+    # A flag inidcating whether or not the field is metric value eligible.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_metric_value_eligible
 
-    # range facet eligible
+    # A flag inidcating whether or not the field is range facet eligible.
+    #
     # @return [Integer]
     attr_accessor :range_facet_eligible
 
-    # table eligible
+    # A flag inidcating whether or not the field is table eligible.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_table_eligible
 
-    # unit type
+    # The field unit type.
     # @return [String]
     attr_accessor :unit_type
 

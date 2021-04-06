@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of the TenantManager API
+  # The Organizations API allows you to consolidate multiple OCI tenancies into an organization, and centrally manage your tenancies and its resources.
   class TenantManagerControlPlane::SenderInvitationClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -109,8 +109,8 @@ module OCI
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
-    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request, so it can be retried in case of a timeout or
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
@@ -166,13 +166,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a sender invitation and asynchronously sends the invitation to recipient.
+    # Creates a sender invitation and asynchronously sends the invitation to the recipient.
     # @param [OCI::TenantManagerControlPlane::Models::CreateSenderInvitationDetails] create_sender_invitation_details Parameters for sender invitation creation.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request, so it can be retried in case of a timeout or
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
@@ -294,10 +294,13 @@ module OCI
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order can be provided.
+    #   * The default order for timeCreated is descending.
+    #   * The default order for displayName is ascending.
+    #   * If no value is specified, timeCreated is the default.
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    # @option opts [String] :sort_order The sort order to use, whether 'asc' or 'desc'.
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::SenderInvitationCollection SenderInvitationCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/list_sender_invitations.rb.html) to see an example of how to use list_sender_invitations API.
     def list_sender_invitations(compartment_id, opts = {})

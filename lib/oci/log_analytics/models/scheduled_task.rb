@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,7 +8,14 @@ require 'logger'
 module OCI
   # Log analytics scheduled task resource.
   #
+  # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class LogAnalytics::Models::ScheduledTask
+    KIND_ENUM = [
+      KIND_ACCELERATION = 'ACCELERATION'.freeze,
+      KIND_STANDARD = 'STANDARD'.freeze,
+      KIND_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     TASK_TYPE_ENUM = [
       TASK_TYPE_SAVED_SEARCH = 'SAVED_SEARCH'.freeze,
       TASK_TYPE_ACCELERATION = 'ACCELERATION'.freeze,
@@ -30,6 +37,10 @@ module OCI
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
+
+    # **[Required]** Discriminator.
+    # @return [String]
+    attr_reader :kind
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the data plane resource.
     #
@@ -102,6 +113,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'kind': :'kind',
         'id': :'id',
         'display_name': :'displayName',
         'task_type': :'taskType',
@@ -124,6 +136,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'kind': :'String',
         'id': :'String',
         'display_name': :'String',
         'task_type': :'String',
@@ -142,12 +155,28 @@ module OCI
       }
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
+
+
+    # Given the hash representation of a subtype of this class,
+    # use the info in the hash to return the class of the subtype.
+    def self.get_subtype(object_hash)
+      type = object_hash[:'kind'] # rubocop:disable Style/SymbolLiteral
+
+      return 'OCI::LogAnalytics::Models::StandardTask' if type == 'STANDARD'
+
+      # TODO: Log a warning when the subtype is not found.
+      'OCI::LogAnalytics::Models::ScheduledTask'
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :kind The value to assign to the {#kind} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :task_type The value to assign to the {#task_type} property
@@ -167,6 +196,8 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.kind = attributes[:'kind'] if attributes[:'kind']
 
       self.id = attributes[:'id'] if attributes[:'id']
 
@@ -244,6 +275,19 @@ module OCI
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] kind Object to be assigned
+    def kind=(kind)
+      # rubocop:disable Style/ConditionalAssignment
+      if kind && !KIND_ENUM.include?(kind)
+        OCI.logger.debug("Unknown value for 'kind' [" + kind + "]. Mapping to 'KIND_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @kind = KIND_UNKNOWN_ENUM_VALUE
+      else
+        @kind = kind
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] task_type Object to be assigned
     def task_type=(task_type)
       # rubocop:disable Style/ConditionalAssignment
@@ -291,6 +335,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        kind == other.kind &&
         id == other.id &&
         display_name == other.display_name &&
         task_type == other.task_type &&
@@ -320,7 +365,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, task_type, schedules, action, task_status, work_request_id, num_occurrences, compartment_id, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags].hash
+      [kind, id, display_name, task_type, schedules, action, task_status, work_request_id, num_occurrences, compartment_id, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

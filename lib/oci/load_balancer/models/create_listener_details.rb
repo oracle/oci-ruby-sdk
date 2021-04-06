@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -39,6 +39,8 @@ module OCI
     # @return [Array<String>]
     attr_accessor :hostname_names
 
+    # Deprecated. Please use `routingPolicies` instead.
+    #
     # The name of the set of path-based routing rules, {PathRouteSet},
     # applied to this listener's traffic.
     #
@@ -61,6 +63,13 @@ module OCI
     # @return [String]
     attr_accessor :name
 
+    # The name of the routing policy applied to this listener's traffic.
+    #
+    # Example: `example_routing_policy`
+    #
+    # @return [String]
+    attr_accessor :routing_policy_name
+
     # The names of the {RuleSet} to apply to the listener.
     #
     # Example: [\"example_rule_set\"]
@@ -80,6 +89,7 @@ module OCI
         'ssl_configuration': :'sslConfiguration',
         'connection_configuration': :'connectionConfiguration',
         'name': :'name',
+        'routing_policy_name': :'routingPolicyName',
         'rule_set_names': :'ruleSetNames'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -97,6 +107,7 @@ module OCI
         'ssl_configuration': :'OCI::LoadBalancer::Models::SSLConfigurationDetails',
         'connection_configuration': :'OCI::LoadBalancer::Models::ConnectionConfiguration',
         'name': :'String',
+        'routing_policy_name': :'String',
         'rule_set_names': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -116,6 +127,7 @@ module OCI
     # @option attributes [OCI::LoadBalancer::Models::SSLConfigurationDetails] :ssl_configuration The value to assign to the {#ssl_configuration} property
     # @option attributes [OCI::LoadBalancer::Models::ConnectionConfiguration] :connection_configuration The value to assign to the {#connection_configuration} property
     # @option attributes [String] :name The value to assign to the {#name} property
+    # @option attributes [String] :routing_policy_name The value to assign to the {#routing_policy_name} property
     # @option attributes [Array<String>] :rule_set_names The value to assign to the {#rule_set_names} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -159,6 +171,12 @@ module OCI
 
       self.name = attributes[:'name'] if attributes[:'name']
 
+      self.routing_policy_name = attributes[:'routingPolicyName'] if attributes[:'routingPolicyName']
+
+      raise 'You cannot provide both :routingPolicyName and :routing_policy_name' if attributes.key?(:'routingPolicyName') && attributes.key?(:'routing_policy_name')
+
+      self.routing_policy_name = attributes[:'routing_policy_name'] if attributes[:'routing_policy_name']
+
       self.rule_set_names = attributes[:'ruleSetNames'] if attributes[:'ruleSetNames']
 
       raise 'You cannot provide both :ruleSetNames and :rule_set_names' if attributes.key?(:'ruleSetNames') && attributes.key?(:'rule_set_names')
@@ -185,6 +203,7 @@ module OCI
         ssl_configuration == other.ssl_configuration &&
         connection_configuration == other.connection_configuration &&
         name == other.name &&
+        routing_policy_name == other.routing_policy_name &&
         rule_set_names == other.rule_set_names
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -201,7 +220,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [default_backend_set_name, port, protocol, hostname_names, path_route_set_name, ssl_configuration, connection_configuration, name, rule_set_names].hash
+      [default_backend_set_name, port, protocol, hostname_names, path_route_set_name, ssl_configuration, connection_configuration, name, routing_policy_name, rule_set_names].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

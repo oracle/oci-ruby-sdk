@@ -1,7 +1,11 @@
 lib/oci/analytics/analytics.rb
 lib/oci/announcements_service/announcements_service.rb
 lib/oci/apigateway/apigateway.rb
+lib/oci/apm_control_plane/apm_control_plane.rb
+lib/oci/apm_synthetics/apm_synthetics.rb
+lib/oci/apm_traces/apm_traces.rb
 lib/oci/application_migration/application_migration.rb
+lib/oci/artifacts/artifacts.rb
 lib/oci/audit/audit.rb
 lib/oci/auth/auth.rb
 lib/oci/autoscaling/autoscaling.rb
@@ -19,12 +23,14 @@ lib/oci/data_integration/data_integration.rb
 lib/oci/data_safe/data_safe.rb
 lib/oci/data_science/data_science.rb
 lib/oci/database/database.rb
+lib/oci/database_management/database_management.rb
 lib/oci/dns/dns.rb
 lib/oci/dts/dts.rb
 lib/oci/email/email.rb
 lib/oci/events/events.rb
 lib/oci/file_storage/file_storage.rb
 lib/oci/functions/functions.rb
+lib/oci/golden_gate/golden_gate.rb
 lib/oci/healthchecks/healthchecks.rb
 lib/oci/identity/identity.rb
 lib/oci/integration/integration.rb
@@ -40,6 +46,7 @@ lib/oci/management_dashboard/management_dashboard.rb
 lib/oci/marketplace/marketplace.rb
 lib/oci/monitoring/monitoring.rb
 lib/oci/mysql/mysql.rb
+lib/oci/network_load_balancer/network_load_balancer.rb
 lib/oci/nosql/nosql.rb
 lib/oci/object_storage/object_storage.rb
 lib/oci/oce/oce.rb
@@ -58,6 +65,7 @@ lib/oci/streaming/streaming.rb
 lib/oci/tenant_manager_control_plane/tenant_manager_control_plane.rb
 lib/oci/usage_api/usage_api.rb
 lib/oci/vault/vault.rb
+lib/oci/vulnerability_scanning/vulnerability_scanning.rb
 lib/oci/waas/waas.rb
 lib/oci/work_requests/work_requests.rb
 lib/

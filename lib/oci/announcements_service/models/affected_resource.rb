@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -20,13 +20,18 @@ module OCI
     # @return [String]
     attr_accessor :region
 
+    # Additional properties associated with the resource.
+    # @return [Array<OCI::AnnouncementsService::Models::Property>]
+    attr_accessor :additional_properties
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'resource_id': :'resourceId',
         'resource_name': :'resourceName',
-        'region': :'region'
+        'region': :'region',
+        'additional_properties': :'additionalProperties'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,7 +42,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'resource_id': :'String',
         'resource_name': :'String',
-        'region': :'String'
+        'region': :'String',
+        'additional_properties': :'Array<OCI::AnnouncementsService::Models::Property>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -51,6 +57,7 @@ module OCI
     # @option attributes [String] :resource_id The value to assign to the {#resource_id} property
     # @option attributes [String] :resource_name The value to assign to the {#resource_name} property
     # @option attributes [String] :region The value to assign to the {#region} property
+    # @option attributes [Array<OCI::AnnouncementsService::Models::Property>] :additional_properties The value to assign to the {#additional_properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -70,6 +77,12 @@ module OCI
       self.resource_name = attributes[:'resource_name'] if attributes[:'resource_name']
 
       self.region = attributes[:'region'] if attributes[:'region']
+
+      self.additional_properties = attributes[:'additionalProperties'] if attributes[:'additionalProperties']
+
+      raise 'You cannot provide both :additionalProperties and :additional_properties' if attributes.key?(:'additionalProperties') && attributes.key?(:'additional_properties')
+
+      self.additional_properties = attributes[:'additional_properties'] if attributes[:'additional_properties']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -85,7 +98,8 @@ module OCI
       self.class == other.class &&
         resource_id == other.resource_id &&
         resource_name == other.resource_name &&
-        region == other.region
+        region == other.region &&
+        additional_properties == other.additional_properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -101,7 +115,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [resource_id, resource_name, region].hash
+      [resource_id, resource_name, region, additional_properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

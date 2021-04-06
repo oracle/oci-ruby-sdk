@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,7 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A ByoipRange, is an IP address prefix that the user owns and wishes to import into OCI.
+  # Oracle offers the ability to Bring Your Own IP (BYOIP), importing public IP addresses that you currently own to Oracle Cloud Infrastructure. A `ByoipRange` resource is a record of the imported address block (a BYOIP CIDR block) and also some associated metadata.
+  # The process used to [Bring Your Own IP](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/BYOIP.htm) is explained in the documentation.
   class Core::Models::ByoipRange
     LIFECYCLE_DETAILS_ENUM = [
       LIFECYCLE_DETAILS_CREATING = 'CREATING'.freeze,
@@ -16,6 +17,8 @@ module OCI
       LIFECYCLE_DETAILS_FAILED = 'FAILED'.freeze,
       LIFECYCLE_DETAILS_DELETING = 'DELETING'.freeze,
       LIFECYCLE_DETAILS_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_DETAILS_ADVERTISING = 'ADVERTISING'.freeze,
+      LIFECYCLE_DETAILS_WITHDRAWING = 'WITHDRAWING'.freeze,
       LIFECYCLE_DETAILS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -28,17 +31,17 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The address range the user is on-boarding.
+    # **[Required]** The public IPv4 CIDR block being imported from on-premises to the Oracle cloud.
     # @return [String]
     attr_accessor :cidr_block
 
-    # **[Required]** The OCID of the compartment containing the Byoip Range.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the BYOIP CIDR block.
     #
     # @return [String]
     attr_accessor :compartment_id
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -52,54 +55,54 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The Oracle ID (OCID) of the Byoip Range.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the `ByoipRange` resource.
     # @return [String]
     attr_accessor :id
 
-    # The Byoip Range's current substate.
+    # The `ByoipRange` resource's current status.
     # @return [String]
     attr_reader :lifecycle_details
 
-    # **[Required]** The Byoip Range's current state.
+    # **[Required]** The `ByoipRange` resource's current state.
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** The date and time the Byoip Range was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # **[Required]** The date and time the `ByoipRange` resource was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The date and time the Byoip Range was validated, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # The date and time the `ByoipRange` resource was validated, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_validated
 
-    # The date and time the Byoip Range was advertised, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # The date and time the `ByoipRange` resource was advertised to the internet by BGP, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_advertised
 
-    # The date and time the Byoip Range was withdrawn, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # The date and time the `ByoipRange` resource was withdrawn from advertisement by BGP to the internet, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_withdrawn
 
-    # **[Required]** This is an internally generated ASCII string that the user will then use as part of the validation process. Specifically, they will need to add the token string generated by the service to their Internet Registry record.
+    # **[Required]** The validation token is an internally-generated ASCII string used in the validation process. See [Importing a CIDR block](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/BYOIP.htm#import_cidr) for details.
     # @return [String]
     attr_accessor :validation_token
 

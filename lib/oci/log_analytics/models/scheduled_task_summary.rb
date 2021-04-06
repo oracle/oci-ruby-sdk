@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -22,6 +22,12 @@ module OCI
       TASK_STATUS_COMPLETED = 'COMPLETED'.freeze,
       TASK_STATUS_BLOCKED = 'BLOCKED'.freeze,
       TASK_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    LAST_EXECUTION_STATUS_ENUM = [
+      LAST_EXECUTION_STATUS_FAILED = 'FAILED'.freeze,
+      LAST_EXECUTION_STATUS_SUCCEEDED = 'SUCCEEDED'.freeze,
+      LAST_EXECUTION_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the data plane resource.
@@ -79,6 +85,14 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # The most recent task execution status.
+    # @return [String]
+    attr_reader :last_execution_status
+
+    # The date and time the scheduled task last executed, in the format defined by RFC3339.
+    # @return [DateTime]
+    attr_accessor :time_last_executed
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -93,7 +107,9 @@ module OCI
         'work_request_id': :'workRequestId',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'last_execution_status': :'lastExecutionStatus',
+        'time_last_executed': :'timeLastExecuted'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -112,7 +128,9 @@ module OCI
         'work_request_id': :'String',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'last_execution_status': :'String',
+        'time_last_executed': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -134,6 +152,8 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :last_execution_status The value to assign to the {#last_execution_status} property
+    # @option attributes [DateTime] :time_last_executed The value to assign to the {#time_last_executed} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -201,6 +221,18 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.last_execution_status = attributes[:'lastExecutionStatus'] if attributes[:'lastExecutionStatus']
+
+      raise 'You cannot provide both :lastExecutionStatus and :last_execution_status' if attributes.key?(:'lastExecutionStatus') && attributes.key?(:'last_execution_status')
+
+      self.last_execution_status = attributes[:'last_execution_status'] if attributes[:'last_execution_status']
+
+      self.time_last_executed = attributes[:'timeLastExecuted'] if attributes[:'timeLastExecuted']
+
+      raise 'You cannot provide both :timeLastExecuted and :time_last_executed' if attributes.key?(:'timeLastExecuted') && attributes.key?(:'time_last_executed')
+
+      self.time_last_executed = attributes[:'time_last_executed'] if attributes[:'time_last_executed']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -231,6 +263,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] last_execution_status Object to be assigned
+    def last_execution_status=(last_execution_status)
+      # rubocop:disable Style/ConditionalAssignment
+      if last_execution_status && !LAST_EXECUTION_STATUS_ENUM.include?(last_execution_status)
+        OCI.logger.debug("Unknown value for 'last_execution_status' [" + last_execution_status + "]. Mapping to 'LAST_EXECUTION_STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @last_execution_status = LAST_EXECUTION_STATUS_UNKNOWN_ENUM_VALUE
+      else
+        @last_execution_status = last_execution_status
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -250,7 +295,9 @@ module OCI
         work_request_id == other.work_request_id &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        last_execution_status == other.last_execution_status &&
+        time_last_executed == other.time_last_executed
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -266,7 +313,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, task_type, compartment_id, time_created, time_updated, lifecycle_state, task_status, work_request_id, display_name, freeform_tags, defined_tags].hash
+      [id, task_type, compartment_id, time_created, time_updated, lifecycle_state, task_status, work_request_id, display_name, freeform_tags, defined_tags, last_execution_status, time_last_executed].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

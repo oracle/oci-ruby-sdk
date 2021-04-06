@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -33,6 +33,7 @@ module OCI
         'is_duration': :'isDuration',
         '_alias': :'alias',
         'filter_query_string': :'filterQueryString',
+        'unit_type': :'unitType',
         'function': :'function',
         'arguments': :'arguments'
         # rubocop:enable Style/SymbolLiteral
@@ -53,6 +54,7 @@ module OCI
         'is_duration': :'BOOLEAN',
         '_alias': :'String',
         'filter_query_string': :'String',
+        'unit_type': :'String',
         'function': :'String',
         'arguments': :'Array<OCI::LogAnalytics::Models::Argument>'
         # rubocop:enable Style/SymbolLiteral
@@ -74,6 +76,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_duration The value to assign to the {OCI::LogAnalytics::Models::AbstractField#is_duration #is_duration} proprety
     # @option attributes [String] :_alias The value to assign to the {OCI::LogAnalytics::Models::AbstractField#_alias #_alias} proprety
     # @option attributes [String] :filter_query_string The value to assign to the {OCI::LogAnalytics::Models::AbstractField#filter_query_string #filter_query_string} proprety
+    # @option attributes [String] :unit_type The value to assign to the {OCI::LogAnalytics::Models::AbstractField#unit_type #unit_type} proprety
     # @option attributes [String] :function The value to assign to the {#function} property
     # @option attributes [Array<OCI::LogAnalytics::Models::Argument>] :arguments The value to assign to the {#arguments} property
     def initialize(attributes = {})
@@ -112,6 +115,7 @@ module OCI
         is_duration == other.is_duration &&
         _alias == other._alias &&
         filter_query_string == other.filter_query_string &&
+        unit_type == other.unit_type &&
         function == other.function &&
         arguments == other.arguments
     end
@@ -129,7 +133,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, display_name, is_declared, original_display_names, internal_name, value_type, is_groupable, is_duration, _alias, filter_query_string, function, arguments].hash
+      [name, display_name, is_declared, original_display_names, internal_name, value_type, is_groupable, is_duration, _alias, filter_query_string, unit_type, function, arguments].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

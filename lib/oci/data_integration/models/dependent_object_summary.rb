@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -35,6 +35,9 @@ module OCI
     # @return [String]
     attr_accessor :aggregator_key
 
+    # @return [OCI::DataIntegration::Models::AggregatorSummary]
+    attr_accessor :aggregator
+
     # The full path to identify this object.
     # @return [String]
     attr_accessor :identifier_path
@@ -66,6 +69,7 @@ module OCI
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'aggregator_key': :'aggregatorKey',
+        'aggregator': :'aggregator',
         'identifier_path': :'identifierPath',
         'info_fields': :'infoFields',
         'registry_version': :'registryVersion',
@@ -86,6 +90,7 @@ module OCI
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'aggregator_key': :'String',
+        'aggregator': :'OCI::DataIntegration::Models::AggregatorSummary',
         'identifier_path': :'String',
         'info_fields': :'Hash<String, String>',
         'registry_version': :'Integer',
@@ -108,6 +113,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :aggregator_key The value to assign to the {#aggregator_key} property
+    # @option attributes [OCI::DataIntegration::Models::AggregatorSummary] :aggregator The value to assign to the {#aggregator} property
     # @option attributes [String] :identifier_path The value to assign to the {#identifier_path} property
     # @option attributes [Hash<String, String>] :info_fields The value to assign to the {#info_fields} property
     # @option attributes [Integer] :registry_version The value to assign to the {#registry_version} property
@@ -158,6 +164,8 @@ module OCI
 
       self.aggregator_key = attributes[:'aggregator_key'] if attributes[:'aggregator_key']
 
+      self.aggregator = attributes[:'aggregator'] if attributes[:'aggregator']
+
       self.identifier_path = attributes[:'identifierPath'] if attributes[:'identifierPath']
 
       raise 'You cannot provide both :identifierPath and :identifier_path' if attributes.key?(:'identifierPath') && attributes.key?(:'identifier_path')
@@ -205,6 +213,7 @@ module OCI
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         aggregator_key == other.aggregator_key &&
+        aggregator == other.aggregator &&
         identifier_path == other.identifier_path &&
         info_fields == other.info_fields &&
         registry_version == other.registry_version &&
@@ -225,7 +234,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [created_by, created_by_name, updated_by, updated_by_name, time_created, time_updated, aggregator_key, identifier_path, info_fields, registry_version, labels, is_favorite].hash
+      [created_by, created_by_name, updated_by, updated_by_name, time_created, time_updated, aggregator_key, aggregator, identifier_path, info_fields, registry_version, labels, is_favorite].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

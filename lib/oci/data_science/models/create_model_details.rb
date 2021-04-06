@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,21 +7,21 @@ require 'date'
 module OCI
   # Parameters needed to create a new model. Models are mathematical representations of the relationships between data. Models are represented by their associated metadata and artifact.
   class DataScience::Models::CreateModelDetails
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the compartment to create the model in.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment to create the model in.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the project to associate with the model.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the project to associate with the model.
     # @return [String]
     attr_accessor :project_id
 
-    # A user-friendly display name for the resource. Does not have to be unique, and can be modified. Avoid entering confidential information.
+    # A user-friendly display name for the resource. It does not have to be unique and can be modified. Avoid entering confidential information.
     # Example: `My Model`
     #
     # @return [String]
     attr_accessor :display_name
 
-    # A short blurb describing the model.
+    # A short description of the model.
     # @return [String]
     attr_accessor :description
 

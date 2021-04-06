@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,20 +7,18 @@ require 'date'
 module OCI
   # CreateVcnDetails model.
   class Core::Models::CreateVcnDetails
-    # Deprecated. Instead use 'cidrBlocks'. It is an error to set both cidrBlock and
-    # cidrBlocks.
+    # **Deprecated.** Do *not* set this value. Use `cidrBlocks` instead.
     # Example: `10.0.0.0/16`
     #
     # @return [String]
     attr_accessor :cidr_block
 
-    # List of IPv4 CIDR blocks associated with the VCN. The CIDRs must maintain the following
-    # rules -
+    # The list of one or more IPv4 CIDR blocks for the VCN that meet the following criteria:
+    # - The CIDR blocks must be valid.
+    # - They must not overlap with each other or with the on-premises network CIDR block.
+    # - The number of CIDR blocks must not exceed the limit of CIDR blocks allowed per VCN.
     #
-    # a. The list of CIDRs provided are valid
-    # b. There is no overlap between different CIDRs
-    # c. The number of CIDRs should not exceed the max limit of CIDRs per VCN
-    # d. It is an error to set both cidrBlock and cidrBlocks.
+    # **Important:** Do *not* specify a value for `cidrBlock`. Use this parameter instead.
     #
     # @return [Array<String>]
     attr_accessor :cidr_blocks
@@ -30,7 +28,7 @@ module OCI
     attr_accessor :compartment_id
 
     # If you enable IPv6 for the VCN (see `isIpv6Enabled`), you may optionally provide an IPv6
-    # /48 CIDR block from the supported ranges (see [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
+    # /48 CIDR block from the supported ranges (see [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
     # The addresses in this block will be considered private and cannot be accessed
     # from the internet. The documentation refers to this as a *custom CIDR* for the VCN.
     #
@@ -46,7 +44,7 @@ module OCI
     # an IPv6 address can be used for internet communication by using the `isInternetAccessAllowed`
     # attribute in the {Ipv6} object.
     #
-    # For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
+    # For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
     #
     # Example: `2001:0db8:0123::/48`
     #
@@ -54,14 +52,16 @@ module OCI
     attr_accessor :ipv6_cidr_block
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
+    # A user-friendly name. Does not have to be unique, and it's changeable.
+    # Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :display_name
 
@@ -77,7 +77,7 @@ module OCI
     # will not work.
     #
     # For more information, see
-    # [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/Content/Network/Concepts/dns.htm).
+    # [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/dns.htm).
     #
     # Example: `vcn1`
     #
@@ -85,7 +85,7 @@ module OCI
     attr_accessor :dns_label
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -93,7 +93,7 @@ module OCI
     attr_accessor :freeform_tags
 
     # Whether IPv6 is enabled for the VCN. Default is `false`. You cannot change this later.
-    # For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/Content/Network/Concepts/ipv6.htm).
+    # For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
     #
     # Example: `true`
     #

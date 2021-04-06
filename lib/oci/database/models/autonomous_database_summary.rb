@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -264,7 +264,7 @@ module OCI
     # - OLTP - indicates an Autonomous Transaction Processing database
     # - DW - indicates an Autonomous Data Warehouse database
     # - AJD - indicates an Autonomous JSON Database
-    # - APEX - indicates an Autonomous Database with the Oracle Application Express (APEX) workload type.
+    # - APEX - indicates an Autonomous Database with the Oracle APEX Application Development workload type.
     #
     # @return [String]
     attr_reader :db_workload
@@ -294,7 +294,28 @@ module OCI
     # @return [Array<String>]
     attr_accessor :whitelisted_ips
 
-    # Information about Autonomous Application Express.
+    # This field will be null if the Autonomous Database is not Data Guard enabled or Access Control is disabled.
+    # It's value would be `TRUE` if Autonomous Database is Data Guard enabled and Access Control is enabled and if the Autonomous Database uses primary IP access control list (ACL) for standby.
+    # It's value would be `FALSE` if Autonomous Database is Data Guard enabled and Access Control is enabled and if the Autonomous Database uses different IP access control list (ACL) for standby compared to primary.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :are_primary_whitelisted_ips_used
+
+    # The client IP access control list (ACL). This feature is available for autonomous databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) and on Exadata Cloud@Customer.
+    # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance.
+    #
+    # For shared Exadata infrastructure, this is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet or VCN OCID.
+    # Use a semicolon (;) as a deliminator between the VCN-specific subnets or IPs.
+    # Example: `[\"1.1.1.1\",\"1.1.1.0/24\",\"ocid1.vcn.oc1.sea.<unique_id>\",\"ocid1.vcn.oc1.sea.<unique_id1>;1.1.1.1\",\"ocid1.vcn.oc1.sea.<unique_id2>;1.1.0.0/16\"]`
+    # For Exadata Cloud@Customer, this is an array of IP addresses or CIDR (Classless Inter-Domain Routing) notations.
+    # Example: `[\"1.1.1.1\",\"1.1.1.0/24\",\"1.1.2.25\"]`
+    #
+    # For an update operation, if you want to delete all the IPs in the ACL, use an array with a single empty string entry.
+    #
+    # @return [Array<String>]
+    attr_accessor :standby_whitelisted_ips
+
+    # Information about Oracle APEX Application Development.
     # @return [OCI::Database::Models::AutonomousDatabaseApex]
     attr_accessor :apex_details
 
@@ -429,6 +450,8 @@ module OCI
         'db_workload': :'dbWorkload',
         'is_access_control_enabled': :'isAccessControlEnabled',
         'whitelisted_ips': :'whitelistedIps',
+        'are_primary_whitelisted_ips_used': :'arePrimaryWhitelistedIpsUsed',
+        'standby_whitelisted_ips': :'standbyWhitelistedIps',
         'apex_details': :'apexDetails',
         'is_auto_scaling_enabled': :'isAutoScalingEnabled',
         'data_safe_status': :'dataSafeStatus',
@@ -496,6 +519,8 @@ module OCI
         'db_workload': :'String',
         'is_access_control_enabled': :'BOOLEAN',
         'whitelisted_ips': :'Array<String>',
+        'are_primary_whitelisted_ips_used': :'BOOLEAN',
+        'standby_whitelisted_ips': :'Array<String>',
         'apex_details': :'OCI::Database::Models::AutonomousDatabaseApex',
         'is_auto_scaling_enabled': :'BOOLEAN',
         'data_safe_status': :'String',
@@ -565,6 +590,8 @@ module OCI
     # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
     # @option attributes [BOOLEAN] :is_access_control_enabled The value to assign to the {#is_access_control_enabled} property
     # @option attributes [Array<String>] :whitelisted_ips The value to assign to the {#whitelisted_ips} property
+    # @option attributes [BOOLEAN] :are_primary_whitelisted_ips_used The value to assign to the {#are_primary_whitelisted_ips_used} property
+    # @option attributes [Array<String>] :standby_whitelisted_ips The value to assign to the {#standby_whitelisted_ips} property
     # @option attributes [OCI::Database::Models::AutonomousDatabaseApex] :apex_details The value to assign to the {#apex_details} property
     # @option attributes [BOOLEAN] :is_auto_scaling_enabled The value to assign to the {#is_auto_scaling_enabled} property
     # @option attributes [String] :data_safe_status The value to assign to the {#data_safe_status} property
@@ -802,6 +829,18 @@ module OCI
       raise 'You cannot provide both :whitelistedIps and :whitelisted_ips' if attributes.key?(:'whitelistedIps') && attributes.key?(:'whitelisted_ips')
 
       self.whitelisted_ips = attributes[:'whitelisted_ips'] if attributes[:'whitelisted_ips']
+
+      self.are_primary_whitelisted_ips_used = attributes[:'arePrimaryWhitelistedIpsUsed'] unless attributes[:'arePrimaryWhitelistedIpsUsed'].nil?
+
+      raise 'You cannot provide both :arePrimaryWhitelistedIpsUsed and :are_primary_whitelisted_ips_used' if attributes.key?(:'arePrimaryWhitelistedIpsUsed') && attributes.key?(:'are_primary_whitelisted_ips_used')
+
+      self.are_primary_whitelisted_ips_used = attributes[:'are_primary_whitelisted_ips_used'] unless attributes[:'are_primary_whitelisted_ips_used'].nil?
+
+      self.standby_whitelisted_ips = attributes[:'standbyWhitelistedIps'] if attributes[:'standbyWhitelistedIps']
+
+      raise 'You cannot provide both :standbyWhitelistedIps and :standby_whitelisted_ips' if attributes.key?(:'standbyWhitelistedIps') && attributes.key?(:'standby_whitelisted_ips')
+
+      self.standby_whitelisted_ips = attributes[:'standby_whitelisted_ips'] if attributes[:'standby_whitelisted_ips']
 
       self.apex_details = attributes[:'apexDetails'] if attributes[:'apexDetails']
 
@@ -1133,6 +1172,8 @@ module OCI
         db_workload == other.db_workload &&
         is_access_control_enabled == other.is_access_control_enabled &&
         whitelisted_ips == other.whitelisted_ips &&
+        are_primary_whitelisted_ips_used == other.are_primary_whitelisted_ips_used &&
+        standby_whitelisted_ips == other.standby_whitelisted_ips &&
         apex_details == other.apex_details &&
         is_auto_scaling_enabled == other.is_auto_scaling_enabled &&
         data_safe_status == other.data_safe_status &&
@@ -1172,7 +1213,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, backup_config, cpu_core_count, data_storage_size_in_tbs, data_storage_size_in_gbs, infrastructure_type, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, subnet_id, nsg_ids, private_endpoint, private_endpoint_label, private_endpoint_ip, db_version, is_preview, db_workload, is_access_control_enabled, whitelisted_ips, apex_details, is_auto_scaling_enabled, data_safe_status, operations_insights_status, time_maintenance_begin, time_maintenance_end, is_refreshable_clone, time_of_last_refresh, time_of_last_refresh_point, time_of_next_refresh, open_mode, refreshable_status, refreshable_mode, source_id, permission_level, time_of_last_switchover, time_of_last_failover, is_data_guard_enabled, failed_data_recovery_in_seconds, standby_db, role, available_upgrade_versions, key_store_id, key_store_wallet_name].hash
+      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, backup_config, cpu_core_count, data_storage_size_in_tbs, data_storage_size_in_gbs, infrastructure_type, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, subnet_id, nsg_ids, private_endpoint, private_endpoint_label, private_endpoint_ip, db_version, is_preview, db_workload, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, apex_details, is_auto_scaling_enabled, data_safe_status, operations_insights_status, time_maintenance_begin, time_maintenance_end, is_refreshable_clone, time_of_last_refresh, time_of_last_refresh_point, time_of_next_refresh, open_mode, refreshable_status, refreshable_mode, source_id, permission_level, time_of_last_switchover, time_of_last_failover, is_data_guard_enabled, failed_data_recovery_in_seconds, standby_db, role, available_upgrade_versions, key_store_id, key_store_wallet_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,15 +7,25 @@ require 'date'
 module OCI
   # The properties that define endpoints for a cluster.
   class ContainerEngine::Models::ClusterEndpoints
-    # The Kubernetes API server endpoint.
+    # The non-native networking Kubernetes API server endpoint.
     # @return [String]
     attr_accessor :kubernetes
+
+    # The public native networking Kubernetes API server endpoint, if one was requested.
+    # @return [String]
+    attr_accessor :public_endpoint
+
+    # The private native networking Kubernetes API server endpoint.
+    # @return [String]
+    attr_accessor :private_endpoint
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'kubernetes': :'kubernetes'
+        'kubernetes': :'kubernetes',
+        'public_endpoint': :'publicEndpoint',
+        'private_endpoint': :'privateEndpoint'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -24,7 +34,9 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'kubernetes': :'String'
+        'kubernetes': :'String',
+        'public_endpoint': :'String',
+        'private_endpoint': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,6 +48,8 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :kubernetes The value to assign to the {#kubernetes} property
+    # @option attributes [String] :public_endpoint The value to assign to the {#public_endpoint} property
+    # @option attributes [String] :private_endpoint The value to assign to the {#private_endpoint} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -43,6 +57,18 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.kubernetes = attributes[:'kubernetes'] if attributes[:'kubernetes']
+
+      self.public_endpoint = attributes[:'publicEndpoint'] if attributes[:'publicEndpoint']
+
+      raise 'You cannot provide both :publicEndpoint and :public_endpoint' if attributes.key?(:'publicEndpoint') && attributes.key?(:'public_endpoint')
+
+      self.public_endpoint = attributes[:'public_endpoint'] if attributes[:'public_endpoint']
+
+      self.private_endpoint = attributes[:'privateEndpoint'] if attributes[:'privateEndpoint']
+
+      raise 'You cannot provide both :privateEndpoint and :private_endpoint' if attributes.key?(:'privateEndpoint') && attributes.key?(:'private_endpoint')
+
+      self.private_endpoint = attributes[:'private_endpoint'] if attributes[:'private_endpoint']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -56,7 +82,9 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        kubernetes == other.kubernetes
+        kubernetes == other.kubernetes &&
+        public_endpoint == other.public_endpoint &&
+        private_endpoint == other.private_endpoint
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -72,7 +100,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [kubernetes].hash
+      [kubernetes, public_endpoint, private_endpoint].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

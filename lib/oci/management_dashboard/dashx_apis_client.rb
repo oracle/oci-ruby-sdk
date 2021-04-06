@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -85,7 +85,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://managementdashboards.{region}.oci.{secondLevelDomain}') + '/20200901'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://managementdashboard.{region}.oci.{secondLevelDomain}') + '/20200901'
       logger.info "DashxApisClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 

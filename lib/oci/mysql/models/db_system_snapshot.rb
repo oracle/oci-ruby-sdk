@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -93,6 +93,12 @@ module OCI
     # @return [Integer]
     attr_accessor :port_x
 
+    # If the policy is to enable high availability of the instance, by
+    # maintaining secondary/failover capacity as necessary.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_highly_available
+
     # The network endpoints available for this DB System.
     #
     # @return [Array<OCI::Mysql::Models::DbSystemEndpoint>]
@@ -135,6 +141,7 @@ module OCI
         'ip_address': :'ipAddress',
         'port': :'port',
         'port_x': :'portX',
+        'is_highly_available': :'isHighlyAvailable',
         'endpoints': :'endpoints',
         'maintenance': :'maintenance',
         'freeform_tags': :'freeformTags',
@@ -164,6 +171,7 @@ module OCI
         'ip_address': :'String',
         'port': :'Integer',
         'port_x': :'Integer',
+        'is_highly_available': :'BOOLEAN',
         'endpoints': :'Array<OCI::Mysql::Models::DbSystemEndpoint>',
         'maintenance': :'OCI::Mysql::Models::MaintenanceDetails',
         'freeform_tags': :'Hash<String, String>',
@@ -195,6 +203,7 @@ module OCI
     # @option attributes [String] :ip_address The value to assign to the {#ip_address} property
     # @option attributes [Integer] :port The value to assign to the {#port} property
     # @option attributes [Integer] :port_x The value to assign to the {#port_x} property
+    # @option attributes [BOOLEAN] :is_highly_available The value to assign to the {#is_highly_available} property
     # @option attributes [Array<OCI::Mysql::Models::DbSystemEndpoint>] :endpoints The value to assign to the {#endpoints} property
     # @option attributes [OCI::Mysql::Models::MaintenanceDetails] :maintenance The value to assign to the {#maintenance} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -295,6 +304,14 @@ module OCI
 
       self.port_x = attributes[:'port_x'] if attributes[:'port_x']
 
+      self.is_highly_available = attributes[:'isHighlyAvailable'] unless attributes[:'isHighlyAvailable'].nil?
+      self.is_highly_available = true if is_highly_available.nil? && !attributes.key?(:'isHighlyAvailable') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isHighlyAvailable and :is_highly_available' if attributes.key?(:'isHighlyAvailable') && attributes.key?(:'is_highly_available')
+
+      self.is_highly_available = attributes[:'is_highly_available'] unless attributes[:'is_highly_available'].nil?
+      self.is_highly_available = true if is_highly_available.nil? && !attributes.key?(:'isHighlyAvailable') && !attributes.key?(:'is_highly_available') # rubocop:disable Style/StringLiterals
+
       self.endpoints = attributes[:'endpoints'] if attributes[:'endpoints']
 
       self.maintenance = attributes[:'maintenance'] if attributes[:'maintenance']
@@ -340,6 +357,7 @@ module OCI
         ip_address == other.ip_address &&
         port == other.port &&
         port_x == other.port_x &&
+        is_highly_available == other.is_highly_available &&
         endpoints == other.endpoints &&
         maintenance == other.maintenance &&
         freeform_tags == other.freeform_tags &&
@@ -359,7 +377,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, description, compartment_id, subnet_id, availability_domain, fault_domain, shape_name, mysql_version, admin_username, backup_policy, configuration_id, data_storage_size_in_gbs, hostname_label, ip_address, port, port_x, endpoints, maintenance, freeform_tags, defined_tags].hash
+      [id, display_name, description, compartment_id, subnet_id, availability_domain, fault_domain, shape_name, mysql_version, admin_username, backup_policy, configuration_id, data_storage_size_in_gbs, hostname_label, ip_address, port, port_x, is_highly_available, endpoints, maintenance, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

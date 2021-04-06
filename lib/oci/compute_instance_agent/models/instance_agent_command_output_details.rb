@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Command output.
+  # The output destination for the command.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class ComputeInstanceAgent::Models::InstanceAgentCommandOutputDetails
     OUTPUT_TYPE_ENUM = [
@@ -16,8 +16,14 @@ module OCI
       OUTPUT_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The output type of the command. Use `OBJECT_STORAGE_URI` when specifying the Object Storage URL.
-    # Use `OBJECT_STORAGE_TUPLE` when specifying the namespace, bucket name, and object name.
+    # **[Required]** The output type for the command. The following values are supported:
+    #
+    # - `TEXT` - the command output is returned as plain text.
+    # - `OBJECT_STORAGE_URI` - the command output is saved to an Object Storage URL.
+    # - `OBJECT_STORAGE_TUPLE` - the command output is saved to an Object Storage bucket.
+    #
+    # For background information about Object Storage buckets and URLs, see
+    # [Overview of Object Storage](https://docs.cloud.oracle.com/Content/Object/Concepts/objectstorageoverview.htm).
     #
     # @return [String]
     attr_reader :output_type

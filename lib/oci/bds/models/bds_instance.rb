@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -12,7 +12,6 @@ module OCI
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
-      LIFECYCLE_STATE_UPDATING_INFRA = 'UPDATING_INFRA'.freeze,
       LIFECYCLE_STATE_SUSPENDING = 'SUSPENDING'.freeze,
       LIFECYCLE_STATE_SUSPENDED = 'SUSPENDED'.freeze,
       LIFECYCLE_STATE_RESUMING = 'RESUMING'.freeze,
@@ -60,11 +59,9 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_cloud_sql_configured
 
-    # Additional configuration of customer's network.
     # @return [OCI::Bds::Models::NetworkConfig]
     attr_accessor :network_config
 
-    # Specific info about a Hadoop cluster
     # @return [OCI::Bds::Models::ClusterDetails]
     attr_accessor :cluster_details
 
@@ -72,7 +69,6 @@ module OCI
     # @return [Array<OCI::Bds::Models::Node>]
     attr_accessor :nodes
 
-    # The information about added Cloud SQL capability
     # @return [OCI::Bds::Models::CloudSqlDetails]
     attr_accessor :cloud_sql_details
 

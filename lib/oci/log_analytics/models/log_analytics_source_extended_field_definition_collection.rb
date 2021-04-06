@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # LogAnalyticsSourceExtendedFieldDefinitionCollection
   class LogAnalytics::Models::LogAnalyticsSourceExtendedFieldDefinitionCollection
-    # list of extended field definitions
+    # An array of extended field definitions.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSourceExtendedFieldDefinition>]
     attr_accessor :items
 

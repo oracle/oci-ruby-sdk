@@ -1,7 +1,8 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -26,7 +27,8 @@ module OCI
       OPERATOR_IS_BETWEEN = 'IS_BETWEEN'.freeze,
       OPERATOR_IS_NOT_BETWEEN = 'IS_NOT_BETWEEN'.freeze,
       OPERATOR_ADD_SUBQUERY = 'ADD_SUBQUERY'.freeze,
-      OPERATOR_CLEAR_SUBQUERY = 'CLEAR_SUBQUERY'.freeze
+      OPERATOR_CLEAR_SUBQUERY = 'CLEAR_SUBQUERY'.freeze,
+      OPERATOR_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # Field filter references when inserting filter into the query string. Field must be a valid logging analytics out-of-the-box field, virtual field calculated in the query or a user defined field.
@@ -97,9 +99,14 @@ module OCI
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] operator Object to be assigned
     def operator=(operator)
-      raise "Invalid value for 'operator': this must be one of the values in OPERATOR_ENUM." if operator && !OPERATOR_ENUM.include?(operator)
-
-      @operator = operator
+      # rubocop:disable Style/ConditionalAssignment
+      if operator && !OPERATOR_ENUM.include?(operator)
+        OCI.logger.debug("Unknown value for 'operator' [" + operator + "]. Mapping to 'OPERATOR_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @operator = OPERATOR_UNKNOWN_ENUM_VALUE
+      else
+        @operator = operator
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines

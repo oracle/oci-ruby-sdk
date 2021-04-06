@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,11 +7,11 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A detachable boot volume device that contains the image used to boot a Compute instance. For more information, see
-  # [Overview of Boot Volumes](https://docs.cloud.oracle.com/Content/Block/Concepts/bootvolumes.htm).
+  # [Overview of Boot Volumes](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/bootvolumes.htm).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
-  # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+  # [Getting Started with Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you
   # supply string values using the API.
@@ -39,7 +39,7 @@ module OCI
     attr_accessor :compartment_id
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -59,7 +59,7 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -74,13 +74,15 @@ module OCI
     # @return [String]
     attr_accessor :image_id
 
-    # Specifies whether the boot volume's data has finished copying from the source boot volume or boot volume backup.
+    # Specifies whether the boot volume's data has finished copying
+    # from the source boot volume or boot volume backup.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_hydrated
 
     # The number of volume performance units (VPUs) that will be applied to this boot volume per GB,
     # representing the Block Volume service's elastic performance options.
-    # See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
+    # See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
     #
     # Allowed values:
     #
@@ -105,9 +107,6 @@ module OCI
     # @return [Integer]
     attr_accessor :size_in_mbs
 
-    # The boot volume source, either an existing boot volume in the same availability domain or a boot volume backup.
-    # If null, this means that the boot volume was created from an image.
-    #
     # @return [OCI::Core::Models::BootVolumeSourceDetails]
     attr_accessor :source_details
 
@@ -135,6 +134,10 @@ module OCI
     # @return [Integer]
     attr_accessor :auto_tuned_vpus_per_gb
 
+    # The list of boot volume replicas of this boot volume
+    # @return [Array<OCI::Core::Models::BootVolumeReplicaInfo>]
+    attr_accessor :boot_volume_replicas
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -157,7 +160,8 @@ module OCI
         'volume_group_id': :'volumeGroupId',
         'kms_key_id': :'kmsKeyId',
         'is_auto_tune_enabled': :'isAutoTuneEnabled',
-        'auto_tuned_vpus_per_gb': :'autoTunedVpusPerGB'
+        'auto_tuned_vpus_per_gb': :'autoTunedVpusPerGB',
+        'boot_volume_replicas': :'bootVolumeReplicas'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -184,7 +188,8 @@ module OCI
         'volume_group_id': :'String',
         'kms_key_id': :'String',
         'is_auto_tune_enabled': :'BOOLEAN',
-        'auto_tuned_vpus_per_gb': :'Integer'
+        'auto_tuned_vpus_per_gb': :'Integer',
+        'boot_volume_replicas': :'Array<OCI::Core::Models::BootVolumeReplicaInfo>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -214,6 +219,7 @@ module OCI
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [BOOLEAN] :is_auto_tune_enabled The value to assign to the {#is_auto_tune_enabled} property
     # @option attributes [Integer] :auto_tuned_vpus_per_gb The value to assign to the {#auto_tuned_vpus_per_gb} property
+    # @option attributes [Array<OCI::Core::Models::BootVolumeReplicaInfo>] :boot_volume_replicas The value to assign to the {#boot_volume_replicas} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -329,6 +335,12 @@ module OCI
       raise 'You cannot provide both :autoTunedVpusPerGB and :auto_tuned_vpus_per_gb' if attributes.key?(:'autoTunedVpusPerGB') && attributes.key?(:'auto_tuned_vpus_per_gb')
 
       self.auto_tuned_vpus_per_gb = attributes[:'auto_tuned_vpus_per_gb'] if attributes[:'auto_tuned_vpus_per_gb']
+
+      self.boot_volume_replicas = attributes[:'bootVolumeReplicas'] if attributes[:'bootVolumeReplicas']
+
+      raise 'You cannot provide both :bootVolumeReplicas and :boot_volume_replicas' if attributes.key?(:'bootVolumeReplicas') && attributes.key?(:'boot_volume_replicas')
+
+      self.boot_volume_replicas = attributes[:'boot_volume_replicas'] if attributes[:'boot_volume_replicas']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -373,7 +385,8 @@ module OCI
         volume_group_id == other.volume_group_id &&
         kms_key_id == other.kms_key_id &&
         is_auto_tune_enabled == other.is_auto_tune_enabled &&
-        auto_tuned_vpus_per_gb == other.auto_tuned_vpus_per_gb
+        auto_tuned_vpus_per_gb == other.auto_tuned_vpus_per_gb &&
+        boot_volume_replicas == other.boot_volume_replicas
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -389,7 +402,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, system_tags, display_name, freeform_tags, id, image_id, is_hydrated, vpus_per_gb, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id, kms_key_id, is_auto_tune_enabled, auto_tuned_vpus_per_gb].hash
+      [availability_domain, compartment_id, defined_tags, system_tags, display_name, freeform_tags, id, image_id, is_hydrated, vpus_per_gb, lifecycle_state, size_in_gbs, size_in_mbs, source_details, time_created, volume_group_id, kms_key_id, is_auto_tune_enabled, auto_tuned_vpus_per_gb, boot_volume_replicas].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

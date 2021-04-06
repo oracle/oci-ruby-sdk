@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,7 +7,17 @@ require 'date'
 module OCI
   # The details for updating a schedule task.
   #
+  # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class LogAnalytics::Models::UpdateScheduledTaskDetails
+    KIND_ENUM = [
+      KIND_ACCELERATION = 'ACCELERATION'.freeze,
+      KIND_STANDARD = 'STANDARD'.freeze
+    ].freeze
+
+    # **[Required]** Discriminator.
+    # @return [String]
+    attr_reader :kind
+
     # A user-friendly name that is changeable and that does not have to be unique.
     # Format: a leading alphanumeric, followed by zero or more
     # alphanumerics, underscores, spaces, backslashes, or hyphens in any order).
@@ -28,7 +38,8 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # Schedules may be updated for task types SAVED_SEARCH and PURGE
+    # Schedules may be updated for task types SAVED_SEARCH and PURGE.
+    # Note there may only be a single schedule for SAVED_SEARCH and PURGE scheduled tasks.
     #
     # @return [Array<OCI::LogAnalytics::Models::Schedule>]
     attr_accessor :schedules
@@ -37,6 +48,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'kind': :'kind',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
@@ -49,6 +61,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'kind': :'String',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -57,12 +70,28 @@ module OCI
       }
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
+
+
+    # Given the hash representation of a subtype of this class,
+    # use the info in the hash to return the class of the subtype.
+    def self.get_subtype(object_hash)
+      type = object_hash[:'kind'] # rubocop:disable Style/SymbolLiteral
+
+      return 'OCI::LogAnalytics::Models::UpdateStandardTaskDetails' if type == 'STANDARD'
+
+      # TODO: Log a warning when the subtype is not found.
+      'OCI::LogAnalytics::Models::UpdateScheduledTaskDetails'
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :kind The value to assign to the {#kind} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -72,6 +101,8 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.kind = attributes[:'kind'] if attributes[:'kind']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -96,6 +127,14 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] kind Object to be assigned
+    def kind=(kind)
+      raise "Invalid value for 'kind': this must be one of the values in KIND_ENUM." if kind && !KIND_ENUM.include?(kind)
+
+      @kind = kind
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -105,6 +144,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        kind == other.kind &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
@@ -124,7 +164,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, freeform_tags, defined_tags, schedules].hash
+      [kind, display_name, freeform_tags, defined_tags, schedules].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

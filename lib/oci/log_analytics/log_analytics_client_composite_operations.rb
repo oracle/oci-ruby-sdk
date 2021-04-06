@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
@@ -20,6 +20,99 @@ module OCI
     def initialize(service_client = OCI::LogAnalytics::LogAnalyticsClient.new)
       @service_client = service_client
     end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::LogAnalytics::LogAnalyticsClient#append_lookup_data} and then waits for the {OCI::LogAnalytics::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] lookup_name The name of the lookup to operate on.
+    # @param [String, IO] append_lookup_file_body The file to append.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#append_lookup_data}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LogAnalytics::Models::WorkRequest}
+    def append_lookup_data_and_wait_for_state(namespace_name, lookup_name, append_lookup_file_body, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.append_lookup_data(namespace_name, lookup_name, append_lookup_file_body, base_operation_opts)
+      use_util = OCI::LogAnalytics::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::LogAnalytics::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::LogAnalytics::LogAnalyticsClient#create_log_analytics_em_bridge} and then waits for the {OCI::LogAnalytics::Models::LogAnalyticsEmBridge} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [OCI::LogAnalytics::Models::CreateLogAnalyticsEmBridgeDetails] create_log_analytics_em_bridge_details Details for the enterprise manager bridge.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::LogAnalyticsEmBridge#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#create_log_analytics_em_bridge}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::LogAnalytics::Models::LogAnalyticsEmBridge}
+    def create_log_analytics_em_bridge_and_wait_for_state(namespace_name, create_log_analytics_em_bridge_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_log_analytics_em_bridge(namespace_name, create_log_analytics_em_bridge_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_log_analytics_em_bridge(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
     # rubocop:disable Layout/EmptyLines
@@ -199,6 +292,161 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::LogAnalytics::LogAnalyticsClient#delete_lookup} and then waits for the {OCI::LogAnalytics::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] lookup_name The name of the lookup to operate on.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#delete_lookup}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LogAnalytics::Models::WorkRequest}
+    def delete_lookup_and_wait_for_state(namespace_name, lookup_name, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.delete_lookup(namespace_name, lookup_name, base_operation_opts)
+      use_util = OCI::LogAnalytics::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::LogAnalytics::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::LogAnalytics::LogAnalyticsClient#disable_auto_association} and then waits for the {OCI::LogAnalytics::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] source_name The source name.
+    # @param [OCI::LogAnalytics::Models::DisableAutoAssociationDetails] disable_auto_association_details Details required to disable auto association for the log source.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#disable_auto_association}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LogAnalytics::Models::WorkRequest}
+    def disable_auto_association_and_wait_for_state(namespace_name, source_name, disable_auto_association_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.disable_auto_association(namespace_name, source_name, disable_auto_association_details, base_operation_opts)
+      use_util = OCI::LogAnalytics::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::LogAnalytics::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::LogAnalytics::LogAnalyticsClient#enable_auto_association} and then waits for the {OCI::LogAnalytics::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] source_name The source name.
+    # @param [OCI::LogAnalytics::Models::EnableAutoAssociationDetails] enable_auto_association_details Details required to enable auto association for the log source.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#enable_auto_association}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LogAnalytics::Models::WorkRequest}
+    def enable_auto_association_and_wait_for_state(namespace_name, source_name, enable_auto_association_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.enable_auto_association(namespace_name, source_name, enable_auto_association_details, base_operation_opts)
+      use_util = OCI::LogAnalytics::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::LogAnalytics::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::LogAnalytics::LogAnalyticsClient#offboard_namespace} and then waits for the {OCI::LogAnalytics::Models::WorkRequest}
     # to enter the given state(s).
     #
@@ -285,6 +533,49 @@ module OCI
             max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
           )
         end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::LogAnalytics::LogAnalyticsClient#pause_scheduled_task} and then waits for the {OCI::LogAnalytics::Models::ScheduledTask} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] scheduled_task_id Unique scheduledTask id returned from task create.
+    #   If invalid will lead to a 404 not found.
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::ScheduledTask#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#pause_scheduled_task}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::LogAnalytics::Models::ScheduledTask}
+    def pause_scheduled_task_and_wait_for_state(namespace_name, scheduled_task_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.pause_scheduled_task(namespace_name, scheduled_task_id, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_scheduled_task(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
         result_to_return = waiter_result
 
         return result_to_return
@@ -503,6 +794,92 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::LogAnalytics::LogAnalyticsClient#resume_scheduled_task} and then waits for the {OCI::LogAnalytics::Models::ScheduledTask} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] scheduled_task_id Unique scheduledTask id returned from task create.
+    #   If invalid will lead to a 404 not found.
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::ScheduledTask#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#resume_scheduled_task}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::LogAnalytics::Models::ScheduledTask}
+    def resume_scheduled_task_and_wait_for_state(namespace_name, scheduled_task_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.resume_scheduled_task(namespace_name, scheduled_task_id, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_scheduled_task(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::LogAnalytics::LogAnalyticsClient#update_log_analytics_em_bridge} and then waits for the {OCI::LogAnalytics::Models::LogAnalyticsEmBridge} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] log_analytics_em_bridge_id The log analytics enterprise manager bridge OCID.
+    #
+    # @param [OCI::LogAnalytics::Models::UpdateLogAnalyticsEmBridgeDetails] update_log_analytics_em_bridge_details Log analytics enterprise manager information to be updated.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::LogAnalyticsEmBridge#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#update_log_analytics_em_bridge}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::LogAnalytics::Models::LogAnalyticsEmBridge}
+    def update_log_analytics_em_bridge_and_wait_for_state(namespace_name, log_analytics_em_bridge_id, update_log_analytics_em_bridge_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_log_analytics_em_bridge(namespace_name, log_analytics_em_bridge_id, update_log_analytics_em_bridge_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_log_analytics_em_bridge(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::LogAnalytics::LogAnalyticsClient#update_log_analytics_entity} and then waits for the {OCI::LogAnalytics::Models::LogAnalyticsEntity} acted upon
     # to enter the given state(s).
     #
@@ -510,7 +887,7 @@ module OCI
     #
     # @param [String] log_analytics_entity_id The log analytics entity OCID.
     #
-    # @param [OCI::LogAnalytics::Models::UpdateLogAnalyticsEntityDetails] update_log_analytics_entity_details The information to be updated.
+    # @param [OCI::LogAnalytics::Models::UpdateLogAnalyticsEntityDetails] update_log_analytics_entity_details Log analytics entity information to be updated.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::LogAnalyticsEntity#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#update_log_analytics_entity}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -551,7 +928,7 @@ module OCI
     #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] log_analytics_object_collection_rule_id The Logging Analytics Object Collection Rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)
+    # @param [String] log_analytics_object_collection_rule_id The Logging Analytics Object Collection Rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     # @param [OCI::LogAnalytics::Models::UpdateLogAnalyticsObjectCollectionRuleDetails] update_log_analytics_object_collection_rule_details The rule config to be updated.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::LogAnalyticsObjectCollectionRule#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#update_log_analytics_object_collection_rule}
@@ -574,6 +951,58 @@ module OCI
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
         )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::LogAnalytics::LogAnalyticsClient#update_lookup_data} and then waits for the {OCI::LogAnalytics::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] lookup_name The name of the lookup to operate on.
+    # @param [String, IO] update_lookup_file_body The file to use for the lookup update.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::LogAnalytics::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::LogAnalytics::LogAnalyticsClient#update_lookup_data}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::LogAnalytics::Models::WorkRequest}
+    def update_lookup_data_and_wait_for_state(namespace_name, lookup_name, update_lookup_file_body, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_lookup_data(namespace_name, lookup_name, update_lookup_file_body, base_operation_opts)
+      use_util = OCI::LogAnalytics::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::LogAnalytics::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
         result_to_return = waiter_result
 
         return result_to_return

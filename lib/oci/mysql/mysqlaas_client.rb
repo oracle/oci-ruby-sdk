@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -422,7 +422,7 @@ module OCI
     #
     # @option opts [Array<String>] :is_supported_for Return shapes that are supported by the service feature.
     #    (default to [DBSYSTEM])
-    #   Allowed values are: DBSYSTEM, ANALYTICSCLUSTER
+    #   Allowed values are: DBSYSTEM, ANALYTICSCLUSTER, HEATWAVECLUSTER
     # @option opts [String] :availability_domain The name of the Availability Domain.
     # @option opts [String] :name Name
     # @return [Response] A Response object with data of type Array<{OCI::Mysql::Models::ShapeSummary ShapeSummary}>
@@ -433,11 +433,11 @@ module OCI
       raise "Missing the required parameter 'compartment_id' when calling list_shapes." if compartment_id.nil?
 
 
-      is_supported_for_allowable_values = %w[DBSYSTEM ANALYTICSCLUSTER]
+      is_supported_for_allowable_values = %w[DBSYSTEM ANALYTICSCLUSTER HEATWAVECLUSTER]
       if opts[:is_supported_for] && !opts[:is_supported_for].empty?
         opts[:is_supported_for].each do |val_to_check|
           unless is_supported_for_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "is_supported_for", must be one of DBSYSTEM, ANALYTICSCLUSTER.'
+            raise 'Invalid value for "is_supported_for", must be one of DBSYSTEM, ANALYTICSCLUSTER, HEATWAVECLUSTER.'
           end
         end
       end

@@ -1,14 +1,24 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 require 'logger'
-require_relative 'key'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The unqique key object.
-  class DataIntegration::Models::UniqueKey < DataIntegration::Models::Key
+  # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
+  class DataIntegration::Models::UniqueKey
+    MODEL_TYPE_ENUM = [
+      MODEL_TYPE_PRIMARY_KEY = 'PRIMARY_KEY'.freeze,
+      MODEL_TYPE_UNIQUE_KEY = 'UNIQUE_KEY'.freeze,
+      MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # **[Required]** The key type.
+    # @return [String]
+    attr_reader :model_type
+
     # The object key.
     # @return [String]
     attr_accessor :key
@@ -62,12 +72,28 @@ module OCI
       }
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
+
+
+    # Given the hash representation of a subtype of this class,
+    # use the info in the hash to return the class of the subtype.
+    def self.get_subtype(object_hash)
+      type = object_hash[:'modelType'] # rubocop:disable Style/SymbolLiteral
+
+      return 'OCI::DataIntegration::Models::PrimaryKey' if type == 'PRIMARY_KEY'
+
+      # TODO: Log a warning when the subtype is not found.
+      'OCI::DataIntegration::Models::UniqueKey'
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity, Metrics/AbcSize
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :model_type The value to assign to the {#model_type} property
     # @option attributes [String] :key The value to assign to the {#key} property
     # @option attributes [String] :model_version The value to assign to the {#model_version} property
     # @option attributes [OCI::DataIntegration::Models::ParentReference] :parent_ref The value to assign to the {#parent_ref} property
@@ -77,12 +103,14 @@ module OCI
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
-      attributes['modelType'] = 'UNIQUE_KEY'
-
-      super(attributes)
-
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.model_type = attributes[:'modelType'] if attributes[:'modelType']
+
+      raise 'You cannot provide both :modelType and :model_type' if attributes.key?(:'modelType') && attributes.key?(:'model_type')
+
+      self.model_type = attributes[:'model_type'] if attributes[:'model_type']
 
       self.key = attributes[:'key'] if attributes[:'key']
 
@@ -114,6 +142,19 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] model_type Object to be assigned
+    def model_type=(model_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if model_type && !MODEL_TYPE_ENUM.include?(model_type)
+        OCI.logger.debug("Unknown value for 'model_type' [" + model_type + "]. Mapping to 'MODEL_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @model_type = MODEL_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @model_type = model_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 

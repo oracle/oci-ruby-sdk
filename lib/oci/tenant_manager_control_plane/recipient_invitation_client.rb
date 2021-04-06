@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of the TenantManager API
+  # The Organizations API allows you to consolidate multiple OCI tenancies into an organization, and centrally manage your tenancies and its resources.
   class TenantManagerControlPlane::RecipientInvitationClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -109,8 +109,8 @@ module OCI
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
-    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request, so it can be retried in case of a timeout or
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
@@ -231,8 +231,8 @@ module OCI
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
-    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request, so it can be retried in case of a timeout or
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.

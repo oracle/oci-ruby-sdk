@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -28,6 +28,12 @@ module OCI
       PLATFORM_SHAPE_TYPE_DEFAULT = 'DEFAULT'.freeze,
       PLATFORM_SHAPE_TYPE_CUSTOM = 'CUSTOM'.freeze,
       PLATFORM_SHAPE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    LOAD_BALANCER_SHAPE_ENUM = [
+      LOAD_BALANCER_SHAPE_LB_100_MBPS = 'LB_100_MBPS'.freeze,
+      LOAD_BALANCER_SHAPE_LB_400_MBPS = 'LB_400_MBPS'.freeze,
+      LOAD_BALANCER_SHAPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     LIFECYCLE_STATE_ENUM = [
@@ -85,6 +91,10 @@ module OCI
     # Type of Platform shape - DEFAULT or CUSTOM
     # @return [String]
     attr_reader :platform_shape_type
+
+    # Type of Load Balancer shape - LB_100_MBPS or LB_400_MBPS. Default is LB_100_MBPS.
+    # @return [String]
+    attr_reader :load_balancer_shape
 
     # Service endpoint URL, valid post-provisioning
     # @return [String]
@@ -151,6 +161,7 @@ module OCI
         'platform_role': :'platformRole',
         'compute_shape': :'computeShape',
         'platform_shape_type': :'platformShapeType',
+        'load_balancer_shape': :'loadBalancerShape',
         'service_endpoint': :'serviceEndpoint',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
@@ -182,6 +193,7 @@ module OCI
         'platform_role': :'String',
         'compute_shape': :'String',
         'platform_shape_type': :'String',
+        'load_balancer_shape': :'String',
         'service_endpoint': :'String',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
@@ -215,6 +227,7 @@ module OCI
     # @option attributes [String] :platform_role The value to assign to the {#platform_role} property
     # @option attributes [String] :compute_shape The value to assign to the {#compute_shape} property
     # @option attributes [String] :platform_shape_type The value to assign to the {#platform_shape_type} property
+    # @option attributes [String] :load_balancer_shape The value to assign to the {#load_balancer_shape} property
     # @option attributes [String] :service_endpoint The value to assign to the {#service_endpoint} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
@@ -290,6 +303,12 @@ module OCI
       raise 'You cannot provide both :platformShapeType and :platform_shape_type' if attributes.key?(:'platformShapeType') && attributes.key?(:'platform_shape_type')
 
       self.platform_shape_type = attributes[:'platform_shape_type'] if attributes[:'platform_shape_type']
+
+      self.load_balancer_shape = attributes[:'loadBalancerShape'] if attributes[:'loadBalancerShape']
+
+      raise 'You cannot provide both :loadBalancerShape and :load_balancer_shape' if attributes.key?(:'loadBalancerShape') && attributes.key?(:'load_balancer_shape')
+
+      self.load_balancer_shape = attributes[:'load_balancer_shape'] if attributes[:'load_balancer_shape']
 
       self.service_endpoint = attributes[:'serviceEndpoint'] if attributes[:'serviceEndpoint']
 
@@ -402,6 +421,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] load_balancer_shape Object to be assigned
+    def load_balancer_shape=(load_balancer_shape)
+      # rubocop:disable Style/ConditionalAssignment
+      if load_balancer_shape && !LOAD_BALANCER_SHAPE_ENUM.include?(load_balancer_shape)
+        OCI.logger.debug("Unknown value for 'load_balancer_shape' [" + load_balancer_shape + "]. Mapping to 'LOAD_BALANCER_SHAPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @load_balancer_shape = LOAD_BALANCER_SHAPE_UNKNOWN_ENUM_VALUE
+      else
+        @load_balancer_shape = load_balancer_shape
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -434,6 +466,7 @@ module OCI
         platform_role == other.platform_role &&
         compute_shape == other.compute_shape &&
         platform_shape_type == other.platform_shape_type &&
+        load_balancer_shape == other.load_balancer_shape &&
         service_endpoint == other.service_endpoint &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
@@ -461,7 +494,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, description, is_byol, time_created, time_updated, service_version, platform_role, compute_shape, platform_shape_type, service_endpoint, lifecycle_state, lifecycle_details, storage_size_in_tbs, storage_used_in_tbs, is_multi_ad, total_ocpu_capacity, component_details, replicas, host_ocpu_utilization_info, freeform_tags, defined_tags].hash
+      [id, display_name, compartment_id, description, is_byol, time_created, time_updated, service_version, platform_role, compute_shape, platform_shape_type, load_balancer_shape, service_endpoint, lifecycle_state, lifecycle_details, storage_size_in_tbs, storage_used_in_tbs, is_multi_ad, total_ocpu_capacity, component_details, replicas, host_ocpu_utilization_info, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

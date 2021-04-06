@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,7 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Instance Agent Service API
+  # API for the Oracle Cloud Agent software running on compute instances. Oracle Cloud Agent
+  # is a lightweight process that monitors and manages compute instances.
   class ComputeInstanceAgent::ComputeInstanceAgentClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -98,14 +99,18 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Cancel a command. Cancel is best effort attempt. If the commmand has already completed it will skip cancel.
+    # Cancels a command that is scheduled to run on a compute instance that is managed
+    # by Oracle Cloud Agent.
     #
-    # @param [String] instance_agent_command_id The OCID of the command.
+    # Canceling a command is a best-effort attempt. If the command has already
+    # completed, it will not be canceled.
+    #
+    # @param [String] instance_agent_command_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the command.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
     #
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
@@ -159,14 +164,20 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Create command for one or more managed instances
+    # Creates a command or script to run on a compute instance that is managed by Oracle Cloud Agent.
+    #
+    # On Linux instances, the script runs in a bash shell. On Windows instances, the
+    # script runs in a batch shell.
+    #
+    # Commands that require administrator privileges will run only if Oracle Cloud Agent
+    # is running with administrator privileges.
     #
     # @param [OCI::ComputeInstanceAgent::Models::CreateInstanceAgentCommandDetails] create_instance_agent_command_details Create Instance agent command details
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -223,13 +234,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets information about the specified instance agent commandId.
-    # @param [String] instance_agent_command_id The OCID of the command.
+    # Gets information about an Oracle Cloud Agent command.
+    # @param [String] instance_agent_command_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the command.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ComputeInstanceAgent::Models::InstanceAgentCommand InstanceAgentCommand}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/computeinstanceagent/get_instance_agent_command.rb.html) to see an example of how to use get_instance_agent_command API.
@@ -280,13 +291,13 @@ module OCI
 
 
     # Gets information about the status of specified instance agent commandId for the given instanceId.
-    # @param [String] instance_agent_command_id The OCID of the command.
-    # @param [String] instance_id The OCID of the instance.
+    # @param [String] instance_agent_command_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the command.
+    # @param [String] instance_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::ComputeInstanceAgent::Models::InstanceAgentCommandExecution InstanceAgentCommandExecution}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/computeinstanceagent/get_instance_agent_command_execution.rb.html) to see an example of how to use get_instance_agent_command_execution API.
@@ -338,23 +349,27 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # List all executions of a command, i.e return command execution results from all targeted instances batch by
-    # batch.
+    # Lists the execution details for Oracle Cloud Agent commands that run on the specified compute
+    # instance.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
-    # @param [String] instance_id The OCID of the instance.
+    # @param [String] instance_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the instance.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #    (default to 1)
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
-    #   TIMECREATED is descending.
+    #   `TIMECREATED` is descending.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
     #   optionally filter by availability domain if the scope of the resource type is within a
@@ -362,7 +377,7 @@ module OCI
     #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The `DISPLAYNAME` sort order
     #   is case sensitive.
     #
     #   Allowed values are: ASC, DESC
@@ -434,22 +449,25 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # List Instance agent commands issued with the specified filter.
-    # Additonally you can filter commands sent to a particular InstanceId
+    # Lists the Oracle Cloud Agent commands issued in a compartment.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique identifier for the request.
-    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
     #
-    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
-    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #    (default to 1)
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
-    #   TIMECREATED is descending.
+    #   `TIMECREATED` is descending.
     #
     #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
     #   optionally filter by availability domain if the scope of the resource type is within a
@@ -457,7 +475,7 @@ module OCI
     #   an availability domain, the resources are grouped by availability domain, then sorted.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
-    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The `DISPLAYNAME` sort order
     #   is case sensitive.
     #
     #   Allowed values are: ASC, DESC

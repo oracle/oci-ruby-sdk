@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,7 +8,7 @@ module OCI
   # UpdateBootVolumeDetails model.
   class Core::Models::UpdateBootVolumeDetails
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -22,7 +22,7 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -35,7 +35,7 @@ module OCI
 
     # The number of volume performance units (VPUs) that will be applied to this volume per GB,
     # representing the Block Volume service's elastic performance options.
-    # See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
+    # See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
     #
     # Allowed values:
     #
@@ -51,6 +51,12 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_auto_tune_enabled
 
+    # The list of boot volume replicas that this boot volume will be updated to have
+    # in the specified destination availability domains.
+    #
+    # @return [Array<OCI::Core::Models::BootVolumeReplicaDetails>]
+    attr_accessor :boot_volume_replicas
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -60,7 +66,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'size_in_gbs': :'sizeInGBs',
         'vpus_per_gb': :'vpusPerGB',
-        'is_auto_tune_enabled': :'isAutoTuneEnabled'
+        'is_auto_tune_enabled': :'isAutoTuneEnabled',
+        'boot_volume_replicas': :'bootVolumeReplicas'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -74,7 +81,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'size_in_gbs': :'Integer',
         'vpus_per_gb': :'Integer',
-        'is_auto_tune_enabled': :'BOOLEAN'
+        'is_auto_tune_enabled': :'BOOLEAN',
+        'boot_volume_replicas': :'Array<OCI::Core::Models::BootVolumeReplicaDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -91,6 +99,7 @@ module OCI
     # @option attributes [Integer] :size_in_gbs The value to assign to the {#size_in_gbs} property
     # @option attributes [Integer] :vpus_per_gb The value to assign to the {#vpus_per_gb} property
     # @option attributes [BOOLEAN] :is_auto_tune_enabled The value to assign to the {#is_auto_tune_enabled} property
+    # @option attributes [Array<OCI::Core::Models::BootVolumeReplicaDetails>] :boot_volume_replicas The value to assign to the {#boot_volume_replicas} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -132,6 +141,12 @@ module OCI
       raise 'You cannot provide both :isAutoTuneEnabled and :is_auto_tune_enabled' if attributes.key?(:'isAutoTuneEnabled') && attributes.key?(:'is_auto_tune_enabled')
 
       self.is_auto_tune_enabled = attributes[:'is_auto_tune_enabled'] unless attributes[:'is_auto_tune_enabled'].nil?
+
+      self.boot_volume_replicas = attributes[:'bootVolumeReplicas'] if attributes[:'bootVolumeReplicas']
+
+      raise 'You cannot provide both :bootVolumeReplicas and :boot_volume_replicas' if attributes.key?(:'bootVolumeReplicas') && attributes.key?(:'boot_volume_replicas')
+
+      self.boot_volume_replicas = attributes[:'boot_volume_replicas'] if attributes[:'boot_volume_replicas']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -150,7 +165,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         size_in_gbs == other.size_in_gbs &&
         vpus_per_gb == other.vpus_per_gb &&
-        is_auto_tune_enabled == other.is_auto_tune_enabled
+        is_auto_tune_enabled == other.is_auto_tune_enabled &&
+        boot_volume_replicas == other.boot_volume_replicas
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -166,7 +182,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, size_in_gbs, vpus_per_gb, is_auto_tune_enabled].hash
+      [defined_tags, display_name, freeform_tags, size_in_gbs, vpus_per_gb, is_auto_tune_enabled, boot_volume_replicas].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
