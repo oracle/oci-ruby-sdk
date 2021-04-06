@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -37,11 +37,11 @@ module OCI
     attr_accessor :encrypted_key
 
     # **[Required]** The encryption algorithm to use to encrypt exportable key material from a key that persists on the server (as opposed to a key that
-    # persists on a hardware security module and, therefore, cannot be exported). Specifying `RSA_OAEP_AES_SHA256` invokes the RSA AES key
+    # persists on a hardware security module and, therefore, cannot be exported). Specifying RSA_OAEP_AES_SHA256 invokes the RSA AES key
     # wrap mechanism, which generates a temporary AES key. The temporary AES key is wrapped by the RSA public wrapping key provided along
     # with the request, creating a wrapped temporary AES key. The temporary AES key is also used to wrap the exportable key material. The
     # wrapped temporary AES key and the wrapped exportable key material are concatenated, producing concatenated blob output that jointly
-    # represents them. Specifying `RSA_OAEP_SHA256` means that the exportable key material is wrapped by the RSA public wrapping key provided
+    # represents them. Specifying RSA_OAEP_SHA256 means that the exportable key material is wrapped by the RSA public wrapping key provided
     # along with the request.
     #
     # @return [String]

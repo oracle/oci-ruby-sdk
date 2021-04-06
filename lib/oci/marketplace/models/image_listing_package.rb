@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -37,6 +37,7 @@ module OCI
         'pricing': :'pricing',
         'resource_id': :'resourceId',
         'time_created': :'timeCreated',
+        'operating_system': :'operatingSystem',
         'app_catalog_listing_id': :'appCatalogListingId',
         'app_catalog_listing_resource_version': :'appCatalogListingResourceVersion',
         'image_id': :'imageId',
@@ -56,6 +57,7 @@ module OCI
         'pricing': :'OCI::Marketplace::Models::PricingModel',
         'resource_id': :'String',
         'time_created': :'DateTime',
+        'operating_system': :'OCI::Marketplace::Models::OperatingSystem',
         'app_catalog_listing_id': :'String',
         'app_catalog_listing_resource_version': :'String',
         'image_id': :'String',
@@ -76,6 +78,7 @@ module OCI
     # @option attributes [OCI::Marketplace::Models::PricingModel] :pricing The value to assign to the {OCI::Marketplace::Models::ListingPackage#pricing #pricing} proprety
     # @option attributes [String] :resource_id The value to assign to the {OCI::Marketplace::Models::ListingPackage#resource_id #resource_id} proprety
     # @option attributes [DateTime] :time_created The value to assign to the {OCI::Marketplace::Models::ListingPackage#time_created #time_created} proprety
+    # @option attributes [OCI::Marketplace::Models::OperatingSystem] :operating_system The value to assign to the {OCI::Marketplace::Models::ListingPackage#operating_system #operating_system} proprety
     # @option attributes [String] :app_catalog_listing_id The value to assign to the {#app_catalog_listing_id} property
     # @option attributes [String] :app_catalog_listing_resource_version The value to assign to the {#app_catalog_listing_resource_version} property
     # @option attributes [String] :image_id The value to assign to the {#image_id} property
@@ -129,6 +132,7 @@ module OCI
         pricing == other.pricing &&
         resource_id == other.resource_id &&
         time_created == other.time_created &&
+        operating_system == other.operating_system &&
         app_catalog_listing_id == other.app_catalog_listing_id &&
         app_catalog_listing_resource_version == other.app_catalog_listing_resource_version &&
         image_id == other.image_id &&
@@ -148,7 +152,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [description, listing_id, version, package_type, pricing, resource_id, time_created, app_catalog_listing_id, app_catalog_listing_resource_version, image_id, regions].hash
+      [description, listing_id, version, package_type, pricing, resource_id, time_created, operating_system, app_catalog_listing_id, app_catalog_listing_resource_version, image_id, regions].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

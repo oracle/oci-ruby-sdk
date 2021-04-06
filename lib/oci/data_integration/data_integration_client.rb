@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -871,6 +871,134 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataIntegration::Models::Patch'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new pipeline in a project or folder ready for performing task orchestration.
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [OCI::DataIntegration::Models::CreatePipelineDetails] create_pipeline_details The details needed to create a new pipeline.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Pipeline Pipeline}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_pipeline.rb.html) to see an example of how to use create_pipeline API.
+    def create_pipeline(workspace_id, create_pipeline_details, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#create_pipeline.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling create_pipeline." if workspace_id.nil?
+      raise "Missing the required parameter 'create_pipeline_details' when calling create_pipeline." if create_pipeline_details.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+
+      path = '/workspaces/{workspaceId}/pipelines'.sub('{workspaceId}', workspace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_pipeline_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#create_pipeline') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::Pipeline'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Accepts the data flow definition in the request payload and creates a pipeline validation.
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [OCI::DataIntegration::Models::CreatePipelineValidationDetails] create_pipeline_validation_details The information needed to create the data flow validation for the pipeline object.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::PipelineValidation PipelineValidation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_pipeline_validation.rb.html) to see an example of how to use create_pipeline_validation API.
+    def create_pipeline_validation(workspace_id, create_pipeline_validation_details, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#create_pipeline_validation.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling create_pipeline_validation." if workspace_id.nil?
+      raise "Missing the required parameter 'create_pipeline_validation_details' when calling create_pipeline_validation." if create_pipeline_validation_details.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+
+      path = '/workspaces/{workspaceId}/pipelineValidations'.sub('{workspaceId}', workspace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_pipeline_validation_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#create_pipeline_validation') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::PipelineValidation'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1830,6 +1958,134 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#delete_patch') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Removes a pipeline from a project or folder using the specified identifier.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] pipeline_key The pipeline key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the `etag` from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the `etag` you provide matches the resource's current `etag` value.
+    #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_pipeline.rb.html) to see an example of how to use delete_pipeline API.
+    def delete_pipeline(workspace_id, pipeline_key, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#delete_pipeline.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling delete_pipeline." if workspace_id.nil?
+      raise "Missing the required parameter 'pipeline_key' when calling delete_pipeline." if pipeline_key.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'pipeline_key' must not be blank" if OCI::Internal::Util.blank_string?(pipeline_key)
+
+      path = '/workspaces/{workspaceId}/pipelines/{pipelineKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{pipelineKey}', pipeline_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#delete_pipeline') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Removes a pipeline validation using the specified identifier.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] pipeline_validation_key The key of the pipeline validation.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the `etag` from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the `etag` you provide matches the resource's current `etag` value.
+    #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_pipeline_validation.rb.html) to see an example of how to use delete_pipeline_validation API.
+    def delete_pipeline_validation(workspace_id, pipeline_validation_key, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#delete_pipeline_validation.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling delete_pipeline_validation." if workspace_id.nil?
+      raise "Missing the required parameter 'pipeline_validation_key' when calling delete_pipeline_validation." if pipeline_validation_key.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'pipeline_validation_key' must not be blank" if OCI::Internal::Util.blank_string?(pipeline_validation_key)
+
+      path = '/workspaces/{workspaceId}/pipelineValidations/{pipelineValidationKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{pipelineValidationKey}', pipeline_validation_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#delete_pipeline_validation') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -2976,6 +3232,126 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Retrieves a pipeline using the specified identifier.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] pipeline_key The pipeline key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Pipeline Pipeline}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_pipeline.rb.html) to see an example of how to use get_pipeline API.
+    def get_pipeline(workspace_id, pipeline_key, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#get_pipeline.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling get_pipeline." if workspace_id.nil?
+      raise "Missing the required parameter 'pipeline_key' when calling get_pipeline." if pipeline_key.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'pipeline_key' must not be blank" if OCI::Internal::Util.blank_string?(pipeline_key)
+
+      path = '/workspaces/{workspaceId}/pipelines/{pipelineKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{pipelineKey}', pipeline_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#get_pipeline') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::Pipeline'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves a pipeline validation using the specified identifier.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] pipeline_validation_key The key of the pipeline validation.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::PipelineValidation PipelineValidation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_pipeline_validation.rb.html) to see an example of how to use get_pipeline_validation API.
+    def get_pipeline_validation(workspace_id, pipeline_validation_key, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#get_pipeline_validation.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling get_pipeline_validation." if workspace_id.nil?
+      raise "Missing the required parameter 'pipeline_validation_key' when calling get_pipeline_validation." if pipeline_validation_key.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'pipeline_validation_key' must not be blank" if OCI::Internal::Util.blank_string?(pipeline_validation_key)
+
+      path = '/workspaces/{workspaceId}/pipelineValidations/{pipelineValidationKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{pipelineValidationKey}', pipeline_validation_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#get_pipeline_validation') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::PipelineValidation'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Retrieves a project using the specified identifier.
     # @param [String] workspace_id The workspace ID.
     # @param [String] project_key The project key.
@@ -3237,6 +3613,7 @@ module OCI
     #   you need to contact Oracle about a particular request,
     #   please provide the request ID.
     #
+    # @option opts [String] :expand_references Used to expand references of the object. If value is true, then all referenced objects are expanded. If value is false, then shallow objects are returned in place of references. Default is false. <br><br><B>Example:</B><br> <ul> <li><B>?expandReferences=true</B> returns all objects of type data loader task</li> </ul> (default to false)
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Task Task}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_task.rb.html) to see an example of how to use get_task API.
     def get_task(workspace_id, task_key, opts = {})
@@ -3253,6 +3630,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:expandReferences] = opts[:expand_references] if opts[:expand_references]
 
       # Header Params
       header_params = {}
@@ -3877,6 +4255,8 @@ module OCI
     #   you need to contact Oracle about a particular request,
     #   please provide the request ID.
     #
+    # @option opts [Array<String>] :name_list Used to filter by the name of the object. (default to [])
+    # @option opts [BOOLEAN] :is_pattern This parameter can be used to specify whether entity search type is pattern search or not. (default to false)
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DataEntitySummaryCollection DataEntitySummaryCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_data_entities.rb.html) to see an example of how to use list_data_entities API.
     def list_data_entities(workspace_id, connection_key, schema_resource_name, opts = {})
@@ -3910,6 +4290,8 @@ module OCI
       query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:nameList] = OCI::ApiClient.build_collection_params(opts[:name_list], :multi) if opts[:name_list] && !opts[:name_list].empty?
+      query_params[:isPattern] = opts[:is_pattern] if !opts[:is_pattern].nil?
 
       # Header Params
       header_params = {}
@@ -4627,6 +5009,174 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Retrieves a list of pipeline validations within the specified workspace.
+    # @param [String] workspace_id The workspace ID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :key Used to filter by the key of the object.
+    # @option opts [String] :name Used to filter by the name of the object.
+    # @option opts [String] :identifier Used to filter by the identifier of the object.
+    # @option opts [Array<String>] :fields Specifies the fields to get for an object. (default to [])
+    # @option opts [String] :page For list pagination. The value for this parameter is the `opc-next-page` or the `opc-prev-page` response header from the previous `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [Integer] :limit Sets the maximum number of results per page, or items to return in a paginated `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine). (default to 100)
+    # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
+    #   Allowed values are: TIME_CREATED, DISPLAY_NAME
+    # @option opts [String] :sort_order Specifies sort order to use, either `ASC` (ascending) or `DESC` (descending). (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::PipelineValidationSummaryCollection PipelineValidationSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_pipeline_validations.rb.html) to see an example of how to use list_pipeline_validations API.
+    def list_pipeline_validations(workspace_id, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#list_pipeline_validations.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling list_pipeline_validations." if workspace_id.nil?
+
+      if opts[:sort_by] && !%w[TIME_CREATED DISPLAY_NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIME_CREATED, DISPLAY_NAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+
+      path = '/workspaces/{workspaceId}/pipelineValidations'.sub('{workspaceId}', workspace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:key] = opts[:key] if opts[:key]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:identifier] = opts[:identifier] if opts[:identifier]
+      query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#list_pipeline_validations') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::PipelineValidationSummaryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves a list of pipelines in a project or folder from within a workspace, the query parameter specifies the project or folder.
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :aggregator_key Used to filter by the project or the folder object.
+    #
+    # @option opts [Array<String>] :fields Specifies the fields to get for an object. (default to [])
+    # @option opts [String] :name Used to filter by the name of the object.
+    # @option opts [Array<String>] :identifier Used to filter by the identifier of the object. (default to [])
+    # @option opts [Integer] :limit Sets the maximum number of results per page, or items to return in a paginated `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine). (default to 100)
+    # @option opts [String] :page For list pagination. The value for this parameter is the `opc-next-page` or the `opc-prev-page` response header from the previous `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :sort_order Specifies sort order to use, either `ASC` (ascending) or `DESC` (descending). (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
+    #   Allowed values are: TIME_CREATED, DISPLAY_NAME
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::PipelineSummaryCollection PipelineSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_pipelines.rb.html) to see an example of how to use list_pipelines API.
+    def list_pipelines(workspace_id, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#list_pipelines.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling list_pipelines." if workspace_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIME_CREATED DISPLAY_NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIME_CREATED, DISPLAY_NAME.'
+      end
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+
+      path = '/workspaces/{workspaceId}/pipelines'.sub('{workspaceId}', workspace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:aggregatorKey] = opts[:aggregator_key] if opts[:aggregator_key]
+      query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:identifier] = OCI::ApiClient.build_collection_params(opts[:identifier], :multi) if opts[:identifier] && !opts[:identifier].empty?
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#list_pipelines') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::PipelineSummaryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Retrieves a lists of projects in a workspace and provides options to filter the list.
     #
     # @param [String] workspace_id The workspace ID.
@@ -4903,6 +5453,7 @@ module OCI
     #   you need to contact Oracle about a particular request,
     #   please provide the request ID.
     #
+    # @option opts [Array<String>] :name_list Used to filter by the name of the object. (default to [])
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::SchemaSummaryCollection SchemaSummaryCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_schemas.rb.html) to see an example of how to use list_schemas API.
     def list_schemas(workspace_id, connection_key, schema_resource_name, opts = {})
@@ -4935,6 +5486,7 @@ module OCI
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:name] = opts[:name] if opts[:name]
+      query_params[:nameList] = OCI::ApiClient.build_collection_params(opts[:name_list], :multi) if opts[:name_list] && !opts[:name_list].empty?
 
       # Header Params
       header_params = {}
@@ -5060,6 +5612,8 @@ module OCI
     #   you need to contact Oracle about a particular request,
     #   please provide the request ID.
     #
+    # @option opts [String] :aggregator_key Used to filter by the project or the folder object.
+    #
     # @option opts [Array<String>] :fields Specifies the fields to get for an object. (default to [])
     # @option opts [String] :name Used to filter by the name of the object.
     # @option opts [Array<String>] :identifier Used to filter by the identifier of the object. (default to [])
@@ -5093,6 +5647,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:aggregatorKey] = opts[:aggregator_key] if opts[:aggregator_key]
       query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
       query_params[:name] = opts[:name] if opts[:name]
       query_params[:identifier] = OCI::ApiClient.build_collection_params(opts[:identifier], :multi) if opts[:identifier] && !opts[:identifier].empty?
@@ -5468,6 +6023,7 @@ module OCI
     #   you need to contact Oracle about a particular request,
     #   please provide the request ID.
     #
+    # @option opts [String] :workspace_id DIS workspace id
     # @option opts [String] :work_request_status The work request status.
     #   Allowed values are: ACCEPTED, IN_PROGRESS, FAILED, SUCCEEDED, CANCELING, CANCELED
     # @option opts [String] :page For list pagination. The value for this parameter is the `opc-next-page` or the `opc-prev-page` response header from the previous `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
@@ -5502,6 +6058,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
+      query_params[:workspaceId] = opts[:workspace_id] if opts[:workspace_id]
       query_params[:workRequestStatus] = opts[:work_request_status] if opts[:work_request_status]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -6153,6 +6710,73 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataIntegration::Models::Folder'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates a specific pipeline.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] pipeline_key The pipeline key.
+    # @param [OCI::DataIntegration::Models::UpdatePipelineDetails] update_pipeline_details The details needed to updated a pipeline.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the `etag` from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the `etag` you provide matches the resource's current `etag` value.
+    #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Pipeline Pipeline}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_pipeline.rb.html) to see an example of how to use update_pipeline API.
+    def update_pipeline(workspace_id, pipeline_key, update_pipeline_details, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#update_pipeline.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling update_pipeline." if workspace_id.nil?
+      raise "Missing the required parameter 'pipeline_key' when calling update_pipeline." if pipeline_key.nil?
+      raise "Missing the required parameter 'update_pipeline_details' when calling update_pipeline." if update_pipeline_details.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'pipeline_key' must not be blank" if OCI::Internal::Util.blank_string?(pipeline_key)
+
+      path = '/workspaces/{workspaceId}/pipelines/{pipelineKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{pipelineKey}', pipeline_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_pipeline_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#update_pipeline') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::Pipeline'
         )
       end
       # rubocop:enable Metrics/BlockLength

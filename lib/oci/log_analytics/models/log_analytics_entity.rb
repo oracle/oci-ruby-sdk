@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -21,7 +21,7 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** Log analytics entity name. The name must be unique, within the tenancy, and cannot be changed.
+    # **[Required]** Log analytics entity name.
     #
     # @return [String]
     attr_accessor :name
@@ -74,6 +74,9 @@ module OCI
     #
     # @return [Hash<String, String>]
     attr_accessor :properties
+
+    # @return [OCI::LogAnalytics::Models::CreationSource]
+    attr_accessor :creation_source
 
     # **[Required]** The date and time the resource was created, in the format defined by RFC3339.
     #
@@ -136,6 +139,7 @@ module OCI
         'management_agent_compartment_id': :'managementAgentCompartmentId',
         'timezone_region': :'timezoneRegion',
         'properties': :'properties',
+        'creation_source': :'creationSource',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'are_logs_collected': :'areLogsCollected',
@@ -164,6 +168,7 @@ module OCI
         'management_agent_compartment_id': :'String',
         'timezone_region': :'String',
         'properties': :'Hash<String, String>',
+        'creation_source': :'OCI::LogAnalytics::Models::CreationSource',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'are_logs_collected': :'BOOLEAN',
@@ -194,6 +199,7 @@ module OCI
     # @option attributes [String] :management_agent_compartment_id The value to assign to the {#management_agent_compartment_id} property
     # @option attributes [String] :timezone_region The value to assign to the {#timezone_region} property
     # @option attributes [Hash<String, String>] :properties The value to assign to the {#properties} property
+    # @option attributes [OCI::LogAnalytics::Models::CreationSource] :creation_source The value to assign to the {#creation_source} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [BOOLEAN] :are_logs_collected The value to assign to the {#are_logs_collected} property
@@ -267,6 +273,12 @@ module OCI
       self.timezone_region = attributes[:'timezone_region'] if attributes[:'timezone_region']
 
       self.properties = attributes[:'properties'] if attributes[:'properties']
+
+      self.creation_source = attributes[:'creationSource'] if attributes[:'creationSource']
+
+      raise 'You cannot provide both :creationSource and :creation_source' if attributes.key?(:'creationSource') && attributes.key?(:'creation_source')
+
+      self.creation_source = attributes[:'creation_source'] if attributes[:'creation_source']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -349,6 +361,7 @@ module OCI
         management_agent_compartment_id == other.management_agent_compartment_id &&
         timezone_region == other.timezone_region &&
         properties == other.properties &&
+        creation_source == other.creation_source &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         are_logs_collected == other.are_logs_collected &&
@@ -372,7 +385,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, compartment_id, entity_type_name, entity_type_internal_name, lifecycle_state, lifecycle_details, management_agent_id, management_agent_display_name, management_agent_compartment_id, timezone_region, properties, time_created, time_updated, are_logs_collected, cloud_resource_id, hostname, source_id, freeform_tags, defined_tags].hash
+      [id, name, compartment_id, entity_type_name, entity_type_internal_name, lifecycle_state, lifecycle_details, management_agent_id, management_agent_display_name, management_agent_compartment_id, timezone_region, properties, creation_source, time_created, time_updated, are_logs_collected, cloud_resource_id, hostname, source_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

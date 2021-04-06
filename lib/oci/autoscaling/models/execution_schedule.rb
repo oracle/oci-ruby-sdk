@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the execution schedule for a policy.
+  # An execution schedule for an autoscaling policy.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Autoscaling::Models::ExecutionSchedule
@@ -15,11 +15,11 @@ module OCI
       TIMEZONE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The type of ExecutionSchedule.
+    # **[Required]** The type of execution schedule.
     # @return [String]
     attr_accessor :type
 
-    # **[Required]** Specifies the time zone the schedule is in.
+    # **[Required]** The time zone for the execution schedule.
     # @return [String]
     attr_reader :timezone
 

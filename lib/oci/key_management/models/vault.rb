@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -105,6 +105,12 @@ module OCI
     # @return [String]
     attr_accessor :wrappingkey_id
 
+    # @return [OCI::KeyManagement::Models::VaultReplicaDetails]
+    attr_accessor :replica_details
+
+    # @return [BOOLEAN]
+    attr_accessor :is_primary
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -121,7 +127,9 @@ module OCI
         'time_of_deletion': :'timeOfDeletion',
         'vault_type': :'vaultType',
         'restored_from_vault_id': :'restoredFromVaultId',
-        'wrappingkey_id': :'wrappingkeyId'
+        'wrappingkey_id': :'wrappingkeyId',
+        'replica_details': :'replicaDetails',
+        'is_primary': :'isPrimary'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -142,7 +150,9 @@ module OCI
         'time_of_deletion': :'DateTime',
         'vault_type': :'String',
         'restored_from_vault_id': :'String',
-        'wrappingkey_id': :'String'
+        'wrappingkey_id': :'String',
+        'replica_details': :'OCI::KeyManagement::Models::VaultReplicaDetails',
+        'is_primary': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -166,6 +176,8 @@ module OCI
     # @option attributes [String] :vault_type The value to assign to the {#vault_type} property
     # @option attributes [String] :restored_from_vault_id The value to assign to the {#restored_from_vault_id} property
     # @option attributes [String] :wrappingkey_id The value to assign to the {#wrappingkey_id} property
+    # @option attributes [OCI::KeyManagement::Models::VaultReplicaDetails] :replica_details The value to assign to the {#replica_details} property
+    # @option attributes [BOOLEAN] :is_primary The value to assign to the {#is_primary} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -245,6 +257,18 @@ module OCI
       raise 'You cannot provide both :wrappingkeyId and :wrappingkey_id' if attributes.key?(:'wrappingkeyId') && attributes.key?(:'wrappingkey_id')
 
       self.wrappingkey_id = attributes[:'wrappingkey_id'] if attributes[:'wrappingkey_id']
+
+      self.replica_details = attributes[:'replicaDetails'] if attributes[:'replicaDetails']
+
+      raise 'You cannot provide both :replicaDetails and :replica_details' if attributes.key?(:'replicaDetails') && attributes.key?(:'replica_details')
+
+      self.replica_details = attributes[:'replica_details'] if attributes[:'replica_details']
+
+      self.is_primary = attributes[:'isPrimary'] unless attributes[:'isPrimary'].nil?
+
+      raise 'You cannot provide both :isPrimary and :is_primary' if attributes.key?(:'isPrimary') && attributes.key?(:'is_primary')
+
+      self.is_primary = attributes[:'is_primary'] unless attributes[:'is_primary'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -296,7 +320,9 @@ module OCI
         time_of_deletion == other.time_of_deletion &&
         vault_type == other.vault_type &&
         restored_from_vault_id == other.restored_from_vault_id &&
-        wrappingkey_id == other.wrappingkey_id
+        wrappingkey_id == other.wrappingkey_id &&
+        replica_details == other.replica_details &&
+        is_primary == other.is_primary
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -312,7 +338,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, crypto_endpoint, defined_tags, display_name, freeform_tags, id, lifecycle_state, management_endpoint, time_created, time_of_deletion, vault_type, restored_from_vault_id, wrappingkey_id].hash
+      [compartment_id, crypto_endpoint, defined_tags, display_name, freeform_tags, id, lifecycle_state, management_endpoint, time_created, time_of_deletion, vault_type, restored_from_vault_id, wrappingkey_id, replica_details, is_primary].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

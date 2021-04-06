@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -558,7 +558,7 @@ module OCI
 
 
     # Get options available for clusters.
-    # @param [String] cluster_option_id The id of the option set to retrieve. Only \"all\" is supported.
+    # @param [String] cluster_option_id The id of the option set to retrieve. Use \"all\" get all options, or use a cluster ID to get options specific to the provided cluster.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1212,6 +1212,68 @@ module OCI
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ContainerEngineClient#update_cluster') do
         @api_client.call_api(
           :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Update the details of the cluster endpoint configuration.
+    # @param [String] cluster_id The OCID of the cluster.
+    # @param [OCI::ContainerEngine::Models::UpdateClusterEndpointConfigDetails] update_cluster_endpoint_config_details The details of the cluster's endpoint to update.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/update_cluster_endpoint_config.rb.html) to see an example of how to use update_cluster_endpoint_config API.
+    def update_cluster_endpoint_config(cluster_id, update_cluster_endpoint_config_details, opts = {})
+      logger.debug 'Calling operation ContainerEngineClient#update_cluster_endpoint_config.' if logger
+
+      raise "Missing the required parameter 'cluster_id' when calling update_cluster_endpoint_config." if cluster_id.nil?
+      raise "Missing the required parameter 'update_cluster_endpoint_config_details' when calling update_cluster_endpoint_config." if update_cluster_endpoint_config_details.nil?
+      raise "Parameter value for 'cluster_id' must not be blank" if OCI::Internal::Util.blank_string?(cluster_id)
+
+      path = '/clusters/{clusterId}/actions/updateEndpointConfig'.sub('{clusterId}', cluster_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_cluster_endpoint_config_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ContainerEngineClient#update_cluster_endpoint_config') do
+        @api_client.call_api(
+          :POST,
           path,
           endpoint,
           header_params: header_params,

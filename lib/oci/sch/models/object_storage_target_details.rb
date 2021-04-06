@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,7 +6,7 @@ require_relative 'target_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The object storage target.
+  # The bucket used for the Object Storage target.
   #
   class Sch::Models::ObjectStorageTargetDetails < Sch::Models::TargetDetails
     # The namespace.
@@ -24,6 +24,16 @@ module OCI
     # @return [String]
     attr_accessor :object_name_prefix
 
+    # The batch rollover size in megabytes.
+    #
+    # @return [Integer]
+    attr_accessor :batch_rollover_size_in_mbs
+
+    # The batch rollover time in milliseconds.
+    #
+    # @return [Integer]
+    attr_accessor :batch_rollover_time_in_ms
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -31,7 +41,9 @@ module OCI
         'kind': :'kind',
         'namespace': :'namespace',
         'bucket_name': :'bucketName',
-        'object_name_prefix': :'objectNamePrefix'
+        'object_name_prefix': :'objectNamePrefix',
+        'batch_rollover_size_in_mbs': :'batchRolloverSizeInMBs',
+        'batch_rollover_time_in_ms': :'batchRolloverTimeInMs'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -43,7 +55,9 @@ module OCI
         'kind': :'String',
         'namespace': :'String',
         'bucket_name': :'String',
-        'object_name_prefix': :'String'
+        'object_name_prefix': :'String',
+        'batch_rollover_size_in_mbs': :'Integer',
+        'batch_rollover_time_in_ms': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,6 +71,8 @@ module OCI
     # @option attributes [String] :namespace The value to assign to the {#namespace} property
     # @option attributes [String] :bucket_name The value to assign to the {#bucket_name} property
     # @option attributes [String] :object_name_prefix The value to assign to the {#object_name_prefix} property
+    # @option attributes [Integer] :batch_rollover_size_in_mbs The value to assign to the {#batch_rollover_size_in_mbs} property
+    # @option attributes [Integer] :batch_rollover_time_in_ms The value to assign to the {#batch_rollover_time_in_ms} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -80,6 +96,18 @@ module OCI
       raise 'You cannot provide both :objectNamePrefix and :object_name_prefix' if attributes.key?(:'objectNamePrefix') && attributes.key?(:'object_name_prefix')
 
       self.object_name_prefix = attributes[:'object_name_prefix'] if attributes[:'object_name_prefix']
+
+      self.batch_rollover_size_in_mbs = attributes[:'batchRolloverSizeInMBs'] if attributes[:'batchRolloverSizeInMBs']
+
+      raise 'You cannot provide both :batchRolloverSizeInMBs and :batch_rollover_size_in_mbs' if attributes.key?(:'batchRolloverSizeInMBs') && attributes.key?(:'batch_rollover_size_in_mbs')
+
+      self.batch_rollover_size_in_mbs = attributes[:'batch_rollover_size_in_mbs'] if attributes[:'batch_rollover_size_in_mbs']
+
+      self.batch_rollover_time_in_ms = attributes[:'batchRolloverTimeInMs'] if attributes[:'batchRolloverTimeInMs']
+
+      raise 'You cannot provide both :batchRolloverTimeInMs and :batch_rollover_time_in_ms' if attributes.key?(:'batchRolloverTimeInMs') && attributes.key?(:'batch_rollover_time_in_ms')
+
+      self.batch_rollover_time_in_ms = attributes[:'batch_rollover_time_in_ms'] if attributes[:'batch_rollover_time_in_ms']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -96,7 +124,9 @@ module OCI
         kind == other.kind &&
         namespace == other.namespace &&
         bucket_name == other.bucket_name &&
-        object_name_prefix == other.object_name_prefix
+        object_name_prefix == other.object_name_prefix &&
+        batch_rollover_size_in_mbs == other.batch_rollover_size_in_mbs &&
+        batch_rollover_time_in_ms == other.batch_rollover_time_in_ms
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -112,7 +142,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [kind, namespace, bucket_name, object_name_prefix].hash
+      [kind, namespace, bucket_name, object_name_prefix, batch_rollover_size_in_mbs, batch_rollover_time_in_ms].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

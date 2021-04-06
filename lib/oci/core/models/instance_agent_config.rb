@@ -1,28 +1,68 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Instance agent configuration on the instance
+  # Configuration options for the Oracle Cloud Agent software running on the instance.
   class Core::Models::InstanceAgentConfig
-    # Whether the agent running on the instance can gather performance metrics and monitor the instance.
+    # Whether Oracle Cloud Agent can gather performance metrics and monitor the instance using the
+    # monitoring plugins.
+    #
+    # These are the monitoring plugins: Compute Instance Monitoring
+    # and Custom Logs Monitoring.
+    #
+    # The monitoring plugins are controlled by this parameter and by the per-plugin
+    # configuration in the `pluginsConfig` object.
+    #
+    # - If `isMonitoringDisabled` is true, all of the monitoring plugins are disabled, regardless of
+    # the per-plugin configuration.
+    # - If `isMonitoringDisabled` is false, all of the monitoring plugins are enabled. You
+    # can optionally disable individual monitoring plugins by providing a value in the `pluginsConfig`
+    # object.
     #
     # @return [BOOLEAN]
     attr_accessor :is_monitoring_disabled
 
-    # Whether the agent running on the instance can run all the available management plugins.
+    # Whether Oracle Cloud Agent can run all the available management plugins.
+    #
+    # These are the management plugins: OS Management Service Agent and Compute Instance
+    # Run Command.
+    #
+    # The management plugins are controlled by this parameter and by the per-plugin
+    # configuration in the `pluginsConfig` object.
+    #
+    # - If `isManagementDisabled` is true, all of the management plugins are disabled, regardless of
+    # the per-plugin configuration.
+    # - If `isManagementDisabled` is false, all of the management plugins are enabled. You
+    # can optionally disable individual management plugins by providing a value in the `pluginsConfig`
+    # object.
     #
     # @return [BOOLEAN]
     attr_accessor :is_management_disabled
+
+    # Whether Oracle Cloud Agent can run all of the available plugins.
+    # This includes the management and monitoring plugins.
+    #
+    # For more information about the available plugins, see
+    # [Managing Plugins with Oracle Cloud Agent](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/manage-plugins.htm).
+    #
+    # @return [BOOLEAN]
+    attr_accessor :are_all_plugins_disabled
+
+    # The configuration of plugins associated with this instance.
+    # @return [Array<OCI::Core::Models::InstanceAgentPluginConfigDetails>]
+    attr_accessor :plugins_config
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'is_monitoring_disabled': :'isMonitoringDisabled',
-        'is_management_disabled': :'isManagementDisabled'
+        'is_management_disabled': :'isManagementDisabled',
+        'are_all_plugins_disabled': :'areAllPluginsDisabled',
+        'plugins_config': :'pluginsConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -32,7 +72,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'is_monitoring_disabled': :'BOOLEAN',
-        'is_management_disabled': :'BOOLEAN'
+        'is_management_disabled': :'BOOLEAN',
+        'are_all_plugins_disabled': :'BOOLEAN',
+        'plugins_config': :'Array<OCI::Core::Models::InstanceAgentPluginConfigDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -45,6 +87,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [BOOLEAN] :is_monitoring_disabled The value to assign to the {#is_monitoring_disabled} property
     # @option attributes [BOOLEAN] :is_management_disabled The value to assign to the {#is_management_disabled} property
+    # @option attributes [BOOLEAN] :are_all_plugins_disabled The value to assign to the {#are_all_plugins_disabled} property
+    # @option attributes [Array<OCI::Core::Models::InstanceAgentPluginConfigDetails>] :plugins_config The value to assign to the {#plugins_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -66,6 +110,20 @@ module OCI
 
       self.is_management_disabled = attributes[:'is_management_disabled'] unless attributes[:'is_management_disabled'].nil?
       self.is_management_disabled = false if is_management_disabled.nil? && !attributes.key?(:'isManagementDisabled') && !attributes.key?(:'is_management_disabled') # rubocop:disable Style/StringLiterals
+
+      self.are_all_plugins_disabled = attributes[:'areAllPluginsDisabled'] unless attributes[:'areAllPluginsDisabled'].nil?
+      self.are_all_plugins_disabled = false if are_all_plugins_disabled.nil? && !attributes.key?(:'areAllPluginsDisabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :areAllPluginsDisabled and :are_all_plugins_disabled' if attributes.key?(:'areAllPluginsDisabled') && attributes.key?(:'are_all_plugins_disabled')
+
+      self.are_all_plugins_disabled = attributes[:'are_all_plugins_disabled'] unless attributes[:'are_all_plugins_disabled'].nil?
+      self.are_all_plugins_disabled = false if are_all_plugins_disabled.nil? && !attributes.key?(:'areAllPluginsDisabled') && !attributes.key?(:'are_all_plugins_disabled') # rubocop:disable Style/StringLiterals
+
+      self.plugins_config = attributes[:'pluginsConfig'] if attributes[:'pluginsConfig']
+
+      raise 'You cannot provide both :pluginsConfig and :plugins_config' if attributes.key?(:'pluginsConfig') && attributes.key?(:'plugins_config')
+
+      self.plugins_config = attributes[:'plugins_config'] if attributes[:'plugins_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -80,7 +138,9 @@ module OCI
 
       self.class == other.class &&
         is_monitoring_disabled == other.is_monitoring_disabled &&
-        is_management_disabled == other.is_management_disabled
+        is_management_disabled == other.is_management_disabled &&
+        are_all_plugins_disabled == other.are_all_plugins_disabled &&
+        plugins_config == other.plugins_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -96,7 +156,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_monitoring_disabled, is_management_disabled].hash
+      [is_monitoring_disabled, is_management_disabled, are_all_plugins_disabled, plugins_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

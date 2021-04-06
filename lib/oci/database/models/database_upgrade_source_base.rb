@@ -1,12 +1,11 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of upgrade source using which the database is upgraded.
-  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
+  # Details for the database upgrade source.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Database::Models::DatabaseUpgradeSourceBase
@@ -16,19 +15,26 @@ module OCI
       SOURCE_DB_SOFTWARE_IMAGE = 'DB_SOFTWARE_IMAGE'.freeze
     ].freeze
 
-    # The source of the database upgrade
-    # Use 'DB_HOME' for using existing db home to upgrade the database
-    # Use 'DB_VERSION' for using database version to upgrade the database
-    # Use 'DB_SOFTWARE_IMAGE' for using database software image to upgrade the database
+    # The source of the Oracle Database software to be used for the upgrade.
+    #  - Use `DB_HOME` to specify an existing Database Home to upgrade the database. The database is moved to the target Database Home and makes use of the Oracle Database software version of the target Database Home.
+    #  - Use `DB_VERSION` to specify a generally-available Oracle Database software version to upgrade the database.
+    #  - Use `DB_SOFTWARE_IMAGE` to specify a [database software image](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/databasesoftwareimage.htm) to upgrade the database.
     #
     # @return [String]
     attr_reader :source
+
+    # Additional upgrade options supported by DBUA(Database Upgrade Assistant).
+    # Example: \"-upgradeTimezone false -keepEvents\"
+    #
+    # @return [String]
+    attr_accessor :options
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'source': :'source'
+        'source': :'source',
+        'options': :'options'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,7 +43,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'source': :'String'
+        'source': :'String',
+        'options': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -66,6 +73,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :source The value to assign to the {#source} property
+    # @option attributes [String] :options The value to assign to the {#options} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -73,6 +81,8 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.source = attributes[:'source'] if attributes[:'source']
+
+      self.options = attributes[:'options'] if attributes[:'options']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -94,7 +104,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        source == other.source
+        source == other.source &&
+        options == other.options
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -110,7 +121,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [source].hash
+      [source, options].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

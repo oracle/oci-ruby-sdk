@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,8 +7,6 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The metadata associated with the category.
-  #
-  # **Caution:** Avoid using any confidential information when you supply string values using the API.
   #
   class Optimizer::Models::Category
     LIFECYCLE_STATE_ENUM = [
@@ -32,11 +30,11 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The name assigned to the category.
+    # **[Required]** The name assigned to the category. Avoid entering confidential information.
     # @return [String]
     attr_accessor :name
 
-    # **[Required]** Text describing the category.
+    # **[Required]** Text describing the category. Avoid entering confidential information.
     # @return [String]
     attr_accessor :description
 

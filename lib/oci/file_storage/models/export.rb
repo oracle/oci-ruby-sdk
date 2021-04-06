@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -80,15 +80,15 @@ module OCI
     # @return [Array<OCI::FileStorage::Models::ClientOptions>]
     attr_accessor :export_options
 
-    # **[Required]** The OCID of this export's export set.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of this export's export set.
     # @return [String]
     attr_accessor :export_set_id
 
-    # **[Required]** The OCID of this export's file system.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of this export's file system.
     # @return [String]
     attr_accessor :file_system_id
 
-    # **[Required]** The OCID of this export.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of this export.
     # @return [String]
     attr_accessor :id
 

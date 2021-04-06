@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -990,6 +990,92 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Optimizer::Models::ProfileCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the existing strategies.
+    #
+    # @param [String] compartment_id The OCID of the compartment.
+    # @param [BOOLEAN] compartment_id_in_subtree When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned depending on the the setting of `accessLevel`.
+    #
+    #   Can only be set to true when performing ListCompartments on the tenancy (root compartment).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :name Optional. A filter that returns results that match the name specified.
+    # @option opts [String] :recommendation_name Optional. A filter that returns results that match the recommendation name specified.
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call. (default to 10)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for TIMECREATED is descending. Default order for NAME is ascending. The NAME sort order is case sensitive.
+    #
+    #   Allowed values are: NAME, TIMECREATED
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Optimizer::Models::RecommendationStrategyCollection RecommendationStrategyCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/list_recommendation_strategies.rb.html) to see an example of how to use list_recommendation_strategies API.
+    def list_recommendation_strategies(compartment_id, compartment_id_in_subtree, opts = {})
+      logger.debug 'Calling operation OptimizerClient#list_recommendation_strategies.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_recommendation_strategies." if compartment_id.nil?
+      raise "Missing the required parameter 'compartment_id_in_subtree' when calling list_recommendation_strategies." if compartment_id_in_subtree.nil?
+
+      if opts[:sort_order] && !OCI::Optimizer::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Optimizer::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[NAME TIMECREATED].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of NAME, TIMECREATED.'
+      end
+
+      path = '/recommendationStrategies'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentIdInSubtree] = compartment_id_in_subtree
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:recommendationName] = opts[:recommendation_name] if opts[:recommendation_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OptimizerClient#list_recommendation_strategies') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Optimizer::Models::RecommendationStrategyCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength

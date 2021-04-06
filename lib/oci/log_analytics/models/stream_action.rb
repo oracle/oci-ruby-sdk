@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -12,12 +12,16 @@ module OCI
     # @return [String]
     attr_accessor :saved_search_id
 
+    # @return [OCI::LogAnalytics::Models::MetricExtraction]
+    attr_accessor :metric_extraction
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'type': :'type',
-        'saved_search_id': :'savedSearchId'
+        'saved_search_id': :'savedSearchId',
+        'metric_extraction': :'metricExtraction'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -27,7 +31,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'type': :'String',
-        'saved_search_id': :'String'
+        'saved_search_id': :'String',
+        'metric_extraction': :'OCI::LogAnalytics::Models::MetricExtraction'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -39,6 +44,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :saved_search_id The value to assign to the {#saved_search_id} property
+    # @option attributes [OCI::LogAnalytics::Models::MetricExtraction] :metric_extraction The value to assign to the {#metric_extraction} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -54,6 +60,12 @@ module OCI
       raise 'You cannot provide both :savedSearchId and :saved_search_id' if attributes.key?(:'savedSearchId') && attributes.key?(:'saved_search_id')
 
       self.saved_search_id = attributes[:'saved_search_id'] if attributes[:'saved_search_id']
+
+      self.metric_extraction = attributes[:'metricExtraction'] if attributes[:'metricExtraction']
+
+      raise 'You cannot provide both :metricExtraction and :metric_extraction' if attributes.key?(:'metricExtraction') && attributes.key?(:'metric_extraction')
+
+      self.metric_extraction = attributes[:'metric_extraction'] if attributes[:'metric_extraction']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -68,7 +80,8 @@ module OCI
 
       self.class == other.class &&
         type == other.type &&
-        saved_search_id == other.saved_search_id
+        saved_search_id == other.saved_search_id &&
+        metric_extraction == other.metric_extraction
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -84,7 +97,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, saved_search_id].hash
+      [type, saved_search_id, metric_extraction].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

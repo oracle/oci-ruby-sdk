@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -11,6 +11,12 @@ module OCI
       WORK_REQUEST_ACTION_RESULT_STOPPED = 'STOPPED'.freeze,
       WORK_REQUEST_ACTION_RESULT_SCALED = 'SCALED'.freeze,
       WORK_REQUEST_ACTION_RESULT_NETWORK_ENDPOINT_CHANGED = 'NETWORK_ENDPOINT_CHANGED'.freeze,
+      WORK_REQUEST_ACTION_RESULT_VANITY_URL_CREATED = 'VANITY_URL_CREATED'.freeze,
+      WORK_REQUEST_ACTION_RESULT_VANITY_URL_UPDATED = 'VANITY_URL_UPDATED'.freeze,
+      WORK_REQUEST_ACTION_RESULT_VANITY_URL_DELETED = 'VANITY_URL_DELETED'.freeze,
+      WORK_REQUEST_ACTION_RESULT_PRIVATE_ACCESS_CHANNEL_CREATED = 'PRIVATE_ACCESS_CHANNEL_CREATED'.freeze,
+      WORK_REQUEST_ACTION_RESULT_PRIVATE_ACCESS_CHANNEL_UPDATED = 'PRIVATE_ACCESS_CHANNEL_UPDATED'.freeze,
+      WORK_REQUEST_ACTION_RESULT_PRIVATE_ACCESS_CHANNEL_DELETED = 'PRIVATE_ACCESS_CHANNEL_DELETED'.freeze,
       WORK_REQUEST_ACTION_RESULT_NONE = 'NONE'.freeze
     ].freeze
   end

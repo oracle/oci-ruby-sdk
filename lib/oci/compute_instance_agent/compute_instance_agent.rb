@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -11,10 +11,10 @@ module OCI
 end
 
 # Require models
+require 'oci/compute_instance_agent/models/available_plugin_summary'
 require 'oci/compute_instance_agent/models/create_instance_agent_command_details'
 require 'oci/compute_instance_agent/models/instance_agent_command'
 require 'oci/compute_instance_agent/models/instance_agent_command_content'
-require 'oci/compute_instance_agent/models/instance_agent_command_content_info'
 require 'oci/compute_instance_agent/models/instance_agent_command_execution'
 require 'oci/compute_instance_agent/models/instance_agent_command_execution_output_content'
 require 'oci/compute_instance_agent/models/instance_agent_command_execution_output_via_object_storage_tuple_details'
@@ -31,9 +31,14 @@ require 'oci/compute_instance_agent/models/instance_agent_command_source_via_obj
 require 'oci/compute_instance_agent/models/instance_agent_command_source_via_text_details'
 require 'oci/compute_instance_agent/models/instance_agent_command_summary'
 require 'oci/compute_instance_agent/models/instance_agent_command_target'
+require 'oci/compute_instance_agent/models/instance_agent_plugin'
+require 'oci/compute_instance_agent/models/instance_agent_plugin_summary'
+require 'oci/compute_instance_agent/models/plugin'
 
 # Require generated clients
 require 'oci/compute_instance_agent/compute_instance_agent_client'
+require 'oci/compute_instance_agent/plugin_client'
+require 'oci/compute_instance_agent/pluginconfig_client'
 
 # Require service utilities
 require 'oci/compute_instance_agent/util'

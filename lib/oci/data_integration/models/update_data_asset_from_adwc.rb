@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -19,6 +19,12 @@ module OCI
     # The credential file content from a Autonomous Data Warehouse wallet.
     # @return [String]
     attr_accessor :credential_file_content
+
+    # @return [OCI::DataIntegration::Models::SensitiveAttribute]
+    attr_accessor :wallet_secret
+
+    # @return [OCI::DataIntegration::Models::SensitiveAttribute]
+    attr_accessor :wallet_password_secret
 
     # @return [OCI::DataIntegration::Models::UpdateConnectionFromAdwc]
     attr_accessor :default_connection
@@ -41,6 +47,8 @@ module OCI
         'service_name': :'serviceName',
         'driver_class': :'driverClass',
         'credential_file_content': :'credentialFileContent',
+        'wallet_secret': :'walletSecret',
+        'wallet_password_secret': :'walletPasswordSecret',
         'default_connection': :'defaultConnection'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -64,6 +72,8 @@ module OCI
         'service_name': :'String',
         'driver_class': :'String',
         'credential_file_content': :'String',
+        'wallet_secret': :'OCI::DataIntegration::Models::SensitiveAttribute',
+        'wallet_password_secret': :'OCI::DataIntegration::Models::SensitiveAttribute',
         'default_connection': :'OCI::DataIntegration::Models::UpdateConnectionFromAdwc'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -88,6 +98,8 @@ module OCI
     # @option attributes [String] :service_name The value to assign to the {#service_name} property
     # @option attributes [String] :driver_class The value to assign to the {#driver_class} property
     # @option attributes [String] :credential_file_content The value to assign to the {#credential_file_content} property
+    # @option attributes [OCI::DataIntegration::Models::SensitiveAttribute] :wallet_secret The value to assign to the {#wallet_secret} property
+    # @option attributes [OCI::DataIntegration::Models::SensitiveAttribute] :wallet_password_secret The value to assign to the {#wallet_password_secret} property
     # @option attributes [OCI::DataIntegration::Models::UpdateConnectionFromAdwc] :default_connection The value to assign to the {#default_connection} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -116,6 +128,18 @@ module OCI
       raise 'You cannot provide both :credentialFileContent and :credential_file_content' if attributes.key?(:'credentialFileContent') && attributes.key?(:'credential_file_content')
 
       self.credential_file_content = attributes[:'credential_file_content'] if attributes[:'credential_file_content']
+
+      self.wallet_secret = attributes[:'walletSecret'] if attributes[:'walletSecret']
+
+      raise 'You cannot provide both :walletSecret and :wallet_secret' if attributes.key?(:'walletSecret') && attributes.key?(:'wallet_secret')
+
+      self.wallet_secret = attributes[:'wallet_secret'] if attributes[:'wallet_secret']
+
+      self.wallet_password_secret = attributes[:'walletPasswordSecret'] if attributes[:'walletPasswordSecret']
+
+      raise 'You cannot provide both :walletPasswordSecret and :wallet_password_secret' if attributes.key?(:'walletPasswordSecret') && attributes.key?(:'wallet_password_secret')
+
+      self.wallet_password_secret = attributes[:'wallet_password_secret'] if attributes[:'wallet_password_secret']
 
       self.default_connection = attributes[:'defaultConnection'] if attributes[:'defaultConnection']
 
@@ -149,6 +173,8 @@ module OCI
         service_name == other.service_name &&
         driver_class == other.driver_class &&
         credential_file_content == other.credential_file_content &&
+        wallet_secret == other.wallet_secret &&
+        wallet_password_secret == other.wallet_password_secret &&
         default_connection == other.default_connection
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -165,7 +191,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, name, description, object_status, object_version, identifier, external_key, asset_properties, registry_metadata, service_name, driver_class, credential_file_content, default_connection].hash
+      [model_type, key, model_version, name, description, object_status, object_version, identifier, external_key, asset_properties, registry_metadata, service_name, driver_class, credential_file_content, wallet_secret, wallet_password_secret, default_connection].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

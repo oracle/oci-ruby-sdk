@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -235,12 +235,12 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-    #   For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_match The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+    #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+    #   the resource.
     #
-    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
-    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
-    #   part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should
+    #   fail if the resource already exists.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
@@ -458,12 +458,12 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-    #   For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_match The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+    #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+    #   the resource.
     #
-    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
-    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
-    #   part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should
+    #   fail if the resource already exists.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :opc_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
@@ -732,8 +732,9 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-    #   For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_match The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+    #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+    #   the resource.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
@@ -798,8 +799,9 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-    #   For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_match The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+    #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+    #   the resource.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :version_id VersionId used to identify a particular version of the object
@@ -866,8 +868,9 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
-    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-    #   For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_match The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+    #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+    #   the resource.
     #
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/delete_object_lifecycle_policy.rb.html) to see an example of how to use delete_object_lifecycle_policy API.
@@ -1053,8 +1056,9 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-    #   For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_match The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+    #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+    #   the resource.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
@@ -1118,12 +1122,12 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-    #   For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_match The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+    #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+    #   the resource.
     #
-    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
-    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
-    #   part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should
+    #   fail if the resource already exists.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [Array<String>] :fields Bucket summary includes the 'namespace', 'name', 'compartmentId', 'createdBy', 'timeCreated',
@@ -1330,12 +1334,12 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :version_id VersionId used to identify a particular version of the object
-    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-    #   For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_match The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+    #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+    #   the resource.
     #
-    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
-    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
-    #   part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should
+    #   fail if the resource already exists.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :range Optional byte range to fetch, as described in [RFC 7233](https://tools.ietf.org/html/rfc7233#section-2.1).
@@ -1781,12 +1785,12 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-    #   For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_match The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+    #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+    #   the resource.
     #
-    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
-    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
-    #   part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should
+    #   fail if the resource already exists.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
@@ -1853,12 +1857,12 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :version_id VersionId used to identify a particular version of the object
-    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-    #   For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_match The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+    #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+    #   the resource.
     #
-    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
-    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
-    #   part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should
+    #   fail if the resource already exists.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :opc_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
@@ -1932,6 +1936,9 @@ module OCI
     # Gets a list of all BucketSummary items in a compartment. A BucketSummary contains only summary fields for the bucket
     # and does not contain fields like the user-defined metadata.
     #
+    # ListBuckets returns a BucketSummary containing at most 1000 buckets. To paginate through more buckets, use the returned
+    # `opc-next-page` value with the `page` request parameter.
+    #
     # To use this and other API operations, you must be authorized in an IAM policy. If you are not authorized,
     # talk to an administrator. If you are an administrator who needs to write policies to give users access, see
     # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
@@ -1941,8 +1948,13 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
-    # @option opts [String] :page The page at which to start retrieving results.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important
+    #   details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
     # @option opts [Array<String>] :fields Bucket summary in list of buckets includes the 'namespace', 'name', 'compartmentId', 'createdBy', 'timeCreated',
     #   and 'etag' fields. This parameter can also include 'tags' (freeformTags and definedTags). The only supported value
     #   of this parameter is 'tags' for now. Example 'tags'.
@@ -2025,8 +2037,13 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
-    # @option opts [String] :page The page at which to start retrieving results.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important
+    #   details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::MultipartUploadPartSummary MultipartUploadPartSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_multipart_upload_parts.rb.html) to see an example of how to use list_multipart_upload_parts API.
@@ -2093,8 +2110,13 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :limit The maximum number of items to return.
-    # @option opts [String] :page The page at which to start retrieving results.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important
+    #   details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::MultipartUpload MultipartUpload}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_multipart_uploads.rb.html) to see an example of how to use list_multipart_uploads API.
@@ -2150,6 +2172,9 @@ module OCI
 
     # Lists the object versions in a bucket.
     #
+    # ListObjectVersions returns an ObjectVersionCollection containing at most 1000 object versions. To paginate through
+    # more object versions, use the returned `opc-next-page` value with the `page` request parameter.
+    #
     # To use this and other API operations, you must be authorized in an IAM policy. If you are not authorized,
     # talk to an administrator. If you are an administrator who needs to write policies to give users access, see
     # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
@@ -2164,23 +2189,28 @@ module OCI
     # @option opts [String] :prefix The string to use for matching against the start of object names in a list query.
     # @option opts [String] :start Object names returned by a list query must be greater or equal to this parameter.
     # @option opts [String] :_end Object names returned by a list query must be strictly less than this parameter.
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
     # @option opts [String] :delimiter When this parameter is set, only objects whose names do not contain the delimiter character
     #   (after an optionally specified prefix) are returned in the objects key of the response body.
     #   Scanned objects whose names contain the delimiter have the part of their name up to the first
     #   occurrence of the delimiter (including the optional prefix) returned as a set of prefixes.
     #   Note that only '/' is a supported delimiter character at this time.
     #
-    # @option opts [String] :fields Object summary in list of objects includes the 'name' field. This parameter can also include 'size'
-    #   (object size in bytes), 'etag', 'md5', 'timeCreated' (object creation date and time) and 'timeModified'
-    #   (object modification date and time).
-    #   Value of this parameter should be a comma-separated, case-insensitive list of those field names.
-    #   For example 'name,etag,timeCreated,md5,timeModified'
+    # @option opts [String] :fields Object summary by default includes only the 'name' field. Use this parameter to also
+    #   include 'size' (object size in bytes), 'etag', 'md5', 'timeCreated' (object creation date and time),
+    #   'timeModified' (object modification date and time), 'storageTier' and 'archivalState' fields.
+    #   Specify the value of this parameter as a comma-separated, case-insensitive list of those field names.
+    #   For example 'name,etag,timeCreated,md5,timeModified,storageTier,archivalState'.
     #
-    #   Allowed values are: name, size, etag, timeCreated, md5, timeModified
+    #   Allowed values are: name, size, etag, timeCreated, md5, timeModified, storageTier, archivalState
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :start_after Object names returned by a list query must be greater than this parameter.
-    # @option opts [String] :page The page at which to start retrieving results.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important
+    #   details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::ObjectVersionCollection ObjectVersionCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_object_versions.rb.html) to see an example of how to use list_object_versions API.
     def list_object_versions(namespace_name, bucket_name, opts = {})
@@ -2189,8 +2219,8 @@ module OCI
       raise "Missing the required parameter 'namespace_name' when calling list_object_versions." if namespace_name.nil?
       raise "Missing the required parameter 'bucket_name' when calling list_object_versions." if bucket_name.nil?
 
-      if opts[:fields] && !%w[name size etag timeCreated md5 timeModified].include?(opts[:fields])
-        raise 'Invalid value for "fields", must be one of name, size, etag, timeCreated, md5, timeModified.'
+      if opts[:fields] && !%w[name size etag timeCreated md5 timeModified storageTier archivalState].include?(opts[:fields])
+        raise 'Invalid value for "fields", must be one of name, size, etag, timeCreated, md5, timeModified, storageTier, archivalState.'
       end
       raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
       raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
@@ -2243,7 +2273,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the objects in a bucket.
+    # Lists the objects in a bucket. By default, ListObjects returns object names only. See the `fields`
+    # parameter for other fields that you can optionally include in ListObjects response.
+    #
+    # ListObjects returns at most 1000 objects. To paginate through more objects, use the returned 'nextStartWith'
+    # value with the 'start' parameter. To filter which objects ListObjects returns, use the 'start' and 'end'
+    # parameters.
     #
     # To use this and other API operations, you must be authorized in an IAM policy. If you are not authorized,
     # talk to an administrator. If you are an administrator who needs to write policies to give users access, see
@@ -2259,18 +2294,21 @@ module OCI
     # @option opts [String] :prefix The string to use for matching against the start of object names in a list query.
     # @option opts [String] :start Object names returned by a list query must be greater or equal to this parameter.
     # @option opts [String] :_end Object names returned by a list query must be strictly less than this parameter.
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
     # @option opts [String] :delimiter When this parameter is set, only objects whose names do not contain the delimiter character
     #   (after an optionally specified prefix) are returned in the objects key of the response body.
     #   Scanned objects whose names contain the delimiter have the part of their name up to the first
     #   occurrence of the delimiter (including the optional prefix) returned as a set of prefixes.
     #   Note that only '/' is a supported delimiter character at this time.
     #
-    # @option opts [String] :fields Object summary in list of objects includes the 'name' field. This parameter can also include 'size'
-    #   (object size in bytes), 'etag', 'md5', 'timeCreated' (object creation date and time) and 'timeModified'
-    #   (object modification date and time).
-    #   Value of this parameter should be a comma-separated, case-insensitive list of those field names.
-    #   For example 'name,etag,timeCreated,md5,timeModified'
+    # @option opts [String] :fields Object summary by default includes only the 'name' field. Use this parameter to also
+    #   include 'size' (object size in bytes), 'etag', 'md5', 'timeCreated' (object creation date and time),
+    #   'timeModified' (object modification date and time), 'storageTier' and 'archivalState' fields.
+    #   Specify the value of this parameter as a comma-separated, case-insensitive list of those field names.
+    #   For example 'name,etag,timeCreated,md5,timeModified,storageTier,archivalState'.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :start_after Object names returned by a list query must be greater than this parameter.
@@ -2341,8 +2379,13 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :object_name_prefix User-specified object name prefixes can be used to query and return a list of pre-authenticated requests.
-    # @option opts [Integer] :limit The maximum number of items to return.
-    # @option opts [String] :page The page at which to start retrieving results.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important
+    #   details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::PreauthenticatedRequestSummary PreauthenticatedRequestSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_preauthenticated_requests.rb.html) to see an example of how to use list_preauthenticated_requests API.
@@ -2407,8 +2450,13 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
-    # @option opts [String] :page The page at which to start retrieving results.
-    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important
+    #   details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #    (default to 100)
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::ReplicationPolicySummary ReplicationPolicySummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_replication_policies.rb.html) to see an example of how to use list_replication_policies API.
     def list_replication_policies(namespace_name, bucket_name, opts = {})
@@ -2471,8 +2519,13 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
-    # @option opts [String] :page The page at which to start retrieving results.
-    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important
+    #   details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #    (default to 100)
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::ReplicationSource ReplicationSource}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_replication_sources.rb.html) to see an example of how to use list_replication_sources API.
     def list_replication_sources(namespace_name, bucket_name, opts = {})
@@ -2535,7 +2588,9 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :page The page at which to start retrieving results.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important
+    #   details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::RetentionRuleCollection RetentionRuleCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_retention_rules.rb.html) to see an example of how to use list_retention_rules API.
     def list_retention_rules(namespace_name, bucket_name, opts = {})
@@ -2591,8 +2646,13 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :page The page at which to start retrieving results.
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important
+    #   details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::WorkRequestError WorkRequestError}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
@@ -2649,8 +2709,13 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :page The page at which to start retrieving results.
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important
+    #   details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::WorkRequestLogEntry WorkRequestLogEntry}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
@@ -2709,8 +2774,13 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
-    # @option opts [String] :page The page at which to start retrieving results.
-    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\" call. For important
+    #   details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
     # @return [Response] A Response object with data of type Array<{OCI::ObjectStorage::Models::WorkRequestSummary WorkRequestSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
@@ -2844,12 +2914,12 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :content_length The content length of the body.
-    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-    #   For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_match The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+    #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+    #   the resource.
     #
-    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
-    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
-    #   part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should
+    #   fail if the resource already exists.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :expect 100-continue (default to 100-continue)
@@ -2897,6 +2967,9 @@ module OCI
     #   value is used to check the integrity of the encryption key. For more information, see
     #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
+    # @option opts [String] :storage_tier The storage tier that the object should be stored in. If not specified, the object will be stored in
+    #   the same storage tier as the bucket.
+    #
     # @option opts [Hash<String, String>] :opc_meta Optional user-defined metadata key and value.
     #   "opc-meta-" will be appended to each Hash key before it is sent to the server.
     # @return [Response] A Response object with data of type nil
@@ -2908,6 +2981,10 @@ module OCI
       raise "Missing the required parameter 'bucket_name' when calling put_object." if bucket_name.nil?
       raise "Missing the required parameter 'object_name' when calling put_object." if object_name.nil?
       raise "Missing the required parameter 'put_object_body' when calling put_object." if put_object_body.nil?
+
+      if opts[:storage_tier] && !OCI::ObjectStorage::Models::STORAGE_TIER_ENUM.include?(opts[:storage_tier])
+        raise 'Invalid value for "storage_tier", must be one of the values in OCI::ObjectStorage::Models::STORAGE_TIER_ENUM.'
+      end
       raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
       raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
       raise "Parameter value for 'object_name' must not be blank" if OCI::Internal::Util.blank_string?(object_name)
@@ -2936,6 +3013,7 @@ module OCI
       header_params[:'opc-sse-customer-algorithm'] = opts[:opc_sse_customer_algorithm] if opts[:opc_sse_customer_algorithm]
       header_params[:'opc-sse-customer-key'] = opts[:opc_sse_customer_key] if opts[:opc_sse_customer_key]
       header_params[:'opc-sse-customer-key-sha256'] = opts[:opc_sse_customer_key_sha256] if opts[:opc_sse_customer_key_sha256]
+      header_params[:'storage-tier'] = opts[:storage_tier] if opts[:storage_tier]
       # rubocop:enable Style/NegatedIf
 
       if opts[:opc_meta]
@@ -2981,12 +3059,12 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
-    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-    #   For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_match The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+    #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+    #   the resource.
     #
-    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
-    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
-    #   part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should
+    #   fail if the resource already exists.
     #
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::ObjectLifecyclePolicy ObjectLifecyclePolicy}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/put_object_lifecycle_policy.rb.html) to see an example of how to use put_object_lifecycle_policy API.
@@ -3199,7 +3277,7 @@ module OCI
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
     #
-    # @param [OCI::ObjectStorage::Models::RenameObjectDetails] rename_object_details The sourceName and newName of rename operation.
+    # @param [OCI::ObjectStorage::Models::RenameObjectDetails] rename_object_details The sourceName and newName of rename operation. Avoid entering confidential information.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3330,8 +3408,9 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-    #   For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_match The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+    #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+    #   the resource.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::Bucket Bucket}
@@ -3449,6 +3528,67 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Changes the storage tier of the object specified by the objectName parameter.
+    #
+    # @param [String] namespace_name The Object Storage namespace used for the request.
+    # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
+    #   Example: `my-new-bucket1`
+    #
+    # @param [OCI::ObjectStorage::Models::UpdateObjectStorageTierDetails] update_object_storage_tier_details The object name and the desired storage tier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_client_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/update_object_storage_tier.rb.html) to see an example of how to use update_object_storage_tier API.
+    def update_object_storage_tier(namespace_name, bucket_name, update_object_storage_tier_details, opts = {})
+      logger.debug 'Calling operation ObjectStorageClient#update_object_storage_tier.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling update_object_storage_tier." if namespace_name.nil?
+      raise "Missing the required parameter 'bucket_name' when calling update_object_storage_tier." if bucket_name.nil?
+      raise "Missing the required parameter 'update_object_storage_tier_details' when calling update_object_storage_tier." if update_object_storage_tier_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'bucket_name' must not be blank" if OCI::Internal::Util.blank_string?(bucket_name)
+
+      path = '/n/{namespaceName}/b/{bucketName}/actions/updateObjectStorageTier'.sub('{namespaceName}', namespace_name.to_s).sub('{bucketName}', bucket_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-client-request-id'] = opts[:opc_client_request_id] if opts[:opc_client_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_object_storage_tier_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ObjectStorageClient#update_object_storage_tier') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates the specified retention rule. Rule changes take effect typically within 30 seconds.
     #
     # @param [String] namespace_name The Object Storage namespace used for the request.
@@ -3460,8 +3600,9 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-    #   For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_match The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+    #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+    #   the resource.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::RetentionRule RetentionRule}
@@ -3535,12 +3676,12 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :content_length The content length of the body.
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
-    # @option opts [String] :if_match The entity tag (ETag) to match. For creating and committing a multipart upload to an object, this is the entity tag of the target object.
-    #   For uploading a part, this is the entity tag of the target part.
+    # @option opts [String] :if_match The entity tag (ETag) to match with the ETag of an existing resource. If the specified ETag matches the ETag of
+    #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
+    #   the resource.
     #
-    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should fail if the object
-    #   already exists. For creating and committing a multipart upload, this is the entity tag of the target object. For uploading a
-    #   part, this is the entity tag of the target part.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should
+    #   fail if the resource already exists.
     #
     # @option opts [String] :expect 100-continue (default to 100-continue)
     # @option opts [String] :content_md5 The optional base-64 header that defines the encoded MD5 hash of the body. If the optional Content-MD5 header is present, Object

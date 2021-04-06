@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -19,9 +19,18 @@ module OCI
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    EXPECTED_DURATION_UNIT_ENUM = [
+      EXPECTED_DURATION_UNIT_SECONDS = 'SECONDS'.freeze,
+      EXPECTED_DURATION_UNIT_MINUTES = 'MINUTES'.freeze,
+      EXPECTED_DURATION_UNIT_HOURS = 'HOURS'.freeze,
+      EXPECTED_DURATION_UNIT_DAYS = 'DAYS'.freeze,
+      EXPECTED_DURATION_UNIT_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     TASK_TYPE_ENUM = [
       TASK_TYPE_INTEGRATION_TASK = 'INTEGRATION_TASK'.freeze,
       TASK_TYPE_DATA_LOADER_TASK = 'DATA_LOADER_TASK'.freeze,
+      TASK_TYPE_PIPELINE_TASK = 'PIPELINE_TASK'.freeze,
       TASK_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -83,6 +92,37 @@ module OCI
     # @return [String]
     attr_accessor :error_message
 
+    # The expected duration for the task run.
+    # @return [Float]
+    attr_accessor :expected_duration
+
+    # The expected duration unit of measure.
+    # @return [String]
+    attr_reader :expected_duration_unit
+
+    # Task Key of the task for which TaskRun is being created. If not specified, the AggregatorKey in RegistryMetadata will be assumed to be the TaskKey
+    # @return [String]
+    attr_accessor :task_key
+
+    # Holds the particular attempt number.
+    # @return [Integer]
+    attr_accessor :retry_attempt
+
+    # @return [OCI::DataIntegration::Models::TaskSchedule]
+    attr_accessor :task_schedule
+
+    # A map of metrics for the run.
+    # @return [Hash<String, Float>]
+    attr_accessor :metrics
+
+    # An array of execution errors from the run.
+    # @return [Array<String>]
+    attr_accessor :execution_errors
+
+    # An array of termination errors from the run.
+    # @return [Array<String>]
+    attr_accessor :termination_errors
+
     # The OPC request ID of execution of the task run.
     # @return [String]
     attr_accessor :opc_request_id
@@ -125,6 +165,14 @@ module OCI
         'records_written': :'recordsWritten',
         'bytes_processed': :'bytesProcessed',
         'error_message': :'errorMessage',
+        'expected_duration': :'expectedDuration',
+        'expected_duration_unit': :'expectedDurationUnit',
+        'task_key': :'taskKey',
+        'retry_attempt': :'retryAttempt',
+        'task_schedule': :'taskSchedule',
+        'metrics': :'metrics',
+        'execution_errors': :'executionErrors',
+        'termination_errors': :'terminationErrors',
         'opc_request_id': :'opcRequestId',
         'object_status': :'objectStatus',
         'task_type': :'taskType',
@@ -154,6 +202,14 @@ module OCI
         'records_written': :'Integer',
         'bytes_processed': :'Integer',
         'error_message': :'String',
+        'expected_duration': :'Float',
+        'expected_duration_unit': :'String',
+        'task_key': :'String',
+        'retry_attempt': :'Integer',
+        'task_schedule': :'OCI::DataIntegration::Models::TaskSchedule',
+        'metrics': :'Hash<String, Float>',
+        'execution_errors': :'Array<String>',
+        'termination_errors': :'Array<String>',
         'opc_request_id': :'String',
         'object_status': :'Integer',
         'task_type': :'String',
@@ -185,6 +241,14 @@ module OCI
     # @option attributes [Integer] :records_written The value to assign to the {#records_written} property
     # @option attributes [Integer] :bytes_processed The value to assign to the {#bytes_processed} property
     # @option attributes [String] :error_message The value to assign to the {#error_message} property
+    # @option attributes [Float] :expected_duration The value to assign to the {#expected_duration} property
+    # @option attributes [String] :expected_duration_unit The value to assign to the {#expected_duration_unit} property
+    # @option attributes [String] :task_key The value to assign to the {#task_key} property
+    # @option attributes [Integer] :retry_attempt The value to assign to the {#retry_attempt} property
+    # @option attributes [OCI::DataIntegration::Models::TaskSchedule] :task_schedule The value to assign to the {#task_schedule} property
+    # @option attributes [Hash<String, Float>] :metrics The value to assign to the {#metrics} property
+    # @option attributes [Array<String>] :execution_errors The value to assign to the {#execution_errors} property
+    # @option attributes [Array<String>] :termination_errors The value to assign to the {#termination_errors} property
     # @option attributes [String] :opc_request_id The value to assign to the {#opc_request_id} property
     # @option attributes [Integer] :object_status The value to assign to the {#object_status} property
     # @option attributes [String] :task_type The value to assign to the {#task_type} property
@@ -271,6 +335,50 @@ module OCI
 
       self.error_message = attributes[:'error_message'] if attributes[:'error_message']
 
+      self.expected_duration = attributes[:'expectedDuration'] if attributes[:'expectedDuration']
+
+      raise 'You cannot provide both :expectedDuration and :expected_duration' if attributes.key?(:'expectedDuration') && attributes.key?(:'expected_duration')
+
+      self.expected_duration = attributes[:'expected_duration'] if attributes[:'expected_duration']
+
+      self.expected_duration_unit = attributes[:'expectedDurationUnit'] if attributes[:'expectedDurationUnit']
+
+      raise 'You cannot provide both :expectedDurationUnit and :expected_duration_unit' if attributes.key?(:'expectedDurationUnit') && attributes.key?(:'expected_duration_unit')
+
+      self.expected_duration_unit = attributes[:'expected_duration_unit'] if attributes[:'expected_duration_unit']
+
+      self.task_key = attributes[:'taskKey'] if attributes[:'taskKey']
+
+      raise 'You cannot provide both :taskKey and :task_key' if attributes.key?(:'taskKey') && attributes.key?(:'task_key')
+
+      self.task_key = attributes[:'task_key'] if attributes[:'task_key']
+
+      self.retry_attempt = attributes[:'retryAttempt'] if attributes[:'retryAttempt']
+
+      raise 'You cannot provide both :retryAttempt and :retry_attempt' if attributes.key?(:'retryAttempt') && attributes.key?(:'retry_attempt')
+
+      self.retry_attempt = attributes[:'retry_attempt'] if attributes[:'retry_attempt']
+
+      self.task_schedule = attributes[:'taskSchedule'] if attributes[:'taskSchedule']
+
+      raise 'You cannot provide both :taskSchedule and :task_schedule' if attributes.key?(:'taskSchedule') && attributes.key?(:'task_schedule')
+
+      self.task_schedule = attributes[:'task_schedule'] if attributes[:'task_schedule']
+
+      self.metrics = attributes[:'metrics'] if attributes[:'metrics']
+
+      self.execution_errors = attributes[:'executionErrors'] if attributes[:'executionErrors']
+
+      raise 'You cannot provide both :executionErrors and :execution_errors' if attributes.key?(:'executionErrors') && attributes.key?(:'execution_errors')
+
+      self.execution_errors = attributes[:'execution_errors'] if attributes[:'execution_errors']
+
+      self.termination_errors = attributes[:'terminationErrors'] if attributes[:'terminationErrors']
+
+      raise 'You cannot provide both :terminationErrors and :termination_errors' if attributes.key?(:'terminationErrors') && attributes.key?(:'termination_errors')
+
+      self.termination_errors = attributes[:'termination_errors'] if attributes[:'termination_errors']
+
       self.opc_request_id = attributes[:'opcRequestId'] if attributes[:'opcRequestId']
 
       raise 'You cannot provide both :opcRequestId and :opc_request_id' if attributes.key?(:'opcRequestId') && attributes.key?(:'opc_request_id')
@@ -316,6 +424,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] expected_duration_unit Object to be assigned
+    def expected_duration_unit=(expected_duration_unit)
+      # rubocop:disable Style/ConditionalAssignment
+      if expected_duration_unit && !EXPECTED_DURATION_UNIT_ENUM.include?(expected_duration_unit)
+        OCI.logger.debug("Unknown value for 'expected_duration_unit' [" + expected_duration_unit + "]. Mapping to 'EXPECTED_DURATION_UNIT_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @expected_duration_unit = EXPECTED_DURATION_UNIT_UNKNOWN_ENUM_VALUE
+      else
+        @expected_duration_unit = expected_duration_unit
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] task_type Object to be assigned
     def task_type=(task_type)
       # rubocop:disable Style/ConditionalAssignment
@@ -352,6 +473,14 @@ module OCI
         records_written == other.records_written &&
         bytes_processed == other.bytes_processed &&
         error_message == other.error_message &&
+        expected_duration == other.expected_duration &&
+        expected_duration_unit == other.expected_duration_unit &&
+        task_key == other.task_key &&
+        retry_attempt == other.retry_attempt &&
+        task_schedule == other.task_schedule &&
+        metrics == other.metrics &&
+        execution_errors == other.execution_errors &&
+        termination_errors == other.termination_errors &&
         opc_request_id == other.opc_request_id &&
         object_status == other.object_status &&
         task_type == other.task_type &&
@@ -373,7 +502,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, model_type, model_version, parent_ref, name, description, object_version, config_provider, status, start_time_millis, end_time_millis, last_updated, records_written, bytes_processed, error_message, opc_request_id, object_status, task_type, identifier, metadata, key_map].hash
+      [key, model_type, model_version, parent_ref, name, description, object_version, config_provider, status, start_time_millis, end_time_millis, last_updated, records_written, bytes_processed, error_message, expected_duration, expected_duration_unit, task_key, retry_attempt, task_schedule, metrics, execution_errors, termination_errors, opc_request_id, object_status, task_type, identifier, metadata, key_map].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

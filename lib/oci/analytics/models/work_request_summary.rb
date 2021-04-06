@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -16,6 +16,12 @@ module OCI
       OPERATION_TYPE_SCALE_ANALYTICS_INSTANCE = 'SCALE_ANALYTICS_INSTANCE'.freeze,
       OPERATION_TYPE_CHANGE_ANALYTICS_INSTANCE_COMPARTMENT = 'CHANGE_ANALYTICS_INSTANCE_COMPARTMENT'.freeze,
       OPERATION_TYPE_CHANGE_ANALYTICS_INSTANCE_NETWORK_ENDPOINT = 'CHANGE_ANALYTICS_INSTANCE_NETWORK_ENDPOINT'.freeze,
+      OPERATION_TYPE_CREATE_VANITY_URL = 'CREATE_VANITY_URL'.freeze,
+      OPERATION_TYPE_UPDATE_VANITY_URL = 'UPDATE_VANITY_URL'.freeze,
+      OPERATION_TYPE_DELETE_VANITY_URL = 'DELETE_VANITY_URL'.freeze,
+      OPERATION_TYPE_CREATE_PRIVATE_ACCESS_CHANNEL = 'CREATE_PRIVATE_ACCESS_CHANNEL'.freeze,
+      OPERATION_TYPE_UPDATE_PRIVATE_ACCESS_CHANNEL = 'UPDATE_PRIVATE_ACCESS_CHANNEL'.freeze,
+      OPERATION_TYPE_DELETE_PRIVATE_ACCESS_CHANNEL = 'DELETE_PRIVATE_ACCESS_CHANNEL'.freeze,
       OPERATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 

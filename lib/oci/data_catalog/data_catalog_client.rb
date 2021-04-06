@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -5381,7 +5381,7 @@ module OCI
     # @option opts [Integer] :scale Scale of the attribute value usually applies to float data type.
     # @option opts [Array<String>] :fields Specifies the fields to return in an entity attribute summary response.
     #
-    #   Allowed values are: key, displayName, description, entityKey, lifecycleState, timeCreated, externalDataType, externalKey, length, isNullable, uri, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey
+    #   Allowed values are: key, displayName, description, entityKey, lifecycleState, timeCreated, externalDataType, externalKey, length, precision, scale, isNullable, uri, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey
     # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
     #
     #   Allowed values are: TIMECREATED, DISPLAYNAME
@@ -5404,11 +5404,11 @@ module OCI
       end
 
 
-      fields_allowable_values = %w[key displayName description entityKey lifecycleState timeCreated externalDataType externalKey length isNullable uri path minCollectionCount maxCollectionCount datatypeEntityKey externalDatatypeEntityKey parentAttributeKey externalParentAttributeKey]
+      fields_allowable_values = %w[key displayName description entityKey lifecycleState timeCreated externalDataType externalKey length precision scale isNullable uri path minCollectionCount maxCollectionCount datatypeEntityKey externalDatatypeEntityKey parentAttributeKey externalParentAttributeKey]
       if opts[:fields] && !opts[:fields].empty?
         opts[:fields].each do |val_to_check|
           unless fields_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "fields", must be one of key, displayName, description, entityKey, lifecycleState, timeCreated, externalDataType, externalKey, length, isNullable, uri, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey.'
+            raise 'Invalid value for "fields", must be one of key, displayName, description, entityKey, lifecycleState, timeCreated, externalDataType, externalKey, length, precision, scale, isNullable, uri, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey.'
           end
         end
       end
@@ -8546,6 +8546,155 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::DataCatalog::Models::ConnectionAliasSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Act on a recommendation. A recommendation can be accepted or rejected. For example, if a recommendation of type LINK_GLOSSARY_TERM
+    # is accepted, the system will link the source object (e.g. an attribute) to a target glossary term.
+    #
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [OCI::DataCatalog::Models::ProcessRecommendationDetails] process_recommendation_details Recommendation to be processed.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::ProcessRecommendationDetails ProcessRecommendationDetails}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/process_recommendation.rb.html) to see an example of how to use process_recommendation API.
+    def process_recommendation(catalog_id, process_recommendation_details, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#process_recommendation.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling process_recommendation." if catalog_id.nil?
+      raise "Missing the required parameter 'process_recommendation_details' when calling process_recommendation." if process_recommendation_details.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+
+      path = '/catalogs/{catalogId}/actions/processRecommendation'.sub('{catalogId}', catalog_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(process_recommendation_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#process_recommendation') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::ProcessRecommendationDetails'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of recommendations for the given object and recommendation type.
+    # By default, it will return inferred recommendations for review. The optional query param 'RecommendationStatus' can be set,
+    # to return only recommendations having that status.
+    #
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [Array<String>] recommendation_type A filter used to return only recommendations of the specified type.
+    #   Allowed values are: LINK_GLOSSARY_TERM
+    # @param [String] source_object_key A filter used to provide the unique identifier of the source object, for which a list of recommendations will be returned for review.
+    # @param [String] source_object_type A filter used to provide the type of the source object, for which a list of recommendations will be returned for review.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :recommendation_status A filter used to return only recommendations having the requested status.
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::RecommendationCollection RecommendationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/recommendations.rb.html) to see an example of how to use recommendations API.
+    def recommendations(catalog_id, recommendation_type, source_object_key, source_object_type, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#recommendations.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling recommendations." if catalog_id.nil?
+      raise "Missing the required parameter 'recommendation_type' when calling recommendations." if recommendation_type.nil?
+
+      recommendation_type_allowable_values = %w[LINK_GLOSSARY_TERM]
+      recommendation_type.each do |val_to_check|
+        unless recommendation_type_allowable_values.include?(val_to_check)
+          raise "Invalid value for 'recommendation_type', must be one of LINK_GLOSSARY_TERM."
+        end
+      end
+      raise "Missing the required parameter 'source_object_key' when calling recommendations." if source_object_key.nil?
+      raise "Missing the required parameter 'source_object_type' when calling recommendations." if source_object_type.nil?
+      unless OCI::DataCatalog::Models::RECOMMENDATION_RESOURCE_TYPE_ENUM.include?(source_object_type)
+        raise 'Invalid value for "source_object_type", must be one of the values in OCI::DataCatalog::Models::RECOMMENDATION_RESOURCE_TYPE_ENUM.'
+      end
+
+
+      if opts[:recommendation_status] && !OCI::DataCatalog::Models::RECOMMENDATION_STATUS_ENUM.include?(opts[:recommendation_status])
+        raise 'Invalid value for "recommendation_status", must be one of the values in OCI::DataCatalog::Models::RECOMMENDATION_STATUS_ENUM.'
+      end
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+
+      path = '/catalogs/{catalogId}/actions/getRecommendations'.sub('{catalogId}', catalog_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:recommendationType] = OCI::ApiClient.build_collection_params(recommendation_type, :multi)
+      query_params[:sourceObjectKey] = source_object_key
+      query_params[:sourceObjectType] = source_object_type
+      query_params[:recommendationStatus] = opts[:recommendation_status] if opts[:recommendation_status]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#recommendations') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::RecommendationCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength

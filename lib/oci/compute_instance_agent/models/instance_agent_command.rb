@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,39 +7,45 @@ require 'date'
 module OCI
   # The command payload.
   class ComputeInstanceAgent::Models::InstanceAgentCommand
-    # **[Required]** The command OCID
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the command.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the compartment the command is created in.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the command.
     # @return [String]
     attr_accessor :compartment_id
 
-    # The user friendly display name of the command.
+    # A user-friendly name. Does not have to be unique. Avoid entering confidential information.
     # @return [String]
     attr_accessor :display_name
 
-    # the time command was created at.
+    # The date and time the command was created, in the format defined by
+    # [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # the time command was updated at.
+    # The date and time the command was last updated, in the format defined by
+    # [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
     # @return [DateTime]
     attr_accessor :time_updated
 
-    # Whether the command has been requested to be canceled.
+    # Whether a request was made to cancel the command. Canceling a command is a best-effort attempt.
     # @return [BOOLEAN]
     attr_accessor :is_canceled
 
-    # Command execution time limit that the instance agent will honor when executing the command inside the instance. This timer starts when the instance agent starts the commond. Zero means no timeout.
+    # The amount of time that Oracle Cloud Agent is given to run the command on the instance before timing
+    # out. The timer starts when Oracle Cloud Agent starts the command. Zero means no timeout.
+    #
     # @return [Integer]
     attr_accessor :execution_time_out_in_seconds
 
-    # This attribute is required.
+    # **[Required]** The target instance that the command runs on.
     # @return [OCI::ComputeInstanceAgent::Models::InstanceAgentCommandTarget]
     attr_accessor :target
 
-    # This attribute is required.
+    # **[Required]** The contents of the command.
     # @return [OCI::ComputeInstanceAgent::Models::InstanceAgentCommandContent]
     attr_accessor :content
 

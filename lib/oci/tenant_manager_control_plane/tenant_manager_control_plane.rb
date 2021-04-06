@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -12,7 +12,15 @@ end
 
 # Require models
 require 'oci/tenant_manager_control_plane/models/action_type'
+require 'oci/tenant_manager_control_plane/models/create_domain_details'
+require 'oci/tenant_manager_control_plane/models/create_domain_governance_details'
 require 'oci/tenant_manager_control_plane/models/create_sender_invitation_details'
+require 'oci/tenant_manager_control_plane/models/domain'
+require 'oci/tenant_manager_control_plane/models/domain_collection'
+require 'oci/tenant_manager_control_plane/models/domain_governance'
+require 'oci/tenant_manager_control_plane/models/domain_governance_collection'
+require 'oci/tenant_manager_control_plane/models/domain_governance_summary'
+require 'oci/tenant_manager_control_plane/models/domain_summary'
 require 'oci/tenant_manager_control_plane/models/lifecycle_state'
 require 'oci/tenant_manager_control_plane/models/link'
 require 'oci/tenant_manager_control_plane/models/link_collection'
@@ -28,6 +36,8 @@ require 'oci/tenant_manager_control_plane/models/sender_invitation_collection'
 require 'oci/tenant_manager_control_plane/models/sender_invitation_status'
 require 'oci/tenant_manager_control_plane/models/sender_invitation_summary'
 require 'oci/tenant_manager_control_plane/models/sort_order'
+require 'oci/tenant_manager_control_plane/models/update_domain_details'
+require 'oci/tenant_manager_control_plane/models/update_domain_governance_details'
 require 'oci/tenant_manager_control_plane/models/update_recipient_invitation_details'
 require 'oci/tenant_manager_control_plane/models/update_sender_invitation_details'
 require 'oci/tenant_manager_control_plane/models/work_request'
@@ -40,6 +50,10 @@ require 'oci/tenant_manager_control_plane/models/work_request_resource'
 require 'oci/tenant_manager_control_plane/models/work_request_summary'
 
 # Require generated clients
+require 'oci/tenant_manager_control_plane/domain_client'
+require 'oci/tenant_manager_control_plane/domain_client_composite_operations'
+require 'oci/tenant_manager_control_plane/domain_governance_client'
+require 'oci/tenant_manager_control_plane/domain_governance_client_composite_operations'
 require 'oci/tenant_manager_control_plane/link_client'
 require 'oci/tenant_manager_control_plane/link_client_composite_operations'
 require 'oci/tenant_manager_control_plane/recipient_invitation_client'

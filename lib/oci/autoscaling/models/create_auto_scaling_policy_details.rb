@@ -1,20 +1,22 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Creation details for an autoscaling policy.
+  # Creation details for an autoscaling policy. You can create the following types of autoscaling policies:
   #
-  # Each autoscaling configuration can have one autoscaling policy.
-  #
-  # In a threshold-based autoscaling policy, an autoscaling action is triggered when a performance metric meets
+  # - **Schedule-based:** Autoscaling events take place at the specific times that you schedule.
+  # - **Threshold-based:** An autoscaling action is triggered when a performance metric meets
   # or exceeds a threshold.
+  #
+  # An autoscaling configuration can either have multiple schedule-based autoscaling policies, or one
+  # threshold-based autoscaling policy.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Autoscaling::Models::CreateAutoScalingPolicyDetails
-    # **[Required]** The capacity requirements of the autoscaling policy.
+    # The capacity requirements of the autoscaling policy.
     # @return [OCI::Autoscaling::Models::Capacity]
     attr_accessor :capacity
 
@@ -27,7 +29,7 @@ module OCI
     # @return [String]
     attr_accessor :policy_type
 
-    # Boolean field indicating whether this policy is enabled or not.
+    # Whether the autoscaling policy is enabled.
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 

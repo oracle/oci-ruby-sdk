@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -98,12 +98,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Adds association between input source log analytics entity and destination entities.
+    # Adds association between input source log analytics entity and one or more existing destination entities.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_entity_id The log analytics entity OCID.
     #
-    # @param [OCI::LogAnalytics::Models::AddEntityAssociationDetails] add_entity_association_details This parameter specifies the entity OCIDs with which associations are to be created. Specify destination OCIDs as comma separated string.
+    # @param [OCI::LogAnalytics::Models::AddEntityAssociationDetails] add_entity_association_details This parameter specifies the destination entity OCIDs with which associations are to be created.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -173,11 +173,161 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get basic information about a specified set of labels
+    # Add one or more event types to a source. An event type and version can be enabled only on one source.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] source_name The source name.
+    # @param [OCI::LogAnalytics::Models::EventTypeDetails] add_event_type_details Details of event types to be added to the source. The specified event type string could be the fully qualified name or a prefix that matches the event type.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/add_source_event_types.rb.html) to see an example of how to use add_source_event_types API.
+    def add_source_event_types(namespace_name, source_name, add_event_type_details, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#add_source_event_types.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling add_source_event_types." if namespace_name.nil?
+      raise "Missing the required parameter 'source_name' when calling add_source_event_types." if source_name.nil?
+      raise "Missing the required parameter 'add_event_type_details' when calling add_source_event_types." if add_event_type_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'source_name' must not be blank" if OCI::Internal::Util.blank_string?(source_name)
+
+      path = '/namespaces/{namespaceName}/sources/{sourceName}/actions/addEventTypes'.sub('{namespaceName}', namespace_name.to_s).sub('{sourceName}', source_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(add_event_type_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#add_source_event_types') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Appends data to the lookup content. The csv file containing the content to be appended is passed in as binary data in the request.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] lookup_name The name of the lookup to operate on.
+    # @param [String, IO] append_lookup_file_body The file to append.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :is_force is force (default to false)
+    # @option opts [String] :char_encoding The character encoding of the uploaded file. (default to UTF-8)
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/append_lookup_data.rb.html) to see an example of how to use append_lookup_data API.
+    def append_lookup_data(namespace_name, lookup_name, append_lookup_file_body, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#append_lookup_data.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling append_lookup_data." if namespace_name.nil?
+      raise "Missing the required parameter 'lookup_name' when calling append_lookup_data." if lookup_name.nil?
+      raise "Missing the required parameter 'append_lookup_file_body' when calling append_lookup_data." if append_lookup_file_body.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'lookup_name' must not be blank" if OCI::Internal::Util.blank_string?(lookup_name)
+
+      path = '/namespaces/{namespaceName}/lookups/{lookupName}/actions/appendData'.sub('{namespaceName}', namespace_name.to_s).sub('{lookupName}', lookup_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:isForce] = opts[:is_force] if !opts[:is_force].nil?
+      query_params[:charEncoding] = opts[:char_encoding] if opts[:char_encoding]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'content-type'] ||= 'application/octet-stream'
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(append_lookup_file_body)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#append_lookup_data') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists basic information about a specified set of labels in batch.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::LabelNames] basic_details List of label names to get information on
-    # @param [BOOLEAN] is_include_deleted flag for whether or not to include information on deleted labels
+    # @param [BOOLEAN] is_include_deleted A flag specifying whether or not to include information on deleted labels.
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -186,7 +336,7 @@ module OCI
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :basic_label_sort_by sort by label (default to name)
+    # @option opts [String] :basic_label_sort_by The attribute used to sort the returned labels (default to name)
     #   Allowed values are: name, priority
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsLabelCollection LogAnalyticsLabelCollection}
@@ -316,6 +466,81 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Update the compartment of the log analytics enterprise manager bridge with the given id.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] log_analytics_em_bridge_id The log analytics enterprise manager bridge OCID.
+    #
+    # @param [OCI::LogAnalytics::Models::ChangeLogAnalyticsEmBridgeCompartmentDetails] change_log_analytics_em_bridge_compartment_details Log analytics enterprise manager bridge compartment Id to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/change_log_analytics_em_bridge_compartment.rb.html) to see an example of how to use change_log_analytics_em_bridge_compartment API.
+    def change_log_analytics_em_bridge_compartment(namespace_name, log_analytics_em_bridge_id, change_log_analytics_em_bridge_compartment_details, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#change_log_analytics_em_bridge_compartment.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling change_log_analytics_em_bridge_compartment." if namespace_name.nil?
+      raise "Missing the required parameter 'log_analytics_em_bridge_id' when calling change_log_analytics_em_bridge_compartment." if log_analytics_em_bridge_id.nil?
+      raise "Missing the required parameter 'change_log_analytics_em_bridge_compartment_details' when calling change_log_analytics_em_bridge_compartment." if change_log_analytics_em_bridge_compartment_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'log_analytics_em_bridge_id' must not be blank" if OCI::Internal::Util.blank_string?(log_analytics_em_bridge_id)
+
+      path = '/namespaces/{namespaceName}/logAnalyticsEmBridges/{logAnalyticsEmBridgeId}/actions/changeCompartment'.sub('{namespaceName}', namespace_name.to_s).sub('{logAnalyticsEmBridgeId}', log_analytics_em_bridge_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_log_analytics_em_bridge_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#change_log_analytics_em_bridge_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Update the compartment of the log analytics entity with the given id.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
@@ -391,7 +616,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the compartment of the Log-Analytics group with the given id.
+    # Moves the specified log group to a different compartment.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_log_group_id unique logAnalytics log group identifier
@@ -465,10 +691,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Move the rule from it's current compartment to given compartment.
+    # Move the rule from it's current compartment to the given compartment.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] log_analytics_object_collection_rule_id The Logging Analytics Object Collection Rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)
+    # @param [String] log_analytics_object_collection_rule_id The Logging Analytics Object Collection Rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     # @param [OCI::LogAnalytics::Models::ChangeLogAnalyticsObjectCollectionRuleCompartmentDetails] change_log_analytics_object_collection_rule_compartment_details The new compartment this Object Collection Rule will be moved to.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -685,6 +911,71 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Add configuration for enterprise manager bridge. Enterprise manager bridge is used to automatically add selected entities from enterprise manager cloud control. A corresponding OCI bridge configuration is required in enterprise manager.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [OCI::LogAnalytics::Models::CreateLogAnalyticsEmBridgeDetails] create_log_analytics_em_bridge_details Details for the enterprise manager bridge.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsEmBridge LogAnalyticsEmBridge}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/create_log_analytics_em_bridge.rb.html) to see an example of how to use create_log_analytics_em_bridge API.
+    def create_log_analytics_em_bridge(namespace_name, create_log_analytics_em_bridge_details, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#create_log_analytics_em_bridge.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling create_log_analytics_em_bridge." if namespace_name.nil?
+      raise "Missing the required parameter 'create_log_analytics_em_bridge_details' when calling create_log_analytics_em_bridge." if create_log_analytics_em_bridge_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+
+      path = '/namespaces/{namespaceName}/logAnalyticsEmBridges'.sub('{namespaceName}', namespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_log_analytics_em_bridge_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#create_log_analytics_em_bridge') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::LogAnalyticsEmBridge'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Create a new log analytics entity.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
@@ -814,7 +1105,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new Log-Analytics group.
+    # Creates a new log group in the specified compartment with the input display name. You may also specify optional information such as description, defined tags, and free-form tags.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::CreateLogAnalyticsLogGroupDetails] create_log_analytics_log_group_details Details for the new Log-Analytics group.
@@ -879,7 +1171,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Create a configuration to collect logs from object storage bucket.
+    # Creates a rule to collect logs from an object storage bucket.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::CreateLogAnalyticsObjectCollectionRuleDetails] create_log_analytics_object_collection_rule_details Details of the rule to be created.
@@ -1001,7 +1293,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # delete associations
+    # Deletes the associations between the sources and entities specified.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::DeleteLogAnalyticsAssociationDetails] delete_log_analytics_association_details details for association
@@ -1065,10 +1358,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # delete field with specified name
+    # Deletes field with the specified name.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] field_name name of the field to get
+    # @param [String] field_name The field name.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1137,10 +1431,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # delete a label
+    # Deletes label with the specified name.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] label_name name of the label to get
+    # @param [String] label_name The label name.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1188,6 +1483,71 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#delete_label') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Delete log analytics enterprise manager bridge with the given id.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] log_analytics_em_bridge_id The log analytics enterprise manager bridge OCID.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/delete_log_analytics_em_bridge.rb.html) to see an example of how to use delete_log_analytics_em_bridge API.
+    def delete_log_analytics_em_bridge(namespace_name, log_analytics_em_bridge_id, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#delete_log_analytics_em_bridge.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling delete_log_analytics_em_bridge." if namespace_name.nil?
+      raise "Missing the required parameter 'log_analytics_em_bridge_id' when calling delete_log_analytics_em_bridge." if log_analytics_em_bridge_id.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'log_analytics_em_bridge_id' must not be blank" if OCI::Internal::Util.blank_string?(log_analytics_em_bridge_id)
+
+      path = '/namespaces/{namespaceName}/logAnalyticsEmBridges/{logAnalyticsEmBridgeId}'.sub('{namespaceName}', namespace_name.to_s).sub('{logAnalyticsEmBridgeId}', log_analytics_em_bridge_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#delete_log_analytics_em_bridge') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -1274,7 +1634,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Delete the log analytics entity type with the given name.
+    # Delete log analytics entity type with the given name.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] entity_type_name Log analytics entity type name.
@@ -1339,7 +1699,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the Log-Analytics group with the given id.
+    # Deletes the specified log group. The log group cannot be part of an active association or have an active upload.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_log_group_id unique logAnalytics log group identifier
@@ -1403,12 +1764,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes a configured object storage bucket based collection rule to stop the log collection of the configured bucket .
-    # It will not delete the already collected log data from the configured bucket.
+    # Deletes the configured object storage bucket based collection rule and stop the log collection.
+    # It will not delete the existing processed data associated with this bucket from logging analytics storage.
     #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] log_analytics_object_collection_rule_id The Logging Analytics Object Collection Rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)
+    # @param [String] log_analytics_object_collection_rule_id The Logging Analytics Object Collection Rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1469,10 +1830,86 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # delete parser with specified name
+    # Deletes lookup with the specified name.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] parser_name parserName
+    # @param [String] lookup_name The name of the lookup to operate on.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :is_force is force (default to false)
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/delete_lookup.rb.html) to see an example of how to use delete_lookup API.
+    def delete_lookup(namespace_name, lookup_name, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#delete_lookup.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling delete_lookup." if namespace_name.nil?
+      raise "Missing the required parameter 'lookup_name' when calling delete_lookup." if lookup_name.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'lookup_name' must not be blank" if OCI::Internal::Util.blank_string?(lookup_name)
+
+      path = '/namespaces/{namespaceName}/lookups/{lookupName}'.sub('{namespaceName}', namespace_name.to_s).sub('{lookupName}', lookup_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:isForce] = opts[:is_force] if !opts[:is_force].nil?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#delete_lookup') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes parser with the specified name.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] parser_name The parser name.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1607,10 +2044,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # delete source with specified ID
+    # Deletes source with the specified name.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] source_name source name
+    # @param [String] source_name The source name.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1684,7 +2122,7 @@ module OCI
     #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] upload_reference Unique internal identifier to refer to upload container
+    # @param [String] upload_reference Unique internal identifier to refer upload container.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1745,13 +2183,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes a specific log file inside an upload by providing upload file reference.
-    # It deletes all the logs in storage asscoiated with the upload file and the corresponding upload metadata.
+    # Deletes a specific log file inside an upload by upload file reference.
+    # It deletes all the logs from storage associated with the file and the corresponding metadata.
     #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] upload_reference Unique internal identifier to refer to upload container
-    # @param [String] file_reference Unique internal identifier to refer to upload file
+    # @param [String] upload_reference Unique internal identifier to refer upload container.
+    # @param [String] file_reference Unique internal identifier to refer upload file.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1811,8 +2249,8 @@ module OCI
     #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] upload_reference Unique internal identifier to refer to upload container
-    # @param [String] warning_reference Unique internal identifier to refer to upload warning
+    # @param [String] upload_reference Unique internal identifier to refer upload container.
+    # @param [String] warning_reference Unique internal identifier to refer upload warning.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1931,6 +2369,144 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Disables auto association for a log source. In the future, this log source would not be automatically
+    # associated with any entity that becomes eligible for association. In addition, you may also optionally
+    # remove all existing associations for this log source.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] source_name The source name.
+    # @param [OCI::LogAnalytics::Models::DisableAutoAssociationDetails] disable_auto_association_details Details required to disable auto association for the log source.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/disable_auto_association.rb.html) to see an example of how to use disable_auto_association API.
+    def disable_auto_association(namespace_name, source_name, disable_auto_association_details, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#disable_auto_association.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling disable_auto_association." if namespace_name.nil?
+      raise "Missing the required parameter 'source_name' when calling disable_auto_association." if source_name.nil?
+      raise "Missing the required parameter 'disable_auto_association_details' when calling disable_auto_association." if disable_auto_association_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'source_name' must not be blank" if OCI::Internal::Util.blank_string?(source_name)
+
+      path = '/namespaces/{namespaceName}/sources/{sourceName}/actions/disableAutoAssociation'.sub('{namespaceName}', namespace_name.to_s).sub('{sourceName}', source_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(disable_auto_association_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#disable_auto_association') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Disable one or more event types in a source.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] source_name The source name.
+    # @param [OCI::LogAnalytics::Models::EventTypeDetails] disable_event_type_details Details of event types to be disabled in the source.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/disable_source_event_types.rb.html) to see an example of how to use disable_source_event_types API.
+    def disable_source_event_types(namespace_name, source_name, disable_event_type_details, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#disable_source_event_types.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling disable_source_event_types." if namespace_name.nil?
+      raise "Missing the required parameter 'source_name' when calling disable_source_event_types." if source_name.nil?
+      raise "Missing the required parameter 'disable_event_type_details' when calling disable_source_event_types." if disable_event_type_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'source_name' must not be blank" if OCI::Internal::Util.blank_string?(source_name)
+
+      path = '/namespaces/{namespaceName}/sources/{sourceName}/actions/disableEventTypes'.sub('{namespaceName}', namespace_name.to_s).sub('{sourceName}', source_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(disable_event_type_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#disable_source_event_types') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # THis API enables archiving.
     #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
@@ -1981,6 +2557,144 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::LogAnalytics::Models::Success'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Enables auto association for a log source. This would initiate immediate association of the source
+    # to any eligible entities it is not already associated with, and would also ensure the log source gets
+    # associated with entities that are added or become eligible in the future.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] source_name The source name.
+    # @param [OCI::LogAnalytics::Models::EnableAutoAssociationDetails] enable_auto_association_details Details required to enable auto association for the log source.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/enable_auto_association.rb.html) to see an example of how to use enable_auto_association API.
+    def enable_auto_association(namespace_name, source_name, enable_auto_association_details, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#enable_auto_association.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling enable_auto_association." if namespace_name.nil?
+      raise "Missing the required parameter 'source_name' when calling enable_auto_association." if source_name.nil?
+      raise "Missing the required parameter 'enable_auto_association_details' when calling enable_auto_association." if enable_auto_association_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'source_name' must not be blank" if OCI::Internal::Util.blank_string?(source_name)
+
+      path = '/namespaces/{namespaceName}/sources/{sourceName}/actions/enableAutoAssociation'.sub('{namespaceName}', namespace_name.to_s).sub('{sourceName}', source_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(enable_auto_association_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#enable_auto_association') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Enable one or more event types in a source. An event type and version can be enabled only in one source.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] source_name The source name.
+    # @param [OCI::LogAnalytics::Models::EventTypeDetails] enable_event_type_details Details of event types to be enabled in the source.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/enable_source_event_types.rb.html) to see an example of how to use enable_source_event_types API.
+    def enable_source_event_types(namespace_name, source_name, enable_event_type_details, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#enable_source_event_types.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling enable_source_event_types." if namespace_name.nil?
+      raise "Missing the required parameter 'source_name' when calling enable_source_event_types." if source_name.nil?
+      raise "Missing the required parameter 'enable_event_type_details' when calling enable_source_event_types." if enable_event_type_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'source_name' must not be blank" if OCI::Internal::Util.blank_string?(source_name)
+
+      path = '/namespaces/{namespaceName}/sources/{sourceName}/actions/enableEventTypes'.sub('{namespaceName}', namespace_name.to_s).sub('{sourceName}', source_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(enable_event_type_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#enable_source_event_types') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2067,7 +2781,124 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # export
+    # This API gives an active storage usage estimate for archived data to be recalled and the time range of such data.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [OCI::LogAnalytics::Models::EstimateRecallDataSizeDetails] estimate_recall_data_size_details This is the input to estimate the size of data to be recalled.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::EstimateRecallDataSizeResult EstimateRecallDataSizeResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/estimate_recall_data_size.rb.html) to see an example of how to use estimate_recall_data_size API.
+    def estimate_recall_data_size(namespace_name, estimate_recall_data_size_details, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#estimate_recall_data_size.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling estimate_recall_data_size." if namespace_name.nil?
+      raise "Missing the required parameter 'estimate_recall_data_size_details' when calling estimate_recall_data_size." if estimate_recall_data_size_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+
+      path = '/namespaces/{namespaceName}/storage/actions/estimateRecallDataSize'.sub('{namespaceName}', namespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(estimate_recall_data_size_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#estimate_recall_data_size') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::EstimateRecallDataSizeResult'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # This API gives an active storage usage estimate for recalled data to be released and the time range of such data.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [OCI::LogAnalytics::Models::EstimateReleaseDataSizeDetails] estimate_release_data_size_details This is the input to estimate the size of recalled data to be released.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::EstimateReleaseDataSizeResult EstimateReleaseDataSizeResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/estimate_release_data_size.rb.html) to see an example of how to use estimate_release_data_size API.
+    def estimate_release_data_size(namespace_name, estimate_release_data_size_details, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#estimate_release_data_size.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling estimate_release_data_size." if namespace_name.nil?
+      raise "Missing the required parameter 'estimate_release_data_size_details' when calling estimate_release_data_size." if estimate_release_data_size_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+
+      path = '/namespaces/{namespaceName}/storage/actions/estimateReleaseDataSize'.sub('{namespaceName}', namespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(estimate_release_data_size_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#estimate_release_data_size') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::EstimateReleaseDataSizeResult'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Exports all custom details of the specified sources, parsers, fields and labels, in zip format.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::ExportContent] export_custom_content_details content to export
@@ -2281,14 +3112,15 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # structured log fieldpaths
+    # Extracts the field paths from the example json or xml content.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::LogAnalyticsParser] logan_parser_details parser definition
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :parser_type type - possible values are xml or json (default to JSON)
+    # @option opts [String] :parser_type The parser type - possible values are XML or JSON. (default to JSON)
     #   Allowed values are: XML, JSON
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -2353,14 +3185,15 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # structured log header paths
+    # Extracts the header paths from the example json or xml content.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::LogAnalyticsParser] logan_parser_details parser definition
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :parser_type type - possible values are xml or json (default to JSON)
+    # @option opts [String] :parser_type The parser type - possible values are XML or JSON. (default to JSON)
     #   Allowed values are: XML, JSON
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -2482,7 +3315,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # association summary
+    # Returns the count of source associations for entities in the specified compartment.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
@@ -2540,10 +3374,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # extract column names from SQL query
+    # Extracts column names from the input SQL query.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] sql_query sql query to get the columns
+    # @param [String] sql_query The SQL query from which column names are to be extracted.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2606,7 +3441,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # association summary by source
+    # Returns detailed information about the configuration work request with the specified id.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] work_request_id Work Request Identifier [OCID] (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the asynchronous request.
@@ -2664,10 +3500,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get common field with specified name
+    # Gets detailed information about the field with the specified name.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] field_name name of the field to get
+    # @param [String] field_name The field name.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2722,13 +3559,15 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get field summary
+    # Returns the count of fields. You may optionally specify isShowDetail=true to view a summary of each field data type.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [BOOLEAN] :is_show_detail show detail flag (default to false)
+    # @option opts [BOOLEAN] :is_show_detail A boolean indicating whether or not to display detailed field summary information
+    #    (default to false)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::FieldSummaryReport FieldSummaryReport}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_fields_summary.rb.html) to see an example of how to use get_fields_summary API.
@@ -2779,10 +3618,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get label with specified name
+    # Gets detailed information about the label with the specified name.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] label_name name of the label to get
+    # @param [String] label_name The label name.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2837,7 +3677,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get total count
+    # Returns the count of labels.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
@@ -2892,7 +3733,124 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns log analytics entities count summary.
+    # Retrieve the log analytics enterprise manager bridge with the given id.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] log_analytics_em_bridge_id The log analytics enterprise manager bridge OCID.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsEmBridge LogAnalyticsEmBridge}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_log_analytics_em_bridge.rb.html) to see an example of how to use get_log_analytics_em_bridge API.
+    def get_log_analytics_em_bridge(namespace_name, log_analytics_em_bridge_id, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#get_log_analytics_em_bridge.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling get_log_analytics_em_bridge." if namespace_name.nil?
+      raise "Missing the required parameter 'log_analytics_em_bridge_id' when calling get_log_analytics_em_bridge." if log_analytics_em_bridge_id.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'log_analytics_em_bridge_id' must not be blank" if OCI::Internal::Util.blank_string?(log_analytics_em_bridge_id)
+
+      path = '/namespaces/{namespaceName}/logAnalyticsEmBridges/{logAnalyticsEmBridgeId}'.sub('{namespaceName}', namespace_name.to_s).sub('{logAnalyticsEmBridgeId}', log_analytics_em_bridge_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#get_log_analytics_em_bridge') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::LogAnalyticsEmBridge'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns log analytics enterprise manager bridges summary report.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsEmBridgeSummaryReport LogAnalyticsEmBridgeSummaryReport}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_log_analytics_em_bridge_summary.rb.html) to see an example of how to use get_log_analytics_em_bridge_summary API.
+    def get_log_analytics_em_bridge_summary(namespace_name, compartment_id, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#get_log_analytics_em_bridge_summary.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling get_log_analytics_em_bridge_summary." if namespace_name.nil?
+      raise "Missing the required parameter 'compartment_id' when calling get_log_analytics_em_bridge_summary." if compartment_id.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+
+      path = '/namespaces/{namespaceName}/logAnalyticsEmBridges/emBridgeSummary'.sub('{namespaceName}', namespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#get_log_analytics_em_bridge_summary') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::LogAnalyticsEmBridgeSummaryReport'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns log analytics entities count summary report.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
@@ -3068,7 +4026,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Retrieves the Log-Analytics group with the given id.
+    # Gets detailed information about the specified log group such as display name, description, defined tags, and free-form tags.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_log_group_id unique logAnalytics log group identifier
@@ -3126,7 +4085,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns a count of Log-Analytics groups.
+    # Returns the count of log groups in a compartment.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
@@ -3187,7 +4147,7 @@ module OCI
     # Gets a configured object storage based collection rule by given id
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] log_analytics_object_collection_rule_id The Logging Analytics Object Collection Rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)
+    # @param [String] log_analytics_object_collection_rule_id The Logging Analytics Object Collection Rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3229,6 +4189,120 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::LogAnalytics::Models::LogAnalyticsObjectCollectionRule'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets detailed information about the lookup with the specified name.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] lookup_name The name of the lookup to operate on.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsLookup LogAnalyticsLookup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_lookup.rb.html) to see an example of how to use get_lookup API.
+    def get_lookup(namespace_name, lookup_name, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#get_lookup.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling get_lookup." if namespace_name.nil?
+      raise "Missing the required parameter 'lookup_name' when calling get_lookup." if lookup_name.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'lookup_name' must not be blank" if OCI::Internal::Util.blank_string?(lookup_name)
+
+      path = '/namespaces/{namespaceName}/lookups/{lookupName}'.sub('{namespaceName}', namespace_name.to_s).sub('{lookupName}', lookup_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#get_lookup') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::LogAnalyticsLookup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns the count of user created and oracle defined lookups.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LookupSummaryReport LookupSummaryReport}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/get_lookup_summary.rb.html) to see an example of how to use get_lookup_summary API.
+    def get_lookup_summary(namespace_name, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#get_lookup_summary.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling get_lookup_summary." if namespace_name.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+
+      path = '/namespaces/{namespaceName}/lookupSummary'.sub('{namespaceName}', namespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#get_lookup_summary') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::LookupSummaryReport'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -3298,10 +4372,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get parser with fields by Name
+    # Gets detailed information about the parser with the specified name.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] parser_name parserName
+    # @param [String] parser_name The parser name.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3356,7 +4431,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # parser summary
+    # Returns the count of parsers.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
@@ -3604,10 +4680,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get source with specified name
+    # Gets detailed information about the source with the specified name.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] source_name source name
+    # @param [String] source_name The source name.
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3665,7 +4742,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # source summary
+    # Returns the count of sources.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
@@ -3893,10 +4971,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets an On-Demand Upload info by reference
+    # Gets an On-Demand Upload info by reference.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] upload_reference Unique internal identifier to refer to upload container
+    # @param [String] upload_reference Unique internal identifier to refer upload container.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4009,14 +5087,17 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # register custom content
+    # Imports the specified custom content from the input in zip format.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String, IO] import_custom_content_file_body The file to upload which contains the custom content.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [BOOLEAN] :is_overwrite is overwrite
+    # @option opts [BOOLEAN] :is_overwrite A flag indicating whether or not to overwrite existing content if a conflict is
+    #   found during import content operation.
+    #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
@@ -4076,7 +5157,100 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # list of entities that have been associated to at least one source
+    # Lists the entities in the specified compartment which are (in)eligible for association with this source.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] source_name The source name.
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :type The entity type - either eligible or ineligible for association. (default to ELIGIBLE)
+    #   Allowed values are: ELIGIBLE, INELIGIBLE
+    # @option opts [String] :search_text The text used for filtering returned entities.  Search text is applicable to the
+    #   entity name and the entity description.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_by The attribute used to sort the returned entities (default to entityName)
+    #   Allowed values are: entityName, entityTypeName, host, agentId
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::AssociableEntityCollection AssociableEntityCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_associable_entities.rb.html) to see an example of how to use list_associable_entities API.
+    def list_associable_entities(namespace_name, source_name, compartment_id, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#list_associable_entities.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling list_associable_entities." if namespace_name.nil?
+      raise "Missing the required parameter 'source_name' when calling list_associable_entities." if source_name.nil?
+      raise "Missing the required parameter 'compartment_id' when calling list_associable_entities." if compartment_id.nil?
+
+      if opts[:type] && !%w[ELIGIBLE INELIGIBLE].include?(opts[:type])
+        raise 'Invalid value for "type", must be one of ELIGIBLE, INELIGIBLE.'
+      end
+
+      if opts[:sort_by] && !%w[entityName entityTypeName host agentId].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of entityName, entityTypeName, host, agentId.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'source_name' must not be blank" if OCI::Internal::Util.blank_string?(source_name)
+
+      path = '/namespaces/{namespaceName}/sources/{sourceName}/associableEntities'.sub('{namespaceName}', namespace_name.to_s).sub('{sourceName}', source_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:type] = opts[:type] if opts[:type]
+      query_params[:searchText] = opts[:search_text] if opts[:search_text]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json;charset=UTF-8'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#list_associable_entities') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::AssociableEntityCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the association details of entities in the specified compartment that are associated with at least one source.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
@@ -4085,14 +5259,18 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :entity_id The entity OCID.
     #
-    # @option opts [String] :entity_type entity type name
-    # @option opts [String] :entity_type_display_name entity type display name
+    # @option opts [String] :entity_type The entity type used for filtering.  Only associations on an entity with the
+    #   specified type will be returned.
+    #
+    # @option opts [String] :entity_type_display_name The entity type display name used for filtering.  Only items associated with the entity
+    #   with the specified type display name will be returned.
+    #
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by sort by field (default to entityName)
+    # @option opts [String] :sort_by The attribute used to sort the returned entities (default to entityName)
     #   Allowed values are: entityName, entityTypeDisplayName, associationCount
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsAssociatedEntityCollection LogAnalyticsAssociatedEntityCollection}
@@ -4160,7 +5338,86 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # association summary by source
+    # Gets information related to auto association for the source with the specified name.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] source_name The source name.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_by The attribute used to sort the returned auto association information. (default to isEnabled)
+    #   Allowed values are: isEnabled
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::AutoAssociationCollection AutoAssociationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_auto_associations.rb.html) to see an example of how to use list_auto_associations API.
+    def list_auto_associations(namespace_name, source_name, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#list_auto_associations.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling list_auto_associations." if namespace_name.nil?
+      raise "Missing the required parameter 'source_name' when calling list_auto_associations." if source_name.nil?
+
+      if opts[:sort_by] && !%w[isEnabled].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of isEnabled.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'source_name' must not be blank" if OCI::Internal::Util.blank_string?(source_name)
+
+      path = '/namespaces/{namespaceName}/sources/{sourceName}/autoAssociations'.sub('{namespaceName}', namespace_name.to_s).sub('{sourceName}', source_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json;charset=UTF-8'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#list_auto_associations') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::AutoAssociationCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns the list of configuration work requests such as association or lookup operations, containing detailed information about them. You may paginate or limit the number of results.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
@@ -4170,7 +5427,7 @@ module OCI
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by work requests sort by (default to timeAccepted)
+    # @option opts [String] :sort_by The attribute used to sort the returned work requests (default to timeAccepted)
     #   Allowed values are: timeAccepted
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
@@ -4323,7 +5580,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # entity associations summary
+    # Returns the list of source associations for the specified entity.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
@@ -4332,17 +5590,23 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :entity_id The entity OCID.
     #
-    # @option opts [String] :entity_type entity type name
-    # @option opts [String] :entity_type_display_name entity type display name
-    # @option opts [String] :life_cycle_state Status (default to ALL)
+    # @option opts [String] :entity_type The entity type used for filtering.  Only associations on an entity with the
+    #   specified type will be returned.
+    #
+    # @option opts [String] :entity_type_display_name The entity type display name used for filtering.  Only items associated with the entity
+    #   with the specified type display name will be returned.
+    #
+    # @option opts [String] :life_cycle_state The life cycle state used for filtering.  Only associations with the specified
+    #   life cycle state will be returned.
+    #    (default to ALL)
     #   Allowed values are: ALL, ACCEPTED, IN_PROGRESS, SUCCEEDED, FAILED
-    # @option opts [BOOLEAN] :is_show_total is Show Total
+    # @option opts [BOOLEAN] :is_show_total A flag indicating whether or not to return the total number of items returned.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by sort by field (default to sourceDisplayName)
+    # @option opts [String] :sort_by The attribute used to sort the returned associations (default to sourceDisplayName)
     #   Allowed values are: sourceDisplayName, timeLastAttempted, status
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsAssociationCollection LogAnalyticsAssociationCollection}
@@ -4416,19 +5680,35 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get all common field with specified display name and description
+    # Returns a list of log fields, containing detailed information about them. You may limit the number of results, provide sorting order, and filter by specifying various options including parser and source names.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [BOOLEAN] :is_match_all isMatchAll
-    # @option opts [String] :source_ids comma delimited list of source ids
-    # @option opts [String] :source_names comma delimited list of source Names
-    # @option opts [String] :parser_type parserType (default to ALL)
-    #   Allowed values are: ALL, REGEX, XML, JSON
-    # @option opts [String] :parser_ids comma delimited list of parser ids
-    # @option opts [String] :parser_names comma delimited list of parser names
+    # @option opts [BOOLEAN] :is_match_all A flag indicating how to handle filtering when multiple filter criteria are specified.
+    #   A value of true will always result in the most expansive list of items being returned.
+    #   For example, if two field lists are supplies as filter criteria, a value of true will
+    #   result in any item matching a field in either list being returned, while a value of
+    #   false will result in a list of items which only have fields contained in both input lists.
+    #
+    # @option opts [String] :source_ids A list of source IDs used for filtering.  Only fields used by the specified
+    #   sources will be returned.
+    #
+    # @option opts [String] :source_names A list of source names used for filtering.  Only fields used by the specified
+    #   sources will be returned.
+    #
+    # @option opts [String] :parser_type The parser type used for filtering.  Only items with, or associated with, parsers
+    #   of the specified type will be returned.
+    #    (default to ALL)
+    #   Allowed values are: ALL, REGEX, XML, JSON, ODL, DELIMITED
+    # @option opts [String] :parser_ids A list of parser names used for filtering.  Only fields used by the specified
+    #   parsers will be returned.
+    #
+    # @option opts [String] :parser_names A list of parser names used for filtering.  Only fields used by the specified
+    #   parsers will be returned.
+    #
     # @option opts [BOOLEAN] :is_include_parser isIncludeParser (default to true)
     # @option opts [String] :filter filter
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
@@ -4436,7 +5716,7 @@ module OCI
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by sort by field (default to name)
+    # @option opts [String] :sort_by The attribute used to sort the returned fields (default to name)
     #   Allowed values are: name, dataType
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsFieldCollection LogAnalyticsFieldCollection}
@@ -4446,8 +5726,8 @@ module OCI
 
       raise "Missing the required parameter 'namespace_name' when calling list_fields." if namespace_name.nil?
 
-      if opts[:parser_type] && !%w[ALL REGEX XML JSON].include?(opts[:parser_type])
-        raise 'Invalid value for "parser_type", must be one of ALL, REGEX, XML, JSON.'
+      if opts[:parser_type] && !%w[ALL REGEX XML JSON ODL DELIMITED].include?(opts[:parser_type])
+        raise 'Invalid value for "parser_type", must be one of ALL, REGEX, XML, JSON, ODL, DELIMITED.'
       end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
@@ -4511,7 +5791,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get list of priorities
+    # Lists the available problem priorities that could be associated with a label.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
@@ -4570,19 +5851,22 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get details of sources using the label
+    # Lists sources using the label, along with configuration details like base field, operator and condition.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :label_name label name
+    # @option opts [String] :label_name The label name used for filtering.  Only items with, or associated with, the
+    #   specified label name will be returned.
+    #
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :label_source_sort_by sort by source displayname (default to sourceDisplayName)
+    # @option opts [String] :label_source_sort_by The attribute used to sort the returned sources (default to sourceDisplayName)
     #   Allowed values are: sourceDisplayName, labelFieldDisplayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LabelSourceCollection LabelSourceCollection}
@@ -4646,27 +5930,38 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get labels passing specified filter
+    # Returns a list of labels, containing detailed information about them. You may limit the number of results, provide sorting order, and filter by information such as label name, display name, description and priority.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :label_name label name
-    # @option opts [String] :label_display_text search by label display name or description
-    # @option opts [String] :is_system Is system param of value (all, custom, sourceUsing)
+    # @option opts [String] :label_name The label name used for filtering.  Only items with, or associated with, the
+    #   specified label name will be returned.
+    #
+    # @option opts [String] :label_display_text The label display text used for filtering.  Only labels with the specified name or
+    #   description will be returned.
+    #
+    # @option opts [String] :is_system The system value used for filtering.  Only items with the specified system value
+    #   will be returned.  Valid values are built in, custom (for user defined items), or
+    #   all (for all items, regardless of system value).
     #    (default to ALL)
     #   Allowed values are: ALL, CUSTOM, BUILT_IN
-    # @option opts [String] :label_priority label priority (default to NONE)
+    # @option opts [String] :label_priority The label priority used for filtering.  Only labels with the specified
+    #   priority will be returned.
+    #    (default to NONE)
     #   Allowed values are: NONE, LOW, MEDIUM, HIGH
-    # @option opts [BOOLEAN] :is_count_pop isCountPop
-    # @option opts [BOOLEAN] :is_alias_pop isAliasPop
+    # @option opts [BOOLEAN] :is_count_pop A flag indicating whether or not to count the label usage per source and per rule.
+    #
+    # @option opts [BOOLEAN] :is_alias_pop A flag indicating whether or not return the aliases used by each label.
+    #
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :label_sort_by sort by label (default to name)
+    # @option opts [String] :label_sort_by The attribute used to sort the returned labels (default to name)
     #   Allowed values are: name, priority, sourceUsing
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsLabelCollection LogAnalyticsLabelCollection}
@@ -4743,6 +6038,120 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Return a list of log analytics enterprise manager bridges.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :display_name A filter to return only log analytics enterprise manager bridge name whose name matches the entire name given. The match
+    #   is case-insensitive.
+    #
+    # @option opts [Array<String>] :lifecycle_state A filter to return only log analytics enterprise manager bridges matching all the lifecycle states specified for this parameter.
+    #    (default to [])
+    #   Allowed values are: CREATING, ACTIVE, DELETED, NEEDS_ATTENTION
+    # @option opts [String] :lifecycle_details_contains A filter to return only log analytics enterprise manager bridges whose lifecycleDetails contains the specified string.
+    #
+    # @option opts [Array<String>] :import_status Filter by the processing status of the latest upload from enterprise manager.
+    #    (default to [])
+    #   Allowed values are: NOT_STARTED, SUCCESS, IN_PROGRESS, FAILED, PARTIAL_SUCCESS
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort enterprise manager bridges by. Only one sort order may be provided. Default order for timeCreated and timeUpdated
+    #   is descending. Default order for enterprise manager name is ascending. If no value is specified timeCreated is default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, timeUpdated, displayName
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsEmBridgeCollection LogAnalyticsEmBridgeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_log_analytics_em_bridges.rb.html) to see an example of how to use list_log_analytics_em_bridges API.
+    def list_log_analytics_em_bridges(namespace_name, compartment_id, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#list_log_analytics_em_bridges.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling list_log_analytics_em_bridges." if namespace_name.nil?
+      raise "Missing the required parameter 'compartment_id' when calling list_log_analytics_em_bridges." if compartment_id.nil?
+
+
+      lifecycle_state_allowable_values = %w[CREATING ACTIVE DELETED NEEDS_ATTENTION]
+      if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
+        opts[:lifecycle_state].each do |val_to_check|
+          unless lifecycle_state_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "lifecycle_state", must be one of CREATING, ACTIVE, DELETED, NEEDS_ATTENTION.'
+          end
+        end
+      end
+
+
+      import_status_allowable_values = %w[NOT_STARTED SUCCESS IN_PROGRESS FAILED PARTIAL_SUCCESS]
+      if opts[:import_status] && !opts[:import_status].empty?
+        opts[:import_status].each do |val_to_check|
+          unless import_status_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "import_status", must be one of NOT_STARTED, SUCCESS, IN_PROGRESS, FAILED, PARTIAL_SUCCESS.'
+          end
+        end
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated timeUpdated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, timeUpdated, displayName.'
+      end
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+
+      path = '/namespaces/{namespaceName}/logAnalyticsEmBridges'.sub('{namespaceName}', namespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:lifecycleState] = OCI::ApiClient.build_collection_params(opts[:lifecycle_state], :multi) if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
+      query_params[:lifecycleDetailsContains] = opts[:lifecycle_details_contains] if opts[:lifecycle_details_contains]
+      query_params[:importStatus] = OCI::ApiClient.build_collection_params(opts[:import_status], :multi) if opts[:import_status] && !opts[:import_status].empty?
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#list_log_analytics_em_bridges') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::LogAnalyticsEmBridgeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Return a list of log analytics entities.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
@@ -4776,6 +6185,11 @@ module OCI
     #
     # @option opts [String] :source_id A filter to return only log analytics entities whose sourceId matches the sourceId given.
     #
+    # @option opts [Array<String>] :creation_source_type A filter to return only those log analytics entities with the specified auto-creation source.
+    #    (default to [])
+    #   Allowed values are: EM_BRIDGE, SERVICE_CONNECTOR_HUB, NONE
+    # @option opts [String] :creation_source_details A filter to return only log analytics entities whose auto-creation source details contains the specified string.
+    #
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
@@ -4800,6 +6214,16 @@ module OCI
 
       if opts[:is_management_agent_id_null] && !%w[true false].include?(opts[:is_management_agent_id_null])
         raise 'Invalid value for "is_management_agent_id_null", must be one of true, false.'
+      end
+
+
+      creation_source_type_allowable_values = %w[EM_BRIDGE SERVICE_CONNECTOR_HUB NONE]
+      if opts[:creation_source_type] && !opts[:creation_source_type].empty?
+        opts[:creation_source_type].each do |val_to_check|
+          unless creation_source_type_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "creation_source_type", must be one of EM_BRIDGE, SERVICE_CONNECTOR_HUB, NONE.'
+          end
+        end
       end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
@@ -4828,6 +6252,8 @@ module OCI
       query_params[:hostname] = opts[:hostname] if opts[:hostname]
       query_params[:hostnameContains] = opts[:hostname_contains] if opts[:hostname_contains]
       query_params[:sourceId] = opts[:source_id] if opts[:source_id]
+      query_params[:creationSourceType] = OCI::ApiClient.build_collection_params(opts[:creation_source_type], :multi) if opts[:creation_source_type] && !opts[:creation_source_type].empty?
+      query_params[:creationSourceDetails] = opts[:creation_source_details] if opts[:creation_source_details]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
@@ -4965,7 +6391,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns a list of Log-Analytics groups.
+    # Returns a list of log groups in a compartment. You may limit the number of log groups, provide sorting options, and filter the results by specifying a display name.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
@@ -5047,7 +6474,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets list of configuration details of Object Storage based collection rules.
+    # Gets list of collection rules.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
@@ -5135,7 +6562,182 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get all meta source types
+    # This API returns a list of log sets.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #
+    #   Allowed values are: ASC, DESC
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogSetCollection LogSetCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_log_sets.rb.html) to see an example of how to use list_log_sets API.
+    def list_log_sets(namespace_name, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#list_log_sets.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling list_log_sets." if namespace_name.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+
+      path = '/namespaces/{namespaceName}/storage/logSets'.sub('{namespaceName}', namespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#list_log_sets') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::LogSetCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of lookups, containing detailed information about them. You may limit the number of results, provide sorting order, and filter by information such as lookup name, description and type.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] type The lookup type.  Valid values are Lookup or Dictionary.
+    #   Allowed values are: Lookup, Dictionary
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :lookup_display_text The lookup text used for filtering.  Only lookups with the specified name
+    #   or description will be returned.
+    #
+    # @option opts [String] :is_system The system value used for filtering.  Only items with the specified system value
+    #   will be returned.  Valid values are built in, custom (for user defined items), or
+    #   all (for all items, regardless of system value).
+    #    (default to ALL)
+    #   Allowed values are: ALL, CUSTOM, BUILT_IN
+    # @option opts [String] :sort_by sort by field (default to name)
+    #   Allowed values are: displayName, status, type, updatedTime, creationType
+    # @option opts [String] :status The lookup status used for filtering when fetching a list of lookups. (default to ALL)
+    #   Allowed values are: ALL, SUCCESSFUL, FAILED, INPROGRESS
+    # @option opts [BOOLEAN] :is_hide_special A flag indicating whether or not to return OMC annotated or hidden lookups.
+    #    (default to true)
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsLookupCollection LogAnalyticsLookupCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_lookups.rb.html) to see an example of how to use list_lookups API.
+    def list_lookups(namespace_name, type, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#list_lookups.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling list_lookups." if namespace_name.nil?
+      raise "Missing the required parameter 'type' when calling list_lookups." if type.nil?
+      unless %w[Lookup Dictionary].include?(type)
+        raise "Invalid value for 'type', must be one of Lookup, Dictionary."
+      end
+
+      if opts[:is_system] && !%w[ALL CUSTOM BUILT_IN].include?(opts[:is_system])
+        raise 'Invalid value for "is_system", must be one of ALL, CUSTOM, BUILT_IN.'
+      end
+
+      if opts[:sort_by] && !%w[displayName status type updatedTime creationType].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of displayName, status, type, updatedTime, creationType.'
+      end
+
+      if opts[:status] && !%w[ALL SUCCESSFUL FAILED INPROGRESS].include?(opts[:status])
+        raise 'Invalid value for "status", must be one of ALL, SUCCESSFUL, FAILED, INPROGRESS.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+
+      path = '/namespaces/{namespaceName}/lookups'.sub('{namespaceName}', namespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:type] = type
+      query_params[:lookupDisplayText] = opts[:lookup_display_text] if opts[:lookup_display_text]
+      query_params[:isSystem] = opts[:is_system] if opts[:is_system]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:status] = opts[:status] if opts[:status]
+      query_params[:isHideSpecial] = opts[:is_hide_special] if !opts[:is_hide_special].nil?
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#list_lookups') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::LogAnalyticsLookupCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the types of log sources supported.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
@@ -5143,7 +6745,8 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
-    # @option opts [String] :sort_by sort by field (default to name)
+    # @option opts [String] :sort_by The attribute used to sort the returned items (default to name)
+    #   Allowed values are: name
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
@@ -5154,6 +6757,10 @@ module OCI
       logger.debug 'Calling operation LogAnalyticsClient#list_meta_source_types.' if logger
 
       raise "Missing the required parameter 'namespace_name' when calling list_meta_source_types." if namespace_name.nil?
+
+      if opts[:sort_by] && !%w[name].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of name.'
+      end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
@@ -5260,16 +6867,19 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get pre-process plugin instance
+    # Lists the parser functions defined for the specified parser.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :parser_name parserName
+    # @option opts [String] :parser_name The parser name used for filtering.
+    #
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
-    # @option opts [String] :sort_by sort by field (default to name)
+    # @option opts [String] :sort_by The attribute used to sort the returned items (default to name)
+    #   Allowed values are: name
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
@@ -5280,6 +6890,10 @@ module OCI
       logger.debug 'Calling operation LogAnalyticsClient#list_parser_functions.' if logger
 
       raise "Missing the required parameter 'namespace_name' when calling list_parser_functions." if namespace_name.nil?
+
+      if opts[:sort_by] && !%w[name].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of name.'
+      end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
@@ -5331,7 +6945,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get pre-process Meta plugins
+    # Lists the parser meta plugins available for defining parser functions.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
@@ -5339,7 +6954,8 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
-    # @option opts [String] :sort_by sort by field (default to name)
+    # @option opts [String] :sort_by The attribute used to sort the returned items (default to name)
+    #   Allowed values are: name
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
@@ -5350,6 +6966,10 @@ module OCI
       logger.debug 'Calling operation LogAnalyticsClient#list_parser_meta_plugins.' if logger
 
       raise "Missing the required parameter 'namespace_name' when calling list_parser_meta_plugins." if namespace_name.nil?
+
+      if opts[:sort_by] && !%w[name].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of name.'
+      end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
@@ -5400,20 +7020,35 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # List parsers passing specified filter
+    # Returns a list of parsers, containing detailed information about them. You may limit the number of results, provide sorting order, and filter by information such as parser name, type, display name and description.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [BOOLEAN] :is_match_all isMatchAll
-    # @option opts [String] :source_type source type (default to OS_FILE)
+    # @option opts [BOOLEAN] :is_match_all A flag indicating how to handle filtering when multiple filter criteria are specified.
+    #   A value of true will always result in the most expansive list of items being returned.
+    #   For example, if two field lists are supplies as filter criteria, a value of true will
+    #   result in any item matching a field in either list being returned, while a value of
+    #   false will result in a list of items which only have fields contained in both input lists.
+    #
+    # @option opts [String] :source_type The source type used for filtering.  Only parsers associated with a source of the
+    #   specified type will be returned.
+    #    (default to OS_FILE)
     #   Allowed values are: OS_FILE, SYSLOG, ODL, OS_WINDOWS_SYS
-    # @option opts [String] :parser_name parserName
-    # @option opts [String] :parser_display_text search by parser display name or description
-    # @option opts [String] :parser_type parserType (default to ALL)
-    #   Allowed values are: ALL, REGEX, XML, JSON
-    # @option opts [String] :is_system Is system param of value (all, custom, sourceUsing)
+    # @option opts [String] :parser_name The parser name used for filtering.
+    #
+    # @option opts [String] :parser_display_text The parser display text used for filtering.  Only parsers with the specified name
+    #   or description will be returned.
+    #
+    # @option opts [String] :parser_type The parser type used for filtering.  Only items with, or associated with, parsers
+    #   of the specified type will be returned.
+    #    (default to ALL)
+    #   Allowed values are: ALL, REGEX, XML, JSON, ODL, DELIMITED
+    # @option opts [String] :is_system The system value used for filtering.  Only items with the specified system value
+    #   will be returned.  Valid values are built in, custom (for user defined items), or
+    #   all (for all items, regardless of system value).
     #    (default to ALL)
     #   Allowed values are: ALL, CUSTOM, BUILT_IN
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
@@ -5421,7 +7056,7 @@ module OCI
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by sort by parser (default to name)
+    # @option opts [String] :sort_by The attribute used to sort the returned parsers (default to name)
     #   Allowed values are: name, type, sourcesCount, timeUpdated
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsParserCollection LogAnalyticsParserCollection}
@@ -5435,8 +7070,8 @@ module OCI
         raise 'Invalid value for "source_type", must be one of OS_FILE, SYSLOG, ODL, OS_WINDOWS_SYS.'
       end
 
-      if opts[:parser_type] && !%w[ALL REGEX XML JSON].include?(opts[:parser_type])
-        raise 'Invalid value for "parser_type", must be one of ALL, REGEX, XML, JSON.'
+      if opts[:parser_type] && !%w[ALL REGEX XML JSON ODL DELIMITED].include?(opts[:parser_type])
+        raise 'Invalid value for "parser_type", must be one of ALL, REGEX, XML, JSON, ODL, DELIMITED.'
       end
 
       if opts[:is_system] && !%w[ALL CUSTOM BUILT_IN].include?(opts[:is_system])
@@ -5586,6 +7221,87 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # This API returns the list of recalled data of a tenancy.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_by This is the query parameter of which field to sort by. Only one sort order may be provided. Default order for timeDataStarted
+    #   is descending. If no value is specified timeDataStarted is default.
+    #    (default to timeDataStarted)
+    #   Allowed values are: timeStarted, timeDataStarted
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [DateTime] :time_data_started_greater_than_or_equal This is the start of the time range for recalled data
+    # @option opts [DateTime] :time_data_ended_less_than This is the end of the time range for recalled data
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::RecalledDataCollection RecalledDataCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_recalled_data.rb.html) to see an example of how to use list_recalled_data API.
+    def list_recalled_data(namespace_name, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#list_recalled_data.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling list_recalled_data." if namespace_name.nil?
+
+      if opts[:sort_by] && !%w[timeStarted timeDataStarted].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeStarted, timeDataStarted.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+
+      path = '/namespaces/{namespaceName}/storage/recalledData'.sub('{namespaceName}', namespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:timeDataStartedGreaterThanOrEqual] = opts[:time_data_started_greater_than_or_equal] if opts[:time_data_started_greater_than_or_equal]
+      query_params[:timeDataEndedLessThan] = opts[:time_data_ended_less_than] if opts[:time_data_ended_less_than]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#list_recalled_data') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::RecalledDataCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists scheduled tasks.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
@@ -5605,6 +7321,11 @@ module OCI
     # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, timeUpdated, displayName
+    # @option opts [String] :saved_search_id A filter to return only scheduled tasks whose stream action savedSearchId matches the given
+    #   ManagementSavedSearch id [OCID] exactly.
+    #    (default to null)
+    # @option opts [String] :display_name_contains A filter to return only resources whose display name contains the substring.
+    #    (default to null)
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::ScheduledTaskCollection ScheduledTaskCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_scheduled_tasks.rb.html) to see an example of how to use list_scheduled_tasks API.
     def list_scheduled_tasks(namespace_name, task_type, compartment_id, opts = {})
@@ -5640,6 +7361,8 @@ module OCI
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:savedSearchId] = opts[:saved_search_id] if opts[:saved_search_id]
+      query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
 
       # Header Params
       header_params = {}
@@ -5674,26 +7397,29 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # association summary by source
+    # Returns the list of entity associations in the input compartment for the specified source.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] source_name sourceName
+    # @param [String] source_name The souce name used for filtering associations.
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :entity_id The entity OCID.
     #
-    # @option opts [String] :life_cycle_state Status (default to ALL)
+    # @option opts [String] :life_cycle_state The life cycle state used for filtering.  Only associations with the specified
+    #   life cycle state will be returned.
+    #    (default to ALL)
     #   Allowed values are: ALL, ACCEPTED, IN_PROGRESS, SUCCEEDED, FAILED
-    # @option opts [BOOLEAN] :is_show_total is Show Total
+    # @option opts [BOOLEAN] :is_show_total A flag indicating whether or not to return the total number of items returned.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by sort by field (default to entityName)
+    # @option opts [String] :sort_by The attribute used to sort the returned associations (default to entityName)
     #   Allowed values are: entityName, timeLastAttempted, status
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsAssociationCollection LogAnalyticsAssociationCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_source_associations.rb.html) to see an example of how to use list_source_associations API.
@@ -5766,16 +7492,112 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get source extended fields for source with specified Id
+    # Lists the event types mapped to the source with the specified name. The event type string could be the fully qualified name or a prefix that matches the event type.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] source_name source name
+    # @param [String] source_name The source name.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :display_text The text used for filtering event types by name or description.
+    #
+    # @option opts [String] :is_system The system value used for filtering.  Only items with the specified system value
+    #   will be returned.  Valid values are built in, custom (for user defined items), or
+    #   all (for all items, regardless of system value).
+    #    (default to ALL)
+    #   Allowed values are: ALL, CUSTOM, BUILT_IN
+    # @option opts [BOOLEAN] :is_enabled The enabled flag used for filtering.  Only items with the specified enabled value
+    #   will be returned.
+    #    (default to true)
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_by The attribute used to sort the returned source event types. (default to timeUpdated)
+    #   Allowed values are: eventType, timeUpdated
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::EventTypeCollection EventTypeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_source_event_types.rb.html) to see an example of how to use list_source_event_types API.
+    def list_source_event_types(namespace_name, source_name, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#list_source_event_types.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling list_source_event_types." if namespace_name.nil?
+      raise "Missing the required parameter 'source_name' when calling list_source_event_types." if source_name.nil?
+
+      if opts[:is_system] && !%w[ALL CUSTOM BUILT_IN].include?(opts[:is_system])
+        raise 'Invalid value for "is_system", must be one of ALL, CUSTOM, BUILT_IN.'
+      end
+
+      if opts[:sort_by] && !%w[eventType timeUpdated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of eventType, timeUpdated.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'source_name' must not be blank" if OCI::Internal::Util.blank_string?(source_name)
+
+      path = '/namespaces/{namespaceName}/sources/{sourceName}/eventTypes'.sub('{namespaceName}', namespace_name.to_s).sub('{sourceName}', source_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:displayText] = opts[:display_text] if opts[:display_text]
+      query_params[:isSystem] = opts[:is_system] if opts[:is_system]
+      query_params[:isEnabled] = opts[:is_enabled] if !opts[:is_enabled].nil?
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json;charset=UTF-8'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#list_source_event_types') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::EventTypeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the extended field definitions for the source with the specified name.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] source_name The source name.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
-    # @option opts [String] :sort_by sort by source extended field definition (default to baseFieldName)
+    # @option opts [String] :sort_by The attribute used to sort the returned source patterns (default to baseFieldName)
     #   Allowed values are: baseFieldName, regularExpression
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
@@ -5843,7 +7665,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # list source label operators
+    # Lists the supported conditional operators that could be used for matching log field values to generate a label. You may use patterns to specify a condition. If a log entry matches that condition, it is tagged with the corresponding label.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
@@ -5851,7 +7674,8 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
-    # @option opts [String] :sort_by sort by field (default to name)
+    # @option opts [String] :sort_by The attribute used to sort the returned items (default to name)
+    #   Allowed values are: name
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
@@ -5862,6 +7686,10 @@ module OCI
       logger.debug 'Calling operation LogAnalyticsClient#list_source_label_operators.' if logger
 
       raise "Missing the required parameter 'namespace_name' when calling list_source_label_operators." if namespace_name.nil?
+
+      if opts[:sort_by] && !%w[name].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of name.'
+      end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
@@ -5912,7 +7740,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get source meta functions
+    # Lists the functions that could be used to enrich log entries based on meaningful information extracted from the log fields.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
@@ -5920,7 +7749,8 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
-    # @option opts [String] :sort_by sort by field (default to name)
+    # @option opts [String] :sort_by The attribute used to sort the returned items (default to name)
+    #   Allowed values are: name
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
@@ -5931,6 +7761,10 @@ module OCI
       logger.debug 'Calling operation LogAnalyticsClient#list_source_meta_functions.' if logger
 
       raise "Missing the required parameter 'namespace_name' when calling list_source_meta_functions." if namespace_name.nil?
+
+      if opts[:sort_by] && !%w[name].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of name.'
+      end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
@@ -5981,17 +7815,18 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # get source patterns for source with specified Id
+    # Lists the source patterns for the source with the specified name.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] source_name source name
+    # @param [String] source_name The source name.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [BOOLEAN] :is_include is included source patterns
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
-    # @option opts [String] :sort_by sort by source pattern text (default to patternText)
+    # @option opts [String] :sort_by The attribute used to sort the returned source patterns (default to patternText)
     #   Allowed values are: patternText
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
@@ -6060,30 +7895,43 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # source list
+    # Returns a list of sources, containing detailed information about them. You may limit the number of results, provide sorting order, and filter by information such as display name, description and entity type.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :entity_type entityType
-    # @option opts [String] :source_display_text search by source display name or description
-    # @option opts [String] :is_system Is system param of value (all, custom, sourceUsing)
+    # @option opts [String] :entity_type A filter to return only sources associated with entities of the specified type.
+    #   The match is case-insensitive.
+    #
+    # @option opts [String] :source_display_text The source display text used for filtering.  Only sources with the specified name
+    #   or description will be returned.
+    #
+    # @option opts [String] :is_system The system value used for filtering.  Only items with the specified system value
+    #   will be returned.  Valid values are built in, custom (for user defined items), or
+    #   all (for all items, regardless of system value).
     #    (default to ALL)
     #   Allowed values are: ALL, CUSTOM, BUILT_IN
-    # @option opts [BOOLEAN] :is_auto_associated auto association flag
+    # @option opts [BOOLEAN] :is_auto_associated An auto-associate flag used for filtering.  Only sources which are marked for automatic
+    #   association will be returned.
+    #
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by sort by source (default to name)
+    # @option opts [String] :sort_by The attribute used to sort the returned sources (default to name)
     #   Allowed values are: name, timeUpdated, associationCount, sourceType
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :name A filter to return only log analytics entities whose name matches the entire name given. The match
     #   is case-insensitive.
     #
-    # @option opts [BOOLEAN] :is_simplified is simplified
+    # @option opts [BOOLEAN] :is_simplified A flag specifying whether or not to return all source information, or a subset of the
+    #   information about each source.  A value of true will return only the source unique
+    #   identifier and the source name.  A value of false will return all source information
+    #   (such as author, updated date, system flag, etc.)
+    #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsSourceCollection LogAnalyticsSourceCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_sources.rb.html) to see an example of how to use list_sources API.
@@ -6338,7 +8186,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the list of character encodings supported for log files.
+    # Gets list of character encodings which are supported by on-demand upload.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
@@ -6397,7 +8245,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets timezones that are supported when performing uploads.
+    # Gets list of timezones which are supported by on-demand upload.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [Hash] opts the optional parameters
@@ -6456,10 +8304,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets list of files in an upload.
+    # Gets list of files in an upload along with its processing state.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] upload_reference Unique internal identifier to refer to upload container
+    # @param [String] upload_reference Unique internal identifier to refer upload container.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -6468,11 +8316,12 @@ module OCI
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending.
-    #    (default to timeCreated)
-    #   Allowed values are: timeCreated, fileName, logGroup, sourceName, status
-    # @option opts [String] :search_str Search string used to filtering uploads based on file name, log group name and log source name.
-    # @option opts [Array<String>] :status Upload Status. (default to [])
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeStarted is descending.
+    #   timeCreated, fileName and logGroup are deprecated. Instead use timestarted, name, logGroup accordingly.
+    #    (default to timeStarted)
+    #   Allowed values are: timeStarted, name, logGroupName, sourceName, status, timeCreated, fileName, logGroup
+    # @option opts [String] :search_str This can be used to filter upload files based on the file, log group and log source names.
+    # @option opts [Array<String>] :status Upload File processing state. (default to [])
     #   Allowed values are: IN_PROGRESS, SUCCESSFUL, FAILED
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::UploadFileCollection UploadFileCollection}
@@ -6487,8 +8336,8 @@ module OCI
         raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
       end
 
-      if opts[:sort_by] && !%w[timeCreated fileName logGroup sourceName status].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of timeCreated, fileName, logGroup, sourceName, status.'
+      if opts[:sort_by] && !%w[timeStarted name logGroupName sourceName status timeCreated fileName logGroup].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeStarted, name, logGroupName, sourceName, status, timeCreated, fileName, logGroup.'
       end
 
 
@@ -6549,10 +8398,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets list of warnings in an upload explaining the failures due to incorrect configuration.
+    # Gets list of warnings in an upload caused by incorrect configuration.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] upload_reference Unique internal identifier to refer to upload container
+    # @param [String] upload_reference Unique internal identifier to refer upload container.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -6632,6 +8481,10 @@ module OCI
     #    (default to timeUpdated)
     #   Allowed values are: timeUpdated, timeCreated, name
     # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :warnings_filter Use this for filtering uploads w.r.t warnings. Only one value is allowed. If no value is specified then ALL is taken as default,
+    #   which means that all the uploads with and without warnings will be returned.
+    #    (default to ALL)
+    #   Allowed values are: WITH_WARNINGS, WITHOUT_WARNINGS, ALL
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::UploadCollection UploadCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_uploads.rb.html) to see an example of how to use list_uploads API.
     def list_uploads(namespace_name, opts = {})
@@ -6645,6 +8498,10 @@ module OCI
 
       if opts[:sort_by] && !%w[timeUpdated timeCreated name].include?(opts[:sort_by])
         raise 'Invalid value for "sort_by", must be one of timeUpdated, timeCreated, name.'
+      end
+
+      if opts[:warnings_filter] && !%w[WITH_WARNINGS WITHOUT_WARNINGS ALL].include?(opts[:warnings_filter])
+        raise 'Invalid value for "warnings_filter", must be one of WITH_WARNINGS, WITHOUT_WARNINGS, ALL.'
       end
       raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
 
@@ -6660,6 +8517,7 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:warningsFilter] = opts[:warnings_filter] if opts[:warnings_filter]
 
       # Header Params
       header_params = {}
@@ -6681,6 +8539,122 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::LogAnalytics::Models::UploadCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of collection warnings, containing detailed information about them. You may limit the number of results, provide sorting order, and filter by information such as start time, end time, warning type, warning state, source name, source pattern and entity name.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :warning_state The warning state used for filtering.  A value of SUPPRESSED will return only
+    #   suppressed warnings, a value of UNSUPPRESSED will return only unsuppressed
+    #   warnings, and a value of ALL will return all warnings regardless of their
+    #   suppression state.  Default is UNSUPPRESSED.
+    #    (default to UNSUPPRESSED)
+    #   Allowed values are: ALL, SUPPRESSED, UNSUPPRESSED
+    # @option opts [String] :source_name The source name.
+    # @option opts [String] :source_pattern The source pattern used for filtering.  Only warnings associated with a source with the
+    #   specified pattern will be returned.
+    #
+    # @option opts [String] :warning_message warning message query parameter
+    # @option opts [String] :entity_name The entity name used for filtering.  Only warnings associated with an entity with the
+    #   specified name will be returned.
+    #
+    # @option opts [String] :entity_type The entity type used for filtering.  Only associations on an entity with the
+    #   specified type will be returned.
+    #
+    # @option opts [String] :warning_type The warning type query parameter.
+    # @option opts [BOOLEAN] :is_no_source A flag indicating whether to filter warnings based on source display name or on warning level.
+    #   A value of true will filter based on warning level (rule, source, or pattern), while a
+    #   value of false will filter based on source display name.
+    #
+    # @option opts [String] :start_time The warning start date query parameter.
+    # @option opts [String] :end_time The warning end date query parameter.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The attribute used to sort the returned warnings (default to InitialWarningDate)
+    #   Allowed values are: EntityType, SourceName, PatternText, FirstReported, WarningMessage, Host, EntityName, InitialWarningDate
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsWarningCollection LogAnalyticsWarningCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/list_warnings.rb.html) to see an example of how to use list_warnings API.
+    def list_warnings(namespace_name, compartment_id, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#list_warnings.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling list_warnings." if namespace_name.nil?
+      raise "Missing the required parameter 'compartment_id' when calling list_warnings." if compartment_id.nil?
+
+      if opts[:warning_state] && !%w[ALL SUPPRESSED UNSUPPRESSED].include?(opts[:warning_state])
+        raise 'Invalid value for "warning_state", must be one of ALL, SUPPRESSED, UNSUPPRESSED.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[EntityType SourceName PatternText FirstReported WarningMessage Host EntityName InitialWarningDate].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of EntityType, SourceName, PatternText, FirstReported, WarningMessage, Host, EntityName, InitialWarningDate.'
+      end
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+
+      path = '/namespaces/{namespaceName}/warnings'.sub('{namespaceName}', namespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:warningState] = opts[:warning_state] if opts[:warning_state]
+      query_params[:sourceName] = opts[:source_name] if opts[:source_name]
+      query_params[:sourcePattern] = opts[:source_pattern] if opts[:source_pattern]
+      query_params[:warningMessage] = opts[:warning_message] if opts[:warning_message]
+      query_params[:entityName] = opts[:entity_name] if opts[:entity_name]
+      query_params[:entityType] = opts[:entity_type] if opts[:entity_type]
+      query_params[:warningType] = opts[:warning_type] if opts[:warning_type]
+      query_params[:isNoSource] = opts[:is_no_source] if !opts[:is_no_source].nil?
+      query_params[:startTime] = opts[:start_time] if opts[:start_time]
+      query_params[:endTime] = opts[:end_time] if opts[:end_time]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#list_warnings') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::LogAnalyticsWarningCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -7065,6 +9039,74 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Pause the scheduled task specified by {scheduledTaskId}.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] scheduled_task_id Unique scheduledTask id returned from task create.
+    #   If invalid will lead to a 404 not found.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::ScheduledTask ScheduledTask}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/pause_scheduled_task.rb.html) to see an example of how to use pause_scheduled_task API.
+    def pause_scheduled_task(namespace_name, scheduled_task_id, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#pause_scheduled_task.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling pause_scheduled_task." if namespace_name.nil?
+      raise "Missing the required parameter 'scheduled_task_id' when calling pause_scheduled_task." if scheduled_task_id.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'scheduled_task_id' must not be blank" if OCI::Internal::Util.blank_string?(scheduled_task_id)
+
+      path = '/namespaces/{namespaceName}/scheduledTasks/{scheduledTaskId}/actions/pause'.sub('{namespaceName}', namespace_name.to_s).sub('{scheduledTaskId}', scheduled_task_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#pause_scheduled_task') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::ScheduledTask'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # This API submits a work request to purge data. Only data from log groups that the user has permission to delete
     # will be purged.  To purge all data, the user must have permission to all log groups.
     #
@@ -7337,10 +9379,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # register lookup
+    # Creates a lookup with the specified name, type and description. The csv file containing the lookup content is passed in as binary data in the request.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] type type - possible values are Lookup or Dictionary
+    # @param [String] type The lookup type.  Valid values are Lookup or Dictionary.
     #   Allowed values are: Lookup, Dictionary
     # @param [String, IO] register_lookup_content_file_body file containing data for lookup creation
     # @param [Hash] opts the optional parameters
@@ -7349,9 +9392,11 @@ module OCI
     # @option opts [String] :name A filter to return only log analytics entities whose name matches the entire name given. The match
     #   is case-insensitive.
     #
-    # @option opts [String] :description Description of the fields to get
-    # @option opts [String] :char_encoding Character Encoding (default to UTF-8)
-    # @option opts [BOOLEAN] :is_hidden is hidden
+    # @option opts [String] :description The description for a created lookup.
+    #
+    # @option opts [String] :char_encoding The character encoding of the uploaded file. (default to UTF-8)
+    # @option opts [BOOLEAN] :is_hidden A flag indicating whether or not the new lookup should be hidden.
+    #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
@@ -7496,7 +9541,7 @@ module OCI
     #
     # @param [String] log_analytics_entity_id The log analytics entity OCID.
     #
-    # @param [OCI::LogAnalytics::Models::RemoveEntityAssociationsDetails] remove_entity_associations_details This parameter specifies the entity OCIDs with which associations are to be deleted. Specify destination OCIDs as comma separated string.
+    # @param [OCI::LogAnalytics::Models::RemoveEntityAssociationsDetails] remove_entity_associations_details This parameter specifies the entity OCIDs with which associations are to be deleted.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -7553,6 +9598,142 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Remove one or more event types from a source.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] source_name The source name.
+    # @param [OCI::LogAnalytics::Models::EventTypeDetails] remove_event_type_details Details of event types to be removed from the source.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/remove_source_event_types.rb.html) to see an example of how to use remove_source_event_types API.
+    def remove_source_event_types(namespace_name, source_name, remove_event_type_details, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#remove_source_event_types.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling remove_source_event_types." if namespace_name.nil?
+      raise "Missing the required parameter 'source_name' when calling remove_source_event_types." if source_name.nil?
+      raise "Missing the required parameter 'remove_event_type_details' when calling remove_source_event_types." if remove_event_type_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'source_name' must not be blank" if OCI::Internal::Util.blank_string?(source_name)
+
+      path = '/namespaces/{namespaceName}/sources/{sourceName}/actions/removeEventTypes'.sub('{namespaceName}', namespace_name.to_s).sub('{sourceName}', source_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(remove_event_type_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#remove_source_event_types') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Resume the scheduled task specified by {scheduledTaskId}.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] scheduled_task_id Unique scheduledTask id returned from task create.
+    #   If invalid will lead to a 404 not found.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::ScheduledTask ScheduledTask}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/resume_scheduled_task.rb.html) to see an example of how to use resume_scheduled_task API.
+    def resume_scheduled_task(namespace_name, scheduled_task_id, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#resume_scheduled_task.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling resume_scheduled_task." if namespace_name.nil?
+      raise "Missing the required parameter 'scheduled_task_id' when calling resume_scheduled_task." if scheduled_task_id.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'scheduled_task_id' must not be blank" if OCI::Internal::Util.blank_string?(scheduled_task_id)
+
+      path = '/namespaces/{namespaceName}/scheduledTasks/{scheduledTaskId}/actions/resume'.sub('{namespaceName}', namespace_name.to_s).sub('{scheduledTaskId}', scheduled_task_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#resume_scheduled_task') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::ScheduledTask'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -7701,16 +9882,87 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # test parser
+    # Supresses a list of warnings. Any unsuppressed warnings in the input list would be suppressed. Warnings in the input list which are already suppressed will not be modified.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [OCI::LogAnalytics::Models::WarningReferenceDetails] warning_reference_details list of agent warning references to suppress
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/suppress_warning.rb.html) to see an example of how to use suppress_warning API.
+    def suppress_warning(namespace_name, warning_reference_details, compartment_id, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#suppress_warning.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling suppress_warning." if namespace_name.nil?
+      raise "Missing the required parameter 'warning_reference_details' when calling suppress_warning." if warning_reference_details.nil?
+      raise "Missing the required parameter 'compartment_id' when calling suppress_warning." if compartment_id.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+
+      path = '/namespaces/{namespaceName}/warnings/actions/suppress'.sub('{namespaceName}', namespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(warning_reference_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#suppress_warning') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Tests the parser definition against the specified example content to ensure fields are successfully extracted.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::TestParserPayloadDetails] test_parser_payload_details Details for test payload
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :scope scope
+    # @option opts [String] :scope The scope used when testing a parser.
     #   Allowed values are: LOG_LINES, LOG_ENTRIES, LOG_LINES_LOG_ENTRIES
-    # @option opts [String] :req_origin_module module
+    # @option opts [String] :req_origin_module The module to test.  A value of 'ParserFunctionTest' will result in testing of
+    #   the parser functions.
+    #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
@@ -7775,12 +10027,148 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Unsupresses a list of warnings. Any suppressed warnings in the input list would be unsuppressed. Warnings in the input list which are already unsuppressed will not be modified.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [OCI::LogAnalytics::Models::WarningReferenceDetails] warning_reference_details warnings list
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/unsuppress_warning.rb.html) to see an example of how to use unsuppress_warning API.
+    def unsuppress_warning(namespace_name, warning_reference_details, compartment_id, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#unsuppress_warning.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling unsuppress_warning." if namespace_name.nil?
+      raise "Missing the required parameter 'warning_reference_details' when calling unsuppress_warning." if warning_reference_details.nil?
+      raise "Missing the required parameter 'compartment_id' when calling unsuppress_warning." if compartment_id.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+
+      path = '/namespaces/{namespaceName}/warnings/actions/unsuppress'.sub('{namespaceName}', namespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(warning_reference_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#unsuppress_warning') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Update log analytics enterprise manager bridge with the given id.
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] log_analytics_em_bridge_id The log analytics enterprise manager bridge OCID.
+    #
+    # @param [OCI::LogAnalytics::Models::UpdateLogAnalyticsEmBridgeDetails] update_log_analytics_em_bridge_details Log analytics enterprise manager information to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsEmBridge LogAnalyticsEmBridge}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/update_log_analytics_em_bridge.rb.html) to see an example of how to use update_log_analytics_em_bridge API.
+    def update_log_analytics_em_bridge(namespace_name, log_analytics_em_bridge_id, update_log_analytics_em_bridge_details, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#update_log_analytics_em_bridge.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling update_log_analytics_em_bridge." if namespace_name.nil?
+      raise "Missing the required parameter 'log_analytics_em_bridge_id' when calling update_log_analytics_em_bridge." if log_analytics_em_bridge_id.nil?
+      raise "Missing the required parameter 'update_log_analytics_em_bridge_details' when calling update_log_analytics_em_bridge." if update_log_analytics_em_bridge_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'log_analytics_em_bridge_id' must not be blank" if OCI::Internal::Util.blank_string?(log_analytics_em_bridge_id)
+
+      path = '/namespaces/{namespaceName}/logAnalyticsEmBridges/{logAnalyticsEmBridgeId}'.sub('{namespaceName}', namespace_name.to_s).sub('{logAnalyticsEmBridgeId}', log_analytics_em_bridge_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_log_analytics_em_bridge_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#update_log_analytics_em_bridge') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::LogAnalyticsEmBridge'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Update the log analytics entity with the given id.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_entity_id The log analytics entity OCID.
     #
-    # @param [OCI::LogAnalytics::Models::UpdateLogAnalyticsEntityDetails] update_log_analytics_entity_details The information to be updated.
+    # @param [OCI::LogAnalytics::Models::UpdateLogAnalyticsEntityDetails] update_log_analytics_entity_details Log analytics entity information to be updated.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -7910,7 +10298,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the Log-Analytics group with the given id.
+    # Updates the specified log group's display name, description, defined tags, and free-form tags.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [String] log_analytics_log_group_id unique logAnalytics log group identifier
@@ -7977,10 +10366,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Update the rule with the given id.
+    # Updates configuration of the object collection rule for the given id.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] log_analytics_object_collection_rule_id The Logging Analytics Object Collection Rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)
+    # @param [String] log_analytics_object_collection_rule_id The Logging Analytics Object Collection Rule [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     # @param [OCI::LogAnalytics::Models::UpdateLogAnalyticsObjectCollectionRuleDetails] update_log_analytics_object_collection_rule_details The rule config to be updated.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -8031,6 +10420,161 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::LogAnalytics::Models::LogAnalyticsObjectCollectionRule'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the metadata of the specified lookup, such as the lookup description.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] lookup_name The name of the lookup to operate on.
+    # @param [OCI::LogAnalytics::Models::UpdateLookupMetadataDetails] update_lookup_metadata_details The information required to update a lookup.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::LogAnalyticsLookup LogAnalyticsLookup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/update_lookup.rb.html) to see an example of how to use update_lookup API.
+    def update_lookup(namespace_name, lookup_name, update_lookup_metadata_details, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#update_lookup.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling update_lookup." if namespace_name.nil?
+      raise "Missing the required parameter 'lookup_name' when calling update_lookup." if lookup_name.nil?
+      raise "Missing the required parameter 'update_lookup_metadata_details' when calling update_lookup." if update_lookup_metadata_details.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'lookup_name' must not be blank" if OCI::Internal::Util.blank_string?(lookup_name)
+
+      path = '/namespaces/{namespaceName}/lookups/{lookupName}'.sub('{namespaceName}', namespace_name.to_s).sub('{lookupName}', lookup_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(update_lookup_metadata_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#update_lookup') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::LogAnalytics::Models::LogAnalyticsLookup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the lookup content. The csv file containing the content to be updated is passed in as binary data in the request.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] lookup_name The name of the lookup to operate on.
+    # @param [String, IO] update_lookup_file_body The file to use for the lookup update.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :is_force is force (default to false)
+    # @option opts [String] :char_encoding The character encoding of the uploaded file. (default to UTF-8)
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/update_lookup_data.rb.html) to see an example of how to use update_lookup_data API.
+    def update_lookup_data(namespace_name, lookup_name, update_lookup_file_body, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#update_lookup_data.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling update_lookup_data." if namespace_name.nil?
+      raise "Missing the required parameter 'lookup_name' when calling update_lookup_data." if lookup_name.nil?
+      raise "Missing the required parameter 'update_lookup_file_body' when calling update_lookup_data." if update_lookup_file_body.nil?
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+      raise "Parameter value for 'lookup_name' must not be blank" if OCI::Internal::Util.blank_string?(lookup_name)
+
+      path = '/namespaces/{namespaceName}/lookups/{lookupName}/actions/updateData'.sub('{namespaceName}', namespace_name.to_s).sub('{lookupName}', lookup_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:isForce] = opts[:is_force] if !opts[:is_force].nil?
+      query_params[:charEncoding] = opts[:char_encoding] if opts[:char_encoding]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'content-type'] ||= 'application/octet-stream'
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(update_lookup_file_body)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#update_lookup_data') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -8180,6 +10724,92 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Accepts log events for processing by Logging Analytics.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String] log_group_id The log group OCID that gets mapped to the uploaded logs.
+    #
+    # @param [String, IO] upload_log_events_file_details Log events data to be uploaded. The data could be uploaded with or without logSet information depending on whether logSet is enabled for the tenancy or not. Supported formats include
+    #   1. json file : logSet (if needed) should be sent as \"logSet\" query parameter
+    #   2. gzip file : logSet (if needed) should be sent as \"logSet\" query parameter
+    #   3. zip file : containing multiple json files. LogSet information (if needed) should be appended to every filename in the zip.
+    #      Supported filename format with logSet detail is &lt;filename&gt;_logSet=&lt;logset&gt;.json
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :log_set The log set that gets associated with the uploaded logs.
+    #
+    # @option opts [String] :payload_type Identifies the type of request payload.
+    #    (default to JSON)
+    # @option opts [String] :content_type The content type of the log data.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/upload_log_events_file.rb.html) to see an example of how to use upload_log_events_file API.
+    def upload_log_events_file(namespace_name, log_group_id, upload_log_events_file_details, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#upload_log_events_file.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling upload_log_events_file." if namespace_name.nil?
+      raise "Missing the required parameter 'log_group_id' when calling upload_log_events_file." if log_group_id.nil?
+      raise "Missing the required parameter 'upload_log_events_file_details' when calling upload_log_events_file." if upload_log_events_file_details.nil?
+
+      if opts[:payload_type] && !OCI::LogAnalytics::Models::PAYLOAD_TYPE_ENUM.include?(opts[:payload_type])
+        raise 'Invalid value for "payload_type", must be one of the values in OCI::LogAnalytics::Models::PAYLOAD_TYPE_ENUM.'
+      end
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+
+      path = '/namespaces/{namespaceName}/actions/uploadLogEventsFile'.sub('{namespaceName}', namespace_name.to_s)
+      operation_signing_strategy = :exclude_body
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:logGroupId] = log_group_id
+      query_params[:logSet] = opts[:log_set] if opts[:log_set]
+      query_params[:payloadType] = opts[:payload_type] if opts[:payload_type]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'content-type'] = opts[:content_type] if opts[:content_type]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'content-type'] ||= 'application/octet-stream'
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(upload_log_events_file_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#upload_log_events_file') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Accepts log data for processing by Logging Analytics.
     #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
@@ -8200,7 +10830,9 @@ module OCI
     #
     # @option opts [String] :timezone Timezone to be used when processing log entries whose timestamps do not include an explicit timezone. When this property is not specified, the timezone of the entity specified is used. If the entity is also not specified or do not have a valid timezone then UTC is used
     #
-    # @option opts [String] :char_encoding Character Encoding (default to UTF-8)
+    # @option opts [String] :char_encoding Character encoding to be used to detect the encoding type of file(s) being uploaded.
+    #   When this property is not specified, system detected character encoding will be used.
+    #
     # @option opts [String] :date_format This property is used to specify the format of the date. This is to be used for ambiguous dates like 12/11/10. This property can take any of the following values -  MONTH_DAY_YEAR, DAY_MONTH_YEAR, YEAR_MONTH_DAY, MONTH_DAY, DAY_MONTH.
     #
     # @option opts [String] :date_year Used to indicate the year where the log entries timestamp do not mention year (Ex: Nov  8 20:45:56).
@@ -8219,6 +10851,8 @@ module OCI
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
+    #
+    # @option opts [String] :log_set The log set that gets associated with the uploaded logs.
     #
     # @return [Response] A Response object with data of type {OCI::LogAnalytics::Models::Upload Upload}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/upload_log_file.rb.html) to see an example of how to use upload_log_file API.
@@ -8248,6 +10882,7 @@ module OCI
       query_params[:dateFormat] = opts[:date_format] if opts[:date_format]
       query_params[:dateYear] = opts[:date_year] if opts[:date_year]
       query_params[:invalidateCache] = opts[:invalidate_cache] if !opts[:invalidate_cache].nil?
+      query_params[:logSet] = opts[:log_set] if opts[:log_set]
 
       # Header Params
       header_params = {}
@@ -8287,7 +10922,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # create or update associations for a source
+    # Creates or updates associations between sources and entities. All entities should belong to the specified input compartment.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::UpsertLogAnalyticsAssociationDetails] upsert_log_analytics_association_details list of association details
@@ -8353,7 +10989,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Defines or update a field.
+    # Creates or updates a field that could be used in parser expressions to extract and assign value. To create a field, specify its display name. A name would be generated for the field. For subsequent calls to update the field, include the name attribute.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::UpsertLogAnalyticsFieldDetails] upsert_log_analytics_field_details Details for the new LogAnalyticsFieldDetails.
@@ -8425,7 +11062,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Define or update a label.
+    # Creates or updates a label that could be used to tag a log entry. You may optionally designate the label as a problem, and assign it a priority. You may also provide its related terms (aliases). To create a label, specify its display name. A name would be generated for the label. For subsequent calls to update the label, include the name attribute.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::UpsertLogAnalyticsLabelDetails] upsert_log_analytics_label_details Details for the new LogAnalyticsTagDetails.
@@ -8497,7 +11135,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Define or update parser
+    # Creates or updates a parser, which defines how fields are extracted from a log entry.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::UpsertLogAnalyticsParserDetails] upsert_log_analytics_parser_details Details for the new LoganParserDetails.
@@ -8569,15 +11208,20 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Define or update a source
+    # Creates or updates a log source. You may also specify parsers, labels, extended fields etc., for the source.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::UpsertLogAnalyticsSourceDetails] upsert_log_analytics_source_details Details for the new LoganSourceDetails.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :create_like_source_id create like sourceId
-    # @option opts [BOOLEAN] :is_incremental is incremental
+    # @option opts [Integer] :create_like_source_id The unique identifier of the source to use as the reference for a create like
+    #   operation.
+    #
+    # @option opts [BOOLEAN] :is_incremental A flag indicating whether or not the update of a source is incremental or not.  If incremental,
+    #   the name of the source must be specified.
+    #
     # @option opts [BOOLEAN] :is_ignore_warning is ignore warning
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -8647,7 +11291,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # association parameter validation
+    # Checks if the passed in entities could be associated with the specified sources. The validation is performed to ensure that the entities have the relevant property values that are used in the corresponding source patterns.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::UpsertLogAnalyticsAssociationDetails] upsert_log_analytics_association_details Details for the new log analytics associations.
@@ -8659,7 +11304,7 @@ module OCI
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by sort by field (default to sourceDisplayName)
+    # @option opts [String] :sort_by The attribute used to sort the returned association parameters (default to sourceDisplayName)
     #   Allowed values are: sourceDisplayName, status
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -8731,10 +11376,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Validates a log file to check whether it is eligible to upload or not.
+    # Validates a log file to check whether it is eligible to be uploaded or not.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] object_location Location of the log file
+    # @param [String] object_location Location of the log file.
     # @param [String] filename The name of the file being uploaded. The extension of the filename part will be used to detect the type of file (like zip, tar).
     #
     # @param [Hash] opts the optional parameters
@@ -8793,15 +11438,20 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Pre-define or update a source
+    # Checks if the specified input is a valid log source definition.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::UpsertLogAnalyticsSourceDetails] upsert_log_analytics_source_details Details for the new LoganSourceDetails.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Integer] :create_like_source_id create like sourceId
-    # @option opts [BOOLEAN] :is_incremental is incremental
+    # @option opts [Integer] :create_like_source_id The unique identifier of the source to use as the reference for a create like
+    #   operation.
+    #
+    # @option opts [BOOLEAN] :is_incremental A flag indicating whether or not the update of a source is incremental or not.  If incremental,
+    #   the name of the source must be specified.
+    #
     # @option opts [BOOLEAN] :is_ignore_warning is ignore warning
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -8864,7 +11514,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # test extended fields
+    # Checks if the specified input contains valid extended field definitions against the provided example content.
+    #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
     # @param [OCI::LogAnalytics::Models::LogAnalyticsSource] log_analytics_source Details for the new LogAnalyticsSource.
@@ -8929,10 +11580,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Validates the source mapping for given file and provides match status and parsed representation of log data.
+    # Validates the source mapping for a given file and provides match status and the parsed representation of log data.
     # @param [String] namespace_name The Logging Analytics namespace used for the request.
     #
-    # @param [String] object_location Location of the log file
+    # @param [String] object_location Location of the log file.
     # @param [String] filename The name of the file being uploaded. The extension of the filename part will be used to detect the type of file (like zip, tar).
     #
     # @param [String] log_source_name Name of the log source that will be used to process the files being uploaded.

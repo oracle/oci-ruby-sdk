@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -100,7 +100,7 @@ module OCI
 
     # Moves a file system and its associated snapshots into a different compartment within the same tenancy. For information about moving resources between compartments, see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes)
     #
-    # @param [String] file_system_id The OCID of the file system.
+    # @param [String] file_system_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the file system.
     # @param [OCI::FileStorage::Models::ChangeFileSystemCompartmentDetails] change_file_system_compartment_details Details for changing the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -165,7 +165,7 @@ module OCI
 
     # Moves a mount target and its associated export set into a different compartment within the same tenancy. For information about moving resources between compartments, see [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes)
     #
-    # @param [String] mount_target_id The OCID of the mount target.
+    # @param [String] mount_target_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the mount target.
     # @param [OCI::FileStorage::Models::ChangeMountTargetCompartmentDetails] change_mount_target_compartment_details Details for changing the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -318,9 +318,9 @@ module OCI
     #
     # All Oracle Cloud Infrastructure resources, including
     # file systems, get an Oracle-assigned, unique ID called an Oracle
-    # Cloud Identifier (OCID).  When you create a resource, you can
-    # find its OCID in the response. You can also retrieve a
-    # resource's OCID by using a List API operation on that resource
+    # Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)).
+    # When you create a resource, you can find its OCID in the response.
+    # You can also retrieve a resource's OCID by using a List API operation on that resource
     # type or by viewing the resource in the Console.
     #
     # @param [OCI::FileStorage::Models::CreateFileSystemDetails] create_file_system_details Details for creating a new file system.
@@ -413,9 +413,9 @@ module OCI
     #
     # All Oracle Cloud Infrastructure Services resources, including
     # mount targets, get an Oracle-assigned, unique ID called an
-    # Oracle Cloud Identifier (OCID).  When you create a resource,
-    # you can find its OCID in the response. You can also retrieve a
-    # resource's OCID by using a List API operation on that resource
+    # Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)).
+    # When you create a resource, you can find its OCID in the response.
+    # You can also retrieve a resource's OCID by using a List API operation on that resource
     # type, or by viewing the resource in the Console.
     #
     # @param [OCI::FileStorage::Models::CreateMountTargetDetails] create_mount_target_details Details for creating a new mount target.
@@ -547,7 +547,7 @@ module OCI
 
     # Deletes the specified export.
     #
-    # @param [String] export_id The OCID of the export.
+    # @param [String] export_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the export.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -612,7 +612,7 @@ module OCI
     # verify that no remaining export resources still reference it. Deleting a
     # file system also deletes all of its snapshots.
     #
-    # @param [String] file_system_id The OCID of the file system.
+    # @param [String] file_system_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the file system.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -676,7 +676,7 @@ module OCI
     # Deletes the specified mount target. This operation also deletes the
     # mount target's VNICs.
     #
-    # @param [String] mount_target_id The OCID of the mount target.
+    # @param [String] mount_target_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the mount target.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -739,7 +739,7 @@ module OCI
 
     # Deletes the specified snapshot.
     #
-    # @param [String] snapshot_id The OCID of the snapshot.
+    # @param [String] snapshot_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the snapshot.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -801,7 +801,7 @@ module OCI
 
 
     # Gets the specified export's information.
-    # @param [String] export_id The OCID of the export.
+    # @param [String] export_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the export.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -857,7 +857,7 @@ module OCI
 
 
     # Gets the specified export set's information.
-    # @param [String] export_set_id The OCID of the export set.
+    # @param [String] export_set_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the export set.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -913,7 +913,7 @@ module OCI
 
 
     # Gets the specified file system's information.
-    # @param [String] file_system_id The OCID of the file system.
+    # @param [String] file_system_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the file system.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -969,7 +969,7 @@ module OCI
 
 
     # Gets the specified mount target's information.
-    # @param [String] mount_target_id The OCID of the mount target.
+    # @param [String] mount_target_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the mount target.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1025,7 +1025,7 @@ module OCI
 
 
     # Gets the specified snapshot's information.
-    # @param [String] snapshot_id The OCID of the snapshot.
+    # @param [String] snapshot_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the snapshot.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1082,7 +1082,7 @@ module OCI
 
     # Lists the export set resources in the specified compartment.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [String] availability_domain The name of the availability domain.
     #
     #   Example: `Uocm:PHX-AD-1`
@@ -1111,9 +1111,9 @@ module OCI
     #    (default to none)
     # @option opts [String] :lifecycle_state Filter results by the specified lifecycle state. Must be a valid
     #   state for the resource type.
-    #    (default to none)
+    #
     #   Allowed values are: CREATING, ACTIVE, DELETING, DELETED, FAILED
-    # @option opts [String] :id Filter results by OCID. Must be an OCID of the correct type for
+    # @option opts [String] :id Filter results by [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm). Must be an OCID of the correct type for
     #   the resouce type.
     #    (default to none)
     # @option opts [String] :sort_by The field to sort by. You can provide either value, but not both.
@@ -1206,7 +1206,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :compartment_id The OCID of the compartment. (default to none)
+    # @option opts [String] :compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment. (default to none)
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
     #   or items to return in a paginated \"List\" call.
     #   1 is the minimum, 1000 is the maximum.
@@ -1222,13 +1222,13 @@ module OCI
     #   For important details about how pagination works,
     #   see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #    (default to none)
-    # @option opts [String] :export_set_id The OCID of the export set. (default to none)
-    # @option opts [String] :file_system_id The OCID of the file system. (default to none)
+    # @option opts [String] :export_set_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the export set. (default to none)
+    # @option opts [String] :file_system_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the file system. (default to none)
     # @option opts [String] :lifecycle_state Filter results by the specified lifecycle state. Must be a valid
     #   state for the resource type.
-    #    (default to none)
+    #
     #   Allowed values are: CREATING, ACTIVE, DELETING, DELETED, FAILED
-    # @option opts [String] :id Filter results by OCID. Must be an OCID of the correct type for
+    # @option opts [String] :id Filter results by [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm). Must be an OCID of the correct type for
     #   the resouce type.
     #    (default to none)
     # @option opts [String] :sort_by The field to sort by. You can provide either value, but not both.
@@ -1314,7 +1314,7 @@ module OCI
 
     # Lists the file system resources in the specified compartment.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [String] availability_domain The name of the availability domain.
     #
     #   Example: `Uocm:PHX-AD-1`
@@ -1343,11 +1343,13 @@ module OCI
     #    (default to none)
     # @option opts [String] :lifecycle_state Filter results by the specified lifecycle state. Must be a valid
     #   state for the resource type.
-    #    (default to none)
+    #
     #   Allowed values are: CREATING, ACTIVE, DELETING, DELETED, FAILED
-    # @option opts [String] :id Filter results by OCID. Must be an OCID of the correct type for
+    # @option opts [String] :id Filter results by [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm). Must be an OCID of the correct type for
     #   the resouce type.
     #    (default to none)
+    # @option opts [String] :source_snapshot_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the snapshot used to create a cloned file system. See [Cloning a File System](https://docs.cloud.oracle.com/iaas/Content/File/Tasks/cloningafilesystem.htm).
+    # @option opts [String] :parent_file_system_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the file system that contains the source snapshot of a cloned file system. See [Cloning a File System](https://docs.cloud.oracle.com/iaas/Content/File/Tasks/cloningafilesystem.htm).
     # @option opts [String] :sort_by The field to sort by. You can provide either value, but not both.
     #   By default, when you sort by time created, results are shown
     #   in descending order. When you sort by display name, results are
@@ -1395,6 +1397,8 @@ module OCI
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:id] = opts[:id] if opts[:id]
+      query_params[:sourceSnapshotId] = opts[:source_snapshot_id] if opts[:source_snapshot_id]
+      query_params[:parentFileSystemId] = opts[:parent_file_system_id] if opts[:parent_file_system_id]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
 
@@ -1433,7 +1437,7 @@ module OCI
 
     # Lists the mount target resources in the specified compartment.
     #
-    # @param [String] compartment_id The OCID of the compartment.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [String] availability_domain The name of the availability domain.
     #
     #   Example: `Uocm:PHX-AD-1`
@@ -1460,12 +1464,12 @@ module OCI
     #
     #   Example: `My resource`
     #    (default to none)
-    # @option opts [String] :export_set_id The OCID of the export set. (default to none)
+    # @option opts [String] :export_set_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the export set. (default to none)
     # @option opts [String] :lifecycle_state Filter results by the specified lifecycle state. Must be a valid
     #   state for the resource type.
-    #    (default to none)
+    #
     #   Allowed values are: CREATING, ACTIVE, DELETING, DELETED, FAILED
-    # @option opts [String] :id Filter results by OCID. Must be an OCID of the correct type for
+    # @option opts [String] :id Filter results by [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm). Must be an OCID of the correct type for
     #   the resouce type.
     #    (default to none)
     # @option opts [String] :sort_by The field to sort by. You can choose either value, but not both.
@@ -1554,7 +1558,7 @@ module OCI
 
     # Lists snapshots of the specified file system.
     #
-    # @param [String] file_system_id The OCID of the file system.
+    # @param [String] file_system_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the file system.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1575,9 +1579,9 @@ module OCI
     #    (default to none)
     # @option opts [String] :lifecycle_state Filter results by the specified lifecycle state. Must be a valid
     #   state for the resource type.
-    #    (default to none)
+    #
     #   Allowed values are: CREATING, ACTIVE, DELETING, DELETED, FAILED
-    # @option opts [String] :id Filter results by OCID. Must be an OCID of the correct type for
+    # @option opts [String] :id Filter results by [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm). Must be an OCID of the correct type for
     #   the resouce type.
     #    (default to none)
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc', where 'asc' is
@@ -1650,7 +1654,7 @@ module OCI
 
 
     # Updates the specified export's information.
-    # @param [String] export_id The OCID of the export.
+    # @param [String] export_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the export.
     # @param [OCI::FileStorage::Models::UpdateExportDetails] update_export_details Details object for updating an export.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1715,7 +1719,7 @@ module OCI
 
 
     # Updates the specified export set's information.
-    # @param [String] export_set_id The OCID of the export set.
+    # @param [String] export_set_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the export set.
     # @param [OCI::FileStorage::Models::UpdateExportSetDetails] update_export_set_details Details object for updating an export set.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1782,7 +1786,7 @@ module OCI
     # Updates the specified file system's information.
     # You can use this operation to rename a file system.
     #
-    # @param [String] file_system_id The OCID of the file system.
+    # @param [String] file_system_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the file system.
     # @param [OCI::FileStorage::Models::UpdateFileSystemDetails] update_file_system_details Details object for updating a file system.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1847,7 +1851,7 @@ module OCI
 
 
     # Updates the specified mount target's information.
-    # @param [String] mount_target_id The OCID of the mount target.
+    # @param [String] mount_target_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the mount target.
     # @param [OCI::FileStorage::Models::UpdateMountTargetDetails] update_mount_target_details Details object for updating a mount target.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1912,7 +1916,7 @@ module OCI
 
 
     # Updates the specified snapshot's information.
-    # @param [String] snapshot_id The OCID of the snapshot.
+    # @param [String] snapshot_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the snapshot.
     # @param [OCI::FileStorage::Models::UpdateSnapshotDetails] update_snapshot_details Details object for updating a snapshot.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level

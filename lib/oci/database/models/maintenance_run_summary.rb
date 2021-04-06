@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -18,6 +18,7 @@ module OCI
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_CANCELED = 'CANCELED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -27,6 +28,7 @@ module OCI
       TARGET_RESOURCE_TYPE_EXADATA_DB_SYSTEM = 'EXADATA_DB_SYSTEM'.freeze,
       TARGET_RESOURCE_TYPE_CLOUD_EXADATA_INFRASTRUCTURE = 'CLOUD_EXADATA_INFRASTRUCTURE'.freeze,
       TARGET_RESOURCE_TYPE_EXACC_INFRASTRUCTURE = 'EXACC_INFRASTRUCTURE'.freeze,
+      TARGET_RESOURCE_TYPE_AUTONOMOUS_DATABASE = 'AUTONOMOUS_DATABASE'.freeze,
       TARGET_RESOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -40,6 +42,9 @@ module OCI
       MAINTENANCE_SUBTYPE_QUARTERLY = 'QUARTERLY'.freeze,
       MAINTENANCE_SUBTYPE_HARDWARE = 'HARDWARE'.freeze,
       MAINTENANCE_SUBTYPE_CRITICAL = 'CRITICAL'.freeze,
+      MAINTENANCE_SUBTYPE_INFRASTRUCTURE = 'INFRASTRUCTURE'.freeze,
+      MAINTENANCE_SUBTYPE_DATABASE = 'DATABASE'.freeze,
+      MAINTENANCE_SUBTYPE_ONEOFF = 'ONEOFF'.freeze,
       MAINTENANCE_SUBTYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -59,7 +64,8 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** The current state of the maintenance run.
+    # **[Required]** The current state of the maintenance run. For Autonomous Database on shared Exadata infrastructure, valid states are IN_PROGRESS, SUCCEEDED and FAILED.
+    #
     # @return [String]
     attr_reader :lifecycle_state
 
@@ -91,7 +97,7 @@ module OCI
     # @return [String]
     attr_reader :maintenance_type
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the patch to be applied in the maintenance run.
+    # The unique identifier of the patch. The identifier string includes the patch type, the Oracle Database version, and the patch creation date (using the format YYMMDD). For example, the identifier `ru_patch_19.9.0.0_201030` is used for an RU patch for Oracle Database 19.9.0.0 that was released October 30, 2020.
     # @return [String]
     attr_accessor :patch_id
 

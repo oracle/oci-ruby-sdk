@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -99,17 +99,17 @@ module OCI
 
 
     # Activates the model.
-    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the model.
+    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
     #   etag from a previous GET or POST response for that resource.
-    #   The resource will be updated or deleted only if the `etag` you
+    #   The resource is updated or deleted only if the `etag` you
     #   provide matches the resource's current `etag` value.
     #
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::Model Model}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/activate_model.rb.html) to see an example of how to use activate_model API.
@@ -160,18 +160,79 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Activates the notebook session.
-    # @param [String] notebook_session_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the notebook session.
+    # Activates the model deployment.
+    # @param [String] model_deployment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model deployment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
     #   etag from a previous GET or POST response for that resource.
-    #   The resource will be updated or deleted only if the `etag` you
+    #   The resource is updated or deleted only if the `etag` you
     #   provide matches the resource's current `etag` value.
     #
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/activate_model_deployment.rb.html) to see an example of how to use activate_model_deployment API.
+    def activate_model_deployment(model_deployment_id, opts = {})
+      logger.debug 'Calling operation DataScienceClient#activate_model_deployment.' if logger
+
+      raise "Missing the required parameter 'model_deployment_id' when calling activate_model_deployment." if model_deployment_id.nil?
+      raise "Parameter value for 'model_deployment_id' must not be blank" if OCI::Internal::Util.blank_string?(model_deployment_id)
+
+      path = '/modelDeployments/{modelDeploymentId}/actions/activate'.sub('{modelDeploymentId}', model_deployment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#activate_model_deployment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Activates the notebook session.
+    # @param [String] notebook_session_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the notebook session.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource is updated or deleted only if the `etag` you
+    #   provide matches the resource's current `etag` value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/activate_notebook_session.rb.html) to see an example of how to use activate_notebook_session API.
@@ -222,17 +283,17 @@ module OCI
 
 
     # Cancels a work request that has not started.
-    # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the work request.
+    # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the work request.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
     #   etag from a previous GET or POST response for that resource.
-    #   The resource will be updated or deleted only if the `etag` you
+    #   The resource is updated or deleted only if the `etag` you
     #   provide matches the resource's current `etag` value.
     #
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/cancel_work_request.rb.html) to see an example of how to use cancel_work_request API.
@@ -283,7 +344,7 @@ module OCI
 
 
     # Moves a model resource into a different compartment.
-    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the model.
+    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model.
     # @param [OCI::DataScience::Models::ChangeModelCompartmentDetails] change_model_compartment_details Details for changing the compartment of a model.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -291,10 +352,10 @@ module OCI
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
     #   etag from a previous GET or POST response for that resource.
-    #   The resource will be updated or deleted only if the `etag` you
+    #   The resource is updated or deleted only if the `etag` you
     #   provide matches the resource's current `etag` value.
     #
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
     #
@@ -349,8 +410,75 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a model deployment into a different compartment. When provided, If-Match is checked against ETag values of the resource.
+    # @param [String] model_deployment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model deployment.
+    # @param [OCI::DataScience::Models::ChangeModelDeploymentCompartmentDetails] change_model_deployment_compartment_details Details for changing the compartment of a model deployment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource is updated or deleted only if the `etag` you
+    #   provide matches the resource's current `etag` value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/change_model_deployment_compartment.rb.html) to see an example of how to use change_model_deployment_compartment API.
+    def change_model_deployment_compartment(model_deployment_id, change_model_deployment_compartment_details, opts = {})
+      logger.debug 'Calling operation DataScienceClient#change_model_deployment_compartment.' if logger
+
+      raise "Missing the required parameter 'model_deployment_id' when calling change_model_deployment_compartment." if model_deployment_id.nil?
+      raise "Missing the required parameter 'change_model_deployment_compartment_details' when calling change_model_deployment_compartment." if change_model_deployment_compartment_details.nil?
+      raise "Parameter value for 'model_deployment_id' must not be blank" if OCI::Internal::Util.blank_string?(model_deployment_id)
+
+      path = '/modelDeployments/{modelDeploymentId}/actions/changeCompartment'.sub('{modelDeploymentId}', model_deployment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_model_deployment_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#change_model_deployment_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves a notebook session resource into a different compartment.
-    # @param [String] notebook_session_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the notebook session.
+    # @param [String] notebook_session_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the notebook session.
     # @param [OCI::DataScience::Models::ChangeNotebookSessionCompartmentDetails] change_notebook_session_compartment_details Details for changing the compartment of a notebook session.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -358,10 +486,10 @@ module OCI
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
     #   etag from a previous GET or POST response for that resource.
-    #   The resource will be updated or deleted only if the `etag` you
+    #   The resource is updated or deleted only if the `etag` you
     #   provide matches the resource's current `etag` value.
     #
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
     #
@@ -417,7 +545,7 @@ module OCI
 
 
     # Moves a project resource into a different compartment.
-    # @param [String] project_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the project.
+    # @param [String] project_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the project.
     # @param [OCI::DataScience::Models::ChangeProjectCompartmentDetails] change_project_compartment_details Details for changing the compartment of a project.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -425,10 +553,10 @@ module OCI
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
     #   etag from a previous GET or POST response for that resource.
-    #   The resource will be updated or deleted only if the `etag` you
+    #   The resource is updated or deleted only if the `etag` you
     #   provide matches the resource's current `etag` value.
     #
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
     #
@@ -488,7 +616,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
     #
@@ -542,13 +670,13 @@ module OCI
 
 
     # Creates model artifact for specified model.
-    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the model.
+    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model.
     # @param [String, IO] model_artifact The model artifact to upload.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :content_length The content length of the body.
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
     #
@@ -605,13 +733,71 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a new model deployment.
+    # @param [OCI::DataScience::Models::CreateModelDeploymentDetails] create_model_deployment_details Details for creating a new model deployment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataScience::Models::ModelDeployment ModelDeployment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/create_model_deployment.rb.html) to see an example of how to use create_model_deployment API.
+    def create_model_deployment(create_model_deployment_details, opts = {})
+      logger.debug 'Calling operation DataScienceClient#create_model_deployment.' if logger
+
+      raise "Missing the required parameter 'create_model_deployment_details' when calling create_model_deployment." if create_model_deployment_details.nil?
+
+      path = '/modelDeployments'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_model_deployment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#create_model_deployment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataScience::Models::ModelDeployment'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates provenance information for the specified model.
-    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the model.
+    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model.
     # @param [OCI::DataScience::Models::CreateModelProvenanceDetails] create_model_provenance_details Provenance information for specified model.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
     #
@@ -671,7 +857,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
     #
@@ -729,7 +915,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
     #
@@ -783,17 +969,17 @@ module OCI
 
 
     # Deactivates the model.
-    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the model.
+    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
     #   etag from a previous GET or POST response for that resource.
-    #   The resource will be updated or deleted only if the `etag` you
+    #   The resource is updated or deleted only if the `etag` you
     #   provide matches the resource's current `etag` value.
     #
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::Model Model}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/deactivate_model.rb.html) to see an example of how to use deactivate_model API.
@@ -844,18 +1030,79 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deactivates the notebook session.
-    # @param [String] notebook_session_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the notebook session.
+    # Deactivates the model deployment.
+    # @param [String] model_deployment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model deployment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
     #   etag from a previous GET or POST response for that resource.
-    #   The resource will be updated or deleted only if the `etag` you
+    #   The resource is updated or deleted only if the `etag` you
     #   provide matches the resource's current `etag` value.
     #
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/deactivate_model_deployment.rb.html) to see an example of how to use deactivate_model_deployment API.
+    def deactivate_model_deployment(model_deployment_id, opts = {})
+      logger.debug 'Calling operation DataScienceClient#deactivate_model_deployment.' if logger
+
+      raise "Missing the required parameter 'model_deployment_id' when calling deactivate_model_deployment." if model_deployment_id.nil?
+      raise "Parameter value for 'model_deployment_id' must not be blank" if OCI::Internal::Util.blank_string?(model_deployment_id)
+
+      path = '/modelDeployments/{modelDeploymentId}/actions/deactivate'.sub('{modelDeploymentId}', model_deployment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#deactivate_model_deployment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deactivates the notebook session.
+    # @param [String] notebook_session_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the notebook session.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource is updated or deleted only if the `etag` you
+    #   provide matches the resource's current `etag` value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/deactivate_notebook_session.rb.html) to see an example of how to use deactivate_notebook_session API.
@@ -906,17 +1153,17 @@ module OCI
 
 
     # Deletes the specified model.
-    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the model.
+    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
     #   etag from a previous GET or POST response for that resource.
-    #   The resource will be updated or deleted only if the `etag` you
+    #   The resource is updated or deleted only if the `etag` you
     #   provide matches the resource's current `etag` value.
     #
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/delete_model.rb.html) to see an example of how to use delete_model API.
@@ -966,18 +1213,79 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the specified notebook session. Any unsaved work in this notebook session will be lost.
-    # @param [String] notebook_session_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the notebook session.
+    # Deletes the specified model deployment. Any unsaved work in this model deployment is lost.
+    # @param [String] model_deployment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model deployment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
     #   etag from a previous GET or POST response for that resource.
-    #   The resource will be updated or deleted only if the `etag` you
+    #   The resource is updated or deleted only if the `etag` you
     #   provide matches the resource's current `etag` value.
     #
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/delete_model_deployment.rb.html) to see an example of how to use delete_model_deployment API.
+    def delete_model_deployment(model_deployment_id, opts = {})
+      logger.debug 'Calling operation DataScienceClient#delete_model_deployment.' if logger
+
+      raise "Missing the required parameter 'model_deployment_id' when calling delete_model_deployment." if model_deployment_id.nil?
+      raise "Parameter value for 'model_deployment_id' must not be blank" if OCI::Internal::Util.blank_string?(model_deployment_id)
+
+      path = '/modelDeployments/{modelDeploymentId}'.sub('{modelDeploymentId}', model_deployment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#delete_model_deployment') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified notebook session. Any unsaved work in this notebook session are lost.
+    # @param [String] notebook_session_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the notebook session.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource is updated or deleted only if the `etag` you
+    #   provide matches the resource's current `etag` value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/delete_notebook_session.rb.html) to see an example of how to use delete_notebook_session API.
@@ -1027,18 +1335,18 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the specified project. This operation will fail unless all associated resources (such as notebook sessions or models) are in a DELETED state. You must delete all associated resources before deleting a project.
-    # @param [String] project_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the project.
+    # Deletes the specified project. This operation fails unless all associated resources (notebook sessions or models) are in a DELETED state. You must delete all associated resources before deleting a project.
+    # @param [String] project_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the project.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
     #   etag from a previous GET or POST response for that resource.
-    #   The resource will be updated or deleted only if the `etag` you
+    #   The resource is updated or deleted only if the `etag` you
     #   provide matches the resource's current `etag` value.
     #
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/delete_project.rb.html) to see an example of how to use delete_project API.
@@ -1089,11 +1397,11 @@ module OCI
 
 
     # Gets the specified model's information.
-    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the model.
+    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::Model Model}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/get_model.rb.html) to see an example of how to use get_model API.
@@ -1144,11 +1452,11 @@ module OCI
 
 
     # Downloads model artifact content for specified model.
-    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the model.
+    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @option opts [String] :range Optional byte range to fetch, as described in [RFC 7233](https://tools.ietf.org/html/rfc7232#section-2.1), section 2.1.
     #   Note that only a single range of bytes is supported.
@@ -1248,12 +1556,67 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets provenance information for specified model.
-    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the model.
+    # Retrieves the model deployment for the specified `modelDeploymentId`.
+    # @param [String] model_deployment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model deployment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataScience::Models::ModelDeployment ModelDeployment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/get_model_deployment.rb.html) to see an example of how to use get_model_deployment API.
+    def get_model_deployment(model_deployment_id, opts = {})
+      logger.debug 'Calling operation DataScienceClient#get_model_deployment.' if logger
+
+      raise "Missing the required parameter 'model_deployment_id' when calling get_model_deployment." if model_deployment_id.nil?
+      raise "Parameter value for 'model_deployment_id' must not be blank" if OCI::Internal::Util.blank_string?(model_deployment_id)
+
+      path = '/modelDeployments/{modelDeploymentId}'.sub('{modelDeploymentId}', model_deployment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#get_model_deployment') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataScience::Models::ModelDeployment'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets provenance information for specified model.
+    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::ModelProvenance ModelProvenance}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/get_model_provenance.rb.html) to see an example of how to use get_model_provenance API.
@@ -1304,11 +1667,11 @@ module OCI
 
 
     # Gets the specified notebook session's information.
-    # @param [String] notebook_session_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the notebook session.
+    # @param [String] notebook_session_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the notebook session.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::NotebookSession NotebookSession}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/get_notebook_session.rb.html) to see an example of how to use get_notebook_session API.
@@ -1359,11 +1722,11 @@ module OCI
 
 
     # Gets the specified project's information.
-    # @param [String] project_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the project.
+    # @param [String] project_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the project.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::Project Project}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/get_project.rb.html) to see an example of how to use get_project API.
@@ -1414,11 +1777,11 @@ module OCI
 
 
     # Gets the specified work request's information.
-    # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the work request.
+    # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the work request.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::WorkRequest WorkRequest}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/get_work_request.rb.html) to see an example of how to use get_work_request API.
@@ -1469,11 +1832,11 @@ module OCI
 
 
     # Gets model artifact metadata for specified model.
-    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the model.
+    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/head_model_artifact.rb.html) to see an example of how to use head_model_artifact API.
@@ -1522,40 +1885,215 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists models in the specified compartment.
-    # @param [String] compartment_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the compartment.
+    # Lists the valid model deployment shapes.
+    # @param [String] compartment_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :id <b>Filter</b> results by [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm). Must be an OCID of the correct type for the resource type.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
-    # @option opts [String] :project_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the project.
-    # @option opts [String] :display_name <b>Filter</b> results by its user-friendly name.
-    # @option opts [String] :lifecycle_state <b>Filter</b> results by the specified lifecycle state. Must be a valid
-    #   state for the resource type.
-    #
-    # @option opts [String] :created_by <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the user who created the resource.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
     #   or items to return in a paginated \"List\" call.
     #   1 is the minimum, 1000 is the maximum.
-    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
     #    (default to 10)
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
     #   header from the previous \"List\" call.
     #
-    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::ModelDeploymentShapeSummary ModelDeploymentShapeSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_model_deployment_shapes.rb.html) to see an example of how to use list_model_deployment_shapes API.
+    def list_model_deployment_shapes(compartment_id, opts = {})
+      logger.debug 'Calling operation DataScienceClient#list_model_deployment_shapes.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_model_deployment_shapes." if compartment_id.nil?
+
+      path = '/modelDeploymentShapes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#list_model_deployment_shapes') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::DataScience::Models::ModelDeploymentShapeSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists all model deployments in the specified compartment. Only one parameter other than compartmentId may also be included in a query. The query must include compartmentId. If the query does not include compartmentId, or includes compartmentId but two or more other parameters an error is returned.
+    #
+    # @param [String] compartment_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :id <b>Filter</b> results by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). Must be an OCID of the correct type for the resource type.
+    #
+    # @option opts [String] :project_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the project.
+    # @option opts [String] :display_name <b>Filter</b> results by its user-friendly name.
+    # @option opts [String] :lifecycle_state <b>Filter</b> results by the specified lifecycle state. Must be a valid
+    #   state for the resource type.
+    #
+    # @option opts [String] :created_by <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the user who created the resource.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
+    #   or items to return in a paginated \"List\" call.
+    #   1 is the minimum, 1000 is the maximum.
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `500`
+    #    (default to 10)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
+    #   header from the previous \"List\" call.
+    #
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_order Specifies sort order to use, either `ASC` (ascending) or `DESC` (descending).
     #
     #   Allowed values are: ASC, DESC
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field.
     #   By default, when you sort by `timeCreated`, results are shown
-    #   in descending order. All other fields default to ascending order. Sort order for `displayName` field is case sensitive.
+    #   in descending order. When you sort by `displayName`, results are
+    #   shown in ascending order. Sort order for the `displayName` field is case sensitive.
+    #
+    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::ModelDeploymentSummary ModelDeploymentSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_model_deployments.rb.html) to see an example of how to use list_model_deployments API.
+    def list_model_deployments(compartment_id, opts = {})
+      logger.debug 'Calling operation DataScienceClient#list_model_deployments.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_model_deployments." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::DataScience::Models::MODEL_DEPLOYMENT_LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataScience::Models::MODEL_DEPLOYMENT_LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      path = '/modelDeployments'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:projectId] = opts[:project_id] if opts[:project_id]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:createdBy] = opts[:created_by] if opts[:created_by]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#list_model_deployments') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::DataScience::Models::ModelDeploymentSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists models in the specified compartment.
+    # @param [String] compartment_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :id <b>Filter</b> results by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). Must be an OCID of the correct type for the resource type.
+    #
+    # @option opts [String] :project_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the project.
+    # @option opts [String] :display_name <b>Filter</b> results by its user-friendly name.
+    # @option opts [String] :lifecycle_state <b>Filter</b> results by the specified lifecycle state. Must be a valid
+    #   state for the resource type.
+    #
+    # @option opts [String] :created_by <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the user who created the resource.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
+    #   or items to return in a paginated \"List\" call.
+    #   1 is the minimum, 1000 is the maximum.
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `500`
+    #    (default to 10)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
+    #   header from the previous \"List\" call.
+    #
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :sort_order Specifies sort order to use, either `ASC` (ascending) or `DESC` (descending).
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field.
+    #   By default, when you sort by `timeCreated`, the results are shown
+    #   in descending order. All other fields default to ascending order. Sort order for the `displayName` field is case sensitive.
     #
     #   Allowed values are: timeCreated, displayName, lifecycleState
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::ModelSummary ModelSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_models.rb.html) to see an example of how to use list_models API.
@@ -1627,23 +2165,23 @@ module OCI
 
 
     # Lists the valid notebook session shapes.
-    # @param [String] compartment_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
     #   or items to return in a paginated \"List\" call.
     #   1 is the minimum, 1000 is the maximum.
-    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
     #    (default to 10)
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
     #   header from the previous \"List\" call.
     #
-    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::NotebookSessionShapeSummary NotebookSessionShapeSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_notebook_session_shapes.rb.html) to see an example of how to use list_notebook_session_shapes API.
@@ -1695,41 +2233,41 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists notebook sessions in the specified compartment.
-    # @param [String] compartment_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the compartment.
+    # Lists the notebook sessions in the specified compartment.
+    # @param [String] compartment_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :id <b>Filter</b> results by [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm). Must be an OCID of the correct type for the resource type.
+    # @option opts [String] :id <b>Filter</b> results by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). Must be an OCID of the correct type for the resource type.
     #
-    # @option opts [String] :project_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the project.
+    # @option opts [String] :project_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the project.
     # @option opts [String] :display_name <b>Filter</b> results by its user-friendly name.
     # @option opts [String] :lifecycle_state <b>Filter</b> results by the specified lifecycle state. Must be a valid
     #   state for the resource type.
     #
-    # @option opts [String] :created_by <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the user who created the resource.
+    # @option opts [String] :created_by <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the user who created the resource.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
     #   or items to return in a paginated \"List\" call.
     #   1 is the minimum, 1000 is the maximum.
-    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
     #    (default to 10)
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
     #   header from the previous \"List\" call.
     #
-    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_order Specifies sort order to use, either `ASC` (ascending) or `DESC` (descending).
     #
     #   Allowed values are: ASC, DESC
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field.
-    #   By default, when you sort by `timeCreated`, results are shown
+    #   By default, when you sort by `timeCreated`, the results are shown
     #   in descending order. When you sort by `displayName`, results are
-    #   shown in ascending order. Sort order for `displayName` field is case sensitive.
+    #   shown in ascending order. Sort order for the `displayName` field is case sensitive.
     #
     #   Allowed values are: timeCreated, displayName
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::NotebookSessionSummary NotebookSessionSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_notebook_sessions.rb.html) to see an example of how to use list_notebook_sessions API.
@@ -1801,39 +2339,39 @@ module OCI
 
 
     # Lists projects in the specified compartment.
-    # @param [String] compartment_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :id <b>Filter</b> results by [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm). Must be an OCID of the correct type for the resource type.
+    # @option opts [String] :id <b>Filter</b> results by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). Must be an OCID of the correct type for the resource type.
     #
     # @option opts [String] :display_name <b>Filter</b> results by its user-friendly name.
     # @option opts [String] :lifecycle_state <b>Filter</b> results by the specified lifecycle state. Must be a valid
     #   state for the resource type.
     #
-    # @option opts [String] :created_by <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the user who created the resource.
+    # @option opts [String] :created_by <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the user who created the resource.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
     #   or items to return in a paginated \"List\" call.
     #   1 is the minimum, 1000 is the maximum.
-    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
     #    (default to 10)
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
     #   header from the previous \"List\" call.
     #
-    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_order Specifies sort order to use, either `ASC` (ascending) or `DESC` (descending).
     #
     #   Allowed values are: ASC, DESC
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field.
-    #   By default, when you sort by `timeCreated`, results are shown
-    #   in descending order. When you sort by `displayName`, results are
-    #   shown in ascending order. Sort order for `displayName` field is case sensitive.
+    #   By default, when you sort by `timeCreated`, the results are shown
+    #   in descending order. When you sort by `displayName`, the results are
+    #   shown in ascending order. Sort order for the `displayName` field is case sensitive.
     #
     #   Allowed values are: timeCreated, displayName
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::ProjectSummary ProjectSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_projects.rb.html) to see an example of how to use list_projects API.
@@ -1904,11 +2442,11 @@ module OCI
 
 
     # Lists work request errors for the specified work request.
-    # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the work request.
+    # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the work request.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::WorkRequestError WorkRequestError}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
@@ -1959,11 +2497,11 @@ module OCI
 
 
     # Lists work request logs for the specified work request.
-    # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the work request.
+    # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the work request.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::WorkRequestLogEntry WorkRequestLogEntry}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
@@ -2014,35 +2552,35 @@ module OCI
 
 
     # Lists work requests in the specified compartment.
-    # @param [String] compartment_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the compartment.
+    # @param [String] compartment_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :id <b>Filter</b> results by [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm). Must be an OCID of the correct type for the resource type.
+    # @option opts [String] :id <b>Filter</b> results by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). Must be an OCID of the correct type for the resource type.
     #
     # @option opts [String] :operation_type <b>Filter</b> results by the type of the operation associated with the work request.
-    #   Allowed values are: NOTEBOOK_SESSION_CREATE, NOTEBOOK_SESSION_DELETE, NOTEBOOK_SESSION_ACTIVATE, NOTEBOOK_SESSION_DEACTIVATE, PROJECT_DELETE, WORKREQUEST_CANCEL
+    #   Allowed values are: NOTEBOOK_SESSION_CREATE, NOTEBOOK_SESSION_DELETE, NOTEBOOK_SESSION_ACTIVATE, NOTEBOOK_SESSION_DEACTIVATE, MODEL_DEPLOYMENT_CREATE, MODEL_DEPLOYMENT_DELETE, MODEL_DEPLOYMENT_ACTIVATE, MODEL_DEPLOYMENT_DEACTIVATE, MODEL_DEPLOYMENT_UPDATE, PROJECT_DELETE, WORKREQUEST_CANCEL
     # @option opts [String] :status <b>Filter</b> results by work request status.
     #   Allowed values are: ACCEPTED, IN_PROGRESS, FAILED, SUCCEEDED, CANCELING, CANCELED
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
     #   or items to return in a paginated \"List\" call.
     #   1 is the minimum, 1000 is the maximum.
-    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
     #
     #   Example: `500`
     #    (default to 10)
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
     #   header from the previous \"List\" call.
     #
-    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_order Specifies sort order to use, either `ASC` (ascending) or `DESC` (descending).
     #
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order.
+    # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, the results are shown in descending order. All other fields default to ascending order.
     #
     #   Allowed values are: operationType, status, timeAccepted
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::WorkRequestSummary WorkRequestSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
@@ -2051,8 +2589,8 @@ module OCI
 
       raise "Missing the required parameter 'compartment_id' when calling list_work_requests." if compartment_id.nil?
 
-      if opts[:operation_type] && !%w[NOTEBOOK_SESSION_CREATE NOTEBOOK_SESSION_DELETE NOTEBOOK_SESSION_ACTIVATE NOTEBOOK_SESSION_DEACTIVATE PROJECT_DELETE WORKREQUEST_CANCEL].include?(opts[:operation_type])
-        raise 'Invalid value for "operation_type", must be one of NOTEBOOK_SESSION_CREATE, NOTEBOOK_SESSION_DELETE, NOTEBOOK_SESSION_ACTIVATE, NOTEBOOK_SESSION_DEACTIVATE, PROJECT_DELETE, WORKREQUEST_CANCEL.'
+      if opts[:operation_type] && !%w[NOTEBOOK_SESSION_CREATE NOTEBOOK_SESSION_DELETE NOTEBOOK_SESSION_ACTIVATE NOTEBOOK_SESSION_DEACTIVATE MODEL_DEPLOYMENT_CREATE MODEL_DEPLOYMENT_DELETE MODEL_DEPLOYMENT_ACTIVATE MODEL_DEPLOYMENT_DEACTIVATE MODEL_DEPLOYMENT_UPDATE PROJECT_DELETE WORKREQUEST_CANCEL].include?(opts[:operation_type])
+        raise 'Invalid value for "operation_type", must be one of NOTEBOOK_SESSION_CREATE, NOTEBOOK_SESSION_DELETE, NOTEBOOK_SESSION_ACTIVATE, NOTEBOOK_SESSION_DEACTIVATE, MODEL_DEPLOYMENT_CREATE, MODEL_DEPLOYMENT_DELETE, MODEL_DEPLOYMENT_ACTIVATE, MODEL_DEPLOYMENT_DEACTIVATE, MODEL_DEPLOYMENT_UPDATE, PROJECT_DELETE, WORKREQUEST_CANCEL.'
       end
 
       if opts[:status] && !%w[ACCEPTED IN_PROGRESS FAILED SUCCEEDED CANCELING CANCELED].include?(opts[:status])
@@ -2116,7 +2654,7 @@ module OCI
 
 
     # Updates the properties of a model. You can update the `displayName`, `description`, `freeformTags`, and `definedTags` properties.
-    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the model.
+    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model.
     # @param [OCI::DataScience::Models::UpdateModelDetails] update_model_details Details for updating a model. You can update the `displayName`, `description`, `freeformTags`, and `definedTags` properties.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2124,10 +2662,10 @@ module OCI
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
     #   etag from a previous GET or POST response for that resource.
-    #   The resource will be updated or deleted only if the `etag` you
+    #   The resource is updated or deleted only if the `etag` you
     #   provide matches the resource's current `etag` value.
     #
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::Model Model}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/update_model.rb.html) to see an example of how to use update_model API.
@@ -2179,18 +2717,88 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates provenance information for the specified model.
-    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the model.
+    # Updates the properties of a model deployment. You can update the `displayName`.
+    # When the model deployment is in the ACTIVE lifecycle state, you can update `modelDeploymentConfigurationDetails` and  change `instanceShapeName` and `modelId`. Any update to
+    # `bandwidthMbps` or `instanceCount` can be done when the model deployment is in the INACTIVE lifecycle state. Changes to the `bandwidthMbps` or `instanceCount` will take effect
+    # the next time the `ActivateModelDeployment` action is invoked on the model deployment resource.
+    #
+    # @param [String] model_deployment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model deployment.
+    # @param [OCI::DataScience::Models::UpdateModelDeploymentDetails] update_model_deployment_details Details for updating a model deployment. You can update `modelDeploymentConfigurationDetails` and change `instanceShapeName` and `modelId` when the model deployment is in
+    #   the ACTIVE lifecycle state. The `bandwidthMbps` or `instanceCount` can only be updated while the model deployment is in the `INACTIVE` state. Changes to the `bandwidthMbps`
+    #   or `instanceCount` will take effect the next time the `ActivateModelDeployment` action is invoked on the model deployment resource.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource is updated or deleted only if the `etag` you
+    #   provide matches the resource's current `etag` value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/update_model_deployment.rb.html) to see an example of how to use update_model_deployment API.
+    def update_model_deployment(model_deployment_id, update_model_deployment_details, opts = {})
+      logger.debug 'Calling operation DataScienceClient#update_model_deployment.' if logger
+
+      raise "Missing the required parameter 'model_deployment_id' when calling update_model_deployment." if model_deployment_id.nil?
+      raise "Missing the required parameter 'update_model_deployment_details' when calling update_model_deployment." if update_model_deployment_details.nil?
+      raise "Parameter value for 'model_deployment_id' must not be blank" if OCI::Internal::Util.blank_string?(model_deployment_id)
+
+      path = '/modelDeployments/{modelDeploymentId}'.sub('{modelDeploymentId}', model_deployment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_model_deployment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#update_model_deployment') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the provenance information for the specified model.
+    # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model.
     # @param [OCI::DataScience::Models::UpdateModelProvenanceDetails] update_model_provenance_details Provenance information for the specified model.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
     #   etag from a previous GET or POST response for that resource.
-    #   The resource will be updated or deleted only if the `etag` you
+    #   The resource is updated or deleted only if the `etag` you
     #   provide matches the resource's current `etag` value.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::ModelProvenance ModelProvenance}
@@ -2245,11 +2853,11 @@ module OCI
 
     # Updates the properties of a notebook session. You can update the `displayName`, `freeformTags`, and `definedTags` properties.
     # When the notebook session is in the INACTIVE lifecycle state, you can update `notebookSessionConfigurationDetails` and change `shape`, `subnetId`, and `blockStorageSizeInGBs`.
-    # Changes to the `notebookSessionConfigurationDetails` will take effect the next time the `ActivateNotebookSession` action is invoked on the notebook session resource.
+    # Changes to the `notebookSessionConfigurationDetails` take effect the next time the `ActivateNotebookSession` action is invoked on the notebook session resource.
     #
-    # @param [String] notebook_session_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the notebook session.
+    # @param [String] notebook_session_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the notebook session.
     # @param [OCI::DataScience::Models::UpdateNotebookSessionDetails] update_notebook_session_details Details for updating a notebook session. `notebookSessionConfigurationDetails` can only be updated while the notebook session is in the `INACTIVE` state.
-    #   Changes to the `notebookSessionConfigurationDetails` will take effect the next time the `ActivateNotebookSession` action is invoked on the notebook session resource.
+    #   Changes to the `notebookSessionConfigurationDetails` take effect the next time the `ActivateNotebookSession` action is invoked on the notebook session resource.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2257,10 +2865,10 @@ module OCI
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
     #   etag from a previous GET or POST response for that resource.
-    #   The resource will be updated or deleted only if the `etag` you
+    #   The resource is updated or deleted only if the `etag` you
     #   provide matches the resource's current `etag` value.
     #
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::NotebookSession NotebookSession}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/update_notebook_session.rb.html) to see an example of how to use update_notebook_session API.
@@ -2313,7 +2921,7 @@ module OCI
 
 
     # Updates the properties of a project. You can update the `displayName`, `description`, `freeformTags`, and `definedTags` properties.
-    # @param [String] project_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/identifiers.htm) of the project.
+    # @param [String] project_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the project.
     # @param [OCI::DataScience::Models::UpdateProjectDetails] update_project_details Details for updating a project. You can update the `displayName`, `description`, `freeformTags`, and `definedTags` properties.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2321,10 +2929,10 @@ module OCI
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
     #   etag from a previous GET or POST response for that resource.
-    #   The resource will be updated or deleted only if the `etag` you
+    #   The resource is updated or deleted only if the `etag` you
     #   provide matches the resource's current `etag` value.
     #
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
     #
     # @return [Response] A Response object with data of type {OCI::DataScience::Models::Project Project}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/update_project.rb.html) to see an example of how to use update_project API.

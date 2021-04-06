@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -10,6 +10,12 @@ module OCI
   # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class ObjectStorage::Models::CreateMultipartUploadDetails
+    STORAGE_TIER_ENUM = [
+      STORAGE_TIER_STANDARD = 'Standard'.freeze,
+      STORAGE_TIER_INFREQUENT_ACCESS = 'InfrequentAccess'.freeze,
+      STORAGE_TIER_ARCHIVE = 'Archive'.freeze
+    ].freeze
+
     # **[Required]** The name of the object to which this multi-part upload is targeted. Avoid entering confidential information.
     # Example: test/object1.log
     #
@@ -57,6 +63,12 @@ module OCI
     # @return [String]
     attr_accessor :cache_control
 
+    # The storage tier that the object should be stored in. If not specified, the object will be stored in
+    # the same storage tier as the bucket.
+    #
+    # @return [String]
+    attr_reader :storage_tier
+
     # Arbitrary string keys and values for the user-defined metadata for the object.
     # Keys must be in \"opc-meta-*\" format. Avoid entering confidential information.
     #
@@ -73,6 +85,7 @@ module OCI
         'content_encoding': :'contentEncoding',
         'content_disposition': :'contentDisposition',
         'cache_control': :'cacheControl',
+        'storage_tier': :'storageTier',
         'metadata': :'metadata'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -88,6 +101,7 @@ module OCI
         'content_encoding': :'String',
         'content_disposition': :'String',
         'cache_control': :'String',
+        'storage_tier': :'String',
         'metadata': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -105,6 +119,7 @@ module OCI
     # @option attributes [String] :content_encoding The value to assign to the {#content_encoding} property
     # @option attributes [String] :content_disposition The value to assign to the {#content_disposition} property
     # @option attributes [String] :cache_control The value to assign to the {#cache_control} property
+    # @option attributes [String] :storage_tier The value to assign to the {#storage_tier} property
     # @option attributes [Hash<String, String>] :metadata The value to assign to the {#metadata} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -144,10 +159,24 @@ module OCI
 
       self.cache_control = attributes[:'cache_control'] if attributes[:'cache_control']
 
+      self.storage_tier = attributes[:'storageTier'] if attributes[:'storageTier']
+
+      raise 'You cannot provide both :storageTier and :storage_tier' if attributes.key?(:'storageTier') && attributes.key?(:'storage_tier')
+
+      self.storage_tier = attributes[:'storage_tier'] if attributes[:'storage_tier']
+
       self.metadata = attributes[:'metadata'] if attributes[:'metadata']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] storage_tier Object to be assigned
+    def storage_tier=(storage_tier)
+      raise "Invalid value for 'storage_tier': this must be one of the values in STORAGE_TIER_ENUM." if storage_tier && !STORAGE_TIER_ENUM.include?(storage_tier)
+
+      @storage_tier = storage_tier
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -164,6 +193,7 @@ module OCI
         content_encoding == other.content_encoding &&
         content_disposition == other.content_disposition &&
         cache_control == other.cache_control &&
+        storage_tier == other.storage_tier &&
         metadata == other.metadata
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -180,7 +210,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [object, content_type, content_language, content_encoding, content_disposition, cache_control, metadata].hash
+      [object, content_type, content_language, content_encoding, content_disposition, cache_control, storage_tier, metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

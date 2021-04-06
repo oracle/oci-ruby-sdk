@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # command execution output.
+  # The execution output from a command.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class ComputeInstanceAgent::Models::InstanceAgentCommandExecutionOutputContent
     OUTPUT_TYPE_ENUM = [
@@ -16,16 +16,24 @@ module OCI
       OUTPUT_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The response type where the command reponse is made available
+    # **[Required]** The output destination type for the command. The following values are supported:
+    #
+    # - TEXT - the command output is returned as plain text.
+    # - OBJECT_STORAGE_URI - the command output is saved to an Object Storage URL.
+    # - OBJECT_STORAGE_TUPLE - the command output is saved to an Object Storage bucket.
+    #
+    # For background information about Object Storage buckets and URLs, see
+    # [Overview of Object Storage](https://docs.cloud.oracle.com/Content/Object/Concepts/objectstorageoverview.htm).
     #
     # @return [String]
     attr_reader :output_type
 
-    # **[Required]** command exit code.
+    # **[Required]** The exit code for the command. Exit code `0` indicates success.
     # @return [Integer]
     attr_accessor :exit_code
 
-    # optional status message that agent's can populate for additional troubleshooting.
+    # An optional status message that Oracle Cloud Agent can populate for additional troubleshooting.
+    #
     # @return [String]
     attr_accessor :message
 

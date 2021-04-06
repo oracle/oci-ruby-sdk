@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
@@ -184,7 +184,7 @@ module OCI
     # Calls {OCI::FileStorage::FileStorageClient#delete_export} and then waits for the {OCI::FileStorage::Models::Export} acted upon
     # to enter the given state(s).
     #
-    # @param [String] export_id The OCID of the export.
+    # @param [String] export_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the export.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::FileStorage::Models::Export#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::FileStorage::FileStorageClient#delete_export}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -224,7 +224,7 @@ module OCI
     # Calls {OCI::FileStorage::FileStorageClient#delete_file_system} and then waits for the {OCI::FileStorage::Models::FileSystem} acted upon
     # to enter the given state(s).
     #
-    # @param [String] file_system_id The OCID of the file system.
+    # @param [String] file_system_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the file system.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::FileStorage::Models::FileSystem#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::FileStorage::FileStorageClient#delete_file_system}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -264,7 +264,7 @@ module OCI
     # Calls {OCI::FileStorage::FileStorageClient#delete_mount_target} and then waits for the {OCI::FileStorage::Models::MountTarget} acted upon
     # to enter the given state(s).
     #
-    # @param [String] mount_target_id The OCID of the mount target.
+    # @param [String] mount_target_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the mount target.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::FileStorage::Models::MountTarget#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::FileStorage::FileStorageClient#delete_mount_target}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -304,7 +304,7 @@ module OCI
     # Calls {OCI::FileStorage::FileStorageClient#delete_snapshot} and then waits for the {OCI::FileStorage::Models::Snapshot} acted upon
     # to enter the given state(s).
     #
-    # @param [String] snapshot_id The OCID of the snapshot.
+    # @param [String] snapshot_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the snapshot.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::FileStorage::Models::Snapshot#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::FileStorage::FileStorageClient#delete_snapshot}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -344,7 +344,7 @@ module OCI
     # Calls {OCI::FileStorage::FileStorageClient#update_export} and then waits for the {OCI::FileStorage::Models::Export} acted upon
     # to enter the given state(s).
     #
-    # @param [String] export_id The OCID of the export.
+    # @param [String] export_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the export.
     # @param [OCI::FileStorage::Models::UpdateExportDetails] update_export_details Details object for updating an export.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::FileStorage::Models::Export#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::FileStorage::FileStorageClient#update_export}
@@ -384,7 +384,7 @@ module OCI
     # Calls {OCI::FileStorage::FileStorageClient#update_export_set} and then waits for the {OCI::FileStorage::Models::ExportSet} acted upon
     # to enter the given state(s).
     #
-    # @param [String] export_set_id The OCID of the export set.
+    # @param [String] export_set_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the export set.
     # @param [OCI::FileStorage::Models::UpdateExportSetDetails] update_export_set_details Details object for updating an export set.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::FileStorage::Models::ExportSet#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::FileStorage::FileStorageClient#update_export_set}
@@ -424,7 +424,7 @@ module OCI
     # Calls {OCI::FileStorage::FileStorageClient#update_file_system} and then waits for the {OCI::FileStorage::Models::FileSystem} acted upon
     # to enter the given state(s).
     #
-    # @param [String] file_system_id The OCID of the file system.
+    # @param [String] file_system_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the file system.
     # @param [OCI::FileStorage::Models::UpdateFileSystemDetails] update_file_system_details Details object for updating a file system.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::FileStorage::Models::FileSystem#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::FileStorage::FileStorageClient#update_file_system}
@@ -464,7 +464,7 @@ module OCI
     # Calls {OCI::FileStorage::FileStorageClient#update_mount_target} and then waits for the {OCI::FileStorage::Models::MountTarget} acted upon
     # to enter the given state(s).
     #
-    # @param [String] mount_target_id The OCID of the mount target.
+    # @param [String] mount_target_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the mount target.
     # @param [OCI::FileStorage::Models::UpdateMountTargetDetails] update_mount_target_details Details object for updating a mount target.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::FileStorage::Models::MountTarget#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::FileStorage::FileStorageClient#update_mount_target}
@@ -504,7 +504,7 @@ module OCI
     # Calls {OCI::FileStorage::FileStorageClient#update_snapshot} and then waits for the {OCI::FileStorage::Models::Snapshot} acted upon
     # to enter the given state(s).
     #
-    # @param [String] snapshot_id The OCID of the snapshot.
+    # @param [String] snapshot_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the snapshot.
     # @param [OCI::FileStorage::Models::UpdateSnapshotDetails] update_snapshot_details Details object for updating a snapshot.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::FileStorage::Models::Snapshot#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::FileStorage::FileStorageClient#update_snapshot}

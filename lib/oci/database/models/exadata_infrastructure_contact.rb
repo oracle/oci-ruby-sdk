@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -19,9 +19,13 @@ module OCI
     # @return [String]
     attr_accessor :email
 
-    # **[Required]** True, if this Exadata Infrastructure contact is a primary contact. False, if this Exadata Infrastructure is a secondary contact.
+    # **[Required]** If `true`, this Exadata Infrastructure contact is a primary contact. If `false`, this Exadata Infrastructure is a secondary contact.
     # @return [BOOLEAN]
     attr_accessor :is_primary
+
+    # If `true`, this Exadata Infrastructure contact is a valid My Oracle Support (MOS) contact. If `false`, this Exadata Infrastructure contact is not a valid MOS contact.
+    # @return [BOOLEAN]
+    attr_accessor :is_contact_mos_validated
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -30,7 +34,8 @@ module OCI
         'name': :'name',
         'phone_number': :'phoneNumber',
         'email': :'email',
-        'is_primary': :'isPrimary'
+        'is_primary': :'isPrimary',
+        'is_contact_mos_validated': :'isContactMosValidated'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,7 +47,8 @@ module OCI
         'name': :'String',
         'phone_number': :'String',
         'email': :'String',
-        'is_primary': :'BOOLEAN'
+        'is_primary': :'BOOLEAN',
+        'is_contact_mos_validated': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,6 +63,7 @@ module OCI
     # @option attributes [String] :phone_number The value to assign to the {#phone_number} property
     # @option attributes [String] :email The value to assign to the {#email} property
     # @option attributes [BOOLEAN] :is_primary The value to assign to the {#is_primary} property
+    # @option attributes [BOOLEAN] :is_contact_mos_validated The value to assign to the {#is_contact_mos_validated} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -78,6 +85,12 @@ module OCI
       raise 'You cannot provide both :isPrimary and :is_primary' if attributes.key?(:'isPrimary') && attributes.key?(:'is_primary')
 
       self.is_primary = attributes[:'is_primary'] unless attributes[:'is_primary'].nil?
+
+      self.is_contact_mos_validated = attributes[:'isContactMosValidated'] unless attributes[:'isContactMosValidated'].nil?
+
+      raise 'You cannot provide both :isContactMosValidated and :is_contact_mos_validated' if attributes.key?(:'isContactMosValidated') && attributes.key?(:'is_contact_mos_validated')
+
+      self.is_contact_mos_validated = attributes[:'is_contact_mos_validated'] unless attributes[:'is_contact_mos_validated'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -94,7 +107,8 @@ module OCI
         name == other.name &&
         phone_number == other.phone_number &&
         email == other.email &&
-        is_primary == other.is_primary
+        is_primary == other.is_primary &&
+        is_contact_mos_validated == other.is_contact_mos_validated
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -110,7 +124,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, phone_number, email, is_primary].hash
+      [name, phone_number, email, is_primary, is_contact_mos_validated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

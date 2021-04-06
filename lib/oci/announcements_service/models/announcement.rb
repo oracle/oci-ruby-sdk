@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -36,8 +36,10 @@ module OCI
         'reference_ticket_number': :'referenceTicketNumber',
         'summary': :'summary',
         'time_one_title': :'timeOneTitle',
+        'time_one_type': :'timeOneType',
         'time_one_value': :'timeOneValue',
         'time_two_title': :'timeTwoTitle',
+        'time_two_type': :'timeTwoType',
         'time_two_value': :'timeTwoValue',
         'services': :'services',
         'affected_regions': :'affectedRegions',
@@ -62,8 +64,10 @@ module OCI
         'reference_ticket_number': :'String',
         'summary': :'String',
         'time_one_title': :'String',
+        'time_one_type': :'String',
         'time_one_value': :'DateTime',
         'time_two_title': :'String',
+        'time_two_type': :'String',
         'time_two_value': :'DateTime',
         'services': :'Array<String>',
         'affected_regions': :'Array<String>',
@@ -89,8 +93,10 @@ module OCI
     # @option attributes [String] :reference_ticket_number The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#reference_ticket_number #reference_ticket_number} proprety
     # @option attributes [String] :summary The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#summary #summary} proprety
     # @option attributes [String] :time_one_title The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#time_one_title #time_one_title} proprety
+    # @option attributes [String] :time_one_type The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#time_one_type #time_one_type} proprety
     # @option attributes [DateTime] :time_one_value The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#time_one_value #time_one_value} proprety
     # @option attributes [String] :time_two_title The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#time_two_title #time_two_title} proprety
+    # @option attributes [String] :time_two_type The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#time_two_type #time_two_type} proprety
     # @option attributes [DateTime] :time_two_value The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#time_two_value #time_two_value} proprety
     # @option attributes [Array<String>] :services The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#services #services} proprety
     # @option attributes [Array<String>] :affected_regions The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#affected_regions #affected_regions} proprety
@@ -143,8 +149,10 @@ module OCI
         reference_ticket_number == other.reference_ticket_number &&
         summary == other.summary &&
         time_one_title == other.time_one_title &&
+        time_one_type == other.time_one_type &&
         time_one_value == other.time_one_value &&
         time_two_title == other.time_two_title &&
+        time_two_type == other.time_two_type &&
         time_two_value == other.time_two_value &&
         services == other.services &&
         affected_regions == other.affected_regions &&
@@ -171,7 +179,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, type, reference_ticket_number, summary, time_one_title, time_one_value, time_two_title, time_two_value, services, affected_regions, announcement_type, lifecycle_state, is_banner, time_created, time_updated, description, additional_information, affected_resources].hash
+      [id, type, reference_ticket_number, summary, time_one_title, time_one_type, time_one_value, time_two_title, time_two_type, time_two_value, services, affected_regions, announcement_type, lifecycle_state, is_banner, time_created, time_updated, description, additional_information, affected_resources].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

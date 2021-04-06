@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'oci/base_signer'
@@ -41,14 +41,14 @@ module OCI
           @rpst = session_token
 
           # Load the initial values
-          @session_key_supplier = construct_session_key_supplier(private_key, private_key_passphrase)
-          @security_token = OCI::Auth::SecurityTokenContainer.new(resource_principal_session_token, key_pair: @session_key_supplier)
+          @session_key_supplier = OCI::Auth::Signers::EphemeralRPSessionKeySupplier.new(private_key, private_key_passphrase)
+          @security_token = OCI::Auth::SecurityTokenContainer.new(resource_principal_session_token, key_pair: @session_key_supplier.session_key)
 
           # After load, the RPST holds claims for tenancy and compartment.
           reset_claims
 
           # Get the Resource Principal Session Token and use it to set up the signer
-          super(@security_token.security_token, @session_key_supplier)
+          super(@security_token.security_token, @session_key_supplier.session_key)
         end
 
         # The region should be something like "us-phoenix-1" but if we get "phx" then convert it.
@@ -58,17 +58,6 @@ module OCI
           else
             region
           end
-        end
-
-        def construct_session_key_supplier(private_key, private_key_passphrase)
-          raise 'Missing Resource Principal Private Key' if private_key.nil?
-
-          key = if File.exist?(File.expand_path(private_key))
-                  load_private_key_from_file(File.expand_path(private_key), private_key_passphrase)
-                else
-                  load_private_key(private_key, private_key_passphrase)
-                end
-          key
         end
 
         def security_token
@@ -81,21 +70,30 @@ module OCI
 
         def refresh_security_token
           @refresh_lock.lock
-          @security_token = OCI::Auth::SecurityTokenContainer.new(resource_principal_session_token, key_pair: @session_key_supplier)
-
+          @session_key_supplier.refresh
+          @security_token = OCI::Auth::SecurityTokenContainer.new(resource_principal_session_token, key_pair: @session_key_supplier.session_key)
+          reset_signer
           # Resources may be moved between compartments. Update any coordinates on refresh.
           reset_claims
         ensure
           @refresh_lock.unlock if @refresh_lock.locked? && @refresh_lock.owned?
         end
 
+        def reset_signer
+          @key_id = "ST$#{@security_token.security_token}"
+          @private_key_content = @session_key_supplier.session_key
+          @private_key = OpenSSL::PKey::RSA.new(
+            @private_key_content,
+            @pass_phrase || SecureRandom.uuid
+          )
+        end
+
         def resource_principal_session_token
-          rp_session_token = if File.exist?(File.expand_path(@rpst))
-                               File.read(File.expand_path(@rpst)).to_s.strip
-                             else
-                               @rpst
-                             end
-          rp_session_token
+          if File.exist?(File.expand_path(@rpst))
+            File.read(File.expand_path(@rpst)).to_s.strip
+          else
+            @rpst
+          end
         end
 
         def reset_claims
@@ -106,18 +104,26 @@ module OCI
         def claim(claim)
           @security_token.jwt[0][claim]
         end
+      end
 
-        def load_private_key_from_file(private_key_file, passphrase)
-          private_key_data = File.read(File.expand_path(private_key_file)).to_s.strip
-          load_private_key(private_key_data, passphrase)
+      # EphemeralRPSessionKeySupplier for containing key info
+      class EphemeralRPSessionKeySupplier
+        attr_accessor :session_key
+
+        def initialize(private_key, private_key_passphrase)
+          raise 'Missing Resource Principal Private Key' if private_key.nil?
+
+          @private_key = private_key
+          @private_key_passphrase = private_key_passphrase
+          refresh
         end
 
-        def load_private_key(private_key_date, passphrase)
-          key = OpenSSL::PKey::RSA.new(
-            private_key_date,
-            passphrase || SecureRandom.uuid
-          )
-          key
+        def refresh
+          @session_key = if File.exist?(File.expand_path(@private_key))
+                           OCI::Auth::Util.load_private_key_from_file(File.expand_path(@private_key), @private_key_passphrase)
+                         else
+                           OCI::Auth::Util.load_private_key(@private_key, @private_key_passphrase)
+                         end
         end
       end
       # rubocop:enable Metrics/LineLength

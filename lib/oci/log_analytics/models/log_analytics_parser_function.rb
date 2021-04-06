@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -10,39 +10,42 @@ module OCI
     # @return [OCI::LogAnalytics::Models::LogAnalyticsParserMetaPlugin]
     attr_accessor :parser_meta_plugin
 
-    # plugin instance Id
+    # The parser function unique identifier.
     # @return [Integer]
     attr_accessor :parser_function_id
 
-    # plugin instance internal name
+    # The parser function internal name.
     # @return [String]
     attr_accessor :parser_function_name
 
-    # is enabled flag
+    # A flag inidcating whether or not the parser function is enabled.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
-    # is system flag
+    # The system flag.  A value of false denotes a custom, or user
+    # defined object.  A value of true denotes a built in object.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_system
 
-    # parser Id
+    # The associated parser unique identifier.
     # @return [Integer]
     attr_accessor :parser_id
 
-    # parser internal name
+    # The associated parser internal name.
     # @return [String]
     attr_accessor :parser_name
 
-    # plugin type internal name
+    # The plugin internal name.
     # @return [String]
     attr_accessor :parser_meta_plugin_name
 
-    # priority
+    # The parser function priority.
     # @return [Integer]
     attr_accessor :parser_function_priority
 
-    # parameter map list
+    # The parser function parameter list.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsParserFunctionParameter>]
     attr_accessor :parser_function_parameters
 

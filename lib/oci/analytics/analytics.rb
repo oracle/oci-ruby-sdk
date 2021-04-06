@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -19,16 +19,23 @@ require 'oci/analytics/models/capacity_type'
 require 'oci/analytics/models/change_analytics_instance_network_endpoint_details'
 require 'oci/analytics/models/change_compartment_details'
 require 'oci/analytics/models/create_analytics_instance_details'
+require 'oci/analytics/models/create_private_access_channel_details'
+require 'oci/analytics/models/create_vanity_url_details'
 require 'oci/analytics/models/feature_set'
 require 'oci/analytics/models/license_type'
 require 'oci/analytics/models/network_endpoint_details'
 require 'oci/analytics/models/network_endpoint_type'
+require 'oci/analytics/models/private_access_channel'
 require 'oci/analytics/models/private_endpoint_details'
+require 'oci/analytics/models/private_source_dns_zone'
 require 'oci/analytics/models/public_endpoint_details'
 require 'oci/analytics/models/scale_analytics_instance_details'
 require 'oci/analytics/models/sort_by'
 require 'oci/analytics/models/sort_order'
 require 'oci/analytics/models/update_analytics_instance_details'
+require 'oci/analytics/models/update_private_access_channel_details'
+require 'oci/analytics/models/update_vanity_url_details'
+require 'oci/analytics/models/vanity_url_details'
 require 'oci/analytics/models/virtual_cloud_network'
 require 'oci/analytics/models/work_request'
 require 'oci/analytics/models/work_request_action_result'

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -81,6 +81,11 @@ module OCI
     # @return [String]
     attr_accessor :filter_query_string
 
+    # Field denoting field unit type.
+    #
+    # @return [String]
+    attr_accessor :unit_type
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -94,7 +99,8 @@ module OCI
         'is_groupable': :'isGroupable',
         'is_duration': :'isDuration',
         '_alias': :'alias',
-        'filter_query_string': :'filterQueryString'
+        'filter_query_string': :'filterQueryString',
+        'unit_type': :'unitType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -112,7 +118,8 @@ module OCI
         'is_groupable': :'BOOLEAN',
         'is_duration': :'BOOLEAN',
         '_alias': :'String',
-        'filter_query_string': :'String'
+        'filter_query_string': :'String',
+        'unit_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -151,6 +158,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_duration The value to assign to the {#is_duration} property
     # @option attributes [String] :_alias The value to assign to the {#_alias} property
     # @option attributes [String] :filter_query_string The value to assign to the {#filter_query_string} property
+    # @option attributes [String] :unit_type The value to assign to the {#unit_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -212,6 +220,12 @@ module OCI
       raise 'You cannot provide both :filterQueryString and :filter_query_string' if attributes.key?(:'filterQueryString') && attributes.key?(:'filter_query_string')
 
       self.filter_query_string = attributes[:'filter_query_string'] if attributes[:'filter_query_string']
+
+      self.unit_type = attributes[:'unitType'] if attributes[:'unitType']
+
+      raise 'You cannot provide both :unitType and :unit_type' if attributes.key?(:'unitType') && attributes.key?(:'unit_type')
+
+      self.unit_type = attributes[:'unit_type'] if attributes[:'unit_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -260,7 +274,8 @@ module OCI
         is_groupable == other.is_groupable &&
         is_duration == other.is_duration &&
         _alias == other._alias &&
-        filter_query_string == other.filter_query_string
+        filter_query_string == other.filter_query_string &&
+        unit_type == other.unit_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -276,7 +291,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, display_name, is_declared, original_display_names, internal_name, value_type, is_groupable, is_duration, _alias, filter_query_string].hash
+      [name, display_name, is_declared, original_display_names, internal_name, value_type, is_groupable, is_duration, _alias, filter_query_string, unit_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

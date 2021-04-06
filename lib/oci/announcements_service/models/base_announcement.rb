@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,6 +8,20 @@ module OCI
   # Incident information that forms the basis of an announcement. Avoid entering confidential information.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class AnnouncementsService::Models::BaseAnnouncement
+    TIME_ONE_TYPE_ENUM = [
+      TIME_ONE_TYPE_ACTION_REQUIRED_BY = 'ACTION_REQUIRED_BY'.freeze,
+      TIME_ONE_TYPE_NEW_START_TIME = 'NEW_START_TIME'.freeze,
+      TIME_ONE_TYPE_ORIGINAL_END_TIME = 'ORIGINAL_END_TIME'.freeze,
+      TIME_ONE_TYPE_REPORT_DATE = 'REPORT_DATE'.freeze,
+      TIME_ONE_TYPE_START_TIME = 'START_TIME'.freeze,
+      TIME_ONE_TYPE_TIME_DETECTED = 'TIME_DETECTED'.freeze
+    ].freeze
+
+    TIME_TWO_TYPE_ENUM = [
+      TIME_TWO_TYPE_END_TIME = 'END_TIME'.freeze,
+      TIME_TWO_TYPE_NEW_END_TIME = 'NEW_END_TIME'.freeze
+    ].freeze
+
     ANNOUNCEMENT_TYPE_ENUM = [
       ANNOUNCEMENT_TYPE_ACTION_RECOMMENDED = 'ACTION_RECOMMENDED'.freeze,
       ANNOUNCEMENT_TYPE_ACTION_REQUIRED = 'ACTION_REQUIRED'.freeze,
@@ -34,7 +48,7 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The entity type.
+    # **[Required]** The entity type, which is either an announcement or the summary representation of an announcement.
     # @return [String]
     attr_accessor :type
 
@@ -54,8 +68,14 @@ module OCI
     # @return [String]
     attr_accessor :time_one_title
 
-    # The actual value of the first time value for the event. Typically, this is the time an event started, but the meaning
-    # can vary, depending on the announcement type.
+    # The type of a time associated with an initial time value. If the `timeOneTitle` attribute is present, then the `timeOneTitle` attribute contains a label of `timeOneType` in English.
+    # Example: `START_TIME`
+    #
+    # @return [String]
+    attr_reader :time_one_type
+
+    # The actual value of the first time value for the event. Typically, this denotes the time an event started, but the meaning
+    # can vary, depending on the announcement type. The `timeOneType` attribute describes the meaning.
     #
     # @return [DateTime]
     attr_accessor :time_one_value
@@ -66,8 +86,14 @@ module OCI
     # @return [String]
     attr_accessor :time_two_title
 
-    # The actual value of the second time value. Typically, this is the time an event ended, but the meaning
-    # can vary, depending on the announcement type.
+    # The type of a time associated with second time value. If the `timeTwoTitle` attribute is present, then the `timeTwoTitle` attribute contains a label of `timeTwoType` in English.
+    # Example: `END_TIME`
+    #
+    # @return [String]
+    attr_reader :time_two_type
+
+    # The actual value of the second time value. Typically, this denotes the time an event ended, but the meaning
+    # can vary, depending on the announcement type. The `timeTwoType` attribute describes the meaning.
     #
     # @return [DateTime]
     attr_accessor :time_two_value
@@ -113,8 +139,10 @@ module OCI
         'reference_ticket_number': :'referenceTicketNumber',
         'summary': :'summary',
         'time_one_title': :'timeOneTitle',
+        'time_one_type': :'timeOneType',
         'time_one_value': :'timeOneValue',
         'time_two_title': :'timeTwoTitle',
+        'time_two_type': :'timeTwoType',
         'time_two_value': :'timeTwoValue',
         'services': :'services',
         'affected_regions': :'affectedRegions',
@@ -136,8 +164,10 @@ module OCI
         'reference_ticket_number': :'String',
         'summary': :'String',
         'time_one_title': :'String',
+        'time_one_type': :'String',
         'time_one_value': :'DateTime',
         'time_two_title': :'String',
+        'time_two_type': :'String',
         'time_two_value': :'DateTime',
         'services': :'Array<String>',
         'affected_regions': :'Array<String>',
@@ -177,8 +207,10 @@ module OCI
     # @option attributes [String] :reference_ticket_number The value to assign to the {#reference_ticket_number} property
     # @option attributes [String] :summary The value to assign to the {#summary} property
     # @option attributes [String] :time_one_title The value to assign to the {#time_one_title} property
+    # @option attributes [String] :time_one_type The value to assign to the {#time_one_type} property
     # @option attributes [DateTime] :time_one_value The value to assign to the {#time_one_value} property
     # @option attributes [String] :time_two_title The value to assign to the {#time_two_title} property
+    # @option attributes [String] :time_two_type The value to assign to the {#time_two_type} property
     # @option attributes [DateTime] :time_two_value The value to assign to the {#time_two_value} property
     # @option attributes [Array<String>] :services The value to assign to the {#services} property
     # @option attributes [Array<String>] :affected_regions The value to assign to the {#affected_regions} property
@@ -211,6 +243,12 @@ module OCI
 
       self.time_one_title = attributes[:'time_one_title'] if attributes[:'time_one_title']
 
+      self.time_one_type = attributes[:'timeOneType'] if attributes[:'timeOneType']
+
+      raise 'You cannot provide both :timeOneType and :time_one_type' if attributes.key?(:'timeOneType') && attributes.key?(:'time_one_type')
+
+      self.time_one_type = attributes[:'time_one_type'] if attributes[:'time_one_type']
+
       self.time_one_value = attributes[:'timeOneValue'] if attributes[:'timeOneValue']
 
       raise 'You cannot provide both :timeOneValue and :time_one_value' if attributes.key?(:'timeOneValue') && attributes.key?(:'time_one_value')
@@ -222,6 +260,12 @@ module OCI
       raise 'You cannot provide both :timeTwoTitle and :time_two_title' if attributes.key?(:'timeTwoTitle') && attributes.key?(:'time_two_title')
 
       self.time_two_title = attributes[:'time_two_title'] if attributes[:'time_two_title']
+
+      self.time_two_type = attributes[:'timeTwoType'] if attributes[:'timeTwoType']
+
+      raise 'You cannot provide both :timeTwoType and :time_two_type' if attributes.key?(:'timeTwoType') && attributes.key?(:'time_two_type')
+
+      self.time_two_type = attributes[:'time_two_type'] if attributes[:'time_two_type']
 
       self.time_two_value = attributes[:'timeTwoValue'] if attributes[:'timeTwoValue']
 
@@ -271,6 +315,22 @@ module OCI
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] time_one_type Object to be assigned
+    def time_one_type=(time_one_type)
+      raise "Invalid value for 'time_one_type': this must be one of the values in TIME_ONE_TYPE_ENUM." if time_one_type && !TIME_ONE_TYPE_ENUM.include?(time_one_type)
+
+      @time_one_type = time_one_type
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] time_two_type Object to be assigned
+    def time_two_type=(time_two_type)
+      raise "Invalid value for 'time_two_type': this must be one of the values in TIME_TWO_TYPE_ENUM." if time_two_type && !TIME_TWO_TYPE_ENUM.include?(time_two_type)
+
+      @time_two_type = time_two_type
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] announcement_type Object to be assigned
     def announcement_type=(announcement_type)
       raise "Invalid value for 'announcement_type': this must be one of the values in ANNOUNCEMENT_TYPE_ENUM." if announcement_type && !ANNOUNCEMENT_TYPE_ENUM.include?(announcement_type)
@@ -300,8 +360,10 @@ module OCI
         reference_ticket_number == other.reference_ticket_number &&
         summary == other.summary &&
         time_one_title == other.time_one_title &&
+        time_one_type == other.time_one_type &&
         time_one_value == other.time_one_value &&
         time_two_title == other.time_two_title &&
+        time_two_type == other.time_two_type &&
         time_two_value == other.time_two_value &&
         services == other.services &&
         affected_regions == other.affected_regions &&
@@ -325,7 +387,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, type, reference_ticket_number, summary, time_one_title, time_one_value, time_two_title, time_two_value, services, affected_regions, announcement_type, lifecycle_state, is_banner, time_created, time_updated].hash
+      [id, type, reference_ticket_number, summary, time_one_title, time_one_type, time_one_value, time_two_title, time_two_type, time_two_value, services, affected_regions, announcement_type, lifecycle_state, is_banner, time_created, time_updated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

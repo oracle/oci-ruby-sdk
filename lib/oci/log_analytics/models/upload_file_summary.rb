@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -15,7 +15,7 @@ module OCI
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Unique internal identifier to refer to upload file
+    # **[Required]** Unique internal identifier to refer upload file.
     # @return [String]
     attr_accessor :reference
 
@@ -31,27 +31,27 @@ module OCI
     # @return [Float]
     attr_accessor :total_chunks
 
-    # Number of chunks processed
+    # Number of chunks processed.
     # @return [Float]
     attr_accessor :chunks_consumed
 
-    # Number of chunks processed successfully
+    # Number of chunks processed successfully.
     # @return [Float]
     attr_accessor :chunks_success
 
-    # Number of chunks failed processing
+    # Number of chunks failed processing.
     # @return [Float]
     attr_accessor :chunks_fail
 
-    # The time when this file processing started
+    # The time when this file processing started.
     # @return [DateTime]
     attr_accessor :time_started
 
-    # Name of the log source used for processing this file
+    # Name of the log source used for processing this file.
     # @return [String]
     attr_accessor :source_name
 
-    # Name of the entity type
+    # Name of the entity type.
     # @return [String]
     attr_accessor :entity_type
 
@@ -59,7 +59,7 @@ module OCI
     # @return [String]
     attr_accessor :entity_name
 
-    # Log namespace associated with the file.
+    # (Deprecated) Name of the log namespace associated with the file.
     # @return [String]
     attr_accessor :log_namespace
 
@@ -67,11 +67,11 @@ module OCI
     # @return [String]
     attr_accessor :log_group_id
 
-    # Log group name associated with the file.
+    # Name of the log group associated with the file.
     # @return [String]
     attr_accessor :log_group_name
 
-    # The details about upload processing failure
+    # The details about upload processing failure.
     # @return [String]
     attr_accessor :failure_details
 

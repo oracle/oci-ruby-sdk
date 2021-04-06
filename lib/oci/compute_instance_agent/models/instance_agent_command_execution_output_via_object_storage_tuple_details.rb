@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,7 +6,7 @@ require_relative 'instance_agent_command_execution_output_content'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # command execution output via object storage tuple.
+  # The execution output from a command when saved to an Object Storage bucket.
   class ComputeInstanceAgent::Models::InstanceAgentCommandExecutionOutputViaObjectStorageTupleDetails < ComputeInstanceAgent::Models::InstanceAgentCommandExecutionOutputContent
     # **[Required]** The Object Storage bucket for the command output.
     # @return [String]
@@ -16,7 +16,7 @@ module OCI
     # @return [String]
     attr_accessor :namespace_name
 
-    # **[Required]** The Object Storage name for the command output.
+    # **[Required]** The Object Storage object name for the command output.
     # @return [String]
     attr_accessor :object_name
 

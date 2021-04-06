@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -30,6 +30,11 @@ module OCI
     # @return [String]
     attr_accessor :description
 
+    # A list of resources associated with a specific configuration object.
+    #
+    # @return [Array<OCI::ApplicationMigration::Models::ResourceField>]
+    attr_accessor :resource_list
+
     # Indicates whether or not the field is required (defaults to `true`).
     #
     # @return [BOOLEAN]
@@ -49,6 +54,7 @@ module OCI
         'type': :'type',
         'value': :'value',
         'description': :'description',
+        'resource_list': :'resourceList',
         'is_required': :'isRequired',
         'is_mutable': :'isMutable'
         # rubocop:enable Style/SymbolLiteral
@@ -64,6 +70,7 @@ module OCI
         'type': :'String',
         'value': :'String',
         'description': :'String',
+        'resource_list': :'Array<OCI::ApplicationMigration::Models::ResourceField>',
         'is_required': :'BOOLEAN',
         'is_mutable': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
@@ -81,6 +88,7 @@ module OCI
     # @option attributes [String] :type The value to assign to the {#type} property
     # @option attributes [String] :value The value to assign to the {#value} property
     # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [Array<OCI::ApplicationMigration::Models::ResourceField>] :resource_list The value to assign to the {#resource_list} property
     # @option attributes [BOOLEAN] :is_required The value to assign to the {#is_required} property
     # @option attributes [BOOLEAN] :is_mutable The value to assign to the {#is_mutable} property
     def initialize(attributes = {})
@@ -98,6 +106,12 @@ module OCI
       self.value = attributes[:'value'] if attributes[:'value']
 
       self.description = attributes[:'description'] if attributes[:'description']
+
+      self.resource_list = attributes[:'resourceList'] if attributes[:'resourceList']
+
+      raise 'You cannot provide both :resourceList and :resource_list' if attributes.key?(:'resourceList') && attributes.key?(:'resource_list')
+
+      self.resource_list = attributes[:'resource_list'] if attributes[:'resource_list']
 
       self.is_required = attributes[:'isRequired'] unless attributes[:'isRequired'].nil?
       self.is_required = true if is_required.nil? && !attributes.key?(:'isRequired') # rubocop:disable Style/StringLiterals
@@ -132,6 +146,7 @@ module OCI
         type == other.type &&
         value == other.value &&
         description == other.description &&
+        resource_list == other.resource_list &&
         is_required == other.is_required &&
         is_mutable == other.is_mutable
     end
@@ -149,7 +164,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, group, type, value, description, is_required, is_mutable].hash
+      [name, group, type, value, description, resource_list, is_required, is_mutable].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

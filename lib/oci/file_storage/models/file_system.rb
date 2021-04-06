@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -40,11 +40,12 @@ module OCI
     # any snapshots. This number reflects the metered size of the file
     # system and is updated asynchronously with respect to
     # updates to the file system.
+    # For more information, see [File System Usage and Metering](https://docs.cloud.oracle.com/Content/File/Concepts/FSutilization.htm).
     #
     # @return [Integer]
     attr_accessor :metered_bytes
 
-    # **[Required]** The OCID of the compartment that contains the file system.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment that contains the file system.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -56,7 +57,7 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The OCID of the file system.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the file system.
     # @return [String]
     attr_accessor :id
 
@@ -87,10 +88,31 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The OCID of the KMS key which is the master encryption key for the file system.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the KMS key which is the master encryption key for the file system.
     #
     # @return [String]
     attr_accessor :kms_key_id
+
+    # @return [OCI::FileStorage::Models::SourceDetails]
+    attr_accessor :source_details
+
+    # Specifies whether the file system has been cloned.
+    # See [Cloning a File System](https://docs.cloud.oracle.com/iaas/Content/File/Tasks/cloningafilesystem.htm).
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_clone_parent
+
+    # Specifies whether the data has finished copying from the source to the clone.
+    # Hydration can take up to several hours to complete depending on the size of the source.
+    # The source and clone remain available during hydration, but there may be some performance impact.
+    # See [Cloning a File System](https://docs.cloud.oracle.com/iaas/Content/File/Tasks/cloningafilesystem.htm#hydration).
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_hydrated
+
+    # Additional information about the current 'lifecycleState'.
+    # @return [String]
+    attr_accessor :lifecycle_details
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -105,7 +127,11 @@ module OCI
         'time_created': :'timeCreated',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'kms_key_id': :'kmsKeyId'
+        'kms_key_id': :'kmsKeyId',
+        'source_details': :'sourceDetails',
+        'is_clone_parent': :'isCloneParent',
+        'is_hydrated': :'isHydrated',
+        'lifecycle_details': :'lifecycleDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -123,7 +149,11 @@ module OCI
         'time_created': :'DateTime',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'kms_key_id': :'String'
+        'kms_key_id': :'String',
+        'source_details': :'OCI::FileStorage::Models::SourceDetails',
+        'is_clone_parent': :'BOOLEAN',
+        'is_hydrated': :'BOOLEAN',
+        'lifecycle_details': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -144,6 +174,10 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
+    # @option attributes [OCI::FileStorage::Models::SourceDetails] :source_details The value to assign to the {#source_details} property
+    # @option attributes [BOOLEAN] :is_clone_parent The value to assign to the {#is_clone_parent} property
+    # @option attributes [BOOLEAN] :is_hydrated The value to assign to the {#is_hydrated} property
+    # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -205,6 +239,30 @@ module OCI
       raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
 
       self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
+      self.source_details = attributes[:'sourceDetails'] if attributes[:'sourceDetails']
+
+      raise 'You cannot provide both :sourceDetails and :source_details' if attributes.key?(:'sourceDetails') && attributes.key?(:'source_details')
+
+      self.source_details = attributes[:'source_details'] if attributes[:'source_details']
+
+      self.is_clone_parent = attributes[:'isCloneParent'] unless attributes[:'isCloneParent'].nil?
+
+      raise 'You cannot provide both :isCloneParent and :is_clone_parent' if attributes.key?(:'isCloneParent') && attributes.key?(:'is_clone_parent')
+
+      self.is_clone_parent = attributes[:'is_clone_parent'] unless attributes[:'is_clone_parent'].nil?
+
+      self.is_hydrated = attributes[:'isHydrated'] unless attributes[:'isHydrated'].nil?
+
+      raise 'You cannot provide both :isHydrated and :is_hydrated' if attributes.key?(:'isHydrated') && attributes.key?(:'is_hydrated')
+
+      self.is_hydrated = attributes[:'is_hydrated'] unless attributes[:'is_hydrated'].nil?
+
+      self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
+
+      raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
+
+      self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -240,7 +298,11 @@ module OCI
         time_created == other.time_created &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        kms_key_id == other.kms_key_id
+        kms_key_id == other.kms_key_id &&
+        source_details == other.source_details &&
+        is_clone_parent == other.is_clone_parent &&
+        is_hydrated == other.is_hydrated &&
+        lifecycle_details == other.lifecycle_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -256,7 +318,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, metered_bytes, compartment_id, display_name, id, lifecycle_state, time_created, freeform_tags, defined_tags, kms_key_id].hash
+      [availability_domain, metered_bytes, compartment_id, display_name, id, lifecycle_state, time_created, freeform_tags, defined_tags, kms_key_id, source_details, is_clone_parent, is_hydrated, lifecycle_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

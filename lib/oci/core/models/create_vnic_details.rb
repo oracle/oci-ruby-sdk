@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,7 +8,7 @@ module OCI
   # Contains properties for a VNIC. You use this object when creating the
   # primary VNIC during instance launch or when creating a secondary VNIC.
   # For more information about VNICs, see
-  # [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/Content/Network/Tasks/managingVNICs.htm).
+  # [Virtual Network Interface Cards (VNICs)](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingVNICs.htm).
   #
   class Core::Models::CreateVnicDetails
     # Whether the VNIC should be assigned a public IP address. Defaults to whether
@@ -21,25 +21,25 @@ module OCI
     #
     # **Note:** This public IP address is associated with the primary private IP
     # on the VNIC. For more information, see
-    # [IP Addresses](https://docs.cloud.oracle.com/Content/Network/Tasks/managingIPaddresses.htm).
+    # [IP Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingIPaddresses.htm).
     #
     # **Note:** There's a limit to the number of {PublicIp}
     # a VNIC or instance can have. If you try to create a secondary VNIC
     # with an assigned public IP for an instance that has already
     # reached its public IP limit, an error is returned. For information
     # about the public IP limits, see
-    # [Public IP Addresses](https://docs.cloud.oracle.com/Content/Network/Tasks/managingpublicIPs.htm).
+    # [Public IP Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingpublicIPs.htm).
     #
     # Example: `false`
     #
-    # If you specify a `vlanId`, the `assignPublicIp` is required to be set to false. See
+    # If you specify a `vlanId`, then `assignPublicIp` must be set to false. See
     # {Vlan}.
     #
     # @return [BOOLEAN]
     attr_accessor :assign_public_ip
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -53,7 +53,7 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -72,7 +72,7 @@ module OCI
     # {#get_private_ip get_private_ip}.
     #
     # For more information, see
-    # [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/Content/Network/Concepts/dns.htm).
+    # [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/dns.htm).
     #
     # When launching an instance, use this `hostnameLabel` instead
     # of the deprecated `hostnameLabel` in
@@ -81,8 +81,8 @@ module OCI
     #
     # Example: `bminstance-1`
     #
-    # If you specify a `vlanId`, the `hostnameLabel` cannot be specified. vnics on a Vlan
-    # can not be assigned a hostname  See {Vlan}.
+    # If you specify a `vlanId`, the `hostnameLabel` cannot be specified. VNICs on a VLAN
+    # can not be assigned a hostname. See {Vlan}.
     #
     # @return [String]
     attr_accessor :hostname_label
@@ -120,7 +120,7 @@ module OCI
     # Whether the source/destination check is disabled on the VNIC.
     # Defaults to `false`, which means the check is performed. For information
     # about why you would skip the source/destination check, see
-    # [Using a Private IP as a Route Target](https://docs.cloud.oracle.com/Content/Network/Tasks/managingroutetables.htm#privateip).
+    # [Using a Private IP as a Route Target](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingroutetables.htm#privateip).
     #
     #
     # If you specify a `vlanId`, the `skipSourceDestCheck` cannot be specified because the

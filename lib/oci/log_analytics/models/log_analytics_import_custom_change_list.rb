@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,39 +7,39 @@ require 'date'
 module OCI
   # LogAnalyticsImportCustomChangeList
   class LogAnalytics::Models::LogAnalyticsImportCustomChangeList
-    # createdParserNames
+    # An array of created parser names.
     # @return [Array<String>]
     attr_accessor :created_parser_names
 
-    # updatedParserNames
+    # An array of updated parser names.
     # @return [Array<String>]
     attr_accessor :updated_parser_names
 
-    # createdSourceNames
+    # An array of created source names.
     # @return [Array<String>]
     attr_accessor :created_source_names
 
-    # updatedSourceNames
+    # An array of updated source names.
     # @return [Array<String>]
     attr_accessor :updated_source_names
 
-    # createdFieldDisplayNames
+    # An array of created field display names.
     # @return [Array<String>]
     attr_accessor :created_field_display_names
 
-    # updatedFieldDisplayNames
+    # An array of updated field display names.
     # @return [Array<String>]
     attr_accessor :updated_field_display_names
 
-    # conflictParserNames
+    # A list of parser names with conflicts.
     # @return [Array<String>]
     attr_accessor :conflict_parser_names
 
-    # conflictSourceNames
+    # A list of source names with conflicts.
     # @return [Array<String>]
     attr_accessor :conflict_source_names
 
-    # conflictFieldDisplayNames
+    # A list of field display names with conflicts.
     # @return [Array<String>]
     attr_accessor :conflict_field_display_names
 

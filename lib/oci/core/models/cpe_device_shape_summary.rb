@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -9,13 +9,12 @@ module OCI
   # {CpeDeviceShapeDetail}.
   #
   class Core::Models::CpeDeviceShapeSummary
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the CPE device shape.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the CPE device shape.
     # This value uniquely identifies the type of CPE device.
     #
     # @return [String]
     attr_accessor :id
 
-    # Basic information about this particular CPE device type.
     # @return [OCI::Core::Models::CpeDeviceInfo]
     attr_accessor :cpe_device_info
 

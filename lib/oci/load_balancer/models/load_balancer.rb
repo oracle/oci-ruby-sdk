@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -153,6 +153,9 @@ module OCI
     # @return [Hash<String, OCI::LoadBalancer::Models::RuleSet>]
     attr_accessor :rule_sets
 
+    # @return [Hash<String, OCI::LoadBalancer::Models::RoutingPolicy>]
+    attr_accessor :routing_policies
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -177,7 +180,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'system_tags': :'systemTags',
-        'rule_sets': :'ruleSets'
+        'rule_sets': :'ruleSets',
+        'routing_policies': :'routingPolicies'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -206,7 +210,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'system_tags': :'Hash<String, Hash<String, Object>>',
-        'rule_sets': :'Hash<String, OCI::LoadBalancer::Models::RuleSet>'
+        'rule_sets': :'Hash<String, OCI::LoadBalancer::Models::RuleSet>',
+        'routing_policies': :'Hash<String, OCI::LoadBalancer::Models::RoutingPolicy>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -238,6 +243,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     # @option attributes [Hash<String, OCI::LoadBalancer::Models::RuleSet>] :rule_sets The value to assign to the {#rule_sets} property
+    # @option attributes [Hash<String, OCI::LoadBalancer::Models::RoutingPolicy>] :routing_policies The value to assign to the {#routing_policies} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -353,6 +359,12 @@ module OCI
       raise 'You cannot provide both :ruleSets and :rule_sets' if attributes.key?(:'ruleSets') && attributes.key?(:'rule_sets')
 
       self.rule_sets = attributes[:'rule_sets'] if attributes[:'rule_sets']
+
+      self.routing_policies = attributes[:'routingPolicies'] if attributes[:'routingPolicies']
+
+      raise 'You cannot provide both :routingPolicies and :routing_policies' if attributes.key?(:'routingPolicies') && attributes.key?(:'routing_policies')
+
+      self.routing_policies = attributes[:'routing_policies'] if attributes[:'routing_policies']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -399,7 +411,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         system_tags == other.system_tags &&
-        rule_sets == other.rule_sets
+        rule_sets == other.rule_sets &&
+        routing_policies == other.routing_policies
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -415,7 +428,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, lifecycle_state, time_created, ip_addresses, shape_name, shape_details, is_private, subnet_ids, network_security_group_ids, listeners, hostnames, ssl_cipher_suites, certificates, backend_sets, path_route_sets, freeform_tags, defined_tags, system_tags, rule_sets].hash
+      [id, compartment_id, display_name, lifecycle_state, time_created, ip_addresses, shape_name, shape_details, is_private, subnet_ids, network_security_group_ids, listeners, hostnames, ssl_cipher_suites, certificates, backend_sets, path_route_sets, freeform_tags, defined_tags, system_tags, rule_sets, routing_policies].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,7 +8,7 @@ module OCI
   # UpdateSubnetDetails model.
   class Core::Models::UpdateSubnetDetails
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -27,7 +27,7 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -47,13 +47,15 @@ module OCI
     # @return [Array<String>]
     attr_accessor :security_list_ids
 
-    # The CIDR IP address block of the Subnet. The CIDR must maintain the following rules -
+    # The CIDR block of the subnet. The new CIDR block must meet the following criteria:
     #
-    # a. The CIDR block is valid and correctly formatted.
-    # b. The new range is within one of the parent VCN ranges.
-    # c. The old and new CIDR ranges both use the same base address. Example: 10.0.0.0/25 and 10.0.0.0/24.
-    # d. The new CIDR range contains all previously allocated private IP addresses in the old CIDR range.
-    # e. No previously allocated IP address overlaps the broadcast address (the last IP of a subnet CIDR range) of the new CIDR range.
+    # - Must be valid.
+    # - The CIDR block's IP range must be completely within one of the VCN's CIDR block ranges.
+    # - The old and new CIDR block ranges must use the same network address. Example: `10.0.0.0/25` and `10.0.0.0/24`.
+    # - Must contain all IP addresses in use in the old CIDR range.
+    # - The new CIDR range's broadcast address (last IP address of CIDR range) must not be an IP address in use in the old CIDR range.
+    #
+    # **Note:** If you are changing the CIDR block, you cannot create VNICs or private IPs for this resource while the update is in progress.
     #
     # Example: `172.16.0.0/16`
     #

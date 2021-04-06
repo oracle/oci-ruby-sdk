@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -11,15 +11,28 @@ module OCI
       ACCESS_TYPE_OBJECT_READ = 'ObjectRead'.freeze,
       ACCESS_TYPE_OBJECT_WRITE = 'ObjectWrite'.freeze,
       ACCESS_TYPE_OBJECT_READ_WRITE = 'ObjectReadWrite'.freeze,
-      ACCESS_TYPE_ANY_OBJECT_WRITE = 'AnyObjectWrite'.freeze
+      ACCESS_TYPE_ANY_OBJECT_WRITE = 'AnyObjectWrite'.freeze,
+      ACCESS_TYPE_ANY_OBJECT_READ = 'AnyObjectRead'.freeze,
+      ACCESS_TYPE_ANY_OBJECT_READ_WRITE = 'AnyObjectReadWrite'.freeze
     ].freeze
 
     # **[Required]** A user-specified name for the pre-authenticated request. Names can be helpful in managing pre-authenticated requests.
+    # Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :name
 
+    # Specifies whether a list operation is allowed on a PAR with accessType \"AnyObjectRead\" or \"AnyObjectReadWrite\".
+    # Deny: Prevents the user from performing a list operation.
+    # ListObjects: Authorizes the user to perform a list operation.
+    #
+    # @return [String]
+    attr_accessor :bucket_listing_action
+
     # The name of the object that is being granted access to by the pre-authenticated request. Avoid entering confidential
-    # information. The object name can be null and if so, the pre-authenticated request grants access to the entire bucket.
+    # information. The object name can be null and if so, the pre-authenticated request grants access to the entire bucket
+    # if the access type allows that. The object name can be a prefix as well, in that case pre-authenticated request
+    # grants access to all the objects within the bucket starting with that prefix provided that we have the correct access type.
     #
     # @return [String]
     attr_accessor :object_name
@@ -39,6 +52,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
+        'bucket_listing_action': :'bucketListingAction',
         'object_name': :'objectName',
         'access_type': :'accessType',
         'time_expires': :'timeExpires'
@@ -51,6 +65,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
+        'bucket_listing_action': :'String',
         'object_name': :'String',
         'access_type': :'String',
         'time_expires': :'DateTime'
@@ -65,6 +80,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :name The value to assign to the {#name} property
+    # @option attributes [String] :bucket_listing_action The value to assign to the {#bucket_listing_action} property
     # @option attributes [String] :object_name The value to assign to the {#object_name} property
     # @option attributes [String] :access_type The value to assign to the {#access_type} property
     # @option attributes [DateTime] :time_expires The value to assign to the {#time_expires} property
@@ -75,6 +91,14 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.name = attributes[:'name'] if attributes[:'name']
+
+      self.bucket_listing_action = attributes[:'bucketListingAction'] if attributes[:'bucketListingAction']
+      self.bucket_listing_action = "Deny" if bucket_listing_action.nil? && !attributes.key?(:'bucketListingAction') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :bucketListingAction and :bucket_listing_action' if attributes.key?(:'bucketListingAction') && attributes.key?(:'bucket_listing_action')
+
+      self.bucket_listing_action = attributes[:'bucket_listing_action'] if attributes[:'bucket_listing_action']
+      self.bucket_listing_action = "Deny" if bucket_listing_action.nil? && !attributes.key?(:'bucketListingAction') && !attributes.key?(:'bucket_listing_action') # rubocop:disable Style/StringLiterals
 
       self.object_name = attributes[:'objectName'] if attributes[:'objectName']
 
@@ -115,6 +139,7 @@ module OCI
 
       self.class == other.class &&
         name == other.name &&
+        bucket_listing_action == other.bucket_listing_action &&
         object_name == other.object_name &&
         access_type == other.access_type &&
         time_expires == other.time_expires
@@ -133,7 +158,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, object_name, access_type, time_expires].hash
+      [name, bucket_listing_action, object_name, access_type, time_expires].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

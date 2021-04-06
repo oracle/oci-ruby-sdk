@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -22,6 +22,11 @@ module OCI
 
     # @return [OCI::ApplicationMigration::Models::DiscoveryDetails]
     attr_accessor :discovery_details
+
+    # If set to `true`, Application Migration migrates the application resources selectively depending on the source.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_selective_migration
 
     # Configuration required to migrate the application. In addition to the key and value, additional fields are provided
     # to describe type type and purpose of each field. Only the value for each key is required when passing configuration to the
@@ -56,6 +61,7 @@ module OCI
         'display_name': :'displayName',
         'description': :'description',
         'discovery_details': :'discoveryDetails',
+        'is_selective_migration': :'isSelectiveMigration',
         'service_config': :'serviceConfig',
         'application_config': :'applicationConfig',
         'freeform_tags': :'freeformTags',
@@ -71,6 +77,7 @@ module OCI
         'display_name': :'String',
         'description': :'String',
         'discovery_details': :'OCI::ApplicationMigration::Models::DiscoveryDetails',
+        'is_selective_migration': :'BOOLEAN',
         'service_config': :'Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>',
         'application_config': :'Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>',
         'freeform_tags': :'Hash<String, String>',
@@ -88,6 +95,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [OCI::ApplicationMigration::Models::DiscoveryDetails] :discovery_details The value to assign to the {#discovery_details} property
+    # @option attributes [BOOLEAN] :is_selective_migration The value to assign to the {#is_selective_migration} property
     # @option attributes [Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>] :service_config The value to assign to the {#service_config} property
     # @option attributes [Hash<String, OCI::ApplicationMigration::Models::ConfigurationField>] :application_config The value to assign to the {#application_config} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -111,6 +119,12 @@ module OCI
       raise 'You cannot provide both :discoveryDetails and :discovery_details' if attributes.key?(:'discoveryDetails') && attributes.key?(:'discovery_details')
 
       self.discovery_details = attributes[:'discovery_details'] if attributes[:'discovery_details']
+
+      self.is_selective_migration = attributes[:'isSelectiveMigration'] unless attributes[:'isSelectiveMigration'].nil?
+
+      raise 'You cannot provide both :isSelectiveMigration and :is_selective_migration' if attributes.key?(:'isSelectiveMigration') && attributes.key?(:'is_selective_migration')
+
+      self.is_selective_migration = attributes[:'is_selective_migration'] unless attributes[:'is_selective_migration'].nil?
 
       self.service_config = attributes[:'serviceConfig'] if attributes[:'serviceConfig']
 
@@ -151,6 +165,7 @@ module OCI
         display_name == other.display_name &&
         description == other.description &&
         discovery_details == other.discovery_details &&
+        is_selective_migration == other.is_selective_migration &&
         service_config == other.service_config &&
         application_config == other.application_config &&
         freeform_tags == other.freeform_tags &&
@@ -170,7 +185,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, discovery_details, service_config, application_config, freeform_tags, defined_tags].hash
+      [display_name, description, discovery_details, is_selective_migration, service_config, application_config, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

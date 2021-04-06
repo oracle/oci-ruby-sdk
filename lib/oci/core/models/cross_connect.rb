@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -9,7 +9,7 @@ module OCI
   # For use with Oracle Cloud Infrastructure FastConnect. A cross-connect represents a
   # physical connection between an existing network and Oracle. Customers who are colocated
   # with Oracle in a FastConnect location create and use cross-connects. For more
-  # information, see [FastConnect Overview](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm).
+  # information, see [FastConnect Overview](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/fastconnect.htm).
   #
   # Oracle recommends you create each cross-connect in a
   # {CrossConnectGroup} so you can use link aggregation
@@ -21,10 +21,7 @@ module OCI
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
-  # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
-  #
-  # **Warning:** Oracle recommends that you avoid using any confidential information when you
-  # supply string values using the API.
+  # [Getting Started with Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
   #
   class Core::Models::CrossConnect
     LIFECYCLE_STATE_ENUM = [
@@ -42,11 +39,12 @@ module OCI
     attr_accessor :compartment_id
 
     # The OCID of the cross-connect group this cross-connect belongs to (if any).
+    #
     # @return [String]
     attr_accessor :cross_connect_group_id
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -60,7 +58,7 @@ module OCI
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -76,6 +74,7 @@ module OCI
     attr_reader :lifecycle_state
 
     # The name of the FastConnect location where this cross-connect is installed.
+    #
     # @return [String]
     attr_accessor :location_name
 

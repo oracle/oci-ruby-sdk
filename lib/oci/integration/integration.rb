@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -12,13 +12,18 @@ end
 
 # Require models
 require 'oci/integration/models/change_integration_instance_compartment_details'
+require 'oci/integration/models/change_integration_instance_network_endpoint_details'
 require 'oci/integration/models/create_custom_endpoint_details'
 require 'oci/integration/models/create_integration_instance_details'
 require 'oci/integration/models/custom_endpoint_details'
 require 'oci/integration/models/integration_instance'
 require 'oci/integration/models/integration_instance_summary'
+require 'oci/integration/models/network_endpoint_details'
+require 'oci/integration/models/network_endpoint_type'
+require 'oci/integration/models/public_endpoint_details'
 require 'oci/integration/models/update_custom_endpoint_details'
 require 'oci/integration/models/update_integration_instance_details'
+require 'oci/integration/models/virtual_cloud_network'
 require 'oci/integration/models/work_request'
 require 'oci/integration/models/work_request_error'
 require 'oci/integration/models/work_request_log_entry'

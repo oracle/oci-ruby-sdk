@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -98,6 +98,75 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Changes the compartment of the Publication
+    # @param [String] publication_id The unique identifier for the listing.
+    # @param [OCI::Marketplace::Models::ChangePublicationCompartmentDetails] change_publication_compartment_details Request to change the compartment of a given Publication.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without
+    #   risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been deleted and purged from the system,
+    #   then a retry of the original creation request might be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to
+    #   the value of the etag from a previous GET or POST response for that resource.  The resource will be updated or
+    #   deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/change_publication_compartment.rb.html) to see an example of how to use change_publication_compartment API.
+    def change_publication_compartment(publication_id, change_publication_compartment_details, opts = {})
+      logger.debug 'Calling operation MarketplaceClient#change_publication_compartment.' if logger
+
+      raise "Missing the required parameter 'publication_id' when calling change_publication_compartment." if publication_id.nil?
+      raise "Missing the required parameter 'change_publication_compartment_details' when calling change_publication_compartment." if change_publication_compartment_details.nil?
+      raise "Parameter value for 'publication_id' must not be blank" if OCI::Internal::Util.blank_string?(publication_id)
+
+      path = '/publications/{publicationId}/actions/changeCompartment'.sub('{publicationId}', publication_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_publication_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#change_publication_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Accepts a terms of use agreement for a specific package version of a listing. You must accept all
     # terms of use for a package before you can deploy the package.
     #
@@ -162,6 +231,68 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a publication of the given type with an optional default package
+    # @param [OCI::Marketplace::Models::CreatePublicationDetails] create_publication_details Details of Publication to be created including optional default package.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without
+    #   risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been deleted and purged from the system,
+    #   then a retry of the original creation request might be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Marketplace::Models::Publication Publication}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/create_publication.rb.html) to see an example of how to use create_publication API.
+    def create_publication(create_publication_details, opts = {})
+      logger.debug 'Calling operation MarketplaceClient#create_publication.' if logger
+
+      raise "Missing the required parameter 'create_publication_details' when calling create_publication." if create_publication_details.nil?
+
+      path = '/publications'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_publication_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#create_publication') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Marketplace::Models::Publication'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Removes a previously accepted terms of use agreement from the list of agreements that Marketplace checks
     # before initiating a deployment. Listings in the Marketplace that require acceptance of the specified terms
     # of use can no longer be deployed, but existing deployments aren't affected.
@@ -206,6 +337,66 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#delete_accepted_agreement') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a Publication. This will also remove the associated Listing from Marketplace.
+    # @param [String] publication_id The unique identifier for the listing.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to
+    #   the value of the etag from a previous GET or POST response for that resource.  The resource will be updated or
+    #   deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/delete_publication.rb.html) to see an example of how to use delete_publication API.
+    def delete_publication(publication_id, opts = {})
+      logger.debug 'Calling operation MarketplaceClient#delete_publication.' if logger
+
+      raise "Missing the required parameter 'publication_id' when calling delete_publication." if publication_id.nil?
+      raise "Parameter value for 'publication_id' must not be blank" if OCI::Internal::Util.blank_string?(publication_id)
+
+      path = '/publications/{publicationId}'.sub('{publicationId}', publication_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#delete_publication') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -498,6 +689,121 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Get details of a publication
+    # @param [String] publication_id The unique identifier for the listing.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Marketplace::Models::Publication Publication}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/get_publication.rb.html) to see an example of how to use get_publication API.
+    def get_publication(publication_id, opts = {})
+      logger.debug 'Calling operation MarketplaceClient#get_publication.' if logger
+
+      raise "Missing the required parameter 'publication_id' when calling get_publication." if publication_id.nil?
+      raise "Parameter value for 'publication_id' must not be blank" if OCI::Internal::Util.blank_string?(publication_id)
+
+      path = '/publications/{publicationId}'.sub('{publicationId}', publication_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#get_publication') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Marketplace::Models::Publication'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the details of a specific package within a given Publication
+    # @param [String] publication_id The unique identifier for the listing.
+    # @param [String] package_version The version of the package. Package versions are unique within a listing.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Marketplace::Models::PublicationPackage PublicationPackage}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/get_publication_package.rb.html) to see an example of how to use get_publication_package API.
+    def get_publication_package(publication_id, package_version, opts = {})
+      logger.debug 'Calling operation MarketplaceClient#get_publication_package.' if logger
+
+      raise "Missing the required parameter 'publication_id' when calling get_publication_package." if publication_id.nil?
+      raise "Missing the required parameter 'package_version' when calling get_publication_package." if package_version.nil?
+      raise "Parameter value for 'publication_id' must not be blank" if OCI::Internal::Util.blank_string?(publication_id)
+      raise "Parameter value for 'package_version' must not be blank" if OCI::Internal::Util.blank_string?(package_version)
+
+      path = '/publications/{publicationId}/packages/{packageVersion}'.sub('{publicationId}', publication_id.to_s).sub('{packageVersion}', package_version.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#get_publication_package') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Marketplace::Models::PublicationPackage'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the terms of use agreements that have been accepted in the specified compartment.
     # You can filter results by specifying query parameters.
     #
@@ -761,6 +1067,9 @@ module OCI
     #   Allowed values are: FREE, BYOL, PAYGO
     # @option opts [BOOLEAN] :is_featured Indicates whether to show only featured listings. If this is set to `false` or is omitted, then all listings will be returned.
     #    (default to false)
+    # @option opts [Array<String>] :listing_types The type of the listing
+    #   Allowed values are: COMMUNITY, PARTNER, PRIVATE
+    # @option opts [Array<String>] :operating_systems OS of the listing.
     # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::ListingSummary ListingSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/list_listings.rb.html) to see an example of how to use list_listings API.
@@ -786,6 +1095,16 @@ module OCI
         end
       end
 
+
+      listing_types_allowable_values = %w[COMMUNITY PARTNER PRIVATE]
+      if opts[:listing_types] && !opts[:listing_types].empty?
+        opts[:listing_types].each do |val_to_check|
+          unless listing_types_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "listing_types", must be one of COMMUNITY, PARTNER, PRIVATE.'
+          end
+        end
+      end
+
       path = '/listings'
       operation_signing_strategy = :standard
 
@@ -803,6 +1122,8 @@ module OCI
       query_params[:category] = OCI::ApiClient.build_collection_params(opts[:category], :multi) if opts[:category] && !opts[:category].empty?
       query_params[:pricing] = OCI::ApiClient.build_collection_params(opts[:pricing], :multi) if opts[:pricing] && !opts[:pricing].empty?
       query_params[:isFeatured] = opts[:is_featured] if !opts[:is_featured].nil?
+      query_params[:listingTypes] = OCI::ApiClient.build_collection_params(opts[:listing_types], :multi) if opts[:listing_types] && !opts[:listing_types].empty?
+      query_params[:operatingSystems] = OCI::ApiClient.build_collection_params(opts[:operating_systems], :multi) if opts[:operating_systems] && !opts[:operating_systems].empty?
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
 
       # Header Params
@@ -924,6 +1245,180 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Marketplace::Models::ListingPackageSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the packages in the given Publication
+    # @param [String] publication_id The unique identifier for the listing.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :package_version The version of the package. Package versions are unique within a listing.
+    # @option opts [String] :package_type A filter to return only packages that match the given package type exactly.
+    #
+    # @option opts [String] :sort_by The field to use to sort listed results. You can only specify one field to sort by.
+    #   `TIMERELEASED` displays results in descending order by default.
+    #   You can change your preference by specifying a different sort order.
+    #    (default to TIMERELEASED)
+    #   Allowed values are: TIMERELEASED
+    # @option opts [String] :sort_order The sort order to use, either `ASC` or `DESC`. (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [Integer] :limit How many records to return. Specify a value greater than zero and less than or equal to 1000. The default is 30.
+    #    (default to 30)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::PublicationPackageSummary PublicationPackageSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/list_publication_packages.rb.html) to see an example of how to use list_publication_packages API.
+    def list_publication_packages(publication_id, opts = {})
+      logger.debug 'Calling operation MarketplaceClient#list_publication_packages.' if logger
+
+      raise "Missing the required parameter 'publication_id' when calling list_publication_packages." if publication_id.nil?
+
+      if opts[:sort_by] && !%w[TIMERELEASED].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMERELEASED.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'publication_id' must not be blank" if OCI::Internal::Util.blank_string?(publication_id)
+
+      path = '/publications/{publicationId}/packages'.sub('{publicationId}', publication_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:packageVersion] = opts[:package_version] if opts[:package_version]
+      query_params[:packageType] = opts[:package_type] if opts[:package_type]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#list_publication_packages') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Marketplace::Models::PublicationPackageSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the publications in the given compartment
+    # @param [String] compartment_id The unique identifier for the compartment.
+    # @param [String] listing_type The type of the listing
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Array<String>] :name The name of the listing.
+    # @option opts [String] :publication_id The unique identifier for the listing.
+    # @option opts [Array<String>] :operating_systems OS of the listing.
+    # @option opts [String] :sort_by The field to use to sort listed results. You can only specify one field to sort by.
+    #   `TIMERELEASED` displays results in descending order by default.
+    #   You can change your preference by specifying a different sort order.
+    #    (default to TIMERELEASED)
+    #   Allowed values are: TIMERELEASED
+    # @option opts [String] :sort_order The sort order to use, either `ASC` or `DESC`. (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [Integer] :limit How many records to return. Specify a value greater than zero and less than or equal to 1000. The default is 30.
+    #    (default to 30)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::PublicationSummary PublicationSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/list_publications.rb.html) to see an example of how to use list_publications API.
+    def list_publications(compartment_id, listing_type, opts = {})
+      logger.debug 'Calling operation MarketplaceClient#list_publications.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_publications." if compartment_id.nil?
+      raise "Missing the required parameter 'listing_type' when calling list_publications." if listing_type.nil?
+      unless OCI::Marketplace::Models::LISTING_TYPE_ENUM.include?(listing_type)
+        raise 'Invalid value for "listing_type", must be one of the values in OCI::Marketplace::Models::LISTING_TYPE_ENUM.'
+      end
+
+
+      if opts[:sort_by] && !%w[TIMERELEASED].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMERELEASED.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      path = '/publications'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:listingType] = listing_type
+      query_params[:name] = OCI::ApiClient.build_collection_params(opts[:name], :multi) if opts[:name] && !opts[:name].empty?
+      query_params[:publicationId] = opts[:publication_id] if opts[:publication_id]
+      query_params[:operatingSystems] = OCI::ApiClient.build_collection_params(opts[:operating_systems], :multi) if opts[:operating_systems] && !opts[:operating_systems].empty?
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#list_publications') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Marketplace::Models::PublicationSummary>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1238,6 +1733,76 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Marketplace::Models::AcceptedAgreement'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates details of an existing Publication
+    # @param [String] publication_id The unique identifier for the listing.
+    # @param [OCI::Marketplace::Models::UpdatePublicationDetails] update_publication_details Details of the Publication which needs to be updated
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without
+    #   risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been deleted and purged from the system,
+    #   then a retry of the original creation request might be rejected).
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to
+    #   the value of the etag from a previous GET or POST response for that resource.  The resource will be updated or
+    #   deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Marketplace::Models::Publication Publication}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/update_publication.rb.html) to see an example of how to use update_publication API.
+    def update_publication(publication_id, update_publication_details, opts = {})
+      logger.debug 'Calling operation MarketplaceClient#update_publication.' if logger
+
+      raise "Missing the required parameter 'publication_id' when calling update_publication." if publication_id.nil?
+      raise "Missing the required parameter 'update_publication_details' when calling update_publication." if update_publication_details.nil?
+      raise "Parameter value for 'publication_id' must not be blank" if OCI::Internal::Util.blank_string?(publication_id)
+
+      path = '/publications/{publicationId}'.sub('{publicationId}', publication_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(update_publication_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#update_publication') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Marketplace::Models::Publication'
         )
       end
       # rubocop:enable Metrics/BlockLength

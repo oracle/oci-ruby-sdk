@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -61,6 +61,12 @@ module OCI
     # @return [OCI::Optimizer::Models::LevelsConfiguration]
     attr_accessor :levels_configuration
 
+    # @return [OCI::Optimizer::Models::TargetCompartments]
+    attr_accessor :target_compartments
+
+    # @return [OCI::Optimizer::Models::TargetTags]
+    attr_accessor :target_tags
+
     # **[Required]** The date and time the profile was created, in the format defined by RFC3339.
     # @return [DateTime]
     attr_accessor :time_created
@@ -81,6 +87,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'lifecycle_state': :'lifecycleState',
         'levels_configuration': :'levelsConfiguration',
+        'target_compartments': :'targetCompartments',
+        'target_tags': :'targetTags',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated'
         # rubocop:enable Style/SymbolLiteral
@@ -99,6 +107,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'lifecycle_state': :'String',
         'levels_configuration': :'OCI::Optimizer::Models::LevelsConfiguration',
+        'target_compartments': :'OCI::Optimizer::Models::TargetCompartments',
+        'target_tags': :'OCI::Optimizer::Models::TargetTags',
         'time_created': :'DateTime',
         'time_updated': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
@@ -119,6 +129,8 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [OCI::Optimizer::Models::LevelsConfiguration] :levels_configuration The value to assign to the {#levels_configuration} property
+    # @option attributes [OCI::Optimizer::Models::TargetCompartments] :target_compartments The value to assign to the {#target_compartments} property
+    # @option attributes [OCI::Optimizer::Models::TargetTags] :target_tags The value to assign to the {#target_tags} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     def initialize(attributes = {})
@@ -162,6 +174,18 @@ module OCI
       raise 'You cannot provide both :levelsConfiguration and :levels_configuration' if attributes.key?(:'levelsConfiguration') && attributes.key?(:'levels_configuration')
 
       self.levels_configuration = attributes[:'levels_configuration'] if attributes[:'levels_configuration']
+
+      self.target_compartments = attributes[:'targetCompartments'] if attributes[:'targetCompartments']
+
+      raise 'You cannot provide both :targetCompartments and :target_compartments' if attributes.key?(:'targetCompartments') && attributes.key?(:'target_compartments')
+
+      self.target_compartments = attributes[:'target_compartments'] if attributes[:'target_compartments']
+
+      self.target_tags = attributes[:'targetTags'] if attributes[:'targetTags']
+
+      raise 'You cannot provide both :targetTags and :target_tags' if attributes.key?(:'targetTags') && attributes.key?(:'target_tags')
+
+      self.target_tags = attributes[:'target_tags'] if attributes[:'target_tags']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -208,6 +232,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         lifecycle_state == other.lifecycle_state &&
         levels_configuration == other.levels_configuration &&
+        target_compartments == other.target_compartments &&
+        target_tags == other.target_tags &&
         time_created == other.time_created &&
         time_updated == other.time_updated
     end
@@ -225,7 +251,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, defined_tags, freeform_tags, lifecycle_state, levels_configuration, time_created, time_updated].hash
+      [id, compartment_id, name, description, defined_tags, freeform_tags, lifecycle_state, levels_configuration, target_compartments, target_tags, time_created, time_updated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

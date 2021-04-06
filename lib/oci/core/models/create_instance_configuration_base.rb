@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -21,21 +21,21 @@ module OCI
     attr_accessor :compartment_id
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name for the instance configuration.  Does not have to be unique,
+    # A user-friendly name for the instance configuration. Does not have to be unique,
     # and it's changeable. Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -47,12 +47,28 @@ module OCI
     # such as the base image, shape, and metadata. You can also specify the associated resources for the
     # instance, such as block volume attachments and network configuration.
     #
+    # When you create an instance configuration using an existing instance as a template, the instance
+    # configuration does not include any information from the source instance's boot volume, such as installed
+    # applications, binaries, and files on the instance. It also does not include the contents of
+    # any block volumes that are attached to the instance.
+    #
+    # To create an instance configuration that includes the custom setup from an instance's boot volume, you
+    # must first create a custom image from the instance (see {#create_image create_image}).
+    # Then, use the custom image to launch a new instance
+    # (see {#launch_instance launch_instance}). Finally, create the instance
+    # configuration based on the instance that you created from the custom image.
+    #
+    # To include block volume contents with an instance configuration, first create a backup of the attached block volumes
+    # (see {#create_volume_backup create_volume_backup}). Then, create the instance
+    # configuration by specifying the list of settings, using
+    # {#instance_configuration_volume_source_from_volume_backup_details instance_configuration_volume_source_from_volume_backup_details}
+    # to include the block volume backups in the list of settings.
+    #
     # The following values are supported:
     #
     # * `NONE`: Creates an instance configuration using the list of settings that you specify.
     #
-    # * `INSTANCE`: Creates an instance configuration using an existing instance as a template. The
-    # instance configuration uses the same settings as the instance.
+    # * `INSTANCE`: Creates an instance configuration using an existing instance as a template.
     #
     # @return [String]
     attr_reader :source

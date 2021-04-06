@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Use this API to manage the Oracle Cloud VMware Solution.
+  # Use this API to manage your [Oracle Cloud VMware Solution](/iaas/Content/VMware/Concepts/ocvsoverview.htm).
   class Ocvp::SddcClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -174,10 +174,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a software-defined data center (SDDC).
+    # Creates an Oracle Cloud VMware Solution software-defined data center (SDDC).
     #
     # Use the {WorkRequest} operations to track the
     # creation of the SDDC.
+    #
+    # **Important:** You must configure the SDDC's networking resources with the security rules detailed in [Security Rules for Oracle Cloud VMware Solution SDDCs](https://docs.cloud.oracle.com/iaas/Content/VMware/Reference/ocvssecurityrules.htm). Otherwise, provisioning the SDDC will fail. The rules are based on the requirements set by VMware.
     #
     # @param [OCI::Ocvp::Models::CreateSddcDetails] create_sddc_details Details for the SDDC.
     # @param [Hash] opts the optional parameters

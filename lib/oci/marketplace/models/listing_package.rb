@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -46,6 +46,9 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # @return [OCI::Marketplace::Models::OperatingSystem]
+    attr_accessor :operating_system
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -56,7 +59,8 @@ module OCI
         'package_type': :'packageType',
         'pricing': :'pricing',
         'resource_id': :'resourceId',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'operating_system': :'operatingSystem'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -71,7 +75,8 @@ module OCI
         'package_type': :'String',
         'pricing': :'OCI::Marketplace::Models::PricingModel',
         'resource_id': :'String',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'operating_system': :'OCI::Marketplace::Models::OperatingSystem'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -105,6 +110,7 @@ module OCI
     # @option attributes [OCI::Marketplace::Models::PricingModel] :pricing The value to assign to the {#pricing} property
     # @option attributes [String] :resource_id The value to assign to the {#resource_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [OCI::Marketplace::Models::OperatingSystem] :operating_system The value to assign to the {#operating_system} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -140,6 +146,12 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.operating_system = attributes[:'operatingSystem'] if attributes[:'operatingSystem']
+
+      raise 'You cannot provide both :operatingSystem and :operating_system' if attributes.key?(:'operatingSystem') && attributes.key?(:'operating_system')
+
+      self.operating_system = attributes[:'operating_system'] if attributes[:'operating_system']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -172,7 +184,8 @@ module OCI
         package_type == other.package_type &&
         pricing == other.pricing &&
         resource_id == other.resource_id &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        operating_system == other.operating_system
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -188,7 +201,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [description, listing_id, version, package_type, pricing, resource_id, time_created].hash
+      [description, listing_id, version, package_type, pricing, resource_id, time_created, operating_system].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

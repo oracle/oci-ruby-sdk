@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -19,7 +19,7 @@ module OCI
       TYPE_PROBLEM = 'PROBLEM'.freeze
     ].freeze
 
-    # alias list
+    # The alias list.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsLabelAlias>]
     attr_accessor :aliases
 
@@ -27,39 +27,41 @@ module OCI
     # @return [Integer]
     attr_accessor :suggest_type
 
-    # description
+    # The label description.
     # @return [String]
     attr_accessor :description
 
-    # display name
+    # The label display name.
     # @return [String]
     attr_accessor :display_name
 
-    # edit version
+    # The edit version.
     # @return [Integer]
     attr_accessor :edit_version
 
-    # impact
+    # The label impact.
     # @return [String]
     attr_accessor :impact
 
-    # is system flag
+    # The system flag.  A value of false denotes a custom, or user
+    # defined label.  A value of true denotes a built in label.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_system
 
-    # label identifier
+    # The label name.
     # @return [String]
     attr_accessor :name
 
-    # Valid values are (NONE, LOW, HIGH). NONE is default.
+    # The label priority. Valid values are (NONE, LOW, HIGH). NONE is default.
     # @return [String]
     attr_reader :priority
 
-    # tag recommendation
+    # The label recommendation.
     # @return [String]
     attr_accessor :recommendation
 
-    # Valid values are (INFO, PROBLEM). INFO is default.
+    # The label type. Valid values are (INFO, PROBLEM). INFO is default.
     # @return [String]
     attr_reader :type
 

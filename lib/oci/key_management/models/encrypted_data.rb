@@ -1,21 +1,50 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # EncryptedData model.
   class KeyManagement::Models::EncryptedData
+    ENCRYPTION_ALGORITHM_ENUM = [
+      ENCRYPTION_ALGORITHM_AES_256_GCM = 'AES_256_GCM'.freeze,
+      ENCRYPTION_ALGORITHM_RSA_OAEP_SHA_1 = 'RSA_OAEP_SHA_1'.freeze,
+      ENCRYPTION_ALGORITHM_RSA_OAEP_SHA_256 = 'RSA_OAEP_SHA_256'.freeze,
+      ENCRYPTION_ALGORITHM_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The encrypted data.
     # @return [String]
     attr_accessor :ciphertext
+
+    # The OCID of the key used to encrypt the ciphertext.
+    # @return [String]
+    attr_accessor :key_id
+
+    # The OCID of the key version used to encrypt the ciphertext.
+    # @return [String]
+    attr_accessor :key_version_id
+
+    # The encryption algorithm to use to encrypt and decrypt data with a customer-managed key.
+    # `AES_256_GCM` indicates that the key is a symmetric key that uses the Advanced Encryption Standard (AES) algorithm and
+    # that the mode of encryption is the Galois/Counter Mode (GCM). `RSA_OAEP_SHA_1` indicates that the
+    # key is an asymmetric key that uses the RSA encryption algorithm and uses Optimal Asymmetric Encryption Padding (OAEP).
+    # `RSA_OAEP_SHA_256` indicates that the key is an asymmetric key that uses the RSA encryption algorithm with a SHA-256 hash
+    # and uses OAEP.
+    #
+    # @return [String]
+    attr_reader :encryption_algorithm
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'ciphertext': :'ciphertext'
+        'ciphertext': :'ciphertext',
+        'key_id': :'keyId',
+        'key_version_id': :'keyVersionId',
+        'encryption_algorithm': :'encryptionAlgorithm'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -24,7 +53,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'ciphertext': :'String'
+        'ciphertext': :'String',
+        'key_id': :'String',
+        'key_version_id': :'String',
+        'encryption_algorithm': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,6 +68,9 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :ciphertext The value to assign to the {#ciphertext} property
+    # @option attributes [String] :key_id The value to assign to the {#key_id} property
+    # @option attributes [String] :key_version_id The value to assign to the {#key_version_id} property
+    # @option attributes [String] :encryption_algorithm The value to assign to the {#encryption_algorithm} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -43,9 +78,42 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.ciphertext = attributes[:'ciphertext'] if attributes[:'ciphertext']
+
+      self.key_id = attributes[:'keyId'] if attributes[:'keyId']
+
+      raise 'You cannot provide both :keyId and :key_id' if attributes.key?(:'keyId') && attributes.key?(:'key_id')
+
+      self.key_id = attributes[:'key_id'] if attributes[:'key_id']
+
+      self.key_version_id = attributes[:'keyVersionId'] if attributes[:'keyVersionId']
+
+      raise 'You cannot provide both :keyVersionId and :key_version_id' if attributes.key?(:'keyVersionId') && attributes.key?(:'key_version_id')
+
+      self.key_version_id = attributes[:'key_version_id'] if attributes[:'key_version_id']
+
+      self.encryption_algorithm = attributes[:'encryptionAlgorithm'] if attributes[:'encryptionAlgorithm']
+      self.encryption_algorithm = "AES_256_GCM" if encryption_algorithm.nil? && !attributes.key?(:'encryptionAlgorithm') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :encryptionAlgorithm and :encryption_algorithm' if attributes.key?(:'encryptionAlgorithm') && attributes.key?(:'encryption_algorithm')
+
+      self.encryption_algorithm = attributes[:'encryption_algorithm'] if attributes[:'encryption_algorithm']
+      self.encryption_algorithm = "AES_256_GCM" if encryption_algorithm.nil? && !attributes.key?(:'encryptionAlgorithm') && !attributes.key?(:'encryption_algorithm') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] encryption_algorithm Object to be assigned
+    def encryption_algorithm=(encryption_algorithm)
+      # rubocop:disable Style/ConditionalAssignment
+      if encryption_algorithm && !ENCRYPTION_ALGORITHM_ENUM.include?(encryption_algorithm)
+        OCI.logger.debug("Unknown value for 'encryption_algorithm' [" + encryption_algorithm + "]. Mapping to 'ENCRYPTION_ALGORITHM_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @encryption_algorithm = ENCRYPTION_ALGORITHM_UNKNOWN_ENUM_VALUE
+      else
+        @encryption_algorithm = encryption_algorithm
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -56,7 +124,10 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        ciphertext == other.ciphertext
+        ciphertext == other.ciphertext &&
+        key_id == other.key_id &&
+        key_version_id == other.key_version_id &&
+        encryption_algorithm == other.encryption_algorithm
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -72,7 +143,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [ciphertext].hash
+      [ciphertext, key_id, key_version_id, encryption_algorithm].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

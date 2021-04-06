@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -31,6 +31,10 @@ module OCI
     # @return [String]
     attr_accessor :install_time
 
+    # date the package was issued by a providing erratum (if available)
+    # @return [String]
+    attr_accessor :issued
+
     # list of software sources that provide the software package
     # @return [Array<OCI::OsManagement::Models::SoftwareSourceId>]
     attr_accessor :software_sources
@@ -45,6 +49,7 @@ module OCI
         'version': :'version',
         'architecture': :'architecture',
         'install_time': :'installTime',
+        'issued': :'issued',
         'software_sources': :'softwareSources'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -60,6 +65,7 @@ module OCI
         'version': :'String',
         'architecture': :'String',
         'install_time': :'String',
+        'issued': :'String',
         'software_sources': :'Array<OCI::OsManagement::Models::SoftwareSourceId>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -77,6 +83,7 @@ module OCI
     # @option attributes [String] :version The value to assign to the {#version} property
     # @option attributes [String] :architecture The value to assign to the {#architecture} property
     # @option attributes [String] :install_time The value to assign to the {#install_time} property
+    # @option attributes [String] :issued The value to assign to the {#issued} property
     # @option attributes [Array<OCI::OsManagement::Models::SoftwareSourceId>] :software_sources The value to assign to the {#software_sources} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -104,6 +111,8 @@ module OCI
 
       self.install_time = attributes[:'install_time'] if attributes[:'install_time']
 
+      self.issued = attributes[:'issued'] if attributes[:'issued']
+
       self.software_sources = attributes[:'softwareSources'] if attributes[:'softwareSources']
 
       raise 'You cannot provide both :softwareSources and :software_sources' if attributes.key?(:'softwareSources') && attributes.key?(:'software_sources')
@@ -128,6 +137,7 @@ module OCI
         version == other.version &&
         architecture == other.architecture &&
         install_time == other.install_time &&
+        issued == other.issued &&
         software_sources == other.software_sources
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -144,7 +154,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, name, type, version, architecture, install_time, software_sources].hash
+      [display_name, name, type, version, architecture, install_time, issued, software_sources].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

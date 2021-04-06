@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,27 +7,27 @@ require 'date'
 module OCI
   # Summary of the Upload.
   class LogAnalytics::Models::UploadSummary
-    # **[Required]** Unique internal identifier to refer to the upload container
+    # **[Required]** Unique internal identifier to refer the upload container.
     # @return [String]
     attr_accessor :reference
 
-    # **[Required]** The name of the upload container
+    # **[Required]** The name of the upload container.
     # @return [String]
     attr_accessor :name
 
-    # **[Required]** The time when this upload container is created. An RFC3339 formatted datetime string
+    # **[Required]** The time when this upload container is created. An RFC3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The latest time when this upload container is modified. An RFC3339 formatted datetime string
+    # The latest time when this upload container is modified. An RFC3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_updated
 
-    # This time represents the earliest time of the log entry in this container. An RFC3339 formatted datetime string
+    # This time represents the earliest time of the log entry in this container. An RFC3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_earliest_log_entry
 
-    # This time represents the latest time of the log entry in this container. An RFC3339 formatted datetime string
+    # This time represents the latest time of the log entry in this container. An RFC3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_latest_log_entry
 

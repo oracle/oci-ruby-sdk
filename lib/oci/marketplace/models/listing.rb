@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -12,6 +12,13 @@ module OCI
       PACKAGE_TYPE_ORCHESTRATION = 'ORCHESTRATION'.freeze,
       PACKAGE_TYPE_IMAGE = 'IMAGE'.freeze,
       PACKAGE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    LISTING_TYPE_ENUM = [
+      LISTING_TYPE_COMMUNITY = 'COMMUNITY'.freeze,
+      LISTING_TYPE_PARTNER = 'PARTNER'.freeze,
+      LISTING_TYPE_PRIVATE = 'PRIVATE'.freeze,
+      LISTING_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # The unique identifier for the listing in Marketplace.
@@ -120,6 +127,14 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_featured
 
+    # In which catalog the listing should exist.
+    # @return [String]
+    attr_reader :listing_type
+
+    # List of operating systems supported.
+    # @return [Array<OCI::Marketplace::Models::OperatingSystem>]
+    attr_accessor :supported_operating_systems
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -150,7 +165,9 @@ module OCI
         'package_type': :'packageType',
         'default_package_version': :'defaultPackageVersion',
         'links': :'links',
-        'is_featured': :'isFeatured'
+        'is_featured': :'isFeatured',
+        'listing_type': :'listingType',
+        'supported_operating_systems': :'supportedOperatingSystems'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -185,7 +202,9 @@ module OCI
         'package_type': :'String',
         'default_package_version': :'String',
         'links': :'Array<OCI::Marketplace::Models::Link>',
-        'is_featured': :'BOOLEAN'
+        'is_featured': :'BOOLEAN',
+        'listing_type': :'String',
+        'supported_operating_systems': :'Array<OCI::Marketplace::Models::OperatingSystem>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -223,6 +242,8 @@ module OCI
     # @option attributes [String] :default_package_version The value to assign to the {#default_package_version} property
     # @option attributes [Array<OCI::Marketplace::Models::Link>] :links The value to assign to the {#links} property
     # @option attributes [BOOLEAN] :is_featured The value to assign to the {#is_featured} property
+    # @option attributes [String] :listing_type The value to assign to the {#listing_type} property
+    # @option attributes [Array<OCI::Marketplace::Models::OperatingSystem>] :supported_operating_systems The value to assign to the {#supported_operating_systems} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -334,6 +355,18 @@ module OCI
       raise 'You cannot provide both :isFeatured and :is_featured' if attributes.key?(:'isFeatured') && attributes.key?(:'is_featured')
 
       self.is_featured = attributes[:'is_featured'] unless attributes[:'is_featured'].nil?
+
+      self.listing_type = attributes[:'listingType'] if attributes[:'listingType']
+
+      raise 'You cannot provide both :listingType and :listing_type' if attributes.key?(:'listingType') && attributes.key?(:'listing_type')
+
+      self.listing_type = attributes[:'listing_type'] if attributes[:'listing_type']
+
+      self.supported_operating_systems = attributes[:'supportedOperatingSystems'] if attributes[:'supportedOperatingSystems']
+
+      raise 'You cannot provide both :supportedOperatingSystems and :supported_operating_systems' if attributes.key?(:'supportedOperatingSystems') && attributes.key?(:'supported_operating_systems')
+
+      self.supported_operating_systems = attributes[:'supported_operating_systems'] if attributes[:'supported_operating_systems']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -347,6 +380,19 @@ module OCI
         @package_type = PACKAGE_TYPE_UNKNOWN_ENUM_VALUE
       else
         @package_type = package_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] listing_type Object to be assigned
+    def listing_type=(listing_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if listing_type && !LISTING_TYPE_ENUM.include?(listing_type)
+        OCI.logger.debug("Unknown value for 'listing_type' [" + listing_type + "]. Mapping to 'LISTING_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @listing_type = LISTING_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @listing_type = listing_type
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -386,7 +432,9 @@ module OCI
         package_type == other.package_type &&
         default_package_version == other.default_package_version &&
         links == other.links &&
-        is_featured == other.is_featured
+        is_featured == other.is_featured &&
+        listing_type == other.listing_type &&
+        supported_operating_systems == other.supported_operating_systems
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -402,7 +450,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, version, tagline, keywords, short_description, usage_information, long_description, license_model_description, system_requirements, time_released, release_notes, categories, publisher, languages, screenshots, videos, support_contacts, support_links, documentation_links, icon, banner, regions, package_type, default_package_version, links, is_featured].hash
+      [id, name, version, tagline, keywords, short_description, usage_information, long_description, license_model_description, system_requirements, time_released, release_notes, categories, publisher, languages, screenshots, videos, support_contacts, support_links, documentation_links, icon, banner, regions, package_type, default_package_version, links, is_featured, listing_type, supported_operating_systems].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

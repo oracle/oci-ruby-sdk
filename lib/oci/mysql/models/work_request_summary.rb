@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -23,6 +23,13 @@ module OCI
       OPERATION_TYPE_STOP_ANALYTICS_CLUSTER = 'STOP_ANALYTICS_CLUSTER'.freeze,
       OPERATION_TYPE_RESTART_ANALYTICS_CLUSTER = 'RESTART_ANALYTICS_CLUSTER'.freeze,
       OPERATION_TYPE_GENERATE_ANALYTICS_CLUSTER_MEMORY_ESTIMATE = 'GENERATE_ANALYTICS_CLUSTER_MEMORY_ESTIMATE'.freeze,
+      OPERATION_TYPE_ADD_HEATWAVE_CLUSTER = 'ADD_HEATWAVE_CLUSTER'.freeze,
+      OPERATION_TYPE_UPDATE_HEATWAVE_CLUSTER = 'UPDATE_HEATWAVE_CLUSTER'.freeze,
+      OPERATION_TYPE_DELETE_HEATWAVE_CLUSTER = 'DELETE_HEATWAVE_CLUSTER'.freeze,
+      OPERATION_TYPE_START_HEATWAVE_CLUSTER = 'START_HEATWAVE_CLUSTER'.freeze,
+      OPERATION_TYPE_STOP_HEATWAVE_CLUSTER = 'STOP_HEATWAVE_CLUSTER'.freeze,
+      OPERATION_TYPE_RESTART_HEATWAVE_CLUSTER = 'RESTART_HEATWAVE_CLUSTER'.freeze,
+      OPERATION_TYPE_GENERATE_HEATWAVE_CLUSTER_MEMORY_ESTIMATE = 'GENERATE_HEATWAVE_CLUSTER_MEMORY_ESTIMATE'.freeze,
       OPERATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 

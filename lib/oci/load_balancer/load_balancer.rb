@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -11,6 +11,7 @@ module OCI
 end
 
 # Require models
+require 'oci/load_balancer/models/action'
 require 'oci/load_balancer/models/add_http_request_header_rule'
 require 'oci/load_balancer/models/add_http_response_header_rule'
 require 'oci/load_balancer/models/allow_rule'
@@ -32,10 +33,12 @@ require 'oci/load_balancer/models/create_hostname_details'
 require 'oci/load_balancer/models/create_listener_details'
 require 'oci/load_balancer/models/create_load_balancer_details'
 require 'oci/load_balancer/models/create_path_route_set_details'
+require 'oci/load_balancer/models/create_routing_policy_details'
 require 'oci/load_balancer/models/create_rule_set_details'
 require 'oci/load_balancer/models/create_ssl_cipher_suite_details'
 require 'oci/load_balancer/models/extend_http_request_header_value_rule'
 require 'oci/load_balancer/models/extend_http_response_header_value_rule'
+require 'oci/load_balancer/models/forward_to_backend_set'
 require 'oci/load_balancer/models/health_check_result'
 require 'oci/load_balancer/models/health_checker'
 require 'oci/load_balancer/models/health_checker_details'
@@ -63,6 +66,9 @@ require 'oci/load_balancer/models/redirect_uri'
 require 'oci/load_balancer/models/remove_http_request_header_rule'
 require 'oci/load_balancer/models/remove_http_response_header_rule'
 require 'oci/load_balancer/models/reserved_ip'
+require 'oci/load_balancer/models/routing_policy'
+require 'oci/load_balancer/models/routing_policy_details'
+require 'oci/load_balancer/models/routing_rule'
 require 'oci/load_balancer/models/rule'
 require 'oci/load_balancer/models/rule_condition'
 require 'oci/load_balancer/models/rule_set'
@@ -85,6 +91,7 @@ require 'oci/load_balancer/models/update_load_balancer_details'
 require 'oci/load_balancer/models/update_load_balancer_shape_details'
 require 'oci/load_balancer/models/update_network_security_groups_details'
 require 'oci/load_balancer/models/update_path_route_set_details'
+require 'oci/load_balancer/models/update_routing_policy_details'
 require 'oci/load_balancer/models/update_rule_set_details'
 require 'oci/load_balancer/models/update_ssl_cipher_suite_details'
 require 'oci/load_balancer/models/work_request'

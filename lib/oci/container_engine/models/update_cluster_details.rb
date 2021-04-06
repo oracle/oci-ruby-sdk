@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -18,13 +18,21 @@ module OCI
     # @return [OCI::ContainerEngine::Models::UpdateClusterOptionsDetails]
     attr_accessor :options
 
+    # The image verification policy for signature validation. Once a policy is created and enabled with
+    # one or more kms keys, the policy will ensure all images deployed has been signed with the key(s)
+    # attached to the policy.
+    #
+    # @return [OCI::ContainerEngine::Models::UpdateImagePolicyConfigDetails]
+    attr_accessor :image_policy_config
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
         'kubernetes_version': :'kubernetesVersion',
-        'options': :'options'
+        'options': :'options',
+        'image_policy_config': :'imagePolicyConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -35,7 +43,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
         'kubernetes_version': :'String',
-        'options': :'OCI::ContainerEngine::Models::UpdateClusterOptionsDetails'
+        'options': :'OCI::ContainerEngine::Models::UpdateClusterOptionsDetails',
+        'image_policy_config': :'OCI::ContainerEngine::Models::UpdateImagePolicyConfigDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -49,6 +58,7 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :kubernetes_version The value to assign to the {#kubernetes_version} property
     # @option attributes [OCI::ContainerEngine::Models::UpdateClusterOptionsDetails] :options The value to assign to the {#options} property
+    # @option attributes [OCI::ContainerEngine::Models::UpdateImagePolicyConfigDetails] :image_policy_config The value to assign to the {#image_policy_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -64,6 +74,12 @@ module OCI
       self.kubernetes_version = attributes[:'kubernetes_version'] if attributes[:'kubernetes_version']
 
       self.options = attributes[:'options'] if attributes[:'options']
+
+      self.image_policy_config = attributes[:'imagePolicyConfig'] if attributes[:'imagePolicyConfig']
+
+      raise 'You cannot provide both :imagePolicyConfig and :image_policy_config' if attributes.key?(:'imagePolicyConfig') && attributes.key?(:'image_policy_config')
+
+      self.image_policy_config = attributes[:'image_policy_config'] if attributes[:'image_policy_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -79,7 +95,8 @@ module OCI
       self.class == other.class &&
         name == other.name &&
         kubernetes_version == other.kubernetes_version &&
-        options == other.options
+        options == other.options &&
+        image_policy_config == other.image_policy_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -95,7 +112,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, kubernetes_version, options].hash
+      [name, kubernetes_version, options, image_policy_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

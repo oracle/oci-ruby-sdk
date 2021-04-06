@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -16,63 +16,66 @@ module OCI
       PRIORITY_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # alias list
+    # An arrya of label aliases.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsLabelAlias>]
     attr_accessor :aliases
 
-    # alert rule usage count
+    # The label alert rule usage count.
     # @return [Integer]
     attr_accessor :count_usage_in_alert_rule
 
-    # source usage count
+    # The label source usage count.
     # @return [Integer]
     attr_accessor :count_usage_in_source
 
-    # id
+    # The label unique identifier.
     # @return [Object]
     attr_accessor :id
 
-    # suggest type
+    # The label suggestion type.
     # @return [Integer]
     attr_accessor :suggest_type
 
-    # label description
+    # The label description.
     # @return [String]
     attr_accessor :description
 
-    # label display name
+    # The label display name.
     # @return [String]
     attr_accessor :display_name
 
-    # tag edit version
+    # The label edit version.
     # @return [Integer]
     attr_accessor :edit_version
 
-    # label impact
+    # The label impact.
     # @return [String]
     attr_accessor :impact
 
-    # is system flag
+    # The system flag.  A value of false denotes a custom, or user
+    # defined object.  A value of true denotes a built in object.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_system
 
-    # label name
+    # The label name.
     # @return [String]
     attr_accessor :name
 
-    # priority
+    # The label priority.  Default value is NONE.
     # @return [String]
     attr_reader :priority
 
-    # recommendation
+    # The label recommendation.
     # @return [String]
     attr_accessor :recommendation
 
-    # type
+    # The label type.
     # @return [Integer]
     attr_accessor :type
 
-    # user deleted flag
+    # A flag indicating whether or not the label has been deleted.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_user_deleted
 

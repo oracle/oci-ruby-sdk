@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -16,13 +16,17 @@ module OCI
     # @return [String]
     attr_accessor :availability_domain
 
+    # The OCID of the compute capacity reservation this instance is launched under.
+    # You can opt out of all default reservations by specifying an empty string as input for this field.
+    # For more information, see [Capacity Reservations](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/reserve-capacity.htm#default).
+    #
+    # @return [String]
+    attr_accessor :capacity_reservation_id
+
     # **[Required]** The OCID of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # Details for the primary VNIC, which is automatically created and attached when
-    # the instance is launched.
-    #
     # @return [OCI::Core::Models::CreateVnicDetails]
     attr_accessor :create_vnic_details
 
@@ -32,7 +36,7 @@ module OCI
     attr_accessor :dedicated_vm_host_id
 
     # Defined tags for this resource. Each key is predefined and scoped to a
-    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
@@ -78,7 +82,7 @@ module OCI
     attr_accessor :fault_domain
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
-    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -119,24 +123,19 @@ module OCI
     #
     # For more information about the Bring Your Own Image feature of
     # Oracle Cloud Infrastructure, see
-    # [Bring Your Own Image](https://docs.cloud.oracle.com/Content/Compute/References/bringyourownimage.htm).
+    # [Bring Your Own Image](https://docs.cloud.oracle.com/iaas/Content/Compute/References/bringyourownimage.htm).
     #
     # For more information about iPXE, see http://ipxe.org.
     #
     # @return [String]
     attr_accessor :ipxe_script
 
-    # Options for tuning the compatibility and performance of VM shapes. The values that you specify override any
-    # default values.
-    #
     # @return [OCI::Core::Models::LaunchOptions]
     attr_accessor :launch_options
 
     # @return [OCI::Core::Models::InstanceOptions]
     attr_accessor :instance_options
 
-    # Options for defining the availability of a VM instance after a maintenance event that impacts the underlying hardware.
-    #
     # @return [OCI::Core::Models::LaunchInstanceAvailabilityConfigDetails]
     attr_accessor :availability_config
 
@@ -206,9 +205,6 @@ module OCI
     # @return [OCI::Core::Models::LaunchInstanceShapeConfigDetails]
     attr_accessor :shape_config
 
-    # Details for creating an instance.
-    # Use this parameter to specify whether a boot volume or an image should be used to launch a new instance.
-    #
     # @return [OCI::Core::Models::InstanceSourceDetails]
     attr_accessor :source_details
 
@@ -219,15 +215,19 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
-    # Whether to enable in-transit encryption for the data volume's paravirtualized attachment. The default value is false.
+    # Whether to enable in-transit encryption for the data volume's paravirtualized attachment. This field applies to both block volumes and boot volumes. The default value is false.
     # @return [BOOLEAN]
     attr_accessor :is_pv_encryption_in_transit_enabled
+
+    # @return [OCI::Core::Models::LaunchInstancePlatformConfig]
+    attr_accessor :platform_config
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'availabilityDomain',
+        'capacity_reservation_id': :'capacityReservationId',
         'compartment_id': :'compartmentId',
         'create_vnic_details': :'createVnicDetails',
         'dedicated_vm_host_id': :'dedicatedVmHostId',
@@ -248,7 +248,8 @@ module OCI
         'shape_config': :'shapeConfig',
         'source_details': :'sourceDetails',
         'subnet_id': :'subnetId',
-        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled'
+        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled',
+        'platform_config': :'platformConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -258,6 +259,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'String',
+        'capacity_reservation_id': :'String',
         'compartment_id': :'String',
         'create_vnic_details': :'OCI::Core::Models::CreateVnicDetails',
         'dedicated_vm_host_id': :'String',
@@ -278,7 +280,8 @@ module OCI
         'shape_config': :'OCI::Core::Models::LaunchInstanceShapeConfigDetails',
         'source_details': :'OCI::Core::Models::InstanceSourceDetails',
         'subnet_id': :'String',
-        'is_pv_encryption_in_transit_enabled': :'BOOLEAN'
+        'is_pv_encryption_in_transit_enabled': :'BOOLEAN',
+        'platform_config': :'OCI::Core::Models::LaunchInstancePlatformConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -290,6 +293,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
+    # @option attributes [String] :capacity_reservation_id The value to assign to the {#capacity_reservation_id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [OCI::Core::Models::CreateVnicDetails] :create_vnic_details The value to assign to the {#create_vnic_details} property
     # @option attributes [String] :dedicated_vm_host_id The value to assign to the {#dedicated_vm_host_id} property
@@ -311,6 +315,7 @@ module OCI
     # @option attributes [OCI::Core::Models::InstanceSourceDetails] :source_details The value to assign to the {#source_details} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [BOOLEAN] :is_pv_encryption_in_transit_enabled The value to assign to the {#is_pv_encryption_in_transit_enabled} property
+    # @option attributes [OCI::Core::Models::LaunchInstancePlatformConfig] :platform_config The value to assign to the {#platform_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -322,6 +327,12 @@ module OCI
       raise 'You cannot provide both :availabilityDomain and :availability_domain' if attributes.key?(:'availabilityDomain') && attributes.key?(:'availability_domain')
 
       self.availability_domain = attributes[:'availability_domain'] if attributes[:'availability_domain']
+
+      self.capacity_reservation_id = attributes[:'capacityReservationId'] if attributes[:'capacityReservationId']
+
+      raise 'You cannot provide both :capacityReservationId and :capacity_reservation_id' if attributes.key?(:'capacityReservationId') && attributes.key?(:'capacity_reservation_id')
+
+      self.capacity_reservation_id = attributes[:'capacity_reservation_id'] if attributes[:'capacity_reservation_id']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -440,6 +451,12 @@ module OCI
       raise 'You cannot provide both :isPvEncryptionInTransitEnabled and :is_pv_encryption_in_transit_enabled' if attributes.key?(:'isPvEncryptionInTransitEnabled') && attributes.key?(:'is_pv_encryption_in_transit_enabled')
 
       self.is_pv_encryption_in_transit_enabled = attributes[:'is_pv_encryption_in_transit_enabled'] unless attributes[:'is_pv_encryption_in_transit_enabled'].nil?
+
+      self.platform_config = attributes[:'platformConfig'] if attributes[:'platformConfig']
+
+      raise 'You cannot provide both :platformConfig and :platform_config' if attributes.key?(:'platformConfig') && attributes.key?(:'platform_config')
+
+      self.platform_config = attributes[:'platform_config'] if attributes[:'platform_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -454,6 +471,7 @@ module OCI
 
       self.class == other.class &&
         availability_domain == other.availability_domain &&
+        capacity_reservation_id == other.capacity_reservation_id &&
         compartment_id == other.compartment_id &&
         create_vnic_details == other.create_vnic_details &&
         dedicated_vm_host_id == other.dedicated_vm_host_id &&
@@ -474,7 +492,8 @@ module OCI
         shape_config == other.shape_config &&
         source_details == other.source_details &&
         subnet_id == other.subnet_id &&
-        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled
+        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled &&
+        platform_config == other.platform_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -490,7 +509,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, create_vnic_details, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, hostname_label, image_id, ipxe_script, launch_options, instance_options, availability_config, metadata, agent_config, shape, shape_config, source_details, subnet_id, is_pv_encryption_in_transit_enabled].hash
+      [availability_domain, capacity_reservation_id, compartment_id, create_vnic_details, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, hostname_label, image_id, ipxe_script, launch_options, instance_options, availability_config, metadata, agent_config, shape, shape_config, source_details, subnet_id, is_pv_encryption_in_transit_enabled, platform_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

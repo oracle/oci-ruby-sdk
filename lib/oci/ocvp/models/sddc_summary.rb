@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -38,9 +38,7 @@ module OCI
 
     # **[Required]** In general, this is a specific version of bundled VMware software supported by
     # Oracle Cloud VMware Solution (see
-    # {#
-    # _list_supported_vmware_software_versions
-    # _list_supported_vmware_software_versions}).
+    # {#list_supported_vmware_software_versions list_supported_vmware_software_versions}).
     #
     # This attribute is not guaranteed to reflect the version of
     # software currently installed on the ESXi hosts in the SDDC. The purpose

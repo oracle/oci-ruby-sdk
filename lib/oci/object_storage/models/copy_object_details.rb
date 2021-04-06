@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -12,6 +12,12 @@ module OCI
   # [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class ObjectStorage::Models::CopyObjectDetails
+    DESTINATION_OBJECT_STORAGE_TIER_ENUM = [
+      DESTINATION_OBJECT_STORAGE_TIER_STANDARD = 'Standard'.freeze,
+      DESTINATION_OBJECT_STORAGE_TIER_INFREQUENT_ACCESS = 'InfrequentAccess'.freeze,
+      DESTINATION_OBJECT_STORAGE_TIER_ARCHIVE = 'Archive'.freeze
+    ].freeze
+
     # **[Required]** The name of the object to be copied.
     # @return [String]
     attr_accessor :source_object_name
@@ -38,7 +44,7 @@ module OCI
     # @return [String]
     attr_accessor :destination_bucket
 
-    # **[Required]** The name of the destination object resulting from the copy operation.
+    # **[Required]** The name of the destination object resulting from the copy operation. Avoid entering confidential information.
     # @return [String]
     attr_accessor :destination_object_name
 
@@ -63,6 +69,12 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :destination_object_metadata
 
+    # The storage tier that the object should be stored in. If not specified, the object will be stored in
+    # the same storage tier as the bucket.
+    #
+    # @return [String]
+    attr_reader :destination_object_storage_tier
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -76,7 +88,8 @@ module OCI
         'destination_object_name': :'destinationObjectName',
         'destination_object_if_match_e_tag': :'destinationObjectIfMatchETag',
         'destination_object_if_none_match_e_tag': :'destinationObjectIfNoneMatchETag',
-        'destination_object_metadata': :'destinationObjectMetadata'
+        'destination_object_metadata': :'destinationObjectMetadata',
+        'destination_object_storage_tier': :'destinationObjectStorageTier'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -94,7 +107,8 @@ module OCI
         'destination_object_name': :'String',
         'destination_object_if_match_e_tag': :'String',
         'destination_object_if_none_match_e_tag': :'String',
-        'destination_object_metadata': :'Hash<String, String>'
+        'destination_object_metadata': :'Hash<String, String>',
+        'destination_object_storage_tier': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -115,6 +129,7 @@ module OCI
     # @option attributes [String] :destination_object_if_match_e_tag The value to assign to the {#destination_object_if_match_e_tag} property
     # @option attributes [String] :destination_object_if_none_match_e_tag The value to assign to the {#destination_object_if_none_match_e_tag} property
     # @option attributes [Hash<String, String>] :destination_object_metadata The value to assign to the {#destination_object_metadata} property
+    # @option attributes [String] :destination_object_storage_tier The value to assign to the {#destination_object_storage_tier} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -180,9 +195,23 @@ module OCI
       raise 'You cannot provide both :destinationObjectMetadata and :destination_object_metadata' if attributes.key?(:'destinationObjectMetadata') && attributes.key?(:'destination_object_metadata')
 
       self.destination_object_metadata = attributes[:'destination_object_metadata'] if attributes[:'destination_object_metadata']
+
+      self.destination_object_storage_tier = attributes[:'destinationObjectStorageTier'] if attributes[:'destinationObjectStorageTier']
+
+      raise 'You cannot provide both :destinationObjectStorageTier and :destination_object_storage_tier' if attributes.key?(:'destinationObjectStorageTier') && attributes.key?(:'destination_object_storage_tier')
+
+      self.destination_object_storage_tier = attributes[:'destination_object_storage_tier'] if attributes[:'destination_object_storage_tier']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] destination_object_storage_tier Object to be assigned
+    def destination_object_storage_tier=(destination_object_storage_tier)
+      raise "Invalid value for 'destination_object_storage_tier': this must be one of the values in DESTINATION_OBJECT_STORAGE_TIER_ENUM." if destination_object_storage_tier && !DESTINATION_OBJECT_STORAGE_TIER_ENUM.include?(destination_object_storage_tier)
+
+      @destination_object_storage_tier = destination_object_storage_tier
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -202,7 +231,8 @@ module OCI
         destination_object_name == other.destination_object_name &&
         destination_object_if_match_e_tag == other.destination_object_if_match_e_tag &&
         destination_object_if_none_match_e_tag == other.destination_object_if_none_match_e_tag &&
-        destination_object_metadata == other.destination_object_metadata
+        destination_object_metadata == other.destination_object_metadata &&
+        destination_object_storage_tier == other.destination_object_storage_tier
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -218,7 +248,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [source_object_name, source_object_if_match_e_tag, source_version_id, destination_region, destination_namespace, destination_bucket, destination_object_name, destination_object_if_match_e_tag, destination_object_if_none_match_e_tag, destination_object_metadata].hash
+      [source_object_name, source_object_if_match_e_tag, source_version_id, destination_region, destination_namespace, destination_bucket, destination_object_name, destination_object_if_match_e_tag, destination_object_if_none_match_e_tag, destination_object_metadata, destination_object_storage_tier].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

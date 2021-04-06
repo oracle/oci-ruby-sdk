@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -26,87 +26,94 @@ module OCI
       OPERATOR_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # aggregation field
+    # The aggregation field.
     # @return [String]
     attr_accessor :aggregation_field
 
-    # bucket metadata
+    # The bucket metadata.
     # @return [String]
     attr_accessor :bucket_metadata
 
-    # clock period
+    # The clock period.
     # @return [String]
     attr_accessor :clock_period
 
-    # description
+    # The metric description.
     # @return [String]
     attr_accessor :description
 
-    # edit version
+    # The metric edit version.
     # @return [Integer]
     attr_accessor :edit_version
 
-    # field name
+    # The field name.
     # @return [String]
     attr_accessor :field_name
 
-    # field value array
+    # The field values.
     # @return [Array<String>]
     attr_accessor :field_values
 
-    # grouping fields
+    # The grouping fields.
     # @return [String]
     attr_accessor :grouping_field
 
-    # is enabled flag
+    # A flag inidcating whether or not the metric is enabled.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
-    # is system flag
+    # The system flag.  A value of false denotes a custom, or user
+    # defined object.  A value of true denotes a built in object.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_system
 
-    # metric display name
+    # The metric display name.
     # @return [String]
     attr_accessor :display_name
 
-    # metric Id
+    # The metric unique identifier.
     # @return [Integer]
     attr_accessor :metric_reference
 
-    # name
+    # The metric name.
     # @return [String]
     attr_accessor :name
 
-    # metric type
+    # The metric type, specifying the type of aggreation to perform.  Default value
+    # is COUNT.
+    #
     # @return [String]
     attr_reader :metric_type
 
-    # is metric source map enabled flag
+    # A flag specifying whether or not the metric source is enabled.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_metric_source_enabled
 
-    # operator
+    # The metric operator.
     # @return [String]
     attr_reader :operator
 
-    # sources
+    # The metric sources.
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsSource>]
     attr_accessor :sources
 
-    # entity type
+    # The entity type.
     # @return [String]
     attr_accessor :entity_type
 
-    # last updated date
+    # The last updated date.
     # @return [DateTime]
     attr_accessor :time_updated
 
-    # unit type
+    # The unit type.
     # @return [String]
     attr_accessor :unit_type
 
-    # user customized
+    # A flag specifying whether or not this is a custom (user defined) metric.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_user_customized
 

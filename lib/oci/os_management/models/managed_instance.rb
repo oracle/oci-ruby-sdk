@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -89,6 +89,30 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_reboot_required
 
+    # Number of security type updates available to be installed
+    # @return [Integer]
+    attr_accessor :security_updates_available
+
+    # Number of bug fix type updates available to be installed
+    # @return [Integer]
+    attr_accessor :bug_updates_available
+
+    # Number of enhancement type updates available to be installed
+    # @return [Integer]
+    attr_accessor :enhancement_updates_available
+
+    # Number of non-classified updates available to be installed
+    # @return [Integer]
+    attr_accessor :other_updates_available
+
+    # Number of scheduled jobs associated with this instance
+    # @return [Integer]
+    attr_accessor :scheduled_job_count
+
+    # Number of work requests associated with this instance
+    # @return [Integer]
+    attr_accessor :work_request_count
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -108,7 +132,13 @@ module OCI
         'child_software_sources': :'childSoftwareSources',
         'managed_instance_groups': :'managedInstanceGroups',
         'os_family': :'osFamily',
-        'is_reboot_required': :'isRebootRequired'
+        'is_reboot_required': :'isRebootRequired',
+        'security_updates_available': :'securityUpdatesAvailable',
+        'bug_updates_available': :'bugUpdatesAvailable',
+        'enhancement_updates_available': :'enhancementUpdatesAvailable',
+        'other_updates_available': :'otherUpdatesAvailable',
+        'scheduled_job_count': :'scheduledJobCount',
+        'work_request_count': :'workRequestCount'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -132,7 +162,13 @@ module OCI
         'child_software_sources': :'Array<OCI::OsManagement::Models::SoftwareSourceId>',
         'managed_instance_groups': :'Array<OCI::OsManagement::Models::Id>',
         'os_family': :'String',
-        'is_reboot_required': :'BOOLEAN'
+        'is_reboot_required': :'BOOLEAN',
+        'security_updates_available': :'Integer',
+        'bug_updates_available': :'Integer',
+        'enhancement_updates_available': :'Integer',
+        'other_updates_available': :'Integer',
+        'scheduled_job_count': :'Integer',
+        'work_request_count': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -159,6 +195,12 @@ module OCI
     # @option attributes [Array<OCI::OsManagement::Models::Id>] :managed_instance_groups The value to assign to the {#managed_instance_groups} property
     # @option attributes [String] :os_family The value to assign to the {#os_family} property
     # @option attributes [BOOLEAN] :is_reboot_required The value to assign to the {#is_reboot_required} property
+    # @option attributes [Integer] :security_updates_available The value to assign to the {#security_updates_available} property
+    # @option attributes [Integer] :bug_updates_available The value to assign to the {#bug_updates_available} property
+    # @option attributes [Integer] :enhancement_updates_available The value to assign to the {#enhancement_updates_available} property
+    # @option attributes [Integer] :other_updates_available The value to assign to the {#other_updates_available} property
+    # @option attributes [Integer] :scheduled_job_count The value to assign to the {#scheduled_job_count} property
+    # @option attributes [Integer] :work_request_count The value to assign to the {#work_request_count} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -248,6 +290,42 @@ module OCI
       raise 'You cannot provide both :isRebootRequired and :is_reboot_required' if attributes.key?(:'isRebootRequired') && attributes.key?(:'is_reboot_required')
 
       self.is_reboot_required = attributes[:'is_reboot_required'] unless attributes[:'is_reboot_required'].nil?
+
+      self.security_updates_available = attributes[:'securityUpdatesAvailable'] if attributes[:'securityUpdatesAvailable']
+
+      raise 'You cannot provide both :securityUpdatesAvailable and :security_updates_available' if attributes.key?(:'securityUpdatesAvailable') && attributes.key?(:'security_updates_available')
+
+      self.security_updates_available = attributes[:'security_updates_available'] if attributes[:'security_updates_available']
+
+      self.bug_updates_available = attributes[:'bugUpdatesAvailable'] if attributes[:'bugUpdatesAvailable']
+
+      raise 'You cannot provide both :bugUpdatesAvailable and :bug_updates_available' if attributes.key?(:'bugUpdatesAvailable') && attributes.key?(:'bug_updates_available')
+
+      self.bug_updates_available = attributes[:'bug_updates_available'] if attributes[:'bug_updates_available']
+
+      self.enhancement_updates_available = attributes[:'enhancementUpdatesAvailable'] if attributes[:'enhancementUpdatesAvailable']
+
+      raise 'You cannot provide both :enhancementUpdatesAvailable and :enhancement_updates_available' if attributes.key?(:'enhancementUpdatesAvailable') && attributes.key?(:'enhancement_updates_available')
+
+      self.enhancement_updates_available = attributes[:'enhancement_updates_available'] if attributes[:'enhancement_updates_available']
+
+      self.other_updates_available = attributes[:'otherUpdatesAvailable'] if attributes[:'otherUpdatesAvailable']
+
+      raise 'You cannot provide both :otherUpdatesAvailable and :other_updates_available' if attributes.key?(:'otherUpdatesAvailable') && attributes.key?(:'other_updates_available')
+
+      self.other_updates_available = attributes[:'other_updates_available'] if attributes[:'other_updates_available']
+
+      self.scheduled_job_count = attributes[:'scheduledJobCount'] if attributes[:'scheduledJobCount']
+
+      raise 'You cannot provide both :scheduledJobCount and :scheduled_job_count' if attributes.key?(:'scheduledJobCount') && attributes.key?(:'scheduled_job_count')
+
+      self.scheduled_job_count = attributes[:'scheduled_job_count'] if attributes[:'scheduled_job_count']
+
+      self.work_request_count = attributes[:'workRequestCount'] if attributes[:'workRequestCount']
+
+      raise 'You cannot provide both :workRequestCount and :work_request_count' if attributes.key?(:'workRequestCount') && attributes.key?(:'work_request_count')
+
+      self.work_request_count = attributes[:'work_request_count'] if attributes[:'work_request_count']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -302,7 +380,13 @@ module OCI
         child_software_sources == other.child_software_sources &&
         managed_instance_groups == other.managed_instance_groups &&
         os_family == other.os_family &&
-        is_reboot_required == other.is_reboot_required
+        is_reboot_required == other.is_reboot_required &&
+        security_updates_available == other.security_updates_available &&
+        bug_updates_available == other.bug_updates_available &&
+        enhancement_updates_available == other.enhancement_updates_available &&
+        other_updates_available == other.other_updates_available &&
+        scheduled_job_count == other.scheduled_job_count &&
+        work_request_count == other.work_request_count
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -318,7 +402,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, id, description, last_checkin, last_boot, updates_available, os_name, os_version, os_kernel_version, compartment_id, status, parent_software_source, child_software_sources, managed_instance_groups, os_family, is_reboot_required].hash
+      [display_name, id, description, last_checkin, last_boot, updates_available, os_name, os_version, os_kernel_version, compartment_id, status, parent_software_source, child_software_sources, managed_instance_groups, os_family, is_reboot_required, security_updates_available, bug_updates_available, enhancement_updates_available, other_updates_available, scheduled_job_count, work_request_count].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

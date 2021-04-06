@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,23 +7,23 @@ require 'date'
 module OCI
   # StatusSummary
   class LogAnalytics::Models::StatusSummary
-    # chunks processed
+    # The number of chunks processed.
     # @return [Integer]
     attr_accessor :chunks_processed
 
-    # failure details
+    # The failure details, if any.
     # @return [String]
     attr_accessor :failure_details
 
-    # filename
+    # The filename.
     # @return [String]
     attr_accessor :filename
 
-    # status
+    # The status.
     # @return [String]
     attr_accessor :status
 
-    # total chunks
+    # The total number of chunks.
     # @return [Integer]
     attr_accessor :total_chunks
 

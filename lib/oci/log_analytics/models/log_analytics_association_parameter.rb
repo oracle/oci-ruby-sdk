@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -14,39 +14,39 @@ module OCI
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # agent guid
+    # The agent unique identifier.
     # @return [String]
     attr_accessor :agent_id
 
-    # entity type
+    # The entity type.
     # @return [String]
     attr_accessor :entity_type
 
-    # entity guid
+    # The entity unique identifier.
     # @return [String]
     attr_accessor :entity_id
 
-    # source name
+    # The source name.
     # @return [String]
     attr_accessor :source_id
 
-    # source display name
+    # The source display name.
     # @return [String]
     attr_accessor :source_display_name
 
-    # source type
+    # The source type.
     # @return [String]
     attr_accessor :source_type
 
-    # status
+    # The status.  Either FAILED or SUCCEEDED.
     # @return [String]
     attr_reader :status
 
-    # missingProperties
+    # A list of missing properties.
     # @return [Array<String>]
     attr_accessor :missing_properties
 
-    # requiredProperties
+    # A list of requried properties.
     # @return [Array<String>]
     attr_accessor :required_properties
 

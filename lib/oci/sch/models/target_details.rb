@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -14,11 +14,12 @@ module OCI
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Sch::Models::TargetDetails
     KIND_ENUM = [
-      KIND_STREAMING = 'streaming'.freeze,
-      KIND_OBJECT_STORAGE = 'objectStorage'.freeze,
-      KIND_MONITORING = 'monitoring'.freeze,
       KIND_FUNCTIONS = 'functions'.freeze,
+      KIND_LOGGING_ANALYTICS = 'loggingAnalytics'.freeze,
+      KIND_MONITORING = 'monitoring'.freeze,
       KIND_NOTIFICATIONS = 'notifications'.freeze,
+      KIND_OBJECT_STORAGE = 'objectStorage'.freeze,
+      KIND_STREAMING = 'streaming'.freeze,
       KIND_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -57,6 +58,7 @@ module OCI
       return 'OCI::Sch::Models::ObjectStorageTargetDetails' if type == 'objectStorage'
       return 'OCI::Sch::Models::MonitoringTargetDetails' if type == 'monitoring'
       return 'OCI::Sch::Models::FunctionsTargetDetails' if type == 'functions'
+      return 'OCI::Sch::Models::LoggingAnalyticsTargetDetails' if type == 'loggingAnalytics'
       return 'OCI::Sch::Models::StreamingTargetDetails' if type == 'streaming'
 
       # TODO: Log a warning when the subtype is not found.

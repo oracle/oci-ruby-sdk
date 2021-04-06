@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -80,6 +80,16 @@ module OCI
     # @return [OCI::Analytics::Models::NetworkEndpointDetails]
     attr_accessor :network_endpoint_details
 
+    # Map of PrivateAccessChannel unique identifier key as KEY and PrivateAccessChannel Object as VALUE.
+    #
+    # @return [Hash<String, OCI::Analytics::Models::PrivateAccessChannel>]
+    attr_accessor :private_access_channels
+
+    # Map of VanityUrl unique identifier key as KEY and VanityUrl Object as VALUE.
+    #
+    # @return [Hash<String, OCI::Analytics::Models::VanityUrlDetails>]
+    attr_accessor :vanity_url_details
+
     # URL of the Analytics service.
     #
     # @return [String]
@@ -129,6 +139,8 @@ module OCI
         'license_type': :'licenseType',
         'email_notification': :'emailNotification',
         'network_endpoint_details': :'networkEndpointDetails',
+        'private_access_channels': :'privateAccessChannels',
+        'vanity_url_details': :'vanityUrlDetails',
         'service_url': :'serviceUrl',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags',
@@ -152,6 +164,8 @@ module OCI
         'license_type': :'String',
         'email_notification': :'String',
         'network_endpoint_details': :'OCI::Analytics::Models::NetworkEndpointDetails',
+        'private_access_channels': :'Hash<String, OCI::Analytics::Models::PrivateAccessChannel>',
+        'vanity_url_details': :'Hash<String, OCI::Analytics::Models::VanityUrlDetails>',
         'service_url': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>',
@@ -177,6 +191,8 @@ module OCI
     # @option attributes [String] :license_type The value to assign to the {#license_type} property
     # @option attributes [String] :email_notification The value to assign to the {#email_notification} property
     # @option attributes [OCI::Analytics::Models::NetworkEndpointDetails] :network_endpoint_details The value to assign to the {#network_endpoint_details} property
+    # @option attributes [Hash<String, OCI::Analytics::Models::PrivateAccessChannel>] :private_access_channels The value to assign to the {#private_access_channels} property
+    # @option attributes [Hash<String, OCI::Analytics::Models::VanityUrlDetails>] :vanity_url_details The value to assign to the {#vanity_url_details} property
     # @option attributes [String] :service_url The value to assign to the {#service_url} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -231,6 +247,18 @@ module OCI
       raise 'You cannot provide both :networkEndpointDetails and :network_endpoint_details' if attributes.key?(:'networkEndpointDetails') && attributes.key?(:'network_endpoint_details')
 
       self.network_endpoint_details = attributes[:'network_endpoint_details'] if attributes[:'network_endpoint_details']
+
+      self.private_access_channels = attributes[:'privateAccessChannels'] if attributes[:'privateAccessChannels']
+
+      raise 'You cannot provide both :privateAccessChannels and :private_access_channels' if attributes.key?(:'privateAccessChannels') && attributes.key?(:'private_access_channels')
+
+      self.private_access_channels = attributes[:'private_access_channels'] if attributes[:'private_access_channels']
+
+      self.vanity_url_details = attributes[:'vanityUrlDetails'] if attributes[:'vanityUrlDetails']
+
+      raise 'You cannot provide both :vanityUrlDetails and :vanity_url_details' if attributes.key?(:'vanityUrlDetails') && attributes.key?(:'vanity_url_details')
+
+      self.vanity_url_details = attributes[:'vanity_url_details'] if attributes[:'vanity_url_details']
 
       self.service_url = attributes[:'serviceUrl'] if attributes[:'serviceUrl']
 
@@ -323,6 +351,8 @@ module OCI
         license_type == other.license_type &&
         email_notification == other.email_notification &&
         network_endpoint_details == other.network_endpoint_details &&
+        private_access_channels == other.private_access_channels &&
+        vanity_url_details == other.vanity_url_details &&
         service_url == other.service_url &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags &&
@@ -343,7 +373,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, description, compartment_id, lifecycle_state, feature_set, capacity, license_type, email_notification, network_endpoint_details, service_url, defined_tags, freeform_tags, time_created, time_updated].hash
+      [id, name, description, compartment_id, lifecycle_state, feature_set, capacity, license_type, email_notification, network_endpoint_details, private_access_channels, vanity_url_details, service_url, defined_tags, freeform_tags, time_created, time_updated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

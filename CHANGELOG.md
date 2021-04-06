@@ -3,6 +3,101 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.13.0 - 2021-04-06
+### Added
+- Support for auto-scaling in the Big Data service
+- Documentation fixes for the Logging Search service
+- Support for Logging Analytics as a target in the Service Connector Hub service
+- Support for lookups, agent collection warnings, task commands, and data archive/recall in the Logging Analytics service
+- Support for creating, managing, and using asymmetric keys in the Key Management service
+- Support for peer ACD unique names in Exadata Cloud at Customer in the Database service
+- Support for ACLs on autonomous databases in Exadata Cloud at Customer Data Guard in the Database service
+- Support for drift detection on individual resources of a stack in the Resource Manager service
+- Support for private access channels and vanity URLs in the Analytics Cloud service
+- Support for updating load balancer shapes in the Blockchain Platform service
+- Support for assigning volume backup policies to volume groups in the Block Volume service
+- Support for checking if a contact for Exadata infrastructure is valid in My Oracle Support in the Database service
+- Support for checking if Exadata infrastructure is in a degraded state in the Database service
+- Support for updating the operating system on a VM cluster in the Database service
+- Support for external databases in the Database service
+- Support for uploading objects to the infrequent access storage tier in the Object Storage service
+- Support for changing the storage tier of existing objects in the Object Storage service
+- Support for private templates in the Resource Manager service
+- Support for multiple encryption domains on IPSec tunnels in the Networking service
+- Support for the Database Management service
+- Support for setting an offset for budget processing in the Budgets service
+- Support for enabling and disabling Oracle Cloud Agent plugins in the Compute service
+- Support for listing available plugins and for getting the status of plugins in the Oracle Cloud Agent service
+- Support for one-off patching in autonomous transaction processing - dedicated databases in the Database service
+- Support for additional database upgrade options in the Database service
+- Support for glossary term recommendations in the Data Catalog service
+- Support for listing errata in the OS Management service
+- Support for scan DNS names and zone ids on database system, cloud VM cluster, and autonomous Exadata infrastructure responses in the Database service
+- Support for specifying ACL rules to limit ingress into public load balancers in the Integration service
+- Support for Cloud at Customer as a source type in the Application Migration service
+- Support for selective migration of specific resources in the Application Migration service
+- Support for the OCI Registry service
+- Support for exporting an existing running VM, or a copy of VM, into a VMDK, QCOW2, VDI, VHD, or OCI formatted image in the Compute service
+- Support for platform configurations on instances in the Compute service
+- Support for providing target tags and target compartments on profiles in the Optimizer service
+- Support for the 'Fix it' feature in the Optimizer service
+- Support for pipelines, pipeline tasks, and favorites in the Data Integration service
+- Support for publishing tasks to OCI Data Flow in the Data Integration service
+- Support for clones in the File Storage service
+- Support for the Application Performance Monitoring service
+- Support for the Golden Gate service
+- Support for SMS subscriptions in the Notifications service
+- Support for friendly-formatted messages in the Service Connector Hub service
+- Support for attaching and detaching instances to instance pools in the Autoscaling service
+- Support for routing policies and HTTP2 listener protocols in the Load Balancing service
+- Support for model deployments in the Data Science service
+- Support for private clusters in the Container Engine for Kubernetes service
+- Support for updating an instance's usage type in the Content and Experience service
+- Support for the Network Load Balancing service
+- Support for maintenance runs on autonomous databases in the Database service
+- Support for announcement preferences in the Announcements service
+- Support for domain claiming in the Organizations service
+- Support for saved reports in the Usage service
+- Support for the HeatWave in-memory analytics accelerator in the MySQL Database service
+- Support for community applications in the Marketplace service
+- Support for capacity reservations in the Compute service
+- Support for the Vulnerability Scanning service
+- Support for vSphere 7.0 in the VMware Solution service
+- Support for forecasting in the Usage service
+- Support for viewing, searching, and modifying parameters for on-premise Oracle databases in the Database Management service
+- Support for listing tablespaces of managed databases in the Database Management service
+- Support for cross-regional replication of keys in the Key Management service
+- Support for highly-available database systems in the MySQL Database service
+- Support for Oracle Enterprise Manager bridges, source auto-association, source event type mappings, and plugins to upload data in the Logging Analytics service
+- Support for scheduling the suspension and resumption of compute instance pools based on predefined schedules in the Autoscaling service
+- Support for database software images for Cloud@Customer in the Database service
+- Support for OCIC IDCS authorization details in the Application Migration service
+- Support for cross-region asynchronous volume replication in the Block Storage service
+- Support for SDK generation in the API Gateway service
+- Support for container image signing in the Registry service
+- Support for cluster features as a part of the Container Engine for Kubernetes service
+- Support for filtering dedicated virtual machine hosts by remaining memory and OCPUs in the Compute service
+- Support for read/write-any object from buckets using pre-authenticated requests in the Object Storage service
+- Support for restricting pre-authenticated requests by prefix in the Object Storage service
+- Support for route filtering on public virtual circuits in the Virtual Networking service
+
+### Breaking
+- Fixed a bug in the endpoint used for the Management Dashboard service
+- Removed `LIFECYCLE_STATE_UPDATING_INFRA` from model BdsInstance in the Big Data service
+- Removed `LIFECYCLE_STATE_STOPPING` and `LIFECYCLE_STATE_STARTING` from model Node in the Big Data Service
+- A new required property `kind` is added to the models `UpdateScheduledTaskDetails` and `ScheduledTask` in the Log Analytics service
+- The allowed values for parameter `sort_by` are restricted for methods `list_meta_source_types`, `list_parser_functions`, `list_parser_meta_plugins`, `list_source_label_operators`, `list_source_meta_functions` in the Log Analytics service. For more information please see the documentation for LogAnalyticsClient at https://docs.oracle.com/en-us/iaas/tools/python/latest/api/log_analytics/client/oci.log_analytics.LogAnalyticsClient.html#loganalyticsclient
+- Parameter `idcs_access_token` in model `CreateBlockchainPlatformDetails` changed from optional to required in the Blockchain service
+- Attribute `vnic_id` in response model `Ipv6` changed from required to optional in the Networking service
+- Model `InstanceAgentCommandContentInfo` is removed from Compute Instance Agent service
+- Changed model `UniqueKey` in the Dataintegration service to not inherit from Key.
+- Changed model `PrimaryKey` in the Dataintegration service to inherit from `UniqueKey`.
+- Removed enum values `PRIMARY_KEY` and `UNIQUE_KEY` in property `model_type` from model `key` in the Dataintegration service. 
+- Parameter `vnic_id` changed from optional to required in model `CreateIpv6Details` in the core services
+- Parameter `vnic_id` changed from optional to required in model `Ipv6` in the core services
+- Value of Enum attribute `operator` in Usage API service defaults to `UNKNOWN_ENUM_VALUE` when it receives an invalid value. In the earlier versions, this raises a `ValueError`
+
+
 ## 2.12.0 - 2020-12-14
 ### Added
 - Support for calling Oracle Cloud Infrastructure services in the sa-santiago-1 region

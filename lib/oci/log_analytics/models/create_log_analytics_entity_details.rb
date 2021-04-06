@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,7 +8,7 @@ module OCI
   # Details for new log analytics entity to be added.
   #
   class LogAnalytics::Models::CreateLogAnalyticsEntityDetails
-    # **[Required]** Log analytics entity name. The name must be unique, within the tenancy, and cannot be changed.
+    # **[Required]** Log analytics entity name.
     #
     # @return [String]
     attr_accessor :name
