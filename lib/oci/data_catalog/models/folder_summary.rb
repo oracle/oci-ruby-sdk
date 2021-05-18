@@ -35,6 +35,10 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
+    # Optional user friendly business name of the folder. If set, this supplements the harvested display name of the object.
+    # @return [String]
+    attr_accessor :business_name
+
     # Detailed description of a folder.
     # @return [String]
     attr_accessor :description
@@ -79,6 +83,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'key': :'key',
         'display_name': :'displayName',
+        'business_name': :'businessName',
         'description': :'description',
         'data_asset_key': :'dataAssetKey',
         'parent_folder_key': :'parentFolderKey',
@@ -98,6 +103,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'key': :'String',
         'display_name': :'String',
+        'business_name': :'String',
         'description': :'String',
         'data_asset_key': :'String',
         'parent_folder_key': :'String',
@@ -119,6 +125,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :key The value to assign to the {#key} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :business_name The value to assign to the {#business_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :data_asset_key The value to assign to the {#data_asset_key} property
     # @option attributes [String] :parent_folder_key The value to assign to the {#parent_folder_key} property
@@ -141,6 +148,12 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.business_name = attributes[:'businessName'] if attributes[:'businessName']
+
+      raise 'You cannot provide both :businessName and :business_name' if attributes.key?(:'businessName') && attributes.key?(:'business_name')
+
+      self.business_name = attributes[:'business_name'] if attributes[:'business_name']
 
       self.description = attributes[:'description'] if attributes[:'description']
 
@@ -211,6 +224,7 @@ module OCI
       self.class == other.class &&
         key == other.key &&
         display_name == other.display_name &&
+        business_name == other.business_name &&
         description == other.description &&
         data_asset_key == other.data_asset_key &&
         parent_folder_key == other.parent_folder_key &&
@@ -235,7 +249,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, data_asset_key, parent_folder_key, path, external_key, time_external, time_created, uri, lifecycle_state].hash
+      [key, display_name, business_name, description, data_asset_key, parent_folder_key, path, external_key, time_external, time_created, uri, lifecycle_state].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

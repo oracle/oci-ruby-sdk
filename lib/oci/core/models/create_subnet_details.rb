@@ -95,6 +95,19 @@ module OCI
     # @return [String]
     attr_accessor :ipv6_cidr_block
 
+    # Whether to disallow ingress internet traffic to VNICs within this subnet. Defaults to false.
+    #
+    # For IPv6, if `prohibitInternetIngress` is set to `true`, internet access is not allowed for any
+    # IPv6s assigned to VNICs in the subnet. Otherwise, ingress internet traffic is allowed by default.
+    #
+    # `prohibitPublicIpOnVnic` will be set to the value of `prohibitInternetIngress` to dictate IPv4
+    # behavior in this subnet. Only one or the other flag should be specified.
+    #
+    # Example: `true`
+    #
+    # @return [BOOLEAN]
+    attr_accessor :prohibit_internet_ingress
+
     # Whether VNICs within this subnet can have public IP addresses.
     # Defaults to false, which means VNICs created in this subnet will
     # automatically be assigned public IP addresses unless specified
@@ -104,8 +117,8 @@ module OCI
     # subnet cannot have public IP addresses (that is, it's a private
     # subnet).
     #
-    # For IPv6, if `prohibitPublicIpOnVnic` is set to `true`, internet access is not allowed for any
-    # IPv6s assigned to VNICs in the subnet.
+    # If you intend to use an IPv6 CIDR block, you should use the flag `prohibitInternetIngress` to
+    # specify ingress internet traffic behavior of the subnet.
     #
     # Example: `true`
     #
@@ -143,6 +156,7 @@ module OCI
         'dns_label': :'dnsLabel',
         'freeform_tags': :'freeformTags',
         'ipv6_cidr_block': :'ipv6CidrBlock',
+        'prohibit_internet_ingress': :'prohibitInternetIngress',
         'prohibit_public_ip_on_vnic': :'prohibitPublicIpOnVnic',
         'route_table_id': :'routeTableId',
         'security_list_ids': :'securityListIds',
@@ -164,6 +178,7 @@ module OCI
         'dns_label': :'String',
         'freeform_tags': :'Hash<String, String>',
         'ipv6_cidr_block': :'String',
+        'prohibit_internet_ingress': :'BOOLEAN',
         'prohibit_public_ip_on_vnic': :'BOOLEAN',
         'route_table_id': :'String',
         'security_list_ids': :'Array<String>',
@@ -187,6 +202,7 @@ module OCI
     # @option attributes [String] :dns_label The value to assign to the {#dns_label} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :ipv6_cidr_block The value to assign to the {#ipv6_cidr_block} property
+    # @option attributes [BOOLEAN] :prohibit_internet_ingress The value to assign to the {#prohibit_internet_ingress} property
     # @option attributes [BOOLEAN] :prohibit_public_ip_on_vnic The value to assign to the {#prohibit_public_ip_on_vnic} property
     # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
     # @option attributes [Array<String>] :security_list_ids The value to assign to the {#security_list_ids} property
@@ -251,6 +267,12 @@ module OCI
 
       self.ipv6_cidr_block = attributes[:'ipv6_cidr_block'] if attributes[:'ipv6_cidr_block']
 
+      self.prohibit_internet_ingress = attributes[:'prohibitInternetIngress'] unless attributes[:'prohibitInternetIngress'].nil?
+
+      raise 'You cannot provide both :prohibitInternetIngress and :prohibit_internet_ingress' if attributes.key?(:'prohibitInternetIngress') && attributes.key?(:'prohibit_internet_ingress')
+
+      self.prohibit_internet_ingress = attributes[:'prohibit_internet_ingress'] unless attributes[:'prohibit_internet_ingress'].nil?
+
       self.prohibit_public_ip_on_vnic = attributes[:'prohibitPublicIpOnVnic'] unless attributes[:'prohibitPublicIpOnVnic'].nil?
 
       raise 'You cannot provide both :prohibitPublicIpOnVnic and :prohibit_public_ip_on_vnic' if attributes.key?(:'prohibitPublicIpOnVnic') && attributes.key?(:'prohibit_public_ip_on_vnic')
@@ -296,6 +318,7 @@ module OCI
         dns_label == other.dns_label &&
         freeform_tags == other.freeform_tags &&
         ipv6_cidr_block == other.ipv6_cidr_block &&
+        prohibit_internet_ingress == other.prohibit_internet_ingress &&
         prohibit_public_ip_on_vnic == other.prohibit_public_ip_on_vnic &&
         route_table_id == other.route_table_id &&
         security_list_ids == other.security_list_ids &&
@@ -315,7 +338,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, cidr_block, compartment_id, defined_tags, dhcp_options_id, display_name, dns_label, freeform_tags, ipv6_cidr_block, prohibit_public_ip_on_vnic, route_table_id, security_list_ids, vcn_id].hash
+      [availability_domain, cidr_block, compartment_id, defined_tags, dhcp_options_id, display_name, dns_label, freeform_tags, ipv6_cidr_block, prohibit_internet_ingress, prohibit_public_ip_on_vnic, route_table_id, security_list_ids, vcn_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -27,6 +27,9 @@ module OCI
     # @return [String]
     attr_accessor :syslog_url
 
+    # @return [OCI::Functions::Models::ApplicationTraceConfig]
+    attr_accessor :trace_config
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
@@ -48,6 +51,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'config': :'config',
         'syslog_url': :'syslogUrl',
+        'trace_config': :'traceConfig',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -60,6 +64,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'config': :'Hash<String, String>',
         'syslog_url': :'String',
+        'trace_config': :'OCI::Functions::Models::ApplicationTraceConfig',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -74,6 +79,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Hash<String, String>] :config The value to assign to the {#config} property
     # @option attributes [String] :syslog_url The value to assign to the {#syslog_url} property
+    # @option attributes [OCI::Functions::Models::ApplicationTraceConfig] :trace_config The value to assign to the {#trace_config} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -89,6 +95,12 @@ module OCI
       raise 'You cannot provide both :syslogUrl and :syslog_url' if attributes.key?(:'syslogUrl') && attributes.key?(:'syslog_url')
 
       self.syslog_url = attributes[:'syslog_url'] if attributes[:'syslog_url']
+
+      self.trace_config = attributes[:'traceConfig'] if attributes[:'traceConfig']
+
+      raise 'You cannot provide both :traceConfig and :trace_config' if attributes.key?(:'traceConfig') && attributes.key?(:'trace_config')
+
+      self.trace_config = attributes[:'trace_config'] if attributes[:'trace_config']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -116,6 +128,7 @@ module OCI
       self.class == other.class &&
         config == other.config &&
         syslog_url == other.syslog_url &&
+        trace_config == other.trace_config &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -133,7 +146,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [config, syslog_url, freeform_tags, defined_tags].hash
+      [config, syslog_url, trace_config, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

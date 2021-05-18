@@ -13,6 +13,10 @@ module OCI
     # @return [String]
     attr_accessor :sql_identifier
 
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database insight resource.
+    # @return [String]
+    attr_accessor :id
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database.
     # @return [String]
     attr_accessor :database_id
@@ -26,6 +30,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'sql_identifier': :'sqlIdentifier',
+        'id': :'id',
         'database_id': :'databaseId',
         'sql_text': :'sqlText'
         # rubocop:enable Style/SymbolLiteral
@@ -37,6 +42,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'sql_identifier': :'String',
+        'id': :'String',
         'database_id': :'String',
         'sql_text': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -50,6 +56,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :sql_identifier The value to assign to the {#sql_identifier} property
+    # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :database_id The value to assign to the {#database_id} property
     # @option attributes [String] :sql_text The value to assign to the {#sql_text} property
     def initialize(attributes = {})
@@ -63,6 +70,8 @@ module OCI
       raise 'You cannot provide both :sqlIdentifier and :sql_identifier' if attributes.key?(:'sqlIdentifier') && attributes.key?(:'sql_identifier')
 
       self.sql_identifier = attributes[:'sql_identifier'] if attributes[:'sql_identifier']
+
+      self.id = attributes[:'id'] if attributes[:'id']
 
       self.database_id = attributes[:'databaseId'] if attributes[:'databaseId']
 
@@ -89,6 +98,7 @@ module OCI
 
       self.class == other.class &&
         sql_identifier == other.sql_identifier &&
+        id == other.id &&
         database_id == other.database_id &&
         sql_text == other.sql_text
     end
@@ -106,7 +116,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [sql_identifier, database_id, sql_text].hash
+      [sql_identifier, id, database_id, sql_text].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -20,6 +20,10 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
+    # Optional user friendly business name of the data entity. If set, this supplements the harvested display name of the object.
+    # @return [String]
+    attr_accessor :business_name
+
     # Detailed description of a data entity.
     # @return [String]
     attr_accessor :description
@@ -81,6 +85,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
+        'business_name': :'businessName',
         'description': :'description',
         'time_external': :'timeExternal',
         'is_logical': :'isLogical',
@@ -101,6 +106,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
+        'business_name': :'String',
         'description': :'String',
         'time_external': :'DateTime',
         'is_logical': :'BOOLEAN',
@@ -123,6 +129,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :business_name The value to assign to the {#business_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [DateTime] :time_external The value to assign to the {#time_external} property
     # @option attributes [BOOLEAN] :is_logical The value to assign to the {#is_logical} property
@@ -145,6 +152,12 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.business_name = attributes[:'businessName'] if attributes[:'businessName']
+
+      raise 'You cannot provide both :businessName and :business_name' if attributes.key?(:'businessName') && attributes.key?(:'business_name')
+
+      self.business_name = attributes[:'business_name'] if attributes[:'business_name']
 
       self.description = attributes[:'description'] if attributes[:'description']
 
@@ -225,6 +238,7 @@ module OCI
 
       self.class == other.class &&
         display_name == other.display_name &&
+        business_name == other.business_name &&
         description == other.description &&
         time_external == other.time_external &&
         is_logical == other.is_logical &&
@@ -251,7 +265,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, time_external, is_logical, is_partition, folder_key, pattern_key, realized_expression, harvest_status, last_job_key, custom_property_members, properties].hash
+      [display_name, business_name, description, time_external, is_logical, is_partition, folder_key, pattern_key, realized_expression, harvest_status, last_job_key, custom_property_members, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

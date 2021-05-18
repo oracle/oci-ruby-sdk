@@ -5,10 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Results of a query for a list of private endpoints. Contains PrivateEndpointSummary items.
+  # The results of a query for a list of private endpoints. It contains PrivateEndpointSummary items.
   #
   class DataFlow::Models::PrivateEndpointCollection
-    # **[Required]** A list of private endpoints
+    # **[Required]** A list of private endpoints.
     #
     # @return [Array<OCI::DataFlow::Models::PrivateEndpointSummary>]
     attr_accessor :items

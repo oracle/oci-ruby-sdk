@@ -2,6 +2,7 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -10,6 +11,24 @@ module OCI
   # [Compute Shapes](https://docs.cloud.oracle.com/iaas/Content/Compute/References/computeshapes.htm).
   #
   class Core::Models::Shape
+    BASELINE_OCPU_UTILIZATIONS_ENUM = [
+      BASELINE_OCPU_UTILIZATIONS_BASELINE_1_8 = 'BASELINE_1_8'.freeze,
+      BASELINE_OCPU_UTILIZATIONS_BASELINE_1_2 = 'BASELINE_1_2'.freeze,
+      BASELINE_OCPU_UTILIZATIONS_BASELINE_1_1 = 'BASELINE_1_1'.freeze,
+      BASELINE_OCPU_UTILIZATIONS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # For a subcore burstable VM, the supported baseline OCPU utilization for instances that use this shape.
+    #
+    # @return [Array<String>]
+    attr_reader :baseline_ocpu_utilizations
+
+    # For a subcore burstable VM, the minimum total baseline OCPUs required. The total baseline OCPUs is equal to
+    # baselineOcpuUtilization chosen multiplied by the number of OCPUs chosen.
+    #
+    # @return [Float]
+    attr_accessor :min_total_baseline_ocpus_required
+
     # **[Required]** The name of the shape. You can enumerate all available shapes by calling
     # {#list_shapes list_shapes}.
     #
@@ -72,6 +91,11 @@ module OCI
     # @return [String]
     attr_accessor :local_disk_description
 
+    # Whether live migration is supported for this shape.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_live_migration_supported
+
     # @return [OCI::Core::Models::ShapeOcpuOptions]
     attr_accessor :ocpu_options
 
@@ -88,6 +112,8 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'baseline_ocpu_utilizations': :'baselineOcpuUtilizations',
+        'min_total_baseline_ocpus_required': :'minTotalBaselineOcpusRequired',
         'shape': :'shape',
         'processor_description': :'processorDescription',
         'ocpus': :'ocpus',
@@ -99,6 +125,7 @@ module OCI
         'local_disks': :'localDisks',
         'local_disks_total_size_in_gbs': :'localDisksTotalSizeInGBs',
         'local_disk_description': :'localDiskDescription',
+        'is_live_migration_supported': :'isLiveMigrationSupported',
         'ocpu_options': :'ocpuOptions',
         'memory_options': :'memoryOptions',
         'networking_bandwidth_options': :'networkingBandwidthOptions',
@@ -111,6 +138,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'baseline_ocpu_utilizations': :'Array<String>',
+        'min_total_baseline_ocpus_required': :'Float',
         'shape': :'String',
         'processor_description': :'String',
         'ocpus': :'Float',
@@ -122,6 +151,7 @@ module OCI
         'local_disks': :'Integer',
         'local_disks_total_size_in_gbs': :'Float',
         'local_disk_description': :'String',
+        'is_live_migration_supported': :'BOOLEAN',
         'ocpu_options': :'OCI::Core::Models::ShapeOcpuOptions',
         'memory_options': :'OCI::Core::Models::ShapeMemoryOptions',
         'networking_bandwidth_options': :'OCI::Core::Models::ShapeNetworkingBandwidthOptions',
@@ -136,6 +166,8 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [Array<String>] :baseline_ocpu_utilizations The value to assign to the {#baseline_ocpu_utilizations} property
+    # @option attributes [Float] :min_total_baseline_ocpus_required The value to assign to the {#min_total_baseline_ocpus_required} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [String] :processor_description The value to assign to the {#processor_description} property
     # @option attributes [Float] :ocpus The value to assign to the {#ocpus} property
@@ -147,6 +179,7 @@ module OCI
     # @option attributes [Integer] :local_disks The value to assign to the {#local_disks} property
     # @option attributes [Float] :local_disks_total_size_in_gbs The value to assign to the {#local_disks_total_size_in_gbs} property
     # @option attributes [String] :local_disk_description The value to assign to the {#local_disk_description} property
+    # @option attributes [BOOLEAN] :is_live_migration_supported The value to assign to the {#is_live_migration_supported} property
     # @option attributes [OCI::Core::Models::ShapeOcpuOptions] :ocpu_options The value to assign to the {#ocpu_options} property
     # @option attributes [OCI::Core::Models::ShapeMemoryOptions] :memory_options The value to assign to the {#memory_options} property
     # @option attributes [OCI::Core::Models::ShapeNetworkingBandwidthOptions] :networking_bandwidth_options The value to assign to the {#networking_bandwidth_options} property
@@ -156,6 +189,18 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.baseline_ocpu_utilizations = attributes[:'baselineOcpuUtilizations'] if attributes[:'baselineOcpuUtilizations']
+
+      raise 'You cannot provide both :baselineOcpuUtilizations and :baseline_ocpu_utilizations' if attributes.key?(:'baselineOcpuUtilizations') && attributes.key?(:'baseline_ocpu_utilizations')
+
+      self.baseline_ocpu_utilizations = attributes[:'baseline_ocpu_utilizations'] if attributes[:'baseline_ocpu_utilizations']
+
+      self.min_total_baseline_ocpus_required = attributes[:'minTotalBaselineOcpusRequired'] if attributes[:'minTotalBaselineOcpusRequired']
+
+      raise 'You cannot provide both :minTotalBaselineOcpusRequired and :min_total_baseline_ocpus_required' if attributes.key?(:'minTotalBaselineOcpusRequired') && attributes.key?(:'min_total_baseline_ocpus_required')
+
+      self.min_total_baseline_ocpus_required = attributes[:'min_total_baseline_ocpus_required'] if attributes[:'min_total_baseline_ocpus_required']
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
 
@@ -211,6 +256,12 @@ module OCI
 
       self.local_disk_description = attributes[:'local_disk_description'] if attributes[:'local_disk_description']
 
+      self.is_live_migration_supported = attributes[:'isLiveMigrationSupported'] unless attributes[:'isLiveMigrationSupported'].nil?
+
+      raise 'You cannot provide both :isLiveMigrationSupported and :is_live_migration_supported' if attributes.key?(:'isLiveMigrationSupported') && attributes.key?(:'is_live_migration_supported')
+
+      self.is_live_migration_supported = attributes[:'is_live_migration_supported'] unless attributes[:'is_live_migration_supported'].nil?
+
       self.ocpu_options = attributes[:'ocpuOptions'] if attributes[:'ocpuOptions']
 
       raise 'You cannot provide both :ocpuOptions and :ocpu_options' if attributes.key?(:'ocpuOptions') && attributes.key?(:'ocpu_options')
@@ -238,6 +289,26 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] baseline_ocpu_utilizations Object to be assigned
+    def baseline_ocpu_utilizations=(baseline_ocpu_utilizations)
+      # rubocop:disable Style/ConditionalAssignment
+      if baseline_ocpu_utilizations.nil?
+        @baseline_ocpu_utilizations = nil
+      else
+        @baseline_ocpu_utilizations =
+          baseline_ocpu_utilizations.collect do |item|
+            if BASELINE_OCPU_UTILIZATIONS_ENUM.include?(item)
+              item
+            else
+              OCI.logger.debug("Unknown value for 'baseline_ocpu_utilizations' [#{item}]. Mapping to 'BASELINE_OCPU_UTILIZATIONS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+              BASELINE_OCPU_UTILIZATIONS_UNKNOWN_ENUM_VALUE
+            end
+          end
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -247,6 +318,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        baseline_ocpu_utilizations == other.baseline_ocpu_utilizations &&
+        min_total_baseline_ocpus_required == other.min_total_baseline_ocpus_required &&
         shape == other.shape &&
         processor_description == other.processor_description &&
         ocpus == other.ocpus &&
@@ -258,6 +331,7 @@ module OCI
         local_disks == other.local_disks &&
         local_disks_total_size_in_gbs == other.local_disks_total_size_in_gbs &&
         local_disk_description == other.local_disk_description &&
+        is_live_migration_supported == other.is_live_migration_supported &&
         ocpu_options == other.ocpu_options &&
         memory_options == other.memory_options &&
         networking_bandwidth_options == other.networking_bandwidth_options &&
@@ -277,7 +351,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [shape, processor_description, ocpus, memory_in_gbs, networking_bandwidth_in_gbps, max_vnic_attachments, gpus, gpu_description, local_disks, local_disks_total_size_in_gbs, local_disk_description, ocpu_options, memory_options, networking_bandwidth_options, max_vnic_attachment_options].hash
+      [baseline_ocpu_utilizations, min_total_baseline_ocpus_required, shape, processor_description, ocpus, memory_in_gbs, networking_bandwidth_in_gbps, max_vnic_attachments, gpus, gpu_description, local_disks, local_disks_total_size_in_gbs, local_disk_description, is_live_migration_supported, ocpu_options, memory_options, networking_bandwidth_options, max_vnic_attachment_options].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -118,6 +118,10 @@ module OCI
     # @return [String]
     attr_accessor :job_definition_name
 
+    # Unique key of the data asset to which this job applies, if the job involves a data asset.
+    # @return [String]
+    attr_accessor :data_asset_key
+
     # Error code returned from the latest job execution for this job. Useful when the latest Job execution is in FAILED state.
     #
     # @return [String]
@@ -154,6 +158,7 @@ module OCI
         'execution_count': :'executionCount',
         'time_of_latest_execution': :'timeOfLatestExecution',
         'job_definition_name': :'jobDefinitionName',
+        'data_asset_key': :'dataAssetKey',
         'error_code': :'errorCode',
         'error_message': :'errorMessage',
         'executions': :'executions'
@@ -183,6 +188,7 @@ module OCI
         'execution_count': :'Integer',
         'time_of_latest_execution': :'DateTime',
         'job_definition_name': :'String',
+        'data_asset_key': :'String',
         'error_code': :'String',
         'error_message': :'String',
         'executions': :'Array<OCI::DataCatalog::Models::JobExecutionSummary>'
@@ -214,6 +220,7 @@ module OCI
     # @option attributes [Integer] :execution_count The value to assign to the {#execution_count} property
     # @option attributes [DateTime] :time_of_latest_execution The value to assign to the {#time_of_latest_execution} property
     # @option attributes [String] :job_definition_name The value to assign to the {#job_definition_name} property
+    # @option attributes [String] :data_asset_key The value to assign to the {#data_asset_key} property
     # @option attributes [String] :error_code The value to assign to the {#error_code} property
     # @option attributes [String] :error_message The value to assign to the {#error_message} property
     # @option attributes [Array<OCI::DataCatalog::Models::JobExecutionSummary>] :executions The value to assign to the {#executions} property
@@ -319,6 +326,12 @@ module OCI
 
       self.job_definition_name = attributes[:'job_definition_name'] if attributes[:'job_definition_name']
 
+      self.data_asset_key = attributes[:'dataAssetKey'] if attributes[:'dataAssetKey']
+
+      raise 'You cannot provide both :dataAssetKey and :data_asset_key' if attributes.key?(:'dataAssetKey') && attributes.key?(:'data_asset_key')
+
+      self.data_asset_key = attributes[:'data_asset_key'] if attributes[:'data_asset_key']
+
       self.error_code = attributes[:'errorCode'] if attributes[:'errorCode']
 
       raise 'You cannot provide both :errorCode and :error_code' if attributes.key?(:'errorCode') && attributes.key?(:'error_code')
@@ -389,6 +402,7 @@ module OCI
         execution_count == other.execution_count &&
         time_of_latest_execution == other.time_of_latest_execution &&
         job_definition_name == other.job_definition_name &&
+        data_asset_key == other.data_asset_key &&
         error_code == other.error_code &&
         error_message == other.error_message &&
         executions == other.executions
@@ -407,7 +421,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, uri, display_name, catalog_id, job_definition_key, lifecycle_state, job_type, schedule_type, description, time_created, time_updated, created_by_id, updated_by_id, schedule_cron_expression, time_schedule_begin, execution_count, time_of_latest_execution, job_definition_name, error_code, error_message, executions].hash
+      [key, uri, display_name, catalog_id, job_definition_key, lifecycle_state, job_type, schedule_type, description, time_created, time_updated, created_by_id, updated_by_id, schedule_cron_expression, time_schedule_begin, execution_count, time_of_latest_execution, job_definition_name, data_asset_key, error_code, error_message, executions].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

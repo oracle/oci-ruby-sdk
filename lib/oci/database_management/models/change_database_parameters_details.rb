@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details required to change database parameters' values.
+  # The details required to change database parameter values.
   class DatabaseManagement::Models::ChangeDatabaseParametersDetails
     SCOPE_ENUM = [
       SCOPE_MEMORY = 'MEMORY'.freeze,

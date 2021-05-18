@@ -14,6 +14,7 @@ module OCI
       CONFIG_SOURCE_TYPE_ZIP_UPLOAD = 'ZIP_UPLOAD'.freeze,
       CONFIG_SOURCE_TYPE_GIT_CONFIG_SOURCE = 'GIT_CONFIG_SOURCE'.freeze,
       CONFIG_SOURCE_TYPE_COMPARTMENT_CONFIG_SOURCE = 'COMPARTMENT_CONFIG_SOURCE'.freeze,
+      CONFIG_SOURCE_TYPE_OBJECT_STORAGE_CONFIG_SOURCE = 'OBJECT_STORAGE_CONFIG_SOURCE'.freeze,
       CONFIG_SOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -58,6 +59,7 @@ module OCI
       type = object_hash[:'configSourceType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::ResourceManager::Models::GitConfigSource' if type == 'GIT_CONFIG_SOURCE'
+      return 'OCI::ResourceManager::Models::ObjectStorageConfigSource' if type == 'OBJECT_STORAGE_CONFIG_SOURCE'
       return 'OCI::ResourceManager::Models::CompartmentConfigSource' if type == 'COMPARTMENT_CONFIG_SOURCE'
       return 'OCI::ResourceManager::Models::ZipUploadConfigSource' if type == 'ZIP_UPLOAD'
 

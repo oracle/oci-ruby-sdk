@@ -14,6 +14,7 @@ module OCI
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Sch::Models::TaskDetails
     KIND_ENUM = [
+      KIND_FUNCTION = 'function'.freeze,
       KIND_LOG_RULE = 'logRule'.freeze,
       KIND_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
@@ -49,6 +50,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'kind'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::Sch::Models::FunctionTaskDetails' if type == 'function'
       return 'OCI::Sch::Models::LogRuleTaskDetails' if type == 'logRule'
 
       # TODO: Log a warning when the subtype is not found.

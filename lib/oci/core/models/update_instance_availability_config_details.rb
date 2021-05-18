@@ -5,13 +5,21 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Options for defining the availability of a VM instance after a maintenance event that impacts the underlying hardware.
+  # Options for defining the availability of a VM instance after a maintenance event that impacts the underlying
+  # hardware, including whether to live migrate supported VM instances when possible.
   #
   class Core::Models::UpdateInstanceAvailabilityConfigDetails
     RECOVERY_ACTION_ENUM = [
       RECOVERY_ACTION_RESTORE_INSTANCE = 'RESTORE_INSTANCE'.freeze,
       RECOVERY_ACTION_STOP_INSTANCE = 'STOP_INSTANCE'.freeze
     ].freeze
+
+    # Whether to live migrate supported VM instances to a healthy physical VM host without
+    # disrupting running instances during infrastructure maintenance events. If null, Oracle
+    # chooses the best option for migrating the VM during infrastructure maintenance events.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_live_migration_preferred
 
     # The lifecycle state for an instance when it is recovered after infrastructure maintenance.
     # * `RESTORE_INSTANCE` - The instance is restored to the lifecycle state it was in before the maintenance event.
@@ -25,6 +33,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'is_live_migration_preferred': :'isLiveMigrationPreferred',
         'recovery_action': :'recoveryAction'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -34,6 +43,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'is_live_migration_preferred': :'BOOLEAN',
         'recovery_action': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -45,12 +55,19 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [BOOLEAN] :is_live_migration_preferred The value to assign to the {#is_live_migration_preferred} property
     # @option attributes [String] :recovery_action The value to assign to the {#recovery_action} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.is_live_migration_preferred = attributes[:'isLiveMigrationPreferred'] unless attributes[:'isLiveMigrationPreferred'].nil?
+
+      raise 'You cannot provide both :isLiveMigrationPreferred and :is_live_migration_preferred' if attributes.key?(:'isLiveMigrationPreferred') && attributes.key?(:'is_live_migration_preferred')
+
+      self.is_live_migration_preferred = attributes[:'is_live_migration_preferred'] unless attributes[:'is_live_migration_preferred'].nil?
 
       self.recovery_action = attributes[:'recoveryAction'] if attributes[:'recoveryAction']
       self.recovery_action = "RESTORE_INSTANCE" if recovery_action.nil? && !attributes.key?(:'recoveryAction') # rubocop:disable Style/StringLiterals
@@ -80,6 +97,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        is_live_migration_preferred == other.is_live_migration_preferred &&
         recovery_action == other.recovery_action
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -96,7 +114,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [recovery_action].hash
+      [is_live_migration_preferred, recovery_action].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

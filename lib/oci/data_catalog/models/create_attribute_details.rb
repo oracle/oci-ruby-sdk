@@ -13,6 +13,10 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
+    # Optional user friendly business name of the attribute. If set, this supplements the harvested display name of the object.
+    # @return [String]
+    attr_accessor :business_name
+
     # Detailed description of the attribute.
     # @return [String]
     attr_accessor :description
@@ -89,6 +93,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
+        'business_name': :'businessName',
         'description': :'description',
         'external_data_type': :'externalDataType',
         'is_incremental_data': :'isIncrementalData',
@@ -113,6 +118,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
+        'business_name': :'String',
         'description': :'String',
         'external_data_type': :'String',
         'is_incremental_data': :'BOOLEAN',
@@ -139,6 +145,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :business_name The value to assign to the {#business_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :external_data_type The value to assign to the {#external_data_type} property
     # @option attributes [BOOLEAN] :is_incremental_data The value to assign to the {#is_incremental_data} property
@@ -165,6 +172,12 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.business_name = attributes[:'businessName'] if attributes[:'businessName']
+
+      raise 'You cannot provide both :businessName and :business_name' if attributes.key?(:'businessName') && attributes.key?(:'business_name')
+
+      self.business_name = attributes[:'business_name'] if attributes[:'business_name']
 
       self.description = attributes[:'description'] if attributes[:'description']
 
@@ -249,6 +262,7 @@ module OCI
 
       self.class == other.class &&
         display_name == other.display_name &&
+        business_name == other.business_name &&
         description == other.description &&
         external_data_type == other.external_data_type &&
         is_incremental_data == other.is_incremental_data &&
@@ -279,7 +293,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, external_data_type, is_incremental_data, is_nullable, length, position, precision, scale, time_external, min_collection_count, max_collection_count, external_datatype_entity_key, external_parent_attribute_key, custom_property_members, properties].hash
+      [display_name, business_name, description, external_data_type, is_incremental_data, is_nullable, length, position, precision, scale, time_external, min_collection_count, max_collection_count, external_datatype_entity_key, external_parent_attribute_key, custom_property_members, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

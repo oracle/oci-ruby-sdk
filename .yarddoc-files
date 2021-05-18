@@ -1,3 +1,4 @@
+lib/oci/ai_language/ai_language.rb
 lib/oci/analytics/analytics.rb
 lib/oci/announcements_service/announcements_service.rb
 lib/oci/apigateway/apigateway.rb
@@ -24,6 +25,7 @@ lib/oci/data_safe/data_safe.rb
 lib/oci/data_science/data_science.rb
 lib/oci/database/database.rb
 lib/oci/database_management/database_management.rb
+lib/oci/database_migration/database_migration.rb
 lib/oci/dns/dns.rb
 lib/oci/dts/dts.rb
 lib/oci/email/email.rb
@@ -53,6 +55,7 @@ lib/oci/oce/oce.rb
 lib/oci/ocvp/ocvp.rb
 lib/oci/oda/oda.rb
 lib/oci/ons/ons.rb
+lib/oci/operator_access_control/operator_access_control.rb
 lib/oci/opsi/opsi.rb
 lib/oci/optimizer/optimizer.rb
 lib/oci/os_management/os_management.rb
@@ -61,6 +64,7 @@ lib/oci/resource_search/resource_search.rb
 lib/oci/rover/rover.rb
 lib/oci/sch/sch.rb
 lib/oci/secrets/secrets.rb
+lib/oci/service_catalog/service_catalog.rb
 lib/oci/streaming/streaming.rb
 lib/oci/tenant_manager_control_plane/tenant_manager_control_plane.rb
 lib/oci/usage_api/usage_api.rb

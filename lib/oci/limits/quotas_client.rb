@@ -284,7 +284,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #
+    #    (default to 0)
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #    (default to 25)
     # @option opts [String] :name name

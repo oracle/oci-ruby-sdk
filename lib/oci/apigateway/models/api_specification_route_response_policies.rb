@@ -11,11 +11,15 @@ module OCI
     # @return [OCI::Apigateway::Models::HeaderTransformationPolicy]
     attr_accessor :header_transformations
 
+    # @return [OCI::Apigateway::Models::ResponseCacheStorePolicy]
+    attr_accessor :response_cache_store
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'header_transformations': :'headerTransformations'
+        'header_transformations': :'headerTransformations',
+        'response_cache_store': :'responseCacheStore'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -24,7 +28,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'header_transformations': :'OCI::Apigateway::Models::HeaderTransformationPolicy'
+        'header_transformations': :'OCI::Apigateway::Models::HeaderTransformationPolicy',
+        'response_cache_store': :'OCI::Apigateway::Models::ResponseCacheStorePolicy'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,6 +41,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [OCI::Apigateway::Models::HeaderTransformationPolicy] :header_transformations The value to assign to the {#header_transformations} property
+    # @option attributes [OCI::Apigateway::Models::ResponseCacheStorePolicy] :response_cache_store The value to assign to the {#response_cache_store} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -47,6 +53,12 @@ module OCI
       raise 'You cannot provide both :headerTransformations and :header_transformations' if attributes.key?(:'headerTransformations') && attributes.key?(:'header_transformations')
 
       self.header_transformations = attributes[:'header_transformations'] if attributes[:'header_transformations']
+
+      self.response_cache_store = attributes[:'responseCacheStore'] if attributes[:'responseCacheStore']
+
+      raise 'You cannot provide both :responseCacheStore and :response_cache_store' if attributes.key?(:'responseCacheStore') && attributes.key?(:'response_cache_store')
+
+      self.response_cache_store = attributes[:'response_cache_store'] if attributes[:'response_cache_store']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -60,7 +72,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        header_transformations == other.header_transformations
+        header_transformations == other.header_transformations &&
+        response_cache_store == other.response_cache_store
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -76,7 +89,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [header_transformations].hash
+      [header_transformations, response_cache_store].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

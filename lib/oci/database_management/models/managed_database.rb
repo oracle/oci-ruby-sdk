@@ -72,6 +72,33 @@ module OCI
     # @return [String]
     attr_reader :database_status
 
+    # The name of the parent Container Database.
+    # @return [String]
+    attr_accessor :parent_container_name
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment
+    # in which the parent Container Database resides, if the Managed Database
+    # is a Pluggable Database (PDB).
+    #
+    # @return [String]
+    attr_accessor :parent_container_compartment_id
+
+    # The number of Oracle Real Application Clusters (Oracle RAC) database instances.
+    # @return [Integer]
+    attr_accessor :instance_count
+
+    # The details of the Oracle Real Application Clusters (Oracle RAC) database instances.
+    # @return [Array<OCI::DatabaseManagement::Models::InstanceDetails>]
+    attr_accessor :instance_details
+
+    # The number of PDBs in the Container Database.
+    # @return [Integer]
+    attr_accessor :pdb_count
+
+    # The status of the PDB in the Container Database.
+    # @return [Array<OCI::DatabaseManagement::Models::PdbStatusDetails>]
+    attr_accessor :pdb_status
+
     # The additional details specific to a type of database defined in `{\"key\": \"value\"}` format.
     # Example: `{\"bar-key\": \"value\"}`
     #
@@ -92,6 +119,12 @@ module OCI
         'managed_database_groups': :'managedDatabaseGroups',
         'time_created': :'timeCreated',
         'database_status': :'databaseStatus',
+        'parent_container_name': :'parentContainerName',
+        'parent_container_compartment_id': :'parentContainerCompartmentId',
+        'instance_count': :'instanceCount',
+        'instance_details': :'instanceDetails',
+        'pdb_count': :'pdbCount',
+        'pdb_status': :'pdbStatus',
         'additional_details': :'additionalDetails'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -111,6 +144,12 @@ module OCI
         'managed_database_groups': :'Array<OCI::DatabaseManagement::Models::ParentGroup>',
         'time_created': :'DateTime',
         'database_status': :'String',
+        'parent_container_name': :'String',
+        'parent_container_compartment_id': :'String',
+        'instance_count': :'Integer',
+        'instance_details': :'Array<OCI::DatabaseManagement::Models::InstanceDetails>',
+        'pdb_count': :'Integer',
+        'pdb_status': :'Array<OCI::DatabaseManagement::Models::PdbStatusDetails>',
         'additional_details': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -132,6 +171,12 @@ module OCI
     # @option attributes [Array<OCI::DatabaseManagement::Models::ParentGroup>] :managed_database_groups The value to assign to the {#managed_database_groups} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :database_status The value to assign to the {#database_status} property
+    # @option attributes [String] :parent_container_name The value to assign to the {#parent_container_name} property
+    # @option attributes [String] :parent_container_compartment_id The value to assign to the {#parent_container_compartment_id} property
+    # @option attributes [Integer] :instance_count The value to assign to the {#instance_count} property
+    # @option attributes [Array<OCI::DatabaseManagement::Models::InstanceDetails>] :instance_details The value to assign to the {#instance_details} property
+    # @option attributes [Integer] :pdb_count The value to assign to the {#pdb_count} property
+    # @option attributes [Array<OCI::DatabaseManagement::Models::PdbStatusDetails>] :pdb_status The value to assign to the {#pdb_status} property
     # @option attributes [Hash<String, String>] :additional_details The value to assign to the {#additional_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -190,6 +235,42 @@ module OCI
       raise 'You cannot provide both :databaseStatus and :database_status' if attributes.key?(:'databaseStatus') && attributes.key?(:'database_status')
 
       self.database_status = attributes[:'database_status'] if attributes[:'database_status']
+
+      self.parent_container_name = attributes[:'parentContainerName'] if attributes[:'parentContainerName']
+
+      raise 'You cannot provide both :parentContainerName and :parent_container_name' if attributes.key?(:'parentContainerName') && attributes.key?(:'parent_container_name')
+
+      self.parent_container_name = attributes[:'parent_container_name'] if attributes[:'parent_container_name']
+
+      self.parent_container_compartment_id = attributes[:'parentContainerCompartmentId'] if attributes[:'parentContainerCompartmentId']
+
+      raise 'You cannot provide both :parentContainerCompartmentId and :parent_container_compartment_id' if attributes.key?(:'parentContainerCompartmentId') && attributes.key?(:'parent_container_compartment_id')
+
+      self.parent_container_compartment_id = attributes[:'parent_container_compartment_id'] if attributes[:'parent_container_compartment_id']
+
+      self.instance_count = attributes[:'instanceCount'] if attributes[:'instanceCount']
+
+      raise 'You cannot provide both :instanceCount and :instance_count' if attributes.key?(:'instanceCount') && attributes.key?(:'instance_count')
+
+      self.instance_count = attributes[:'instance_count'] if attributes[:'instance_count']
+
+      self.instance_details = attributes[:'instanceDetails'] if attributes[:'instanceDetails']
+
+      raise 'You cannot provide both :instanceDetails and :instance_details' if attributes.key?(:'instanceDetails') && attributes.key?(:'instance_details')
+
+      self.instance_details = attributes[:'instance_details'] if attributes[:'instance_details']
+
+      self.pdb_count = attributes[:'pdbCount'] if attributes[:'pdbCount']
+
+      raise 'You cannot provide both :pdbCount and :pdb_count' if attributes.key?(:'pdbCount') && attributes.key?(:'pdb_count')
+
+      self.pdb_count = attributes[:'pdb_count'] if attributes[:'pdb_count']
+
+      self.pdb_status = attributes[:'pdbStatus'] if attributes[:'pdbStatus']
+
+      raise 'You cannot provide both :pdbStatus and :pdb_status' if attributes.key?(:'pdbStatus') && attributes.key?(:'pdb_status')
+
+      self.pdb_status = attributes[:'pdb_status'] if attributes[:'pdb_status']
 
       self.additional_details = attributes[:'additionalDetails'] if attributes[:'additionalDetails']
 
@@ -258,6 +339,12 @@ module OCI
         managed_database_groups == other.managed_database_groups &&
         time_created == other.time_created &&
         database_status == other.database_status &&
+        parent_container_name == other.parent_container_name &&
+        parent_container_compartment_id == other.parent_container_compartment_id &&
+        instance_count == other.instance_count &&
+        instance_details == other.instance_details &&
+        pdb_count == other.pdb_count &&
+        pdb_status == other.pdb_status &&
         additional_details == other.additional_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -274,7 +361,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, database_type, database_sub_type, is_cluster, parent_container_id, managed_database_groups, time_created, database_status, additional_details].hash
+      [id, compartment_id, name, database_type, database_sub_type, is_cluster, parent_container_id, managed_database_groups, time_created, database_status, parent_container_name, parent_container_compartment_id, instance_count, instance_details, pdb_count, pdb_status, additional_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

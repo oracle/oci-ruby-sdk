@@ -93,24 +93,13 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # For an IPv6-enabled subnet, this is the IPv6 CIDR block for the subnet's private IP address
-    # space. The subnet size is always /64. Note that IPv6 addressing is currently supported only
-    # in certain regions. See [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
+    # For an IPv6-enabled subnet, this is the IPv6 CIDR block for the subnet's IP address space.
+    # The subnet size is always /64. See [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
     #
     # Example: `2001:0db8:0123:1111::/64`
     #
     # @return [String]
     attr_accessor :ipv6_cidr_block
-
-    # For an IPv6-enabled subnet, this is the IPv6 CIDR block for the subnet's public IP address
-    # space. The subnet size is always /64. The left 48 bits are inherited from the
-    # `ipv6PublicCidrBlock` of the {Vcn},
-    # and the remaining 16 bits are from the subnet's `ipv6CidrBlock`.
-    #
-    # Example: `2001:0db8:0123:1111::/64`
-    #
-    # @return [String]
-    attr_accessor :ipv6_public_cidr_block
 
     # For an IPv6-enabled subnet, this is the IPv6 address of the virtual router.
     #
@@ -122,6 +111,23 @@ module OCI
     # **[Required]** The subnet's current state.
     # @return [String]
     attr_reader :lifecycle_state
+
+    # Whether to disallow ingress internet traffic to VNICs within this subnet. Defaults to false.
+    #
+    # For IPV4, `prohibitInternetIngress` behaves similarly to `prohibitPublicIpOnVnic`.
+    # If it is set to false, VNICs created in this subnet will automatically be assigned public IP
+    # addresses unless specified otherwise during instance launch or VNIC creation (with the `assignPublicIp`
+    # flag in {CreateVnicDetails}).
+    # If `prohibitInternetIngress` is set to true, VNICs created in this subnet cannot have public IP addresses
+    # (that is, it's a privatesubnet).
+    #
+    # For IPv6, if `prohibitInternetIngress` is set to `true`, internet access is not allowed for any
+    # IPv6s assigned to VNICs in the subnet. Otherwise, ingress internet traffic is allowed by default.
+    #
+    # Example: `true`
+    #
+    # @return [BOOLEAN]
+    attr_accessor :prohibit_internet_ingress
 
     # Whether VNICs within this subnet can have public IP addresses.
     # Defaults to false, which means VNICs created in this subnet will
@@ -199,9 +205,9 @@ module OCI
         'freeform_tags': :'freeformTags',
         'id': :'id',
         'ipv6_cidr_block': :'ipv6CidrBlock',
-        'ipv6_public_cidr_block': :'ipv6PublicCidrBlock',
         'ipv6_virtual_router_ip': :'ipv6VirtualRouterIp',
         'lifecycle_state': :'lifecycleState',
+        'prohibit_internet_ingress': :'prohibitInternetIngress',
         'prohibit_public_ip_on_vnic': :'prohibitPublicIpOnVnic',
         'route_table_id': :'routeTableId',
         'security_list_ids': :'securityListIds',
@@ -228,9 +234,9 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
         'ipv6_cidr_block': :'String',
-        'ipv6_public_cidr_block': :'String',
         'ipv6_virtual_router_ip': :'String',
         'lifecycle_state': :'String',
+        'prohibit_internet_ingress': :'BOOLEAN',
         'prohibit_public_ip_on_vnic': :'BOOLEAN',
         'route_table_id': :'String',
         'security_list_ids': :'Array<String>',
@@ -259,9 +265,9 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :ipv6_cidr_block The value to assign to the {#ipv6_cidr_block} property
-    # @option attributes [String] :ipv6_public_cidr_block The value to assign to the {#ipv6_public_cidr_block} property
     # @option attributes [String] :ipv6_virtual_router_ip The value to assign to the {#ipv6_virtual_router_ip} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [BOOLEAN] :prohibit_internet_ingress The value to assign to the {#prohibit_internet_ingress} property
     # @option attributes [BOOLEAN] :prohibit_public_ip_on_vnic The value to assign to the {#prohibit_public_ip_on_vnic} property
     # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
     # @option attributes [Array<String>] :security_list_ids The value to assign to the {#security_list_ids} property
@@ -332,12 +338,6 @@ module OCI
 
       self.ipv6_cidr_block = attributes[:'ipv6_cidr_block'] if attributes[:'ipv6_cidr_block']
 
-      self.ipv6_public_cidr_block = attributes[:'ipv6PublicCidrBlock'] if attributes[:'ipv6PublicCidrBlock']
-
-      raise 'You cannot provide both :ipv6PublicCidrBlock and :ipv6_public_cidr_block' if attributes.key?(:'ipv6PublicCidrBlock') && attributes.key?(:'ipv6_public_cidr_block')
-
-      self.ipv6_public_cidr_block = attributes[:'ipv6_public_cidr_block'] if attributes[:'ipv6_public_cidr_block']
-
       self.ipv6_virtual_router_ip = attributes[:'ipv6VirtualRouterIp'] if attributes[:'ipv6VirtualRouterIp']
 
       raise 'You cannot provide both :ipv6VirtualRouterIp and :ipv6_virtual_router_ip' if attributes.key?(:'ipv6VirtualRouterIp') && attributes.key?(:'ipv6_virtual_router_ip')
@@ -349,6 +349,12 @@ module OCI
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.prohibit_internet_ingress = attributes[:'prohibitInternetIngress'] unless attributes[:'prohibitInternetIngress'].nil?
+
+      raise 'You cannot provide both :prohibitInternetIngress and :prohibit_internet_ingress' if attributes.key?(:'prohibitInternetIngress') && attributes.key?(:'prohibit_internet_ingress')
+
+      self.prohibit_internet_ingress = attributes[:'prohibit_internet_ingress'] unless attributes[:'prohibit_internet_ingress'].nil?
 
       self.prohibit_public_ip_on_vnic = attributes[:'prohibitPublicIpOnVnic'] unless attributes[:'prohibitPublicIpOnVnic'].nil?
 
@@ -433,9 +439,9 @@ module OCI
         freeform_tags == other.freeform_tags &&
         id == other.id &&
         ipv6_cidr_block == other.ipv6_cidr_block &&
-        ipv6_public_cidr_block == other.ipv6_public_cidr_block &&
         ipv6_virtual_router_ip == other.ipv6_virtual_router_ip &&
         lifecycle_state == other.lifecycle_state &&
+        prohibit_internet_ingress == other.prohibit_internet_ingress &&
         prohibit_public_ip_on_vnic == other.prohibit_public_ip_on_vnic &&
         route_table_id == other.route_table_id &&
         security_list_ids == other.security_list_ids &&
@@ -459,7 +465,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, cidr_block, compartment_id, defined_tags, dhcp_options_id, display_name, dns_label, freeform_tags, id, ipv6_cidr_block, ipv6_public_cidr_block, ipv6_virtual_router_ip, lifecycle_state, prohibit_public_ip_on_vnic, route_table_id, security_list_ids, subnet_domain_name, time_created, vcn_id, virtual_router_ip, virtual_router_mac].hash
+      [availability_domain, cidr_block, compartment_id, defined_tags, dhcp_options_id, display_name, dns_label, freeform_tags, id, ipv6_cidr_block, ipv6_virtual_router_ip, lifecycle_state, prohibit_internet_ingress, prohibit_public_ip_on_vnic, route_table_id, security_list_ids, subnet_domain_name, time_created, vcn_id, virtual_router_ip, virtual_router_mac].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

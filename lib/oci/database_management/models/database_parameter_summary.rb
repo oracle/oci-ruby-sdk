@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details of a database parameter.
+  # A summary of the database parameter.
   class DatabaseManagement::Models::DatabaseParameterSummary
     TYPE_ENUM = [
       TYPE_BOOLEAN = 'BOOLEAN'.freeze,

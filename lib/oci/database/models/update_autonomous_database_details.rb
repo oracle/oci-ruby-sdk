@@ -201,6 +201,10 @@ module OCI
     # @return [Array<String>]
     attr_accessor :nsg_ids
 
+    # Customer Contacts. Setting this to an empty list removes all customer contacts of an Oracle Autonomous Database.
+    # @return [Array<OCI::Database::Models::CustomerContact>]
+    attr_accessor :customer_contacts
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -228,7 +232,8 @@ module OCI
         'permission_level': :'permissionLevel',
         'subnet_id': :'subnetId',
         'private_endpoint_label': :'privateEndpointLabel',
-        'nsg_ids': :'nsgIds'
+        'nsg_ids': :'nsgIds',
+        'customer_contacts': :'customerContacts'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -260,7 +265,8 @@ module OCI
         'permission_level': :'String',
         'subnet_id': :'String',
         'private_endpoint_label': :'String',
-        'nsg_ids': :'Array<String>'
+        'nsg_ids': :'Array<String>',
+        'customer_contacts': :'Array<OCI::Database::Models::CustomerContact>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -295,6 +301,7 @@ module OCI
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [String] :private_endpoint_label The value to assign to the {#private_endpoint_label} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
+    # @option attributes [Array<OCI::Database::Models::CustomerContact>] :customer_contacts The value to assign to the {#customer_contacts} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -446,6 +453,12 @@ module OCI
       raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
 
       self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
+
+      self.customer_contacts = attributes[:'customerContacts'] if attributes[:'customerContacts']
+
+      raise 'You cannot provide both :customerContacts and :customer_contacts' if attributes.key?(:'customerContacts') && attributes.key?(:'customer_contacts')
+
+      self.customer_contacts = attributes[:'customer_contacts'] if attributes[:'customer_contacts']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -522,7 +535,8 @@ module OCI
         permission_level == other.permission_level &&
         subnet_id == other.subnet_id &&
         private_endpoint_label == other.private_endpoint_label &&
-        nsg_ids == other.nsg_ids
+        nsg_ids == other.nsg_ids &&
+        customer_contacts == other.customer_contacts
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -538,7 +552,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, data_storage_size_in_tbs, display_name, is_free_tier, admin_password, db_name, freeform_tags, defined_tags, db_workload, license_model, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_auto_scaling_enabled, is_refreshable_clone, refreshable_mode, is_data_guard_enabled, db_version, open_mode, permission_level, subnet_id, private_endpoint_label, nsg_ids].hash
+      [cpu_core_count, data_storage_size_in_tbs, display_name, is_free_tier, admin_password, db_name, freeform_tags, defined_tags, db_workload, license_model, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_auto_scaling_enabled, is_refreshable_clone, refreshable_mode, is_data_guard_enabled, db_version, open_mode, permission_level, subnet_id, private_endpoint_label, nsg_ids, customer_contacts].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

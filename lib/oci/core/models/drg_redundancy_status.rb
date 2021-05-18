@@ -22,7 +22,7 @@ module OCI
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The OCID of the DRG.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG.
     # @return [String]
     attr_accessor :id
 

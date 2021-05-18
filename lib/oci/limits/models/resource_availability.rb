@@ -9,22 +9,43 @@ module OCI
   # Note: We cannot guarantee this data for all the limits. In those cases, these fields will be empty.
   #
   class Limits::Models::ResourceAvailability
-    # The current usage in the given compartment.
+    # The current usage in the given compartment. Because we have introduced resources with fractional counts,
+    # the field will round up to the nearest integer.
     #
     # @return [Integer]
     attr_accessor :used
 
-    # The count of available resources.
+    # The count of available resources. Because we have introduced resources with fractional counts,
+    # the field will round down to the nearest integer.
     #
     # @return [Integer]
     attr_accessor :available
+
+    # The current most accurate usage in the given compartment.
+    #
+    # @return [Float]
+    attr_accessor :fractional_usage
+
+    # The most accurate count of available resources.
+    #
+    # @return [Float]
+    attr_accessor :fractional_availability
+
+    # The effective quota value for given compartment. This field is only present if there is a
+    # current quota policy affecting the current resource in the target region or availability domain.
+    #
+    # @return [Float]
+    attr_accessor :effective_quota_value
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'used': :'used',
-        'available': :'available'
+        'available': :'available',
+        'fractional_usage': :'fractionalUsage',
+        'fractional_availability': :'fractionalAvailability',
+        'effective_quota_value': :'effectiveQuotaValue'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -34,7 +55,10 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'used': :'Integer',
-        'available': :'Integer'
+        'available': :'Integer',
+        'fractional_usage': :'Float',
+        'fractional_availability': :'Float',
+        'effective_quota_value': :'Float'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -47,6 +71,9 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Integer] :used The value to assign to the {#used} property
     # @option attributes [Integer] :available The value to assign to the {#available} property
+    # @option attributes [Float] :fractional_usage The value to assign to the {#fractional_usage} property
+    # @option attributes [Float] :fractional_availability The value to assign to the {#fractional_availability} property
+    # @option attributes [Float] :effective_quota_value The value to assign to the {#effective_quota_value} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -56,6 +83,24 @@ module OCI
       self.used = attributes[:'used'] if attributes[:'used']
 
       self.available = attributes[:'available'] if attributes[:'available']
+
+      self.fractional_usage = attributes[:'fractionalUsage'] if attributes[:'fractionalUsage']
+
+      raise 'You cannot provide both :fractionalUsage and :fractional_usage' if attributes.key?(:'fractionalUsage') && attributes.key?(:'fractional_usage')
+
+      self.fractional_usage = attributes[:'fractional_usage'] if attributes[:'fractional_usage']
+
+      self.fractional_availability = attributes[:'fractionalAvailability'] if attributes[:'fractionalAvailability']
+
+      raise 'You cannot provide both :fractionalAvailability and :fractional_availability' if attributes.key?(:'fractionalAvailability') && attributes.key?(:'fractional_availability')
+
+      self.fractional_availability = attributes[:'fractional_availability'] if attributes[:'fractional_availability']
+
+      self.effective_quota_value = attributes[:'effectiveQuotaValue'] if attributes[:'effectiveQuotaValue']
+
+      raise 'You cannot provide both :effectiveQuotaValue and :effective_quota_value' if attributes.key?(:'effectiveQuotaValue') && attributes.key?(:'effective_quota_value')
+
+      self.effective_quota_value = attributes[:'effective_quota_value'] if attributes[:'effective_quota_value']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -70,7 +115,10 @@ module OCI
 
       self.class == other.class &&
         used == other.used &&
-        available == other.available
+        available == other.available &&
+        fractional_usage == other.fractional_usage &&
+        fractional_availability == other.fractional_availability &&
+        effective_quota_value == other.effective_quota_value
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -86,7 +134,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [used, available].hash
+      [used, available, fractional_usage, fractional_availability, effective_quota_value].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -22,13 +22,18 @@ module OCI
     # @return [String]
     attr_accessor :machine_learning_user_management_url
 
+    # The URL of the Graph Studio for the Autonomous Database.
+    # @return [String]
+    attr_accessor :graph_studio_url
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'sql_dev_web_url': :'sqlDevWebUrl',
         'apex_url': :'apexUrl',
-        'machine_learning_user_management_url': :'machineLearningUserManagementUrl'
+        'machine_learning_user_management_url': :'machineLearningUserManagementUrl',
+        'graph_studio_url': :'graphStudioUrl'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -39,7 +44,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'sql_dev_web_url': :'String',
         'apex_url': :'String',
-        'machine_learning_user_management_url': :'String'
+        'machine_learning_user_management_url': :'String',
+        'graph_studio_url': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -53,6 +59,7 @@ module OCI
     # @option attributes [String] :sql_dev_web_url The value to assign to the {#sql_dev_web_url} property
     # @option attributes [String] :apex_url The value to assign to the {#apex_url} property
     # @option attributes [String] :machine_learning_user_management_url The value to assign to the {#machine_learning_user_management_url} property
+    # @option attributes [String] :graph_studio_url The value to assign to the {#graph_studio_url} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -76,6 +83,12 @@ module OCI
       raise 'You cannot provide both :machineLearningUserManagementUrl and :machine_learning_user_management_url' if attributes.key?(:'machineLearningUserManagementUrl') && attributes.key?(:'machine_learning_user_management_url')
 
       self.machine_learning_user_management_url = attributes[:'machine_learning_user_management_url'] if attributes[:'machine_learning_user_management_url']
+
+      self.graph_studio_url = attributes[:'graphStudioUrl'] if attributes[:'graphStudioUrl']
+
+      raise 'You cannot provide both :graphStudioUrl and :graph_studio_url' if attributes.key?(:'graphStudioUrl') && attributes.key?(:'graph_studio_url')
+
+      self.graph_studio_url = attributes[:'graph_studio_url'] if attributes[:'graph_studio_url']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -91,7 +104,8 @@ module OCI
       self.class == other.class &&
         sql_dev_web_url == other.sql_dev_web_url &&
         apex_url == other.apex_url &&
-        machine_learning_user_management_url == other.machine_learning_user_management_url
+        machine_learning_user_management_url == other.machine_learning_user_management_url &&
+        graph_studio_url == other.graph_studio_url
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -107,7 +121,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [sql_dev_web_url, apex_url, machine_learning_user_management_url].hash
+      [sql_dev_web_url, apex_url, machine_learning_user_management_url, graph_studio_url].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

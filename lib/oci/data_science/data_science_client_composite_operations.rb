@@ -706,9 +706,10 @@ module OCI
     # to enter the given state(s).
     #
     # @param [String] model_deployment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model deployment.
-    # @param [OCI::DataScience::Models::UpdateModelDeploymentDetails] update_model_deployment_details Details for updating a model deployment. You can update `modelDeploymentConfigurationDetails` and change `instanceShapeName` and `modelId` when the model deployment is in
-    #   the ACTIVE lifecycle state. The `bandwidthMbps` or `instanceCount` can only be updated while the model deployment is in the `INACTIVE` state. Changes to the `bandwidthMbps`
-    #   or `instanceCount` will take effect the next time the `ActivateModelDeployment` action is invoked on the model deployment resource.
+    # @param [OCI::DataScience::Models::UpdateModelDeploymentDetails] update_model_deployment_details Details for updating a model deployment. Some of the properties of `modelDeploymentConfigurationDetails` or `CategoryLogDetails` can also be updated with zero down time when
+    #   the model deployment's lifecycle state is ACTIVE i.e `instanceShapeName` can be updated along with `modelId`, similarly `logId` can be updated along with `logGroupId`. But
+    #   `instanceShapeName` or `modelId` cannot be updated along with `logId` or `logGroupId`. All of the fields can be updated when the deployment is in the INACTIVE lifecycle state.
+    #   Changes will take effect the next time the model deployment is activated.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataScience::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataScience::DataScienceClient#update_model_deployment}

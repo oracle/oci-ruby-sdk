@@ -200,17 +200,13 @@ def append_security_list_rules(vcn_client, security_list_id, egress_rules: nil, 
 
   if egress_rules
     egress_rules.each do |rule|
-      unless security_list_response.data.egress_security_rules.include? rule
-        security_list_response.data.egress_security_rules.push(rule)
-      end
+      security_list_response.data.egress_security_rules.push(rule) unless security_list_response.data.egress_security_rules.include? rule
     end
   end
 
   if ingress_rules
     ingress_rules.each do |rule|
-      unless security_list_response.data.ingress_security_rules.include? rule
-        security_list_response.data.ingress_security_rules.push(rule)
-      end
+      security_list_response.data.ingress_security_rules.push(rule) unless security_list_response.data.ingress_security_rules.include? rule
     end
   end
 

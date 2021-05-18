@@ -18,6 +18,22 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    CURRENT_SKU_ENUM = [
+      CURRENT_SKU_HOUR = 'HOUR'.freeze,
+      CURRENT_SKU_MONTH = 'MONTH'.freeze,
+      CURRENT_SKU_ONE_YEAR = 'ONE_YEAR'.freeze,
+      CURRENT_SKU_THREE_YEARS = 'THREE_YEARS'.freeze,
+      CURRENT_SKU_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    NEXT_SKU_ENUM = [
+      NEXT_SKU_HOUR = 'HOUR'.freeze,
+      NEXT_SKU_MONTH = 'MONTH'.freeze,
+      NEXT_SKU_ONE_YEAR = 'ONE_YEAR'.freeze,
+      NEXT_SKU_THREE_YEARS = 'THREE_YEARS'.freeze,
+      NEXT_SKU_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the ESXi host.
     #
     # @return [String]
@@ -66,6 +82,25 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # **[Required]** Billing option selected during SDDC creation.
+    # {#list_supported_skus list_supported_skus}.
+    #
+    # @return [String]
+    attr_reader :current_sku
+
+    # **[Required]** Billing option to switch to once existing billing cycle ends.
+    # {#list_supported_skus list_supported_skus}.
+    #
+    # @return [String]
+    attr_reader :next_sku
+
+    # **[Required]** Current billing cycle end date. If nextSku is different from existing SKU, then we switch to newSKu
+    # after this contractEndDate
+    # Example: `2016-08-25T21:10:29.600Z`
+    #
+    # @return [DateTime]
+    attr_accessor :billing_contract_end_date
+
     # **[Required]** Free-form tags for this resource. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -94,6 +129,9 @@ module OCI
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
+        'current_sku': :'currentSku',
+        'next_sku': :'nextSku',
+        'billing_contract_end_date': :'billingContractEndDate',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -112,6 +150,9 @@ module OCI
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
+        'current_sku': :'String',
+        'next_sku': :'String',
+        'billing_contract_end_date': :'DateTime',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -132,6 +173,9 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :current_sku The value to assign to the {#current_sku} property
+    # @option attributes [String] :next_sku The value to assign to the {#next_sku} property
+    # @option attributes [DateTime] :billing_contract_end_date The value to assign to the {#billing_contract_end_date} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -184,6 +228,26 @@ module OCI
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
+      self.current_sku = attributes[:'currentSku'] if attributes[:'currentSku']
+      self.current_sku = "MONTH" if current_sku.nil? && !attributes.key?(:'currentSku') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :currentSku and :current_sku' if attributes.key?(:'currentSku') && attributes.key?(:'current_sku')
+
+      self.current_sku = attributes[:'current_sku'] if attributes[:'current_sku']
+      self.current_sku = "MONTH" if current_sku.nil? && !attributes.key?(:'currentSku') && !attributes.key?(:'current_sku') # rubocop:disable Style/StringLiterals
+
+      self.next_sku = attributes[:'nextSku'] if attributes[:'nextSku']
+
+      raise 'You cannot provide both :nextSku and :next_sku' if attributes.key?(:'nextSku') && attributes.key?(:'next_sku')
+
+      self.next_sku = attributes[:'next_sku'] if attributes[:'next_sku']
+
+      self.billing_contract_end_date = attributes[:'billingContractEndDate'] if attributes[:'billingContractEndDate']
+
+      raise 'You cannot provide both :billingContractEndDate and :billing_contract_end_date' if attributes.key?(:'billingContractEndDate') && attributes.key?(:'billing_contract_end_date')
+
+      self.billing_contract_end_date = attributes[:'billing_contract_end_date'] if attributes[:'billing_contract_end_date']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -212,6 +276,32 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] current_sku Object to be assigned
+    def current_sku=(current_sku)
+      # rubocop:disable Style/ConditionalAssignment
+      if current_sku && !CURRENT_SKU_ENUM.include?(current_sku)
+        OCI.logger.debug("Unknown value for 'current_sku' [" + current_sku + "]. Mapping to 'CURRENT_SKU_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @current_sku = CURRENT_SKU_UNKNOWN_ENUM_VALUE
+      else
+        @current_sku = current_sku
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] next_sku Object to be assigned
+    def next_sku=(next_sku)
+      # rubocop:disable Style/ConditionalAssignment
+      if next_sku && !NEXT_SKU_ENUM.include?(next_sku)
+        OCI.logger.debug("Unknown value for 'next_sku' [" + next_sku + "]. Mapping to 'NEXT_SKU_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @next_sku = NEXT_SKU_UNKNOWN_ENUM_VALUE
+      else
+        @next_sku = next_sku
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -229,6 +319,9 @@ module OCI
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
+        current_sku == other.current_sku &&
+        next_sku == other.next_sku &&
+        billing_contract_end_date == other.billing_contract_end_date &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -246,7 +339,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, sddc_id, compartment_id, compute_instance_id, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags].hash
+      [id, display_name, sddc_id, compartment_id, compute_instance_id, time_created, time_updated, lifecycle_state, current_sku, next_sku, billing_contract_end_date, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

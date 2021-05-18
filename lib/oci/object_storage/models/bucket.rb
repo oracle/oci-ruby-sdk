@@ -35,6 +35,12 @@ module OCI
       VERSIONING_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    AUTO_TIERING_ENUM = [
+      AUTO_TIERING_DISABLED = 'Disabled'.freeze,
+      AUTO_TIERING_INFREQUENT_ACCESS = 'InfrequentAccess'.freeze,
+      AUTO_TIERING_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The Object Storage namespace in which the bucket resides.
     # @return [String]
     attr_accessor :namespace
@@ -148,6 +154,13 @@ module OCI
     # @return [String]
     attr_reader :versioning
 
+    # The auto tiering status on the bucket. A bucket is created with auto tiering `Disabled` by default.
+    # For auto tiering `InfrequentAccess`, objects are transitioned automatically between the 'Standard'
+    # and 'InfrequentAccess' tiers based on the access pattern of the objects.
+    #
+    # @return [String]
+    attr_reader :auto_tiering
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -171,7 +184,8 @@ module OCI
         'replication_enabled': :'replicationEnabled',
         'is_read_only': :'isReadOnly',
         'id': :'id',
-        'versioning': :'versioning'
+        'versioning': :'versioning',
+        'auto_tiering': :'autoTiering'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -199,7 +213,8 @@ module OCI
         'replication_enabled': :'BOOLEAN',
         'is_read_only': :'BOOLEAN',
         'id': :'String',
-        'versioning': :'String'
+        'versioning': :'String',
+        'auto_tiering': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -230,6 +245,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_read_only The value to assign to the {#is_read_only} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :versioning The value to assign to the {#versioning} property
+    # @option attributes [String] :auto_tiering The value to assign to the {#auto_tiering} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -331,6 +347,12 @@ module OCI
       self.id = attributes[:'id'] if attributes[:'id']
 
       self.versioning = attributes[:'versioning'] if attributes[:'versioning']
+
+      self.auto_tiering = attributes[:'autoTiering'] if attributes[:'autoTiering']
+
+      raise 'You cannot provide both :autoTiering and :auto_tiering' if attributes.key?(:'autoTiering') && attributes.key?(:'auto_tiering')
+
+      self.auto_tiering = attributes[:'auto_tiering'] if attributes[:'auto_tiering']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -374,6 +396,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] auto_tiering Object to be assigned
+    def auto_tiering=(auto_tiering)
+      # rubocop:disable Style/ConditionalAssignment
+      if auto_tiering && !AUTO_TIERING_ENUM.include?(auto_tiering)
+        OCI.logger.debug("Unknown value for 'auto_tiering' [" + auto_tiering + "]. Mapping to 'AUTO_TIERING_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @auto_tiering = AUTO_TIERING_UNKNOWN_ENUM_VALUE
+      else
+        @auto_tiering = auto_tiering
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -402,7 +437,8 @@ module OCI
         replication_enabled == other.replication_enabled &&
         is_read_only == other.is_read_only &&
         id == other.id &&
-        versioning == other.versioning
+        versioning == other.versioning &&
+        auto_tiering == other.auto_tiering
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -418,7 +454,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [namespace, name, compartment_id, metadata, created_by, time_created, etag, public_access_type, storage_tier, object_events_enabled, freeform_tags, defined_tags, kms_key_id, object_lifecycle_policy_etag, approximate_count, approximate_size, replication_enabled, is_read_only, id, versioning].hash
+      [namespace, name, compartment_id, metadata, created_by, time_created, etag, public_access_type, storage_tier, object_events_enabled, freeform_tags, defined_tags, kms_key_id, object_lifecycle_policy_etag, approximate_count, approximate_size, replication_enabled, is_read_only, id, versioning, auto_tiering].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

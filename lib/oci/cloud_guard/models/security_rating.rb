@@ -7,7 +7,8 @@ module OCI
       SECURITY_RATING_EXCELLENT = 'EXCELLENT'.freeze,
       SECURITY_RATING_GOOD = 'GOOD'.freeze,
       SECURITY_RATING_FAIR = 'FAIR'.freeze,
-      SECURITY_RATING_POOR = 'POOR'.freeze
+      SECURITY_RATING_POOR = 'POOR'.freeze,
+      SECURITY_RATING_NA = 'NA'.freeze
     ].freeze
   end
 end

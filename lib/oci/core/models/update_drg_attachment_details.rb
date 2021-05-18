@@ -13,7 +13,43 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # The OCID of the route table the DRG attachment will use.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG route table that is assigned to this attachment.
+    #
+    # The DRG route table manages traffic inside the DRG.
+    #
+    # You can't remove a DRG route table from a DRG attachment, but you can reassign which
+    # DRG route table it uses.
+    #
+    # @return [String]
+    attr_accessor :drg_route_table_id
+
+    # @return [OCI::Core::Models::DrgAttachmentNetworkUpdateDetails]
+    attr_accessor :network_details
+
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the export route distribution used to specify how routes in the assigned DRG route table
+    # are advertised out through the attachment.
+    # If this value is null, no routes are advertised through this attachment.
+    #
+    # @return [String]
+    attr_accessor :export_drg_route_distribution_id
+
+    # This is the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the route table that is used to route the traffic as it enters a VCN through this attachment.
     #
     # For information about why you would associate a route table with a DRG attachment, see:
     #
@@ -28,6 +64,11 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
+        'drg_route_table_id': :'drgRouteTableId',
+        'network_details': :'networkDetails',
+        'defined_tags': :'definedTags',
+        'freeform_tags': :'freeformTags',
+        'export_drg_route_distribution_id': :'exportDrgRouteDistributionId',
         'route_table_id': :'routeTableId'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -38,6 +79,11 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
+        'drg_route_table_id': :'String',
+        'network_details': :'OCI::Core::Models::DrgAttachmentNetworkUpdateDetails',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'freeform_tags': :'Hash<String, String>',
+        'export_drg_route_distribution_id': :'String',
         'route_table_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -50,6 +96,11 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :drg_route_table_id The value to assign to the {#drg_route_table_id} property
+    # @option attributes [OCI::Core::Models::DrgAttachmentNetworkUpdateDetails] :network_details The value to assign to the {#network_details} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :export_drg_route_distribution_id The value to assign to the {#export_drg_route_distribution_id} property
     # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -62,6 +113,36 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.drg_route_table_id = attributes[:'drgRouteTableId'] if attributes[:'drgRouteTableId']
+
+      raise 'You cannot provide both :drgRouteTableId and :drg_route_table_id' if attributes.key?(:'drgRouteTableId') && attributes.key?(:'drg_route_table_id')
+
+      self.drg_route_table_id = attributes[:'drg_route_table_id'] if attributes[:'drg_route_table_id']
+
+      self.network_details = attributes[:'networkDetails'] if attributes[:'networkDetails']
+
+      raise 'You cannot provide both :networkDetails and :network_details' if attributes.key?(:'networkDetails') && attributes.key?(:'network_details')
+
+      self.network_details = attributes[:'network_details'] if attributes[:'network_details']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.export_drg_route_distribution_id = attributes[:'exportDrgRouteDistributionId'] if attributes[:'exportDrgRouteDistributionId']
+
+      raise 'You cannot provide both :exportDrgRouteDistributionId and :export_drg_route_distribution_id' if attributes.key?(:'exportDrgRouteDistributionId') && attributes.key?(:'export_drg_route_distribution_id')
+
+      self.export_drg_route_distribution_id = attributes[:'export_drg_route_distribution_id'] if attributes[:'export_drg_route_distribution_id']
 
       self.route_table_id = attributes[:'routeTableId'] if attributes[:'routeTableId']
 
@@ -82,6 +163,11 @@ module OCI
 
       self.class == other.class &&
         display_name == other.display_name &&
+        drg_route_table_id == other.drg_route_table_id &&
+        network_details == other.network_details &&
+        defined_tags == other.defined_tags &&
+        freeform_tags == other.freeform_tags &&
+        export_drg_route_distribution_id == other.export_drg_route_distribution_id &&
         route_table_id == other.route_table_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -98,7 +184,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, route_table_id].hash
+      [display_name, drg_route_table_id, network_details, defined_tags, freeform_tags, export_drg_route_distribution_id, route_table_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -84,6 +84,15 @@ module OCI
     # @return [String]
     attr_accessor :driver_shape
 
+    # The input used for spark-submit command. For more details see https://spark.apache.org/docs/latest/submitting-applications.html#launching-applications-with-spark-submit.
+    # Supported options include ``--class``, ``--file``, ``--jars``, ``--conf``, ``--py-files``, and main application file with arguments.
+    # Example: ``--jars oci://path/to/a.jar,oci://path/to/b.jar --files oci://path/to/a.json,oci://path/to/b.csv --py-files oci://path/to/a.py,oci://path/to/b.py --conf spark.sql.crossJoin.enabled=true --class org.apache.spark.examples.SparkPi oci://path/to/main.jar 10``
+    # Note: If execute is specified together with applicationId, className, configuration, fileUri, language, arguments, parameters during application create/update, or run create/submit,
+    # Data Flow service will use derived information from execute input only.
+    #
+    # @return [String]
+    attr_accessor :execute
+
     # The VM shape for the executors. Sets the executor cores and memory.
     #
     # @return [String]
@@ -142,6 +151,7 @@ module OCI
         'description': :'description',
         'display_name': :'displayName',
         'driver_shape': :'driverShape',
+        'execute': :'execute',
         'executor_shape': :'executorShape',
         'freeform_tags': :'freeformTags',
         'logs_bucket_uri': :'logsBucketUri',
@@ -168,6 +178,7 @@ module OCI
         'description': :'String',
         'display_name': :'String',
         'driver_shape': :'String',
+        'execute': :'String',
         'executor_shape': :'String',
         'freeform_tags': :'Hash<String, String>',
         'logs_bucket_uri': :'String',
@@ -196,6 +207,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :driver_shape The value to assign to the {#driver_shape} property
+    # @option attributes [String] :execute The value to assign to the {#execute} property
     # @option attributes [String] :executor_shape The value to assign to the {#executor_shape} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :logs_bucket_uri The value to assign to the {#logs_bucket_uri} property
@@ -258,6 +270,8 @@ module OCI
       raise 'You cannot provide both :driverShape and :driver_shape' if attributes.key?(:'driverShape') && attributes.key?(:'driver_shape')
 
       self.driver_shape = attributes[:'driver_shape'] if attributes[:'driver_shape']
+
+      self.execute = attributes[:'execute'] if attributes[:'execute']
 
       self.executor_shape = attributes[:'executorShape'] if attributes[:'executorShape']
 
@@ -328,6 +342,7 @@ module OCI
         description == other.description &&
         display_name == other.display_name &&
         driver_shape == other.driver_shape &&
+        execute == other.execute &&
         executor_shape == other.executor_shape &&
         freeform_tags == other.freeform_tags &&
         logs_bucket_uri == other.logs_bucket_uri &&
@@ -350,7 +365,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [class_name, file_uri, spark_version, language, archive_uri, arguments, configuration, defined_tags, description, display_name, driver_shape, executor_shape, freeform_tags, logs_bucket_uri, num_executors, parameters, private_endpoint_id, warehouse_bucket_uri].hash
+      [class_name, file_uri, spark_version, language, archive_uri, arguments, configuration, defined_tags, description, display_name, driver_shape, execute, executor_shape, freeform_tags, logs_bucket_uri, num_executors, parameters, private_endpoint_id, warehouse_bucket_uri].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

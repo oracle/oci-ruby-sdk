@@ -7,6 +7,20 @@ require 'date'
 module OCI
   # Details of the ESXi host to add to the SDDC.
   class Ocvp::Models::CreateEsxiHostDetails
+    CURRENT_SKU_ENUM = [
+      CURRENT_SKU_HOUR = 'HOUR'.freeze,
+      CURRENT_SKU_MONTH = 'MONTH'.freeze,
+      CURRENT_SKU_ONE_YEAR = 'ONE_YEAR'.freeze,
+      CURRENT_SKU_THREE_YEARS = 'THREE_YEARS'.freeze
+    ].freeze
+
+    NEXT_SKU_ENUM = [
+      NEXT_SKU_HOUR = 'HOUR'.freeze,
+      NEXT_SKU_MONTH = 'MONTH'.freeze,
+      NEXT_SKU_ONE_YEAR = 'ONE_YEAR'.freeze,
+      NEXT_SKU_THREE_YEARS = 'THREE_YEARS'.freeze
+    ].freeze
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the SDDC to add the
     # ESXi host to.
     #
@@ -25,6 +39,19 @@ module OCI
     #
     # @return [String]
     attr_accessor :display_name
+
+    # **[Required]** Billing option selected during SDDC creation.
+    # {#list_supported_skus list_supported_skus}.
+    #
+    # @return [String]
+    attr_reader :current_sku
+
+    # Billing option to switch to once existing billing cycle ends.
+    # If nextSku is null or empty, currentSku will be used to continue with next billing term.
+    # {#list_supported_skus list_supported_skus}.
+    #
+    # @return [String]
+    attr_reader :next_sku
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -48,6 +75,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'sddc_id': :'sddcId',
         'display_name': :'displayName',
+        'current_sku': :'currentSku',
+        'next_sku': :'nextSku',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -60,6 +89,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'sddc_id': :'String',
         'display_name': :'String',
+        'current_sku': :'String',
+        'next_sku': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -74,6 +105,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :sddc_id The value to assign to the {#sddc_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :current_sku The value to assign to the {#current_sku} property
+    # @option attributes [String] :next_sku The value to assign to the {#next_sku} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -94,6 +127,20 @@ module OCI
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
+      self.current_sku = attributes[:'currentSku'] if attributes[:'currentSku']
+      self.current_sku = "MONTH" if current_sku.nil? && !attributes.key?(:'currentSku') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :currentSku and :current_sku' if attributes.key?(:'currentSku') && attributes.key?(:'current_sku')
+
+      self.current_sku = attributes[:'current_sku'] if attributes[:'current_sku']
+      self.current_sku = "MONTH" if current_sku.nil? && !attributes.key?(:'currentSku') && !attributes.key?(:'current_sku') # rubocop:disable Style/StringLiterals
+
+      self.next_sku = attributes[:'nextSku'] if attributes[:'nextSku']
+
+      raise 'You cannot provide both :nextSku and :next_sku' if attributes.key?(:'nextSku') && attributes.key?(:'next_sku')
+
+      self.next_sku = attributes[:'next_sku'] if attributes[:'next_sku']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -109,6 +156,22 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] current_sku Object to be assigned
+    def current_sku=(current_sku)
+      raise "Invalid value for 'current_sku': this must be one of the values in CURRENT_SKU_ENUM." if current_sku && !CURRENT_SKU_ENUM.include?(current_sku)
+
+      @current_sku = current_sku
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] next_sku Object to be assigned
+    def next_sku=(next_sku)
+      raise "Invalid value for 'next_sku': this must be one of the values in NEXT_SKU_ENUM." if next_sku && !NEXT_SKU_ENUM.include?(next_sku)
+
+      @next_sku = next_sku
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -120,6 +183,8 @@ module OCI
       self.class == other.class &&
         sddc_id == other.sddc_id &&
         display_name == other.display_name &&
+        current_sku == other.current_sku &&
+        next_sku == other.next_sku &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -137,7 +202,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [sddc_id, display_name, freeform_tags, defined_tags].hash
+      [sddc_id, display_name, current_sku, next_sku, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

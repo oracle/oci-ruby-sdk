@@ -3,6 +3,66 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.14.0 - 2021-05-18
+### Added
+- Support for the Database Migration service
+- Support for the Networking Topology service
+- Support for getting the id of peered VCNs on local peering gateways in the Networking service
+- Support for burstable instances in the Compute service
+- Support for preemptible instances in the Compute service
+- Support for fractional resource usage and availability in the Limits service
+- Support for streaming analytics in the Service Connector Hub service
+- Support for flexible routing inside DRGs to enable packet flow between any two attachments in the Networking service
+- Support for routing policy to customize dynamic import/export of routes in the Networking service
+- Support for IPv6, including on FastConnect and IPsec resources, in the Networking service
+- Support for request validation policies in the API Gateway service
+- Support for RESP-compliant (e.g. REDIS) response caches, and for configuring response caching per-route in the API Gateway service
+- Support for flexible billing in the VMWare Solution service
+- Support for new DNS format for the Web Application Acceleration and Security service
+- Support for configuring APM tracing on applications and functions in the Functions service
+- Support for Enterprise Manager external databases and Management Agent Service managed external databases and hosts in the Operations Insights service
+- Support for getting cluster cache metrics for RAC CDB managed databases in the Database Management service
+- Support for opting in/out of live migration on instances in the Compute service
+- Support for enabling/disabling Operations Insights on external non-container and external pluggable databases in the Database service
+- Support for a GraphStudio URL as a connection URL on databases in the Database service
+- Support for adding customer contacts on autonomous databases in the Database service
+- Support for name annotations on harvested objects in the Data Catalog service
+- Support for RACs (real application clusters) for external container, non-container, and pluggable databases in the Database service
+- Support for data masking in the Cloud Guard service
+- Support for opting out of DNS records during instance launch, as well as attaching secondary VNICs, in the Compute service
+- Support for mutable sizes on cluster networks in the Autoscaling service
+- Support for auto-tiering on buckets in the Object Storage service
+- Support for the Operator Access Control service
+- Support for the Service Catalog service
+- Support for the AI Language service
+- Support for autonomous database on Exadata Cloud at Customer infrastructure patching in the Database service
+- Support for creating notebook sessions with larger block volumes in the Data Science service
+- Support for database maintenance run patch modes in the Database service
+- Support for spark-submit compatible options in the Data Flow service
+- Support for Object Storage as a configuration source in the Resource Manager service
+- Add Ruby Expect 100 Continue support
+- Add Default Retry configuration helper function
+- Update License, Notice and add THIRD_PARTY_LICENSES file
+- Fix a bug in region realm mapping for Santiago region
+
+### Breaking
+- Removed response codes `200`, `201`, `202`, `204`, `206`, `300`, `301`, `302`, `303`, `304`, `307` and `444` from attribute `block_response_code` in model `AddressRateLimiting` in the Web Application Acceleration and Security Service
+- `vcn_id` was made optional in CreateDrgAttachmentDetails model under Core services.
+- The property `is_internet_access_allowed` was removed from CreateIpv6Details model under Core services.
+- The property `ipv6_cidr_block` was removed from CreateVcnDetails model under Core services.
+- The property `public_ip_address` and `is_internet_access_allowed` were removed from Ipv6 model under Core services.
+- Required property `peer_id` was added to LocalPeeringGateway model under Core services.
+- The property `ipv6_public_cidr_block` was removed from Subnet model under Core services.
+- The property `ipv6_cidr_block` was replaced by `ipv6_cidr_blocks` in Vcn model in Core services.
+- Required property `current_sku` was added under CreateEsxiHostDetails under Ocvp service.
+- Required property `initial_sku` was added under CreateSddcDetails under Ocvp service.
+- Required properties `billing_contract_end_date`, `next_sku` & `current_sku` were added under EsxiHost under Ocvp service.
+- Required properties `billing_contract_end_date`, `next_sku` & `current_sku` were added under EsxiHostSummary under Ocvp service.
+- Required property `initial_sku` was added under Sddc under Ocvp service.
+- Required property `id` was added under DatabaseDetails under Opsi service.
+- Value of attribute `model_type` in model `ConnectionDetails` in Data Integration service defaults to UNKNOWN_ENUM_VALUE when it receives an invalid value. In the earlier versions, this raises a ValueError
+- `vcn_id` parameters were moved from being required to being optional on all list operations in the Networking service
+
 ## 2.13.0 - 2021-04-06
 ### Added
 - Support for auto-scaling in the Big Data service

@@ -84,6 +84,13 @@ module OCI
     # @return [String]
     attr_reader :versioning
 
+    # The auto tiering status on the bucket. If in state `InfrequentAccess`, objects are transitioned
+    # automatically between the 'Standard' and 'InfrequentAccess' tiers based on the access pattern of the objects.
+    # When auto tiering is `Disabled`, there will be no automatic transitions between storage tiers.
+    #
+    # @return [String]
+    attr_accessor :auto_tiering
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -97,7 +104,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'kms_key_id': :'kmsKeyId',
-        'versioning': :'versioning'
+        'versioning': :'versioning',
+        'auto_tiering': :'autoTiering'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -115,7 +123,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'kms_key_id': :'String',
-        'versioning': :'String'
+        'versioning': :'String',
+        'auto_tiering': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -136,6 +145,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [String] :versioning The value to assign to the {#versioning} property
+    # @option attributes [String] :auto_tiering The value to assign to the {#auto_tiering} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -185,6 +195,12 @@ module OCI
       self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
 
       self.versioning = attributes[:'versioning'] if attributes[:'versioning']
+
+      self.auto_tiering = attributes[:'autoTiering'] if attributes[:'autoTiering']
+
+      raise 'You cannot provide both :autoTiering and :auto_tiering' if attributes.key?(:'autoTiering') && attributes.key?(:'auto_tiering')
+
+      self.auto_tiering = attributes[:'auto_tiering'] if attributes[:'auto_tiering']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -223,7 +239,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         kms_key_id == other.kms_key_id &&
-        versioning == other.versioning
+        versioning == other.versioning &&
+        auto_tiering == other.auto_tiering
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -239,7 +256,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [namespace, compartment_id, name, metadata, public_access_type, object_events_enabled, freeform_tags, defined_tags, kms_key_id, versioning].hash
+      [namespace, compartment_id, name, metadata, public_access_type, object_events_enabled, freeform_tags, defined_tags, kms_key_id, versioning, auto_tiering].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
