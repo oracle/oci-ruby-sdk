@@ -2,6 +2,7 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -10,6 +11,18 @@ module OCI
   # for each object along with other contextual information like the data asset root, folder, or entity parents.
   #
   class DataCatalog::Models::SearchResult
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_MOVING = 'MOVING'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # Unique key of the object returned as part of the search result.
     # @return [String]
     attr_accessor :key
@@ -118,6 +131,14 @@ module OCI
     # @return [String]
     attr_accessor :path
 
+    # Optional user friendly business name of the data object. If set, this supplements the harvested display name of the object.
+    # @return [String]
+    attr_accessor :business_name
+
+    # The current state of the data object.
+    # @return [String]
+    attr_reader :lifecycle_state
+
     # Expression for logical entities against which names of dataObjects will be matched.
     # @return [String]
     attr_accessor :expression
@@ -156,6 +177,8 @@ module OCI
         'created_by_id': :'createdById',
         'updated_by_id': :'updatedById',
         'path': :'path',
+        'business_name': :'businessName',
+        'lifecycle_state': :'lifecycleState',
         'expression': :'expression',
         'custom_properties': :'customProperties'
         # rubocop:enable Style/SymbolLiteral
@@ -192,6 +215,8 @@ module OCI
         'created_by_id': :'String',
         'updated_by_id': :'String',
         'path': :'String',
+        'business_name': :'String',
+        'lifecycle_state': :'String',
         'expression': :'String',
         'custom_properties': :'Array<OCI::DataCatalog::Models::FacetedSearchCustomProperty>'
         # rubocop:enable Style/SymbolLiteral
@@ -230,6 +255,8 @@ module OCI
     # @option attributes [String] :created_by_id The value to assign to the {#created_by_id} property
     # @option attributes [String] :updated_by_id The value to assign to the {#updated_by_id} property
     # @option attributes [String] :path The value to assign to the {#path} property
+    # @option attributes [String] :business_name The value to assign to the {#business_name} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :expression The value to assign to the {#expression} property
     # @option attributes [Array<OCI::DataCatalog::Models::FacetedSearchCustomProperty>] :custom_properties The value to assign to the {#custom_properties} property
     def initialize(attributes = {})
@@ -374,6 +401,18 @@ module OCI
 
       self.path = attributes[:'path'] if attributes[:'path']
 
+      self.business_name = attributes[:'businessName'] if attributes[:'businessName']
+
+      raise 'You cannot provide both :businessName and :business_name' if attributes.key?(:'businessName') && attributes.key?(:'business_name')
+
+      self.business_name = attributes[:'business_name'] if attributes[:'business_name']
+
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
       self.expression = attributes[:'expression'] if attributes[:'expression']
 
       self.custom_properties = attributes[:'customProperties'] if attributes[:'customProperties']
@@ -384,6 +423,19 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -420,6 +472,8 @@ module OCI
         created_by_id == other.created_by_id &&
         updated_by_id == other.updated_by_id &&
         path == other.path &&
+        business_name == other.business_name &&
+        lifecycle_state == other.lifecycle_state &&
         expression == other.expression &&
         custom_properties == other.custom_properties
     end
@@ -437,7 +491,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, name, description, time_created, time_updated, tag_summary, term_summary, type_name, external_type_name, external_data_type, data_asset_key, data_asset_type, data_asset_name, folder_key, folder_type, folder_name, entitykey, entity_type, entity_name, glossary_key, glossary_name, parent_term_key, parent_term_name, created_by_id, updated_by_id, path, expression, custom_properties].hash
+      [key, name, description, time_created, time_updated, tag_summary, term_summary, type_name, external_type_name, external_data_type, data_asset_key, data_asset_type, data_asset_name, folder_key, folder_type, folder_name, entitykey, entity_type, entity_name, glossary_key, glossary_name, parent_term_key, parent_term_name, created_by_id, updated_by_id, path, business_name, lifecycle_state, expression, custom_properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

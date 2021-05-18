@@ -23,6 +23,9 @@ module OCI
     # @return [OCI::DatabaseManagement::Models::MetricDataPoint]
     attr_accessor :cpu_count
 
+    # @return [OCI::DatabaseManagement::Models::MetricDataPoint]
+    attr_accessor :cluster
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -31,7 +34,8 @@ module OCI
         'cpu_time': :'cpuTime',
         'wait_time': :'waitTime',
         'user_io_time': :'userIoTime',
-        'cpu_count': :'cpuCount'
+        'cpu_count': :'cpuCount',
+        'cluster': :'cluster'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -44,7 +48,8 @@ module OCI
         'cpu_time': :'OCI::DatabaseManagement::Models::MetricDataPoint',
         'wait_time': :'OCI::DatabaseManagement::Models::MetricDataPoint',
         'user_io_time': :'OCI::DatabaseManagement::Models::MetricDataPoint',
-        'cpu_count': :'OCI::DatabaseManagement::Models::MetricDataPoint'
+        'cpu_count': :'OCI::DatabaseManagement::Models::MetricDataPoint',
+        'cluster': :'OCI::DatabaseManagement::Models::MetricDataPoint'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -60,6 +65,7 @@ module OCI
     # @option attributes [OCI::DatabaseManagement::Models::MetricDataPoint] :wait_time The value to assign to the {#wait_time} property
     # @option attributes [OCI::DatabaseManagement::Models::MetricDataPoint] :user_io_time The value to assign to the {#user_io_time} property
     # @option attributes [OCI::DatabaseManagement::Models::MetricDataPoint] :cpu_count The value to assign to the {#cpu_count} property
+    # @option attributes [OCI::DatabaseManagement::Models::MetricDataPoint] :cluster The value to assign to the {#cluster} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -91,6 +97,8 @@ module OCI
       raise 'You cannot provide both :cpuCount and :cpu_count' if attributes.key?(:'cpuCount') && attributes.key?(:'cpu_count')
 
       self.cpu_count = attributes[:'cpu_count'] if attributes[:'cpu_count']
+
+      self.cluster = attributes[:'cluster'] if attributes[:'cluster']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -108,7 +116,8 @@ module OCI
         cpu_time == other.cpu_time &&
         wait_time == other.wait_time &&
         user_io_time == other.user_io_time &&
-        cpu_count == other.cpu_count
+        cpu_count == other.cpu_count &&
+        cluster == other.cluster
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -124,7 +133,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [timestamp, cpu_time, wait_time, user_io_time, cpu_count].hash
+      [timestamp, cpu_time, wait_time, user_io_time, cpu_count, cluster].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

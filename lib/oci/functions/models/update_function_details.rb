@@ -40,6 +40,9 @@ module OCI
     # @return [Integer]
     attr_accessor :timeout_in_seconds
 
+    # @return [OCI::Functions::Models::FunctionTraceConfig]
+    attr_accessor :trace_config
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Department\": \"Finance\"}`
@@ -63,6 +66,7 @@ module OCI
         'memory_in_m_bs': :'memoryInMBs',
         'config': :'config',
         'timeout_in_seconds': :'timeoutInSeconds',
+        'trace_config': :'traceConfig',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -78,6 +82,7 @@ module OCI
         'memory_in_m_bs': :'Integer',
         'config': :'Hash<String, String>',
         'timeout_in_seconds': :'Integer',
+        'trace_config': :'OCI::Functions::Models::FunctionTraceConfig',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -95,6 +100,7 @@ module OCI
     # @option attributes [Integer] :memory_in_m_bs The value to assign to the {#memory_in_m_bs} property
     # @option attributes [Hash<String, String>] :config The value to assign to the {#config} property
     # @option attributes [Integer] :timeout_in_seconds The value to assign to the {#timeout_in_seconds} property
+    # @option attributes [OCI::Functions::Models::FunctionTraceConfig] :trace_config The value to assign to the {#trace_config} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -127,6 +133,12 @@ module OCI
       self.timeout_in_seconds = attributes[:'timeout_in_seconds'] if attributes[:'timeout_in_seconds']
       self.timeout_in_seconds = 30 if timeout_in_seconds.nil? && !attributes.key?(:'timeoutInSeconds') && !attributes.key?(:'timeout_in_seconds') # rubocop:disable Style/StringLiterals
 
+      self.trace_config = attributes[:'traceConfig'] if attributes[:'traceConfig']
+
+      raise 'You cannot provide both :traceConfig and :trace_config' if attributes.key?(:'traceConfig') && attributes.key?(:'trace_config')
+
+      self.trace_config = attributes[:'trace_config'] if attributes[:'trace_config']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -156,6 +168,7 @@ module OCI
         memory_in_m_bs == other.memory_in_m_bs &&
         config == other.config &&
         timeout_in_seconds == other.timeout_in_seconds &&
+        trace_config == other.trace_config &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -173,7 +186,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [image, image_digest, memory_in_m_bs, config, timeout_in_seconds, freeform_tags, defined_tags].hash
+      [image, image_digest, memory_in_m_bs, config, timeout_in_seconds, trace_config, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

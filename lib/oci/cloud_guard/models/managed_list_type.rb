@@ -14,7 +14,8 @@ module OCI
       MANAGED_LIST_TYPE_COUNTRY = 'COUNTRY'.freeze,
       MANAGED_LIST_TYPE_STATE = 'STATE'.freeze,
       MANAGED_LIST_TYPE_CITY = 'CITY'.freeze,
-      MANAGED_LIST_TYPE_TAGS = 'TAGS'.freeze
+      MANAGED_LIST_TYPE_TAGS = 'TAGS'.freeze,
+      MANAGED_LIST_TYPE_GENERIC = 'GENERIC'.freeze
     ].freeze
   end
 end

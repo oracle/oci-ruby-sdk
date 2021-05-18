@@ -37,6 +37,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_editable
 
+    # If this field is displayed in a list view of applicable objects.
+    # @return [BOOLEAN]
+    attr_accessor :is_shown_in_list
+
     # If this field is allowed to pop in search results
     # @return [BOOLEAN]
     attr_accessor :is_hidden_in_search
@@ -65,6 +69,7 @@ module OCI
         'is_multi_valued': :'isMultiValued',
         'is_hidden': :'isHidden',
         'is_editable': :'isEditable',
+        'is_shown_in_list': :'isShownInList',
         'is_hidden_in_search': :'isHiddenInSearch',
         'allowed_values': :'allowedValues',
         'properties': :'properties'
@@ -83,6 +88,7 @@ module OCI
         'is_multi_valued': :'BOOLEAN',
         'is_hidden': :'BOOLEAN',
         'is_editable': :'BOOLEAN',
+        'is_shown_in_list': :'BOOLEAN',
         'is_hidden_in_search': :'BOOLEAN',
         'allowed_values': :'Array<String>',
         'properties': :'Hash<String, Hash<String, String>>'
@@ -103,6 +109,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_multi_valued The value to assign to the {#is_multi_valued} property
     # @option attributes [BOOLEAN] :is_hidden The value to assign to the {#is_hidden} property
     # @option attributes [BOOLEAN] :is_editable The value to assign to the {#is_editable} property
+    # @option attributes [BOOLEAN] :is_shown_in_list The value to assign to the {#is_shown_in_list} property
     # @option attributes [BOOLEAN] :is_hidden_in_search The value to assign to the {#is_hidden_in_search} property
     # @option attributes [Array<String>] :allowed_values The value to assign to the {#allowed_values} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
@@ -160,6 +167,14 @@ module OCI
       self.is_editable = attributes[:'is_editable'] unless attributes[:'is_editable'].nil?
       self.is_editable = true if is_editable.nil? && !attributes.key?(:'isEditable') && !attributes.key?(:'is_editable') # rubocop:disable Style/StringLiterals
 
+      self.is_shown_in_list = attributes[:'isShownInList'] unless attributes[:'isShownInList'].nil?
+      self.is_shown_in_list = false if is_shown_in_list.nil? && !attributes.key?(:'isShownInList') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isShownInList and :is_shown_in_list' if attributes.key?(:'isShownInList') && attributes.key?(:'is_shown_in_list')
+
+      self.is_shown_in_list = attributes[:'is_shown_in_list'] unless attributes[:'is_shown_in_list'].nil?
+      self.is_shown_in_list = false if is_shown_in_list.nil? && !attributes.key?(:'isShownInList') && !attributes.key?(:'is_shown_in_list') # rubocop:disable Style/StringLiterals
+
       self.is_hidden_in_search = attributes[:'isHiddenInSearch'] unless attributes[:'isHiddenInSearch'].nil?
       self.is_hidden_in_search = false if is_hidden_in_search.nil? && !attributes.key?(:'isHiddenInSearch') # rubocop:disable Style/StringLiterals
 
@@ -195,6 +210,7 @@ module OCI
         is_multi_valued == other.is_multi_valued &&
         is_hidden == other.is_hidden &&
         is_editable == other.is_editable &&
+        is_shown_in_list == other.is_shown_in_list &&
         is_hidden_in_search == other.is_hidden_in_search &&
         allowed_values == other.allowed_values &&
         properties == other.properties
@@ -213,7 +229,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, is_sortable, is_filterable, is_multi_valued, is_hidden, is_editable, is_hidden_in_search, allowed_values, properties].hash
+      [display_name, description, is_sortable, is_filterable, is_multi_valued, is_hidden, is_editable, is_shown_in_list, is_hidden_in_search, allowed_values, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

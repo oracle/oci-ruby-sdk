@@ -74,6 +74,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_editable
 
+    # If this field is displayed in a list view of applicable objects.
+    # @return [BOOLEAN]
+    attr_accessor :is_shown_in_list
+
     # If this field is defined by service or by a user
     # @return [BOOLEAN]
     attr_accessor :is_service_defined
@@ -142,6 +146,7 @@ module OCI
         'is_multi_valued': :'isMultiValued',
         'is_hidden': :'isHidden',
         'is_editable': :'isEditable',
+        'is_shown_in_list': :'isShownInList',
         'is_service_defined': :'isServiceDefined',
         'is_hidden_in_search': :'isHiddenInSearch',
         'lifecycle_state': :'lifecycleState',
@@ -172,6 +177,7 @@ module OCI
         'is_multi_valued': :'BOOLEAN',
         'is_hidden': :'BOOLEAN',
         'is_editable': :'BOOLEAN',
+        'is_shown_in_list': :'BOOLEAN',
         'is_service_defined': :'BOOLEAN',
         'is_hidden_in_search': :'BOOLEAN',
         'lifecycle_state': :'String',
@@ -204,6 +210,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_multi_valued The value to assign to the {#is_multi_valued} property
     # @option attributes [BOOLEAN] :is_hidden The value to assign to the {#is_hidden} property
     # @option attributes [BOOLEAN] :is_editable The value to assign to the {#is_editable} property
+    # @option attributes [BOOLEAN] :is_shown_in_list The value to assign to the {#is_shown_in_list} property
     # @option attributes [BOOLEAN] :is_service_defined The value to assign to the {#is_service_defined} property
     # @option attributes [BOOLEAN] :is_hidden_in_search The value to assign to the {#is_hidden_in_search} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -290,6 +297,14 @@ module OCI
 
       self.is_editable = attributes[:'is_editable'] unless attributes[:'is_editable'].nil?
       self.is_editable = true if is_editable.nil? && !attributes.key?(:'isEditable') && !attributes.key?(:'is_editable') # rubocop:disable Style/StringLiterals
+
+      self.is_shown_in_list = attributes[:'isShownInList'] unless attributes[:'isShownInList'].nil?
+      self.is_shown_in_list = false if is_shown_in_list.nil? && !attributes.key?(:'isShownInList') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isShownInList and :is_shown_in_list' if attributes.key?(:'isShownInList') && attributes.key?(:'is_shown_in_list')
+
+      self.is_shown_in_list = attributes[:'is_shown_in_list'] unless attributes[:'is_shown_in_list'].nil?
+      self.is_shown_in_list = false if is_shown_in_list.nil? && !attributes.key?(:'isShownInList') && !attributes.key?(:'is_shown_in_list') # rubocop:disable Style/StringLiterals
 
       self.is_service_defined = attributes[:'isServiceDefined'] unless attributes[:'isServiceDefined'].nil?
       self.is_service_defined = false if is_service_defined.nil? && !attributes.key?(:'isServiceDefined') # rubocop:disable Style/StringLiterals
@@ -402,6 +417,7 @@ module OCI
         is_multi_valued == other.is_multi_valued &&
         is_hidden == other.is_hidden &&
         is_editable == other.is_editable &&
+        is_shown_in_list == other.is_shown_in_list &&
         is_service_defined == other.is_service_defined &&
         is_hidden_in_search == other.is_hidden_in_search &&
         lifecycle_state == other.lifecycle_state &&
@@ -428,7 +444,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, data_type, description, namespace_name, is_list_type, is_sortable, is_filterable, is_multi_valued, is_hidden, is_editable, is_service_defined, is_hidden_in_search, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, usage_count, scope, allowed_values, properties].hash
+      [key, display_name, data_type, description, namespace_name, is_list_type, is_sortable, is_filterable, is_multi_valued, is_hidden, is_editable, is_shown_in_list, is_service_defined, is_hidden_in_search, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, usage_count, scope, allowed_values, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

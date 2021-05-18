@@ -25,6 +25,11 @@ module OCI
       DATABASE_EDITION_ENTERPRISE_EDITION_EXTREME_PERFORMANCE = 'ENTERPRISE_EDITION_EXTREME_PERFORMANCE'.freeze
     ].freeze
 
+    DATABASE_CONFIGURATION_ENUM = [
+      DATABASE_CONFIGURATION_RAC = 'RAC'.freeze,
+      DATABASE_CONFIGURATION_SINGLE_INSTANCE = 'SINGLE_INSTANCE'.freeze
+    ].freeze
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @return [String]
     attr_accessor :compartment_id
@@ -101,6 +106,10 @@ module OCI
     # @return [String]
     attr_accessor :db_packs
 
+    # The Oracle Database configuration
+    # @return [String]
+    attr_reader :database_configuration
+
     # @return [OCI::Database::Models::DatabaseManagementConfig]
     attr_accessor :database_management_config
 
@@ -124,6 +133,7 @@ module OCI
         'character_set': :'characterSet',
         'ncharacter_set': :'ncharacterSet',
         'db_packs': :'dbPacks',
+        'database_configuration': :'databaseConfiguration',
         'database_management_config': :'databaseManagementConfig'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -149,6 +159,7 @@ module OCI
         'character_set': :'String',
         'ncharacter_set': :'String',
         'db_packs': :'String',
+        'database_configuration': :'String',
         'database_management_config': :'OCI::Database::Models::DatabaseManagementConfig'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -176,6 +187,7 @@ module OCI
     # @option attributes [String] :character_set The value to assign to the {#character_set} property
     # @option attributes [String] :ncharacter_set The value to assign to the {#ncharacter_set} property
     # @option attributes [String] :db_packs The value to assign to the {#db_packs} property
+    # @option attributes [String] :database_configuration The value to assign to the {#database_configuration} property
     # @option attributes [OCI::Database::Models::DatabaseManagementConfig] :database_management_config The value to assign to the {#database_management_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -275,6 +287,12 @@ module OCI
 
       self.db_packs = attributes[:'db_packs'] if attributes[:'db_packs']
 
+      self.database_configuration = attributes[:'databaseConfiguration'] if attributes[:'databaseConfiguration']
+
+      raise 'You cannot provide both :databaseConfiguration and :database_configuration' if attributes.key?(:'databaseConfiguration') && attributes.key?(:'database_configuration')
+
+      self.database_configuration = attributes[:'database_configuration'] if attributes[:'database_configuration']
+
       self.database_management_config = attributes[:'databaseManagementConfig'] if attributes[:'databaseManagementConfig']
 
       raise 'You cannot provide both :databaseManagementConfig and :database_management_config' if attributes.key?(:'databaseManagementConfig') && attributes.key?(:'database_management_config')
@@ -298,6 +316,14 @@ module OCI
       raise "Invalid value for 'database_edition': this must be one of the values in DATABASE_EDITION_ENUM." if database_edition && !DATABASE_EDITION_ENUM.include?(database_edition)
 
       @database_edition = database_edition
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] database_configuration Object to be assigned
+    def database_configuration=(database_configuration)
+      raise "Invalid value for 'database_configuration': this must be one of the values in DATABASE_CONFIGURATION_ENUM." if database_configuration && !DATABASE_CONFIGURATION_ENUM.include?(database_configuration)
+
+      @database_configuration = database_configuration
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -325,6 +351,7 @@ module OCI
         character_set == other.character_set &&
         ncharacter_set == other.ncharacter_set &&
         db_packs == other.db_packs &&
+        database_configuration == other.database_configuration &&
         database_management_config == other.database_management_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -341,7 +368,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, freeform_tags, defined_tags, display_name, id, lifecycle_details, lifecycle_state, time_created, db_unique_name, db_id, database_version, database_edition, time_zone, character_set, ncharacter_set, db_packs, database_management_config].hash
+      [compartment_id, freeform_tags, defined_tags, display_name, id, lifecycle_details, lifecycle_state, time_created, db_unique_name, db_id, database_version, database_edition, time_zone, character_set, ncharacter_set, db_packs, database_configuration, database_management_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -8,6 +8,11 @@ module OCI
   # Describes the modification parameters for the maintenance run.
   #
   class Database::Models::UpdateMaintenanceRunDetails
+    PATCHING_MODE_ENUM = [
+      PATCHING_MODE_ROLLING = 'ROLLING'.freeze,
+      PATCHING_MODE_NONROLLING = 'NONROLLING'.freeze
+    ].freeze
+
     # If `FALSE`, skips the maintenance run.
     # @return [BOOLEAN]
     attr_accessor :is_enabled
@@ -24,6 +29,10 @@ module OCI
     # @return [String]
     attr_accessor :patch_id
 
+    # Maintenance method, it will be either \"ROLLING\" or \"NONROLLING\". Default value is ROLLING.
+    # @return [String]
+    attr_reader :patching_mode
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -31,7 +40,8 @@ module OCI
         'is_enabled': :'isEnabled',
         'time_scheduled': :'timeScheduled',
         'is_patch_now_enabled': :'isPatchNowEnabled',
-        'patch_id': :'patchId'
+        'patch_id': :'patchId',
+        'patching_mode': :'patchingMode'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -43,7 +53,8 @@ module OCI
         'is_enabled': :'BOOLEAN',
         'time_scheduled': :'DateTime',
         'is_patch_now_enabled': :'BOOLEAN',
-        'patch_id': :'String'
+        'patch_id': :'String',
+        'patching_mode': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -58,6 +69,7 @@ module OCI
     # @option attributes [DateTime] :time_scheduled The value to assign to the {#time_scheduled} property
     # @option attributes [BOOLEAN] :is_patch_now_enabled The value to assign to the {#is_patch_now_enabled} property
     # @option attributes [String] :patch_id The value to assign to the {#patch_id} property
+    # @option attributes [String] :patching_mode The value to assign to the {#patching_mode} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -87,9 +99,23 @@ module OCI
       raise 'You cannot provide both :patchId and :patch_id' if attributes.key?(:'patchId') && attributes.key?(:'patch_id')
 
       self.patch_id = attributes[:'patch_id'] if attributes[:'patch_id']
+
+      self.patching_mode = attributes[:'patchingMode'] if attributes[:'patchingMode']
+
+      raise 'You cannot provide both :patchingMode and :patching_mode' if attributes.key?(:'patchingMode') && attributes.key?(:'patching_mode')
+
+      self.patching_mode = attributes[:'patching_mode'] if attributes[:'patching_mode']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] patching_mode Object to be assigned
+    def patching_mode=(patching_mode)
+      raise "Invalid value for 'patching_mode': this must be one of the values in PATCHING_MODE_ENUM." if patching_mode && !PATCHING_MODE_ENUM.include?(patching_mode)
+
+      @patching_mode = patching_mode
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -103,7 +129,8 @@ module OCI
         is_enabled == other.is_enabled &&
         time_scheduled == other.time_scheduled &&
         is_patch_now_enabled == other.is_patch_now_enabled &&
-        patch_id == other.patch_id
+        patch_id == other.patch_id &&
+        patching_mode == other.patching_mode
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -119,7 +146,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_enabled, time_scheduled, is_patch_now_enabled, patch_id].hash
+      [is_enabled, time_scheduled, is_patch_now_enabled, patch_id, patching_mode].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

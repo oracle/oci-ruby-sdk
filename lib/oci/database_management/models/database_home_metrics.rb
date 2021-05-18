@@ -11,11 +11,16 @@ module OCI
     # @return [OCI::DatabaseManagement::Models::DatabaseHomeMetricDefinition]
     attr_accessor :database_home_metrics
 
+    # The metrics for the RAC database instances.
+    # @return [Array<OCI::DatabaseManagement::Models::DatabaseInstanceHomeMetricsDefinition>]
+    attr_accessor :database_instance_home_metrics
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'database_home_metrics': :'databaseHomeMetrics'
+        'database_home_metrics': :'databaseHomeMetrics',
+        'database_instance_home_metrics': :'databaseInstanceHomeMetrics'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -24,7 +29,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'database_home_metrics': :'OCI::DatabaseManagement::Models::DatabaseHomeMetricDefinition'
+        'database_home_metrics': :'OCI::DatabaseManagement::Models::DatabaseHomeMetricDefinition',
+        'database_instance_home_metrics': :'Array<OCI::DatabaseManagement::Models::DatabaseInstanceHomeMetricsDefinition>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,6 +42,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [OCI::DatabaseManagement::Models::DatabaseHomeMetricDefinition] :database_home_metrics The value to assign to the {#database_home_metrics} property
+    # @option attributes [Array<OCI::DatabaseManagement::Models::DatabaseInstanceHomeMetricsDefinition>] :database_instance_home_metrics The value to assign to the {#database_instance_home_metrics} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -47,6 +54,12 @@ module OCI
       raise 'You cannot provide both :databaseHomeMetrics and :database_home_metrics' if attributes.key?(:'databaseHomeMetrics') && attributes.key?(:'database_home_metrics')
 
       self.database_home_metrics = attributes[:'database_home_metrics'] if attributes[:'database_home_metrics']
+
+      self.database_instance_home_metrics = attributes[:'databaseInstanceHomeMetrics'] if attributes[:'databaseInstanceHomeMetrics']
+
+      raise 'You cannot provide both :databaseInstanceHomeMetrics and :database_instance_home_metrics' if attributes.key?(:'databaseInstanceHomeMetrics') && attributes.key?(:'database_instance_home_metrics')
+
+      self.database_instance_home_metrics = attributes[:'database_instance_home_metrics'] if attributes[:'database_instance_home_metrics']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -60,7 +73,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        database_home_metrics == other.database_home_metrics
+        database_home_metrics == other.database_home_metrics &&
+        database_instance_home_metrics == other.database_instance_home_metrics
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -76,7 +90,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_home_metrics].hash
+      [database_home_metrics, database_instance_home_metrics].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

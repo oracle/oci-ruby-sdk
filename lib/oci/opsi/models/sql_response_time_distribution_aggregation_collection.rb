@@ -13,6 +13,10 @@ module OCI
     # @return [String]
     attr_accessor :sql_identifier
 
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database insight resource.
+    # @return [String]
+    attr_accessor :id
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database.
     # @return [String]
     attr_accessor :database_id
@@ -34,6 +38,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'sql_identifier': :'sqlIdentifier',
+        'id': :'id',
         'database_id': :'databaseId',
         'time_interval_start': :'timeIntervalStart',
         'time_interval_end': :'timeIntervalEnd',
@@ -47,6 +52,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'sql_identifier': :'String',
+        'id': :'String',
         'database_id': :'String',
         'time_interval_start': :'DateTime',
         'time_interval_end': :'DateTime',
@@ -62,6 +68,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :sql_identifier The value to assign to the {#sql_identifier} property
+    # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :database_id The value to assign to the {#database_id} property
     # @option attributes [DateTime] :time_interval_start The value to assign to the {#time_interval_start} property
     # @option attributes [DateTime] :time_interval_end The value to assign to the {#time_interval_end} property
@@ -77,6 +84,8 @@ module OCI
       raise 'You cannot provide both :sqlIdentifier and :sql_identifier' if attributes.key?(:'sqlIdentifier') && attributes.key?(:'sql_identifier')
 
       self.sql_identifier = attributes[:'sql_identifier'] if attributes[:'sql_identifier']
+
+      self.id = attributes[:'id'] if attributes[:'id']
 
       self.database_id = attributes[:'databaseId'] if attributes[:'databaseId']
 
@@ -111,6 +120,7 @@ module OCI
 
       self.class == other.class &&
         sql_identifier == other.sql_identifier &&
+        id == other.id &&
         database_id == other.database_id &&
         time_interval_start == other.time_interval_start &&
         time_interval_end == other.time_interval_end &&
@@ -130,7 +140,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [sql_identifier, database_id, time_interval_start, time_interval_end, items].hash
+      [sql_identifier, id, database_id, time_interval_start, time_interval_end, items].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

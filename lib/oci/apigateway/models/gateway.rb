@@ -91,6 +91,9 @@ module OCI
     # @return [Array<OCI::Apigateway::Models::IpAddress>]
     attr_accessor :ip_addresses
 
+    # @return [OCI::Apigateway::Models::ResponseCacheDetails]
+    attr_accessor :response_cache_details
+
     # Free-form tags for this resource. Each tag is a simple key-value pair
     # with no predefined name, type, or namespace. For more information, see
     # [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -125,6 +128,7 @@ module OCI
         'hostname': :'hostname',
         'certificate_id': :'certificateId',
         'ip_addresses': :'ipAddresses',
+        'response_cache_details': :'responseCacheDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -147,6 +151,7 @@ module OCI
         'hostname': :'String',
         'certificate_id': :'String',
         'ip_addresses': :'Array<OCI::Apigateway::Models::IpAddress>',
+        'response_cache_details': :'OCI::Apigateway::Models::ResponseCacheDetails',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -171,6 +176,7 @@ module OCI
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
     # @option attributes [String] :certificate_id The value to assign to the {#certificate_id} property
     # @option attributes [Array<OCI::Apigateway::Models::IpAddress>] :ip_addresses The value to assign to the {#ip_addresses} property
+    # @option attributes [OCI::Apigateway::Models::ResponseCacheDetails] :response_cache_details The value to assign to the {#response_cache_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -243,6 +249,12 @@ module OCI
 
       self.ip_addresses = attributes[:'ip_addresses'] if attributes[:'ip_addresses']
 
+      self.response_cache_details = attributes[:'responseCacheDetails'] if attributes[:'responseCacheDetails']
+
+      raise 'You cannot provide both :responseCacheDetails and :response_cache_details' if attributes.key?(:'responseCacheDetails') && attributes.key?(:'response_cache_details')
+
+      self.response_cache_details = attributes[:'response_cache_details'] if attributes[:'response_cache_details']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -305,6 +317,7 @@ module OCI
         hostname == other.hostname &&
         certificate_id == other.certificate_id &&
         ip_addresses == other.ip_addresses &&
+        response_cache_details == other.response_cache_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -322,7 +335,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, endpoint_type, subnet_id, time_created, time_updated, lifecycle_state, lifecycle_details, hostname, certificate_id, ip_addresses, freeform_tags, defined_tags].hash
+      [id, display_name, compartment_id, endpoint_type, subnet_id, time_created, time_updated, lifecycle_state, lifecycle_details, hostname, certificate_id, ip_addresses, response_cache_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

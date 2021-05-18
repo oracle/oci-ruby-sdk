@@ -7,13 +7,13 @@ require 'date'
 module OCI
   # PortRange model.
   class Core::Models::PortRange
-    # **[Required]** The maximum port number. Must not be lower than the minimum port number. To specify
+    # **[Required]** The maximum port number, which must not be less than the minimum port number. To specify
     # a single port number, set both the min and max to the same value.
     #
     # @return [Integer]
     attr_accessor :max
 
-    # **[Required]** The minimum port number. Must not be greater than the maximum port number.
+    # **[Required]** The minimum port number, which must not be greater than the maximum port number.
     #
     # @return [Integer]
     attr_accessor :min

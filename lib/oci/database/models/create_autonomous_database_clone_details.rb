@@ -51,6 +51,7 @@ module OCI
         'defined_tags': :'definedTags',
         'db_version': :'dbVersion',
         'source': :'source',
+        'customer_contacts': :'customerContacts',
         'source_id': :'sourceId',
         'clone_type': :'cloneType'
         # rubocop:enable Style/SymbolLiteral
@@ -86,6 +87,7 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'db_version': :'String',
         'source': :'String',
+        'customer_contacts': :'Array<OCI::Database::Models::CustomerContact>',
         'source_id': :'String',
         'clone_type': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -122,6 +124,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#freeform_tags #freeform_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#defined_tags #defined_tags} proprety
     # @option attributes [String] :db_version The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#db_version #db_version} proprety
+    # @option attributes [Array<OCI::Database::Models::CustomerContact>] :customer_contacts The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#customer_contacts #customer_contacts} proprety
     # @option attributes [String] :source_id The value to assign to the {#source_id} property
     # @option attributes [String] :clone_type The value to assign to the {#clone_type} property
     def initialize(attributes = {})
@@ -191,6 +194,7 @@ module OCI
         defined_tags == other.defined_tags &&
         db_version == other.db_version &&
         source == other.source &&
+        customer_contacts == other.customer_contacts &&
         source_id == other.source_id &&
         clone_type == other.clone_type
     end
@@ -208,7 +212,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, source_id, clone_type].hash
+      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, customer_contacts, source_id, clone_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

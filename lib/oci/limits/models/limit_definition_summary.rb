@@ -44,6 +44,16 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_resource_availability_supported
 
+    # Indicates if the limit has been deprecated.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_deprecated
+
+    # Indicates if the customer can request a limit increase for this resource.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_eligible_for_limit_increase
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -53,7 +63,9 @@ module OCI
         'description': :'description',
         'scope_type': :'scopeType',
         'are_quotas_supported': :'areQuotasSupported',
-        'is_resource_availability_supported': :'isResourceAvailabilitySupported'
+        'is_resource_availability_supported': :'isResourceAvailabilitySupported',
+        'is_deprecated': :'isDeprecated',
+        'is_eligible_for_limit_increase': :'isEligibleForLimitIncrease'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -67,7 +79,9 @@ module OCI
         'description': :'String',
         'scope_type': :'String',
         'are_quotas_supported': :'BOOLEAN',
-        'is_resource_availability_supported': :'BOOLEAN'
+        'is_resource_availability_supported': :'BOOLEAN',
+        'is_deprecated': :'BOOLEAN',
+        'is_eligible_for_limit_increase': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -84,6 +98,8 @@ module OCI
     # @option attributes [String] :scope_type The value to assign to the {#scope_type} property
     # @option attributes [BOOLEAN] :are_quotas_supported The value to assign to the {#are_quotas_supported} property
     # @option attributes [BOOLEAN] :is_resource_availability_supported The value to assign to the {#is_resource_availability_supported} property
+    # @option attributes [BOOLEAN] :is_deprecated The value to assign to the {#is_deprecated} property
+    # @option attributes [BOOLEAN] :is_eligible_for_limit_increase The value to assign to the {#is_eligible_for_limit_increase} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -117,6 +133,18 @@ module OCI
       raise 'You cannot provide both :isResourceAvailabilitySupported and :is_resource_availability_supported' if attributes.key?(:'isResourceAvailabilitySupported') && attributes.key?(:'is_resource_availability_supported')
 
       self.is_resource_availability_supported = attributes[:'is_resource_availability_supported'] unless attributes[:'is_resource_availability_supported'].nil?
+
+      self.is_deprecated = attributes[:'isDeprecated'] unless attributes[:'isDeprecated'].nil?
+
+      raise 'You cannot provide both :isDeprecated and :is_deprecated' if attributes.key?(:'isDeprecated') && attributes.key?(:'is_deprecated')
+
+      self.is_deprecated = attributes[:'is_deprecated'] unless attributes[:'is_deprecated'].nil?
+
+      self.is_eligible_for_limit_increase = attributes[:'isEligibleForLimitIncrease'] unless attributes[:'isEligibleForLimitIncrease'].nil?
+
+      raise 'You cannot provide both :isEligibleForLimitIncrease and :is_eligible_for_limit_increase' if attributes.key?(:'isEligibleForLimitIncrease') && attributes.key?(:'is_eligible_for_limit_increase')
+
+      self.is_eligible_for_limit_increase = attributes[:'is_eligible_for_limit_increase'] unless attributes[:'is_eligible_for_limit_increase'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -148,7 +176,9 @@ module OCI
         description == other.description &&
         scope_type == other.scope_type &&
         are_quotas_supported == other.are_quotas_supported &&
-        is_resource_availability_supported == other.is_resource_availability_supported
+        is_resource_availability_supported == other.is_resource_availability_supported &&
+        is_deprecated == other.is_deprecated &&
+        is_eligible_for_limit_increase == other.is_eligible_for_limit_increase
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -164,7 +194,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, service_name, description, scope_type, are_quotas_supported, is_resource_availability_supported].hash
+      [name, service_name, description, scope_type, are_quotas_supported, is_resource_availability_supported, is_deprecated, is_eligible_for_limit_increase].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

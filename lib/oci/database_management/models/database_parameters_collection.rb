@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details of the database parameters.
+  # A collection of database parameters.
   class DatabaseManagement::Models::DatabaseParametersCollection
     DATABASE_TYPE_ENUM = [
       DATABASE_TYPE_EXTERNAL_SIDB = 'EXTERNAL_SIDB'.freeze,

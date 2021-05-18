@@ -29,13 +29,19 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # The instance pools in the cluster network to update.
+    #
+    # @return [Array<OCI::Core::Models::UpdateClusterNetworkInstancePoolDetails>]
+    attr_accessor :instance_pools
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
-        'freeform_tags': :'freeformTags'
+        'freeform_tags': :'freeformTags',
+        'instance_pools': :'instancePools'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -46,7 +52,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
-        'freeform_tags': :'Hash<String, String>'
+        'freeform_tags': :'Hash<String, String>',
+        'instance_pools': :'Array<OCI::Core::Models::UpdateClusterNetworkInstancePoolDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -60,6 +67,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Array<OCI::Core::Models::UpdateClusterNetworkInstancePoolDetails>] :instance_pools The value to assign to the {#instance_pools} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -83,6 +91,12 @@ module OCI
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.instance_pools = attributes[:'instancePools'] if attributes[:'instancePools']
+
+      raise 'You cannot provide both :instancePools and :instance_pools' if attributes.key?(:'instancePools') && attributes.key?(:'instance_pools')
+
+      self.instance_pools = attributes[:'instance_pools'] if attributes[:'instance_pools']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -98,7 +112,8 @@ module OCI
       self.class == other.class &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
-        freeform_tags == other.freeform_tags
+        freeform_tags == other.freeform_tags &&
+        instance_pools == other.instance_pools
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -114,7 +129,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags].hash
+      [defined_tags, display_name, freeform_tags, instance_pools].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

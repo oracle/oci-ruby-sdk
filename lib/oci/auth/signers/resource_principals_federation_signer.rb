@@ -24,9 +24,7 @@ module OCI
             log_requests: nil
           )
           @refresh_lock = Mutex.new
-          if rp_token_endpoint.nil?
-            raise 'Missing resource principals token endpoint when initializing resource principals signer'
-          end
+          raise 'Missing resource principals token endpoint when initializing resource principals signer' if rp_token_endpoint.nil?
 
           @rp_token_endpoint = rp_token_endpoint
 
@@ -39,20 +37,20 @@ module OCI
           @rp_session_endpoint = rp_session_endpoint || OCI::Regions.get_service_endpoint(@region, :Auth)
 
           # set up retry policy
-          if !retry_config.nil?
-            @retry_config = retry_config
-          else
-            @retry_config = OCI::Retry::RetryConfig.new(
-              base_sleep_time_millis: 500,
-              exponential_growth_factor: 2,
-              should_retry_exception_proc:
-                OCI::Retry::Functions::ShouldRetryOnError.retry_on_network_error_throttle_and_internal_server_errors,
-              sleep_calc_millis_proc: OCI::Retry::Functions::Sleep.exponential_backoff_with_equal_jitter,
-              max_attempts: 5,
-              max_elapsed_time_millis: 300_000,
-              max_sleep_between_attempts_millis: 10_000
-            )
-          end
+          @retry_config = if !retry_config.nil?
+                            retry_config
+                          else
+                            OCI::Retry::RetryConfig.new(
+                              base_sleep_time_millis: 500,
+                              exponential_growth_factor: 2,
+                              should_retry_exception_proc:
+                                OCI::Retry::Functions::ShouldRetryOnError.retry_on_network_error_throttle_and_internal_server_errors,
+                              sleep_calc_millis_proc: OCI::Retry::Functions::Sleep.exponential_backoff_with_equal_jitter,
+                              max_attempts: 5,
+                              max_elapsed_time_millis: 300_000,
+                              max_sleep_between_attempts_millis: 10_000
+                            )
+                          end
           @rpt = nil
           @spst = nil
           config = OCI::Config.new

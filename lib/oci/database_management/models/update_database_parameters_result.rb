@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The results of database parameters' update.
+  # The results of database parameter update.
   class DatabaseManagement::Models::UpdateDatabaseParametersResult
     # **[Required]** A map with the parameter name as key and its update status as value.
     #

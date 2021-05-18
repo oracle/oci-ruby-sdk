@@ -216,9 +216,7 @@ module OCI
       # Simple params just go key to value
       base_query_string = ''
 
-      unless simple_params.empty?
-        base_query_string << simple_params.map { |k, v| "#{k}=#{cgi_escape_query_param(v)}" }.join('&')
-      end
+      base_query_string << simple_params.map { |k, v| "#{k}=#{cgi_escape_query_param(v)}" }.join('&') unless simple_params.empty?
 
       # Using the previous comment:
       #   k = "anArrayType", v = ["hello", "world"]
@@ -335,6 +333,7 @@ module OCI
       http.set_debug_output(@config.log_requests ? $stdout : nil)
       http.open_timeout = @config.connection_timeout
       http.read_timeout = @config.timeout.zero? ? 31_536_000 : @config.timeout # 31536000 means 365 days
+      http.continue_timeout = 3 # expect 100 continue timeout
 
       response_ref = nil
       begin
@@ -636,9 +635,7 @@ module OCI
         begin
           return yield
         rescue OCI::Errors::ServiceError => e
-          if @config.logger
-            @config.logger.debug("Error encountered inside instance_principals_signer_wrapped_call: #{e.inspect}")
-          end
+          @config.logger.debug("Error encountered inside instance_principals_signer_wrapped_call: #{e.inspect}") if @config.logger
           raise if attempt >= (max_attempts - 1) # .times is zero-based
           raise if e.status_code != 401
 

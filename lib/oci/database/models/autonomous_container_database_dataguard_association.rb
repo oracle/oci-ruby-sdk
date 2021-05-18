@@ -60,7 +60,8 @@ module OCI
     # @return [String]
     attr_accessor :autonomous_container_database_id
 
-    # **[Required]** The role of the Autonomous Data Guard-enabled Autonomous Container Database.
+    # **[Required]** The Data Guard role of the Autonomous Container Database, if Autonomous Data Guard is enabled.
+    #
     # @return [String]
     attr_reader :role
 
@@ -82,7 +83,8 @@ module OCI
     # @return [String]
     attr_accessor :peer_autonomous_container_database_id
 
-    # **[Required]** The role of the Autonomous Data Guard-enabled Autonomous Container Database.
+    # **[Required]** The Data Guard role of the Autonomous Container Database, if Autonomous Data Guard is enabled.
+    #
     # @return [String]
     attr_reader :peer_role
 

@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A Data Flow work request object.
+  # A Data Flow work request summary object.
   #
   class DataFlow::Models::WorkRequestSummary
     OPERATION_ENUM = [

@@ -14,11 +14,23 @@ module OCI
     # @return [OCI::Apigateway::Models::CorsPolicy]
     attr_accessor :cors
 
+    # @return [OCI::Apigateway::Models::QueryParameterValidationRequestPolicy]
+    attr_accessor :query_parameter_validations
+
+    # @return [OCI::Apigateway::Models::HeaderValidationRequestPolicy]
+    attr_accessor :header_validations
+
+    # @return [OCI::Apigateway::Models::BodyValidationRequestPolicy]
+    attr_accessor :body_validation
+
     # @return [OCI::Apigateway::Models::HeaderTransformationPolicy]
     attr_accessor :header_transformations
 
     # @return [OCI::Apigateway::Models::QueryParameterTransformationPolicy]
     attr_accessor :query_parameter_transformations
+
+    # @return [OCI::Apigateway::Models::ResponseCacheLookupPolicy]
+    attr_accessor :response_cache_lookup
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -26,8 +38,12 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'authorization': :'authorization',
         'cors': :'cors',
+        'query_parameter_validations': :'queryParameterValidations',
+        'header_validations': :'headerValidations',
+        'body_validation': :'bodyValidation',
         'header_transformations': :'headerTransformations',
-        'query_parameter_transformations': :'queryParameterTransformations'
+        'query_parameter_transformations': :'queryParameterTransformations',
+        'response_cache_lookup': :'responseCacheLookup'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -38,8 +54,12 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'authorization': :'OCI::Apigateway::Models::RouteAuthorizationPolicy',
         'cors': :'OCI::Apigateway::Models::CorsPolicy',
+        'query_parameter_validations': :'OCI::Apigateway::Models::QueryParameterValidationRequestPolicy',
+        'header_validations': :'OCI::Apigateway::Models::HeaderValidationRequestPolicy',
+        'body_validation': :'OCI::Apigateway::Models::BodyValidationRequestPolicy',
         'header_transformations': :'OCI::Apigateway::Models::HeaderTransformationPolicy',
-        'query_parameter_transformations': :'OCI::Apigateway::Models::QueryParameterTransformationPolicy'
+        'query_parameter_transformations': :'OCI::Apigateway::Models::QueryParameterTransformationPolicy',
+        'response_cache_lookup': :'OCI::Apigateway::Models::ResponseCacheLookupPolicy'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -52,8 +72,12 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [OCI::Apigateway::Models::RouteAuthorizationPolicy] :authorization The value to assign to the {#authorization} property
     # @option attributes [OCI::Apigateway::Models::CorsPolicy] :cors The value to assign to the {#cors} property
+    # @option attributes [OCI::Apigateway::Models::QueryParameterValidationRequestPolicy] :query_parameter_validations The value to assign to the {#query_parameter_validations} property
+    # @option attributes [OCI::Apigateway::Models::HeaderValidationRequestPolicy] :header_validations The value to assign to the {#header_validations} property
+    # @option attributes [OCI::Apigateway::Models::BodyValidationRequestPolicy] :body_validation The value to assign to the {#body_validation} property
     # @option attributes [OCI::Apigateway::Models::HeaderTransformationPolicy] :header_transformations The value to assign to the {#header_transformations} property
     # @option attributes [OCI::Apigateway::Models::QueryParameterTransformationPolicy] :query_parameter_transformations The value to assign to the {#query_parameter_transformations} property
+    # @option attributes [OCI::Apigateway::Models::ResponseCacheLookupPolicy] :response_cache_lookup The value to assign to the {#response_cache_lookup} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -63,6 +87,24 @@ module OCI
       self.authorization = attributes[:'authorization'] if attributes[:'authorization']
 
       self.cors = attributes[:'cors'] if attributes[:'cors']
+
+      self.query_parameter_validations = attributes[:'queryParameterValidations'] if attributes[:'queryParameterValidations']
+
+      raise 'You cannot provide both :queryParameterValidations and :query_parameter_validations' if attributes.key?(:'queryParameterValidations') && attributes.key?(:'query_parameter_validations')
+
+      self.query_parameter_validations = attributes[:'query_parameter_validations'] if attributes[:'query_parameter_validations']
+
+      self.header_validations = attributes[:'headerValidations'] if attributes[:'headerValidations']
+
+      raise 'You cannot provide both :headerValidations and :header_validations' if attributes.key?(:'headerValidations') && attributes.key?(:'header_validations')
+
+      self.header_validations = attributes[:'header_validations'] if attributes[:'header_validations']
+
+      self.body_validation = attributes[:'bodyValidation'] if attributes[:'bodyValidation']
+
+      raise 'You cannot provide both :bodyValidation and :body_validation' if attributes.key?(:'bodyValidation') && attributes.key?(:'body_validation')
+
+      self.body_validation = attributes[:'body_validation'] if attributes[:'body_validation']
 
       self.header_transformations = attributes[:'headerTransformations'] if attributes[:'headerTransformations']
 
@@ -75,6 +117,12 @@ module OCI
       raise 'You cannot provide both :queryParameterTransformations and :query_parameter_transformations' if attributes.key?(:'queryParameterTransformations') && attributes.key?(:'query_parameter_transformations')
 
       self.query_parameter_transformations = attributes[:'query_parameter_transformations'] if attributes[:'query_parameter_transformations']
+
+      self.response_cache_lookup = attributes[:'responseCacheLookup'] if attributes[:'responseCacheLookup']
+
+      raise 'You cannot provide both :responseCacheLookup and :response_cache_lookup' if attributes.key?(:'responseCacheLookup') && attributes.key?(:'response_cache_lookup')
+
+      self.response_cache_lookup = attributes[:'response_cache_lookup'] if attributes[:'response_cache_lookup']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -90,8 +138,12 @@ module OCI
       self.class == other.class &&
         authorization == other.authorization &&
         cors == other.cors &&
+        query_parameter_validations == other.query_parameter_validations &&
+        header_validations == other.header_validations &&
+        body_validation == other.body_validation &&
         header_transformations == other.header_transformations &&
-        query_parameter_transformations == other.query_parameter_transformations
+        query_parameter_transformations == other.query_parameter_transformations &&
+        response_cache_lookup == other.response_cache_lookup
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -107,7 +159,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [authorization, cors, header_transformations, query_parameter_transformations].hash
+      [authorization, cors, query_parameter_validations, header_validations, body_validation, header_transformations, query_parameter_transformations, response_cache_lookup].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

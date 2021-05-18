@@ -13,6 +13,7 @@ module OCI
     CONFIG_SOURCE_RECORD_TYPE_ENUM = [
       CONFIG_SOURCE_RECORD_TYPE_ZIP_UPLOAD = 'ZIP_UPLOAD'.freeze,
       CONFIG_SOURCE_RECORD_TYPE_GIT_CONFIG_SOURCE = 'GIT_CONFIG_SOURCE'.freeze,
+      CONFIG_SOURCE_RECORD_TYPE_OBJECT_STORAGE_CONFIG_SOURCE = 'OBJECT_STORAGE_CONFIG_SOURCE'.freeze,
       CONFIG_SOURCE_RECORD_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -49,6 +50,7 @@ module OCI
 
       return 'OCI::ResourceManager::Models::GitConfigSourceRecord' if type == 'GIT_CONFIG_SOURCE'
       return 'OCI::ResourceManager::Models::ZipUploadConfigSourceRecord' if type == 'ZIP_UPLOAD'
+      return 'OCI::ResourceManager::Models::ObjectStorageConfigSourceRecord' if type == 'OBJECT_STORAGE_CONFIG_SOURCE'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::ResourceManager::Models::ConfigSourceRecord'

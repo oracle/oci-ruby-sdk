@@ -18,7 +18,8 @@ module OCI
       LIST_TYPE_COUNTRY = 'COUNTRY'.freeze,
       LIST_TYPE_STATE = 'STATE'.freeze,
       LIST_TYPE_CITY = 'CITY'.freeze,
-      LIST_TYPE_TAGS = 'TAGS'.freeze
+      LIST_TYPE_TAGS = 'TAGS'.freeze,
+      LIST_TYPE_GENERIC = 'GENERIC'.freeze
     ].freeze
 
     # **[Required]** ManagedList display name

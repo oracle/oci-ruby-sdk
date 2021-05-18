@@ -123,6 +123,10 @@ module OCI
     # @return [String]
     attr_reader :schedule_type
 
+    # Unique key of the data asset to which this job applies, if the job involves a data asset.
+    # @return [String]
+    attr_accessor :data_asset_key
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -140,7 +144,8 @@ module OCI
         'time_latest_execution_started': :'timeLatestExecutionStarted',
         'time_latest_execution_ended': :'timeLatestExecutionEnded',
         'job_execution_state': :'jobExecutionState',
-        'schedule_type': :'scheduleType'
+        'schedule_type': :'scheduleType',
+        'data_asset_key': :'dataAssetKey'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -162,7 +167,8 @@ module OCI
         'time_latest_execution_started': :'DateTime',
         'time_latest_execution_ended': :'DateTime',
         'job_execution_state': :'String',
-        'schedule_type': :'String'
+        'schedule_type': :'String',
+        'data_asset_key': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -187,6 +193,7 @@ module OCI
     # @option attributes [DateTime] :time_latest_execution_ended The value to assign to the {#time_latest_execution_ended} property
     # @option attributes [String] :job_execution_state The value to assign to the {#job_execution_state} property
     # @option attributes [String] :schedule_type The value to assign to the {#schedule_type} property
+    # @option attributes [String] :data_asset_key The value to assign to the {#data_asset_key} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -266,6 +273,12 @@ module OCI
       raise 'You cannot provide both :scheduleType and :schedule_type' if attributes.key?(:'scheduleType') && attributes.key?(:'schedule_type')
 
       self.schedule_type = attributes[:'schedule_type'] if attributes[:'schedule_type']
+
+      self.data_asset_key = attributes[:'dataAssetKey'] if attributes[:'dataAssetKey']
+
+      raise 'You cannot provide both :dataAssetKey and :data_asset_key' if attributes.key?(:'dataAssetKey') && attributes.key?(:'data_asset_key')
+
+      self.data_asset_key = attributes[:'data_asset_key'] if attributes[:'data_asset_key']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -344,7 +357,8 @@ module OCI
         time_latest_execution_started == other.time_latest_execution_started &&
         time_latest_execution_ended == other.time_latest_execution_ended &&
         job_execution_state == other.job_execution_state &&
-        schedule_type == other.schedule_type
+        schedule_type == other.schedule_type &&
+        data_asset_key == other.data_asset_key
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -360,7 +374,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, catalog_id, uri, job_type, lifecycle_state, is_sample_data_extracted, time_created, connection_key, time_latest_execution_started, time_latest_execution_ended, job_execution_state, schedule_type].hash
+      [key, display_name, description, catalog_id, uri, job_type, lifecycle_state, is_sample_data_extracted, time_created, connection_key, time_latest_execution_started, time_latest_execution_ended, job_execution_state, schedule_type, data_asset_key].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

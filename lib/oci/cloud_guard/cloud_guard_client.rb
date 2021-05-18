@@ -308,6 +308,68 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a new Data Mask Rule Definition
+    #
+    # @param [OCI::CloudGuard::Models::CreateDataMaskRuleDetails] create_data_mask_rule_details Definition for the new Data Mask Rule.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::DataMaskRule DataMaskRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/create_data_mask_rule.rb.html) to see an example of how to use create_data_mask_rule API.
+    def create_data_mask_rule(create_data_mask_rule_details, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#create_data_mask_rule.' if logger
+
+      raise "Missing the required parameter 'create_data_mask_rule_details' when calling create_data_mask_rule." if create_data_mask_rule_details.nil?
+
+      path = '/dataMaskRules'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_data_mask_rule_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#create_data_mask_rule') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::DataMaskRule'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a DetectorRecipe
     #
     # @param [OCI::CloudGuard::Models::CreateDetectorRecipeDetails] create_detector_recipe_details Details for the new DetectorRecipe.
@@ -673,6 +735,66 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::CloudGuard::Models::TargetResponderRecipe'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a DataMaskRule identified by dataMaskRuleId
+    # @param [String] data_mask_rule_id OCID of dataMaskRule
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/delete_data_mask_rule.rb.html) to see an example of how to use delete_data_mask_rule API.
+    def delete_data_mask_rule(data_mask_rule_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#delete_data_mask_rule.' if logger
+
+      raise "Missing the required parameter 'data_mask_rule_id' when calling delete_data_mask_rule." if data_mask_rule_id.nil?
+      raise "Parameter value for 'data_mask_rule_id' must not be blank" if OCI::Internal::Util.blank_string?(data_mask_rule_id)
+
+      path = '/dataMaskRules/{dataMaskRuleId}'.sub('{dataMaskRuleId}', data_mask_rule_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#delete_data_mask_rule') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1244,6 +1366,60 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::CloudGuard::Models::Configuration'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a DataMaskRule identified by DataMaskRuleId
+    # @param [String] data_mask_rule_id OCID of dataMaskRule
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::DataMaskRule DataMaskRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_data_mask_rule.rb.html) to see an example of how to use get_data_mask_rule API.
+    def get_data_mask_rule(data_mask_rule_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#get_data_mask_rule.' if logger
+
+      raise "Missing the required parameter 'data_mask_rule_id' when calling get_data_mask_rule." if data_mask_rule_id.nil?
+      raise "Parameter value for 'data_mask_rule_id' must not be blank" if OCI::Internal::Util.blank_string?(data_mask_rule_id)
+
+      path = '/dataMaskRules/{dataMaskRuleId}'.sub('{dataMaskRuleId}', data_mask_rule_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#get_data_mask_rule') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::DataMaskRule'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2176,6 +2352,111 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns a list of all Data Mask Rules in the root 'compartmentId' passed.
+    #
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :lifecycle_state The field life cycle state. Only one state can be provided. Default value for state is active. If no value is specified state is active. (default to ACTIVE)
+    # @option opts [String] :access_level Valid values are `RESTRICTED` and `ACCESSIBLE`. Default is `RESTRICTED`.
+    #   Setting this to `ACCESSIBLE` returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment).
+    #   When set to `RESTRICTED` permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :data_mask_rule_status The status of the dataMaskRule. (default to ENABLED)
+    # @option opts [String] :target_id OCID of target (default to null)
+    # @option opts [String] :iam_group_id OCID of iamGroup (default to null)
+    # @option opts [String] :target_type Type of target (default to null)
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::DataMaskRuleCollection DataMaskRuleCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_data_mask_rules.rb.html) to see an example of how to use list_data_mask_rules API.
+    def list_data_mask_rules(compartment_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#list_data_mask_rules.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_data_mask_rules." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::CloudGuard::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::CloudGuard::Models::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+      if opts[:sort_order] && !OCI::CloudGuard::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::CloudGuard::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      if opts[:data_mask_rule_status] && !OCI::CloudGuard::Models::DATA_MASK_RULE_STATUS_ENUM.include?(opts[:data_mask_rule_status])
+        raise 'Invalid value for "data_mask_rule_status", must be one of the values in OCI::CloudGuard::Models::DATA_MASK_RULE_STATUS_ENUM.'
+      end
+
+      path = '/dataMaskRules'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:dataMaskRuleStatus] = opts[:data_mask_rule_status] if opts[:data_mask_rule_status]
+      query_params[:targetId] = opts[:target_id] if opts[:target_id]
+      query_params[:iamGroupId] = opts[:iam_group_id] if opts[:iam_group_id]
+      query_params[:targetType] = opts[:target_type] if opts[:target_type]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#list_data_mask_rules') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::DataMaskRuleCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of DetectorRule associated with DetectorRecipe.
     #
     # @param [String] detector_recipe_id DetectorRecipe OCID
@@ -2283,7 +2564,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
     # @option opts [BOOLEAN] :resource_metadata_only Default is false.
     #   When set to true, the list of all Oracle Managed Resources
-    #   Metadata supported by Cloud Guard is returned.
+    #   Metadata supported by Cloud Guard are returned.
     #    (default to false)
     # @option opts [String] :lifecycle_state The field life cycle state. Only one state can be provided. Default value for state is active. If no value is specified state is active. (default to ACTIVE)
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
@@ -2714,7 +2995,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
     # @option opts [BOOLEAN] :resource_metadata_only Default is false.
     #   When set to true, the list of all Oracle Managed Resources
-    #   Metadata supported by Cloud Guard is returned.
+    #   Metadata supported by Cloud Guard are returned.
     #    (default to false)
     # @option opts [String] :lifecycle_state The field life cycle state. Only one state can be provided. Default value for state is active. If no value is specified state is active. (default to ACTIVE)
     # @option opts [String] :list_type The type of the ManagedList.
@@ -2802,6 +3083,79 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::CloudGuard::Models::ManagedListCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns the list of global policy statements needed by Cloud Guard when enabling
+    #
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::PolicyCollection PolicyCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_policies.rb.html) to see an example of how to use list_policies API.
+    def list_policies(compartment_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#list_policies.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_policies." if compartment_id.nil?
+
+      if opts[:sort_order] && !OCI::CloudGuard::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::CloudGuard::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      path = '/policies'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#list_policies') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::PolicyCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2911,10 +3265,10 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [DateTime] :time_last_detected_greater_than_or_equal_to Start time for a filter. If start time is not specified, start time will be set to today's current time - 30 days.
-    # @option opts [DateTime] :time_last_detected_less_than_or_equal_to End time for a filter. If end time is not specified, end time will be set to today's current time.
-    # @option opts [DateTime] :time_first_detected_greater_than_or_equal_to Start time for a filter. If start time is not specified, start time will be set to today's current time - 30 days.
-    # @option opts [DateTime] :time_first_detected_less_than_or_equal_to End time for a filter. If end time is not specified, end time will be set to today's current time.
+    # @option opts [DateTime] :time_last_detected_greater_than_or_equal_to Start time for a filter. If start time is not specified, start time will be set to current time - 30 days.
+    # @option opts [DateTime] :time_last_detected_less_than_or_equal_to End time for a filter. If end time is not specified, end time will be set to current time.
+    # @option opts [DateTime] :time_first_detected_greater_than_or_equal_to Start time for a filter. If start time is not specified, start time will be set to current time - 30 days.
+    # @option opts [DateTime] :time_first_detected_less_than_or_equal_to End time for a filter. If end time is not specified, end time will be set to current time.
     # @option opts [String] :lifecycle_detail The field life cycle state. Only one state can be provided. Default value for state is active. If no value is specified state is active. (default to OPEN)
     # @option opts [String] :lifecycle_state The field life cycle state. Only one state can be provided. Default value for state is active. If no value is specified state is active. (default to ACTIVE)
     # @option opts [String] :region OCI Monitoring region.
@@ -3530,7 +3884,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [BOOLEAN] :resource_metadata_only Default is false.
     #   When set to true, the list of all Oracle Managed Resources
-    #   Metadata supported by Cloud Guard is returned.
+    #   Metadata supported by Cloud Guard are returned.
     #    (default to false)
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
     # @option opts [String] :lifecycle_state The field life cycle state. Only one state can be provided. Default value for state is active. If no value is specified state is active. (default to ACTIVE)
@@ -4800,8 +5154,8 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [DateTime] :time_first_detected_greater_than_or_equal_to Start time for a filter. If start time is not specified, start time will be set to today's current time - 30 days.
-    # @option opts [DateTime] :time_first_detected_less_than_or_equal_to End time for a filter. If end time is not specified, end time will be set to today's current time.
+    # @option opts [DateTime] :time_first_detected_greater_than_or_equal_to Start time for a filter. If start time is not specified, start time will be set to current time - 30 days.
+    # @option opts [DateTime] :time_first_detected_less_than_or_equal_to End time for a filter. If end time is not specified, end time will be set to current time.
     # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
     #   When set to true, the hierarchy of compartments is traversed
     #   and all compartments and subcompartments in the tenancy are
@@ -5339,6 +5693,69 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::CloudGuard::Models::Configuration'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates a DataMaskRule identified by dataMaskRuleId
+    # @param [String] data_mask_rule_id OCID of dataMaskRule
+    # @param [OCI::CloudGuard::Models::UpdateDataMaskRuleDetails] update_data_mask_rule_details The information to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::DataMaskRule DataMaskRule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/update_data_mask_rule.rb.html) to see an example of how to use update_data_mask_rule API.
+    def update_data_mask_rule(data_mask_rule_id, update_data_mask_rule_details, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#update_data_mask_rule.' if logger
+
+      raise "Missing the required parameter 'data_mask_rule_id' when calling update_data_mask_rule." if data_mask_rule_id.nil?
+      raise "Missing the required parameter 'update_data_mask_rule_details' when calling update_data_mask_rule." if update_data_mask_rule_details.nil?
+      raise "Parameter value for 'data_mask_rule_id' must not be blank" if OCI::Internal::Util.blank_string?(data_mask_rule_id)
+
+      path = '/dataMaskRules/{dataMaskRuleId}'.sub('{dataMaskRuleId}', data_mask_rule_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_data_mask_rule_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#update_data_mask_rule') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::DataMaskRule'
         )
       end
       # rubocop:enable Metrics/BlockLength

@@ -45,6 +45,38 @@ module OCI
     # @return [String]
     attr_accessor :customer_interface_ip
 
+    # The IPv6 address for the Oracle end of the inside tunnel interface. This IP address is optional.
+    #
+    # If the tunnel's `routing` attribute is set to `BGP`
+    # (see {IPSecConnectionTunnel}), this IP address
+    # is used for the tunnel's BGP session.
+    #
+    # If `routing` is instead set to `STATIC`, you can set this IP
+    # address to troubleshoot or monitor the tunnel.
+    #
+    # Only subnet masks from /64 up to /127 are allowed.
+    #
+    # Example: `2001:db8::1/64`
+    #
+    # @return [String]
+    attr_accessor :oracle_interface_ipv6
+
+    # The IPv6 address for the CPE end of the inside tunnel interface. This IP address is optional.
+    #
+    # If the tunnel's `routing` attribute is set to `BGP`
+    # (see {IPSecConnectionTunnel}), this IP address
+    # is used for the tunnel's BGP session.
+    #
+    # If `routing` is instead set to `STATIC`, you can set this IP
+    # address to troubleshoot or monitor the tunnel.
+    #
+    # Only subnet masks from /64 up to /127 are allowed.
+    #
+    # Example: `2001:db8::1/64`
+    #
+    # @return [String]
+    attr_accessor :customer_interface_ipv6
+
     # The BGP ASN of the network on the CPE end of the BGP session. Can be a 2-byte or 4-byte ASN.
     # Uses \"asplain\" format.
     #
@@ -62,6 +94,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'oracle_interface_ip': :'oracleInterfaceIp',
         'customer_interface_ip': :'customerInterfaceIp',
+        'oracle_interface_ipv6': :'oracleInterfaceIpv6',
+        'customer_interface_ipv6': :'customerInterfaceIpv6',
         'customer_bgp_asn': :'customerBgpAsn'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -73,6 +107,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'oracle_interface_ip': :'String',
         'customer_interface_ip': :'String',
+        'oracle_interface_ipv6': :'String',
+        'customer_interface_ipv6': :'String',
         'customer_bgp_asn': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -86,6 +122,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :oracle_interface_ip The value to assign to the {#oracle_interface_ip} property
     # @option attributes [String] :customer_interface_ip The value to assign to the {#customer_interface_ip} property
+    # @option attributes [String] :oracle_interface_ipv6 The value to assign to the {#oracle_interface_ipv6} property
+    # @option attributes [String] :customer_interface_ipv6 The value to assign to the {#customer_interface_ipv6} property
     # @option attributes [String] :customer_bgp_asn The value to assign to the {#customer_bgp_asn} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -104,6 +142,18 @@ module OCI
       raise 'You cannot provide both :customerInterfaceIp and :customer_interface_ip' if attributes.key?(:'customerInterfaceIp') && attributes.key?(:'customer_interface_ip')
 
       self.customer_interface_ip = attributes[:'customer_interface_ip'] if attributes[:'customer_interface_ip']
+
+      self.oracle_interface_ipv6 = attributes[:'oracleInterfaceIpv6'] if attributes[:'oracleInterfaceIpv6']
+
+      raise 'You cannot provide both :oracleInterfaceIpv6 and :oracle_interface_ipv6' if attributes.key?(:'oracleInterfaceIpv6') && attributes.key?(:'oracle_interface_ipv6')
+
+      self.oracle_interface_ipv6 = attributes[:'oracle_interface_ipv6'] if attributes[:'oracle_interface_ipv6']
+
+      self.customer_interface_ipv6 = attributes[:'customerInterfaceIpv6'] if attributes[:'customerInterfaceIpv6']
+
+      raise 'You cannot provide both :customerInterfaceIpv6 and :customer_interface_ipv6' if attributes.key?(:'customerInterfaceIpv6') && attributes.key?(:'customer_interface_ipv6')
+
+      self.customer_interface_ipv6 = attributes[:'customer_interface_ipv6'] if attributes[:'customer_interface_ipv6']
 
       self.customer_bgp_asn = attributes[:'customerBgpAsn'] if attributes[:'customerBgpAsn']
 
@@ -125,6 +175,8 @@ module OCI
       self.class == other.class &&
         oracle_interface_ip == other.oracle_interface_ip &&
         customer_interface_ip == other.customer_interface_ip &&
+        oracle_interface_ipv6 == other.oracle_interface_ipv6 &&
+        customer_interface_ipv6 == other.customer_interface_ipv6 &&
         customer_bgp_asn == other.customer_bgp_asn
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -141,7 +193,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [oracle_interface_ip, customer_interface_ip, customer_bgp_asn].hash
+      [oracle_interface_ip, customer_interface_ip, oracle_interface_ipv6, customer_interface_ipv6, customer_bgp_asn].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

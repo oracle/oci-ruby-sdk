@@ -11,11 +11,11 @@ module OCI
     # @return [String]
     attr_accessor :uri
 
-    # The HTTP port on the origin that the web application listens on. If unspecified, defaults to `80`.
+    # The HTTP port on the origin that the web application listens on. If unspecified, defaults to `80`. If `0` is specified - the origin is not used for HTTP traffic.
     # @return [Integer]
     attr_accessor :http_port
 
-    # The HTTPS port on the origin that the web application listens on. If unspecified, defaults to `443`.
+    # The HTTPS port on the origin that the web application listens on. If unspecified, defaults to `443`. If `0` is specified - the origin is not used for HTTPS traffic.
     # @return [Integer]
     attr_accessor :https_port
 

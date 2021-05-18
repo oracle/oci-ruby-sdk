@@ -95,27 +95,11 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # For an IPv6-enabled VCN, this is the IPv6 CIDR block for the VCN's private IP address space.
-    # The VCN size is always /48. If you don't provide a value when creating the VCN, Oracle
-    # provides one and uses that *same* CIDR for the `ipv6PublicCidrBlock`. If you do provide a
-    # value, Oracle provides a *different* CIDR for the `ipv6PublicCidrBlock`. Note that IPv6
-    # addressing is currently supported only in certain regions. See
-    # [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
-    # Example: `2001:0db8:0123::/48`
+    # For an IPv6-enabled VCN, this is the list of IPv6 CIDR blocks for the VCN's IP address space.
+    # The CIDRs are provided by Oracle and the sizes are always /56.
     #
-    # @return [String]
-    attr_accessor :ipv6_cidr_block
-
-    # For an IPv6-enabled VCN, this is the IPv6 CIDR block for the VCN's public IP address space.
-    # The VCN size is always /48. This CIDR is always provided by Oracle. If you don't provide a
-    # custom CIDR for the `ipv6CidrBlock` when creating the VCN, Oracle assigns that value and also
-    # uses it for `ipv6PublicCidrBlock`. Oracle uses addresses from this block for the `publicIpAddress`
-    # attribute of an {Ipv6} that has internet access allowed.
-    #
-    # Example: `2001:0db8:0123::/48`
-    #
-    # @return [String]
-    attr_accessor :ipv6_public_cidr_block
+    # @return [Array<String>]
+    attr_accessor :ipv6_cidr_blocks
 
     # **[Required]** The VCN's current state.
     # @return [String]
@@ -154,8 +138,7 @@ module OCI
         'dns_label': :'dnsLabel',
         'freeform_tags': :'freeformTags',
         'id': :'id',
-        'ipv6_cidr_block': :'ipv6CidrBlock',
-        'ipv6_public_cidr_block': :'ipv6PublicCidrBlock',
+        'ipv6_cidr_blocks': :'ipv6CidrBlocks',
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'vcn_domain_name': :'vcnDomainName'
@@ -178,8 +161,7 @@ module OCI
         'dns_label': :'String',
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
-        'ipv6_cidr_block': :'String',
-        'ipv6_public_cidr_block': :'String',
+        'ipv6_cidr_blocks': :'Array<String>',
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'vcn_domain_name': :'String'
@@ -204,8 +186,7 @@ module OCI
     # @option attributes [String] :dns_label The value to assign to the {#dns_label} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
-    # @option attributes [String] :ipv6_cidr_block The value to assign to the {#ipv6_cidr_block} property
-    # @option attributes [String] :ipv6_public_cidr_block The value to assign to the {#ipv6_public_cidr_block} property
+    # @option attributes [Array<String>] :ipv6_cidr_blocks The value to assign to the {#ipv6_cidr_blocks} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :vcn_domain_name The value to assign to the {#vcn_domain_name} property
@@ -277,17 +258,11 @@ module OCI
 
       self.id = attributes[:'id'] if attributes[:'id']
 
-      self.ipv6_cidr_block = attributes[:'ipv6CidrBlock'] if attributes[:'ipv6CidrBlock']
+      self.ipv6_cidr_blocks = attributes[:'ipv6CidrBlocks'] if attributes[:'ipv6CidrBlocks']
 
-      raise 'You cannot provide both :ipv6CidrBlock and :ipv6_cidr_block' if attributes.key?(:'ipv6CidrBlock') && attributes.key?(:'ipv6_cidr_block')
+      raise 'You cannot provide both :ipv6CidrBlocks and :ipv6_cidr_blocks' if attributes.key?(:'ipv6CidrBlocks') && attributes.key?(:'ipv6_cidr_blocks')
 
-      self.ipv6_cidr_block = attributes[:'ipv6_cidr_block'] if attributes[:'ipv6_cidr_block']
-
-      self.ipv6_public_cidr_block = attributes[:'ipv6PublicCidrBlock'] if attributes[:'ipv6PublicCidrBlock']
-
-      raise 'You cannot provide both :ipv6PublicCidrBlock and :ipv6_public_cidr_block' if attributes.key?(:'ipv6PublicCidrBlock') && attributes.key?(:'ipv6_public_cidr_block')
-
-      self.ipv6_public_cidr_block = attributes[:'ipv6_public_cidr_block'] if attributes[:'ipv6_public_cidr_block']
+      self.ipv6_cidr_blocks = attributes[:'ipv6_cidr_blocks'] if attributes[:'ipv6_cidr_blocks']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -343,8 +318,7 @@ module OCI
         dns_label == other.dns_label &&
         freeform_tags == other.freeform_tags &&
         id == other.id &&
-        ipv6_cidr_block == other.ipv6_cidr_block &&
-        ipv6_public_cidr_block == other.ipv6_public_cidr_block &&
+        ipv6_cidr_blocks == other.ipv6_cidr_blocks &&
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         vcn_domain_name == other.vcn_domain_name
@@ -363,7 +337,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cidr_block, cidr_blocks, compartment_id, default_dhcp_options_id, default_route_table_id, default_security_list_id, defined_tags, display_name, dns_label, freeform_tags, id, ipv6_cidr_block, ipv6_public_cidr_block, lifecycle_state, time_created, vcn_domain_name].hash
+      [cidr_block, cidr_blocks, compartment_id, default_dhcp_options_id, default_route_table_id, default_security_list_id, defined_tags, display_name, dns_label, freeform_tags, id, ipv6_cidr_blocks, lifecycle_state, time_created, vcn_domain_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

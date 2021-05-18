@@ -146,6 +146,14 @@ module OCI
     # @return [OCI::Database::Models::MaintenanceWindow]
     attr_accessor :maintenance_window
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the last maintenance run.
+    # @return [String]
+    attr_accessor :last_maintenance_run_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the next maintenance run.
+    # @return [String]
+    attr_accessor :next_maintenance_run_id
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -193,6 +201,8 @@ module OCI
         'contacts': :'contacts',
         'maintenance_slo_status': :'maintenanceSLOStatus',
         'maintenance_window': :'maintenanceWindow',
+        'last_maintenance_run_id': :'lastMaintenanceRunId',
+        'next_maintenance_run_id': :'nextMaintenanceRunId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -232,6 +242,8 @@ module OCI
         'contacts': :'Array<OCI::Database::Models::ExadataInfrastructureContact>',
         'maintenance_slo_status': :'String',
         'maintenance_window': :'OCI::Database::Models::MaintenanceWindow',
+        'last_maintenance_run_id': :'String',
+        'next_maintenance_run_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -273,6 +285,8 @@ module OCI
     # @option attributes [Array<OCI::Database::Models::ExadataInfrastructureContact>] :contacts The value to assign to the {#contacts} property
     # @option attributes [String] :maintenance_slo_status The value to assign to the {#maintenance_slo_status} property
     # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window The value to assign to the {#maintenance_window} property
+    # @option attributes [String] :last_maintenance_run_id The value to assign to the {#last_maintenance_run_id} property
+    # @option attributes [String] :next_maintenance_run_id The value to assign to the {#next_maintenance_run_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -432,6 +446,18 @@ module OCI
 
       self.maintenance_window = attributes[:'maintenance_window'] if attributes[:'maintenance_window']
 
+      self.last_maintenance_run_id = attributes[:'lastMaintenanceRunId'] if attributes[:'lastMaintenanceRunId']
+
+      raise 'You cannot provide both :lastMaintenanceRunId and :last_maintenance_run_id' if attributes.key?(:'lastMaintenanceRunId') && attributes.key?(:'last_maintenance_run_id')
+
+      self.last_maintenance_run_id = attributes[:'last_maintenance_run_id'] if attributes[:'last_maintenance_run_id']
+
+      self.next_maintenance_run_id = attributes[:'nextMaintenanceRunId'] if attributes[:'nextMaintenanceRunId']
+
+      raise 'You cannot provide both :nextMaintenanceRunId and :next_maintenance_run_id' if attributes.key?(:'nextMaintenanceRunId') && attributes.key?(:'next_maintenance_run_id')
+
+      self.next_maintenance_run_id = attributes[:'next_maintenance_run_id'] if attributes[:'next_maintenance_run_id']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -511,6 +537,8 @@ module OCI
         contacts == other.contacts &&
         maintenance_slo_status == other.maintenance_slo_status &&
         maintenance_window == other.maintenance_window &&
+        last_maintenance_run_id == other.last_maintenance_run_id &&
+        next_maintenance_run_id == other.next_maintenance_run_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -528,7 +556,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, display_name, shape, time_zone, cpus_enabled, max_cpu_count, memory_size_in_gbs, max_memory_in_gbs, db_node_storage_size_in_gbs, max_db_node_storage_in_g_bs, data_storage_size_in_tbs, max_data_storage_in_t_bs, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, dns_server, ntp_server, time_created, lifecycle_details, csi_number, contacts, maintenance_slo_status, maintenance_window, freeform_tags, defined_tags].hash
+      [id, compartment_id, lifecycle_state, display_name, shape, time_zone, cpus_enabled, max_cpu_count, memory_size_in_gbs, max_memory_in_gbs, db_node_storage_size_in_gbs, max_db_node_storage_in_g_bs, data_storage_size_in_tbs, max_data_storage_in_t_bs, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, dns_server, ntp_server, time_created, lifecycle_details, csi_number, contacts, maintenance_slo_status, maintenance_window, last_maintenance_run_id, next_maintenance_run_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

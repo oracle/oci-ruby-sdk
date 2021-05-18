@@ -11,6 +11,10 @@ module OCI
     RESOURCE_METRIC_ENUM = [
       RESOURCE_METRIC_CPU = 'CPU'.freeze,
       RESOURCE_METRIC_STORAGE = 'STORAGE'.freeze,
+      RESOURCE_METRIC_IO = 'IO'.freeze,
+      RESOURCE_METRIC_MEMORY = 'MEMORY'.freeze,
+      RESOURCE_METRIC_MEMORY_PGA = 'MEMORY_PGA'.freeze,
+      RESOURCE_METRIC_MEMORY_SGA = 'MEMORY_SGA'.freeze,
       RESOURCE_METRIC_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -42,7 +46,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_interval_end
 
-    # **[Required]** Defines the type of resource metric (CPU, STORAGE)
+    # **[Required]** Defines the type of resource metric (example: CPU, STORAGE)
     #
     # @return [String]
     attr_reader :resource_metric

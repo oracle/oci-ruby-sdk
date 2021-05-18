@@ -47,6 +47,7 @@ module OCI
       type = object_hash[:'configSourceType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::ResourceManager::Models::UpdateGitConfigSourceDetails' if type == 'GIT_CONFIG_SOURCE'
+      return 'OCI::ResourceManager::Models::UpdateObjectStorageConfigSourceDetails' if type == 'OBJECT_STORAGE_CONFIG_SOURCE'
       return 'OCI::ResourceManager::Models::UpdateZipUploadConfigSourceDetails' if type == 'ZIP_UPLOAD'
 
       # TODO: Log a warning when the subtype is not found.

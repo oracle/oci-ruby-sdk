@@ -21,12 +21,17 @@ module OCI
     # @return [Array<String>]
     attr_accessor :problem_ids
 
+    # User defined comment to be passed in to update the problem.
+    # @return [String]
+    attr_accessor :comment
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'status': :'status',
-        'problem_ids': :'problemIds'
+        'problem_ids': :'problemIds',
+        'comment': :'comment'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,7 +41,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'status': :'String',
-        'problem_ids': :'Array<String>'
+        'problem_ids': :'Array<String>',
+        'comment': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -49,6 +55,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :status The value to assign to the {#status} property
     # @option attributes [Array<String>] :problem_ids The value to assign to the {#problem_ids} property
+    # @option attributes [String] :comment The value to assign to the {#comment} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -62,6 +69,8 @@ module OCI
       raise 'You cannot provide both :problemIds and :problem_ids' if attributes.key?(:'problemIds') && attributes.key?(:'problem_ids')
 
       self.problem_ids = attributes[:'problem_ids'] if attributes[:'problem_ids']
+
+      self.comment = attributes[:'comment'] if attributes[:'comment']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -84,7 +93,8 @@ module OCI
 
       self.class == other.class &&
         status == other.status &&
-        problem_ids == other.problem_ids
+        problem_ids == other.problem_ids &&
+        comment == other.comment
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -100,7 +110,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [status, problem_ids].hash
+      [status, problem_ids, comment].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

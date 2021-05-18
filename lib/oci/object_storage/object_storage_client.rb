@@ -1131,10 +1131,11 @@ module OCI
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [Array<String>] :fields Bucket summary includes the 'namespace', 'name', 'compartmentId', 'createdBy', 'timeCreated',
-    #   and 'etag' fields. This parameter can also include 'approximateCount' (approximate number of objects) and 'approximateSize'
-    #   (total approximate size in bytes of all objects). For example 'approximateCount,approximateSize'.
+    #   and 'etag' fields. This parameter can also include 'approximateCount' (approximate number of objects), 'approximateSize'
+    #   (total approximate size in bytes of all objects) and 'autoTiering' (state of auto tiering on the bucket).
+    #   For example 'approximateCount,approximateSize,autoTiering'.
     #
-    #   Allowed values are: approximateCount, approximateSize
+    #   Allowed values are: approximateCount, approximateSize, autoTiering
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::Bucket Bucket}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/get_bucket.rb.html) to see an example of how to use get_bucket API.
     def get_bucket(namespace_name, bucket_name, opts = {})
@@ -1144,11 +1145,11 @@ module OCI
       raise "Missing the required parameter 'bucket_name' when calling get_bucket." if bucket_name.nil?
 
 
-      fields_allowable_values = %w[approximateCount approximateSize]
+      fields_allowable_values = %w[approximateCount approximateSize autoTiering]
       if opts[:fields] && !opts[:fields].empty?
         opts[:fields].each do |val_to_check|
           unless fields_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "fields", must be one of approximateCount, approximateSize.'
+            raise 'Invalid value for "fields", must be one of approximateCount, approximateSize, autoTiering.'
           end
         end
       end
@@ -3022,6 +3023,7 @@ module OCI
         end
       end
       header_params[:'content-type'] ||= 'application/octet-stream'
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(put_object_body)
 
@@ -3740,6 +3742,7 @@ module OCI
       header_params[:'opc-sse-customer-key-sha256'] = opts[:opc_sse_customer_key_sha256] if opts[:opc_sse_customer_key_sha256]
       # rubocop:enable Style/NegatedIf
       header_params[:'content-type'] ||= 'application/octet-stream'
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(upload_part_body)
 

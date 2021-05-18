@@ -15,6 +15,9 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # @return [OCI::Core::Models::DefaultDrgRouteTables]
+    attr_accessor :default_drg_route_tables
+
     # A user-friendly name. Does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
     #
@@ -34,6 +37,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'defined_tags': :'definedTags',
+        'default_drg_route_tables': :'defaultDrgRouteTables',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags'
         # rubocop:enable Style/SymbolLiteral
@@ -45,6 +49,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'default_drg_route_tables': :'OCI::Core::Models::DefaultDrgRouteTables',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
@@ -58,6 +63,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [OCI::Core::Models::DefaultDrgRouteTables] :default_drg_route_tables The value to assign to the {#default_drg_route_tables} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     def initialize(attributes = {})
@@ -71,6 +77,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.default_drg_route_tables = attributes[:'defaultDrgRouteTables'] if attributes[:'defaultDrgRouteTables']
+
+      raise 'You cannot provide both :defaultDrgRouteTables and :default_drg_route_tables' if attributes.key?(:'defaultDrgRouteTables') && attributes.key?(:'default_drg_route_tables')
+
+      self.default_drg_route_tables = attributes[:'default_drg_route_tables'] if attributes[:'default_drg_route_tables']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -97,6 +109,7 @@ module OCI
 
       self.class == other.class &&
         defined_tags == other.defined_tags &&
+        default_drg_route_tables == other.default_drg_route_tables &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags
     end
@@ -114,7 +127,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags].hash
+      [defined_tags, default_drg_route_tables, display_name, freeform_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -65,7 +65,7 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The OCID of the DRG.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG.
     # @return [String]
     attr_accessor :drg_id
 
@@ -77,7 +77,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The IPSec connection's Oracle ID (OCID).
+    # **[Required]** The IPSec connection's Oracle ID ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)).
     # @return [String]
     attr_accessor :id
 
@@ -116,8 +116,8 @@ module OCI
     # you must provide at least one valid static route. If you configure both
     # tunnels to use BGP dynamic routing, you can provide an empty list for the static routes.
     #
-    # The CIDR can be either IPv4 or IPv6. Note that IPv6 addressing is currently supported only
-    # in certain regions. See [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
+    # The CIDR can be either IPv4 or IPv6. IPv6 addressing is supported for all commercial and government regions.
+    # See [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
     #
     # Example: `10.0.1.0/24`
     #

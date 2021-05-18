@@ -33,6 +33,10 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
+    # Optional user friendly business name of the data entity. If set, this supplements the harvested display name of the object.
+    # @return [String]
+    attr_accessor :business_name
+
     # Detailed description of a data entity.
     # @return [String]
     attr_accessor :description
@@ -56,6 +60,10 @@ module OCI
     # Key of the associated pattern if this is a logical entity.
     # @return [String]
     attr_accessor :pattern_key
+
+    # The type of data entity object. Type keys can be found via the '/types' endpoint.
+    # @return [String]
+    attr_accessor :type_key
 
     # The expression realized after resolving qualifiers . Used in deriving this logical entity
     # @return [String]
@@ -94,12 +102,14 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'key': :'key',
         'display_name': :'displayName',
+        'business_name': :'businessName',
         'description': :'description',
         'data_asset_key': :'dataAssetKey',
         'folder_key': :'folderKey',
         'folder_name': :'folderName',
         'external_key': :'externalKey',
         'pattern_key': :'patternKey',
+        'type_key': :'typeKey',
         'realized_expression': :'realizedExpression',
         'path': :'path',
         'time_created': :'timeCreated',
@@ -117,12 +127,14 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'key': :'String',
         'display_name': :'String',
+        'business_name': :'String',
         'description': :'String',
         'data_asset_key': :'String',
         'folder_key': :'String',
         'folder_name': :'String',
         'external_key': :'String',
         'pattern_key': :'String',
+        'type_key': :'String',
         'realized_expression': :'String',
         'path': :'String',
         'time_created': :'DateTime',
@@ -142,12 +154,14 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :key The value to assign to the {#key} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :business_name The value to assign to the {#business_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :data_asset_key The value to assign to the {#data_asset_key} property
     # @option attributes [String] :folder_key The value to assign to the {#folder_key} property
     # @option attributes [String] :folder_name The value to assign to the {#folder_name} property
     # @option attributes [String] :external_key The value to assign to the {#external_key} property
     # @option attributes [String] :pattern_key The value to assign to the {#pattern_key} property
+    # @option attributes [String] :type_key The value to assign to the {#type_key} property
     # @option attributes [String] :realized_expression The value to assign to the {#realized_expression} property
     # @option attributes [String] :path The value to assign to the {#path} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -168,6 +182,12 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.business_name = attributes[:'businessName'] if attributes[:'businessName']
+
+      raise 'You cannot provide both :businessName and :business_name' if attributes.key?(:'businessName') && attributes.key?(:'business_name')
+
+      self.business_name = attributes[:'business_name'] if attributes[:'business_name']
 
       self.description = attributes[:'description'] if attributes[:'description']
 
@@ -200,6 +220,12 @@ module OCI
       raise 'You cannot provide both :patternKey and :pattern_key' if attributes.key?(:'patternKey') && attributes.key?(:'pattern_key')
 
       self.pattern_key = attributes[:'pattern_key'] if attributes[:'pattern_key']
+
+      self.type_key = attributes[:'typeKey'] if attributes[:'typeKey']
+
+      raise 'You cannot provide both :typeKey and :type_key' if attributes.key?(:'typeKey') && attributes.key?(:'type_key')
+
+      self.type_key = attributes[:'type_key'] if attributes[:'type_key']
 
       self.realized_expression = attributes[:'realizedExpression'] if attributes[:'realizedExpression']
 
@@ -262,12 +288,14 @@ module OCI
       self.class == other.class &&
         key == other.key &&
         display_name == other.display_name &&
+        business_name == other.business_name &&
         description == other.description &&
         data_asset_key == other.data_asset_key &&
         folder_key == other.folder_key &&
         folder_name == other.folder_name &&
         external_key == other.external_key &&
         pattern_key == other.pattern_key &&
+        type_key == other.type_key &&
         realized_expression == other.realized_expression &&
         path == other.path &&
         time_created == other.time_created &&
@@ -290,7 +318,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, data_asset_key, folder_key, folder_name, external_key, pattern_key, realized_expression, path, time_created, time_updated, updated_by_id, uri, lifecycle_state].hash
+      [key, display_name, business_name, description, data_asset_key, folder_key, folder_name, external_key, pattern_key, type_key, realized_expression, path, time_created, time_updated, updated_by_id, uri, lifecycle_state].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

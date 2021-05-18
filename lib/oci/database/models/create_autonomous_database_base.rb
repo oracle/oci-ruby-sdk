@@ -198,6 +198,10 @@ module OCI
     # @return [String]
     attr_reader :source
 
+    # Customer Contacts.
+    # @return [Array<OCI::Database::Models::CustomerContact>]
+    attr_accessor :customer_contacts
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -226,7 +230,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'db_version': :'dbVersion',
-        'source': :'source'
+        'source': :'source',
+        'customer_contacts': :'customerContacts'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -259,7 +264,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'db_version': :'String',
-        'source': :'String'
+        'source': :'String',
+        'customer_contacts': :'Array<OCI::Database::Models::CustomerContact>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -314,6 +320,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [String] :source The value to assign to the {#source} property
+    # @option attributes [Array<OCI::Database::Models::CustomerContact>] :customer_contacts The value to assign to the {#customer_contacts} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -472,6 +479,12 @@ module OCI
 
       self.source = attributes[:'source'] if attributes[:'source']
       self.source = "NONE" if source.nil? && !attributes.key?(:'source') # rubocop:disable Style/StringLiterals
+
+      self.customer_contacts = attributes[:'customerContacts'] if attributes[:'customerContacts']
+
+      raise 'You cannot provide both :customerContacts and :customer_contacts' if attributes.key?(:'customerContacts') && attributes.key?(:'customer_contacts')
+
+      self.customer_contacts = attributes[:'customer_contacts'] if attributes[:'customer_contacts']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -533,7 +546,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         db_version == other.db_version &&
-        source == other.source
+        source == other.source &&
+        customer_contacts == other.customer_contacts
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -549,7 +563,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source].hash
+      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, customer_contacts].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

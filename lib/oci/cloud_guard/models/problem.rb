@@ -100,6 +100,18 @@ module OCI
     # @return [String]
     attr_accessor :target_id
 
+    # The additional details of the Problem
+    # @return [Hash<String, String>]
+    attr_accessor :additional_details
+
+    # Description of the problem
+    # @return [String]
+    attr_accessor :description
+
+    # Recommendation for the problem
+    # @return [String]
+    attr_accessor :recommendation
+
     # User Comments
     # @return [String]
     attr_accessor :comment
@@ -124,6 +136,9 @@ module OCI
         'lifecycle_detail': :'lifecycleDetail',
         'detector_id': :'detectorId',
         'target_id': :'targetId',
+        'additional_details': :'additionalDetails',
+        'description': :'description',
+        'recommendation': :'recommendation',
         'comment': :'comment'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -149,6 +164,9 @@ module OCI
         'lifecycle_detail': :'String',
         'detector_id': :'String',
         'target_id': :'String',
+        'additional_details': :'Hash<String, String>',
+        'description': :'String',
+        'recommendation': :'String',
         'comment': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -176,6 +194,9 @@ module OCI
     # @option attributes [String] :lifecycle_detail The value to assign to the {#lifecycle_detail} property
     # @option attributes [String] :detector_id The value to assign to the {#detector_id} property
     # @option attributes [String] :target_id The value to assign to the {#target_id} property
+    # @option attributes [Hash<String, String>] :additional_details The value to assign to the {#additional_details} property
+    # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [String] :recommendation The value to assign to the {#recommendation} property
     # @option attributes [String] :comment The value to assign to the {#comment} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -263,6 +284,16 @@ module OCI
 
       self.target_id = attributes[:'target_id'] if attributes[:'target_id']
 
+      self.additional_details = attributes[:'additionalDetails'] if attributes[:'additionalDetails']
+
+      raise 'You cannot provide both :additionalDetails and :additional_details' if attributes.key?(:'additionalDetails') && attributes.key?(:'additional_details')
+
+      self.additional_details = attributes[:'additional_details'] if attributes[:'additional_details']
+
+      self.description = attributes[:'description'] if attributes[:'description']
+
+      self.recommendation = attributes[:'recommendation'] if attributes[:'recommendation']
+
       self.comment = attributes[:'comment'] if attributes[:'comment']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -345,6 +376,9 @@ module OCI
         lifecycle_detail == other.lifecycle_detail &&
         detector_id == other.detector_id &&
         target_id == other.target_id &&
+        additional_details == other.additional_details &&
+        description == other.description &&
+        recommendation == other.recommendation &&
         comment == other.comment
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -361,7 +395,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, detector_rule_id, region, regions, risk_level, resource_id, resource_name, resource_type, labels, time_last_detected, time_first_detected, lifecycle_state, lifecycle_detail, detector_id, target_id, comment].hash
+      [id, compartment_id, detector_rule_id, region, regions, risk_level, resource_id, resource_name, resource_type, labels, time_last_detected, time_first_detected, lifecycle_state, lifecycle_detail, detector_id, target_id, additional_details, description, recommendation, comment].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

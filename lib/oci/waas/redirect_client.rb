@@ -84,7 +84,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://waas.{region}.{secondLevelDomain}') + '/20181116'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://waas.{region}.oci.{secondLevelDomain}') + '/20181116'
       logger.info "RedirectClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 

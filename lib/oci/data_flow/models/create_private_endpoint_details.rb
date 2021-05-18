@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The create private endpoint details.
+  # The details required to create a private endpoint.
   #
   class DataFlow::Models::CreatePrivateEndpointDetails
     # **[Required]** The OCID of a compartment.

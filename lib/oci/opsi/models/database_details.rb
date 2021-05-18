@@ -7,6 +7,10 @@ require 'date'
 module OCI
   # Partial information about the database which includes id, name, type.
   class Opsi::Models::DatabaseDetails
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database insight resource.
+    # @return [String]
+    attr_accessor :id
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database.
     # @return [String]
     attr_accessor :database_id
@@ -27,15 +31,21 @@ module OCI
     # @return [String]
     attr_accessor :database_version
 
+    # Array of hostname and instance name.
+    # @return [Array<OCI::Opsi::Models::HostInstanceMap>]
+    attr_accessor :instances
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'id': :'id',
         'database_id': :'databaseId',
         'database_name': :'databaseName',
         'database_display_name': :'databaseDisplayName',
         'database_type': :'databaseType',
-        'database_version': :'databaseVersion'
+        'database_version': :'databaseVersion',
+        'instances': :'instances'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -44,11 +54,13 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'id': :'String',
         'database_id': :'String',
         'database_name': :'String',
         'database_display_name': :'String',
         'database_type': :'String',
-        'database_version': :'String'
+        'database_version': :'String',
+        'instances': :'Array<OCI::Opsi::Models::HostInstanceMap>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -59,16 +71,20 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :database_id The value to assign to the {#database_id} property
     # @option attributes [String] :database_name The value to assign to the {#database_name} property
     # @option attributes [String] :database_display_name The value to assign to the {#database_display_name} property
     # @option attributes [String] :database_type The value to assign to the {#database_type} property
     # @option attributes [String] :database_version The value to assign to the {#database_version} property
+    # @option attributes [Array<OCI::Opsi::Models::HostInstanceMap>] :instances The value to assign to the {#instances} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.id = attributes[:'id'] if attributes[:'id']
 
       self.database_id = attributes[:'databaseId'] if attributes[:'databaseId']
 
@@ -99,6 +115,8 @@ module OCI
       raise 'You cannot provide both :databaseVersion and :database_version' if attributes.key?(:'databaseVersion') && attributes.key?(:'database_version')
 
       self.database_version = attributes[:'database_version'] if attributes[:'database_version']
+
+      self.instances = attributes[:'instances'] if attributes[:'instances']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -112,11 +130,13 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        id == other.id &&
         database_id == other.database_id &&
         database_name == other.database_name &&
         database_display_name == other.database_display_name &&
         database_type == other.database_type &&
-        database_version == other.database_version
+        database_version == other.database_version &&
+        instances == other.instances
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -132,7 +152,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_id, database_name, database_display_name, database_type, database_version].hash
+      [id, database_id, database_name, database_display_name, database_type, database_version, instances].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

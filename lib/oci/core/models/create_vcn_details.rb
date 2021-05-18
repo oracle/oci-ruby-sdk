@@ -27,30 +27,6 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # If you enable IPv6 for the VCN (see `isIpv6Enabled`), you may optionally provide an IPv6
-    # /48 CIDR block from the supported ranges (see [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
-    # The addresses in this block will be considered private and cannot be accessed
-    # from the internet. The documentation refers to this as a *custom CIDR* for the VCN.
-    #
-    # If you don't provide a custom CIDR for the VCN, Oracle assigns the VCN's IPv6 /48 CIDR block.
-    #
-    # Regardless of whether you or Oracle assigns the `ipv6CidrBlock`,
-    # Oracle *also* assigns the VCN an IPv6 CIDR block for the VCN's public IP address space
-    # (see the `ipv6PublicCidrBlock` of the {Vcn} object). If you do
-    # not assign a custom CIDR, Oracle uses the *same* Oracle-assigned CIDR for both the private
-    # IP address space (`ipv6CidrBlock` in the `Vcn` object) and the public IP addreses space
-    # (`ipv6PublicCidrBlock` in the `Vcn` object). This means that a given VNIC might use the same
-    # IPv6 IP address for both private and public (internet) communication. You control whether
-    # an IPv6 address can be used for internet communication by using the `isInternetAccessAllowed`
-    # attribute in the {Ipv6} object.
-    #
-    # For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
-    #
-    # Example: `2001:0db8:0123::/48`
-    #
-    # @return [String]
-    attr_accessor :ipv6_cidr_block
-
     # Defined tags for this resource. Each key is predefined and scoped to a
     # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
@@ -92,7 +68,8 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # Whether IPv6 is enabled for the VCN. Default is `false`. You cannot change this later.
+    # Whether IPv6 is enabled for the VCN. Default is `false`.
+    # If enabled, Oracle will assign the VCN a IPv6 /56 CIDR block.
     # For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
     #
     # Example: `true`
@@ -107,7 +84,6 @@ module OCI
         'cidr_block': :'cidrBlock',
         'cidr_blocks': :'cidrBlocks',
         'compartment_id': :'compartmentId',
-        'ipv6_cidr_block': :'ipv6CidrBlock',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'dns_label': :'dnsLabel',
@@ -124,7 +100,6 @@ module OCI
         'cidr_block': :'String',
         'cidr_blocks': :'Array<String>',
         'compartment_id': :'String',
-        'ipv6_cidr_block': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'dns_label': :'String',
@@ -143,7 +118,6 @@ module OCI
     # @option attributes [String] :cidr_block The value to assign to the {#cidr_block} property
     # @option attributes [Array<String>] :cidr_blocks The value to assign to the {#cidr_blocks} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [String] :ipv6_cidr_block The value to assign to the {#ipv6_cidr_block} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :dns_label The value to assign to the {#dns_label} property
@@ -172,12 +146,6 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
-
-      self.ipv6_cidr_block = attributes[:'ipv6CidrBlock'] if attributes[:'ipv6CidrBlock']
-
-      raise 'You cannot provide both :ipv6CidrBlock and :ipv6_cidr_block' if attributes.key?(:'ipv6CidrBlock') && attributes.key?(:'ipv6_cidr_block')
-
-      self.ipv6_cidr_block = attributes[:'ipv6_cidr_block'] if attributes[:'ipv6_cidr_block']
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -224,7 +192,6 @@ module OCI
         cidr_block == other.cidr_block &&
         cidr_blocks == other.cidr_blocks &&
         compartment_id == other.compartment_id &&
-        ipv6_cidr_block == other.ipv6_cidr_block &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         dns_label == other.dns_label &&
@@ -245,7 +212,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cidr_block, cidr_blocks, compartment_id, ipv6_cidr_block, defined_tags, display_name, dns_label, freeform_tags, is_ipv6_enabled].hash
+      [cidr_block, cidr_blocks, compartment_id, defined_tags, display_name, dns_label, freeform_tags, is_ipv6_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

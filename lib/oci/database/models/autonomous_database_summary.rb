@@ -395,7 +395,8 @@ module OCI
     # @return [OCI::Database::Models::AutonomousDatabaseStandbySummary]
     attr_accessor :standby_db
 
-    # The role of the Autonomous Data Guard-enabled Autonomous Container Database.
+    # The Data Guard role of the Autonomous Container Database, if Autonomous Data Guard is enabled.
+    #
     # @return [String]
     attr_reader :role
 
@@ -410,6 +411,10 @@ module OCI
     # The wallet name for Oracle Key Vault.
     # @return [String]
     attr_accessor :key_store_wallet_name
+
+    # Customer Contacts.
+    # @return [Array<OCI::Database::Models::CustomerContact>]
+    attr_accessor :customer_contacts
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -475,7 +480,8 @@ module OCI
         'role': :'role',
         'available_upgrade_versions': :'availableUpgradeVersions',
         'key_store_id': :'keyStoreId',
-        'key_store_wallet_name': :'keyStoreWalletName'
+        'key_store_wallet_name': :'keyStoreWalletName',
+        'customer_contacts': :'customerContacts'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -544,7 +550,8 @@ module OCI
         'role': :'String',
         'available_upgrade_versions': :'Array<String>',
         'key_store_id': :'String',
-        'key_store_wallet_name': :'String'
+        'key_store_wallet_name': :'String',
+        'customer_contacts': :'Array<OCI::Database::Models::CustomerContact>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -616,6 +623,7 @@ module OCI
     # @option attributes [Array<String>] :available_upgrade_versions The value to assign to the {#available_upgrade_versions} property
     # @option attributes [String] :key_store_id The value to assign to the {#key_store_id} property
     # @option attributes [String] :key_store_wallet_name The value to assign to the {#key_store_wallet_name} property
+    # @option attributes [Array<OCI::Database::Models::CustomerContact>] :customer_contacts The value to assign to the {#customer_contacts} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -981,6 +989,12 @@ module OCI
       raise 'You cannot provide both :keyStoreWalletName and :key_store_wallet_name' if attributes.key?(:'keyStoreWalletName') && attributes.key?(:'key_store_wallet_name')
 
       self.key_store_wallet_name = attributes[:'key_store_wallet_name'] if attributes[:'key_store_wallet_name']
+
+      self.customer_contacts = attributes[:'customerContacts'] if attributes[:'customerContacts']
+
+      raise 'You cannot provide both :customerContacts and :customer_contacts' if attributes.key?(:'customerContacts') && attributes.key?(:'customer_contacts')
+
+      self.customer_contacts = attributes[:'customer_contacts'] if attributes[:'customer_contacts']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -1197,7 +1211,8 @@ module OCI
         role == other.role &&
         available_upgrade_versions == other.available_upgrade_versions &&
         key_store_id == other.key_store_id &&
-        key_store_wallet_name == other.key_store_wallet_name
+        key_store_wallet_name == other.key_store_wallet_name &&
+        customer_contacts == other.customer_contacts
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -1213,7 +1228,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, backup_config, cpu_core_count, data_storage_size_in_tbs, data_storage_size_in_gbs, infrastructure_type, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, subnet_id, nsg_ids, private_endpoint, private_endpoint_label, private_endpoint_ip, db_version, is_preview, db_workload, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, apex_details, is_auto_scaling_enabled, data_safe_status, operations_insights_status, time_maintenance_begin, time_maintenance_end, is_refreshable_clone, time_of_last_refresh, time_of_last_refresh_point, time_of_next_refresh, open_mode, refreshable_status, refreshable_mode, source_id, permission_level, time_of_last_switchover, time_of_last_failover, is_data_guard_enabled, failed_data_recovery_in_seconds, standby_db, role, available_upgrade_versions, key_store_id, key_store_wallet_name].hash
+      [id, compartment_id, lifecycle_state, lifecycle_details, db_name, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, backup_config, cpu_core_count, data_storage_size_in_tbs, data_storage_size_in_gbs, infrastructure_type, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, subnet_id, nsg_ids, private_endpoint, private_endpoint_label, private_endpoint_ip, db_version, is_preview, db_workload, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, apex_details, is_auto_scaling_enabled, data_safe_status, operations_insights_status, time_maintenance_begin, time_maintenance_end, is_refreshable_clone, time_of_last_refresh, time_of_last_refresh_point, time_of_next_refresh, open_mode, refreshable_status, refreshable_mode, source_id, permission_level, time_of_last_switchover, time_of_last_failover, is_data_guard_enabled, failed_data_recovery_in_seconds, standby_db, role, available_upgrade_versions, key_store_id, key_store_wallet_name, customer_contacts].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

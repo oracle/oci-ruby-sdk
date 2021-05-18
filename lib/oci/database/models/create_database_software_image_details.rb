@@ -25,7 +25,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The database version with which the database software image is to be built.
+    # The database version with which the database software image is to be built.
     # @return [String]
     attr_accessor :database_version
 
@@ -41,7 +41,7 @@ module OCI
     # @return [String]
     attr_reader :image_type
 
-    # **[Required]** The PSU or PBP or Release Updates. To get a list of supported versions, use the {#list_db_versions list_db_versions} operation.
+    # The PSU or PBP or Release Updates. To get a list of supported versions, use the {#list_db_versions list_db_versions} operation.
     # @return [String]
     attr_accessor :patch_set
 

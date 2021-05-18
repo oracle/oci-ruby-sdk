@@ -105,6 +105,10 @@ module OCI
     # @return [String]
     attr_accessor :peering_status_details
 
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the peered LPG.
+    # @return [String]
+    attr_accessor :peer_id
+
     # The OCID of the route table the LPG is using.
     #
     # For information about why you would associate a route table with an LPG, see
@@ -139,6 +143,7 @@ module OCI
         'peer_advertised_cidr_details': :'peerAdvertisedCidrDetails',
         'peering_status': :'peeringStatus',
         'peering_status_details': :'peeringStatusDetails',
+        'peer_id': :'peerId',
         'route_table_id': :'routeTableId',
         'time_created': :'timeCreated',
         'vcn_id': :'vcnId'
@@ -161,6 +166,7 @@ module OCI
         'peer_advertised_cidr_details': :'Array<String>',
         'peering_status': :'String',
         'peering_status_details': :'String',
+        'peer_id': :'String',
         'route_table_id': :'String',
         'time_created': :'DateTime',
         'vcn_id': :'String'
@@ -185,6 +191,7 @@ module OCI
     # @option attributes [Array<String>] :peer_advertised_cidr_details The value to assign to the {#peer_advertised_cidr_details} property
     # @option attributes [String] :peering_status The value to assign to the {#peering_status} property
     # @option attributes [String] :peering_status_details The value to assign to the {#peering_status_details} property
+    # @option attributes [String] :peer_id The value to assign to the {#peer_id} property
     # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :vcn_id The value to assign to the {#vcn_id} property
@@ -256,6 +263,12 @@ module OCI
 
       self.peering_status_details = attributes[:'peering_status_details'] if attributes[:'peering_status_details']
 
+      self.peer_id = attributes[:'peerId'] if attributes[:'peerId']
+
+      raise 'You cannot provide both :peerId and :peer_id' if attributes.key?(:'peerId') && attributes.key?(:'peer_id')
+
+      self.peer_id = attributes[:'peer_id'] if attributes[:'peer_id']
+
       self.route_table_id = attributes[:'routeTableId'] if attributes[:'routeTableId']
 
       raise 'You cannot provide both :routeTableId and :route_table_id' if attributes.key?(:'routeTableId') && attributes.key?(:'route_table_id')
@@ -323,6 +336,7 @@ module OCI
         peer_advertised_cidr_details == other.peer_advertised_cidr_details &&
         peering_status == other.peering_status &&
         peering_status_details == other.peering_status_details &&
+        peer_id == other.peer_id &&
         route_table_id == other.route_table_id &&
         time_created == other.time_created &&
         vcn_id == other.vcn_id
@@ -341,7 +355,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, id, is_cross_tenancy_peering, lifecycle_state, peer_advertised_cidr, peer_advertised_cidr_details, peering_status, peering_status_details, route_table_id, time_created, vcn_id].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, id, is_cross_tenancy_peering, lifecycle_state, peer_advertised_cidr, peer_advertised_cidr_details, peering_status, peering_status_details, peer_id, route_table_id, time_created, vcn_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

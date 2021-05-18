@@ -15,6 +15,12 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :assign_public_ip
 
+    # Whether the VNIC should be assigned a private DNS record. See the `assignPrivateDnsRecord` attribute of {CreateVnicDetails}
+    # for more information.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :assign_private_dns_record
+
     # Defined tags for this resource. Each key is predefined and scoped to a
     # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
@@ -73,6 +79,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'assign_public_ip': :'assignPublicIp',
+        'assign_private_dns_record': :'assignPrivateDnsRecord',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
@@ -90,6 +97,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'assign_public_ip': :'BOOLEAN',
+        'assign_private_dns_record': :'BOOLEAN',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
@@ -109,6 +117,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [BOOLEAN] :assign_public_ip The value to assign to the {#assign_public_ip} property
+    # @option attributes [BOOLEAN] :assign_private_dns_record The value to assign to the {#assign_private_dns_record} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -128,6 +137,12 @@ module OCI
       raise 'You cannot provide both :assignPublicIp and :assign_public_ip' if attributes.key?(:'assignPublicIp') && attributes.key?(:'assign_public_ip')
 
       self.assign_public_ip = attributes[:'assign_public_ip'] unless attributes[:'assign_public_ip'].nil?
+
+      self.assign_private_dns_record = attributes[:'assignPrivateDnsRecord'] unless attributes[:'assignPrivateDnsRecord'].nil?
+
+      raise 'You cannot provide both :assignPrivateDnsRecord and :assign_private_dns_record' if attributes.key?(:'assignPrivateDnsRecord') && attributes.key?(:'assign_private_dns_record')
+
+      self.assign_private_dns_record = attributes[:'assign_private_dns_record'] unless attributes[:'assign_private_dns_record'].nil?
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -190,6 +205,7 @@ module OCI
 
       self.class == other.class &&
         assign_public_ip == other.assign_public_ip &&
+        assign_private_dns_record == other.assign_private_dns_record &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
@@ -213,7 +229,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [assign_public_ip, defined_tags, display_name, freeform_tags, hostname_label, nsg_ids, private_ip, skip_source_dest_check, subnet_id].hash
+      [assign_public_ip, assign_private_dns_record, defined_tags, display_name, freeform_tags, hostname_label, nsg_ids, private_ip, skip_source_dest_check, subnet_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
