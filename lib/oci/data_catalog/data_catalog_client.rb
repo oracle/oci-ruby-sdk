@@ -5361,6 +5361,11 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :business_name A filter to return only resources that match the entire business name given. The match is not case sensitive.
+    # @option opts [String] :display_or_business_name_contains A filter to return only resources that match display name or business name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayOrBusinessNameContains=Cu.*
+    #   The above would match all folders with display name or business name that starts with \"Cu\".
+    #
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
     #   The above would match all folders with display name that starts with \"Cu\".
@@ -5431,6 +5436,8 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:businessName] = opts[:business_name] if opts[:business_name]
+      query_params[:displayOrBusinessNameContains] = opts[:display_or_business_name_contains] if opts[:display_or_business_name_contains]
       query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:timeCreated] = opts[:time_created] if opts[:time_created]
@@ -6225,6 +6232,12 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :business_name A filter to return only resources that match the entire business name given. The match is not case sensitive.
+    # @option opts [String] :display_or_business_name_contains A filter to return only resources that match display name or business name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayOrBusinessNameContains=Cu.*
+    #   The above would match all folders with display name or business name that starts with \"Cu\".
+    #
+    # @option opts [String] :type_key The key of the object type.
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
     #   The above would match all folders with display name that starts with \"Cu\".
@@ -6299,6 +6312,9 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:businessName] = opts[:business_name] if opts[:business_name]
+      query_params[:displayOrBusinessNameContains] = opts[:display_or_business_name_contains] if opts[:display_or_business_name_contains]
+      query_params[:typeKey] = opts[:type_key] if opts[:type_key]
       query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:timeCreated] = opts[:time_created] if opts[:time_created]
@@ -6579,6 +6595,11 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :business_name A filter to return only resources that match the entire business name given. The match is not case sensitive.
+    # @option opts [String] :display_or_business_name_contains A filter to return only resources that match display name or business name pattern given. The match is not case sensitive.
+    #   For Example : /folders?displayOrBusinessNameContains=Cu.*
+    #   The above would match all folders with display name or business name that starts with \"Cu\".
+    #
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
     #   The above would match all folders with display name that starts with \"Cu\".
@@ -6647,6 +6668,8 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:businessName] = opts[:business_name] if opts[:business_name]
+      query_params[:displayOrBusinessNameContains] = opts[:display_or_business_name_contains] if opts[:display_or_business_name_contains]
       query_params[:displayNameContains] = opts[:display_name_contains] if opts[:display_name_contains]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:parentFolderKey] = opts[:parent_folder_key] if opts[:parent_folder_key]
@@ -7317,6 +7340,7 @@ module OCI
     # @option opts [String] :updated_by_id OCID of the user who updated the resource.
     # @option opts [String] :job_type Job type.
     # @option opts [String] :job_definition_key Unique job definition key.
+    # @option opts [String] :data_asset_key Unique data asset key.
     # @option opts [String] :schedule_cron_expression Schedule specified in the cron expression format that has seven fields for second, minute, hour, day-of-month, month, day-of-week, year.
     #   It can also include special characters like * for all and ? for any. There are also pre-defined schedules that can be specified using
     #   special strings. For example, @hourly will run the job every hour.
@@ -7394,6 +7418,7 @@ module OCI
       query_params[:updatedById] = opts[:updated_by_id] if opts[:updated_by_id]
       query_params[:jobType] = opts[:job_type] if opts[:job_type]
       query_params[:jobDefinitionKey] = opts[:job_definition_key] if opts[:job_definition_key]
+      query_params[:dataAssetKey] = opts[:data_asset_key] if opts[:data_asset_key]
       query_params[:scheduleCronExpression] = opts[:schedule_cron_expression] if opts[:schedule_cron_expression]
       query_params[:timeScheduleBegin] = opts[:time_schedule_begin] if opts[:time_schedule_begin]
       query_params[:timeScheduleEnd] = opts[:time_schedule_end] if opts[:time_schedule_end]
@@ -8858,6 +8883,72 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataCatalog::Models::SearchResultCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of potential string matches for a given input string.
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] input_text Text input string used for computing potential matching suggestions.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :timeout A search timeout string (for example, timeout=4000ms), bounding the search request to be executed within the
+    #   specified time value and bail with the hits accumulated up to that point when expired.
+    #   Defaults to no timeout.
+    #
+    # @option opts [Integer] :limit Limit for the list of potential matches returned from the Suggest API. If not specified, will default to 10.
+    #    (default to 10)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::SuggestResults SuggestResults}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/suggest_matches.rb.html) to see an example of how to use suggest_matches API.
+    def suggest_matches(catalog_id, input_text, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#suggest_matches.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling suggest_matches." if catalog_id.nil?
+      raise "Missing the required parameter 'input_text' when calling suggest_matches." if input_text.nil?
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+
+      path = '/catalogs/{catalogId}/actions/suggest'.sub('{catalogId}', catalog_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:inputText] = input_text
+      query_params[:timeout] = opts[:timeout] if opts[:timeout]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#suggest_matches') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::SuggestResults'
         )
       end
       # rubocop:enable Metrics/BlockLength

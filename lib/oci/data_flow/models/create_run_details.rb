@@ -7,26 +7,48 @@ require 'date'
 module OCI
   # The create run details. The following properties are optional and override the default values
   # set in the associated application:
+  #   - applicationId
+  #   - archiveUri
   #   - arguments
   #   - configuration
   #   - definedTags
+  #   - displayName
   #   - driverShape
+  #   - execute
   #   - executorShape
   #   - freeformTags
   #   - logsBucketUri
   #   - numExecutors
   #   - parameters
+  #   - sparkVersion
   #   - warehouseBucketUri
-  # If the optional properties are not specified, they are copied over from the parent application.
+  # It is expected that either the applicationId or the execute parameter is specified; but not both.
+  # If both or none are set, a Bad Request (HTTP 400) status will be sent as the response.
+  # If an appicationId is not specified, then a value for the execute parameter is expected.
+  # Using data parsed from the value, a new application will be created and assicated with the new run.
+  # See information on the execute parameter for details on the format of this parameter.
+  #
+  # The optional parameter spark version can only be specified when using the execute parameter.  If it
+  # is not specified when using the execute parameter, the latest version will be used as default.
+  # If the execute parameter is not used, the spark version will be taken from the associated application.
+  #
+  # If displayName is not specified, it will be derived from the displayName of associated application or
+  # set by API using fileUri's application file name.
   # Once a run is created, its properties (except for definedTags and freeformTags) cannot be changed.
   # If the parent application's properties (including definedTags and freeformTags) are updated,
   # the corresponding properties of the run will not update.
   #
   class DataFlow::Models::CreateRunDetails
-    # **[Required]** The application ID.
+    # The OCID of the associated application. If this value is set, then no value for the execute parameter is required. If this value is not set, then a value for the execute parameter is required, and a new application is created and associated with the new run.
     #
     # @return [String]
     attr_accessor :application_id
+
+    # An Oracle Cloud Infrastructure URI of an archive.zip file containing custom dependencies that may be used to support the execution a Python, Java, or Scala application.
+    # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
+    #
+    # @return [String]
+    attr_accessor :archive_uri
 
     # The arguments passed to the running application as command line arguments.  An argument is
     # either a plain text or a placeholder. Placeholders are replaced using values from the parameters
@@ -60,7 +82,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # **[Required]** A user-friendly name. It does not have to be unique. Avoid entering confidential information.
+    # A user-friendly name that does not have to be unique. Avoid entering confidential information. If this value is not specified, it will be derived from the associated application's displayName or set by API using fileUri's application file name.
     #
     # @return [String]
     attr_accessor :display_name
@@ -69,6 +91,15 @@ module OCI
     #
     # @return [String]
     attr_accessor :driver_shape
+
+    # The input used for spark-submit command. For more details see https://spark.apache.org/docs/latest/submitting-applications.html#launching-applications-with-spark-submit.
+    # Supported options include ``--class``, ``--file``, ``--jars``, ``--conf``, ``--py-files``, and main application file with arguments.
+    # Example: ``--jars oci://path/to/a.jar,oci://path/to/b.jar --files oci://path/to/a.json,oci://path/to/b.csv --py-files oci://path/to/a.py,oci://path/to/b.py --conf spark.sql.crossJoin.enabled=true --class org.apache.spark.examples.SparkPi oci://path/to/main.jar 10``
+    # Note: If execute is specified together with applicationId, className, configuration, fileUri, language, arguments, parameters during application create/update, or run create/submit,
+    # Data Flow service will use derived information from execute input only.
+    #
+    # @return [String]
+    attr_accessor :execute
 
     # The VM shape for the executors. Sets the executor cores and memory.
     #
@@ -101,6 +132,11 @@ module OCI
     # @return [Array<OCI::DataFlow::Models::ApplicationParameter>]
     attr_accessor :parameters
 
+    # The Spark version utilized to run the application. This value may be set if applicationId is not since the Spark version will be taken from the associated application.
+    #
+    # @return [String]
+    attr_accessor :spark_version
+
     # An Oracle Cloud Infrastructure URI of the bucket to be used as default warehouse directory
     # for BATCH SQL runs.
     # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
@@ -113,17 +149,20 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'application_id': :'applicationId',
+        'archive_uri': :'archiveUri',
         'arguments': :'arguments',
         'compartment_id': :'compartmentId',
         'configuration': :'configuration',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'driver_shape': :'driverShape',
+        'execute': :'execute',
         'executor_shape': :'executorShape',
         'freeform_tags': :'freeformTags',
         'logs_bucket_uri': :'logsBucketUri',
         'num_executors': :'numExecutors',
         'parameters': :'parameters',
+        'spark_version': :'sparkVersion',
         'warehouse_bucket_uri': :'warehouseBucketUri'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -134,17 +173,20 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'application_id': :'String',
+        'archive_uri': :'String',
         'arguments': :'Array<String>',
         'compartment_id': :'String',
         'configuration': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'driver_shape': :'String',
+        'execute': :'String',
         'executor_shape': :'String',
         'freeform_tags': :'Hash<String, String>',
         'logs_bucket_uri': :'String',
         'num_executors': :'Integer',
         'parameters': :'Array<OCI::DataFlow::Models::ApplicationParameter>',
+        'spark_version': :'String',
         'warehouse_bucket_uri': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -157,17 +199,20 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :application_id The value to assign to the {#application_id} property
+    # @option attributes [String] :archive_uri The value to assign to the {#archive_uri} property
     # @option attributes [Array<String>] :arguments The value to assign to the {#arguments} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Hash<String, String>] :configuration The value to assign to the {#configuration} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :driver_shape The value to assign to the {#driver_shape} property
+    # @option attributes [String] :execute The value to assign to the {#execute} property
     # @option attributes [String] :executor_shape The value to assign to the {#executor_shape} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :logs_bucket_uri The value to assign to the {#logs_bucket_uri} property
     # @option attributes [Integer] :num_executors The value to assign to the {#num_executors} property
     # @option attributes [Array<OCI::DataFlow::Models::ApplicationParameter>] :parameters The value to assign to the {#parameters} property
+    # @option attributes [String] :spark_version The value to assign to the {#spark_version} property
     # @option attributes [String] :warehouse_bucket_uri The value to assign to the {#warehouse_bucket_uri} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -180,6 +225,12 @@ module OCI
       raise 'You cannot provide both :applicationId and :application_id' if attributes.key?(:'applicationId') && attributes.key?(:'application_id')
 
       self.application_id = attributes[:'application_id'] if attributes[:'application_id']
+
+      self.archive_uri = attributes[:'archiveUri'] if attributes[:'archiveUri']
+
+      raise 'You cannot provide both :archiveUri and :archive_uri' if attributes.key?(:'archiveUri') && attributes.key?(:'archive_uri')
+
+      self.archive_uri = attributes[:'archive_uri'] if attributes[:'archive_uri']
 
       self.arguments = attributes[:'arguments'] if attributes[:'arguments']
 
@@ -209,6 +260,8 @@ module OCI
 
       self.driver_shape = attributes[:'driver_shape'] if attributes[:'driver_shape']
 
+      self.execute = attributes[:'execute'] if attributes[:'execute']
+
       self.executor_shape = attributes[:'executorShape'] if attributes[:'executorShape']
 
       raise 'You cannot provide both :executorShape and :executor_shape' if attributes.key?(:'executorShape') && attributes.key?(:'executor_shape')
@@ -235,6 +288,12 @@ module OCI
 
       self.parameters = attributes[:'parameters'] if attributes[:'parameters']
 
+      self.spark_version = attributes[:'sparkVersion'] if attributes[:'sparkVersion']
+
+      raise 'You cannot provide both :sparkVersion and :spark_version' if attributes.key?(:'sparkVersion') && attributes.key?(:'spark_version')
+
+      self.spark_version = attributes[:'spark_version'] if attributes[:'spark_version']
+
       self.warehouse_bucket_uri = attributes[:'warehouseBucketUri'] if attributes[:'warehouseBucketUri']
 
       raise 'You cannot provide both :warehouseBucketUri and :warehouse_bucket_uri' if attributes.key?(:'warehouseBucketUri') && attributes.key?(:'warehouse_bucket_uri')
@@ -254,17 +313,20 @@ module OCI
 
       self.class == other.class &&
         application_id == other.application_id &&
+        archive_uri == other.archive_uri &&
         arguments == other.arguments &&
         compartment_id == other.compartment_id &&
         configuration == other.configuration &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         driver_shape == other.driver_shape &&
+        execute == other.execute &&
         executor_shape == other.executor_shape &&
         freeform_tags == other.freeform_tags &&
         logs_bucket_uri == other.logs_bucket_uri &&
         num_executors == other.num_executors &&
         parameters == other.parameters &&
+        spark_version == other.spark_version &&
         warehouse_bucket_uri == other.warehouse_bucket_uri
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -281,7 +343,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [application_id, arguments, compartment_id, configuration, defined_tags, display_name, driver_shape, executor_shape, freeform_tags, logs_bucket_uri, num_executors, parameters, warehouse_bucket_uri].hash
+      [application_id, archive_uri, arguments, compartment_id, configuration, defined_tags, display_name, driver_shape, execute, executor_shape, freeform_tags, logs_bucket_uri, num_executors, parameters, spark_version, warehouse_bucket_uri].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

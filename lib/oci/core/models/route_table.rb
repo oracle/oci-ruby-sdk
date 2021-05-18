@@ -69,7 +69,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The OCID of the VCN the route table list belongs to.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN the route table list belongs to.
     # @return [String]
     attr_accessor :vcn_id
 

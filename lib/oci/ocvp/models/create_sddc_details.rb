@@ -7,6 +7,13 @@ require 'date'
 module OCI
   # Details of the SDDC.
   class Ocvp::Models::CreateSddcDetails
+    INITIAL_SKU_ENUM = [
+      INITIAL_SKU_HOUR = 'HOUR'.freeze,
+      INITIAL_SKU_MONTH = 'MONTH'.freeze,
+      INITIAL_SKU_ONE_YEAR = 'ONE_YEAR'.freeze,
+      INITIAL_SKU_THREE_YEARS = 'THREE_YEARS'.freeze
+    ].freeze
+
     # **[Required]** The availability domain to create the SDDC's ESXi hosts in.
     #
     # @return [String]
@@ -50,6 +57,12 @@ module OCI
     #
     # @return [Integer]
     attr_accessor :esxi_hosts_count
+
+    # **[Required]** Billing option selected during SDDC creation
+    # {#list_supported_skus list_supported_skus}.
+    #
+    # @return [String]
+    attr_reader :initial_sku
 
     # Indicates whether to enable HCX for this SDDC.
     #
@@ -163,6 +176,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'instance_display_name_prefix': :'instanceDisplayNamePrefix',
         'esxi_hosts_count': :'esxiHostsCount',
+        'initial_sku': :'initialSku',
         'is_hcx_enabled': :'isHcxEnabled',
         'hcx_vlan_id': :'hcxVlanId',
         'ssh_authorized_keys': :'sshAuthorizedKeys',
@@ -193,6 +207,7 @@ module OCI
         'compartment_id': :'String',
         'instance_display_name_prefix': :'String',
         'esxi_hosts_count': :'Integer',
+        'initial_sku': :'String',
         'is_hcx_enabled': :'BOOLEAN',
         'hcx_vlan_id': :'String',
         'ssh_authorized_keys': :'String',
@@ -225,6 +240,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :instance_display_name_prefix The value to assign to the {#instance_display_name_prefix} property
     # @option attributes [Integer] :esxi_hosts_count The value to assign to the {#esxi_hosts_count} property
+    # @option attributes [String] :initial_sku The value to assign to the {#initial_sku} property
     # @option attributes [BOOLEAN] :is_hcx_enabled The value to assign to the {#is_hcx_enabled} property
     # @option attributes [String] :hcx_vlan_id The value to assign to the {#hcx_vlan_id} property
     # @option attributes [String] :ssh_authorized_keys The value to assign to the {#ssh_authorized_keys} property
@@ -282,6 +298,14 @@ module OCI
       raise 'You cannot provide both :esxiHostsCount and :esxi_hosts_count' if attributes.key?(:'esxiHostsCount') && attributes.key?(:'esxi_hosts_count')
 
       self.esxi_hosts_count = attributes[:'esxi_hosts_count'] if attributes[:'esxi_hosts_count']
+
+      self.initial_sku = attributes[:'initialSku'] if attributes[:'initialSku']
+      self.initial_sku = "MONTH" if initial_sku.nil? && !attributes.key?(:'initialSku') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :initialSku and :initial_sku' if attributes.key?(:'initialSku') && attributes.key?(:'initial_sku')
+
+      self.initial_sku = attributes[:'initial_sku'] if attributes[:'initial_sku']
+      self.initial_sku = "MONTH" if initial_sku.nil? && !attributes.key?(:'initialSku') && !attributes.key?(:'initial_sku') # rubocop:disable Style/StringLiterals
 
       self.is_hcx_enabled = attributes[:'isHcxEnabled'] unless attributes[:'isHcxEnabled'].nil?
       self.is_hcx_enabled = false if is_hcx_enabled.nil? && !attributes.key?(:'isHcxEnabled') # rubocop:disable Style/StringLiterals
@@ -384,6 +408,14 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] initial_sku Object to be assigned
+    def initial_sku=(initial_sku)
+      raise "Invalid value for 'initial_sku': this must be one of the values in INITIAL_SKU_ENUM." if initial_sku && !INITIAL_SKU_ENUM.include?(initial_sku)
+
+      @initial_sku = initial_sku
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -399,6 +431,7 @@ module OCI
         compartment_id == other.compartment_id &&
         instance_display_name_prefix == other.instance_display_name_prefix &&
         esxi_hosts_count == other.esxi_hosts_count &&
+        initial_sku == other.initial_sku &&
         is_hcx_enabled == other.is_hcx_enabled &&
         hcx_vlan_id == other.hcx_vlan_id &&
         ssh_authorized_keys == other.ssh_authorized_keys &&
@@ -430,7 +463,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compute_availability_domain, display_name, vmware_software_version, compartment_id, instance_display_name_prefix, esxi_hosts_count, is_hcx_enabled, hcx_vlan_id, ssh_authorized_keys, workload_network_cidr, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, replication_vlan_id, provisioning_vlan_id, freeform_tags, defined_tags].hash
+      [compute_availability_domain, display_name, vmware_software_version, compartment_id, instance_display_name_prefix, esxi_hosts_count, initial_sku, is_hcx_enabled, hcx_vlan_id, ssh_authorized_keys, workload_network_cidr, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, replication_vlan_id, provisioning_vlan_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

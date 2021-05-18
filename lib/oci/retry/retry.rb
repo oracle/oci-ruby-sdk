@@ -69,6 +69,21 @@ module OCI
       retry_token
     end
 
+    # Create a default retry configuration defined by OCI SDK
+    #
+    # @return [OCI::Retry::RetryConfig]
+    def self.default_retry_config
+      OCI::Retry::RetryConfig.new(
+        base_sleep_time_millis: 1000,
+        exponential_growth_factor: 2,
+        should_retry_exception_proc: OCI::Retry::Functions::ShouldRetryOnError.default_retry_strategy_proc,
+        sleep_calc_millis_proc: OCI::Retry::Functions::Sleep.exponential_backoff_with_full_jitter,
+        max_attempts: 7,
+        max_elapsed_time_millis: 300_000, # 5 minutes
+        max_sleep_between_attempts_millis: 30_000
+      )
+    end
+
     # A module containing functions that can be used with retries (e.g. for sleeping and working
     # out whether a particular error/exception can be retried)
     module Functions

@@ -375,9 +375,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a private endpoint to be used by an application.
+    # Creates a private endpoint to be used by applications.
     #
-    # @param [OCI::DataFlow::Models::CreatePrivateEndpointDetails] create_private_endpoint_details Details to create a private endpoint.
+    # @param [OCI::DataFlow::Models::CreatePrivateEndpointDetails] create_private_endpoint_details The parameters required to create a private endpoint.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1030,7 +1030,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists all applications in the specified compartment.
+    # Lists all applications in the specified compartment. Only one parameter other than compartmentId may also be included in a query. The query must include compartmentId. If the query does not include compartmentId, or includes compartmentId but two or more other parameters an error is returned.
     #
     # @param [String] compartment_id The OCID of the compartment.
     #
@@ -1282,7 +1282,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists all runs of an application in the specified compartment.
+    # Lists all runs of an application in the specified compartment.  Only one parameter other than compartmentId may also be included in a query. The query must include compartmentId. If the query does not include compartmentId, or includes compartmentId but two or more other parameters an error is returned.
     #
     # @param [String] compartment_id The OCID of the compartment.
     #

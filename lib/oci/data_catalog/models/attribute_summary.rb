@@ -37,6 +37,10 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
+    # Optional user friendly business name of the attribute. If set, this supplements the harvested display name of the object.
+    # @return [String]
+    attr_accessor :business_name
+
     # Detailed description of the attribute.
     # @return [String]
     attr_accessor :description
@@ -114,6 +118,10 @@ module OCI
     # @return [String]
     attr_accessor :path
 
+    # The list of customized properties along with the values for this object
+    # @return [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>]
+    attr_accessor :custom_property_members
+
     # Rule types associated with attribute.
     # @return [Array<String>]
     attr_reader :associated_rule_types
@@ -124,6 +132,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'key': :'key',
         'display_name': :'displayName',
+        'business_name': :'businessName',
         'description': :'description',
         'entity_key': :'entityKey',
         'external_key': :'externalKey',
@@ -142,6 +151,7 @@ module OCI
         'parent_attribute_key': :'parentAttributeKey',
         'external_parent_attribute_key': :'externalParentAttributeKey',
         'path': :'path',
+        'custom_property_members': :'customPropertyMembers',
         'associated_rule_types': :'associatedRuleTypes'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -153,6 +163,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'key': :'String',
         'display_name': :'String',
+        'business_name': :'String',
         'description': :'String',
         'entity_key': :'String',
         'external_key': :'String',
@@ -171,6 +182,7 @@ module OCI
         'parent_attribute_key': :'String',
         'external_parent_attribute_key': :'String',
         'path': :'String',
+        'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>',
         'associated_rule_types': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -184,6 +196,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :key The value to assign to the {#key} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :business_name The value to assign to the {#business_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :entity_key The value to assign to the {#entity_key} property
     # @option attributes [String] :external_key The value to assign to the {#external_key} property
@@ -202,6 +215,7 @@ module OCI
     # @option attributes [String] :parent_attribute_key The value to assign to the {#parent_attribute_key} property
     # @option attributes [String] :external_parent_attribute_key The value to assign to the {#external_parent_attribute_key} property
     # @option attributes [String] :path The value to assign to the {#path} property
+    # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
     # @option attributes [Array<String>] :associated_rule_types The value to assign to the {#associated_rule_types} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -216,6 +230,12 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.business_name = attributes[:'businessName'] if attributes[:'businessName']
+
+      raise 'You cannot provide both :businessName and :business_name' if attributes.key?(:'businessName') && attributes.key?(:'business_name')
+
+      self.business_name = attributes[:'business_name'] if attributes[:'business_name']
 
       self.description = attributes[:'description'] if attributes[:'description']
 
@@ -301,6 +321,12 @@ module OCI
 
       self.path = attributes[:'path'] if attributes[:'path']
 
+      self.custom_property_members = attributes[:'customPropertyMembers'] if attributes[:'customPropertyMembers']
+
+      raise 'You cannot provide both :customPropertyMembers and :custom_property_members' if attributes.key?(:'customPropertyMembers') && attributes.key?(:'custom_property_members')
+
+      self.custom_property_members = attributes[:'custom_property_members'] if attributes[:'custom_property_members']
+
       self.associated_rule_types = attributes[:'associatedRuleTypes'] if attributes[:'associatedRuleTypes']
 
       raise 'You cannot provide both :associatedRuleTypes and :associated_rule_types' if attributes.key?(:'associatedRuleTypes') && attributes.key?(:'associated_rule_types')
@@ -354,6 +380,7 @@ module OCI
       self.class == other.class &&
         key == other.key &&
         display_name == other.display_name &&
+        business_name == other.business_name &&
         description == other.description &&
         entity_key == other.entity_key &&
         external_key == other.external_key &&
@@ -372,6 +399,7 @@ module OCI
         parent_attribute_key == other.parent_attribute_key &&
         external_parent_attribute_key == other.external_parent_attribute_key &&
         path == other.path &&
+        custom_property_members == other.custom_property_members &&
         associated_rule_types == other.associated_rule_types
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -388,7 +416,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, entity_key, external_key, length, precision, scale, is_nullable, uri, lifecycle_state, time_created, external_data_type, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, path, associated_rule_types].hash
+      [key, display_name, business_name, description, entity_key, external_key, length, precision, scale, is_nullable, uri, lifecycle_state, time_created, external_data_type, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, path, custom_property_members, associated_rule_types].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

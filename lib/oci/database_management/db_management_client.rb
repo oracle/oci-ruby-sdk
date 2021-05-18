@@ -166,7 +166,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Changes database parameters' values. There are two kinds of database
+    # Changes database parameter values. There are two kinds of database
     # parameters:
     #
     # - Dynamic parameters: They can be changed for the current Oracle
@@ -181,7 +181,7 @@ module OCI
     # a future instance.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
-    # @param [OCI::DatabaseManagement::Models::ChangeDatabaseParametersDetails] change_database_parameters_details The details required to change database parameters' values.
+    # @param [OCI::DatabaseManagement::Models::ChangeDatabaseParametersDetails] change_database_parameters_details The details required to change database parameter values.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -623,6 +623,73 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the metrics related to cluster cache for the Oracle
+    # Real Application Clusters (Oracle RAC) database specified
+    # by managedDatabaseId.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] start_time The start time for the time range to retrieve the health metrics of a Managed Database
+    #   in UTC in ISO-8601 format, which is \"yyyy-MM-dd'T'hh:mm:ss.sss'Z'\".
+    #
+    # @param [String] end_time The end time for the time range to retrieve the health metrics of a Managed Database
+    #   in UTC in ISO-8601 format, which is \"yyyy-MM-dd'T'hh:mm:ss.sss'Z'\".
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::ClusterCacheMetric ClusterCacheMetric}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/get_cluster_cache_metric.rb.html) to see an example of how to use get_cluster_cache_metric API.
+    def get_cluster_cache_metric(managed_database_id, start_time, end_time, opts = {})
+      logger.debug 'Calling operation DbManagementClient#get_cluster_cache_metric.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling get_cluster_cache_metric." if managed_database_id.nil?
+      raise "Missing the required parameter 'start_time' when calling get_cluster_cache_metric." if start_time.nil?
+      raise "Missing the required parameter 'end_time' when calling get_cluster_cache_metric." if end_time.nil?
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/clusterCacheMetrics'.sub('{managedDatabaseId}', managed_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:startTime] = start_time
+      query_params[:endTime] = end_time
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#get_cluster_cache_metric') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::ClusterCacheMetric'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1733,7 +1800,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Resets database parameters' values to their default or startup values.
+    # Resets database parameter values to their default or startup values.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [OCI::DatabaseManagement::Models::ResetDatabaseParametersDetails] reset_database_parameters_details The details required to reset database parameters.

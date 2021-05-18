@@ -48,6 +48,12 @@ module OCI
       MAINTENANCE_SUBTYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    PATCHING_MODE_ENUM = [
+      PATCHING_MODE_ROLLING = 'ROLLING'.freeze,
+      PATCHING_MODE_NONROLLING = 'NONROLLING'.freeze,
+      PATCHING_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The OCID of the maintenance run.
     # @return [String]
     attr_accessor :id
@@ -109,6 +115,14 @@ module OCI
     # @return [String]
     attr_accessor :peer_maintenance_run_id
 
+    # Maintenance method, it will be either \"ROLLING\" or \"NONROLLING\". Default value is ROLLING.
+    # @return [String]
+    attr_reader :patching_mode
+
+    # Contain the patch failure count.
+    # @return [Integer]
+    attr_accessor :patch_failure_count
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -127,7 +141,9 @@ module OCI
         'maintenance_type': :'maintenanceType',
         'patch_id': :'patchId',
         'maintenance_subtype': :'maintenanceSubtype',
-        'peer_maintenance_run_id': :'peerMaintenanceRunId'
+        'peer_maintenance_run_id': :'peerMaintenanceRunId',
+        'patching_mode': :'patchingMode',
+        'patch_failure_count': :'patchFailureCount'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -150,7 +166,9 @@ module OCI
         'maintenance_type': :'String',
         'patch_id': :'String',
         'maintenance_subtype': :'String',
-        'peer_maintenance_run_id': :'String'
+        'peer_maintenance_run_id': :'String',
+        'patching_mode': :'String',
+        'patch_failure_count': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -176,6 +194,8 @@ module OCI
     # @option attributes [String] :patch_id The value to assign to the {#patch_id} property
     # @option attributes [String] :maintenance_subtype The value to assign to the {#maintenance_subtype} property
     # @option attributes [String] :peer_maintenance_run_id The value to assign to the {#peer_maintenance_run_id} property
+    # @option attributes [String] :patching_mode The value to assign to the {#patching_mode} property
+    # @option attributes [Integer] :patch_failure_count The value to assign to the {#patch_failure_count} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -260,6 +280,18 @@ module OCI
       raise 'You cannot provide both :peerMaintenanceRunId and :peer_maintenance_run_id' if attributes.key?(:'peerMaintenanceRunId') && attributes.key?(:'peer_maintenance_run_id')
 
       self.peer_maintenance_run_id = attributes[:'peer_maintenance_run_id'] if attributes[:'peer_maintenance_run_id']
+
+      self.patching_mode = attributes[:'patchingMode'] if attributes[:'patchingMode']
+
+      raise 'You cannot provide both :patchingMode and :patching_mode' if attributes.key?(:'patchingMode') && attributes.key?(:'patching_mode')
+
+      self.patching_mode = attributes[:'patching_mode'] if attributes[:'patching_mode']
+
+      self.patch_failure_count = attributes[:'patchFailureCount'] if attributes[:'patchFailureCount']
+
+      raise 'You cannot provide both :patchFailureCount and :patch_failure_count' if attributes.key?(:'patchFailureCount') && attributes.key?(:'patch_failure_count')
+
+      self.patch_failure_count = attributes[:'patch_failure_count'] if attributes[:'patch_failure_count']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -316,6 +348,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] patching_mode Object to be assigned
+    def patching_mode=(patching_mode)
+      # rubocop:disable Style/ConditionalAssignment
+      if patching_mode && !PATCHING_MODE_ENUM.include?(patching_mode)
+        OCI.logger.debug("Unknown value for 'patching_mode' [" + patching_mode + "]. Mapping to 'PATCHING_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @patching_mode = PATCHING_MODE_UNKNOWN_ENUM_VALUE
+      else
+        @patching_mode = patching_mode
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -339,7 +384,9 @@ module OCI
         maintenance_type == other.maintenance_type &&
         patch_id == other.patch_id &&
         maintenance_subtype == other.maintenance_subtype &&
-        peer_maintenance_run_id == other.peer_maintenance_run_id
+        peer_maintenance_run_id == other.peer_maintenance_run_id &&
+        patching_mode == other.patching_mode &&
+        patch_failure_count == other.patch_failure_count
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -355,7 +402,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, description, lifecycle_state, lifecycle_details, time_scheduled, time_started, time_ended, target_resource_type, target_resource_id, maintenance_type, patch_id, maintenance_subtype, peer_maintenance_run_id].hash
+      [id, compartment_id, display_name, description, lifecycle_state, lifecycle_details, time_scheduled, time_started, time_ended, target_resource_type, target_resource_id, maintenance_type, patch_id, maintenance_subtype, peer_maintenance_run_id, patching_mode, patch_failure_count].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

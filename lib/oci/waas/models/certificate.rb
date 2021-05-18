@@ -91,6 +91,16 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # This indicates whether trust verification was disabled during the creation of SSL certificate.
+    # If `true` SSL certificate trust verification was disabled and this SSL certificate is most likely self-signed.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_trust_verification_disabled
+
+    # The data of the SSL certificate.
+    # @return [String]
+    attr_accessor :certificate_data
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -111,7 +121,9 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'lifecycle_state': :'lifecycleState',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'is_trust_verification_disabled': :'isTrustVerificationDisabled',
+        'certificate_data': :'certificateData'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -136,7 +148,9 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'lifecycle_state': :'String',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'is_trust_verification_disabled': :'BOOLEAN',
+        'certificate_data': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -164,6 +178,8 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [BOOLEAN] :is_trust_verification_disabled The value to assign to the {#is_trust_verification_disabled} property
+    # @option attributes [String] :certificate_data The value to assign to the {#certificate_data} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -259,6 +275,20 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.is_trust_verification_disabled = attributes[:'isTrustVerificationDisabled'] unless attributes[:'isTrustVerificationDisabled'].nil?
+      self.is_trust_verification_disabled = false if is_trust_verification_disabled.nil? && !attributes.key?(:'isTrustVerificationDisabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isTrustVerificationDisabled and :is_trust_verification_disabled' if attributes.key?(:'isTrustVerificationDisabled') && attributes.key?(:'is_trust_verification_disabled')
+
+      self.is_trust_verification_disabled = attributes[:'is_trust_verification_disabled'] unless attributes[:'is_trust_verification_disabled'].nil?
+      self.is_trust_verification_disabled = false if is_trust_verification_disabled.nil? && !attributes.key?(:'isTrustVerificationDisabled') && !attributes.key?(:'is_trust_verification_disabled') # rubocop:disable Style/StringLiterals
+
+      self.certificate_data = attributes[:'certificateData'] if attributes[:'certificateData']
+
+      raise 'You cannot provide both :certificateData and :certificate_data' if attributes.key?(:'certificateData') && attributes.key?(:'certificate_data')
+
+      self.certificate_data = attributes[:'certificate_data'] if attributes[:'certificate_data']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -301,7 +331,9 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         lifecycle_state == other.lifecycle_state &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        is_trust_verification_disabled == other.is_trust_verification_disabled &&
+        certificate_data == other.certificate_data
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -317,7 +349,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, issued_by, subject_name, issuer_name, serial_number, version, signature_algorithm, time_not_valid_before, time_not_valid_after, public_key_info, extensions, freeform_tags, defined_tags, lifecycle_state, time_created].hash
+      [id, compartment_id, display_name, issued_by, subject_name, issuer_name, serial_number, version, signature_algorithm, time_not_valid_before, time_not_valid_after, public_key_info, extensions, freeform_tags, defined_tags, lifecycle_state, time_created, is_trust_verification_disabled, certificate_data].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -51,6 +51,7 @@ module OCI
 
       return 'OCI::ResourceManager::Models::CreateZipUploadConfigSourceDetails' if type == 'ZIP_UPLOAD'
       return 'OCI::ResourceManager::Models::CreateGitConfigSourceDetails' if type == 'GIT_CONFIG_SOURCE'
+      return 'OCI::ResourceManager::Models::CreateObjectStorageConfigSourceDetails' if type == 'OBJECT_STORAGE_CONFIG_SOURCE'
       return 'OCI::ResourceManager::Models::CreateCompartmentConfigSourceDetails' if type == 'COMPARTMENT_CONFIG_SOURCE'
       return 'OCI::ResourceManager::Models::CreateStackTemplateConfigSourceDetails' if type == 'TEMPLATE_CONFIG_SOURCE'
 

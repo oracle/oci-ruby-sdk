@@ -14,6 +14,12 @@ module OCI
       BGP_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    BGP_IPV6_STATE_ENUM = [
+      BGP_IPV6_STATE_UP = 'UP'.freeze,
+      BGP_IPV6_STATE_DOWN = 'DOWN'.freeze,
+      BGP_IPV6_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # The IP address for the Oracle end of the inside tunnel interface.
     #
     # If the tunnel's `routing` attribute is set to `BGP`
@@ -46,6 +52,38 @@ module OCI
     # @return [String]
     attr_accessor :customer_interface_ip
 
+    # The IPv6 address for the Oracle end of the inside tunnel interface. This IP address is optional.
+    #
+    # If the tunnel's `routing` attribute is set to `BGP`
+    # (see {IPSecConnectionTunnel}), this IP address
+    # is used for the tunnel's BGP session.
+    #
+    # If `routing` is instead set to `STATIC`, you can set this IP
+    # address to troubleshoot or monitor the tunnel.
+    #
+    # Only subnet masks from /64 up to /127 are allowed.
+    #
+    # Example: `2001:db8::1/64`
+    #
+    # @return [String]
+    attr_accessor :oracle_interface_ipv6
+
+    # The IPv6 address for the CPE end of the inside tunnel interface. This IP address is optional.
+    #
+    # If the tunnel's `routing` attribute is set to `BGP`
+    # (see {IPSecConnectionTunnel}), this IP address
+    # is used for the tunnel's BGP session.
+    #
+    # If `routing` is instead set to `STATIC`, you can set this IP
+    # address to troubleshoot or monitor the tunnel.
+    #
+    # Only subnet masks from /64 up to /127 are allowed.
+    #
+    # Example: `2001:db8::1/64`
+    #
+    # @return [String]
+    attr_accessor :customer_interface_ipv6
+
     # The Oracle BGP ASN.
     #
     # @return [String]
@@ -68,15 +106,23 @@ module OCI
     # @return [String]
     attr_reader :bgp_state
 
+    # The state of the BGP IPv6 session.
+    #
+    # @return [String]
+    attr_reader :bgp_ipv6_state
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'oracle_interface_ip': :'oracleInterfaceIp',
         'customer_interface_ip': :'customerInterfaceIp',
+        'oracle_interface_ipv6': :'oracleInterfaceIpv6',
+        'customer_interface_ipv6': :'customerInterfaceIpv6',
         'oracle_bgp_asn': :'oracleBgpAsn',
         'customer_bgp_asn': :'customerBgpAsn',
-        'bgp_state': :'bgpState'
+        'bgp_state': :'bgpState',
+        'bgp_ipv6_state': :'bgpIpv6State'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -87,9 +133,12 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'oracle_interface_ip': :'String',
         'customer_interface_ip': :'String',
+        'oracle_interface_ipv6': :'String',
+        'customer_interface_ipv6': :'String',
         'oracle_bgp_asn': :'String',
         'customer_bgp_asn': :'String',
-        'bgp_state': :'String'
+        'bgp_state': :'String',
+        'bgp_ipv6_state': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -102,9 +151,12 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :oracle_interface_ip The value to assign to the {#oracle_interface_ip} property
     # @option attributes [String] :customer_interface_ip The value to assign to the {#customer_interface_ip} property
+    # @option attributes [String] :oracle_interface_ipv6 The value to assign to the {#oracle_interface_ipv6} property
+    # @option attributes [String] :customer_interface_ipv6 The value to assign to the {#customer_interface_ipv6} property
     # @option attributes [String] :oracle_bgp_asn The value to assign to the {#oracle_bgp_asn} property
     # @option attributes [String] :customer_bgp_asn The value to assign to the {#customer_bgp_asn} property
     # @option attributes [String] :bgp_state The value to assign to the {#bgp_state} property
+    # @option attributes [String] :bgp_ipv6_state The value to assign to the {#bgp_ipv6_state} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -123,6 +175,18 @@ module OCI
 
       self.customer_interface_ip = attributes[:'customer_interface_ip'] if attributes[:'customer_interface_ip']
 
+      self.oracle_interface_ipv6 = attributes[:'oracleInterfaceIpv6'] if attributes[:'oracleInterfaceIpv6']
+
+      raise 'You cannot provide both :oracleInterfaceIpv6 and :oracle_interface_ipv6' if attributes.key?(:'oracleInterfaceIpv6') && attributes.key?(:'oracle_interface_ipv6')
+
+      self.oracle_interface_ipv6 = attributes[:'oracle_interface_ipv6'] if attributes[:'oracle_interface_ipv6']
+
+      self.customer_interface_ipv6 = attributes[:'customerInterfaceIpv6'] if attributes[:'customerInterfaceIpv6']
+
+      raise 'You cannot provide both :customerInterfaceIpv6 and :customer_interface_ipv6' if attributes.key?(:'customerInterfaceIpv6') && attributes.key?(:'customer_interface_ipv6')
+
+      self.customer_interface_ipv6 = attributes[:'customer_interface_ipv6'] if attributes[:'customer_interface_ipv6']
+
       self.oracle_bgp_asn = attributes[:'oracleBgpAsn'] if attributes[:'oracleBgpAsn']
 
       raise 'You cannot provide both :oracleBgpAsn and :oracle_bgp_asn' if attributes.key?(:'oracleBgpAsn') && attributes.key?(:'oracle_bgp_asn')
@@ -140,6 +204,12 @@ module OCI
       raise 'You cannot provide both :bgpState and :bgp_state' if attributes.key?(:'bgpState') && attributes.key?(:'bgp_state')
 
       self.bgp_state = attributes[:'bgp_state'] if attributes[:'bgp_state']
+
+      self.bgp_ipv6_state = attributes[:'bgpIpv6State'] if attributes[:'bgpIpv6State']
+
+      raise 'You cannot provide both :bgpIpv6State and :bgp_ipv6_state' if attributes.key?(:'bgpIpv6State') && attributes.key?(:'bgp_ipv6_state')
+
+      self.bgp_ipv6_state = attributes[:'bgp_ipv6_state'] if attributes[:'bgp_ipv6_state']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -157,6 +227,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] bgp_ipv6_state Object to be assigned
+    def bgp_ipv6_state=(bgp_ipv6_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if bgp_ipv6_state && !BGP_IPV6_STATE_ENUM.include?(bgp_ipv6_state)
+        OCI.logger.debug("Unknown value for 'bgp_ipv6_state' [" + bgp_ipv6_state + "]. Mapping to 'BGP_IPV6_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @bgp_ipv6_state = BGP_IPV6_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @bgp_ipv6_state = bgp_ipv6_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -168,9 +251,12 @@ module OCI
       self.class == other.class &&
         oracle_interface_ip == other.oracle_interface_ip &&
         customer_interface_ip == other.customer_interface_ip &&
+        oracle_interface_ipv6 == other.oracle_interface_ipv6 &&
+        customer_interface_ipv6 == other.customer_interface_ipv6 &&
         oracle_bgp_asn == other.oracle_bgp_asn &&
         customer_bgp_asn == other.customer_bgp_asn &&
-        bgp_state == other.bgp_state
+        bgp_state == other.bgp_state &&
+        bgp_ipv6_state == other.bgp_ipv6_state
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -186,7 +272,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [oracle_interface_ip, customer_interface_ip, oracle_bgp_asn, customer_bgp_asn, bgp_state].hash
+      [oracle_interface_ip, customer_interface_ip, oracle_interface_ipv6, customer_interface_ipv6, oracle_bgp_asn, customer_bgp_asn, bgp_state, bgp_ipv6_state].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

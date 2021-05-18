@@ -95,6 +95,11 @@ module OCI
     # @return [String]
     attr_accessor :image_id
 
+    # The total size of the data transferred from the source boot volume to the boot volume replica, in GBs.
+    #
+    # @return [Integer]
+    attr_accessor :total_data_transferred_in_gbs
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -110,7 +115,8 @@ module OCI
         'time_created': :'timeCreated',
         'time_last_synced': :'timeLastSynced',
         'boot_volume_id': :'bootVolumeId',
-        'image_id': :'imageId'
+        'image_id': :'imageId',
+        'total_data_transferred_in_gbs': :'totalDataTransferredInGBs'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -130,7 +136,8 @@ module OCI
         'time_created': :'DateTime',
         'time_last_synced': :'DateTime',
         'boot_volume_id': :'String',
-        'image_id': :'String'
+        'image_id': :'String',
+        'total_data_transferred_in_gbs': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -153,6 +160,7 @@ module OCI
     # @option attributes [DateTime] :time_last_synced The value to assign to the {#time_last_synced} property
     # @option attributes [String] :boot_volume_id The value to assign to the {#boot_volume_id} property
     # @option attributes [String] :image_id The value to assign to the {#image_id} property
+    # @option attributes [Integer] :total_data_transferred_in_gbs The value to assign to the {#total_data_transferred_in_gbs} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -226,6 +234,12 @@ module OCI
       raise 'You cannot provide both :imageId and :image_id' if attributes.key?(:'imageId') && attributes.key?(:'image_id')
 
       self.image_id = attributes[:'image_id'] if attributes[:'image_id']
+
+      self.total_data_transferred_in_gbs = attributes[:'totalDataTransferredInGBs'] if attributes[:'totalDataTransferredInGBs']
+
+      raise 'You cannot provide both :totalDataTransferredInGBs and :total_data_transferred_in_gbs' if attributes.key?(:'totalDataTransferredInGBs') && attributes.key?(:'total_data_transferred_in_gbs')
+
+      self.total_data_transferred_in_gbs = attributes[:'total_data_transferred_in_gbs'] if attributes[:'total_data_transferred_in_gbs']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -263,7 +277,8 @@ module OCI
         time_created == other.time_created &&
         time_last_synced == other.time_last_synced &&
         boot_volume_id == other.boot_volume_id &&
-        image_id == other.image_id
+        image_id == other.image_id &&
+        total_data_transferred_in_gbs == other.total_data_transferred_in_gbs
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -279,7 +294,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, size_in_gbs, time_created, time_last_synced, boot_volume_id, image_id].hash
+      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, size_in_gbs, time_created, time_last_synced, boot_volume_id, image_id, total_data_transferred_in_gbs].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

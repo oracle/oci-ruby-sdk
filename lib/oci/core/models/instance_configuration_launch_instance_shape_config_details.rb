@@ -2,6 +2,7 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -16,6 +17,13 @@ module OCI
   # specified `shape`, an error is returned.
   #
   class Core::Models::InstanceConfigurationLaunchInstanceShapeConfigDetails
+    BASELINE_OCPU_UTILIZATION_ENUM = [
+      BASELINE_OCPU_UTILIZATION_BASELINE_1_8 = 'BASELINE_1_8'.freeze,
+      BASELINE_OCPU_UTILIZATION_BASELINE_1_2 = 'BASELINE_1_2'.freeze,
+      BASELINE_OCPU_UTILIZATION_BASELINE_1_1 = 'BASELINE_1_1'.freeze,
+      BASELINE_OCPU_UTILIZATION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # The total number of OCPUs available to the instance.
     #
     # @return [Float]
@@ -26,12 +34,24 @@ module OCI
     # @return [Float]
     attr_accessor :memory_in_gbs
 
+    # The baseline OCPU utilization for a subcore burstable VM instance. Leave this attribute blank for a
+    # non-burstable instance, or explicitly specify non-burstable with `BASELINE_1_1`.
+    #
+    # The following values are supported:
+    # - `BASELINE_1_8` - baseline usage is 1/8 of an OCPU.
+    # - `BASELINE_1_2` - baseline usage is 1/2 of an OCPU.
+    # - `BASELINE_1_1` - baseline usage is an entire OCPU. This represents a non-burstable instance.
+    #
+    # @return [String]
+    attr_reader :baseline_ocpu_utilization
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'ocpus': :'ocpus',
-        'memory_in_gbs': :'memoryInGBs'
+        'memory_in_gbs': :'memoryInGBs',
+        'baseline_ocpu_utilization': :'baselineOcpuUtilization'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -41,7 +61,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'ocpus': :'Float',
-        'memory_in_gbs': :'Float'
+        'memory_in_gbs': :'Float',
+        'baseline_ocpu_utilization': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -54,6 +75,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Float] :ocpus The value to assign to the {#ocpus} property
     # @option attributes [Float] :memory_in_gbs The value to assign to the {#memory_in_gbs} property
+    # @option attributes [String] :baseline_ocpu_utilization The value to assign to the {#baseline_ocpu_utilization} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -67,9 +89,28 @@ module OCI
       raise 'You cannot provide both :memoryInGBs and :memory_in_gbs' if attributes.key?(:'memoryInGBs') && attributes.key?(:'memory_in_gbs')
 
       self.memory_in_gbs = attributes[:'memory_in_gbs'] if attributes[:'memory_in_gbs']
+
+      self.baseline_ocpu_utilization = attributes[:'baselineOcpuUtilization'] if attributes[:'baselineOcpuUtilization']
+
+      raise 'You cannot provide both :baselineOcpuUtilization and :baseline_ocpu_utilization' if attributes.key?(:'baselineOcpuUtilization') && attributes.key?(:'baseline_ocpu_utilization')
+
+      self.baseline_ocpu_utilization = attributes[:'baseline_ocpu_utilization'] if attributes[:'baseline_ocpu_utilization']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] baseline_ocpu_utilization Object to be assigned
+    def baseline_ocpu_utilization=(baseline_ocpu_utilization)
+      # rubocop:disable Style/ConditionalAssignment
+      if baseline_ocpu_utilization && !BASELINE_OCPU_UTILIZATION_ENUM.include?(baseline_ocpu_utilization)
+        OCI.logger.debug("Unknown value for 'baseline_ocpu_utilization' [" + baseline_ocpu_utilization + "]. Mapping to 'BASELINE_OCPU_UTILIZATION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @baseline_ocpu_utilization = BASELINE_OCPU_UTILIZATION_UNKNOWN_ENUM_VALUE
+      else
+        @baseline_ocpu_utilization = baseline_ocpu_utilization
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -81,7 +122,8 @@ module OCI
 
       self.class == other.class &&
         ocpus == other.ocpus &&
-        memory_in_gbs == other.memory_in_gbs
+        memory_in_gbs == other.memory_in_gbs &&
+        baseline_ocpu_utilization == other.baseline_ocpu_utilization
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -97,7 +139,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [ocpus, memory_in_gbs].hash
+      [ocpus, memory_in_gbs, baseline_ocpu_utilization].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

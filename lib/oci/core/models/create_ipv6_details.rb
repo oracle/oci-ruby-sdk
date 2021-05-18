@@ -39,18 +39,6 @@ module OCI
     # @return [String]
     attr_accessor :ip_address
 
-    # Whether the IPv6 can be used for internet communication. Allowed by default for an IPv6 in
-    # a public subnet. Never allowed for an IPv6 in a private subnet. If the value is `true`, the
-    # IPv6 uses its public IP address for internet communication.
-    #
-    # If `isInternetAccessAllowed` is set to `false`, the resulting `publicIpAddress` attribute
-    # for the Ipv6 is null.
-    #
-    # Example: `true`
-    #
-    # @return [BOOLEAN]
-    attr_accessor :is_internet_access_allowed
-
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VNIC to assign the IPv6 to. The
     # IPv6 will be in the VNIC's subnet.
     #
@@ -65,7 +53,6 @@ module OCI
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'ip_address': :'ipAddress',
-        'is_internet_access_allowed': :'isInternetAccessAllowed',
         'vnic_id': :'vnicId'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -79,7 +66,6 @@ module OCI
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'ip_address': :'String',
-        'is_internet_access_allowed': :'BOOLEAN',
         'vnic_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -95,7 +81,6 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :ip_address The value to assign to the {#ip_address} property
-    # @option attributes [BOOLEAN] :is_internet_access_allowed The value to assign to the {#is_internet_access_allowed} property
     # @option attributes [String] :vnic_id The value to assign to the {#vnic_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -127,12 +112,6 @@ module OCI
 
       self.ip_address = attributes[:'ip_address'] if attributes[:'ip_address']
 
-      self.is_internet_access_allowed = attributes[:'isInternetAccessAllowed'] unless attributes[:'isInternetAccessAllowed'].nil?
-
-      raise 'You cannot provide both :isInternetAccessAllowed and :is_internet_access_allowed' if attributes.key?(:'isInternetAccessAllowed') && attributes.key?(:'is_internet_access_allowed')
-
-      self.is_internet_access_allowed = attributes[:'is_internet_access_allowed'] unless attributes[:'is_internet_access_allowed'].nil?
-
       self.vnic_id = attributes[:'vnicId'] if attributes[:'vnicId']
 
       raise 'You cannot provide both :vnicId and :vnic_id' if attributes.key?(:'vnicId') && attributes.key?(:'vnic_id')
@@ -155,7 +134,6 @@ module OCI
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         ip_address == other.ip_address &&
-        is_internet_access_allowed == other.is_internet_access_allowed &&
         vnic_id == other.vnic_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -172,7 +150,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, ip_address, is_internet_access_allowed, vnic_id].hash
+      [defined_tags, display_name, freeform_tags, ip_address, vnic_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

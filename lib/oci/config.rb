@@ -147,9 +147,7 @@ module OCI
       end
 
       PATTERNS.each do |name, pattern|
-        if (pattern =~ instance_variable_get("@#{name}")).nil?
-          raise OCI::InvalidConfigError, "The format of #{name} is invalid."
-        end
+        raise OCI::InvalidConfigError, "The format of #{name} is invalid." if (pattern =~ instance_variable_get("@#{name}")).nil?
       end
     end
     # rubocop:enable Metrics/PerceivedComplexity

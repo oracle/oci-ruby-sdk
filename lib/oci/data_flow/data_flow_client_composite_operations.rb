@@ -120,7 +120,7 @@ module OCI
     # Calls {OCI::DataFlow::DataFlowClient#create_private_endpoint} and then waits for the {OCI::DataFlow::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DataFlow::Models::CreatePrivateEndpointDetails] create_private_endpoint_details Details to create a private endpoint.
+    # @param [OCI::DataFlow::Models::CreatePrivateEndpointDetails] create_private_endpoint_details The parameters required to create a private endpoint.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataFlow::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataFlow::DataFlowClient#create_private_endpoint}

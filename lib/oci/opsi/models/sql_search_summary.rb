@@ -7,6 +7,10 @@ require 'date'
 module OCI
   # Database summary object resulting from a sql search operation.
   class Opsi::Models::SqlSearchSummary
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database insight resource.
+    # @return [String]
+    attr_accessor :id
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database.
     # @return [String]
     attr_accessor :database_id
@@ -35,6 +39,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'id': :'id',
         'database_id': :'databaseId',
         'compartment_id': :'compartmentId',
         'database_name': :'databaseName',
@@ -49,6 +54,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'id': :'String',
         'database_id': :'String',
         'compartment_id': :'String',
         'database_name': :'String',
@@ -65,6 +71,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :database_id The value to assign to the {#database_id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :database_name The value to assign to the {#database_name} property
@@ -76,6 +83,8 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.id = attributes[:'id'] if attributes[:'id']
 
       self.database_id = attributes[:'databaseId'] if attributes[:'databaseId']
 
@@ -125,6 +134,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        id == other.id &&
         database_id == other.database_id &&
         compartment_id == other.compartment_id &&
         database_name == other.database_name &&
@@ -146,7 +156,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_id, compartment_id, database_name, database_display_name, database_type, database_version].hash
+      [id, database_id, compartment_id, database_name, database_display_name, database_type, database_version].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

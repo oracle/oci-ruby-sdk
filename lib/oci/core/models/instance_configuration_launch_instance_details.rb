@@ -204,7 +204,7 @@ module OCI
     attr_accessor :dedicated_vm_host_id
 
     # Specifies the configuration mode for launching virtual machine (VM) instances. The configuration modes are:
-    # * `NATIVE` - VM instances launch with iSCSI boot and VFIO devices. The default value for Oracle-provided images.
+    # * `NATIVE` - VM instances launch with iSCSI boot and VFIO devices. The default value for platform images.
     # * `EMULATED` - VM instances launch with emulated devices, such as the E1000 network driver and emulated SCSI disk controller.
     # * `PARAVIRTUALIZED` - VM instances launch with paravirtualized devices using VirtIO drivers.
     # * `CUSTOM` - VM instances launch with custom configuration settings specified in the `LaunchOptions` parameter.
@@ -235,6 +235,9 @@ module OCI
     # @return [OCI::Core::Models::InstanceConfigurationAvailabilityConfig]
     attr_accessor :availability_config
 
+    # @return [OCI::Core::Models::PreemptibleInstanceConfigDetails]
+    attr_accessor :preemptible_instance_config
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -261,7 +264,8 @@ module OCI
         'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled',
         'preferred_maintenance_action': :'preferredMaintenanceAction',
         'instance_options': :'instanceOptions',
-        'availability_config': :'availabilityConfig'
+        'availability_config': :'availabilityConfig',
+        'preemptible_instance_config': :'preemptibleInstanceConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -292,7 +296,8 @@ module OCI
         'is_pv_encryption_in_transit_enabled': :'BOOLEAN',
         'preferred_maintenance_action': :'String',
         'instance_options': :'OCI::Core::Models::InstanceConfigurationInstanceOptions',
-        'availability_config': :'OCI::Core::Models::InstanceConfigurationAvailabilityConfig'
+        'availability_config': :'OCI::Core::Models::InstanceConfigurationAvailabilityConfig',
+        'preemptible_instance_config': :'OCI::Core::Models::PreemptibleInstanceConfigDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -326,6 +331,7 @@ module OCI
     # @option attributes [String] :preferred_maintenance_action The value to assign to the {#preferred_maintenance_action} property
     # @option attributes [OCI::Core::Models::InstanceConfigurationInstanceOptions] :instance_options The value to assign to the {#instance_options} property
     # @option attributes [OCI::Core::Models::InstanceConfigurationAvailabilityConfig] :availability_config The value to assign to the {#availability_config} property
+    # @option attributes [OCI::Core::Models::PreemptibleInstanceConfigDetails] :preemptible_instance_config The value to assign to the {#preemptible_instance_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -461,6 +467,12 @@ module OCI
       raise 'You cannot provide both :availabilityConfig and :availability_config' if attributes.key?(:'availabilityConfig') && attributes.key?(:'availability_config')
 
       self.availability_config = attributes[:'availability_config'] if attributes[:'availability_config']
+
+      self.preemptible_instance_config = attributes[:'preemptibleInstanceConfig'] if attributes[:'preemptibleInstanceConfig']
+
+      raise 'You cannot provide both :preemptibleInstanceConfig and :preemptible_instance_config' if attributes.key?(:'preemptibleInstanceConfig') && attributes.key?(:'preemptible_instance_config')
+
+      self.preemptible_instance_config = attributes[:'preemptible_instance_config'] if attributes[:'preemptible_instance_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -522,7 +534,8 @@ module OCI
         is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled &&
         preferred_maintenance_action == other.preferred_maintenance_action &&
         instance_options == other.instance_options &&
-        availability_config == other.availability_config
+        availability_config == other.availability_config &&
+        preemptible_instance_config == other.preemptible_instance_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -538,7 +551,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, capacity_reservation_id, compartment_id, create_vnic_details, defined_tags, display_name, extended_metadata, freeform_tags, ipxe_script, metadata, shape, shape_config, platform_config, source_details, fault_domain, dedicated_vm_host_id, launch_mode, launch_options, agent_config, is_pv_encryption_in_transit_enabled, preferred_maintenance_action, instance_options, availability_config].hash
+      [availability_domain, capacity_reservation_id, compartment_id, create_vnic_details, defined_tags, display_name, extended_metadata, freeform_tags, ipxe_script, metadata, shape, shape_config, platform_config, source_details, fault_domain, dedicated_vm_host_id, launch_mode, launch_options, agent_config, is_pv_encryption_in_transit_enabled, preferred_maintenance_action, instance_options, availability_config, preemptible_instance_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

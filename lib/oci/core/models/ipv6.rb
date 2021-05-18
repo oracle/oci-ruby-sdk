@@ -12,7 +12,7 @@ module OCI
   # You can create and assign an IPv6 to any VNIC that is in an IPv6-enabled subnet in an
   # IPv6-enabled VCN.
   #
-  # **Note:** IPv6 addressing is currently supported only in certain regions. For important
+  # **Note:** IPv6 addressing is supported for all commercial and government regions. For important
   # details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
   #
   class Core::Models::Ipv6
@@ -56,47 +56,17 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The IPv6 address of the `IPv6` object. The address is within the private IPv6 CIDR block
-    # of the VNIC's subnet (see the `ipv6CidrBlock` attribute for the {Subnet}
-    # object.
+    # **[Required]** The IPv6 address of the `IPv6` object. The address is within the IPv6 CIDR block of the VNIC's subnet
+    # (see the `ipv6CidrBlock` attribute for the {Subnet} object.
     #
     # Example: `2001:0db8:0123:1111:abcd:ef01:2345:6789`
     #
     # @return [String]
     attr_accessor :ip_address
 
-    # Whether the IPv6 can be used for internet communication. Allowed by default for an IPv6 in
-    # a public subnet. Never allowed for an IPv6 in a private subnet. If the value is `true`, the
-    # IPv6 uses its public IP address for internet communication.
-    #
-    # Example: `true`
-    #
-    # @return [BOOLEAN]
-    attr_accessor :is_internet_access_allowed
-
     # **[Required]** The IPv6's current state.
     # @return [String]
     attr_reader :lifecycle_state
-
-    # The IPv6 address to be used for internet communication. The address is within the public
-    # IPv6 CIDR block of the VNIC's subnet (see the `ipv6PublicCidrBlock` attribute for the
-    # {Subnet} object).
-    #
-    # If your organization did NOT assign a custom IPv6 CIDR to the VCN for the private address
-    # space, Oracle provides the IPv6 CIDR and uses that same CIDR for the private and public
-    # address space. Therefore the `publicIpAddress` would be the same as the `ipAddress`.
-    #
-    # If your organization assigned a custom IPv6 CIDR to the VCN for the private address space,
-    # the right 80 bits of the IPv6 public IP (the subnet and address bits) are the same as for
-    # the `ipAddress`. But the left 48 bits are from the public IPv6 CIDR that Oracle assigned
-    # to the VCN.
-    #
-    # This is null if the IPv6 is created with `isInternetAccessAllowed` set to `false`.
-    #
-    # Example: `2001:0db8:0123:1111:abcd:ef01:2345:6789`
-    #
-    # @return [String]
-    attr_accessor :public_ip_address
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subnet the VNIC is in.
     # @return [String]
@@ -125,9 +95,7 @@ module OCI
         'freeform_tags': :'freeformTags',
         'id': :'id',
         'ip_address': :'ipAddress',
-        'is_internet_access_allowed': :'isInternetAccessAllowed',
         'lifecycle_state': :'lifecycleState',
-        'public_ip_address': :'publicIpAddress',
         'subnet_id': :'subnetId',
         'time_created': :'timeCreated',
         'vnic_id': :'vnicId'
@@ -145,9 +113,7 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
         'ip_address': :'String',
-        'is_internet_access_allowed': :'BOOLEAN',
         'lifecycle_state': :'String',
-        'public_ip_address': :'String',
         'subnet_id': :'String',
         'time_created': :'DateTime',
         'vnic_id': :'String'
@@ -167,9 +133,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :ip_address The value to assign to the {#ip_address} property
-    # @option attributes [BOOLEAN] :is_internet_access_allowed The value to assign to the {#is_internet_access_allowed} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
-    # @option attributes [String] :public_ip_address The value to assign to the {#public_ip_address} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :vnic_id The value to assign to the {#vnic_id} property
@@ -211,23 +175,11 @@ module OCI
 
       self.ip_address = attributes[:'ip_address'] if attributes[:'ip_address']
 
-      self.is_internet_access_allowed = attributes[:'isInternetAccessAllowed'] unless attributes[:'isInternetAccessAllowed'].nil?
-
-      raise 'You cannot provide both :isInternetAccessAllowed and :is_internet_access_allowed' if attributes.key?(:'isInternetAccessAllowed') && attributes.key?(:'is_internet_access_allowed')
-
-      self.is_internet_access_allowed = attributes[:'is_internet_access_allowed'] unless attributes[:'is_internet_access_allowed'].nil?
-
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
-
-      self.public_ip_address = attributes[:'publicIpAddress'] if attributes[:'publicIpAddress']
-
-      raise 'You cannot provide both :publicIpAddress and :public_ip_address' if attributes.key?(:'publicIpAddress') && attributes.key?(:'public_ip_address')
-
-      self.public_ip_address = attributes[:'public_ip_address'] if attributes[:'public_ip_address']
 
       self.subnet_id = attributes[:'subnetId'] if attributes[:'subnetId']
 
@@ -278,9 +230,7 @@ module OCI
         freeform_tags == other.freeform_tags &&
         id == other.id &&
         ip_address == other.ip_address &&
-        is_internet_access_allowed == other.is_internet_access_allowed &&
         lifecycle_state == other.lifecycle_state &&
-        public_ip_address == other.public_ip_address &&
         subnet_id == other.subnet_id &&
         time_created == other.time_created &&
         vnic_id == other.vnic_id
@@ -299,7 +249,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, id, ip_address, is_internet_access_allowed, lifecycle_state, public_ip_address, subnet_id, time_created, vnic_id].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, id, ip_address, lifecycle_state, subnet_id, time_created, vnic_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -189,7 +189,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #    (default to 100)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #
+    #    (default to 0)
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
     #
@@ -277,7 +277,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #    (default to 100)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #
+    #    (default to 0)
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
     #
@@ -367,7 +367,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #    (default to 100)
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
-    #
+    #    (default to 0)
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
     #

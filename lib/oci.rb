@@ -88,6 +88,10 @@ require 'oci/apm_synthetics/apm_synthetics'
 require 'oci/apm_control_plane/apm_control_plane'
 require 'oci/network_load_balancer/network_load_balancer'
 require 'oci/vulnerability_scanning/vulnerability_scanning'
+require 'oci/database_migration/database_migration'
+require 'oci/service_catalog/service_catalog'
+require 'oci/ai_language/ai_language'
+require 'oci/operator_access_control/operator_access_control'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI

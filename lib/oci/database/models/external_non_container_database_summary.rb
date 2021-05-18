@@ -29,6 +29,15 @@ module OCI
       DATABASE_EDITION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    DATABASE_CONFIGURATION_ENUM = [
+      DATABASE_CONFIGURATION_RAC = 'RAC'.freeze,
+      DATABASE_CONFIGURATION_SINGLE_INSTANCE = 'SINGLE_INSTANCE'.freeze,
+      DATABASE_CONFIGURATION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # @return [OCI::Database::Models::OperationsInsightsConfig]
+    attr_accessor :operations_insights_config
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @return [String]
     attr_accessor :compartment_id
@@ -105,6 +114,10 @@ module OCI
     # @return [String]
     attr_accessor :db_packs
 
+    # The Oracle Database configuration
+    # @return [String]
+    attr_reader :database_configuration
+
     # @return [OCI::Database::Models::DatabaseManagementConfig]
     attr_accessor :database_management_config
 
@@ -112,6 +125,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'operations_insights_config': :'operationsInsightsConfig',
         'compartment_id': :'compartmentId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
@@ -128,6 +142,7 @@ module OCI
         'character_set': :'characterSet',
         'ncharacter_set': :'ncharacterSet',
         'db_packs': :'dbPacks',
+        'database_configuration': :'databaseConfiguration',
         'database_management_config': :'databaseManagementConfig'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -137,6 +152,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'operations_insights_config': :'OCI::Database::Models::OperationsInsightsConfig',
         'compartment_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -153,6 +169,7 @@ module OCI
         'character_set': :'String',
         'ncharacter_set': :'String',
         'db_packs': :'String',
+        'database_configuration': :'String',
         'database_management_config': :'OCI::Database::Models::DatabaseManagementConfig'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -164,6 +181,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [OCI::Database::Models::OperationsInsightsConfig] :operations_insights_config The value to assign to the {#operations_insights_config} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -180,9 +198,19 @@ module OCI
     # @option attributes [String] :character_set The value to assign to the {#character_set} property
     # @option attributes [String] :ncharacter_set The value to assign to the {#ncharacter_set} property
     # @option attributes [String] :db_packs The value to assign to the {#db_packs} property
+    # @option attributes [String] :database_configuration The value to assign to the {#database_configuration} property
     # @option attributes [OCI::Database::Models::DatabaseManagementConfig] :database_management_config The value to assign to the {#database_management_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.operations_insights_config = attributes[:'operationsInsightsConfig'] if attributes[:'operationsInsightsConfig']
+
+      raise 'You cannot provide both :operationsInsightsConfig and :operations_insights_config' if attributes.key?(:'operationsInsightsConfig') && attributes.key?(:'operations_insights_config')
+
+      self.operations_insights_config = attributes[:'operations_insights_config'] if attributes[:'operations_insights_config']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -276,6 +304,12 @@ module OCI
 
       self.db_packs = attributes[:'db_packs'] if attributes[:'db_packs']
 
+      self.database_configuration = attributes[:'databaseConfiguration'] if attributes[:'databaseConfiguration']
+
+      raise 'You cannot provide both :databaseConfiguration and :database_configuration' if attributes.key?(:'databaseConfiguration') && attributes.key?(:'database_configuration')
+
+      self.database_configuration = attributes[:'database_configuration'] if attributes[:'database_configuration']
+
       self.database_management_config = attributes[:'databaseManagementConfig'] if attributes[:'databaseManagementConfig']
 
       raise 'You cannot provide both :databaseManagementConfig and :database_management_config' if attributes.key?(:'databaseManagementConfig') && attributes.key?(:'database_management_config')
@@ -311,6 +345,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] database_configuration Object to be assigned
+    def database_configuration=(database_configuration)
+      # rubocop:disable Style/ConditionalAssignment
+      if database_configuration && !DATABASE_CONFIGURATION_ENUM.include?(database_configuration)
+        OCI.logger.debug("Unknown value for 'database_configuration' [" + database_configuration + "]. Mapping to 'DATABASE_CONFIGURATION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @database_configuration = DATABASE_CONFIGURATION_UNKNOWN_ENUM_VALUE
+      else
+        @database_configuration = database_configuration
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -320,6 +367,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        operations_insights_config == other.operations_insights_config &&
         compartment_id == other.compartment_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
@@ -336,6 +384,7 @@ module OCI
         character_set == other.character_set &&
         ncharacter_set == other.ncharacter_set &&
         db_packs == other.db_packs &&
+        database_configuration == other.database_configuration &&
         database_management_config == other.database_management_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -352,7 +401,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, freeform_tags, defined_tags, display_name, id, lifecycle_details, lifecycle_state, time_created, db_unique_name, db_id, database_version, database_edition, time_zone, character_set, ncharacter_set, db_packs, database_management_config].hash
+      [operations_insights_config, compartment_id, freeform_tags, defined_tags, display_name, id, lifecycle_details, lifecycle_state, time_created, db_unique_name, db_id, database_version, database_edition, time_zone, character_set, ncharacter_set, db_packs, database_configuration, database_management_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -13,11 +13,13 @@ end
 # Require models
 require 'oci/functions/models/application'
 require 'oci/functions/models/application_summary'
+require 'oci/functions/models/application_trace_config'
 require 'oci/functions/models/change_application_compartment_details'
 require 'oci/functions/models/create_application_details'
 require 'oci/functions/models/create_function_details'
 require 'oci/functions/models/function'
 require 'oci/functions/models/function_summary'
+require 'oci/functions/models/function_trace_config'
 require 'oci/functions/models/update_application_details'
 require 'oci/functions/models/update_function_details'
 

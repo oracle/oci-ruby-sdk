@@ -59,11 +59,11 @@ module OCI
     # @return [String]
     attr_reader :detector
 
-    # List of detetor rules for the detector type for recipe
+    # List of detector rules for the detector type for recipe - user input
     # @return [Array<OCI::CloudGuard::Models::DetectorRecipeDetectorRule>]
     attr_accessor :detector_rules
 
-    # List of detetor rules for the detector type for recipe
+    # List of effective detector rules for the detector type for recipe after applying defaults
     # @return [Array<OCI::CloudGuard::Models::DetectorRecipeDetectorRule>]
     attr_accessor :effective_detector_rules
 

@@ -139,6 +139,9 @@ module OCI
     # @return [OCI::Core::Models::LaunchInstanceAvailabilityConfigDetails]
     attr_accessor :availability_config
 
+    # @return [OCI::Core::Models::PreemptibleInstanceConfigDetails]
+    attr_accessor :preemptible_instance_config
+
     # Custom metadata key/value pairs that you provide, such as the SSH public key
     # required to connect to the instance.
     #
@@ -242,6 +245,7 @@ module OCI
         'launch_options': :'launchOptions',
         'instance_options': :'instanceOptions',
         'availability_config': :'availabilityConfig',
+        'preemptible_instance_config': :'preemptibleInstanceConfig',
         'metadata': :'metadata',
         'agent_config': :'agentConfig',
         'shape': :'shape',
@@ -274,6 +278,7 @@ module OCI
         'launch_options': :'OCI::Core::Models::LaunchOptions',
         'instance_options': :'OCI::Core::Models::InstanceOptions',
         'availability_config': :'OCI::Core::Models::LaunchInstanceAvailabilityConfigDetails',
+        'preemptible_instance_config': :'OCI::Core::Models::PreemptibleInstanceConfigDetails',
         'metadata': :'Hash<String, String>',
         'agent_config': :'OCI::Core::Models::LaunchInstanceAgentConfigDetails',
         'shape': :'String',
@@ -308,6 +313,7 @@ module OCI
     # @option attributes [OCI::Core::Models::LaunchOptions] :launch_options The value to assign to the {#launch_options} property
     # @option attributes [OCI::Core::Models::InstanceOptions] :instance_options The value to assign to the {#instance_options} property
     # @option attributes [OCI::Core::Models::LaunchInstanceAvailabilityConfigDetails] :availability_config The value to assign to the {#availability_config} property
+    # @option attributes [OCI::Core::Models::PreemptibleInstanceConfigDetails] :preemptible_instance_config The value to assign to the {#preemptible_instance_config} property
     # @option attributes [Hash<String, String>] :metadata The value to assign to the {#metadata} property
     # @option attributes [OCI::Core::Models::LaunchInstanceAgentConfigDetails] :agent_config The value to assign to the {#agent_config} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
@@ -418,6 +424,12 @@ module OCI
 
       self.availability_config = attributes[:'availability_config'] if attributes[:'availability_config']
 
+      self.preemptible_instance_config = attributes[:'preemptibleInstanceConfig'] if attributes[:'preemptibleInstanceConfig']
+
+      raise 'You cannot provide both :preemptibleInstanceConfig and :preemptible_instance_config' if attributes.key?(:'preemptibleInstanceConfig') && attributes.key?(:'preemptible_instance_config')
+
+      self.preemptible_instance_config = attributes[:'preemptible_instance_config'] if attributes[:'preemptible_instance_config']
+
       self.metadata = attributes[:'metadata'] if attributes[:'metadata']
 
       self.agent_config = attributes[:'agentConfig'] if attributes[:'agentConfig']
@@ -486,6 +498,7 @@ module OCI
         launch_options == other.launch_options &&
         instance_options == other.instance_options &&
         availability_config == other.availability_config &&
+        preemptible_instance_config == other.preemptible_instance_config &&
         metadata == other.metadata &&
         agent_config == other.agent_config &&
         shape == other.shape &&
@@ -509,7 +522,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, capacity_reservation_id, compartment_id, create_vnic_details, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, hostname_label, image_id, ipxe_script, launch_options, instance_options, availability_config, metadata, agent_config, shape, shape_config, source_details, subnet_id, is_pv_encryption_in_transit_enabled, platform_config].hash
+      [availability_domain, capacity_reservation_id, compartment_id, create_vnic_details, dedicated_vm_host_id, defined_tags, display_name, extended_metadata, fault_domain, freeform_tags, hostname_label, image_id, ipxe_script, launch_options, instance_options, availability_config, preemptible_instance_config, metadata, agent_config, shape, shape_config, source_details, subnet_id, is_pv_encryption_in_transit_enabled, platform_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -17,6 +17,14 @@ module OCI
   # vSAN, and so on). See the Core Services API for information about VCN subnets and VLANs.
   #
   class Ocvp::Models::Sddc
+    INITIAL_SKU_ENUM = [
+      INITIAL_SKU_HOUR = 'HOUR'.freeze,
+      INITIAL_SKU_MONTH = 'MONTH'.freeze,
+      INITIAL_SKU_ONE_YEAR = 'ONE_YEAR'.freeze,
+      INITIAL_SKU_THREE_YEARS = 'THREE_YEARS'.freeze,
+      INITIAL_SKU_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
@@ -82,6 +90,12 @@ module OCI
     # **[Required]** The number of ESXi hosts in the SDDC.
     # @return [Integer]
     attr_accessor :esxi_hosts_count
+
+    # **[Required]** Billing option selected during SDDC creation
+    # {#list_supported_skus list_supported_skus}.
+    #
+    # @return [String]
+    attr_reader :initial_sku
 
     # **[Required]** The FQDN for vCenter.
     #
@@ -401,6 +415,7 @@ module OCI
         'vmware_software_version': :'vmwareSoftwareVersion',
         'compartment_id': :'compartmentId',
         'esxi_hosts_count': :'esxiHostsCount',
+        'initial_sku': :'initialSku',
         'vcenter_fqdn': :'vcenterFqdn',
         'nsx_manager_fqdn': :'nsxManagerFqdn',
         'vcenter_private_ip_id': :'vcenterPrivateIpId',
@@ -449,6 +464,7 @@ module OCI
         'vmware_software_version': :'String',
         'compartment_id': :'String',
         'esxi_hosts_count': :'Integer',
+        'initial_sku': :'String',
         'vcenter_fqdn': :'String',
         'nsx_manager_fqdn': :'String',
         'vcenter_private_ip_id': :'String',
@@ -499,6 +515,7 @@ module OCI
     # @option attributes [String] :vmware_software_version The value to assign to the {#vmware_software_version} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Integer] :esxi_hosts_count The value to assign to the {#esxi_hosts_count} property
+    # @option attributes [String] :initial_sku The value to assign to the {#initial_sku} property
     # @option attributes [String] :vcenter_fqdn The value to assign to the {#vcenter_fqdn} property
     # @option attributes [String] :nsx_manager_fqdn The value to assign to the {#nsx_manager_fqdn} property
     # @option attributes [String] :vcenter_private_ip_id The value to assign to the {#vcenter_private_ip_id} property
@@ -575,6 +592,14 @@ module OCI
       raise 'You cannot provide both :esxiHostsCount and :esxi_hosts_count' if attributes.key?(:'esxiHostsCount') && attributes.key?(:'esxi_hosts_count')
 
       self.esxi_hosts_count = attributes[:'esxi_hosts_count'] if attributes[:'esxi_hosts_count']
+
+      self.initial_sku = attributes[:'initialSku'] if attributes[:'initialSku']
+      self.initial_sku = "MONTH" if initial_sku.nil? && !attributes.key?(:'initialSku') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :initialSku and :initial_sku' if attributes.key?(:'initialSku') && attributes.key?(:'initial_sku')
+
+      self.initial_sku = attributes[:'initial_sku'] if attributes[:'initial_sku']
+      self.initial_sku = "MONTH" if initial_sku.nil? && !attributes.key?(:'initialSku') && !attributes.key?(:'initial_sku') # rubocop:disable Style/StringLiterals
 
       self.vcenter_fqdn = attributes[:'vcenterFqdn'] if attributes[:'vcenterFqdn']
 
@@ -778,6 +803,19 @@ module OCI
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] initial_sku Object to be assigned
+    def initial_sku=(initial_sku)
+      # rubocop:disable Style/ConditionalAssignment
+      if initial_sku && !INITIAL_SKU_ENUM.include?(initial_sku)
+        OCI.logger.debug("Unknown value for 'initial_sku' [" + initial_sku + "]. Mapping to 'INITIAL_SKU_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @initial_sku = INITIAL_SKU_UNKNOWN_ENUM_VALUE
+      else
+        @initial_sku = initial_sku
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -806,6 +844,7 @@ module OCI
         vmware_software_version == other.vmware_software_version &&
         compartment_id == other.compartment_id &&
         esxi_hosts_count == other.esxi_hosts_count &&
+        initial_sku == other.initial_sku &&
         vcenter_fqdn == other.vcenter_fqdn &&
         nsx_manager_fqdn == other.nsx_manager_fqdn &&
         vcenter_private_ip_id == other.vcenter_private_ip_id &&
@@ -854,7 +893,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compute_availability_domain, display_name, instance_display_name_prefix, vmware_software_version, compartment_id, esxi_hosts_count, vcenter_fqdn, nsx_manager_fqdn, vcenter_private_ip_id, nsx_manager_private_ip_id, vcenter_initial_password, nsx_manager_initial_password, vcenter_username, nsx_manager_username, ssh_authorized_keys, workload_network_cidr, nsx_overlay_segment_name, nsx_edge_uplink_ip_id, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, replication_vlan_id, provisioning_vlan_id, hcx_private_ip_id, hcx_fqdn, hcx_initial_password, hcx_vlan_id, is_hcx_enabled, hcx_on_prem_key, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags].hash
+      [id, compute_availability_domain, display_name, instance_display_name_prefix, vmware_software_version, compartment_id, esxi_hosts_count, initial_sku, vcenter_fqdn, nsx_manager_fqdn, vcenter_private_ip_id, nsx_manager_private_ip_id, vcenter_initial_password, nsx_manager_initial_password, vcenter_username, nsx_manager_username, ssh_authorized_keys, workload_network_cidr, nsx_overlay_segment_name, nsx_edge_uplink_ip_id, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, replication_vlan_id, provisioning_vlan_id, hcx_private_ip_id, hcx_fqdn, hcx_initial_password, hcx_vlan_id, is_hcx_enabled, hcx_on_prem_key, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

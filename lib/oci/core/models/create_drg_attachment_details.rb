@@ -13,11 +13,37 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The OCID of the DRG.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG.
     # @return [String]
     attr_accessor :drg_id
 
-    # The OCID of the route table the DRG attachment will use.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG route table that is assigned to this attachment.
+    #
+    # The DRG route table manages traffic inside the DRG.
+    #
+    # @return [String]
+    attr_accessor :drg_route_table_id
+
+    # @return [OCI::Core::Models::DrgAttachmentNetworkCreateDetails]
+    attr_accessor :network_details
+
+    # Defined tags for this resource. Each key is predefined and scoped to a
+    # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no
+    # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the route table used by the DRG attachment.
     #
     # If you don't specify a route table here, the DRG attachment is created without an associated route
     # table. The Networking service does NOT automatically associate the attached VCN's default route table
@@ -26,11 +52,13 @@ module OCI
     #
     #   * [Transit Routing: Access to Multiple VCNs in Same Region](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/transitrouting.htm)
     #   * [Transit Routing: Private Access to Oracle Services](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/transitroutingoracleservices.htm)
+    # This field is deprecated. Instead, use the networkDetails field to specify the VCN route table for this attachment.
     #
     # @return [String]
     attr_accessor :route_table_id
 
-    # **[Required]** The OCID of the VCN.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
+    # This field is deprecated. Instead, use the `networkDetails` field to specify the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the attached resource.
     #
     # @return [String]
     attr_accessor :vcn_id
@@ -41,6 +69,10 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
         'drg_id': :'drgId',
+        'drg_route_table_id': :'drgRouteTableId',
+        'network_details': :'networkDetails',
+        'defined_tags': :'definedTags',
+        'freeform_tags': :'freeformTags',
         'route_table_id': :'routeTableId',
         'vcn_id': :'vcnId'
         # rubocop:enable Style/SymbolLiteral
@@ -53,6 +85,10 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
         'drg_id': :'String',
+        'drg_route_table_id': :'String',
+        'network_details': :'OCI::Core::Models::DrgAttachmentNetworkCreateDetails',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'freeform_tags': :'Hash<String, String>',
         'route_table_id': :'String',
         'vcn_id': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -67,6 +103,10 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :drg_id The value to assign to the {#drg_id} property
+    # @option attributes [String] :drg_route_table_id The value to assign to the {#drg_route_table_id} property
+    # @option attributes [OCI::Core::Models::DrgAttachmentNetworkCreateDetails] :network_details The value to assign to the {#network_details} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
     # @option attributes [String] :vcn_id The value to assign to the {#vcn_id} property
     def initialize(attributes = {})
@@ -86,6 +126,30 @@ module OCI
       raise 'You cannot provide both :drgId and :drg_id' if attributes.key?(:'drgId') && attributes.key?(:'drg_id')
 
       self.drg_id = attributes[:'drg_id'] if attributes[:'drg_id']
+
+      self.drg_route_table_id = attributes[:'drgRouteTableId'] if attributes[:'drgRouteTableId']
+
+      raise 'You cannot provide both :drgRouteTableId and :drg_route_table_id' if attributes.key?(:'drgRouteTableId') && attributes.key?(:'drg_route_table_id')
+
+      self.drg_route_table_id = attributes[:'drg_route_table_id'] if attributes[:'drg_route_table_id']
+
+      self.network_details = attributes[:'networkDetails'] if attributes[:'networkDetails']
+
+      raise 'You cannot provide both :networkDetails and :network_details' if attributes.key?(:'networkDetails') && attributes.key?(:'network_details')
+
+      self.network_details = attributes[:'network_details'] if attributes[:'network_details']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
       self.route_table_id = attributes[:'routeTableId'] if attributes[:'routeTableId']
 
@@ -113,6 +177,10 @@ module OCI
       self.class == other.class &&
         display_name == other.display_name &&
         drg_id == other.drg_id &&
+        drg_route_table_id == other.drg_route_table_id &&
+        network_details == other.network_details &&
+        defined_tags == other.defined_tags &&
+        freeform_tags == other.freeform_tags &&
         route_table_id == other.route_table_id &&
         vcn_id == other.vcn_id
     end
@@ -130,7 +198,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, drg_id, route_table_id, vcn_id].hash
+      [display_name, drg_id, drg_route_table_id, network_details, defined_tags, freeform_tags, route_table_id, vcn_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

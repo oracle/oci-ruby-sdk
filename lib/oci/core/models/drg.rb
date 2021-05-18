@@ -6,10 +6,10 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A dynamic routing gateway (DRG), which is a virtual router that provides a path for private
-  # network traffic between your VCN and your existing network. You use it with other Networking
-  # Service components to create an IPSec VPN or a connection that uses
-  # Oracle Cloud Infrastructure FastConnect. For more information, see
+  # A dynamic routing gateway (DRG) is a virtual router that provides a path for private
+  # network traffic between networks. You use it with other Networking
+  # Service components to create a connection to your on-premises network using [VPN Connect](https://docs.cloud.oracle.com/Content/Network/Tasks/managingIPsec.htm) or a connection that uses
+  # [FastConnect](https://docs.cloud.oracle.com/Content/Network/Concepts/fastconnect.htm). For more information, see
   # [Overview of the Networking Service](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/overview.htm).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
@@ -25,7 +25,7 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the compartment containing the DRG.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the DRG.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -51,7 +51,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The DRG's Oracle ID (OCID).
+    # **[Required]** The DRG's Oracle ID ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)).
     # @return [String]
     attr_accessor :id
 
@@ -66,6 +66,14 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # @return [OCI::Core::Models::DefaultDrgRouteTables]
+    attr_accessor :default_drg_route_tables
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of this DRG's default export route distribution for the DRG attachments.
+    #
+    # @return [String]
+    attr_accessor :default_export_drg_route_distribution_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -76,7 +84,9 @@ module OCI
         'freeform_tags': :'freeformTags',
         'id': :'id',
         'lifecycle_state': :'lifecycleState',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'default_drg_route_tables': :'defaultDrgRouteTables',
+        'default_export_drg_route_distribution_id': :'defaultExportDrgRouteDistributionId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -91,7 +101,9 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
         'lifecycle_state': :'String',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'default_drg_route_tables': :'OCI::Core::Models::DefaultDrgRouteTables',
+        'default_export_drg_route_distribution_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -109,6 +121,8 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [OCI::Core::Models::DefaultDrgRouteTables] :default_drg_route_tables The value to assign to the {#default_drg_route_tables} property
+    # @option attributes [String] :default_export_drg_route_distribution_id The value to assign to the {#default_export_drg_route_distribution_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -152,6 +166,18 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.default_drg_route_tables = attributes[:'defaultDrgRouteTables'] if attributes[:'defaultDrgRouteTables']
+
+      raise 'You cannot provide both :defaultDrgRouteTables and :default_drg_route_tables' if attributes.key?(:'defaultDrgRouteTables') && attributes.key?(:'default_drg_route_tables')
+
+      self.default_drg_route_tables = attributes[:'default_drg_route_tables'] if attributes[:'default_drg_route_tables']
+
+      self.default_export_drg_route_distribution_id = attributes[:'defaultExportDrgRouteDistributionId'] if attributes[:'defaultExportDrgRouteDistributionId']
+
+      raise 'You cannot provide both :defaultExportDrgRouteDistributionId and :default_export_drg_route_distribution_id' if attributes.key?(:'defaultExportDrgRouteDistributionId') && attributes.key?(:'default_export_drg_route_distribution_id')
+
+      self.default_export_drg_route_distribution_id = attributes[:'default_export_drg_route_distribution_id'] if attributes[:'default_export_drg_route_distribution_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -184,7 +210,9 @@ module OCI
         freeform_tags == other.freeform_tags &&
         id == other.id &&
         lifecycle_state == other.lifecycle_state &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        default_drg_route_tables == other.default_drg_route_tables &&
+        default_export_drg_route_distribution_id == other.default_export_drg_route_distribution_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -200,7 +228,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, time_created].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, time_created, default_drg_route_tables, default_export_drg_route_distribution_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

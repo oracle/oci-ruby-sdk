@@ -40,6 +40,12 @@ module OCI
       BGP_SESSION_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    BGP_IPV6_SESSION_STATE_ENUM = [
+      BGP_IPV6_SESSION_STATE_UP = 'UP'.freeze,
+      BGP_IPV6_SESSION_STATE_DOWN = 'DOWN'.freeze,
+      BGP_IPV6_SESSION_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     ROUTING_POLICY_ENUM = [
       ROUTING_POLICY_ORACLE_SERVICE_NETWORK = 'ORACLE_SERVICE_NETWORK'.freeze,
       ROUTING_POLICY_REGIONAL = 'REGIONAL'.freeze,
@@ -94,9 +100,13 @@ module OCI
     # @return [String]
     attr_reader :bgp_management
 
-    # The state of the BGP session associated with the virtual circuit.
+    # The state of the Ipv4 BGP session associated with the virtual circuit.
     # @return [String]
     attr_reader :bgp_session_state
+
+    # The state of the Ipv6 BGP session associated with the virtual circuit.
+    # @return [String]
+    attr_reader :bgp_ipv6_session_state
 
     # The OCID of the compartment containing the virtual circuit.
     # @return [String]
@@ -249,6 +259,7 @@ module OCI
         'bandwidth_shape_name': :'bandwidthShapeName',
         'bgp_management': :'bgpManagement',
         'bgp_session_state': :'bgpSessionState',
+        'bgp_ipv6_session_state': :'bgpIpv6SessionState',
         'compartment_id': :'compartmentId',
         'cross_connect_mappings': :'crossConnectMappings',
         'routing_policy': :'routingPolicy',
@@ -283,6 +294,7 @@ module OCI
         'bandwidth_shape_name': :'String',
         'bgp_management': :'String',
         'bgp_session_state': :'String',
+        'bgp_ipv6_session_state': :'String',
         'compartment_id': :'String',
         'cross_connect_mappings': :'Array<OCI::Core::Models::CrossConnectMapping>',
         'routing_policy': :'Array<String>',
@@ -319,6 +331,7 @@ module OCI
     # @option attributes [String] :bandwidth_shape_name The value to assign to the {#bandwidth_shape_name} property
     # @option attributes [String] :bgp_management The value to assign to the {#bgp_management} property
     # @option attributes [String] :bgp_session_state The value to assign to the {#bgp_session_state} property
+    # @option attributes [String] :bgp_ipv6_session_state The value to assign to the {#bgp_ipv6_session_state} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Array<OCI::Core::Models::CrossConnectMapping>] :cross_connect_mappings The value to assign to the {#cross_connect_mappings} property
     # @option attributes [Array<String>] :routing_policy The value to assign to the {#routing_policy} property
@@ -365,6 +378,12 @@ module OCI
       raise 'You cannot provide both :bgpSessionState and :bgp_session_state' if attributes.key?(:'bgpSessionState') && attributes.key?(:'bgp_session_state')
 
       self.bgp_session_state = attributes[:'bgp_session_state'] if attributes[:'bgp_session_state']
+
+      self.bgp_ipv6_session_state = attributes[:'bgpIpv6SessionState'] if attributes[:'bgpIpv6SessionState']
+
+      raise 'You cannot provide both :bgpIpv6SessionState and :bgp_ipv6_session_state' if attributes.key?(:'bgpIpv6SessionState') && attributes.key?(:'bgp_ipv6_session_state')
+
+      self.bgp_ipv6_session_state = attributes[:'bgp_ipv6_session_state'] if attributes[:'bgp_ipv6_session_state']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -522,6 +541,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] bgp_ipv6_session_state Object to be assigned
+    def bgp_ipv6_session_state=(bgp_ipv6_session_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if bgp_ipv6_session_state && !BGP_IPV6_SESSION_STATE_ENUM.include?(bgp_ipv6_session_state)
+        OCI.logger.debug("Unknown value for 'bgp_ipv6_session_state' [" + bgp_ipv6_session_state + "]. Mapping to 'BGP_IPV6_SESSION_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @bgp_ipv6_session_state = BGP_IPV6_SESSION_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @bgp_ipv6_session_state = bgp_ipv6_session_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] routing_policy Object to be assigned
     def routing_policy=(routing_policy)
       # rubocop:disable Style/ConditionalAssignment
@@ -605,6 +637,7 @@ module OCI
         bandwidth_shape_name == other.bandwidth_shape_name &&
         bgp_management == other.bgp_management &&
         bgp_session_state == other.bgp_session_state &&
+        bgp_ipv6_session_state == other.bgp_ipv6_session_state &&
         compartment_id == other.compartment_id &&
         cross_connect_mappings == other.cross_connect_mappings &&
         routing_policy == other.routing_policy &&
@@ -643,7 +676,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bandwidth_shape_name, bgp_management, bgp_session_state, compartment_id, cross_connect_mappings, routing_policy, customer_bgp_asn, customer_asn, defined_tags, display_name, freeform_tags, gateway_id, id, lifecycle_state, oracle_bgp_asn, provider_name, provider_service_id, provider_service_key_name, provider_service_name, provider_state, public_prefixes, reference_comment, region, service_type, time_created, type].hash
+      [bandwidth_shape_name, bgp_management, bgp_session_state, bgp_ipv6_session_state, compartment_id, cross_connect_mappings, routing_policy, customer_bgp_asn, customer_asn, defined_tags, display_name, freeform_tags, gateway_id, id, lifecycle_state, oracle_bgp_asn, provider_name, provider_service_id, provider_service_key_name, provider_service_name, provider_state, public_prefixes, reference_comment, region, service_type, time_created, type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

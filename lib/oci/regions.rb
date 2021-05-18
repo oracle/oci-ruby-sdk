@@ -100,7 +100,7 @@ module OCI
       'me-dubai-1': 'oc1'.freeze,
       'me-jeddah-1': 'oc1'.freeze,
 
-      'sa-santiago-1': 'oc1.freeze',
+      'sa-santiago-1': 'oc1'.freeze,
       'sa-saopaulo-1': 'oc1'.freeze,
 
       'uk-cardiff-1': 'oc1'.freeze,
