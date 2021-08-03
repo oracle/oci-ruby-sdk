@@ -5,8 +5,8 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Options for defining the availability of a VM instance after a maintenance event that impacts the underlying
-  # hardware, including whether to live migrate supported VM instances when possible.
+  # Options for VM migration during infrastructure maintenance events and for defining
+  # the availability of a VM instance after a maintenance event that impacts the underlying hardware.
   #
   class Core::Models::LaunchInstanceAvailabilityConfigDetails
     RECOVERY_ACTION_ENUM = [

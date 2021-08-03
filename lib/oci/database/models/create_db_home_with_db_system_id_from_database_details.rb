@@ -28,6 +28,7 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'source': :'source',
+        'is_desupported_version': :'isDesupportedVersion',
         'db_system_id': :'dbSystemId',
         'database': :'database'
         # rubocop:enable Style/SymbolLiteral
@@ -45,6 +46,7 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'source': :'String',
+        'is_desupported_version': :'BOOLEAN',
         'db_system_id': :'String',
         'database': :'OCI::Database::Models::CreateDatabaseFromAnotherDatabaseDetails'
         # rubocop:enable Style/SymbolLiteral
@@ -63,6 +65,7 @@ module OCI
     # @option attributes [String] :database_software_image_id The value to assign to the {OCI::Database::Models::CreateDbHomeBase#database_software_image_id #database_software_image_id} proprety
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Database::Models::CreateDbHomeBase#freeform_tags #freeform_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Database::Models::CreateDbHomeBase#defined_tags #defined_tags} proprety
+    # @option attributes [BOOLEAN] :is_desupported_version The value to assign to the {OCI::Database::Models::CreateDbHomeBase#is_desupported_version #is_desupported_version} proprety
     # @option attributes [String] :db_system_id The value to assign to the {#db_system_id} property
     # @option attributes [OCI::Database::Models::CreateDatabaseFromAnotherDatabaseDetails] :database The value to assign to the {#database} property
     def initialize(attributes = {})
@@ -102,6 +105,7 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         source == other.source &&
+        is_desupported_version == other.is_desupported_version &&
         db_system_id == other.db_system_id &&
         database == other.database
     end
@@ -119,7 +123,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, kms_key_id, kms_key_version_id, database_software_image_id, freeform_tags, defined_tags, source, db_system_id, database].hash
+      [display_name, kms_key_id, kms_key_version_id, database_software_image_id, freeform_tags, defined_tags, source, is_desupported_version, db_system_id, database].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

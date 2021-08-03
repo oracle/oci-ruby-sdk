@@ -403,6 +403,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :tenancy_id The ID of the tenancy in which to list resources.
     # @option opts [String] :display_name A user-friendly name. Does not have to be unique, and it's changeable.
     #
     #   Example: `My new resource`
@@ -443,6 +444,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
+      query_params[:tenancyId] = opts[:tenancy_id] if opts[:tenancy_id]
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]

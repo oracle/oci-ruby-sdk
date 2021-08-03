@@ -32,6 +32,7 @@ module OCI
 
       REGION_SA_SAOPAULO_1 = 'sa-saopaulo-1'.freeze,
       REGION_SA_SANTIAGO_1 = 'sa-santiago-1'.freeze,
+      REGION_SA_VINHEDO_1 = 'sa-vinhedo-1'.freeze,
 
       REGION_UK_CARDIFF_1 = 'uk-cardiff-1'.freeze,
       REGION_UK_LONDON_1 = 'uk-london-1'.freeze,
@@ -72,6 +73,7 @@ module OCI
       'scl': REGION_SA_SANTIAGO_1,
       'sjc': REGION_US_SANJOSE_1,
       'syd': REGION_AP_SYDNEY_1,
+      'vcp': REGION_SA_VINHEDO_1,
       'yny': REGION_AP_CHUNCHEON_1,
       'yul': REGION_CA_MONTREAL_1,
       'yyz': REGION_CA_TORONTO_1,
@@ -102,6 +104,7 @@ module OCI
 
       'sa-santiago-1': 'oc1'.freeze,
       'sa-saopaulo-1': 'oc1'.freeze,
+      'sa-vinhedo-1': 'oc1'.freeze,
 
       'uk-cardiff-1': 'oc1'.freeze,
       'uk-london-1': 'oc1'.freeze,

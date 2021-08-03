@@ -1,3 +1,4 @@
+lib/oci/ai_anomaly_detection/ai_anomaly_detection.rb
 lib/oci/ai_language/ai_language.rb
 lib/oci/analytics/analytics.rb
 lib/oci/announcements_service/announcements_service.rb
@@ -10,6 +11,7 @@ lib/oci/artifacts/artifacts.rb
 lib/oci/audit/audit.rb
 lib/oci/auth/auth.rb
 lib/oci/autoscaling/autoscaling.rb
+lib/oci/bastion/bastion.rb
 lib/oci/bds/bds.rb
 lib/oci/blockchain/blockchain.rb
 lib/oci/budget/budget.rb
@@ -26,16 +28,19 @@ lib/oci/data_science/data_science.rb
 lib/oci/database/database.rb
 lib/oci/database_management/database_management.rb
 lib/oci/database_migration/database_migration.rb
+lib/oci/devops/devops.rb
 lib/oci/dns/dns.rb
 lib/oci/dts/dts.rb
 lib/oci/email/email.rb
 lib/oci/events/events.rb
 lib/oci/file_storage/file_storage.rb
 lib/oci/functions/functions.rb
+lib/oci/generic_artifacts_content/generic_artifacts_content.rb
 lib/oci/golden_gate/golden_gate.rb
 lib/oci/healthchecks/healthchecks.rb
 lib/oci/identity/identity.rb
 lib/oci/integration/integration.rb
+lib/oci/jms/jms.rb
 lib/oci/key_management/key_management.rb
 lib/oci/limits/limits.rb
 lib/oci/load_balancer/load_balancer.rb

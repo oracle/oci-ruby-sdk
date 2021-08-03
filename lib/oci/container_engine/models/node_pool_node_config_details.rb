@@ -12,6 +12,11 @@ module OCI
     # @return [Integer]
     attr_accessor :size
 
+    # The OCIDs of the Network Security Group(s) to associate nodes for this node pool with. For more information about NSGs, see {NetworkSecurityGroup}.
+    #
+    # @return [Array<String>]
+    attr_accessor :nsg_ids
+
     # The placement configurations for the node pool. Provide one placement
     # configuration for each availability domain in which you intend to launch a node.
     #
@@ -27,6 +32,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'size': :'size',
+        'nsg_ids': :'nsgIds',
         'placement_configs': :'placementConfigs'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -37,6 +43,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'size': :'Integer',
+        'nsg_ids': :'Array<String>',
         'placement_configs': :'Array<OCI::ContainerEngine::Models::NodePoolPlacementConfigDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -49,6 +56,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Integer] :size The value to assign to the {#size} property
+    # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [Array<OCI::ContainerEngine::Models::NodePoolPlacementConfigDetails>] :placement_configs The value to assign to the {#placement_configs} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -57,6 +65,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.size = attributes[:'size'] if attributes[:'size']
+
+      self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
+
+      raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
+
+      self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
 
       self.placement_configs = attributes[:'placementConfigs'] if attributes[:'placementConfigs']
 
@@ -77,6 +91,7 @@ module OCI
 
       self.class == other.class &&
         size == other.size &&
+        nsg_ids == other.nsg_ids &&
         placement_configs == other.placement_configs
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -93,7 +108,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [size, placement_configs].hash
+      [size, nsg_ids, placement_configs].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

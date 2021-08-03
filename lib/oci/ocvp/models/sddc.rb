@@ -91,7 +91,9 @@ module OCI
     # @return [Integer]
     attr_accessor :esxi_hosts_count
 
-    # **[Required]** Billing option selected during SDDC creation
+    # Billing option selected during SDDC creation.
+    # Oracle Cloud Infrastructure VMware Solution supports the following billing interval SKUs:
+    # HOUR, MONTH, ONE_YEAR, and THREE_YEARS.
     # {#list_supported_skus list_supported_skus}.
     #
     # @return [String]
@@ -370,6 +372,34 @@ module OCI
     # @return [String]
     attr_accessor :hcx_on_prem_key
 
+    # Indicates whether HCX Enterprise is enabled for this SDDC.
+    # @return [BOOLEAN]
+    attr_accessor :is_hcx_enterprise_enabled
+
+    # Indicates whether SDDC is pending downgrade from HCX Enterprise to HCX Advanced.
+    # @return [BOOLEAN]
+    attr_accessor :is_hcx_pending_downgrade
+
+    # The activation licenses to use on the on-premises HCX Enterprise appliance you site pair with HCX Manager in your VMware Solution.
+    #
+    # @return [Array<OCI::Ocvp::Models::HcxLicenseSummary>]
+    attr_accessor :hcx_on_prem_licenses
+
+    # The date and time current HCX Enterprise billing cycle ends, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
+    # Example: `2016-08-25T21:10:29.600Z`
+    #
+    # @return [DateTime]
+    attr_accessor :time_hcx_billing_cycle_end
+
+    # The date and time the SDDC's HCX on-premise license status was updated, in the format defined by
+    # [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
+    # Example: `2016-08-25T21:10:29.600Z`
+    #
+    # @return [DateTime]
+    attr_accessor :time_hcx_license_status_updated
+
     # **[Required]** The date and time the SDDC was created, in the format defined by
     # [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
@@ -444,6 +474,11 @@ module OCI
         'hcx_vlan_id': :'hcxVlanId',
         'is_hcx_enabled': :'isHcxEnabled',
         'hcx_on_prem_key': :'hcxOnPremKey',
+        'is_hcx_enterprise_enabled': :'isHcxEnterpriseEnabled',
+        'is_hcx_pending_downgrade': :'isHcxPendingDowngrade',
+        'hcx_on_prem_licenses': :'hcxOnPremLicenses',
+        'time_hcx_billing_cycle_end': :'timeHcxBillingCycleEnd',
+        'time_hcx_license_status_updated': :'timeHcxLicenseStatusUpdated',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
@@ -493,6 +528,11 @@ module OCI
         'hcx_vlan_id': :'String',
         'is_hcx_enabled': :'BOOLEAN',
         'hcx_on_prem_key': :'String',
+        'is_hcx_enterprise_enabled': :'BOOLEAN',
+        'is_hcx_pending_downgrade': :'BOOLEAN',
+        'hcx_on_prem_licenses': :'Array<OCI::Ocvp::Models::HcxLicenseSummary>',
+        'time_hcx_billing_cycle_end': :'DateTime',
+        'time_hcx_license_status_updated': :'DateTime',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
@@ -544,6 +584,11 @@ module OCI
     # @option attributes [String] :hcx_vlan_id The value to assign to the {#hcx_vlan_id} property
     # @option attributes [BOOLEAN] :is_hcx_enabled The value to assign to the {#is_hcx_enabled} property
     # @option attributes [String] :hcx_on_prem_key The value to assign to the {#hcx_on_prem_key} property
+    # @option attributes [BOOLEAN] :is_hcx_enterprise_enabled The value to assign to the {#is_hcx_enterprise_enabled} property
+    # @option attributes [BOOLEAN] :is_hcx_pending_downgrade The value to assign to the {#is_hcx_pending_downgrade} property
+    # @option attributes [Array<OCI::Ocvp::Models::HcxLicenseSummary>] :hcx_on_prem_licenses The value to assign to the {#hcx_on_prem_licenses} property
+    # @option attributes [DateTime] :time_hcx_billing_cycle_end The value to assign to the {#time_hcx_billing_cycle_end} property
+    # @option attributes [DateTime] :time_hcx_license_status_updated The value to assign to the {#time_hcx_license_status_updated} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -769,6 +814,40 @@ module OCI
 
       self.hcx_on_prem_key = attributes[:'hcx_on_prem_key'] if attributes[:'hcx_on_prem_key']
 
+      self.is_hcx_enterprise_enabled = attributes[:'isHcxEnterpriseEnabled'] unless attributes[:'isHcxEnterpriseEnabled'].nil?
+      self.is_hcx_enterprise_enabled = false if is_hcx_enterprise_enabled.nil? && !attributes.key?(:'isHcxEnterpriseEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isHcxEnterpriseEnabled and :is_hcx_enterprise_enabled' if attributes.key?(:'isHcxEnterpriseEnabled') && attributes.key?(:'is_hcx_enterprise_enabled')
+
+      self.is_hcx_enterprise_enabled = attributes[:'is_hcx_enterprise_enabled'] unless attributes[:'is_hcx_enterprise_enabled'].nil?
+      self.is_hcx_enterprise_enabled = false if is_hcx_enterprise_enabled.nil? && !attributes.key?(:'isHcxEnterpriseEnabled') && !attributes.key?(:'is_hcx_enterprise_enabled') # rubocop:disable Style/StringLiterals
+
+      self.is_hcx_pending_downgrade = attributes[:'isHcxPendingDowngrade'] unless attributes[:'isHcxPendingDowngrade'].nil?
+      self.is_hcx_pending_downgrade = false if is_hcx_pending_downgrade.nil? && !attributes.key?(:'isHcxPendingDowngrade') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isHcxPendingDowngrade and :is_hcx_pending_downgrade' if attributes.key?(:'isHcxPendingDowngrade') && attributes.key?(:'is_hcx_pending_downgrade')
+
+      self.is_hcx_pending_downgrade = attributes[:'is_hcx_pending_downgrade'] unless attributes[:'is_hcx_pending_downgrade'].nil?
+      self.is_hcx_pending_downgrade = false if is_hcx_pending_downgrade.nil? && !attributes.key?(:'isHcxPendingDowngrade') && !attributes.key?(:'is_hcx_pending_downgrade') # rubocop:disable Style/StringLiterals
+
+      self.hcx_on_prem_licenses = attributes[:'hcxOnPremLicenses'] if attributes[:'hcxOnPremLicenses']
+
+      raise 'You cannot provide both :hcxOnPremLicenses and :hcx_on_prem_licenses' if attributes.key?(:'hcxOnPremLicenses') && attributes.key?(:'hcx_on_prem_licenses')
+
+      self.hcx_on_prem_licenses = attributes[:'hcx_on_prem_licenses'] if attributes[:'hcx_on_prem_licenses']
+
+      self.time_hcx_billing_cycle_end = attributes[:'timeHcxBillingCycleEnd'] if attributes[:'timeHcxBillingCycleEnd']
+
+      raise 'You cannot provide both :timeHcxBillingCycleEnd and :time_hcx_billing_cycle_end' if attributes.key?(:'timeHcxBillingCycleEnd') && attributes.key?(:'time_hcx_billing_cycle_end')
+
+      self.time_hcx_billing_cycle_end = attributes[:'time_hcx_billing_cycle_end'] if attributes[:'time_hcx_billing_cycle_end']
+
+      self.time_hcx_license_status_updated = attributes[:'timeHcxLicenseStatusUpdated'] if attributes[:'timeHcxLicenseStatusUpdated']
+
+      raise 'You cannot provide both :timeHcxLicenseStatusUpdated and :time_hcx_license_status_updated' if attributes.key?(:'timeHcxLicenseStatusUpdated') && attributes.key?(:'time_hcx_license_status_updated')
+
+      self.time_hcx_license_status_updated = attributes[:'time_hcx_license_status_updated'] if attributes[:'time_hcx_license_status_updated']
+
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
@@ -873,6 +952,11 @@ module OCI
         hcx_vlan_id == other.hcx_vlan_id &&
         is_hcx_enabled == other.is_hcx_enabled &&
         hcx_on_prem_key == other.hcx_on_prem_key &&
+        is_hcx_enterprise_enabled == other.is_hcx_enterprise_enabled &&
+        is_hcx_pending_downgrade == other.is_hcx_pending_downgrade &&
+        hcx_on_prem_licenses == other.hcx_on_prem_licenses &&
+        time_hcx_billing_cycle_end == other.time_hcx_billing_cycle_end &&
+        time_hcx_license_status_updated == other.time_hcx_license_status_updated &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
@@ -893,7 +977,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compute_availability_domain, display_name, instance_display_name_prefix, vmware_software_version, compartment_id, esxi_hosts_count, initial_sku, vcenter_fqdn, nsx_manager_fqdn, vcenter_private_ip_id, nsx_manager_private_ip_id, vcenter_initial_password, nsx_manager_initial_password, vcenter_username, nsx_manager_username, ssh_authorized_keys, workload_network_cidr, nsx_overlay_segment_name, nsx_edge_uplink_ip_id, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, replication_vlan_id, provisioning_vlan_id, hcx_private_ip_id, hcx_fqdn, hcx_initial_password, hcx_vlan_id, is_hcx_enabled, hcx_on_prem_key, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags].hash
+      [id, compute_availability_domain, display_name, instance_display_name_prefix, vmware_software_version, compartment_id, esxi_hosts_count, initial_sku, vcenter_fqdn, nsx_manager_fqdn, vcenter_private_ip_id, nsx_manager_private_ip_id, vcenter_initial_password, nsx_manager_initial_password, vcenter_username, nsx_manager_username, ssh_authorized_keys, workload_network_cidr, nsx_overlay_segment_name, nsx_edge_uplink_ip_id, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, replication_vlan_id, provisioning_vlan_id, hcx_private_ip_id, hcx_fqdn, hcx_initial_password, hcx_vlan_id, is_hcx_enabled, hcx_on_prem_key, is_hcx_enterprise_enabled, is_hcx_pending_downgrade, hcx_on_prem_licenses, time_hcx_billing_cycle_end, time_hcx_license_status_updated, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

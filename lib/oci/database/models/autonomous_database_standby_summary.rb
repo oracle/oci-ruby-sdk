@@ -29,6 +29,7 @@ module OCI
       LIFECYCLE_STATE_RECREATING = 'RECREATING'.freeze,
       LIFECYCLE_STATE_ROLE_CHANGE_IN_PROGRESS = 'ROLE_CHANGE_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_UPGRADING = 'UPGRADING'.freeze,
+      LIFECYCLE_STATE_INACCESSIBLE = 'INACCESSIBLE'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -44,13 +45,18 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_details
 
+    # The date and time the Autonomous Data Guard role was switched for the standby Autonomous Database.
+    # @return [DateTime]
+    attr_accessor :time_data_guard_role_changed
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'lag_time_in_seconds': :'lagTimeInSeconds',
         'lifecycle_state': :'lifecycleState',
-        'lifecycle_details': :'lifecycleDetails'
+        'lifecycle_details': :'lifecycleDetails',
+        'time_data_guard_role_changed': :'timeDataGuardRoleChanged'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -61,7 +67,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'lag_time_in_seconds': :'Integer',
         'lifecycle_state': :'String',
-        'lifecycle_details': :'String'
+        'lifecycle_details': :'String',
+        'time_data_guard_role_changed': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -75,6 +82,7 @@ module OCI
     # @option attributes [Integer] :lag_time_in_seconds The value to assign to the {#lag_time_in_seconds} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
+    # @option attributes [DateTime] :time_data_guard_role_changed The value to assign to the {#time_data_guard_role_changed} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -98,6 +106,12 @@ module OCI
       raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
 
       self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
+
+      self.time_data_guard_role_changed = attributes[:'timeDataGuardRoleChanged'] if attributes[:'timeDataGuardRoleChanged']
+
+      raise 'You cannot provide both :timeDataGuardRoleChanged and :time_data_guard_role_changed' if attributes.key?(:'timeDataGuardRoleChanged') && attributes.key?(:'time_data_guard_role_changed')
+
+      self.time_data_guard_role_changed = attributes[:'time_data_guard_role_changed'] if attributes[:'time_data_guard_role_changed']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -126,7 +140,8 @@ module OCI
       self.class == other.class &&
         lag_time_in_seconds == other.lag_time_in_seconds &&
         lifecycle_state == other.lifecycle_state &&
-        lifecycle_details == other.lifecycle_details
+        lifecycle_details == other.lifecycle_details &&
+        time_data_guard_role_changed == other.time_data_guard_role_changed
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -142,7 +157,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [lag_time_in_seconds, lifecycle_state, lifecycle_details].hash
+      [lag_time_in_seconds, lifecycle_state, lifecycle_details, time_data_guard_role_changed].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

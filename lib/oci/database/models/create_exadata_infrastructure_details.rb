@@ -66,6 +66,14 @@ module OCI
     # @return [OCI::Database::Models::MaintenanceWindow]
     attr_accessor :maintenance_window
 
+    # The number of storage servers for the Exadata infrastructure.
+    # @return [Integer]
+    attr_accessor :storage_count
+
+    # The number of compute servers for the Exadata infrastructure.
+    # @return [Integer]
+    attr_accessor :compute_count
+
     # **[Required]** The list of DNS server IP addresses. Maximum of 3 allowed.
     # @return [Array<String>]
     attr_accessor :dns_server
@@ -105,6 +113,8 @@ module OCI
         'corporate_proxy': :'corporateProxy',
         'contacts': :'contacts',
         'maintenance_window': :'maintenanceWindow',
+        'storage_count': :'storageCount',
+        'compute_count': :'computeCount',
         'dns_server': :'dnsServer',
         'ntp_server': :'ntpServer',
         'freeform_tags': :'freeformTags',
@@ -130,6 +140,8 @@ module OCI
         'corporate_proxy': :'String',
         'contacts': :'Array<OCI::Database::Models::ExadataInfrastructureContact>',
         'maintenance_window': :'OCI::Database::Models::MaintenanceWindow',
+        'storage_count': :'Integer',
+        'compute_count': :'Integer',
         'dns_server': :'Array<String>',
         'ntp_server': :'Array<String>',
         'freeform_tags': :'Hash<String, String>',
@@ -157,6 +169,8 @@ module OCI
     # @option attributes [String] :corporate_proxy The value to assign to the {#corporate_proxy} property
     # @option attributes [Array<OCI::Database::Models::ExadataInfrastructureContact>] :contacts The value to assign to the {#contacts} property
     # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window The value to assign to the {#maintenance_window} property
+    # @option attributes [Integer] :storage_count The value to assign to the {#storage_count} property
+    # @option attributes [Integer] :compute_count The value to assign to the {#compute_count} property
     # @option attributes [Array<String>] :dns_server The value to assign to the {#dns_server} property
     # @option attributes [Array<String>] :ntp_server The value to assign to the {#ntp_server} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -229,6 +243,18 @@ module OCI
 
       self.maintenance_window = attributes[:'maintenance_window'] if attributes[:'maintenance_window']
 
+      self.storage_count = attributes[:'storageCount'] if attributes[:'storageCount']
+
+      raise 'You cannot provide both :storageCount and :storage_count' if attributes.key?(:'storageCount') && attributes.key?(:'storage_count')
+
+      self.storage_count = attributes[:'storage_count'] if attributes[:'storage_count']
+
+      self.compute_count = attributes[:'computeCount'] if attributes[:'computeCount']
+
+      raise 'You cannot provide both :computeCount and :compute_count' if attributes.key?(:'computeCount') && attributes.key?(:'compute_count')
+
+      self.compute_count = attributes[:'compute_count'] if attributes[:'compute_count']
+
       self.dns_server = attributes[:'dnsServer'] if attributes[:'dnsServer']
 
       raise 'You cannot provide both :dnsServer and :dns_server' if attributes.key?(:'dnsServer') && attributes.key?(:'dns_server')
@@ -278,6 +304,8 @@ module OCI
         corporate_proxy == other.corporate_proxy &&
         contacts == other.contacts &&
         maintenance_window == other.maintenance_window &&
+        storage_count == other.storage_count &&
+        compute_count == other.compute_count &&
         dns_server == other.dns_server &&
         ntp_server == other.ntp_server &&
         freeform_tags == other.freeform_tags &&
@@ -297,7 +325,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, shape, time_zone, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, contacts, maintenance_window, dns_server, ntp_server, freeform_tags, defined_tags].hash
+      [compartment_id, display_name, shape, time_zone, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, contacts, maintenance_window, storage_count, compute_count, dns_server, ntp_server, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

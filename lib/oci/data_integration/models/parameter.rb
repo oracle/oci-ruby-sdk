@@ -17,7 +17,8 @@ module OCI
       OUTPUT_AGGREGATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # @return [OCI::DataIntegration::Models::BaseType]
+    # This can either be a string value referencing the type or a BaseType object.
+    # @return [Object]
     attr_accessor :type
 
     # The default value of the parameter.
@@ -79,7 +80,7 @@ module OCI
         'object_status': :'Integer',
         'name': :'String',
         'description': :'String',
-        'type': :'OCI::DataIntegration::Models::BaseType',
+        'type': :'Object',
         'default_value': :'Object',
         'root_object_default_value': :'Object',
         'is_input': :'BOOLEAN',
@@ -103,7 +104,7 @@ module OCI
     # @option attributes [Integer] :object_status The value to assign to the {OCI::DataIntegration::Models::TypedObject#object_status #object_status} proprety
     # @option attributes [String] :name The value to assign to the {OCI::DataIntegration::Models::TypedObject#name #name} proprety
     # @option attributes [String] :description The value to assign to the {OCI::DataIntegration::Models::TypedObject#description #description} proprety
-    # @option attributes [OCI::DataIntegration::Models::BaseType] :type The value to assign to the {#type} property
+    # @option attributes [Object] :type The value to assign to the {#type} property
     # @option attributes [Object] :default_value The value to assign to the {#default_value} property
     # @option attributes [Object] :root_object_default_value The value to assign to the {#root_object_default_value} property
     # @option attributes [BOOLEAN] :is_input The value to assign to the {#is_input} property

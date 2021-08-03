@@ -29,6 +29,7 @@ module OCI
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -121,6 +122,11 @@ module OCI
     # @return [Array<OCI::Dns::Models::Nameserver>]
     attr_accessor :nameservers
 
+    # The OCI nameservers that transfer the zone data with external nameservers.
+    #
+    # @return [Array<OCI::Dns::Models::ZoneTransferServer>]
+    attr_accessor :zone_transfer_servers
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -140,7 +146,8 @@ module OCI
         'serial': :'serial',
         'lifecycle_state': :'lifecycleState',
         'is_protected': :'isProtected',
-        'nameservers': :'nameservers'
+        'nameservers': :'nameservers',
+        'zone_transfer_servers': :'zoneTransferServers'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -164,7 +171,8 @@ module OCI
         'serial': :'Integer',
         'lifecycle_state': :'String',
         'is_protected': :'BOOLEAN',
-        'nameservers': :'Array<OCI::Dns::Models::Nameserver>'
+        'nameservers': :'Array<OCI::Dns::Models::Nameserver>',
+        'zone_transfer_servers': :'Array<OCI::Dns::Models::ZoneTransferServer>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -191,6 +199,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [BOOLEAN] :is_protected The value to assign to the {#is_protected} property
     # @option attributes [Array<OCI::Dns::Models::Nameserver>] :nameservers The value to assign to the {#nameservers} property
+    # @option attributes [Array<OCI::Dns::Models::ZoneTransferServer>] :zone_transfer_servers The value to assign to the {#zone_transfer_servers} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -268,6 +277,12 @@ module OCI
       self.is_protected = attributes[:'is_protected'] unless attributes[:'is_protected'].nil?
 
       self.nameservers = attributes[:'nameservers'] if attributes[:'nameservers']
+
+      self.zone_transfer_servers = attributes[:'zoneTransferServers'] if attributes[:'zoneTransferServers']
+
+      raise 'You cannot provide both :zoneTransferServers and :zone_transfer_servers' if attributes.key?(:'zoneTransferServers') && attributes.key?(:'zone_transfer_servers')
+
+      self.zone_transfer_servers = attributes[:'zone_transfer_servers'] if attributes[:'zone_transfer_servers']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -335,7 +350,8 @@ module OCI
         serial == other.serial &&
         lifecycle_state == other.lifecycle_state &&
         is_protected == other.is_protected &&
-        nameservers == other.nameservers
+        nameservers == other.nameservers &&
+        zone_transfer_servers == other.zone_transfer_servers
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -351,7 +367,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, zone_type, compartment_id, view_id, scope, freeform_tags, defined_tags, external_masters, self_uri, id, time_created, version, serial, lifecycle_state, is_protected, nameservers].hash
+      [name, zone_type, compartment_id, view_id, scope, freeform_tags, defined_tags, external_masters, self_uri, id, time_created, version, serial, lifecycle_state, is_protected, nameservers, zone_transfer_servers].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

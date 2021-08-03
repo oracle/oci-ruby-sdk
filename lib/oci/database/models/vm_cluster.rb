@@ -89,7 +89,6 @@ module OCI
     attr_accessor :db_node_storage_size_in_gbs
 
     # Size, in terabytes, of the DATA disk group.
-    #
     # @return [Float]
     attr_accessor :data_storage_size_in_tbs
 
@@ -101,6 +100,10 @@ module OCI
     # The Oracle Grid Infrastructure software version for the VM cluster.
     # @return [String]
     attr_accessor :gi_version
+
+    # Operating system version of the image.
+    # @return [String]
+    attr_accessor :system_version
 
     # The public key portion of one or more key pairs used for SSH access to the VM cluster.
     # @return [Array<String>]
@@ -147,6 +150,7 @@ module OCI
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
         'shape': :'shape',
         'gi_version': :'giVersion',
+        'system_version': :'systemVersion',
         'ssh_public_keys': :'sshPublicKeys',
         'license_model': :'licenseModel',
         'freeform_tags': :'freeformTags',
@@ -177,6 +181,7 @@ module OCI
         'data_storage_size_in_tbs': :'Float',
         'shape': :'String',
         'gi_version': :'String',
+        'system_version': :'String',
         'ssh_public_keys': :'Array<String>',
         'license_model': :'String',
         'freeform_tags': :'Hash<String, String>',
@@ -209,6 +214,7 @@ module OCI
     # @option attributes [Float] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [String] :gi_version The value to assign to the {#gi_version} property
+    # @option attributes [String] :system_version The value to assign to the {#system_version} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -316,6 +322,12 @@ module OCI
 
       self.gi_version = attributes[:'gi_version'] if attributes[:'gi_version']
 
+      self.system_version = attributes[:'systemVersion'] if attributes[:'systemVersion']
+
+      raise 'You cannot provide both :systemVersion and :system_version' if attributes.key?(:'systemVersion') && attributes.key?(:'system_version')
+
+      self.system_version = attributes[:'system_version'] if attributes[:'system_version']
+
       self.ssh_public_keys = attributes[:'sshPublicKeys'] if attributes[:'sshPublicKeys']
 
       raise 'You cannot provide both :sshPublicKeys and :ssh_public_keys' if attributes.key?(:'sshPublicKeys') && attributes.key?(:'ssh_public_keys')
@@ -396,6 +408,7 @@ module OCI
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
         shape == other.shape &&
         gi_version == other.gi_version &&
+        system_version == other.system_version &&
         ssh_public_keys == other.ssh_public_keys &&
         license_model == other.license_model &&
         freeform_tags == other.freeform_tags &&
@@ -415,7 +428,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, last_patch_history_entry_id, lifecycle_state, display_name, time_created, lifecycle_details, time_zone, is_local_backup_enabled, exadata_infrastructure_id, is_sparse_diskgroup_enabled, vm_cluster_network_id, cpus_enabled, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, shape, gi_version, ssh_public_keys, license_model, freeform_tags, defined_tags].hash
+      [id, compartment_id, last_patch_history_entry_id, lifecycle_state, display_name, time_created, lifecycle_details, time_zone, is_local_backup_enabled, exadata_infrastructure_id, is_sparse_diskgroup_enabled, vm_cluster_network_id, cpus_enabled, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, shape, gi_version, system_version, ssh_public_keys, license_model, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

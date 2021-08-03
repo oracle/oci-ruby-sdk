@@ -5,7 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A specific SKU. HOUR, MONTH, ONE_YEAR and THREE_YEARS supported by the Oracle Cloud VMware Solution.
+  # A specific SKU. Oracle Cloud Infrastructure VMware Solution supports the following billing interval SKUs:
+  # HOUR, MONTH, ONE_YEAR, and THREE_YEARS.
+  #
   class Ocvp::Models::SupportedSkuSummaryCollection
     # **[Required]** A list of the supported SKUs.
     # @return [Array<OCI::Ocvp::Models::SupportedSkuSummary>]

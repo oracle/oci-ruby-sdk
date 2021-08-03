@@ -13,15 +13,15 @@ module OCI
       FORECAST_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # BASIC uses ETS to project future usage/cost based on history data. The basis for projections will be a rolling set of equivalent historical days for which projection is being made.
+    # BASIC uses the exponential smoothing (ETS) model to project future usage/costs based on history data. The basis for projections is a periodic set of equivalent historical days for which the projection is being made.
     # @return [String]
     attr_reader :forecast_type
 
-    # forecast start time. Will default to UTC-1 if not specified
+    # The forecast start time. Defaults to UTC-1 if not specified.
     # @return [DateTime]
     attr_accessor :time_forecast_started
 
-    # **[Required]** forecast end time.
+    # **[Required]** The forecast end time.
     # @return [DateTime]
     attr_accessor :time_forecast_ended
 

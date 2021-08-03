@@ -39,6 +39,10 @@ module OCI
     # @return [Integer]
     attr_accessor :object_version
 
+    # Optional task schedule key reference.
+    # @return [String]
+    attr_accessor :task_schedule_key
+
     # @return [OCI::DataIntegration::Models::RegistryMetadata]
     attr_accessor :registry_metadata
 
@@ -53,6 +57,7 @@ module OCI
         'name': :'name',
         'description': :'description',
         'object_version': :'objectVersion',
+        'task_schedule_key': :'taskScheduleKey',
         'registry_metadata': :'registryMetadata'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -69,6 +74,7 @@ module OCI
         'name': :'String',
         'description': :'String',
         'object_version': :'Integer',
+        'task_schedule_key': :'String',
         'registry_metadata': :'OCI::DataIntegration::Models::RegistryMetadata'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -87,6 +93,7 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [Integer] :object_version The value to assign to the {#object_version} property
+    # @option attributes [String] :task_schedule_key The value to assign to the {#task_schedule_key} property
     # @option attributes [OCI::DataIntegration::Models::RegistryMetadata] :registry_metadata The value to assign to the {#registry_metadata} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -119,6 +126,12 @@ module OCI
       raise 'You cannot provide both :objectVersion and :object_version' if attributes.key?(:'objectVersion') && attributes.key?(:'object_version')
 
       self.object_version = attributes[:'object_version'] if attributes[:'object_version']
+
+      self.task_schedule_key = attributes[:'taskScheduleKey'] if attributes[:'taskScheduleKey']
+
+      raise 'You cannot provide both :taskScheduleKey and :task_schedule_key' if attributes.key?(:'taskScheduleKey') && attributes.key?(:'task_schedule_key')
+
+      self.task_schedule_key = attributes[:'task_schedule_key'] if attributes[:'task_schedule_key']
 
       self.registry_metadata = attributes[:'registryMetadata'] if attributes[:'registryMetadata']
 
@@ -153,6 +166,7 @@ module OCI
         name == other.name &&
         description == other.description &&
         object_version == other.object_version &&
+        task_schedule_key == other.task_schedule_key &&
         registry_metadata == other.registry_metadata
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -169,7 +183,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, status, model_type, model_version, name, description, object_version, registry_metadata].hash
+      [key, status, model_type, model_version, name, description, object_version, task_schedule_key, registry_metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

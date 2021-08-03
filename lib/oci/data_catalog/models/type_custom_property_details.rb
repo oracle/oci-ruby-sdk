@@ -11,11 +11,16 @@ module OCI
     # @return [Array<String>]
     attr_accessor :custom_property_ids
 
+    # If an OCI Event will be emitted when the custom property is modified.
+    # @return [BOOLEAN]
+    attr_accessor :is_event_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'custom_property_ids': :'customPropertyIds'
+        'custom_property_ids': :'customPropertyIds',
+        'is_event_enabled': :'isEventEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -24,7 +29,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'custom_property_ids': :'Array<String>'
+        'custom_property_ids': :'Array<String>',
+        'is_event_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,6 +42,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Array<String>] :custom_property_ids The value to assign to the {#custom_property_ids} property
+    # @option attributes [BOOLEAN] :is_event_enabled The value to assign to the {#is_event_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -47,6 +54,14 @@ module OCI
       raise 'You cannot provide both :customPropertyIds and :custom_property_ids' if attributes.key?(:'customPropertyIds') && attributes.key?(:'custom_property_ids')
 
       self.custom_property_ids = attributes[:'custom_property_ids'] if attributes[:'custom_property_ids']
+
+      self.is_event_enabled = attributes[:'isEventEnabled'] unless attributes[:'isEventEnabled'].nil?
+      self.is_event_enabled = false if is_event_enabled.nil? && !attributes.key?(:'isEventEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isEventEnabled and :is_event_enabled' if attributes.key?(:'isEventEnabled') && attributes.key?(:'is_event_enabled')
+
+      self.is_event_enabled = attributes[:'is_event_enabled'] unless attributes[:'is_event_enabled'].nil?
+      self.is_event_enabled = false if is_event_enabled.nil? && !attributes.key?(:'isEventEnabled') && !attributes.key?(:'is_event_enabled') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -60,7 +75,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        custom_property_ids == other.custom_property_ids
+        custom_property_ids == other.custom_property_ids &&
+        is_event_enabled == other.is_event_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -76,7 +92,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [custom_property_ids].hash
+      [custom_property_ids, is_event_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

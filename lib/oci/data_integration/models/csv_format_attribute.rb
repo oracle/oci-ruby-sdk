@@ -28,10 +28,6 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :has_header
 
-    # Defines whether a file pattern is supported.
-    # @return [BOOLEAN]
-    attr_accessor :is_file_pattern
-
     # Format for timestamp information.
     # @return [String]
     attr_accessor :timestamp_format
@@ -41,12 +37,12 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'model_type': :'modelType',
+        'is_file_pattern': :'isFilePattern',
         'encoding': :'encoding',
         'escape_character': :'escapeCharacter',
         'delimiter': :'delimiter',
         'quote_character': :'quoteCharacter',
         'has_header': :'hasHeader',
-        'is_file_pattern': :'isFilePattern',
         'timestamp_format': :'timestampFormat'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -57,12 +53,12 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'model_type': :'String',
+        'is_file_pattern': :'BOOLEAN',
         'encoding': :'String',
         'escape_character': :'String',
         'delimiter': :'String',
         'quote_character': :'String',
         'has_header': :'BOOLEAN',
-        'is_file_pattern': :'BOOLEAN',
         'timestamp_format': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -74,12 +70,12 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [BOOLEAN] :is_file_pattern The value to assign to the {OCI::DataIntegration::Models::AbstractFormatAttribute#is_file_pattern #is_file_pattern} proprety
     # @option attributes [String] :encoding The value to assign to the {#encoding} property
     # @option attributes [String] :escape_character The value to assign to the {#escape_character} property
     # @option attributes [String] :delimiter The value to assign to the {#delimiter} property
     # @option attributes [String] :quote_character The value to assign to the {#quote_character} property
     # @option attributes [BOOLEAN] :has_header The value to assign to the {#has_header} property
-    # @option attributes [BOOLEAN] :is_file_pattern The value to assign to the {#is_file_pattern} property
     # @option attributes [String] :timestamp_format The value to assign to the {#timestamp_format} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -113,12 +109,6 @@ module OCI
 
       self.has_header = attributes[:'has_header'] unless attributes[:'has_header'].nil?
 
-      self.is_file_pattern = attributes[:'isFilePattern'] unless attributes[:'isFilePattern'].nil?
-
-      raise 'You cannot provide both :isFilePattern and :is_file_pattern' if attributes.key?(:'isFilePattern') && attributes.key?(:'is_file_pattern')
-
-      self.is_file_pattern = attributes[:'is_file_pattern'] unless attributes[:'is_file_pattern'].nil?
-
       self.timestamp_format = attributes[:'timestampFormat'] if attributes[:'timestampFormat']
 
       raise 'You cannot provide both :timestampFormat and :timestamp_format' if attributes.key?(:'timestampFormat') && attributes.key?(:'timestamp_format')
@@ -138,12 +128,12 @@ module OCI
 
       self.class == other.class &&
         model_type == other.model_type &&
+        is_file_pattern == other.is_file_pattern &&
         encoding == other.encoding &&
         escape_character == other.escape_character &&
         delimiter == other.delimiter &&
         quote_character == other.quote_character &&
         has_header == other.has_header &&
-        is_file_pattern == other.is_file_pattern &&
         timestamp_format == other.timestamp_format
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -160,7 +150,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, encoding, escape_character, delimiter, quote_character, has_header, is_file_pattern, timestamp_format].hash
+      [model_type, is_file_pattern, encoding, escape_character, delimiter, quote_character, has_header, timestamp_format].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

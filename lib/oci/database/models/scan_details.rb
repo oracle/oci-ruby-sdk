@@ -12,7 +12,7 @@ module OCI
     # @return [String]
     attr_accessor :hostname
 
-    # **[Required]** The SCAN port. Default is 1521.
+    # **[Required]** The SCAN TCPIP port. Default is 1521.
     # @return [Integer]
     attr_accessor :port
 

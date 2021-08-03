@@ -5,17 +5,17 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about new BDS instance
+  # The information about the new cluster.
   class Bds::Models::CreateBdsInstanceDetails
-    # **[Required]** The OCID of the compartment
+    # **[Required]** The OCID of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** Name of the BDS instance
+    # **[Required]** Name of the Big Data Service cluster.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** Version of the Hadoop distribution
+    # **[Required]** Version of the Hadoop distribution.
     # @return [String]
     attr_accessor :cluster_version
 
@@ -23,33 +23,33 @@ module OCI
     # @return [String]
     attr_accessor :cluster_public_key
 
-    # **[Required]** Base-64 encoded password for Cloudera Manager admin user
+    # **[Required]** Base-64 encoded password for the cluster (and Cloudera Manager) admin user.
     # @return [String]
     attr_accessor :cluster_admin_password
 
-    # **[Required]** Boolean flag specifying whether or not the cluster is HA
+    # **[Required]** Boolean flag specifying whether or not the cluster is highly available (HA).
     # @return [BOOLEAN]
     attr_accessor :is_high_availability
 
-    # **[Required]** Boolean flag specifying whether or not the cluster should be setup as secure.
+    # **[Required]** Boolean flag specifying whether or not the cluster should be set up as secure.
     # @return [BOOLEAN]
     attr_accessor :is_secure
 
     # @return [OCI::Bds::Models::NetworkConfig]
     attr_accessor :network_config
 
-    # **[Required]** The list of nodes in the BDS instance
+    # **[Required]** The list of nodes in the Big Data Service cluster.
     # @return [Array<OCI::Bds::Models::CreateNodeDetails>]
     attr_accessor :nodes
 
-    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # Simple key-value pair that is applied without any predefined name, type, or scope.
+    # Exists for cross-compatibility only. For example, `{\"bar-key\": \"value\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    # For example, `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags

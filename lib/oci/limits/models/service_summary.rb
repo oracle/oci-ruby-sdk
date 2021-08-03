@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # A specific OCI service supported by resource limits.
   class Limits::Models::ServiceSummary
-    # The service name. Use this when calling the other APIs.
+    # The service name. Use this when calling other APIs.
     # @return [String]
     attr_accessor :name
 

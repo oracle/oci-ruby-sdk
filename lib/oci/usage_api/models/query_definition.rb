@@ -19,7 +19,7 @@ module OCI
     # @return [OCI::UsageApi::Models::CostAnalysisUI]
     attr_accessor :cost_analysis_ui
 
-    # **[Required]** the version of saved query.
+    # **[Required]** The saved query version.
     # @return [Float]
     attr_accessor :version
 

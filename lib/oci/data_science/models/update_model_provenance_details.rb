@@ -28,6 +28,10 @@ module OCI
     # @return [String]
     attr_accessor :training_script
 
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of a training session(Job or NotebookSession) in which the model was trained. It is used for model reproducibility purposes.
+    # @return [String]
+    attr_accessor :training_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -36,7 +40,8 @@ module OCI
         'git_branch': :'gitBranch',
         'git_commit': :'gitCommit',
         'script_dir': :'scriptDir',
-        'training_script': :'trainingScript'
+        'training_script': :'trainingScript',
+        'training_id': :'trainingId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -49,7 +54,8 @@ module OCI
         'git_branch': :'String',
         'git_commit': :'String',
         'script_dir': :'String',
-        'training_script': :'String'
+        'training_script': :'String',
+        'training_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -65,6 +71,7 @@ module OCI
     # @option attributes [String] :git_commit The value to assign to the {#git_commit} property
     # @option attributes [String] :script_dir The value to assign to the {#script_dir} property
     # @option attributes [String] :training_script The value to assign to the {#training_script} property
+    # @option attributes [String] :training_id The value to assign to the {#training_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -100,6 +107,12 @@ module OCI
       raise 'You cannot provide both :trainingScript and :training_script' if attributes.key?(:'trainingScript') && attributes.key?(:'training_script')
 
       self.training_script = attributes[:'training_script'] if attributes[:'training_script']
+
+      self.training_id = attributes[:'trainingId'] if attributes[:'trainingId']
+
+      raise 'You cannot provide both :trainingId and :training_id' if attributes.key?(:'trainingId') && attributes.key?(:'training_id')
+
+      self.training_id = attributes[:'training_id'] if attributes[:'training_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -117,7 +130,8 @@ module OCI
         git_branch == other.git_branch &&
         git_commit == other.git_commit &&
         script_dir == other.script_dir &&
-        training_script == other.training_script
+        training_script == other.training_script &&
+        training_id == other.training_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -133,7 +147,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [repository_url, git_branch, git_commit, script_dir, training_script].hash
+      [repository_url, git_branch, git_commit, script_dir, training_script, training_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

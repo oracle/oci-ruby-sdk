@@ -6,14 +6,14 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Metric and threshold details for triggering an autoscaling action
+  # Metric and threshold details for triggering an autoscale action.
   class Bds::Models::AutoScalePolicyMetricRule
     METRIC_TYPE_ENUM = [
       METRIC_TYPE_CPU_UTILIZATION = 'CPU_UTILIZATION'.freeze,
       METRIC_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Allowed value is CPU_UTILIZATION currently
+    # **[Required]** Allowed value is CPU_UTILIZATION.
     # @return [String]
     attr_reader :metric_type
 

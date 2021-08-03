@@ -126,6 +126,15 @@ module OCI
     # @return [Array<String>]
     attr_reader :associated_rule_types
 
+    # Whether a column is derived or not.
+    # @return [BOOLEAN]
+    attr_accessor :is_derived_attribute
+
+    # The last time that any change was made to the attribute. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
+    #
+    # @return [DateTime]
+    attr_accessor :time_updated
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -152,7 +161,9 @@ module OCI
         'external_parent_attribute_key': :'externalParentAttributeKey',
         'path': :'path',
         'custom_property_members': :'customPropertyMembers',
-        'associated_rule_types': :'associatedRuleTypes'
+        'associated_rule_types': :'associatedRuleTypes',
+        'is_derived_attribute': :'isDerivedAttribute',
+        'time_updated': :'timeUpdated'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -183,7 +194,9 @@ module OCI
         'external_parent_attribute_key': :'String',
         'path': :'String',
         'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>',
-        'associated_rule_types': :'Array<String>'
+        'associated_rule_types': :'Array<String>',
+        'is_derived_attribute': :'BOOLEAN',
+        'time_updated': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -217,6 +230,8 @@ module OCI
     # @option attributes [String] :path The value to assign to the {#path} property
     # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
     # @option attributes [Array<String>] :associated_rule_types The value to assign to the {#associated_rule_types} property
+    # @option attributes [BOOLEAN] :is_derived_attribute The value to assign to the {#is_derived_attribute} property
+    # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -332,6 +347,18 @@ module OCI
       raise 'You cannot provide both :associatedRuleTypes and :associated_rule_types' if attributes.key?(:'associatedRuleTypes') && attributes.key?(:'associated_rule_types')
 
       self.associated_rule_types = attributes[:'associated_rule_types'] if attributes[:'associated_rule_types']
+
+      self.is_derived_attribute = attributes[:'isDerivedAttribute'] unless attributes[:'isDerivedAttribute'].nil?
+
+      raise 'You cannot provide both :isDerivedAttribute and :is_derived_attribute' if attributes.key?(:'isDerivedAttribute') && attributes.key?(:'is_derived_attribute')
+
+      self.is_derived_attribute = attributes[:'is_derived_attribute'] unless attributes[:'is_derived_attribute'].nil?
+
+      self.time_updated = attributes[:'timeUpdated'] if attributes[:'timeUpdated']
+
+      raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
+
+      self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -400,7 +427,9 @@ module OCI
         external_parent_attribute_key == other.external_parent_attribute_key &&
         path == other.path &&
         custom_property_members == other.custom_property_members &&
-        associated_rule_types == other.associated_rule_types
+        associated_rule_types == other.associated_rule_types &&
+        is_derived_attribute == other.is_derived_attribute &&
+        time_updated == other.time_updated
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -416,7 +445,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, business_name, description, entity_key, external_key, length, precision, scale, is_nullable, uri, lifecycle_state, time_created, external_data_type, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, path, custom_property_members, associated_rule_types].hash
+      [key, display_name, business_name, description, entity_key, external_key, length, precision, scale, is_nullable, uri, lifecycle_state, time_created, external_data_type, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, path, custom_property_members, associated_rule_types, is_derived_attribute, time_updated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1642,18 +1642,151 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets a list of database insight configurations based on the query parameters specified. Either compartmentId or databaseInsightId query parameter must be specified.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @option opts [String] :enterprise_manager_bridge_id Unique Enterprise Manager bridge identifier
+    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+    #    (default to [])
+    # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
+    #    (default to [])
+    # @option opts [Array<String>] :database_type Filter by one or more database type.
+    #   Possible values are ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.
+    #    (default to [])
+    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to
+    #   return in a paginated \"List\" call.
+    #   For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
+    #   Example: `50`
+    #    (default to 50)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from
+    #   the previous \"List\" call. For important details about how pagination works,
+    #   see [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #
+    # @option opts [String] :sort_by Database configuration list sort options. If `fields` parameter is selected, the `sortBy` parameter must be one of the fields specified.
+    #    (default to databaseName)
+    #   Allowed values are: databaseName, databaseDisplayName, databaseType
+    # @option opts [Array<String>] :host_name Filter by one or more hostname.
+    #    (default to [])
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
+    #
+    # @return [Response] A Response object with data of type {OCI::Opsi::Models::DatabaseConfigurationCollection DatabaseConfigurationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/list_database_configurations.rb.html) to see an example of how to use list_database_configurations API.
+    def list_database_configurations(opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#list_database_configurations.' if logger
+
+
+
+      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB]
+      if opts[:database_type] && !opts[:database_type].empty?
+        opts[:database_type].each do |val_to_check|
+          unless database_type_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.'
+          end
+        end
+      end
+
+      if opts[:sort_order] && !OCI::Opsi::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Opsi::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[databaseName databaseDisplayName databaseType].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of databaseName, databaseDisplayName, databaseType.'
+      end
+
+      path = '/databaseInsights/databaseConfigurations'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:enterpriseManagerBridgeId] = opts[:enterprise_manager_bridge_id] if opts[:enterprise_manager_bridge_id]
+      query_params[:id] = OCI::ApiClient.build_collection_params(opts[:id], :multi) if opts[:id] && !opts[:id].empty?
+      query_params[:databaseId] = OCI::ApiClient.build_collection_params(opts[:database_id], :multi) if opts[:database_id] && !opts[:database_id].empty?
+      query_params[:databaseType] = OCI::ApiClient.build_collection_params(opts[:database_type], :multi) if opts[:database_type] && !opts[:database_type].empty?
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:hostName] = OCI::ApiClient.build_collection_params(opts[:host_name], :multi) if opts[:host_name] && !opts[:host_name].empty?
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#list_database_configurations') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Opsi::Models::DatabaseConfigurationCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets a list of database insights based on the query parameters specified. Either compartmentId or id query parameter must be specified.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @option opts [String] :enterprise_manager_bridge_id Unique Enterprise Manager bridge identifier
-    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database insight resource.
+    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [Array<String>] :status Resource Status (default to [ENABLED])
     #   Allowed values are: DISABLED, ENABLED, TERMINATED
     # @option opts [Array<String>] :lifecycle_state Lifecycle states (default to [ACTIVE])
-    #   Allowed values are: CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED
+    #   Allowed values are: CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED, NEEDS_ATTENTION
     # @option opts [Array<String>] :database_type Filter by one or more database type.
     #   Possible values are ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.
     #    (default to [])
@@ -1698,11 +1831,11 @@ module OCI
       end
 
 
-      lifecycle_state_allowable_values = %w[CREATING UPDATING ACTIVE DELETING DELETED FAILED]
+      lifecycle_state_allowable_values = %w[CREATING UPDATING ACTIVE DELETING DELETED FAILED NEEDS_ATTENTION]
       if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
         opts[:lifecycle_state].each do |val_to_check|
           unless lifecycle_state_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "lifecycle_state", must be one of CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED.'
+            raise 'Invalid value for "lifecycle_state", must be one of CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED, NEEDS_ATTENTION.'
           end
         end
       end
@@ -1796,7 +1929,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name.
     # @option opts [String] :id Unique Enterprise Manager bridge identifier
     # @option opts [Array<String>] :lifecycle_state Lifecycle states (default to [ACTIVE])
-    #   Allowed values are: CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED
+    #   Allowed values are: CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED, NEEDS_ATTENTION
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to
     #   return in a paginated \"List\" call.
     #   For important details about how pagination works, see
@@ -1822,11 +1955,11 @@ module OCI
 
 
 
-      lifecycle_state_allowable_values = %w[CREATING UPDATING ACTIVE DELETING DELETED FAILED]
+      lifecycle_state_allowable_values = %w[CREATING UPDATING ACTIVE DELETING DELETED FAILED NEEDS_ATTENTION]
       if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
         opts[:lifecycle_state].each do |val_to_check|
           unless lifecycle_state_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "lifecycle_state", must be one of CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED.'
+            raise 'Invalid value for "lifecycle_state", must be one of CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED, NEEDS_ATTENTION.'
           end
         end
       end
@@ -1892,12 +2025,12 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
-    # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the host insight resource.
+    # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [Array<String>] :status Resource Status (default to [ENABLED])
     #   Allowed values are: DISABLED, ENABLED, TERMINATED
     # @option opts [Array<String>] :lifecycle_state Lifecycle states (default to [ACTIVE])
-    #   Allowed values are: CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED
+    #   Allowed values are: CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED, NEEDS_ATTENTION
     # @option opts [Array<String>] :host_type Filter by one or more host types.
     #   Possible value is EXTERNAL-HOST.
     #    (default to [])
@@ -1940,11 +2073,11 @@ module OCI
       end
 
 
-      lifecycle_state_allowable_values = %w[CREATING UPDATING ACTIVE DELETING DELETED FAILED]
+      lifecycle_state_allowable_values = %w[CREATING UPDATING ACTIVE DELETING DELETED FAILED NEEDS_ATTENTION]
       if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
         opts[:lifecycle_state].each do |val_to_check|
           unless lifecycle_state_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "lifecycle_state", must be one of CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED.'
+            raise 'Invalid value for "lifecycle_state", must be one of CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED, NEEDS_ATTENTION.'
           end
         end
       end
@@ -2318,6 +2451,27 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
     #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
+    #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SqlSearchCollection SqlSearchCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/list_sql_searches.rb.html) to see an example of how to use list_sql_searches API.
     def list_sql_searches(compartment_id, sql_identifier, opts = {})
@@ -2338,6 +2492,10 @@ module OCI
       query_params[:timeIntervalStart] = opts[:time_interval_start] if opts[:time_interval_start]
       query_params[:timeIntervalEnd] = opts[:time_interval_end] if opts[:time_interval_end]
       query_params[:page] = opts[:page] if opts[:page]
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -2391,6 +2549,27 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
     #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
+    #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SqlTextCollection SqlTextCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/list_sql_texts.rb.html) to see an example of how to use list_sql_texts API.
     def list_sql_texts(compartment_id, sql_identifier, opts = {})
@@ -2410,6 +2589,10 @@ module OCI
       query_params[:databaseId] = OCI::ApiClient.build_collection_params(opts[:database_id], :multi) if opts[:database_id] && !opts[:database_id].empty?
       query_params[:id] = OCI::ApiClient.build_collection_params(opts[:id], :multi) if opts[:id] && !opts[:id].empty?
       query_params[:page] = opts[:page] if opts[:page]
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -2683,7 +2866,7 @@ module OCI
     #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
-    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database insight resource.
+    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [String] :utilization_level Filter by utilization level by the following buckets:
     #     - HIGH_UTILIZATION: DBs with utilization greater or equal than 75.
@@ -2705,8 +2888,33 @@ module OCI
     #
     # @option opts [Array<String>] :host_name Filter by one or more hostname.
     #    (default to [])
+    # @option opts [BOOLEAN] :is_database_instance_level_metrics Flag to indicate if database instance level metrics should be returned. The flag is ignored when a host name filter is not applied.
+    #   When a hostname filter is applied this flag will determine whether to return metrics for the instances located on the specified host or for the
+    #   whole database which contains an instance on this host.
+    #    (default to false)
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeDatabaseInsightResourceCapacityTrendAggregationCollection SummarizeDatabaseInsightResourceCapacityTrendAggregationCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_database_insight_resource_capacity_trend.rb.html) to see an example of how to use summarize_database_insight_resource_capacity_trend API.
@@ -2758,6 +2966,11 @@ module OCI
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:tablespaceName] = opts[:tablespace_name] if opts[:tablespace_name]
       query_params[:hostName] = OCI::ApiClient.build_collection_params(opts[:host_name], :multi) if opts[:host_name] && !opts[:host_name].empty?
+      query_params[:isDatabaseInstanceLevelMetrics] = opts[:is_database_instance_level_metrics] if !opts[:is_database_instance_level_metrics].nil?
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -2823,7 +3036,7 @@ module OCI
     #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
-    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database insight resource.
+    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [String] :statistic Choose the type of statistic metric data to be used for forecasting. (default to AVG)
     #   Allowed values are: AVG, MAX
@@ -2857,8 +3070,33 @@ module OCI
     #    (default to [])
     # @option opts [String] :tablespace_name Tablespace name for a database
     #
+    # @option opts [BOOLEAN] :is_database_instance_level_metrics Flag to indicate if database instance level metrics should be returned. The flag is ignored when a host name filter is not applied.
+    #   When a hostname filter is applied this flag will determine whether to return metrics for the instances located on the specified host or for the
+    #   whole database which contains an instance on this host.
+    #    (default to false)
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeDatabaseInsightResourceForecastTrendAggregation SummarizeDatabaseInsightResourceForecastTrendAggregation}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_database_insight_resource_forecast_trend.rb.html) to see an example of how to use summarize_database_insight_resource_forecast_trend API.
@@ -2912,6 +3150,11 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:hostName] = OCI::ApiClient.build_collection_params(opts[:host_name], :multi) if opts[:host_name] && !opts[:host_name].empty?
       query_params[:tablespaceName] = opts[:tablespace_name] if opts[:tablespace_name]
+      query_params[:isDatabaseInstanceLevelMetrics] = opts[:is_database_instance_level_metrics] if !opts[:is_database_instance_level_metrics].nil?
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -2976,7 +3219,7 @@ module OCI
     #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
-    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database insight resource.
+    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [Integer] :percentile Percentile values of daily usage to be used for computing the aggregate resource usage.
     #    (default to 90)
@@ -3003,8 +3246,33 @@ module OCI
     #   Allowed values are: utilizationPercent, usage, usageChangePercent, databaseName, databaseType
     # @option opts [Array<String>] :host_name Filter by one or more hostname.
     #    (default to [])
+    # @option opts [BOOLEAN] :is_database_instance_level_metrics Flag to indicate if database instance level metrics should be returned. The flag is ignored when a host name filter is not applied.
+    #   When a hostname filter is applied this flag will determine whether to return metrics for the instances located on the specified host or for the
+    #   whole database which contains an instance on this host.
+    #    (default to false)
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeDatabaseInsightResourceStatisticsAggregationCollection SummarizeDatabaseInsightResourceStatisticsAggregationCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_database_insight_resource_statistics.rb.html) to see an example of how to use summarize_database_insight_resource_statistics API.
@@ -3054,6 +3322,11 @@ module OCI
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:hostName] = OCI::ApiClient.build_collection_params(opts[:host_name], :multi) if opts[:host_name] && !opts[:host_name].empty?
+      query_params[:isDatabaseInstanceLevelMetrics] = opts[:is_database_instance_level_metrics] if !opts[:is_database_instance_level_metrics].nil?
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -3121,8 +3394,14 @@ module OCI
     #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
-    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database insight resource.
+    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
+    # @option opts [Array<String>] :host_name Filter by one or more hostname.
+    #    (default to [])
+    # @option opts [BOOLEAN] :is_database_instance_level_metrics Flag to indicate if database instance level metrics should be returned. The flag is ignored when a host name filter is not applied.
+    #   When a hostname filter is applied this flag will determine whether to return metrics for the instances located on the specified host or for the
+    #   whole database which contains an instance on this host.
+    #    (default to false)
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from
     #   the previous \"List\" call. For important details about how pagination works,
     #   see [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
@@ -3131,6 +3410,27 @@ module OCI
     #    (default to 90)
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeDatabaseInsightResourceUsageAggregation SummarizeDatabaseInsightResourceUsageAggregation}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_database_insight_resource_usage.rb.html) to see an example of how to use summarize_database_insight_resource_usage API.
@@ -3164,8 +3464,14 @@ module OCI
       query_params[:databaseType] = OCI::ApiClient.build_collection_params(opts[:database_type], :multi) if opts[:database_type] && !opts[:database_type].empty?
       query_params[:databaseId] = OCI::ApiClient.build_collection_params(opts[:database_id], :multi) if opts[:database_id] && !opts[:database_id].empty?
       query_params[:id] = OCI::ApiClient.build_collection_params(opts[:id], :multi) if opts[:id] && !opts[:id].empty?
+      query_params[:hostName] = OCI::ApiClient.build_collection_params(opts[:host_name], :multi) if opts[:host_name] && !opts[:host_name].empty?
+      query_params[:isDatabaseInstanceLevelMetrics] = opts[:is_database_instance_level_metrics] if !opts[:is_database_instance_level_metrics].nil?
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:percentile] = opts[:percentile] if opts[:percentile]
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -3232,7 +3538,7 @@ module OCI
     #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
-    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database insight resource.
+    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from
     #   the previous \"List\" call. For important details about how pagination works,
@@ -3243,8 +3549,35 @@ module OCI
     # @option opts [String] :sort_by Sorts using end timestamp, usage or capacity
     #    (default to endTimestamp)
     #   Allowed values are: endTimestamp, usage, capacity
+    # @option opts [Array<String>] :host_name Filter by one or more hostname.
+    #    (default to [])
+    # @option opts [BOOLEAN] :is_database_instance_level_metrics Flag to indicate if database instance level metrics should be returned. The flag is ignored when a host name filter is not applied.
+    #   When a hostname filter is applied this flag will determine whether to return metrics for the instances located on the specified host or for the
+    #   whole database which contains an instance on this host.
+    #    (default to false)
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeDatabaseInsightResourceUsageTrendAggregationCollection SummarizeDatabaseInsightResourceUsageTrendAggregationCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_database_insight_resource_usage_trend.rb.html) to see an example of how to use summarize_database_insight_resource_usage_trend API.
@@ -3289,6 +3622,12 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:hostName] = OCI::ApiClient.build_collection_params(opts[:host_name], :multi) if opts[:host_name] && !opts[:host_name].empty?
+      query_params[:isDatabaseInstanceLevelMetrics] = opts[:is_database_instance_level_metrics] if !opts[:is_database_instance_level_metrics].nil?
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -3353,16 +3692,43 @@ module OCI
     #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
-    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database insight resource.
+    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [Integer] :forecast_days Number of days used for utilization forecast analysis.
     #    (default to 30)
+    # @option opts [Array<String>] :host_name Filter by one or more hostname.
+    #    (default to [])
+    # @option opts [BOOLEAN] :is_database_instance_level_metrics Flag to indicate if database instance level metrics should be returned. The flag is ignored when a host name filter is not applied.
+    #   When a hostname filter is applied this flag will determine whether to return metrics for the instances located on the specified host or for the
+    #   whole database which contains an instance on this host.
+    #    (default to false)
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from
     #   the previous \"List\" call. For important details about how pagination works,
     #   see [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeDatabaseInsightResourceUtilizationInsightAggregation SummarizeDatabaseInsightResourceUtilizationInsightAggregation}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_database_insight_resource_utilization_insight.rb.html) to see an example of how to use summarize_database_insight_resource_utilization_insight API.
@@ -3397,7 +3763,13 @@ module OCI
       query_params[:databaseId] = OCI::ApiClient.build_collection_params(opts[:database_id], :multi) if opts[:database_id] && !opts[:database_id].empty?
       query_params[:id] = OCI::ApiClient.build_collection_params(opts[:id], :multi) if opts[:id] && !opts[:id].empty?
       query_params[:forecastDays] = opts[:forecast_days] if opts[:forecast_days]
+      query_params[:hostName] = OCI::ApiClient.build_collection_params(opts[:host_name], :multi) if opts[:host_name] && !opts[:host_name].empty?
+      query_params[:isDatabaseInstanceLevelMetrics] = opts[:is_database_instance_level_metrics] if !opts[:is_database_instance_level_metrics].nil?
       query_params[:page] = opts[:page] if opts[:page]
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -3558,7 +3930,7 @@ module OCI
     #   Possible value is LINUX.
     #    (default to [])
     #   Allowed values are: LINUX
-    # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the host insight resource.
+    # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [String] :utilization_level Filter by utilization level by the following buckets:
     #     - HIGH_UTILIZATION: DBs with utilization greater or equal than 75.
@@ -3578,6 +3950,27 @@ module OCI
     #   Allowed values are: endTimestamp, capacity
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeHostInsightResourceCapacityTrendAggregationCollection SummarizeHostInsightResourceCapacityTrendAggregationCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_host_insight_resource_capacity_trend.rb.html) to see an example of how to use summarize_host_insight_resource_capacity_trend API.
@@ -3626,6 +4019,10 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -3689,7 +4086,7 @@ module OCI
     #   Possible value is LINUX.
     #    (default to [])
     #   Allowed values are: LINUX
-    # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the host insight resource.
+    # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [String] :statistic Choose the type of statistic metric data to be used for forecasting. (default to AVG)
     #   Allowed values are: AVG, MAX
@@ -3721,6 +4118,27 @@ module OCI
     #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeHostInsightResourceForecastTrendAggregation SummarizeHostInsightResourceForecastTrendAggregation}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_host_insight_resource_forecast_trend.rb.html) to see an example of how to use summarize_host_insight_resource_forecast_trend API.
@@ -3771,6 +4189,10 @@ module OCI
       query_params[:utilizationLevel] = opts[:utilization_level] if opts[:utilization_level]
       query_params[:confidence] = opts[:confidence] if opts[:confidence]
       query_params[:page] = opts[:page] if opts[:page]
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -3835,7 +4257,7 @@ module OCI
     #   Possible value is LINUX.
     #    (default to [])
     #   Allowed values are: LINUX
-    # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the host insight resource.
+    # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [Integer] :percentile Percentile values of daily usage to be used for computing the aggregate resource usage.
     #    (default to 90)
@@ -3862,6 +4284,27 @@ module OCI
     #   Allowed values are: utilizationPercent, usage, usageChangePercent, hostName, platformType
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeHostInsightResourceStatisticsAggregationCollection SummarizeHostInsightResourceStatisticsAggregationCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_host_insight_resource_statistics.rb.html) to see an example of how to use summarize_host_insight_resource_statistics API.
@@ -3909,6 +4352,10 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -3974,7 +4421,7 @@ module OCI
     #   Possible value is LINUX.
     #    (default to [])
     #   Allowed values are: LINUX
-    # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the host insight resource.
+    # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from
     #   the previous \"List\" call. For important details about how pagination works,
@@ -3984,6 +4431,27 @@ module OCI
     #    (default to 90)
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeHostInsightResourceUsageAggregation SummarizeHostInsightResourceUsageAggregation}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_host_insight_resource_usage.rb.html) to see an example of how to use summarize_host_insight_resource_usage API.
@@ -4018,6 +4486,10 @@ module OCI
       query_params[:id] = OCI::ApiClient.build_collection_params(opts[:id], :multi) if opts[:id] && !opts[:id].empty?
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:percentile] = opts[:percentile] if opts[:percentile]
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -4082,7 +4554,7 @@ module OCI
     #   Possible value is LINUX.
     #    (default to [])
     #   Allowed values are: LINUX
-    # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the host insight resource.
+    # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from
     #   the previous \"List\" call. For important details about how pagination works,
@@ -4095,6 +4567,27 @@ module OCI
     #   Allowed values are: endTimestamp, usage, capacity
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeHostInsightResourceUsageTrendAggregationCollection SummarizeHostInsightResourceUsageTrendAggregationCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_host_insight_resource_usage_trend.rb.html) to see an example of how to use summarize_host_insight_resource_usage_trend API.
@@ -4138,6 +4631,10 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -4200,7 +4697,7 @@ module OCI
     #   Possible value is LINUX.
     #    (default to [])
     #   Allowed values are: LINUX
-    # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the host insight resource.
+    # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [Integer] :forecast_days Number of days used for utilization forecast analysis.
     #    (default to 30)
@@ -4210,6 +4707,27 @@ module OCI
     #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeHostInsightResourceUtilizationInsightAggregation SummarizeHostInsightResourceUtilizationInsightAggregation}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_host_insight_resource_utilization_insight.rb.html) to see an example of how to use summarize_host_insight_resource_utilization_insight API.
@@ -4244,6 +4762,10 @@ module OCI
       query_params[:id] = OCI::ApiClient.build_collection_params(opts[:id], :multi) if opts[:id] && !opts[:id].empty?
       query_params[:forecastDays] = opts[:forecast_days] if opts[:forecast_days]
       query_params[:page] = opts[:page] if opts[:page]
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -4289,7 +4811,9 @@ module OCI
     #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
-    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database insight resource.
+    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+    #    (default to [])
+    # @option opts [Array<String>] :host_name Filter by one or more hostname.
     #    (default to [])
     # @option opts [Float] :database_time_pct_greater_than Filter sqls by percentage of db time.
     #    (default to 1)
@@ -4315,6 +4839,27 @@ module OCI
     #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
     #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SqlInsightAggregationCollection SqlInsightAggregationCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_sql_insights.rb.html) to see an example of how to use summarize_sql_insights API.
@@ -4343,11 +4888,16 @@ module OCI
       query_params[:databaseType] = OCI::ApiClient.build_collection_params(opts[:database_type], :multi) if opts[:database_type] && !opts[:database_type].empty?
       query_params[:databaseId] = OCI::ApiClient.build_collection_params(opts[:database_id], :multi) if opts[:database_id] && !opts[:database_id].empty?
       query_params[:id] = OCI::ApiClient.build_collection_params(opts[:id], :multi) if opts[:id] && !opts[:id].empty?
+      query_params[:hostName] = OCI::ApiClient.build_collection_params(opts[:host_name], :multi) if opts[:host_name] && !opts[:host_name].empty?
       query_params[:databaseTimePctGreaterThan] = opts[:database_time_pct_greater_than] if opts[:database_time_pct_greater_than]
       query_params[:analysisTimeInterval] = opts[:analysis_time_interval] if opts[:analysis_time_interval]
       query_params[:timeIntervalStart] = opts[:time_interval_start] if opts[:time_interval_start]
       query_params[:timeIntervalEnd] = opts[:time_interval_end] if opts[:time_interval_end]
       query_params[:page] = opts[:page] if opts[:page]
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -4579,7 +5129,9 @@ module OCI
     #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
-    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database insight resource.
+    # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+    #    (default to [])
+    # @option opts [Array<String>] :host_name Filter by one or more hostname.
     #    (default to [])
     # @option opts [Float] :database_time_pct_greater_than Filter sqls by percentage of db time.
     #    (default to 1)
@@ -4624,6 +5176,27 @@ module OCI
     # @option opts [Array<String>] :category Filter sqls by one or more performance categories.
     #    (default to [])
     #   Allowed values are: DEGRADING, VARIANT, INEFFICIENT, CHANGING_PLANS, IMPROVING, DEGRADING_VARIANT, DEGRADING_INEFFICIENT, DEGRADING_CHANGING_PLANS, DEGRADING_INCREASING_IO, DEGRADING_INCREASING_CPU, DEGRADING_INCREASING_INEFFICIENT_WAIT, DEGRADING_CHANGING_PLANS_AND_INCREASING_IO, DEGRADING_CHANGING_PLANS_AND_INCREASING_CPU, DEGRADING_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT, VARIANT_INEFFICIENT, VARIANT_CHANGING_PLANS, VARIANT_INCREASING_IO, VARIANT_INCREASING_CPU, VARIANT_INCREASING_INEFFICIENT_WAIT, VARIANT_CHANGING_PLANS_AND_INCREASING_IO, VARIANT_CHANGING_PLANS_AND_INCREASING_CPU, VARIANT_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT, INEFFICIENT_CHANGING_PLANS, INEFFICIENT_INCREASING_INEFFICIENT_WAIT, INEFFICIENT_CHANGING_PLANS_AND_INCREASING_INEFFICIENT_WAIT
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
+    #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SqlStatisticAggregationCollection SqlStatisticAggregationCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_sql_statistics.rb.html) to see an example of how to use summarize_sql_statistics API.
     def summarize_sql_statistics(compartment_id, opts = {})
@@ -4669,6 +5242,7 @@ module OCI
       query_params[:databaseType] = OCI::ApiClient.build_collection_params(opts[:database_type], :multi) if opts[:database_type] && !opts[:database_type].empty?
       query_params[:databaseId] = OCI::ApiClient.build_collection_params(opts[:database_id], :multi) if opts[:database_id] && !opts[:database_id].empty?
       query_params[:id] = OCI::ApiClient.build_collection_params(opts[:id], :multi) if opts[:id] && !opts[:id].empty?
+      query_params[:hostName] = OCI::ApiClient.build_collection_params(opts[:host_name], :multi) if opts[:host_name] && !opts[:host_name].empty?
       query_params[:databaseTimePctGreaterThan] = opts[:database_time_pct_greater_than] if opts[:database_time_pct_greater_than]
       query_params[:sqlIdentifier] = OCI::ApiClient.build_collection_params(opts[:sql_identifier], :multi) if opts[:sql_identifier] && !opts[:sql_identifier].empty?
       query_params[:analysisTimeInterval] = opts[:analysis_time_interval] if opts[:analysis_time_interval]
@@ -4679,6 +5253,10 @@ module OCI
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:category] = OCI::ApiClient.build_collection_params(opts[:category], :multi) if opts[:category] && !opts[:category].empty?
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -4726,6 +5304,8 @@ module OCI
     #    (default to [])
     # @option opts [Array<String>] :id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database insight resource.
     #    (default to [])
+    # @option opts [Array<String>] :host_name Filter by one or more hostname.
+    #    (default to [])
     # @option opts [String] :analysis_time_interval Specify time period in ISO 8601 format with respect to current time.
     #   Default is last 30 days represented by P30D.
     #   If timeInterval is specified, then timeIntervalStart and timeIntervalEnd will be ignored.
@@ -4749,6 +5329,27 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
     #
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
+    #
     # @return [Response] A Response object with data of type {OCI::Opsi::Models::SqlStatisticsTimeSeriesAggregationCollection SqlStatisticsTimeSeriesAggregationCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_sql_statistics_time_series.rb.html) to see an example of how to use summarize_sql_statistics_time_series API.
     def summarize_sql_statistics_time_series(compartment_id, sql_identifier, opts = {})
@@ -4767,10 +5368,15 @@ module OCI
       query_params[:sqlIdentifier] = sql_identifier
       query_params[:databaseId] = OCI::ApiClient.build_collection_params(opts[:database_id], :multi) if opts[:database_id] && !opts[:database_id].empty?
       query_params[:id] = OCI::ApiClient.build_collection_params(opts[:id], :multi) if opts[:id] && !opts[:id].empty?
+      query_params[:hostName] = OCI::ApiClient.build_collection_params(opts[:host_name], :multi) if opts[:host_name] && !opts[:host_name].empty?
       query_params[:analysisTimeInterval] = opts[:analysis_time_interval] if opts[:analysis_time_interval]
       query_params[:timeIntervalStart] = opts[:time_interval_start] if opts[:time_interval_start]
       query_params[:timeIntervalEnd] = opts[:time_interval_end] if opts[:time_interval_end]
       query_params[:page] = opts[:page] if opts[:page]
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}

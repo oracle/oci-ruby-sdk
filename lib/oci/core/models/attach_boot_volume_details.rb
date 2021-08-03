@@ -7,6 +7,11 @@ require 'date'
 module OCI
   # AttachBootVolumeDetails model.
   class Core::Models::AttachBootVolumeDetails
+    ENCRYPTION_IN_TRANSIT_TYPE_ENUM = [
+      ENCRYPTION_IN_TRANSIT_TYPE_NONE = 'NONE'.freeze,
+      ENCRYPTION_IN_TRANSIT_TYPE_BM_ENCRYPTION_IN_TRANSIT = 'BM_ENCRYPTION_IN_TRANSIT'.freeze
+    ].freeze
+
     # **[Required]** The OCID of the  boot volume.
     # @return [String]
     attr_accessor :boot_volume_id
@@ -20,13 +25,20 @@ module OCI
     # @return [String]
     attr_accessor :instance_id
 
+    # Refer the top-level definition of encryptionInTransitType.
+    # The default value is NONE.
+    #
+    # @return [String]
+    attr_reader :encryption_in_transit_type
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'boot_volume_id': :'bootVolumeId',
         'display_name': :'displayName',
-        'instance_id': :'instanceId'
+        'instance_id': :'instanceId',
+        'encryption_in_transit_type': :'encryptionInTransitType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,7 +49,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'boot_volume_id': :'String',
         'display_name': :'String',
-        'instance_id': :'String'
+        'instance_id': :'String',
+        'encryption_in_transit_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -51,6 +64,7 @@ module OCI
     # @option attributes [String] :boot_volume_id The value to assign to the {#boot_volume_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :instance_id The value to assign to the {#instance_id} property
+    # @option attributes [String] :encryption_in_transit_type The value to assign to the {#encryption_in_transit_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -74,9 +88,25 @@ module OCI
       raise 'You cannot provide both :instanceId and :instance_id' if attributes.key?(:'instanceId') && attributes.key?(:'instance_id')
 
       self.instance_id = attributes[:'instance_id'] if attributes[:'instance_id']
+
+      self.encryption_in_transit_type = attributes[:'encryptionInTransitType'] if attributes[:'encryptionInTransitType']
+      self.encryption_in_transit_type = "NONE" if encryption_in_transit_type.nil? && !attributes.key?(:'encryptionInTransitType') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :encryptionInTransitType and :encryption_in_transit_type' if attributes.key?(:'encryptionInTransitType') && attributes.key?(:'encryption_in_transit_type')
+
+      self.encryption_in_transit_type = attributes[:'encryption_in_transit_type'] if attributes[:'encryption_in_transit_type']
+      self.encryption_in_transit_type = "NONE" if encryption_in_transit_type.nil? && !attributes.key?(:'encryptionInTransitType') && !attributes.key?(:'encryption_in_transit_type') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] encryption_in_transit_type Object to be assigned
+    def encryption_in_transit_type=(encryption_in_transit_type)
+      raise "Invalid value for 'encryption_in_transit_type': this must be one of the values in ENCRYPTION_IN_TRANSIT_TYPE_ENUM." if encryption_in_transit_type && !ENCRYPTION_IN_TRANSIT_TYPE_ENUM.include?(encryption_in_transit_type)
+
+      @encryption_in_transit_type = encryption_in_transit_type
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -89,7 +119,8 @@ module OCI
       self.class == other.class &&
         boot_volume_id == other.boot_volume_id &&
         display_name == other.display_name &&
-        instance_id == other.instance_id
+        instance_id == other.instance_id &&
+        encryption_in_transit_type == other.encryption_in_transit_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -105,7 +136,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [boot_volume_id, display_name, instance_id].hash
+      [boot_volume_id, display_name, instance_id, encryption_in_transit_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

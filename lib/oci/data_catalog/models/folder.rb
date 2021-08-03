@@ -54,6 +54,19 @@ module OCI
     # @return [String]
     attr_accessor :parent_folder_key
 
+    # The type of folder object. Type keys can be found via the '/types' endpoint.
+    # @return [String]
+    attr_accessor :type_key
+
+    # The date and time the folder was harvested, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
+    # @return [DateTime]
+    attr_accessor :time_harvested
+
+    # List of objects and their relationships to this folder.
+    # @return [Array<OCI::DataCatalog::Models::ObjectRelationship>]
+    attr_accessor :object_relationships
+
     # Full path of the folder.
     # @return [String]
     attr_accessor :path
@@ -127,6 +140,9 @@ module OCI
         'business_name': :'businessName',
         'description': :'description',
         'parent_folder_key': :'parentFolderKey',
+        'type_key': :'typeKey',
+        'time_harvested': :'timeHarvested',
+        'object_relationships': :'objectRelationships',
         'path': :'path',
         'data_asset_key': :'dataAssetKey',
         'custom_property_members': :'customPropertyMembers',
@@ -154,6 +170,9 @@ module OCI
         'business_name': :'String',
         'description': :'String',
         'parent_folder_key': :'String',
+        'type_key': :'String',
+        'time_harvested': :'DateTime',
+        'object_relationships': :'Array<OCI::DataCatalog::Models::ObjectRelationship>',
         'path': :'String',
         'data_asset_key': :'String',
         'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>',
@@ -183,6 +202,9 @@ module OCI
     # @option attributes [String] :business_name The value to assign to the {#business_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :parent_folder_key The value to assign to the {#parent_folder_key} property
+    # @option attributes [String] :type_key The value to assign to the {#type_key} property
+    # @option attributes [DateTime] :time_harvested The value to assign to the {#time_harvested} property
+    # @option attributes [Array<OCI::DataCatalog::Models::ObjectRelationship>] :object_relationships The value to assign to the {#object_relationships} property
     # @option attributes [String] :path The value to assign to the {#path} property
     # @option attributes [String] :data_asset_key The value to assign to the {#data_asset_key} property
     # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
@@ -224,6 +246,24 @@ module OCI
       raise 'You cannot provide both :parentFolderKey and :parent_folder_key' if attributes.key?(:'parentFolderKey') && attributes.key?(:'parent_folder_key')
 
       self.parent_folder_key = attributes[:'parent_folder_key'] if attributes[:'parent_folder_key']
+
+      self.type_key = attributes[:'typeKey'] if attributes[:'typeKey']
+
+      raise 'You cannot provide both :typeKey and :type_key' if attributes.key?(:'typeKey') && attributes.key?(:'type_key')
+
+      self.type_key = attributes[:'type_key'] if attributes[:'type_key']
+
+      self.time_harvested = attributes[:'timeHarvested'] if attributes[:'timeHarvested']
+
+      raise 'You cannot provide both :timeHarvested and :time_harvested' if attributes.key?(:'timeHarvested') && attributes.key?(:'time_harvested')
+
+      self.time_harvested = attributes[:'time_harvested'] if attributes[:'time_harvested']
+
+      self.object_relationships = attributes[:'objectRelationships'] if attributes[:'objectRelationships']
+
+      raise 'You cannot provide both :objectRelationships and :object_relationships' if attributes.key?(:'objectRelationships') && attributes.key?(:'object_relationships')
+
+      self.object_relationships = attributes[:'object_relationships'] if attributes[:'object_relationships']
 
       self.path = attributes[:'path'] if attributes[:'path']
 
@@ -340,6 +380,9 @@ module OCI
         business_name == other.business_name &&
         description == other.description &&
         parent_folder_key == other.parent_folder_key &&
+        type_key == other.type_key &&
+        time_harvested == other.time_harvested &&
+        object_relationships == other.object_relationships &&
         path == other.path &&
         data_asset_key == other.data_asset_key &&
         custom_property_members == other.custom_property_members &&
@@ -369,7 +412,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, business_name, description, parent_folder_key, path, data_asset_key, custom_property_members, properties, external_key, time_created, time_updated, created_by_id, updated_by_id, time_external, lifecycle_state, harvest_status, last_job_key, uri].hash
+      [key, display_name, business_name, description, parent_folder_key, type_key, time_harvested, object_relationships, path, data_asset_key, custom_property_members, properties, external_key, time_created, time_updated, created_by_id, updated_by_id, time_external, lifecycle_state, harvest_status, last_job_key, uri].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

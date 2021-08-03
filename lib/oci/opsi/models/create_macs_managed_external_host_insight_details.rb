@@ -6,7 +6,7 @@ require_relative 'create_host_insight_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about host to be analyzed.
+  # The information about the MACS-managed external host to be analyzed.
   class Opsi::Models::CreateMacsManagedExternalHostInsightDetails < Opsi::Models::CreateHostInsightDetails
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the Management Agent
     # @return [String]

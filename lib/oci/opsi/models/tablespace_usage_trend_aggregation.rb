@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # Usage data per tablespace for a Pluggable database
   class Opsi::Models::TablespaceUsageTrendAggregation
-    # **[Required]** Name of tablespace
+    # **[Required]** The name of tablespace.
     # @return [String]
     attr_accessor :tablespace_name
 

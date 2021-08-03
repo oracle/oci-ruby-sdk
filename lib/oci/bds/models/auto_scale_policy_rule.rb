@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A rule that defines a specific autoscaling action to take and the metric that triggers that action.
+  # A rule that defines a specific autoscale action to take and the metric that triggers that action.
   class Bds::Models::AutoScalePolicyRule
     ACTION_ENUM = [
       ACTION_CHANGE_SHAPE_SCALE_UP = 'CHANGE_SHAPE_SCALE_UP'.freeze,
@@ -14,7 +14,7 @@ module OCI
       ACTION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The valid value are - CHANGE_SHAPE_SCALE_UP or CHANGE_SHAPE_SCALE_DOWN
+    # **[Required]** The valid value are CHANGE_SHAPE_SCALE_UP or CHANGE_SHAPE_SCALE_DOWN.
     # @return [String]
     attr_reader :action
 

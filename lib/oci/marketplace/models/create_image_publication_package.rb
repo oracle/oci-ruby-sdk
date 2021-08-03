@@ -6,9 +6,9 @@ require_relative 'create_publication_package'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An object for creating image package
+  # An object for creating an image publication package.
   class Marketplace::Models::CreateImagePublicationPackage < Marketplace::Models::CreatePublicationPackage
-    # base image id of the listing
+    # The unique identifier for the base image of the publication.
     # @return [String]
     attr_accessor :image_id
 

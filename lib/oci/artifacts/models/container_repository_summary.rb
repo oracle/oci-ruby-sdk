@@ -46,6 +46,10 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # **[Required]** Total storage size in GBs that will be charged.
+    # @return [Integer]
+    attr_accessor :billable_size_in_gbs
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -58,7 +62,8 @@ module OCI
         'layer_count': :'layerCount',
         'layers_size_in_bytes': :'layersSizeInBytes',
         'lifecycle_state': :'lifecycleState',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'billable_size_in_gbs': :'billableSizeInGBs'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -75,7 +80,8 @@ module OCI
         'layer_count': :'Integer',
         'layers_size_in_bytes': :'Integer',
         'lifecycle_state': :'String',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'billable_size_in_gbs': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -95,6 +101,7 @@ module OCI
     # @option attributes [Integer] :layers_size_in_bytes The value to assign to the {#layers_size_in_bytes} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [Integer] :billable_size_in_gbs The value to assign to the {#billable_size_in_gbs} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -150,6 +157,12 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.billable_size_in_gbs = attributes[:'billableSizeInGBs'] if attributes[:'billableSizeInGBs']
+
+      raise 'You cannot provide both :billableSizeInGBs and :billable_size_in_gbs' if attributes.key?(:'billableSizeInGBs') && attributes.key?(:'billable_size_in_gbs')
+
+      self.billable_size_in_gbs = attributes[:'billable_size_in_gbs'] if attributes[:'billable_size_in_gbs']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -171,7 +184,8 @@ module OCI
         layer_count == other.layer_count &&
         layers_size_in_bytes == other.layers_size_in_bytes &&
         lifecycle_state == other.lifecycle_state &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        billable_size_in_gbs == other.billable_size_in_gbs
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -187,7 +201,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, id, image_count, is_public, layer_count, layers_size_in_bytes, lifecycle_state, time_created].hash
+      [compartment_id, display_name, id, image_count, is_public, layer_count, layers_size_in_bytes, lifecycle_state, time_created, billable_size_in_gbs].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

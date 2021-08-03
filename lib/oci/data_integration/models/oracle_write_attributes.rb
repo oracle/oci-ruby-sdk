@@ -2,11 +2,12 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require_relative 'abstract_write_attribute'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Properties to configure when writing to an Oracle Database.
-  class DataIntegration::Models::OracleWriteAttributes
+  class DataIntegration::Models::OracleWriteAttributes < DataIntegration::Models::AbstractWriteAttribute
     # The batch size for writing.
     # @return [Integer]
     attr_accessor :batch_size
@@ -23,6 +24,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'model_type': :'modelType',
         'batch_size': :'batchSize',
         'is_truncate': :'isTruncate',
         'isolation_level': :'isolationLevel'
@@ -34,6 +36,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'model_type': :'String',
         'batch_size': :'Integer',
         'is_truncate': :'BOOLEAN',
         'isolation_level': :'String'
@@ -52,6 +55,13 @@ module OCI
     # @option attributes [String] :isolation_level The value to assign to the {#isolation_level} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
+
+      attributes['modelType'] = 'ORACLE_WRITE_ATTRIBUTE'
+
+      super(attributes)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.batch_size = attributes[:'batchSize'] if attributes[:'batchSize']
 
@@ -83,6 +93,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        model_type == other.model_type &&
         batch_size == other.batch_size &&
         is_truncate == other.is_truncate &&
         isolation_level == other.isolation_level
@@ -101,7 +112,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [batch_size, is_truncate, isolation_level].hash
+      [model_type, batch_size, is_truncate, isolation_level].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

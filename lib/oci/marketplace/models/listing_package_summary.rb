@@ -26,6 +26,9 @@ module OCI
     # @return [String]
     attr_reader :package_type
 
+    # @return [OCI::Marketplace::Models::PricingModel]
+    attr_accessor :pricing
+
     # The regions where you can deploy the listing package. (Some packages have restrictions that limit their deployment to United States regions only.)
     #
     # @return [Array<OCI::Marketplace::Models::Region>]
@@ -50,6 +53,7 @@ module OCI
         'listing_id': :'listingId',
         'package_version': :'packageVersion',
         'package_type': :'packageType',
+        'pricing': :'pricing',
         'regions': :'regions',
         'resource_id': :'resourceId',
         'time_created': :'timeCreated'
@@ -64,6 +68,7 @@ module OCI
         'listing_id': :'String',
         'package_version': :'String',
         'package_type': :'String',
+        'pricing': :'OCI::Marketplace::Models::PricingModel',
         'regions': :'Array<OCI::Marketplace::Models::Region>',
         'resource_id': :'String',
         'time_created': :'DateTime'
@@ -80,6 +85,7 @@ module OCI
     # @option attributes [String] :listing_id The value to assign to the {#listing_id} property
     # @option attributes [String] :package_version The value to assign to the {#package_version} property
     # @option attributes [String] :package_type The value to assign to the {#package_type} property
+    # @option attributes [OCI::Marketplace::Models::PricingModel] :pricing The value to assign to the {#pricing} property
     # @option attributes [Array<OCI::Marketplace::Models::Region>] :regions The value to assign to the {#regions} property
     # @option attributes [String] :resource_id The value to assign to the {#resource_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -106,6 +112,8 @@ module OCI
       raise 'You cannot provide both :packageType and :package_type' if attributes.key?(:'packageType') && attributes.key?(:'package_type')
 
       self.package_type = attributes[:'package_type'] if attributes[:'package_type']
+
+      self.pricing = attributes[:'pricing'] if attributes[:'pricing']
 
       self.regions = attributes[:'regions'] if attributes[:'regions']
 
@@ -149,6 +157,7 @@ module OCI
         listing_id == other.listing_id &&
         package_version == other.package_version &&
         package_type == other.package_type &&
+        pricing == other.pricing &&
         regions == other.regions &&
         resource_id == other.resource_id &&
         time_created == other.time_created
@@ -167,7 +176,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [listing_id, package_version, package_type, regions, resource_id, time_created].hash
+      [listing_id, package_version, package_type, pricing, regions, resource_id, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

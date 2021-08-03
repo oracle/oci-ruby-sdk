@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # CreateBootVolumeDetails model.
   class Core::Models::CreateBootVolumeDetails
-    # **[Required]** The availability domain of the boot volume.
+    # The availability domain of the volume. Omissible for cloning a volume. The new volume will be created in the availability domain of the source volume.
     #
     # Example: `Uocm:PHX-AD-1`
     #

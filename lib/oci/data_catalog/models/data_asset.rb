@@ -65,6 +65,11 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_updated
 
+    # The last time that a harvest was performed on the data asset. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
+    #
+    # @return [DateTime]
+    attr_accessor :time_harvested
+
     # OCID of the user who created the data asset.
     # @return [String]
     attr_accessor :created_by_id
@@ -107,6 +112,7 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
+        'time_harvested': :'timeHarvested',
         'created_by_id': :'createdById',
         'updated_by_id': :'updatedById',
         'uri': :'uri',
@@ -130,6 +136,7 @@ module OCI
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
+        'time_harvested': :'DateTime',
         'created_by_id': :'String',
         'updated_by_id': :'String',
         'uri': :'String',
@@ -155,6 +162,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [DateTime] :time_harvested The value to assign to the {#time_harvested} property
     # @option attributes [String] :created_by_id The value to assign to the {#created_by_id} property
     # @option attributes [String] :updated_by_id The value to assign to the {#updated_by_id} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
@@ -212,6 +220,12 @@ module OCI
       raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
 
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.time_harvested = attributes[:'timeHarvested'] if attributes[:'timeHarvested']
+
+      raise 'You cannot provide both :timeHarvested and :time_harvested' if attributes.key?(:'timeHarvested') && attributes.key?(:'time_harvested')
+
+      self.time_harvested = attributes[:'time_harvested'] if attributes[:'time_harvested']
 
       self.created_by_id = attributes[:'createdById'] if attributes[:'createdById']
 
@@ -275,6 +289,7 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
+        time_harvested == other.time_harvested &&
         created_by_id == other.created_by_id &&
         updated_by_id == other.updated_by_id &&
         uri == other.uri &&
@@ -296,7 +311,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, catalog_id, external_key, type_key, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, uri, custom_property_members, data_selector_patterns, properties].hash
+      [key, display_name, description, catalog_id, external_key, type_key, lifecycle_state, time_created, time_updated, time_harvested, created_by_id, updated_by_id, uri, custom_property_members, data_selector_patterns, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -26,6 +26,17 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    ISCSI_LOGIN_STATE_ENUM = [
+      ISCSI_LOGIN_STATE_UNKNOWN = 'UNKNOWN'.freeze,
+      ISCSI_LOGIN_STATE_LOGGING_IN = 'LOGGING_IN'.freeze,
+      ISCSI_LOGIN_STATE_LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED'.freeze,
+      ISCSI_LOGIN_STATE_LOGIN_FAILED = 'LOGIN_FAILED'.freeze,
+      ISCSI_LOGIN_STATE_LOGGING_OUT = 'LOGGING_OUT'.freeze,
+      ISCSI_LOGIN_STATE_LOGOUT_SUCCEEDED = 'LOGOUT_SUCCEEDED'.freeze,
+      ISCSI_LOGIN_STATE_LOGOUT_FAILED = 'LOGOUT_FAILED'.freeze,
+      ISCSI_LOGIN_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The type of volume attachment.
     # @return [String]
     attr_accessor :attachment_type
@@ -92,6 +103,16 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_pv_encryption_in_transit_enabled
 
+    # Whether the attachment is multipath or not.
+    # @return [BOOLEAN]
+    attr_accessor :is_multipath
+
+    # The iscsi login state of the volume attachment. For a multipath volume attachment,
+    # all iscsi sessions need to be all logged-in or logged-out to be in logged-in or logged-out state.
+    #
+    # @return [String]
+    attr_reader :iscsi_login_state
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -108,7 +129,9 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'volume_id': :'volumeId',
-        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled'
+        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled',
+        'is_multipath': :'isMultipath',
+        'iscsi_login_state': :'iscsiLoginState'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -129,7 +152,9 @@ module OCI
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'volume_id': :'String',
-        'is_pv_encryption_in_transit_enabled': :'BOOLEAN'
+        'is_pv_encryption_in_transit_enabled': :'BOOLEAN',
+        'is_multipath': :'BOOLEAN',
+        'iscsi_login_state': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -170,6 +195,8 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :volume_id The value to assign to the {#volume_id} property
     # @option attributes [BOOLEAN] :is_pv_encryption_in_transit_enabled The value to assign to the {#is_pv_encryption_in_transit_enabled} property
+    # @option attributes [BOOLEAN] :is_multipath The value to assign to the {#is_multipath} property
+    # @option attributes [String] :iscsi_login_state The value to assign to the {#iscsi_login_state} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -245,6 +272,18 @@ module OCI
       raise 'You cannot provide both :isPvEncryptionInTransitEnabled and :is_pv_encryption_in_transit_enabled' if attributes.key?(:'isPvEncryptionInTransitEnabled') && attributes.key?(:'is_pv_encryption_in_transit_enabled')
 
       self.is_pv_encryption_in_transit_enabled = attributes[:'is_pv_encryption_in_transit_enabled'] unless attributes[:'is_pv_encryption_in_transit_enabled'].nil?
+
+      self.is_multipath = attributes[:'isMultipath'] unless attributes[:'isMultipath'].nil?
+
+      raise 'You cannot provide both :isMultipath and :is_multipath' if attributes.key?(:'isMultipath') && attributes.key?(:'is_multipath')
+
+      self.is_multipath = attributes[:'is_multipath'] unless attributes[:'is_multipath'].nil?
+
+      self.iscsi_login_state = attributes[:'iscsiLoginState'] if attributes[:'iscsiLoginState']
+
+      raise 'You cannot provide both :iscsiLoginState and :iscsi_login_state' if attributes.key?(:'iscsiLoginState') && attributes.key?(:'iscsi_login_state')
+
+      self.iscsi_login_state = attributes[:'iscsi_login_state'] if attributes[:'iscsi_login_state']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -258,6 +297,19 @@ module OCI
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] iscsi_login_state Object to be assigned
+    def iscsi_login_state=(iscsi_login_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if iscsi_login_state && !ISCSI_LOGIN_STATE_ENUM.include?(iscsi_login_state)
+        OCI.logger.debug("Unknown value for 'iscsi_login_state' [" + iscsi_login_state + "]. Mapping to 'ISCSI_LOGIN_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @iscsi_login_state = ISCSI_LOGIN_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @iscsi_login_state = iscsi_login_state
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -283,7 +335,9 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         volume_id == other.volume_id &&
-        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled
+        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled &&
+        is_multipath == other.is_multipath &&
+        iscsi_login_state == other.iscsi_login_state
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -299,7 +353,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [attachment_type, availability_domain, compartment_id, device, display_name, id, instance_id, is_read_only, is_shareable, lifecycle_state, time_created, volume_id, is_pv_encryption_in_transit_enabled].hash
+      [attachment_type, availability_domain, compartment_id, device, display_name, id, instance_id, is_read_only, is_shareable, lifecycle_state, time_created, volume_id, is_pv_encryption_in_transit_enabled, is_multipath, iscsi_login_state].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

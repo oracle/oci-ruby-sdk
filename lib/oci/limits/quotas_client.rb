@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # APIs that interact with the resource limits of a specific resource type
+  # APIs that interact with the resource limits of a specific resource type.
   class Limits::QuotasClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -107,10 +107,10 @@ module OCI
     #   particular request, please provide the request ID.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
-    #   may be rejected).
+    #   can be rejected).
     #
     # @return [Response] A Response object with data of type {OCI::Limits::Models::Quota Quota}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/limits/create_quota.rb.html) to see an example of how to use create_quota API.
@@ -171,7 +171,7 @@ module OCI
     #
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
-    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #   is updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/limits/delete_quota.rb.html) to see an example of how to use delete_quota API.
@@ -277,7 +277,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists all quotas on resources from the given compartment
+    # Lists all quotas on resources from the given compartment.
     # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
@@ -288,12 +288,12 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
     #    (default to 25)
     # @option opts [String] :name name
-    # @option opts [String] :lifecycle_state Filters returned quotas based on whether the given state.
+    # @option opts [String] :lifecycle_state Filters returned quotas based on the given state.
     #   Allowed values are: ACTIVE
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. By default it will be ascending.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. By default, it is ascending.
     #    (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Time created is default ordered as descending. Display name is default ordered as ascending.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order can be provided. Time created is default ordered as descending. Display name is default ordered as ascending.
     #    (default to NAME)
     #   Allowed values are: NAME, TIMECREATED
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
@@ -376,7 +376,7 @@ module OCI
     #
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
-    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #   is updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @return [Response] A Response object with data of type {OCI::Limits::Models::Quota Quota}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/limits/update_quota.rb.html) to see an example of how to use update_quota API.

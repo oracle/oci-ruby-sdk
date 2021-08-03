@@ -5,23 +5,23 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about new node
+  # The information about the new node.
   class Bds::Models::CreateNodeDetails
-    # **[Required]** BDS instance node type
+    # **[Required]** The Big Data Service cluster node type.
     # @return [String]
     attr_accessor :node_type
 
-    # **[Required]** Shape of the node
+    # **[Required]** Shape of the node.
     # @return [String]
     attr_accessor :shape
 
-    # **[Required]** The size of block volume in GB that needs to be attached to a given node.
-    # All the necessary details needed for attachment are managed by service itself.
+    # **[Required]** The size of block volume in GB to be attached to a given node. All the
+    # details needed for attaching the block volume are managed by service itself.
     #
     # @return [Integer]
     attr_accessor :block_volume_size_in_gbs
 
-    # **[Required]** The OCID of the subnet in which the node should be created
+    # **[Required]** The OCID of the subnet in which the node will be created.
     # @return [String]
     attr_accessor :subnet_id
 

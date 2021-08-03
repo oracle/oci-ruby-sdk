@@ -146,6 +146,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(add_entity_association_details)
@@ -215,6 +216,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(add_event_type_details)
@@ -294,6 +296,7 @@ module OCI
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
       header_params[:'content-type'] ||= 'application/octet-stream'
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(append_lookup_file_body)
@@ -375,6 +378,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(basic_details)
 
@@ -514,6 +518,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(change_log_analytics_em_bridge_compartment_details)
@@ -589,6 +594,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(change_log_analytics_entity_compartment_details)
@@ -664,6 +670,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(change_log_analytics_log_group_compartment_details)
@@ -731,6 +738,7 @@ module OCI
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(change_log_analytics_object_collection_rule_compartment_details)
 
@@ -807,6 +815,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(change_scheduled_task_compartment_details)
@@ -948,6 +957,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_log_analytics_em_bridge_details)
@@ -1013,6 +1023,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_log_analytics_entity_details)
@@ -1078,6 +1089,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_log_analytics_entity_type_details)
@@ -1143,6 +1155,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_log_analytics_log_group_details)
@@ -1201,6 +1214,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(create_log_analytics_object_collection_rule_details)
 
@@ -1265,6 +1279,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(create_scheduled_task_details)
@@ -1331,6 +1346,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(delete_log_analytics_association_details)
@@ -2412,6 +2428,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(disable_auto_association_details)
@@ -2480,6 +2497,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(disable_event_type_details)
@@ -2613,6 +2631,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(enable_auto_association_details)
@@ -2681,6 +2700,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(enable_event_type_details)
@@ -2753,6 +2773,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(estimate_purge_data_size_details)
@@ -2812,6 +2833,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(estimate_recall_data_size_details)
 
@@ -2870,6 +2892,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(estimate_release_data_size_details)
 
@@ -2939,6 +2962,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(export_custom_content_details)
@@ -3043,6 +3067,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(export_details)
 
@@ -3157,6 +3182,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(logan_parser_details)
@@ -3230,6 +3256,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(logan_parser_details)
@@ -3288,6 +3315,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(filter_details)
 
@@ -5129,6 +5157,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
       header_params[:'content-type'] ||= 'application/octet-stream'
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(import_custom_content_file_body)
@@ -9012,6 +9041,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(parse_query_details)
 
@@ -9153,6 +9183,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(purge_storage_data_details)
@@ -9280,6 +9311,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(query_details)
 
@@ -9352,6 +9384,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(recall_archived_data_details)
@@ -9436,6 +9469,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
       header_params[:'content-type'] ||= 'application/octet-stream'
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(register_lookup_content_file_body)
@@ -9509,6 +9543,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(release_recalled_data_details)
@@ -9584,6 +9619,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(remove_entity_associations_details)
@@ -9652,6 +9688,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(remove_event_type_details)
@@ -9855,6 +9892,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(suggest_details)
 
@@ -9923,6 +9961,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(warning_reference_details)
@@ -9999,6 +10038,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(test_parser_payload_details)
@@ -10068,6 +10108,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(warning_reference_details)
@@ -10136,6 +10177,7 @@ module OCI
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(update_log_analytics_em_bridge_details)
 
@@ -10204,6 +10246,7 @@ module OCI
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(update_log_analytics_entity_details)
 
@@ -10272,6 +10315,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(update_log_analytics_entity_type_details)
 
@@ -10339,6 +10383,7 @@ module OCI
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(update_log_analytics_log_group_details)
 
@@ -10406,6 +10451,7 @@ module OCI
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(update_log_analytics_object_collection_rule_details)
 
@@ -10481,6 +10527,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(update_lookup_metadata_details)
@@ -10561,6 +10608,7 @@ module OCI
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
       header_params[:'content-type'] ||= 'application/octet-stream'
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(update_lookup_file_body)
@@ -10632,6 +10680,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(update_scheduled_task_details)
 
@@ -10697,6 +10746,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
 
       post_body = @api_client.object_to_http_body(update_storage_details)
 
@@ -10783,6 +10833,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
       header_params[:'content-type'] ||= 'application/octet-stream'
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(upload_log_events_file_details)
@@ -10894,6 +10945,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
       header_params[:'content-type'] ||= 'application/octet-stream'
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(upload_log_file_body)
@@ -10962,6 +11014,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(upsert_log_analytics_association_details)
@@ -11034,6 +11087,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(upsert_log_analytics_field_details)
@@ -11107,6 +11161,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(upsert_log_analytics_label_details)
@@ -11180,6 +11235,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(upsert_log_analytics_parser_details)
@@ -11263,6 +11319,7 @@ module OCI
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(upsert_log_analytics_source_details)
@@ -11348,6 +11405,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(upsert_log_analytics_association_details)
@@ -11486,6 +11544,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(upsert_log_analytics_source_details)
@@ -11552,6 +11611,7 @@ module OCI
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
+      header_params[:expect] ||= '100-continue'
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = @api_client.object_to_http_body(log_analytics_source)

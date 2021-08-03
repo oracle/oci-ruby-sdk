@@ -71,11 +71,11 @@ module OCI
     # @return [OCI::Marketplace::Models::PublisherSummary]
     attr_accessor :publisher
 
-    # List of operating systems supported.
+    # The list of operating systems supported by the listing.
     # @return [Array<OCI::Marketplace::Models::OperatingSystem>]
     attr_accessor :supported_operating_systems
 
-    # In which catalog the listing should exist.
+    # The publisher category to which the listing belongs. The publisher category informs where the listing appears for use.
     # @return [String]
     attr_reader :listing_type
 

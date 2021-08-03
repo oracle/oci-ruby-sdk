@@ -7,6 +7,10 @@ require 'date'
 module OCI
   # Details to update an Oracle Autonomous Database.
   #
+  # **Notes**
+  # - To specify OCPU core count, you must use either `ocpuCount` or `cpuCoreCount`. You cannot use both parameters at the same time.
+  # - To specify a storage allocation, you must use  either `dataStorageSizeInGBs` or `dataStorageSizeInTBs`.
+  # - See the individual parameter discriptions for more information on the OCPU and storage value parameters.
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Database::Models::UpdateAutonomousDatabaseDetails
@@ -37,16 +41,37 @@ module OCI
       PERMISSION_LEVEL_UNRESTRICTED = 'UNRESTRICTED'.freeze
     ].freeze
 
-    # The number of CPU cores to be made available to the database.
+    # The number of OCPU cores to be made available to the Autonomous Database.
+    #
+    # **Note:** This parameter cannot be used with the `ocpuCount` parameter.
+    #
     # @return [Integer]
     attr_accessor :cpu_core_count
 
-    # The size, in terabytes, of the data volume that will be attached to the database.
+    # The number of OCPU cores to be made available to the Autonomous Database. To provision less than 1 core, enter a fractional value in an increment of 0.1. To provision 1 or more cores, you must enter an integer between 1 and the maximum number of cores available to the infrastructure shape. For example, you can provision 0.3 or 0.4 cores, but not 0.35 cores. Likewise, you can provision 2 cores or 3 cores, but not 2.5 cores. The maximum number of cores is determined by the infrastructure shape. See [Characteristics of Infrastructure Shapes](https://www.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database&id=ATPFG-GUID-B0F033C1-CC5A-42F0-B2E7-3CECFEDA1FD1) for shape details.
+    #
+    # **Note:** This parameter cannot be used with the `cpuCoreCount` parameter.
+    #
+    # @return [Float]
+    attr_accessor :ocpu_count
+
+    # The size, in terabytes, of the data volume that will be created and attached to the database. For Autonomous Databases on dedicated Exadata infrastructure, the maximum storage value is determined by the infrastructure shape. See [Characteristics of Infrastructure Shapes](https://www.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database&id=ATPFG-GUID-B0F033C1-CC5A-42F0-B2E7-3CECFEDA1FD1) for shape details.
+    #
+    # **Note:** This parameter cannot be used with the `dataStorageSizeInGBs` parameter.
     #
     # @return [Integer]
     attr_accessor :data_storage_size_in_tbs
 
-    # The user-friendly name for the Autonomous Database. The name does not have to be unique. Can only be updated for Autonomous Databases
+    # Applies to dedicated Exadata infrastructure only.
+    #
+    # The size, in gigabytes, of the data volume that will be created and attached to the database. The maximum storage value depends on the system shape. See [Characteristics of Infrastructure Shapes](https://www.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database&id=ATPFG-GUID-B0F033C1-CC5A-42F0-B2E7-3CECFEDA1FD1) for shape details.
+    #
+    # **Note:** This parameter cannot be used with the `dataStorageSizeInTBs` parameter.
+    #
+    # @return [Integer]
+    attr_accessor :data_storage_size_in_gbs
+
+    # The user-friendly name for the Autonomous Database. The name does not have to be unique. The display name can only be updated for Autonomous Databases
     # using dedicated Exadata infrastructure.
     #
     # @return [String]
@@ -159,10 +184,14 @@ module OCI
     # @return [String]
     attr_reader :refreshable_mode
 
-    # Indicates whether the Autonomous Database has Data Guard enabled.
+    # If set to `FALSE` and `peerDbId` is specified, the specified remote region peer database is terminated. If set to `FALSE` and `peerDbId` is not specified, the peer database in the region of the source primary database terminated.
     #
     # @return [BOOLEAN]
     attr_accessor :is_data_guard_enabled
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Autonomous Data Guard standby database located in a different (remote) region from the source primary Autonomous Database.
+    # @return [String]
+    attr_accessor :peer_db_id
 
     # A valid Oracle Database version for Autonomous Database.
     # @return [String]
@@ -210,7 +239,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'cpu_core_count': :'cpuCoreCount',
+        'ocpu_count': :'ocpuCount',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
+        'data_storage_size_in_gbs': :'dataStorageSizeInGBs',
         'display_name': :'displayName',
         'is_free_tier': :'isFreeTier',
         'admin_password': :'adminPassword',
@@ -227,6 +258,7 @@ module OCI
         'is_refreshable_clone': :'isRefreshableClone',
         'refreshable_mode': :'refreshableMode',
         'is_data_guard_enabled': :'isDataGuardEnabled',
+        'peer_db_id': :'peerDbId',
         'db_version': :'dbVersion',
         'open_mode': :'openMode',
         'permission_level': :'permissionLevel',
@@ -243,7 +275,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'cpu_core_count': :'Integer',
+        'ocpu_count': :'Float',
         'data_storage_size_in_tbs': :'Integer',
+        'data_storage_size_in_gbs': :'Integer',
         'display_name': :'String',
         'is_free_tier': :'BOOLEAN',
         'admin_password': :'String',
@@ -260,6 +294,7 @@ module OCI
         'is_refreshable_clone': :'BOOLEAN',
         'refreshable_mode': :'String',
         'is_data_guard_enabled': :'BOOLEAN',
+        'peer_db_id': :'String',
         'db_version': :'String',
         'open_mode': :'String',
         'permission_level': :'String',
@@ -278,7 +313,9 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
+    # @option attributes [Float] :ocpu_count The value to assign to the {#ocpu_count} property
     # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
+    # @option attributes [Integer] :data_storage_size_in_gbs The value to assign to the {#data_storage_size_in_gbs} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [BOOLEAN] :is_free_tier The value to assign to the {#is_free_tier} property
     # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
@@ -295,6 +332,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_refreshable_clone The value to assign to the {#is_refreshable_clone} property
     # @option attributes [String] :refreshable_mode The value to assign to the {#refreshable_mode} property
     # @option attributes [BOOLEAN] :is_data_guard_enabled The value to assign to the {#is_data_guard_enabled} property
+    # @option attributes [String] :peer_db_id The value to assign to the {#peer_db_id} property
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [String] :open_mode The value to assign to the {#open_mode} property
     # @option attributes [String] :permission_level The value to assign to the {#permission_level} property
@@ -314,11 +352,23 @@ module OCI
 
       self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
 
+      self.ocpu_count = attributes[:'ocpuCount'] if attributes[:'ocpuCount']
+
+      raise 'You cannot provide both :ocpuCount and :ocpu_count' if attributes.key?(:'ocpuCount') && attributes.key?(:'ocpu_count')
+
+      self.ocpu_count = attributes[:'ocpu_count'] if attributes[:'ocpu_count']
+
       self.data_storage_size_in_tbs = attributes[:'dataStorageSizeInTBs'] if attributes[:'dataStorageSizeInTBs']
 
       raise 'You cannot provide both :dataStorageSizeInTBs and :data_storage_size_in_tbs' if attributes.key?(:'dataStorageSizeInTBs') && attributes.key?(:'data_storage_size_in_tbs')
 
       self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
+
+      self.data_storage_size_in_gbs = attributes[:'dataStorageSizeInGBs'] if attributes[:'dataStorageSizeInGBs']
+
+      raise 'You cannot provide both :dataStorageSizeInGBs and :data_storage_size_in_gbs' if attributes.key?(:'dataStorageSizeInGBs') && attributes.key?(:'data_storage_size_in_gbs')
+
+      self.data_storage_size_in_gbs = attributes[:'data_storage_size_in_gbs'] if attributes[:'data_storage_size_in_gbs']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -418,6 +468,12 @@ module OCI
 
       self.is_data_guard_enabled = attributes[:'is_data_guard_enabled'] unless attributes[:'is_data_guard_enabled'].nil?
 
+      self.peer_db_id = attributes[:'peerDbId'] if attributes[:'peerDbId']
+
+      raise 'You cannot provide both :peerDbId and :peer_db_id' if attributes.key?(:'peerDbId') && attributes.key?(:'peer_db_id')
+
+      self.peer_db_id = attributes[:'peer_db_id'] if attributes[:'peer_db_id']
+
       self.db_version = attributes[:'dbVersion'] if attributes[:'dbVersion']
 
       raise 'You cannot provide both :dbVersion and :db_version' if attributes.key?(:'dbVersion') && attributes.key?(:'db_version')
@@ -513,7 +569,9 @@ module OCI
 
       self.class == other.class &&
         cpu_core_count == other.cpu_core_count &&
+        ocpu_count == other.ocpu_count &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
+        data_storage_size_in_gbs == other.data_storage_size_in_gbs &&
         display_name == other.display_name &&
         is_free_tier == other.is_free_tier &&
         admin_password == other.admin_password &&
@@ -530,6 +588,7 @@ module OCI
         is_refreshable_clone == other.is_refreshable_clone &&
         refreshable_mode == other.refreshable_mode &&
         is_data_guard_enabled == other.is_data_guard_enabled &&
+        peer_db_id == other.peer_db_id &&
         db_version == other.db_version &&
         open_mode == other.open_mode &&
         permission_level == other.permission_level &&
@@ -552,7 +611,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, data_storage_size_in_tbs, display_name, is_free_tier, admin_password, db_name, freeform_tags, defined_tags, db_workload, license_model, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_auto_scaling_enabled, is_refreshable_clone, refreshable_mode, is_data_guard_enabled, db_version, open_mode, permission_level, subnet_id, private_endpoint_label, nsg_ids, customer_contacts].hash
+      [cpu_core_count, ocpu_count, data_storage_size_in_tbs, data_storage_size_in_gbs, display_name, is_free_tier, admin_password, db_name, freeform_tags, defined_tags, db_workload, license_model, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_auto_scaling_enabled, is_refreshable_clone, refreshable_mode, is_data_guard_enabled, peer_db_id, db_version, open_mode, permission_level, subnet_id, private_endpoint_label, nsg_ids, customer_contacts].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

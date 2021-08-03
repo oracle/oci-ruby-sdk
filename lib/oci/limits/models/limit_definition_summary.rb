@@ -28,7 +28,7 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # Reflects the scope of the resource limit: which can be Global (across all regions), regional or ad specific.
+    # Reflects the scope of the resource limit, whether Global (across all regions), regional, or availability domain-specific.
     #
     # @return [String]
     attr_reader :scope_type
@@ -38,8 +38,8 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :are_quotas_supported
 
-    # Reflects if the GetResourceAvailability API is supported for this limit or not.
-    # If not, the API will return an empty JSON response.
+    # Reflects whether or not the GetResourceAvailability API is supported for this limit.
+    # If not, the API returns an empty JSON response.
     #
     # @return [BOOLEAN]
     attr_accessor :is_resource_availability_supported
@@ -54,6 +54,11 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_eligible_for_limit_increase
 
+    # The limit for this resource has a dynamic value that is based on consumption across all OCI services.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_dynamic
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -65,7 +70,8 @@ module OCI
         'are_quotas_supported': :'areQuotasSupported',
         'is_resource_availability_supported': :'isResourceAvailabilitySupported',
         'is_deprecated': :'isDeprecated',
-        'is_eligible_for_limit_increase': :'isEligibleForLimitIncrease'
+        'is_eligible_for_limit_increase': :'isEligibleForLimitIncrease',
+        'is_dynamic': :'isDynamic'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -81,7 +87,8 @@ module OCI
         'are_quotas_supported': :'BOOLEAN',
         'is_resource_availability_supported': :'BOOLEAN',
         'is_deprecated': :'BOOLEAN',
-        'is_eligible_for_limit_increase': :'BOOLEAN'
+        'is_eligible_for_limit_increase': :'BOOLEAN',
+        'is_dynamic': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -100,6 +107,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_resource_availability_supported The value to assign to the {#is_resource_availability_supported} property
     # @option attributes [BOOLEAN] :is_deprecated The value to assign to the {#is_deprecated} property
     # @option attributes [BOOLEAN] :is_eligible_for_limit_increase The value to assign to the {#is_eligible_for_limit_increase} property
+    # @option attributes [BOOLEAN] :is_dynamic The value to assign to the {#is_dynamic} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -145,6 +153,12 @@ module OCI
       raise 'You cannot provide both :isEligibleForLimitIncrease and :is_eligible_for_limit_increase' if attributes.key?(:'isEligibleForLimitIncrease') && attributes.key?(:'is_eligible_for_limit_increase')
 
       self.is_eligible_for_limit_increase = attributes[:'is_eligible_for_limit_increase'] unless attributes[:'is_eligible_for_limit_increase'].nil?
+
+      self.is_dynamic = attributes[:'isDynamic'] unless attributes[:'isDynamic'].nil?
+
+      raise 'You cannot provide both :isDynamic and :is_dynamic' if attributes.key?(:'isDynamic') && attributes.key?(:'is_dynamic')
+
+      self.is_dynamic = attributes[:'is_dynamic'] unless attributes[:'is_dynamic'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -178,7 +192,8 @@ module OCI
         are_quotas_supported == other.are_quotas_supported &&
         is_resource_availability_supported == other.is_resource_availability_supported &&
         is_deprecated == other.is_deprecated &&
-        is_eligible_for_limit_increase == other.is_eligible_for_limit_increase
+        is_eligible_for_limit_increase == other.is_eligible_for_limit_increase &&
+        is_dynamic == other.is_dynamic
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -194,7 +209,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, service_name, description, scope_type, are_quotas_supported, is_resource_availability_supported, is_deprecated, is_eligible_for_limit_increase].hash
+      [name, service_name, description, scope_type, are_quotas_supported, is_resource_availability_supported, is_deprecated, is_eligible_for_limit_increase, is_dynamic].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

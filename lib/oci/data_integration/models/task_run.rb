@@ -27,10 +27,20 @@ module OCI
       EXPECTED_DURATION_UNIT_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    AUTH_MODE_ENUM = [
+      AUTH_MODE_OBO = 'OBO'.freeze,
+      AUTH_MODE_RESOURCE_PRINCIPAL = 'RESOURCE_PRINCIPAL'.freeze,
+      AUTH_MODE_USER_CERTIFICATE = 'USER_CERTIFICATE'.freeze,
+      AUTH_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     TASK_TYPE_ENUM = [
       TASK_TYPE_INTEGRATION_TASK = 'INTEGRATION_TASK'.freeze,
       TASK_TYPE_DATA_LOADER_TASK = 'DATA_LOADER_TASK'.freeze,
       TASK_TYPE_PIPELINE_TASK = 'PIPELINE_TASK'.freeze,
+      TASK_TYPE_SQL_TASK = 'SQL_TASK'.freeze,
+      TASK_TYPE_OCI_DATAFLOW_TASK = 'OCI_DATAFLOW_TASK'.freeze,
+      TASK_TYPE_REST_TASK = 'REST_TASK'.freeze,
       TASK_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -104,6 +114,10 @@ module OCI
     # @return [String]
     attr_accessor :task_key
 
+    # The external identifier for the task run.
+    # @return [String]
+    attr_accessor :external_id
+
     # Holds the particular attempt number.
     # @return [Integer]
     attr_accessor :retry_attempt
@@ -115,6 +129,10 @@ module OCI
     # @return [Hash<String, Float>]
     attr_accessor :metrics
 
+    # A map of the outputs of the run.
+    # @return [Hash<String, OCI::DataIntegration::Models::ParameterValue>]
+    attr_accessor :outputs
+
     # An array of execution errors from the run.
     # @return [Array<String>]
     attr_accessor :execution_errors
@@ -122,6 +140,10 @@ module OCI
     # An array of termination errors from the run.
     # @return [Array<String>]
     attr_accessor :termination_errors
+
+    # The autorization mode for when the task was executed.
+    # @return [String]
+    attr_reader :auth_mode
 
     # The OPC request ID of execution of the task run.
     # @return [String]
@@ -168,11 +190,14 @@ module OCI
         'expected_duration': :'expectedDuration',
         'expected_duration_unit': :'expectedDurationUnit',
         'task_key': :'taskKey',
+        'external_id': :'externalId',
         'retry_attempt': :'retryAttempt',
         'task_schedule': :'taskSchedule',
         'metrics': :'metrics',
+        'outputs': :'outputs',
         'execution_errors': :'executionErrors',
         'termination_errors': :'terminationErrors',
+        'auth_mode': :'authMode',
         'opc_request_id': :'opcRequestId',
         'object_status': :'objectStatus',
         'task_type': :'taskType',
@@ -205,11 +230,14 @@ module OCI
         'expected_duration': :'Float',
         'expected_duration_unit': :'String',
         'task_key': :'String',
+        'external_id': :'String',
         'retry_attempt': :'Integer',
         'task_schedule': :'OCI::DataIntegration::Models::TaskSchedule',
         'metrics': :'Hash<String, Float>',
+        'outputs': :'Hash<String, OCI::DataIntegration::Models::ParameterValue>',
         'execution_errors': :'Array<String>',
         'termination_errors': :'Array<String>',
+        'auth_mode': :'String',
         'opc_request_id': :'String',
         'object_status': :'Integer',
         'task_type': :'String',
@@ -244,11 +272,14 @@ module OCI
     # @option attributes [Float] :expected_duration The value to assign to the {#expected_duration} property
     # @option attributes [String] :expected_duration_unit The value to assign to the {#expected_duration_unit} property
     # @option attributes [String] :task_key The value to assign to the {#task_key} property
+    # @option attributes [String] :external_id The value to assign to the {#external_id} property
     # @option attributes [Integer] :retry_attempt The value to assign to the {#retry_attempt} property
     # @option attributes [OCI::DataIntegration::Models::TaskSchedule] :task_schedule The value to assign to the {#task_schedule} property
     # @option attributes [Hash<String, Float>] :metrics The value to assign to the {#metrics} property
+    # @option attributes [Hash<String, OCI::DataIntegration::Models::ParameterValue>] :outputs The value to assign to the {#outputs} property
     # @option attributes [Array<String>] :execution_errors The value to assign to the {#execution_errors} property
     # @option attributes [Array<String>] :termination_errors The value to assign to the {#termination_errors} property
+    # @option attributes [String] :auth_mode The value to assign to the {#auth_mode} property
     # @option attributes [String] :opc_request_id The value to assign to the {#opc_request_id} property
     # @option attributes [Integer] :object_status The value to assign to the {#object_status} property
     # @option attributes [String] :task_type The value to assign to the {#task_type} property
@@ -353,6 +384,12 @@ module OCI
 
       self.task_key = attributes[:'task_key'] if attributes[:'task_key']
 
+      self.external_id = attributes[:'externalId'] if attributes[:'externalId']
+
+      raise 'You cannot provide both :externalId and :external_id' if attributes.key?(:'externalId') && attributes.key?(:'external_id')
+
+      self.external_id = attributes[:'external_id'] if attributes[:'external_id']
+
       self.retry_attempt = attributes[:'retryAttempt'] if attributes[:'retryAttempt']
 
       raise 'You cannot provide both :retryAttempt and :retry_attempt' if attributes.key?(:'retryAttempt') && attributes.key?(:'retry_attempt')
@@ -367,6 +404,8 @@ module OCI
 
       self.metrics = attributes[:'metrics'] if attributes[:'metrics']
 
+      self.outputs = attributes[:'outputs'] if attributes[:'outputs']
+
       self.execution_errors = attributes[:'executionErrors'] if attributes[:'executionErrors']
 
       raise 'You cannot provide both :executionErrors and :execution_errors' if attributes.key?(:'executionErrors') && attributes.key?(:'execution_errors')
@@ -378,6 +417,12 @@ module OCI
       raise 'You cannot provide both :terminationErrors and :termination_errors' if attributes.key?(:'terminationErrors') && attributes.key?(:'termination_errors')
 
       self.termination_errors = attributes[:'termination_errors'] if attributes[:'termination_errors']
+
+      self.auth_mode = attributes[:'authMode'] if attributes[:'authMode']
+
+      raise 'You cannot provide both :authMode and :auth_mode' if attributes.key?(:'authMode') && attributes.key?(:'auth_mode')
+
+      self.auth_mode = attributes[:'auth_mode'] if attributes[:'auth_mode']
 
       self.opc_request_id = attributes[:'opcRequestId'] if attributes[:'opcRequestId']
 
@@ -437,6 +482,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] auth_mode Object to be assigned
+    def auth_mode=(auth_mode)
+      # rubocop:disable Style/ConditionalAssignment
+      if auth_mode && !AUTH_MODE_ENUM.include?(auth_mode)
+        OCI.logger.debug("Unknown value for 'auth_mode' [" + auth_mode + "]. Mapping to 'AUTH_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @auth_mode = AUTH_MODE_UNKNOWN_ENUM_VALUE
+      else
+        @auth_mode = auth_mode
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] task_type Object to be assigned
     def task_type=(task_type)
       # rubocop:disable Style/ConditionalAssignment
@@ -476,11 +534,14 @@ module OCI
         expected_duration == other.expected_duration &&
         expected_duration_unit == other.expected_duration_unit &&
         task_key == other.task_key &&
+        external_id == other.external_id &&
         retry_attempt == other.retry_attempt &&
         task_schedule == other.task_schedule &&
         metrics == other.metrics &&
+        outputs == other.outputs &&
         execution_errors == other.execution_errors &&
         termination_errors == other.termination_errors &&
+        auth_mode == other.auth_mode &&
         opc_request_id == other.opc_request_id &&
         object_status == other.object_status &&
         task_type == other.task_type &&
@@ -502,7 +563,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, model_type, model_version, parent_ref, name, description, object_version, config_provider, status, start_time_millis, end_time_millis, last_updated, records_written, bytes_processed, error_message, expected_duration, expected_duration_unit, task_key, retry_attempt, task_schedule, metrics, execution_errors, termination_errors, opc_request_id, object_status, task_type, identifier, metadata, key_map].hash
+      [key, model_type, model_version, parent_ref, name, description, object_version, config_provider, status, start_time_millis, end_time_millis, last_updated, records_written, bytes_processed, error_message, expected_duration, expected_duration_unit, task_key, external_id, retry_attempt, task_schedule, metrics, outputs, execution_errors, termination_errors, auth_mode, opc_request_id, object_status, task_type, identifier, metadata, key_map].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

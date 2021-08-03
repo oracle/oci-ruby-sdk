@@ -17,17 +17,17 @@ module OCI
     # @return [Integer]
     attr_accessor :block_volume_size_in_gbs
 
-    # Boolean flag specifying whether or not are Kerberos principals mapped
+    # Boolean flag specifying whether or not Kerberos principals are mapped
     # to database users.
     #
     # @return [BOOLEAN]
     attr_accessor :is_kerberos_mapped_to_database_users
 
-    # **[Required]** IP address of the Cloud SQL node
+    # **[Required]** IP address of the Cloud SQL node.
     # @return [String]
     attr_accessor :ip_address
 
-    # Details about Kerberos principals
+    # Details about the Kerberos principals.
     # @return [Array<OCI::Bds::Models::KerberosDetails>]
     attr_accessor :kerberos_details
 

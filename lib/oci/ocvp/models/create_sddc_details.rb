@@ -58,7 +58,9 @@ module OCI
     # @return [Integer]
     attr_accessor :esxi_hosts_count
 
-    # **[Required]** Billing option selected during SDDC creation
+    # Billing option selected during SDDC creation.
+    # Oracle Cloud Infrastructure VMware Solution supports the following billing interval SKUs:
+    # HOUR, MONTH, ONE_YEAR, and THREE_YEARS.
     # {#list_supported_skus list_supported_skus}.
     #
     # @return [String]
@@ -74,6 +76,11 @@ module OCI
     #
     # @return [String]
     attr_accessor :hcx_vlan_id
+
+    # Indicates whether to enable HCX Enterprise for this SDDC.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_hcx_enterprise_enabled
 
     # **[Required]** One or more public SSH keys to be included in the `~/.ssh/authorized_keys` file for
     # the default user on each ESXi host. Use a newline character to separate multiple keys.
@@ -179,6 +186,7 @@ module OCI
         'initial_sku': :'initialSku',
         'is_hcx_enabled': :'isHcxEnabled',
         'hcx_vlan_id': :'hcxVlanId',
+        'is_hcx_enterprise_enabled': :'isHcxEnterpriseEnabled',
         'ssh_authorized_keys': :'sshAuthorizedKeys',
         'workload_network_cidr': :'workloadNetworkCidr',
         'provisioning_subnet_id': :'provisioningSubnetId',
@@ -210,6 +218,7 @@ module OCI
         'initial_sku': :'String',
         'is_hcx_enabled': :'BOOLEAN',
         'hcx_vlan_id': :'String',
+        'is_hcx_enterprise_enabled': :'BOOLEAN',
         'ssh_authorized_keys': :'String',
         'workload_network_cidr': :'String',
         'provisioning_subnet_id': :'String',
@@ -243,6 +252,7 @@ module OCI
     # @option attributes [String] :initial_sku The value to assign to the {#initial_sku} property
     # @option attributes [BOOLEAN] :is_hcx_enabled The value to assign to the {#is_hcx_enabled} property
     # @option attributes [String] :hcx_vlan_id The value to assign to the {#hcx_vlan_id} property
+    # @option attributes [BOOLEAN] :is_hcx_enterprise_enabled The value to assign to the {#is_hcx_enterprise_enabled} property
     # @option attributes [String] :ssh_authorized_keys The value to assign to the {#ssh_authorized_keys} property
     # @option attributes [String] :workload_network_cidr The value to assign to the {#workload_network_cidr} property
     # @option attributes [String] :provisioning_subnet_id The value to assign to the {#provisioning_subnet_id} property
@@ -320,6 +330,14 @@ module OCI
       raise 'You cannot provide both :hcxVlanId and :hcx_vlan_id' if attributes.key?(:'hcxVlanId') && attributes.key?(:'hcx_vlan_id')
 
       self.hcx_vlan_id = attributes[:'hcx_vlan_id'] if attributes[:'hcx_vlan_id']
+
+      self.is_hcx_enterprise_enabled = attributes[:'isHcxEnterpriseEnabled'] unless attributes[:'isHcxEnterpriseEnabled'].nil?
+      self.is_hcx_enterprise_enabled = false if is_hcx_enterprise_enabled.nil? && !attributes.key?(:'isHcxEnterpriseEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isHcxEnterpriseEnabled and :is_hcx_enterprise_enabled' if attributes.key?(:'isHcxEnterpriseEnabled') && attributes.key?(:'is_hcx_enterprise_enabled')
+
+      self.is_hcx_enterprise_enabled = attributes[:'is_hcx_enterprise_enabled'] unless attributes[:'is_hcx_enterprise_enabled'].nil?
+      self.is_hcx_enterprise_enabled = false if is_hcx_enterprise_enabled.nil? && !attributes.key?(:'isHcxEnterpriseEnabled') && !attributes.key?(:'is_hcx_enterprise_enabled') # rubocop:disable Style/StringLiterals
 
       self.ssh_authorized_keys = attributes[:'sshAuthorizedKeys'] if attributes[:'sshAuthorizedKeys']
 
@@ -434,6 +452,7 @@ module OCI
         initial_sku == other.initial_sku &&
         is_hcx_enabled == other.is_hcx_enabled &&
         hcx_vlan_id == other.hcx_vlan_id &&
+        is_hcx_enterprise_enabled == other.is_hcx_enterprise_enabled &&
         ssh_authorized_keys == other.ssh_authorized_keys &&
         workload_network_cidr == other.workload_network_cidr &&
         provisioning_subnet_id == other.provisioning_subnet_id &&
@@ -463,7 +482,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compute_availability_domain, display_name, vmware_software_version, compartment_id, instance_display_name_prefix, esxi_hosts_count, initial_sku, is_hcx_enabled, hcx_vlan_id, ssh_authorized_keys, workload_network_cidr, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, replication_vlan_id, provisioning_vlan_id, freeform_tags, defined_tags].hash
+      [compute_availability_domain, display_name, vmware_software_version, compartment_id, instance_display_name_prefix, esxi_hosts_count, initial_sku, is_hcx_enabled, hcx_vlan_id, is_hcx_enterprise_enabled, ssh_authorized_keys, workload_network_cidr, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, replication_vlan_id, provisioning_vlan_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

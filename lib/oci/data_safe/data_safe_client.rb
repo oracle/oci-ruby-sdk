@@ -98,6 +98,76 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Reactivates a previously deactivated Data Safe target database.
+    #
+    # @param [OCI::DataSafe::Models::ActivateTargetDatabaseDetails] activate_target_database_details The details used to reactivate a target database in Data Safe.
+    # @param [String] target_database_id The OCID of the Data Safe target database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/activate_target_database.rb.html) to see an example of how to use activate_target_database API.
+    def activate_target_database(activate_target_database_details, target_database_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#activate_target_database.' if logger
+
+      raise "Missing the required parameter 'activate_target_database_details' when calling activate_target_database." if activate_target_database_details.nil?
+      raise "Missing the required parameter 'target_database_id' when calling activate_target_database." if target_database_id.nil?
+      raise "Parameter value for 'target_database_id' must not be blank" if OCI::Internal::Util.blank_string?(target_database_id)
+
+      path = '/targetDatabases/{targetDatabaseId}/actions/activate'.sub('{targetDatabaseId}', target_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(activate_target_database_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#activate_target_database') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves the Data Safe private endpoint and its dependent resources to the specified compartment.
     # @param [String] data_safe_private_endpoint_id The OCID of the private endpoint.
     # @param [OCI::DataSafe::Models::ChangeDataSafePrivateEndpointCompartmentDetails] change_data_safe_private_endpoint_compartment_details The details used to change the compartment of a Data Safe private endpoint.
@@ -208,6 +278,75 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#change_on_prem_connector_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves the Data Safe target database to the specified compartment.
+    # @param [String] target_database_id The OCID of the Data Safe target database.
+    # @param [OCI::DataSafe::Models::ChangeTargetDatabaseCompartmentDetails] change_target_database_compartment_details Details of the move compartment request.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/change_target_database_compartment.rb.html) to see an example of how to use change_target_database_compartment API.
+    def change_target_database_compartment(target_database_id, change_target_database_compartment_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#change_target_database_compartment.' if logger
+
+      raise "Missing the required parameter 'target_database_id' when calling change_target_database_compartment." if target_database_id.nil?
+      raise "Missing the required parameter 'change_target_database_compartment_details' when calling change_target_database_compartment." if change_target_database_compartment_details.nil?
+      raise "Parameter value for 'target_database_id' must not be blank" if OCI::Internal::Util.blank_string?(target_database_id)
+
+      path = '/targetDatabases/{targetDatabaseId}/actions/changeCompartment'.sub('{targetDatabaseId}', target_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_target_database_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#change_target_database_compartment') do
         @api_client.call_api(
           :POST,
           path,
@@ -351,6 +490,135 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Registers the specified database with Data Safe and creates a Data Safe target database in the Data Safe Console.
+    #
+    # @param [OCI::DataSafe::Models::CreateTargetDatabaseDetails] create_target_database_details Details of the target database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::TargetDatabase TargetDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/create_target_database.rb.html) to see an example of how to use create_target_database API.
+    def create_target_database(create_target_database_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#create_target_database.' if logger
+
+      raise "Missing the required parameter 'create_target_database_details' when calling create_target_database." if create_target_database_details.nil?
+
+      path = '/targetDatabases'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_target_database_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#create_target_database') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::TargetDatabase'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deactivates a target database in Data Safe.
+    #
+    # @param [String] target_database_id The OCID of the Data Safe target database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/deactivate_target_database.rb.html) to see an example of how to use deactivate_target_database API.
+    def deactivate_target_database(target_database_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#deactivate_target_database.' if logger
+
+      raise "Missing the required parameter 'target_database_id' when calling deactivate_target_database." if target_database_id.nil?
+      raise "Parameter value for 'target_database_id' must not be blank" if OCI::Internal::Util.blank_string?(target_database_id)
+
+      path = '/targetDatabases/{targetDatabaseId}/actions/deactivate'.sub('{targetDatabaseId}', target_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#deactivate_target_database') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes the specified Data Safe private endpoint.
     # @param [String] data_safe_private_endpoint_id The OCID of the private endpoint.
     # @param [Hash] opts the optional parameters
@@ -459,6 +727,178 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
         )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deregisters the specified database from Data Safe and removes the target database from the Data Safe Console.
+    # @param [String] target_database_id The OCID of the Data Safe target database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/delete_target_database.rb.html) to see an example of how to use delete_target_database API.
+    def delete_target_database(target_database_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#delete_target_database.' if logger
+
+      raise "Missing the required parameter 'target_database_id' when calling delete_target_database." if target_database_id.nil?
+      raise "Parameter value for 'target_database_id' must not be blank" if OCI::Internal::Util.blank_string?(target_database_id)
+
+      path = '/targetDatabases/{targetDatabaseId}'.sub('{targetDatabaseId}', target_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#delete_target_database') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Downloads the privilege script to grant/revoke required roles from the Data Safe account on the target database.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
+    # @option [Block] &block Streaming http body to the block
+    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/download_privilege_script.rb.html) to see an example of how to use download_privilege_script API.
+    def download_privilege_script(opts = {}, &block)
+      logger.debug 'Calling operation DataSafeClient#download_privilege_script.' if logger
+
+
+      path = '/actions/downloadPrivilegeScript'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = opts[:accept] if opts[:accept]
+      header_params[:accept] ||= 'application/octet-stream'
+      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#download_privilege_script') do
+        if !block.nil?
+          @api_client.call_api(
+            :POST,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'Stream',
+            &block
+          )
+        elsif opts[:response_target]
+          if opts[:response_target].respond_to? :write
+            @api_client.call_api(
+              :POST,
+              path,
+              endpoint,
+              header_params: header_params,
+              query_params: query_params,
+              operation_signing_strategy: operation_signing_strategy,
+              body: post_body,
+              return_type: 'Stream',
+              &proc { |chunk, _response| opts[:response_target].write(chunk) }
+            )
+          elsif opts[:response_target].is_a?(String)
+            File.open(opts[:response_target], 'wb') do |output|
+              return @api_client.call_api(
+                :POST,
+                path,
+                endpoint,
+                header_params: header_params,
+                query_params: query_params,
+                operation_signing_strategy: operation_signing_strategy,
+                body: post_body,
+                return_type: 'Stream',
+                &proc { |chunk, _response| output.write(chunk) }
+              )
+            end
+          end
+        else
+          @api_client.call_api(
+            :POST,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'String'
+          )
+        end
       end
       # rubocop:enable Metrics/BlockLength
     end
@@ -811,6 +1251,61 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns the details of the specified Data Safe target database.
+    #
+    # @param [String] target_database_id The OCID of the Data Safe target database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::TargetDatabase TargetDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/get_target_database.rb.html) to see an example of how to use get_target_database API.
+    def get_target_database(target_database_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#get_target_database.' if logger
+
+      raise "Missing the required parameter 'target_database_id' when calling get_target_database." if target_database_id.nil?
+      raise "Parameter value for 'target_database_id' must not be blank" if OCI::Internal::Util.blank_string?(target_database_id)
+
+      path = '/targetDatabases/{targetDatabaseId}'.sub('{targetDatabaseId}', target_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#get_target_database') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::TargetDatabase'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the details of the specified work request.
     # @param [String] work_request_id The OCID of the work request.
     # @param [Hash] opts the optional parameters
@@ -879,10 +1374,21 @@ module OCI
     # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order for TIMECREATED is descending. The default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
+    # @option opts [String] :sort_by The field used for sorting. Only one sorting order (sortOrder) can be specified.
+    #   The default order for TIMECREATED is descending. The default order for DISPLAYNAME is ascending.
+    #   The DISPLAYNAME sort order is case sensitive.
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned. Depends on the 'accessLevel' setting.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are RESTRICTED and ACCESSIBLE. Default is RESTRICTED.
+    #   Setting this to ACCESSIBLE returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
     # @return [Response] A Response object with data of type Array<{OCI::DataSafe::Models::DataSafePrivateEndpointSummary DataSafePrivateEndpointSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_data_safe_private_endpoints.rb.html) to see an example of how to use list_data_safe_private_endpoints API.
     def list_data_safe_private_endpoints(compartment_id, opts = {})
@@ -902,6 +1408,10 @@ module OCI
         raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
       end
 
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
       path = '/dataSafePrivateEndpoints'
       operation_signing_strategy = :standard
 
@@ -916,6 +1426,8 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
 
       # Header Params
       header_params = {}
@@ -964,10 +1476,21 @@ module OCI
     # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order for TIMECREATED is descending. The default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
+    # @option opts [String] :sort_by The field used for sorting. Only one sorting order (sortOrder) can be specified.
+    #   The default order for TIMECREATED is descending. The default order for DISPLAYNAME is ascending.
+    #   The DISPLAYNAME sort order is case sensitive.
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, DISPLAYNAME
     # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned. Depends on the 'accessLevel' setting.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are RESTRICTED and ACCESSIBLE. Default is RESTRICTED.
+    #   Setting this to ACCESSIBLE returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
     # @return [Response] A Response object with data of type Array<{OCI::DataSafe::Models::OnPremConnectorSummary OnPremConnectorSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_on_prem_connectors.rb.html) to see an example of how to use list_on_prem_connectors API.
     def list_on_prem_connectors(compartment_id, opts = {})
@@ -987,6 +1510,10 @@ module OCI
         raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
       end
 
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
       path = '/onPremConnectors'
       operation_signing_strategy = :standard
 
@@ -1001,6 +1528,8 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
 
       # Header Params
       header_params = {}
@@ -1022,6 +1551,120 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::DataSafe::Models::OnPremConnectorSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns the list of registered target databases in Data Safe.
+    #
+    # @param [String] compartment_id A filter to return only resources that match the specified compartment OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :target_database_id A filter to return the target database that matches the specified OCID.
+    # @option opts [String] :display_name A filter to return only resources that match the specified display name.
+    #
+    # @option opts [String] :lifecycle_state A filter to return the target databases that matches the current state of the target database.
+    # @option opts [String] :database_type A filter to return target databases that match the database type of the target database.
+    # @option opts [String] :infrastructure_type A filter to return target databases that match the infrastructure type of the target database.
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned. Depends on the 'accessLevel' setting.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are RESTRICTED and ACCESSIBLE. Default is RESTRICTED.
+    #   Setting this to ACCESSIBLE returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field used for sorting. Only one sorting order (sortOrder) can be specified.
+    #   The default order for TIMECREATED is descending. The default order for DISPLAYNAME is ascending.
+    #   The DISPLAYNAME sort order is case sensitive.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type Array<{OCI::DataSafe::Models::TargetDatabaseSummary TargetDatabaseSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_target_databases.rb.html) to see an example of how to use list_target_databases API.
+    def list_target_databases(compartment_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#list_target_databases.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_target_databases." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::DataSafe::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataSafe::Models::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:database_type] && !OCI::DataSafe::Models::DATABASE_TYPE_ENUM.include?(opts[:database_type])
+        raise 'Invalid value for "database_type", must be one of the values in OCI::DataSafe::Models::DATABASE_TYPE_ENUM.'
+      end
+
+      if opts[:infrastructure_type] && !OCI::DataSafe::Models::INFRASTRUCTURE_TYPE_ENUM.include?(opts[:infrastructure_type])
+        raise 'Invalid value for "infrastructure_type", must be one of the values in OCI::DataSafe::Models::INFRASTRUCTURE_TYPE_ENUM.'
+      end
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      path = '/targetDatabases'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:targetDatabaseId] = opts[:target_database_id] if opts[:target_database_id]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:databaseType] = opts[:database_type] if opts[:database_type]
+      query_params[:infrastructureType] = opts[:infrastructure_type] if opts[:infrastructure_type]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#list_target_databases') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::DataSafe::Models::TargetDatabaseSummary>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1159,6 +1802,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :operation_type A filter to return only work requests that match the specific operation type.
     # @option opts [String] :resource_id A filter to return only work requests that match the specified resource OCID.
     # @option opts [String] :opc_request_id Unique identifier for the request.
     # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
@@ -1177,6 +1821,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
+      query_params[:operationType] = opts[:operation_type] if opts[:operation_type]
       query_params[:resourceId] = opts[:resource_id] if opts[:resource_id]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -1387,6 +2032,75 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#update_on_prem_connector_wallet') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates one or more attributes of the specified Data Safe target database.
+    # @param [String] target_database_id The OCID of the Data Safe target database.
+    # @param [OCI::DataSafe::Models::UpdateTargetDatabaseDetails] update_target_database_details Details used to update the target database in Data Safe.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/update_target_database.rb.html) to see an example of how to use update_target_database API.
+    def update_target_database(target_database_id, update_target_database_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#update_target_database.' if logger
+
+      raise "Missing the required parameter 'target_database_id' when calling update_target_database." if target_database_id.nil?
+      raise "Missing the required parameter 'update_target_database_details' when calling update_target_database." if update_target_database_details.nil?
+      raise "Parameter value for 'target_database_id' must not be blank" if OCI::Internal::Util.blank_string?(target_database_id)
+
+      path = '/targetDatabases/{targetDatabaseId}'.sub('{targetDatabaseId}', target_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(update_target_database_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#update_target_database') do
         @api_client.call_api(
           :PUT,
           path,

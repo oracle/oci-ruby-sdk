@@ -5,21 +5,21 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about auto scale configuration capability
+  # The information about the autoscale configuration.
   class Bds::Models::AddAutoScalingConfigurationDetails
-    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
+    # A user-friendly name. The name does not have to be unique, and it may be changed. Avoid entering confidential information.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** A node type that is managed by an autoscaling configuration. The only supported type is WORKER.
+    # **[Required]** A node type that is managed by an autoscale configuration. The only supported type is WORKER.
     # @return [String]
     attr_accessor :node_type
 
-    # **[Required]** Whether the autoscaling configuration is enabled.
+    # **[Required]** Whether the autoscale configuration is enabled.
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
-    # **[Required]** Base-64 encoded password for Cloudera Manager admin user
+    # **[Required]** Base-64 encoded password for the cluster (and Cloudera Manager) admin user.
     # @return [String]
     attr_accessor :cluster_admin_password
 

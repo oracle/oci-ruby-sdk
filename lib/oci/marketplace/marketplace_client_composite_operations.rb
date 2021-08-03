@@ -28,7 +28,7 @@ module OCI
     # Calls {OCI::Marketplace::MarketplaceClient#create_publication} and then waits for the {OCI::Marketplace::Models::Publication} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::Marketplace::Models::CreatePublicationDetails] create_publication_details Details of Publication to be created including optional default package.
+    # @param [OCI::Marketplace::Models::CreatePublicationDetails] create_publication_details The details for creating the publication.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Marketplace::Models::Publication#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Marketplace::MarketplaceClient#create_publication}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -67,7 +67,7 @@ module OCI
     # Calls {OCI::Marketplace::MarketplaceClient#delete_publication} and then waits for the {OCI::Marketplace::Models::Publication} acted upon
     # to enter the given state(s).
     #
-    # @param [String] publication_id The unique identifier for the listing.
+    # @param [String] publication_id The unique identifier for the publication.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Marketplace::Models::Publication#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Marketplace::MarketplaceClient#delete_publication}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -107,8 +107,8 @@ module OCI
     # Calls {OCI::Marketplace::MarketplaceClient#update_publication} and then waits for the {OCI::Marketplace::Models::Publication} acted upon
     # to enter the given state(s).
     #
-    # @param [String] publication_id The unique identifier for the listing.
-    # @param [OCI::Marketplace::Models::UpdatePublicationDetails] update_publication_details Details of the Publication which needs to be updated
+    # @param [String] publication_id The unique identifier for the publication.
+    # @param [OCI::Marketplace::Models::UpdatePublicationDetails] update_publication_details The details for updating the publication.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Marketplace::Models::Publication#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Marketplace::MarketplaceClient#update_publication}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

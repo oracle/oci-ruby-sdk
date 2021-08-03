@@ -11,11 +11,16 @@ module OCI
     # @return [String]
     attr_accessor :parent
 
+    # Key of the root document object.
+    # @return [String]
+    attr_accessor :root_doc_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'parent': :'parent'
+        'parent': :'parent',
+        'root_doc_id': :'rootDocId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -24,7 +29,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'parent': :'String'
+        'parent': :'String',
+        'root_doc_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,6 +42,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :parent The value to assign to the {#parent} property
+    # @option attributes [String] :root_doc_id The value to assign to the {#root_doc_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -43,6 +50,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.parent = attributes[:'parent'] if attributes[:'parent']
+
+      self.root_doc_id = attributes[:'rootDocId'] if attributes[:'rootDocId']
+
+      raise 'You cannot provide both :rootDocId and :root_doc_id' if attributes.key?(:'rootDocId') && attributes.key?(:'root_doc_id')
+
+      self.root_doc_id = attributes[:'root_doc_id'] if attributes[:'root_doc_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -56,7 +69,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        parent == other.parent
+        parent == other.parent &&
+        root_doc_id == other.root_doc_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -72,7 +86,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [parent].hash
+      [parent, root_doc_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Inidividual worker nodes groups details
+  # Individual worker nodes groups details.
   class Bds::Models::ChangeShapeNodes
     # Change shape of worker nodes to the desired target shape. Only VM_STANDARD shapes are allowed here.
     # @return [String]
@@ -19,7 +19,7 @@ module OCI
     # @return [String]
     attr_accessor :utility
 
-    # Change shape of cloudsql node to the desired target shape. Only VM_STANDARD shapes are allowed here.
+    # Change shape of the Cloud SQL node to the desired target shape. Only VM_STANDARD shapes are allowed here.
     # @return [String]
     attr_accessor :cloudsql
 

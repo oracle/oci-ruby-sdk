@@ -22,13 +22,17 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
+    # @return [OCI::DataScience::Models::NotebookSessionShapeConfigDetails]
+    attr_accessor :notebook_session_shape_config_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'shape': :'shape',
         'block_storage_size_in_gbs': :'blockStorageSizeInGBs',
-        'subnet_id': :'subnetId'
+        'subnet_id': :'subnetId',
+        'notebook_session_shape_config_details': :'notebookSessionShapeConfigDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -39,7 +43,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'shape': :'String',
         'block_storage_size_in_gbs': :'Integer',
-        'subnet_id': :'String'
+        'subnet_id': :'String',
+        'notebook_session_shape_config_details': :'OCI::DataScience::Models::NotebookSessionShapeConfigDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -53,6 +58,7 @@ module OCI
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [Integer] :block_storage_size_in_gbs The value to assign to the {#block_storage_size_in_gbs} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [OCI::DataScience::Models::NotebookSessionShapeConfigDetails] :notebook_session_shape_config_details The value to assign to the {#notebook_session_shape_config_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -72,6 +78,12 @@ module OCI
       raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
 
       self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
+
+      self.notebook_session_shape_config_details = attributes[:'notebookSessionShapeConfigDetails'] if attributes[:'notebookSessionShapeConfigDetails']
+
+      raise 'You cannot provide both :notebookSessionShapeConfigDetails and :notebook_session_shape_config_details' if attributes.key?(:'notebookSessionShapeConfigDetails') && attributes.key?(:'notebook_session_shape_config_details')
+
+      self.notebook_session_shape_config_details = attributes[:'notebook_session_shape_config_details'] if attributes[:'notebook_session_shape_config_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -87,7 +99,8 @@ module OCI
       self.class == other.class &&
         shape == other.shape &&
         block_storage_size_in_gbs == other.block_storage_size_in_gbs &&
-        subnet_id == other.subnet_id
+        subnet_id == other.subnet_id &&
+        notebook_session_shape_config_details == other.notebook_session_shape_config_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -103,7 +116,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [shape, block_storage_size_in_gbs, subnet_id].hash
+      [shape, block_storage_size_in_gbs, subnet_id, notebook_session_shape_config_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

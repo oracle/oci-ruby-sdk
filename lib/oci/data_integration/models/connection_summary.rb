@@ -16,6 +16,8 @@ module OCI
       MODEL_TYPE_ORACLEDB_CONNECTION = 'ORACLEDB_CONNECTION'.freeze,
       MODEL_TYPE_MYSQL_CONNECTION = 'MYSQL_CONNECTION'.freeze,
       MODEL_TYPE_GENERIC_JDBC_CONNECTION = 'GENERIC_JDBC_CONNECTION'.freeze,
+      MODEL_TYPE_BICC_CONNECTION = 'BICC_CONNECTION'.freeze,
+      MODEL_TYPE_AMAZON_S3_CONNECTION = 'AMAZON_S3_CONNECTION'.freeze,
       MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -125,8 +127,10 @@ module OCI
       type = object_hash[:'modelType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::DataIntegration::Models::ConnectionSummaryFromJdbc' if type == 'GENERIC_JDBC_CONNECTION'
+      return 'OCI::DataIntegration::Models::ConnectionSummaryFromBICC' if type == 'BICC_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionSummaryFromAtp' if type == 'ORACLE_ATP_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionSummaryFromOracle' if type == 'ORACLEDB_CONNECTION'
+      return 'OCI::DataIntegration::Models::ConnectionSummaryFromAmazonS3' if type == 'AMAZON_S3_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionSummaryFromAdwc' if type == 'ORACLE_ADWC_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionSummaryFromMySQL' if type == 'MYSQL_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionSummaryFromObjectStorage' if type == 'ORACLE_OBJECT_STORAGE_CONNECTION'

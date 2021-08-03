@@ -15,13 +15,40 @@ module OCI
     # @return [OCI::LogAnalytics::Models::MetricExtraction]
     attr_accessor :metric_extraction
 
+    # The duration of data to be searched for SAVED_SEARCH tasks,
+    # used when the task fires to calculate the query time range.
+    #
+    # Duration in ISO 8601 extended format as described in
+    # https://en.wikipedia.org/wiki/ISO_8601#Durations.
+    # The value should be positive.
+    # The largest supported unit (as opposed to value) is D, e.g.  P14D (not P2W).
+    #
+    # There are restrictions on the maximum duration value relative to the task schedule
+    # value as specified in the following table.
+    #    Schedule Interval Range          | Maximum Duration
+    # ----------------------------------- | -----------------
+    #   5 Minutes     to 30 Minutes       |   1 hour  \"PT60M\"
+    #  31 Minutes     to  1 Hour          |  12 hours \"PT720M\"
+    #  1 Hour+1Minute to  1 Day           |   1 day   \"P1D\"
+    #  1 Day+1Minute  to  1 Week-1Minute  |   7 days  \"P7D\"
+    #  1 Week         to  2 Weeks         |  14 days  \"P14D\"
+    #  greater than 2 Weeks               |  30 days  \"P30D\"
+    #
+    # If not specified, the duration will be based on the schedule. For example,
+    # if the schedule is every 5 minutes then the savedSearchDuration will be \"PT5M\";
+    # if the schedule is every 3 weeks then the savedSearchDuration will be \"P21D\".
+    #
+    # @return [String]
+    attr_accessor :saved_search_duration
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'type': :'type',
         'saved_search_id': :'savedSearchId',
-        'metric_extraction': :'metricExtraction'
+        'metric_extraction': :'metricExtraction',
+        'saved_search_duration': :'savedSearchDuration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -32,7 +59,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'type': :'String',
         'saved_search_id': :'String',
-        'metric_extraction': :'OCI::LogAnalytics::Models::MetricExtraction'
+        'metric_extraction': :'OCI::LogAnalytics::Models::MetricExtraction',
+        'saved_search_duration': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -45,6 +73,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :saved_search_id The value to assign to the {#saved_search_id} property
     # @option attributes [OCI::LogAnalytics::Models::MetricExtraction] :metric_extraction The value to assign to the {#metric_extraction} property
+    # @option attributes [String] :saved_search_duration The value to assign to the {#saved_search_duration} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -66,6 +95,12 @@ module OCI
       raise 'You cannot provide both :metricExtraction and :metric_extraction' if attributes.key?(:'metricExtraction') && attributes.key?(:'metric_extraction')
 
       self.metric_extraction = attributes[:'metric_extraction'] if attributes[:'metric_extraction']
+
+      self.saved_search_duration = attributes[:'savedSearchDuration'] if attributes[:'savedSearchDuration']
+
+      raise 'You cannot provide both :savedSearchDuration and :saved_search_duration' if attributes.key?(:'savedSearchDuration') && attributes.key?(:'saved_search_duration')
+
+      self.saved_search_duration = attributes[:'saved_search_duration'] if attributes[:'saved_search_duration']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -81,7 +116,8 @@ module OCI
       self.class == other.class &&
         type == other.type &&
         saved_search_id == other.saved_search_id &&
-        metric_extraction == other.metric_extraction
+        metric_extraction == other.metric_extraction &&
+        saved_search_duration == other.saved_search_duration
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -97,7 +133,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, saved_search_id, metric_extraction].hash
+      [type, saved_search_id, metric_extraction, saved_search_duration].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

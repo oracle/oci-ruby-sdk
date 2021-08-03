@@ -22,6 +22,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'type': :'type',
         'misfire_policy': :'misfirePolicy',
+        'time_of_first_execution': :'timeOfFirstExecution',
         'expression': :'expression',
         'time_zone': :'timeZone'
         # rubocop:enable Style/SymbolLiteral
@@ -34,6 +35,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'type': :'String',
         'misfire_policy': :'String',
+        'time_of_first_execution': :'DateTime',
         'expression': :'String',
         'time_zone': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -47,6 +49,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :misfire_policy The value to assign to the {OCI::LogAnalytics::Models::Schedule#misfire_policy #misfire_policy} proprety
+    # @option attributes [DateTime] :time_of_first_execution The value to assign to the {OCI::LogAnalytics::Models::Schedule#time_of_first_execution #time_of_first_execution} proprety
     # @option attributes [String] :expression The value to assign to the {#expression} property
     # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
     def initialize(attributes = {})
@@ -83,6 +86,7 @@ module OCI
       self.class == other.class &&
         type == other.type &&
         misfire_policy == other.misfire_policy &&
+        time_of_first_execution == other.time_of_first_execution &&
         expression == other.expression &&
         time_zone == other.time_zone
     end
@@ -100,7 +104,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, misfire_policy, expression, time_zone].hash
+      [type, misfire_policy, time_of_first_execution, expression, time_zone].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

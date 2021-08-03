@@ -11,7 +11,8 @@ module OCI
     MODEL_TYPE_ENUM = [
       MODEL_TYPE_VIEW_ENTITY = 'VIEW_ENTITY'.freeze,
       MODEL_TYPE_TABLE_ENTITY = 'TABLE_ENTITY'.freeze,
-      MODEL_TYPE_FILE_ENTITY = 'FILE_ENTITY'.freeze
+      MODEL_TYPE_FILE_ENTITY = 'FILE_ENTITY'.freeze,
+      MODEL_TYPE_DATA_STORE_ENTITY = 'DATA_STORE_ENTITY'.freeze
     ].freeze
 
     # **[Required]** The data entity type.
@@ -46,6 +47,7 @@ module OCI
 
       return 'OCI::DataIntegration::Models::DataEntityFromFileEntityDetails' if type == 'FILE_ENTITY'
       return 'OCI::DataIntegration::Models::DataEntityFromViewEntityDetails' if type == 'VIEW_ENTITY'
+      return 'OCI::DataIntegration::Models::DataEntityFromDataStoreEntityDetails' if type == 'DATA_STORE_ENTITY'
       return 'OCI::DataIntegration::Models::DataEntityFromTableEntityDetails' if type == 'TABLE_ENTITY'
 
       # TODO: Log a warning when the subtype is not found.

@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of workrequest status
+  # Description of the work request status.
   class Bds::Models::WorkRequest
     OPERATION_TYPE_ENUM = [
       OPERATION_TYPE_CREATE_BDS = 'CREATE_BDS'.freeze,
@@ -35,23 +35,20 @@ module OCI
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The id of the work request.
+    # **[Required]** The ID of the work request.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The ocid of the compartment that contains the work request. Work requests should be scoped to
-    # the same compartment as the resource the work request affects. If the work request affects multiple resources,
-    # and those resources are not in the same compartment, it is up to the service team to pick the primary
-    # resource whose compartment should be used
+    # **[Required]** The OCID of the compartment that contains the work request. Work requests should be scoped to the same compartment as the resource the work request affects. If the work request affects multiple resources, and those resources are not in the same compartment, it is up to the service team to pick the primary resource whose compartment should be used.
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** Type of the work request
+    # **[Required]** The type of this work request.
     # @return [String]
     attr_reader :operation_type
 
-    # **[Required]** Status of current work request.
+    # **[Required]** The status of this work request.
     # @return [String]
     attr_reader :status
 
@@ -59,23 +56,21 @@ module OCI
     # @return [Array<OCI::Bds::Models::WorkRequestResource>]
     attr_accessor :resources
 
-    # **[Required]** Percentage of the request completed.
+    # **[Required]** Percentage of this work request completed.
     # @return [Float]
     attr_accessor :percent_complete
 
-    # **[Required]** The date and time the request was created, as described in
-    # [RFC 3339](https://tools.ietf.org/rfc/rfc3339), section 14.29.
+    # **[Required]** The date and time the request was created, shown as an RFC 3339 formatted datetime string.
     #
     # @return [DateTime]
     attr_accessor :time_accepted
 
-    # The date and time the request was started, as described in [RFC 3339](https://tools.ietf.org/rfc/rfc3339),
-    # section 14.29.
+    # The time the request was started, shown as an RFC 3339 formatted datetime string.
     #
     # @return [DateTime]
     attr_accessor :time_started
 
-    # The date and time the object was finished, as described in [RFC 3339](https://tools.ietf.org/rfc/rfc3339).
+    # The time the object was finished, shown as an RFC 3339 formatted datetime string.
     #
     # @return [DateTime]
     attr_accessor :time_finished

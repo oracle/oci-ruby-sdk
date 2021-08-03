@@ -2,14 +2,14 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require_relative 'abstract_write_attribute'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Properties to configure when writing to Oracle Autonomous Data Warehouse Cloud.
-  class DataIntegration::Models::OracleAdwcWriteAttributes
-    # The bucket name for the attribute.
-    # @return [String]
-    attr_accessor :bucket_name
+  class DataIntegration::Models::OracleAdwcWriteAttributes < DataIntegration::Models::AbstractWriteAttribute
+    # @return [OCI::DataIntegration::Models::Schema]
+    attr_accessor :bucket_schema
 
     # The file name for the attribute.
     # @return [String]
@@ -25,7 +25,8 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'bucket_name': :'bucketName',
+        'model_type': :'modelType',
+        'bucket_schema': :'bucketSchema',
         'staging_file_name': :'stagingFileName',
         'staging_data_asset': :'stagingDataAsset',
         'staging_connection': :'stagingConnection'
@@ -37,7 +38,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'bucket_name': :'String',
+        'model_type': :'String',
+        'bucket_schema': :'OCI::DataIntegration::Models::Schema',
         'staging_file_name': :'String',
         'staging_data_asset': :'OCI::DataIntegration::Models::DataAsset',
         'staging_connection': :'OCI::DataIntegration::Models::Connection'
@@ -51,18 +53,25 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :bucket_name The value to assign to the {#bucket_name} property
+    # @option attributes [OCI::DataIntegration::Models::Schema] :bucket_schema The value to assign to the {#bucket_schema} property
     # @option attributes [String] :staging_file_name The value to assign to the {#staging_file_name} property
     # @option attributes [OCI::DataIntegration::Models::DataAsset] :staging_data_asset The value to assign to the {#staging_data_asset} property
     # @option attributes [OCI::DataIntegration::Models::Connection] :staging_connection The value to assign to the {#staging_connection} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
-      self.bucket_name = attributes[:'bucketName'] if attributes[:'bucketName']
+      attributes['modelType'] = 'ORACLE_ADWC_WRITE_ATTRIBUTE'
 
-      raise 'You cannot provide both :bucketName and :bucket_name' if attributes.key?(:'bucketName') && attributes.key?(:'bucket_name')
+      super(attributes)
 
-      self.bucket_name = attributes[:'bucket_name'] if attributes[:'bucket_name']
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.bucket_schema = attributes[:'bucketSchema'] if attributes[:'bucketSchema']
+
+      raise 'You cannot provide both :bucketSchema and :bucket_schema' if attributes.key?(:'bucketSchema') && attributes.key?(:'bucket_schema')
+
+      self.bucket_schema = attributes[:'bucket_schema'] if attributes[:'bucket_schema']
 
       self.staging_file_name = attributes[:'stagingFileName'] if attributes[:'stagingFileName']
 
@@ -94,7 +103,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        bucket_name == other.bucket_name &&
+        model_type == other.model_type &&
+        bucket_schema == other.bucket_schema &&
         staging_file_name == other.staging_file_name &&
         staging_data_asset == other.staging_data_asset &&
         staging_connection == other.staging_connection
@@ -113,7 +123,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bucket_name, staging_file_name, staging_data_asset, staging_connection].hash
+      [model_type, bucket_schema, staging_file_name, staging_data_asset, staging_connection].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

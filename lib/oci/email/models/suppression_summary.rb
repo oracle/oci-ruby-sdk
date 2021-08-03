@@ -18,15 +18,15 @@ module OCI
       REASON_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The OCID for the compartment.
+    # **[Required]** The OCID for the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # The email address of the suppression.
+    # **[Required]** The email address of the suppression.
     # @return [String]
     attr_accessor :email_address
 
-    # The unique OCID of the suppression.
+    # **[Required]** The unique OCID of the suppression.
     # @return [String]
     attr_accessor :id
 

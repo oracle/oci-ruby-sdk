@@ -5,14 +5,14 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about additionally added block volumes
+  # The information about added block volumes.
   class Bds::Models::AddBlockStorageDetails
-    # **[Required]** Base-64 encoded password for Cloudera Manager admin user
+    # **[Required]** Base-64 encoded password for the cluster (and Cloudera Manager) admin user.
     # @return [String]
     attr_accessor :cluster_admin_password
 
-    # **[Required]** The size of block volume in GB that needs to be added to each worker node.
-    # All the necessary details needed for attachment are managed by service itself.
+    # **[Required]** The size of block volume in GB to be added to each worker node. All the
+    # details needed for attaching the block volume are managed by service itself.
     #
     # @return [Integer]
     attr_accessor :block_volume_size_in_gbs

@@ -73,6 +73,11 @@ module OCI
     # @return [String]
     attr_accessor :owner_user_name
 
+    # **[Required]** The Spark version utilized to run the application.
+    #
+    # @return [String]
+    attr_accessor :spark_version
+
     # **[Required]** The date and time a application was created, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
     # Example: `2018-04-03T21:10:29.600Z`
     #
@@ -98,6 +103,7 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'owner_principal_id': :'ownerPrincipalId',
         'owner_user_name': :'ownerUserName',
+        'spark_version': :'sparkVersion',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated'
         # rubocop:enable Style/SymbolLiteral
@@ -117,6 +123,7 @@ module OCI
         'lifecycle_state': :'String',
         'owner_principal_id': :'String',
         'owner_user_name': :'String',
+        'spark_version': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
@@ -138,6 +145,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :owner_principal_id The value to assign to the {#owner_principal_id} property
     # @option attributes [String] :owner_user_name The value to assign to the {#owner_user_name} property
+    # @option attributes [String] :spark_version The value to assign to the {#spark_version} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     def initialize(attributes = {})
@@ -191,6 +199,12 @@ module OCI
       raise 'You cannot provide both :ownerUserName and :owner_user_name' if attributes.key?(:'ownerUserName') && attributes.key?(:'owner_user_name')
 
       self.owner_user_name = attributes[:'owner_user_name'] if attributes[:'owner_user_name']
+
+      self.spark_version = attributes[:'sparkVersion'] if attributes[:'sparkVersion']
+
+      raise 'You cannot provide both :sparkVersion and :spark_version' if attributes.key?(:'sparkVersion') && attributes.key?(:'spark_version')
+
+      self.spark_version = attributes[:'spark_version'] if attributes[:'spark_version']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -251,6 +265,7 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         owner_principal_id == other.owner_principal_id &&
         owner_user_name == other.owner_user_name &&
+        spark_version == other.spark_version &&
         time_created == other.time_created &&
         time_updated == other.time_updated
     end
@@ -268,7 +283,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, id, language, lifecycle_state, owner_principal_id, owner_user_name, time_created, time_updated].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, id, language, lifecycle_state, owner_principal_id, owner_user_name, spark_version, time_created, time_updated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

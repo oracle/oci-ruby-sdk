@@ -88,6 +88,15 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_external
 
+    # The date and time the entity was harvested, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
+    # @return [DateTime]
+    attr_accessor :time_harvested
+
+    # List of objects and their relationships to this entity.
+    # @return [Array<OCI::DataCatalog::Models::ObjectRelationship>]
+    attr_accessor :object_relationships
+
     # Time that the data entities status was last updated. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_status_updated
@@ -164,6 +173,8 @@ module OCI
         'pattern_key': :'patternKey',
         'realized_expression': :'realizedExpression',
         'time_external': :'timeExternal',
+        'time_harvested': :'timeHarvested',
+        'object_relationships': :'objectRelationships',
         'time_status_updated': :'timeStatusUpdated',
         'is_logical': :'isLogical',
         'is_partition': :'isPartition',
@@ -198,6 +209,8 @@ module OCI
         'pattern_key': :'String',
         'realized_expression': :'String',
         'time_external': :'DateTime',
+        'time_harvested': :'DateTime',
+        'object_relationships': :'Array<OCI::DataCatalog::Models::ObjectRelationship>',
         'time_status_updated': :'DateTime',
         'is_logical': :'BOOLEAN',
         'is_partition': :'BOOLEAN',
@@ -234,6 +247,8 @@ module OCI
     # @option attributes [String] :pattern_key The value to assign to the {#pattern_key} property
     # @option attributes [String] :realized_expression The value to assign to the {#realized_expression} property
     # @option attributes [DateTime] :time_external The value to assign to the {#time_external} property
+    # @option attributes [DateTime] :time_harvested The value to assign to the {#time_harvested} property
+    # @option attributes [Array<OCI::DataCatalog::Models::ObjectRelationship>] :object_relationships The value to assign to the {#object_relationships} property
     # @option attributes [DateTime] :time_status_updated The value to assign to the {#time_status_updated} property
     # @option attributes [BOOLEAN] :is_logical The value to assign to the {#is_logical} property
     # @option attributes [BOOLEAN] :is_partition The value to assign to the {#is_partition} property
@@ -322,6 +337,18 @@ module OCI
       raise 'You cannot provide both :timeExternal and :time_external' if attributes.key?(:'timeExternal') && attributes.key?(:'time_external')
 
       self.time_external = attributes[:'time_external'] if attributes[:'time_external']
+
+      self.time_harvested = attributes[:'timeHarvested'] if attributes[:'timeHarvested']
+
+      raise 'You cannot provide both :timeHarvested and :time_harvested' if attributes.key?(:'timeHarvested') && attributes.key?(:'time_harvested')
+
+      self.time_harvested = attributes[:'time_harvested'] if attributes[:'time_harvested']
+
+      self.object_relationships = attributes[:'objectRelationships'] if attributes[:'objectRelationships']
+
+      raise 'You cannot provide both :objectRelationships and :object_relationships' if attributes.key?(:'objectRelationships') && attributes.key?(:'object_relationships')
+
+      self.object_relationships = attributes[:'object_relationships'] if attributes[:'object_relationships']
 
       self.time_status_updated = attributes[:'timeStatusUpdated'] if attributes[:'timeStatusUpdated']
 
@@ -440,6 +467,8 @@ module OCI
         pattern_key == other.pattern_key &&
         realized_expression == other.realized_expression &&
         time_external == other.time_external &&
+        time_harvested == other.time_harvested &&
+        object_relationships == other.object_relationships &&
         time_status_updated == other.time_status_updated &&
         is_logical == other.is_logical &&
         is_partition == other.is_partition &&
@@ -468,7 +497,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, business_name, description, time_created, time_updated, created_by_id, updated_by_id, lifecycle_state, external_key, pattern_key, realized_expression, time_external, time_status_updated, is_logical, is_partition, data_asset_key, folder_key, folder_name, path, harvest_status, last_job_key, type_key, uri, custom_property_members, properties].hash
+      [key, display_name, business_name, description, time_created, time_updated, created_by_id, updated_by_id, lifecycle_state, external_key, pattern_key, realized_expression, time_external, time_harvested, object_relationships, time_status_updated, is_logical, is_partition, data_asset_key, folder_key, folder_name, path, harvest_status, last_job_key, type_key, uri, custom_property_members, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

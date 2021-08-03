@@ -12,12 +12,14 @@ The Ruby SDK supports the following services:
 
 * Analytics Cloud 
 * Announcements
+* AI Anomaly Detection service
 * AI Language service
 * API Gateway
 * Application Migration
 * Application Performance Monitoring
 * Audit
 * Autoscaling (Compute)
+* Bastion service
 * Big Data
 * Blockchain Platform
 * Budgets
@@ -36,17 +38,20 @@ The Ruby SDK supports the following services:
 * Data Transfer 
 * Database
 * Database Management
+* DevOps service
 * Digital Assistant
 * Domain Name System
 * Email
 * Events
 * File Storage
 * Functions
+* Generic Artifacts service
 * Golden Gate
 * Health Checks
 * Identity and Access Management
 * Incident Management
 * Integration Cloud
+* Java Management Service
 * Key Management
 * Limits
 * Load Balancing
@@ -187,7 +192,7 @@ To use the Ruby SDK, you must have:
 * An Oracle Cloud Infrastructure account.
 * A user created in that account, in a group with a policy that grants the desired permissions. This can be a user for yourself, or another person/system that needs to call the API. For an example of how to set up a new user, group, compartment, and policy, see [Adding Users](https://docs.cloud.oracle.com/Content/GSG/Tasks/addingusers.htm) in the Getting Started Guide. For a list of typical policies you may want to use, see [Common Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/commonpolicies.htm) in the User Guide.
 * A keypair used for signing API requests, with the public key uploaded to Oracle. Only the user calling the API should be in possession of the private key. See the configuration information below.
-* Ruby version 2.2 or later running on Mac, Linux or Windows.
+* Ruby version 2.6 or 2.7 running on Mac, Linux or Windows.
 
 # Downloading and Installing the Gem File
 ## Installing the SDK
@@ -660,7 +665,7 @@ Addtional ways to get in touch:
 
 ## License
 
-Copyright (c) 2016, 2020, Oracle and/or its affiliates.  All rights reserved.
+Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
 
 This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl
 or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.

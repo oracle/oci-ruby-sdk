@@ -24,6 +24,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_log_set_enabled
 
+    # This indicates if data has ever been ingested for the tenancy in Logging Analytics
+    # @return [BOOLEAN]
+    attr_accessor :is_data_ever_ingested
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -31,7 +35,8 @@ module OCI
         'namespace_name': :'namespaceName',
         'compartment_id': :'compartmentId',
         'is_onboarded': :'isOnboarded',
-        'is_log_set_enabled': :'isLogSetEnabled'
+        'is_log_set_enabled': :'isLogSetEnabled',
+        'is_data_ever_ingested': :'isDataEverIngested'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -43,7 +48,8 @@ module OCI
         'namespace_name': :'String',
         'compartment_id': :'String',
         'is_onboarded': :'BOOLEAN',
-        'is_log_set_enabled': :'BOOLEAN'
+        'is_log_set_enabled': :'BOOLEAN',
+        'is_data_ever_ingested': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -58,6 +64,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [BOOLEAN] :is_onboarded The value to assign to the {#is_onboarded} property
     # @option attributes [BOOLEAN] :is_log_set_enabled The value to assign to the {#is_log_set_enabled} property
+    # @option attributes [BOOLEAN] :is_data_ever_ingested The value to assign to the {#is_data_ever_ingested} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -86,6 +93,14 @@ module OCI
 
       self.is_log_set_enabled = attributes[:'is_log_set_enabled'] unless attributes[:'is_log_set_enabled'].nil?
       self.is_log_set_enabled = false if is_log_set_enabled.nil? && !attributes.key?(:'isLogSetEnabled') && !attributes.key?(:'is_log_set_enabled') # rubocop:disable Style/StringLiterals
+
+      self.is_data_ever_ingested = attributes[:'isDataEverIngested'] unless attributes[:'isDataEverIngested'].nil?
+      self.is_data_ever_ingested = false if is_data_ever_ingested.nil? && !attributes.key?(:'isDataEverIngested') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isDataEverIngested and :is_data_ever_ingested' if attributes.key?(:'isDataEverIngested') && attributes.key?(:'is_data_ever_ingested')
+
+      self.is_data_ever_ingested = attributes[:'is_data_ever_ingested'] unless attributes[:'is_data_ever_ingested'].nil?
+      self.is_data_ever_ingested = false if is_data_ever_ingested.nil? && !attributes.key?(:'isDataEverIngested') && !attributes.key?(:'is_data_ever_ingested') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -102,7 +117,8 @@ module OCI
         namespace_name == other.namespace_name &&
         compartment_id == other.compartment_id &&
         is_onboarded == other.is_onboarded &&
-        is_log_set_enabled == other.is_log_set_enabled
+        is_log_set_enabled == other.is_log_set_enabled &&
+        is_data_ever_ingested == other.is_data_ever_ingested
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -118,7 +134,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [namespace_name, compartment_id, is_onboarded, is_log_set_enabled].hash
+      [namespace_name, compartment_id, is_onboarded, is_log_set_enabled, is_data_ever_ingested].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

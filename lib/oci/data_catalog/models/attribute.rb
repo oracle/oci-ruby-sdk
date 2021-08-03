@@ -141,6 +141,18 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_external
 
+    # The date and time the attribute was harvested, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # @return [DateTime]
+    attr_accessor :time_harvested
+
+    # List of objects and their relationships to this attribute.
+    # @return [Array<OCI::DataCatalog::Models::ObjectRelationship>]
+    attr_accessor :object_relationships
+
+    # Whether a column is derived or not.
+    # @return [BOOLEAN]
+    attr_accessor :is_derived_attribute
+
     # URI to the attribute instance in the API.
     # @return [String]
     attr_accessor :uri
@@ -195,6 +207,9 @@ module OCI
         'precision': :'precision',
         'scale': :'scale',
         'time_external': :'timeExternal',
+        'time_harvested': :'timeHarvested',
+        'object_relationships': :'objectRelationships',
+        'is_derived_attribute': :'isDerivedAttribute',
         'uri': :'uri',
         'path': :'path',
         'custom_property_members': :'customPropertyMembers',
@@ -233,6 +248,9 @@ module OCI
         'precision': :'Integer',
         'scale': :'Integer',
         'time_external': :'DateTime',
+        'time_harvested': :'DateTime',
+        'object_relationships': :'Array<OCI::DataCatalog::Models::ObjectRelationship>',
+        'is_derived_attribute': :'BOOLEAN',
         'uri': :'String',
         'path': :'String',
         'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>',
@@ -273,6 +291,9 @@ module OCI
     # @option attributes [Integer] :precision The value to assign to the {#precision} property
     # @option attributes [Integer] :scale The value to assign to the {#scale} property
     # @option attributes [DateTime] :time_external The value to assign to the {#time_external} property
+    # @option attributes [DateTime] :time_harvested The value to assign to the {#time_harvested} property
+    # @option attributes [Array<OCI::DataCatalog::Models::ObjectRelationship>] :object_relationships The value to assign to the {#object_relationships} property
+    # @option attributes [BOOLEAN] :is_derived_attribute The value to assign to the {#is_derived_attribute} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
     # @option attributes [String] :path The value to assign to the {#path} property
     # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
@@ -410,6 +431,24 @@ module OCI
 
       self.time_external = attributes[:'time_external'] if attributes[:'time_external']
 
+      self.time_harvested = attributes[:'timeHarvested'] if attributes[:'timeHarvested']
+
+      raise 'You cannot provide both :timeHarvested and :time_harvested' if attributes.key?(:'timeHarvested') && attributes.key?(:'time_harvested')
+
+      self.time_harvested = attributes[:'time_harvested'] if attributes[:'time_harvested']
+
+      self.object_relationships = attributes[:'objectRelationships'] if attributes[:'objectRelationships']
+
+      raise 'You cannot provide both :objectRelationships and :object_relationships' if attributes.key?(:'objectRelationships') && attributes.key?(:'object_relationships')
+
+      self.object_relationships = attributes[:'object_relationships'] if attributes[:'object_relationships']
+
+      self.is_derived_attribute = attributes[:'isDerivedAttribute'] unless attributes[:'isDerivedAttribute'].nil?
+
+      raise 'You cannot provide both :isDerivedAttribute and :is_derived_attribute' if attributes.key?(:'isDerivedAttribute') && attributes.key?(:'is_derived_attribute')
+
+      self.is_derived_attribute = attributes[:'is_derived_attribute'] unless attributes[:'is_derived_attribute'].nil?
+
       self.uri = attributes[:'uri'] if attributes[:'uri']
 
       self.path = attributes[:'path'] if attributes[:'path']
@@ -498,6 +537,9 @@ module OCI
         precision == other.precision &&
         scale == other.scale &&
         time_external == other.time_external &&
+        time_harvested == other.time_harvested &&
+        object_relationships == other.object_relationships &&
+        is_derived_attribute == other.is_derived_attribute &&
         uri == other.uri &&
         path == other.path &&
         custom_property_members == other.custom_property_members &&
@@ -518,7 +560,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, business_name, description, entity_key, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, external_data_type, external_key, is_incremental_data, is_nullable, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, length, position, precision, scale, time_external, uri, path, custom_property_members, properties, associated_rule_types].hash
+      [key, display_name, business_name, description, entity_key, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, external_data_type, external_key, is_incremental_data, is_nullable, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, length, position, precision, scale, time_external, time_harvested, object_relationships, is_derived_attribute, uri, path, custom_property_members, properties, associated_rule_types].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

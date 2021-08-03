@@ -20,11 +20,16 @@ module OCI
     # @return [String]
     attr_reader :model_type
 
+    # Defines whether a file pattern is supported.
+    # @return [BOOLEAN]
+    attr_accessor :is_file_pattern
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'model_type': :'modelType'
+        'model_type': :'modelType',
+        'is_file_pattern': :'isFilePattern'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -33,7 +38,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'model_type': :'String'
+        'model_type': :'String',
+        'is_file_pattern': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -49,6 +55,7 @@ module OCI
       return 'OCI::DataIntegration::Models::AvroFormatAttribute' if type == 'AVRO_FORMAT'
       return 'OCI::DataIntegration::Models::JsonFormatAttribute' if type == 'JSON_FORMAT'
       return 'OCI::DataIntegration::Models::CsvFormatAttribute' if type == 'CSV_FORMAT'
+      return 'OCI::DataIntegration::Models::ParquetFormatAttribute' if type == 'PARQUET_FORMAT'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::DataIntegration::Models::AbstractFormatAttribute'
@@ -62,6 +69,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :model_type The value to assign to the {#model_type} property
+    # @option attributes [BOOLEAN] :is_file_pattern The value to assign to the {#is_file_pattern} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -73,6 +81,12 @@ module OCI
       raise 'You cannot provide both :modelType and :model_type' if attributes.key?(:'modelType') && attributes.key?(:'model_type')
 
       self.model_type = attributes[:'model_type'] if attributes[:'model_type']
+
+      self.is_file_pattern = attributes[:'isFilePattern'] unless attributes[:'isFilePattern'].nil?
+
+      raise 'You cannot provide both :isFilePattern and :is_file_pattern' if attributes.key?(:'isFilePattern') && attributes.key?(:'is_file_pattern')
+
+      self.is_file_pattern = attributes[:'is_file_pattern'] unless attributes[:'is_file_pattern'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -99,7 +113,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        model_type == other.model_type
+        model_type == other.model_type &&
+        is_file_pattern == other.is_file_pattern
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -115,7 +130,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type].hash
+      [model_type, is_file_pattern].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about auto scale configuration.
+  # The information about the autoscale configuration.
   class Bds::Models::AutoScalingConfiguration
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
@@ -18,28 +18,27 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The unique identifier for autoscaling configuration.
+    # **[Required]** The unique identifier for the autoscale configuration.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
+    # **[Required]** A user-friendly name. The name does not have to be unique, and it may be changed. Avoid entering confidential information.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** A node type that is managed by an autoscaling configuration. The only supported type is WORKER.
+    # **[Required]** A node type that is managed by an autoscale configuration. The only supported type is WORKER.
     # @return [String]
     attr_accessor :node_type
 
-    # **[Required]** The state of the autoscaling configuration
+    # **[Required]** The state of the autoscale configuration.
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** The time the BDS instance was created. An RFC3339 formatted datetime string
+    # **[Required]** The time the cluster was created, shown as an RFC 3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The time the autoscale configuration was updated.
-    # An RFC3339 formatted datetime string
+    # **[Required]** The time the autoscale configuration was updated, shown as an RFC 3339 formatted datetime string.
     #
     # @return [DateTime]
     attr_accessor :time_updated

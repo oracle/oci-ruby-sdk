@@ -14,7 +14,8 @@ module OCI
       TYPE_OCIC = 'OCIC'.freeze,
       TYPE_INTERNAL_COMPUTE = 'INTERNAL_COMPUTE'.freeze,
       TYPE_OCC = 'OCC'.freeze,
-      TYPE_OCIC_IDCS = 'OCIC_IDCS'.freeze
+      TYPE_OCIC_IDCS = 'OCIC_IDCS'.freeze,
+      TYPE_IMPORT = 'IMPORT'.freeze
     ].freeze
 
     # **[Required]** Type of the source environment from which you are migrating applications to Oracle Cloud Infrastructure.

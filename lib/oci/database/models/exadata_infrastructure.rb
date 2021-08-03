@@ -87,6 +87,22 @@ module OCI
     # @return [Float]
     attr_accessor :max_data_storage_in_t_bs
 
+    # The number of Exadata storage servers for the Exadata infrastructure.
+    # @return [Integer]
+    attr_accessor :storage_count
+
+    # The requested number of additional storage servers for the Exadata infrastructure.
+    # @return [Integer]
+    attr_accessor :additional_storage_count
+
+    # The requested number of additional storage servers activated for the Exadata infrastructure.
+    # @return [Integer]
+    attr_accessor :activated_storage_count
+
+    # The number of compute servers for the Exadata infrastructure.
+    # @return [Integer]
+    attr_accessor :compute_count
+
     # The IP address for the first control plane server.
     # @return [String]
     attr_accessor :cloud_control_plane_server1
@@ -186,6 +202,10 @@ module OCI
         'max_db_node_storage_in_g_bs': :'maxDbNodeStorageInGBs',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
         'max_data_storage_in_t_bs': :'maxDataStorageInTBs',
+        'storage_count': :'storageCount',
+        'additional_storage_count': :'additionalStorageCount',
+        'activated_storage_count': :'activatedStorageCount',
+        'compute_count': :'computeCount',
         'cloud_control_plane_server1': :'cloudControlPlaneServer1',
         'cloud_control_plane_server2': :'cloudControlPlaneServer2',
         'netmask': :'netmask',
@@ -227,6 +247,10 @@ module OCI
         'max_db_node_storage_in_g_bs': :'Integer',
         'data_storage_size_in_tbs': :'Float',
         'max_data_storage_in_t_bs': :'Float',
+        'storage_count': :'Integer',
+        'additional_storage_count': :'Integer',
+        'activated_storage_count': :'Integer',
+        'compute_count': :'Integer',
         'cloud_control_plane_server1': :'String',
         'cloud_control_plane_server2': :'String',
         'netmask': :'String',
@@ -270,6 +294,10 @@ module OCI
     # @option attributes [Integer] :max_db_node_storage_in_g_bs The value to assign to the {#max_db_node_storage_in_g_bs} property
     # @option attributes [Float] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
     # @option attributes [Float] :max_data_storage_in_t_bs The value to assign to the {#max_data_storage_in_t_bs} property
+    # @option attributes [Integer] :storage_count The value to assign to the {#storage_count} property
+    # @option attributes [Integer] :additional_storage_count The value to assign to the {#additional_storage_count} property
+    # @option attributes [Integer] :activated_storage_count The value to assign to the {#activated_storage_count} property
+    # @option attributes [Integer] :compute_count The value to assign to the {#compute_count} property
     # @option attributes [String] :cloud_control_plane_server1 The value to assign to the {#cloud_control_plane_server1} property
     # @option attributes [String] :cloud_control_plane_server2 The value to assign to the {#cloud_control_plane_server2} property
     # @option attributes [String] :netmask The value to assign to the {#netmask} property
@@ -367,6 +395,30 @@ module OCI
       raise 'You cannot provide both :maxDataStorageInTBs and :max_data_storage_in_t_bs' if attributes.key?(:'maxDataStorageInTBs') && attributes.key?(:'max_data_storage_in_t_bs')
 
       self.max_data_storage_in_t_bs = attributes[:'max_data_storage_in_t_bs'] if attributes[:'max_data_storage_in_t_bs']
+
+      self.storage_count = attributes[:'storageCount'] if attributes[:'storageCount']
+
+      raise 'You cannot provide both :storageCount and :storage_count' if attributes.key?(:'storageCount') && attributes.key?(:'storage_count')
+
+      self.storage_count = attributes[:'storage_count'] if attributes[:'storage_count']
+
+      self.additional_storage_count = attributes[:'additionalStorageCount'] if attributes[:'additionalStorageCount']
+
+      raise 'You cannot provide both :additionalStorageCount and :additional_storage_count' if attributes.key?(:'additionalStorageCount') && attributes.key?(:'additional_storage_count')
+
+      self.additional_storage_count = attributes[:'additional_storage_count'] if attributes[:'additional_storage_count']
+
+      self.activated_storage_count = attributes[:'activatedStorageCount'] if attributes[:'activatedStorageCount']
+
+      raise 'You cannot provide both :activatedStorageCount and :activated_storage_count' if attributes.key?(:'activatedStorageCount') && attributes.key?(:'activated_storage_count')
+
+      self.activated_storage_count = attributes[:'activated_storage_count'] if attributes[:'activated_storage_count']
+
+      self.compute_count = attributes[:'computeCount'] if attributes[:'computeCount']
+
+      raise 'You cannot provide both :computeCount and :compute_count' if attributes.key?(:'computeCount') && attributes.key?(:'compute_count')
+
+      self.compute_count = attributes[:'compute_count'] if attributes[:'compute_count']
 
       self.cloud_control_plane_server1 = attributes[:'cloudControlPlaneServer1'] if attributes[:'cloudControlPlaneServer1']
 
@@ -522,6 +574,10 @@ module OCI
         max_db_node_storage_in_g_bs == other.max_db_node_storage_in_g_bs &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
         max_data_storage_in_t_bs == other.max_data_storage_in_t_bs &&
+        storage_count == other.storage_count &&
+        additional_storage_count == other.additional_storage_count &&
+        activated_storage_count == other.activated_storage_count &&
+        compute_count == other.compute_count &&
         cloud_control_plane_server1 == other.cloud_control_plane_server1 &&
         cloud_control_plane_server2 == other.cloud_control_plane_server2 &&
         netmask == other.netmask &&
@@ -556,7 +612,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, display_name, shape, time_zone, cpus_enabled, max_cpu_count, memory_size_in_gbs, max_memory_in_gbs, db_node_storage_size_in_gbs, max_db_node_storage_in_g_bs, data_storage_size_in_tbs, max_data_storage_in_t_bs, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, dns_server, ntp_server, time_created, lifecycle_details, csi_number, contacts, maintenance_slo_status, maintenance_window, last_maintenance_run_id, next_maintenance_run_id, freeform_tags, defined_tags].hash
+      [id, compartment_id, lifecycle_state, display_name, shape, time_zone, cpus_enabled, max_cpu_count, memory_size_in_gbs, max_memory_in_gbs, db_node_storage_size_in_gbs, max_db_node_storage_in_g_bs, data_storage_size_in_tbs, max_data_storage_in_t_bs, storage_count, additional_storage_count, activated_storage_count, compute_count, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, dns_server, ntp_server, time_created, lifecycle_details, csi_number, contacts, maintenance_slo_status, maintenance_window, last_maintenance_run_id, next_maintenance_run_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

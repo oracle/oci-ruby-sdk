@@ -3,6 +3,90 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.15.0 - 2021-08-03
+### Added
+- Support for the Generic Artifacts service
+- Support for the Bastion service
+- Support for reading secrets by name in the Vault service
+- Support for the isDynamic field when listing definitions in the Limits service
+- Support for getting billable image sizes in the Compute service
+- Support for getting Automatic Workload Repository (AWR) data on external databases in the Database Management service
+- Support for the VM.Standard.E3.Flex flexible compute shape with customizable OCPUs and memory on notebooks in the Data Science service
+- Support for container images and generic artifacts billing in the Registry service
+- Support for the HCX Enterprise add-on in the VMware Solution service
+- Support for configuration of autonomous database KMS keys in the Database service
+- Support for creating database software images with any supported RUs in the Database service
+- Support for creating database software images from an existing database home in the Database service
+- Support for listing all NSGs associated with a given VLAN in the Networking service
+- Support for a duration windows, task failure reasons, and next execution times on scheduled tasks in the Logging Analytics service
+- Support for calling Oracle Cloud Infrastructure services in the sa-vinhedo-1 region
+- Support for Java Management service
+- Support for resource principals for the Enterprise Manager bridge resource in Operations Insights service
+- Support for encryptionInTransitType in BootVolumeAttachment and IScsiVolumeAttachment in Core service
+- Support for updating iscsiLoginState for VolumeAttachment in Core service
+- Support for a new type of Source called Import for use with the Export tool in Application Migration service
+- Support for elastic storage on Exadata Infrastructure resources for Cloud at Customer in the Database service
+- Support for registration and management of target databases in the Data Safe service
+- Support for config on metadata in the Management Dashboard service
+- Support for a new work request operation type for node pool reconciliation events in the Container Engine for Kubernetes service
+- Support for migrating clusters with a public Kubernetes API endpoint which are not integrated with a customer's VCN to a VCN-native cluster in the - Container Engine for Kubernetes service
+- Support for getting the spark version of applications, and filtering applications by spark version, in the Data Flow service
+- Support for virtual machine and bare metal pluggable databases in the Database service
+- Support for the DevOps service
+- Support for configuring network security groups for node pools in the Container Engine for Kubernetes service
+- Support for optionally specifying CPU core count and data storage size when creating autonomous databases in the Database service
+- Support for metastore and initial data asset import/export in the Data Catalog service
+- Support for associating domain names to emails and managing email domain names / DKIM in the Email Delivery service
+- Support for email domain names on senders and suppressions in the Email Delivery service
+- Support for order activation in the Organizations service
+- Support for resource principal authorization on Enterprise Manager bridge resources in the Operations Insights service
+- Support for the starter edition license type in the Content and Experience service
+- Support for the Generic Artifacts service's new domain name
+- Support for the AI Anomaly Detection service
+- Support for retrieving a DNS zone as a zone file in the DNS service
+- Support for querying manual adjustments in the Usage service
+- Support for searching Marketplace listings in the Marketplace service
+- Support for new cluster type 'ODH' in the Big Data service
+- Support for availability domain as an optional parameter when creating VLANs in the Networking service
+- Support for search domain type on DHCP options, to support multi-level domain search in the Networking service
+- Support for schedules, schedule tasks, REST tasks, operators, S3, and Fusion Apps in the Data Integration service
+- Support for getting available updates and update histories for VM clusters in the Database service
+- Support for downloading network validation reports for Exadata network resources in the Database service
+- Support for patch and upgrade of Grid Infrastructure (GI), and update of DomU OS software for VM clusters in the Database service
+- Support for updating data guard associations in the Database service
+- Support for filtering by tag on capacity planning and SQL warehouse list operations in the Operations Insights service
+- Support for creating cross-region autonomous data guards in the Database service
+- Support for the customer contacts feature on cloud exadata infrastructure in the Database service
+- Support for cost analysis custom tables in the Usage service
+- Support for manually copying volume group backups across regions in the Block Volume service
+- Support for work requests for the copy volume backup and copy boot volume backup operations in the Block Volume service
+- Support for specifying external Hive metastores during application creation in the Data Flow service
+- Support for changing the compartment of a backup in the MySQL Database service
+- Support for model catalog features including provenance, metadata, schemas, and artifact introspection in the Data Science service
+- Support for Exadata system network bonding in the Database service
+- Support for creating autonomous databases with early patching enabled in the Database service
+
+### Breaking
+- `compartment_id` is now optional in operation `list_network_security_groups` in the Networking service
+- The properties `freeform_tags` and `defined_tags` were removed from the ManagementDashboardExportDetails model in the Management Dashboard service
+- The property `cpu_core_count` was made optional in model CreateAutonomousDatabaseBase in the Database service
+- `DISPLAYNAME` was removed as allowed value for the SortBy property in method `list_job_executions` under the Data Catalog service
+- Model `TSIG` was removed from the DNS service
+- Param `tsig` was removed from model `ExternalMaster` in the DNS service
+- Models `CreateCustomTableDetails`, `CreateScheduleReportDetails`, `CustomTable`, `CustomTableCollection`, `CustomTableSummary`, `SavedScheduleReport`, - cheduleReport`, `ScheduleReportCollection`, `ScheduleReportSummary`, `UpdateCustomTableDetails`, `UpdateScheduleReportDetails` were removed from Usage I - service
+- Data Type for param `type` changed from `str` to `object` in model `ShapeField` in the Data Integration Service
+- Data Type for param `type` changed from `oci.data_integration.models.BaseType` to `object` in model `Parameter` in the Data Integration Service
+- Data Type for param `type` changed from `str` to `object` in model `NativeShapeField` in the Data Integration Service
+- Base class for model `OracleWriteAttributes` changed from `object` to `oci.data_integration.models.AbstractWriteAttribute` in the Data Integration Service
+- Base class for model `OracleReadAttributes` changed from `object` to `oci.data_integration.models.AbstractReadAttribute` in the Data Integration Service
+- Base class for model `OracleAdwcWriteAttributes` changed from `object` to `oci.data_integration.models.AbstractWriteAttribute` in the Data Integration rvice
+- Base class for model `OracleAtpWriteAttributes` changed from `object` to `oci.data_integration.models.AbstractWriteAttribute` in the Data Integration rvice
+- Param `bucket_name` was removed from model `OracleAtpWriteAttributes` in the Data Integration Service
+- Param `bucket_name` was removed from model `OracleAdwcWriteAttributes` in the Data Integration Service
+- Param `bucket_name` was removed from model `OracleAdwcWriteAttributes` in the Data Integration Service
+- Param `is_file_pattern` was removed from model `CsvFormatAttribute` in the Data Integration Service
+- Constant `MODEL_TYPE_REST_OPERATOR` was removed from model `Operator` in the Data Integration Service
+
 ## 2.14.0 - 2021-05-18
 ### Added
 - Support for the Database Migration service

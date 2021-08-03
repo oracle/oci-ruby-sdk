@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # APIs that interact with the resource limits of a specific resource type
+  # APIs that interact with the resource limits of a specific resource type.
   class Limits::LimitsClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -99,9 +99,9 @@ module OCI
 
 
     # For a given compartmentId, resource limit name, and scope, returns the following:
-    #   - the number of available resources associated with the given limit
-    #   - the usage in the selected compartment for the given limit
-    #   Note: not all resource limits support this API. If the value is not available, the API will return 404.
+    #   * The number of available resources associated with the given limit.
+    #   * The usage in the selected compartment for the given limit.
+    #   Note that not all resource limits support this API. If the value is not available, the API returns a 404 response.
     #
     # @param [String] service_name The service name of the target quota.
     # @param [String] limit_name The limit name for which to fetch the data.
@@ -111,7 +111,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :availability_domain This field is mandatory if the scopeType of the target resource limit is AD.
     #   Otherwise, this field should be omitted.
-    #   If the above requirements are not met, the API will return a 400 - InvalidParameter response.
+    #   If the above requirements are not met, the API returns a 400 - InvalidParameter response.
     #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
@@ -183,7 +183,7 @@ module OCI
     # @option opts [String] :sort_by The field to sort by.
     #    (default to name)
     #   Allowed values are: name, description
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. By default it will be ascending.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. By default, it is ascending.
     #    (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
@@ -259,19 +259,19 @@ module OCI
     #
     # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
     #
-    # @param [String] service_name The target service name
+    # @param [String] service_name The target service name.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :scope_type Filter entries by scope type.
     #   Allowed values are: GLOBAL, REGION, AD
-    # @option opts [String] :availability_domain Filter entries by availability domain. This implies that only AD-specific values will be returned.
+    # @option opts [String] :availability_domain Filter entries by availability domain. This implies that only AD-specific values are returned.
     #
     # @option opts [String] :name Optional field, can be used to see a specific resource limit value.
-    # @option opts [String] :sort_by The field to sort by. We will be implicitly sorting by availabilityDomain, as a second level field, if available.
+    # @option opts [String] :sort_by The field to sort by. The sorting is by availabilityDomain, as a second level field, if available.
     #    (default to name)
     #   Allowed values are: name
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. By default it will be ascending.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. By default, it is ascending.
     #    (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
@@ -351,7 +351,7 @@ module OCI
 
 
     # Returns the list of supported services.
-    # This will include the programmatic service name, along with the friendly service name.
+    # This includes the programmatic service name, along with the friendly service name.
     #
     # @param [String] compartment_id The OCID of the parent compartment (remember that the tenancy is simply the root compartment).
     #
@@ -361,7 +361,7 @@ module OCI
     # @option opts [String] :sort_by The field to sort by.
     #    (default to name)
     #   Allowed values are: name, description
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. By default it will be ascending.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. By default, it is ascending.
     #    (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.

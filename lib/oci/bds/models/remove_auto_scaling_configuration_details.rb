@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about removed Auto Scaling Configuration
+  # The information about the removed autoscale configuration.
   class Bds::Models::RemoveAutoScalingConfigurationDetails
-    # **[Required]** Base-64 encoded password for Cloudera Manager admin user
+    # **[Required]** Base-64 encoded password for the cluster (and Cloudera Manager) admin user.
     # @return [String]
     attr_accessor :cluster_admin_password
 
