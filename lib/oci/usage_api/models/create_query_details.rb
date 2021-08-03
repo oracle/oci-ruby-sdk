@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # New query detail with savedRequestSummarizedUsagesDetails, savedCostAnalysisUI and displayName.
+  # New query detail with savedRequestSummarizedUsagesDetails, savedCostAnalysisUI, and displayName.
   class UsageApi::Models::CreateQueryDetails
     # **[Required]** The compartment OCID.
     # @return [String]

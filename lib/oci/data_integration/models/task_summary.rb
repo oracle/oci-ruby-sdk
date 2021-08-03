@@ -13,6 +13,9 @@ module OCI
       MODEL_TYPE_INTEGRATION_TASK = 'INTEGRATION_TASK'.freeze,
       MODEL_TYPE_DATA_LOADER_TASK = 'DATA_LOADER_TASK'.freeze,
       MODEL_TYPE_PIPELINE_TASK = 'PIPELINE_TASK'.freeze,
+      MODEL_TYPE_SQL_TASK = 'SQL_TASK'.freeze,
+      MODEL_TYPE_OCI_DATAFLOW_TASK = 'OCI_DATAFLOW_TASK'.freeze,
+      MODEL_TYPE_REST_TASK = 'REST_TASK'.freeze,
       MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -133,6 +136,9 @@ module OCI
       type = object_hash[:'modelType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::DataIntegration::Models::TaskSummaryFromIntegrationTask' if type == 'INTEGRATION_TASK'
+      return 'OCI::DataIntegration::Models::TaskSummaryFromSQLTask' if type == 'SQL_TASK'
+      return 'OCI::DataIntegration::Models::TaskSummaryFromOCIDataflowTask' if type == 'OCI_DATAFLOW_TASK'
+      return 'OCI::DataIntegration::Models::TaskSummaryFromRestTask' if type == 'REST_TASK'
       return 'OCI::DataIntegration::Models::TaskSummaryFromPipelineTask' if type == 'PIPELINE_TASK'
       return 'OCI::DataIntegration::Models::TaskSummaryFromDataLoaderTask' if type == 'DATA_LOADER_TASK'
 

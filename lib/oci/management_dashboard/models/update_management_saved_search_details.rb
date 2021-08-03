@@ -74,6 +74,10 @@ module OCI
     # @return [String]
     attr_accessor :widget_vm
 
+    # Defines parameters for the saved search.
+    # @return [Array<Object>]
+    attr_accessor :parameters_config
+
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
     #
@@ -105,6 +109,7 @@ module OCI
         'metadata_version': :'metadataVersion',
         'widget_template': :'widgetTemplate',
         'widget_vm': :'widgetVM',
+        'parameters_config': :'parametersConfig',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -130,6 +135,7 @@ module OCI
         'metadata_version': :'String',
         'widget_template': :'String',
         'widget_vm': :'String',
+        'parameters_config': :'Array<Object>',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -157,6 +163,7 @@ module OCI
     # @option attributes [String] :metadata_version The value to assign to the {#metadata_version} property
     # @option attributes [String] :widget_template The value to assign to the {#widget_template} property
     # @option attributes [String] :widget_vm The value to assign to the {#widget_vm} property
+    # @option attributes [Array<Object>] :parameters_config The value to assign to the {#parameters_config} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -243,6 +250,12 @@ module OCI
 
       self.widget_vm = attributes[:'widget_vm'] if attributes[:'widget_vm']
 
+      self.parameters_config = attributes[:'parametersConfig'] if attributes[:'parametersConfig']
+
+      raise 'You cannot provide both :parametersConfig and :parameters_config' if attributes.key?(:'parametersConfig') && attributes.key?(:'parameters_config')
+
+      self.parameters_config = attributes[:'parameters_config'] if attributes[:'parameters_config']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -290,6 +303,7 @@ module OCI
         metadata_version == other.metadata_version &&
         widget_template == other.widget_template &&
         widget_vm == other.widget_vm &&
+        parameters_config == other.parameters_config &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -307,7 +321,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, provider_id, provider_version, provider_name, compartment_id, is_oob_saved_search, description, nls, type, ui_config, data_config, screen_image, metadata_version, widget_template, widget_vm, freeform_tags, defined_tags].hash
+      [display_name, provider_id, provider_version, provider_name, compartment_id, is_oob_saved_search, description, nls, type, ui_config, data_config, screen_image, metadata_version, widget_template, widget_vm, parameters_config, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

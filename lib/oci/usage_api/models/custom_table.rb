@@ -5,17 +5,17 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # saved custom table.
+  # The saved custom table.
   class UsageApi::Models::CustomTable
-    # **[Required]** The ocid of custom table.
+    # **[Required]** The custom table OCID.
     # @return [String]
     attr_accessor :id
 
-    # The user ocid of custom table.
+    # The custom table associated saved report OCID.
     # @return [String]
-    attr_accessor :user_id
+    attr_accessor :saved_report_id
 
-    # The compartment ocid of custom table.
+    # The custom table compartment OCID.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -27,7 +27,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'id': :'id',
-        'user_id': :'userId',
+        'saved_report_id': :'savedReportId',
         'compartment_id': :'compartmentId',
         'saved_custom_table': :'savedCustomTable'
         # rubocop:enable Style/SymbolLiteral
@@ -39,7 +39,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'id': :'String',
-        'user_id': :'String',
+        'saved_report_id': :'String',
         'compartment_id': :'String',
         'saved_custom_table': :'OCI::UsageApi::Models::SavedCustomTable'
         # rubocop:enable Style/SymbolLiteral
@@ -53,7 +53,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :id The value to assign to the {#id} property
-    # @option attributes [String] :user_id The value to assign to the {#user_id} property
+    # @option attributes [String] :saved_report_id The value to assign to the {#saved_report_id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [OCI::UsageApi::Models::SavedCustomTable] :saved_custom_table The value to assign to the {#saved_custom_table} property
     def initialize(attributes = {})
@@ -64,11 +64,11 @@ module OCI
 
       self.id = attributes[:'id'] if attributes[:'id']
 
-      self.user_id = attributes[:'userId'] if attributes[:'userId']
+      self.saved_report_id = attributes[:'savedReportId'] if attributes[:'savedReportId']
 
-      raise 'You cannot provide both :userId and :user_id' if attributes.key?(:'userId') && attributes.key?(:'user_id')
+      raise 'You cannot provide both :savedReportId and :saved_report_id' if attributes.key?(:'savedReportId') && attributes.key?(:'saved_report_id')
 
-      self.user_id = attributes[:'user_id'] if attributes[:'user_id']
+      self.saved_report_id = attributes[:'saved_report_id'] if attributes[:'saved_report_id']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -95,7 +95,7 @@ module OCI
 
       self.class == other.class &&
         id == other.id &&
-        user_id == other.user_id &&
+        saved_report_id == other.saved_report_id &&
         compartment_id == other.compartment_id &&
         saved_custom_table == other.saved_custom_table
     end
@@ -113,7 +113,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, user_id, compartment_id, saved_custom_table].hash
+      [id, saved_report_id, compartment_id, saved_custom_table].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

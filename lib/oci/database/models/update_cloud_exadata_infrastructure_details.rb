@@ -38,6 +38,10 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # Customer contacts. Setting this to an empty list removes all customer contact information (email addresses) for the specified OCI Database service resource.
+    # @return [Array<OCI::Database::Models::CustomerContact>]
+    attr_accessor :customer_contacts
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -47,7 +51,8 @@ module OCI
         'compute_count': :'computeCount',
         'storage_count': :'storageCount',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'customer_contacts': :'customerContacts'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -61,7 +66,8 @@ module OCI
         'compute_count': :'Integer',
         'storage_count': :'Integer',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'customer_contacts': :'Array<OCI::Database::Models::CustomerContact>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -78,6 +84,7 @@ module OCI
     # @option attributes [Integer] :storage_count The value to assign to the {#storage_count} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Array<OCI::Database::Models::CustomerContact>] :customer_contacts The value to assign to the {#customer_contacts} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -119,6 +126,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.customer_contacts = attributes[:'customerContacts'] if attributes[:'customerContacts']
+
+      raise 'You cannot provide both :customerContacts and :customer_contacts' if attributes.key?(:'customerContacts') && attributes.key?(:'customer_contacts')
+
+      self.customer_contacts = attributes[:'customer_contacts'] if attributes[:'customer_contacts']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -137,7 +150,8 @@ module OCI
         compute_count == other.compute_count &&
         storage_count == other.storage_count &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        customer_contacts == other.customer_contacts
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -153,7 +167,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, maintenance_window, compute_count, storage_count, freeform_tags, defined_tags].hash
+      [display_name, maintenance_window, compute_count, storage_count, freeform_tags, defined_tags, customer_contacts].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -6,8 +6,6 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # An external master name server used as the source of zone data.
-  # May either have a zone-embedded TSIG or reference a TSIG key by OCID,
-  # but not both.
   #
   class Dns::Models::ExternalMaster
     # **[Required]** The server's IP address (IPv4 or IPv6).
@@ -20,9 +18,6 @@ module OCI
     # @return [Integer]
     attr_accessor :port
 
-    # @return [OCI::Dns::Models::TSIG]
-    attr_accessor :tsig
-
     # The OCID of the TSIG key.
     # @return [String]
     attr_accessor :tsig_key_id
@@ -33,7 +28,6 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'address': :'address',
         'port': :'port',
-        'tsig': :'tsig',
         'tsig_key_id': :'tsigKeyId'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -45,7 +39,6 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'address': :'String',
         'port': :'Integer',
-        'tsig': :'OCI::Dns::Models::TSIG',
         'tsig_key_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -59,7 +52,6 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :address The value to assign to the {#address} property
     # @option attributes [Integer] :port The value to assign to the {#port} property
-    # @option attributes [OCI::Dns::Models::TSIG] :tsig The value to assign to the {#tsig} property
     # @option attributes [String] :tsig_key_id The value to assign to the {#tsig_key_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -70,8 +62,6 @@ module OCI
       self.address = attributes[:'address'] if attributes[:'address']
 
       self.port = attributes[:'port'] if attributes[:'port']
-
-      self.tsig = attributes[:'tsig'] if attributes[:'tsig']
 
       self.tsig_key_id = attributes[:'tsigKeyId'] if attributes[:'tsigKeyId']
 
@@ -93,7 +83,6 @@ module OCI
       self.class == other.class &&
         address == other.address &&
         port == other.port &&
-        tsig == other.tsig &&
         tsig_key_id == other.tsig_key_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -110,7 +99,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [address, port, tsig, tsig_key_id].hash
+      [address, port, tsig_key_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

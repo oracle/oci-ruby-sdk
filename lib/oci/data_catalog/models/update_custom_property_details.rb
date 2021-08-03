@@ -45,6 +45,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_hidden_in_search
 
+    # If an OCI Event will be emitted when the custom property is modified.
+    # @return [BOOLEAN]
+    attr_accessor :is_event_enabled
+
     # Allowed values for the custom property if any
     # @return [Array<String>]
     attr_accessor :allowed_values
@@ -71,6 +75,7 @@ module OCI
         'is_editable': :'isEditable',
         'is_shown_in_list': :'isShownInList',
         'is_hidden_in_search': :'isHiddenInSearch',
+        'is_event_enabled': :'isEventEnabled',
         'allowed_values': :'allowedValues',
         'properties': :'properties'
         # rubocop:enable Style/SymbolLiteral
@@ -90,6 +95,7 @@ module OCI
         'is_editable': :'BOOLEAN',
         'is_shown_in_list': :'BOOLEAN',
         'is_hidden_in_search': :'BOOLEAN',
+        'is_event_enabled': :'BOOLEAN',
         'allowed_values': :'Array<String>',
         'properties': :'Hash<String, Hash<String, String>>'
         # rubocop:enable Style/SymbolLiteral
@@ -111,6 +117,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_editable The value to assign to the {#is_editable} property
     # @option attributes [BOOLEAN] :is_shown_in_list The value to assign to the {#is_shown_in_list} property
     # @option attributes [BOOLEAN] :is_hidden_in_search The value to assign to the {#is_hidden_in_search} property
+    # @option attributes [BOOLEAN] :is_event_enabled The value to assign to the {#is_event_enabled} property
     # @option attributes [Array<String>] :allowed_values The value to assign to the {#allowed_values} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     def initialize(attributes = {})
@@ -183,6 +190,14 @@ module OCI
       self.is_hidden_in_search = attributes[:'is_hidden_in_search'] unless attributes[:'is_hidden_in_search'].nil?
       self.is_hidden_in_search = false if is_hidden_in_search.nil? && !attributes.key?(:'isHiddenInSearch') && !attributes.key?(:'is_hidden_in_search') # rubocop:disable Style/StringLiterals
 
+      self.is_event_enabled = attributes[:'isEventEnabled'] unless attributes[:'isEventEnabled'].nil?
+      self.is_event_enabled = false if is_event_enabled.nil? && !attributes.key?(:'isEventEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isEventEnabled and :is_event_enabled' if attributes.key?(:'isEventEnabled') && attributes.key?(:'is_event_enabled')
+
+      self.is_event_enabled = attributes[:'is_event_enabled'] unless attributes[:'is_event_enabled'].nil?
+      self.is_event_enabled = false if is_event_enabled.nil? && !attributes.key?(:'isEventEnabled') && !attributes.key?(:'is_event_enabled') # rubocop:disable Style/StringLiterals
+
       self.allowed_values = attributes[:'allowedValues'] if attributes[:'allowedValues']
 
       raise 'You cannot provide both :allowedValues and :allowed_values' if attributes.key?(:'allowedValues') && attributes.key?(:'allowed_values')
@@ -212,6 +227,7 @@ module OCI
         is_editable == other.is_editable &&
         is_shown_in_list == other.is_shown_in_list &&
         is_hidden_in_search == other.is_hidden_in_search &&
+        is_event_enabled == other.is_event_enabled &&
         allowed_values == other.allowed_values &&
         properties == other.properties
     end
@@ -229,7 +245,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, is_sortable, is_filterable, is_multi_valued, is_hidden, is_editable, is_shown_in_list, is_hidden_in_search, allowed_values, properties].hash
+      [display_name, description, is_sortable, is_filterable, is_multi_valued, is_hidden, is_editable, is_shown_in_list, is_hidden_in_search, is_event_enabled, allowed_values, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

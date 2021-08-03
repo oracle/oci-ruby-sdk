@@ -61,6 +61,10 @@ module OCI
     # @return [String]
     attr_reader :task_status
 
+    # reason for taskStatus PAUSED.
+    # @return [String]
+    attr_accessor :pause_reason
+
     # most recent Work Request Identifier [OCID] (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the asynchronous request.
     # @return [String]
     attr_accessor :work_request_id
@@ -104,6 +108,7 @@ module OCI
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
         'task_status': :'taskStatus',
+        'pause_reason': :'pauseReason',
         'work_request_id': :'workRequestId',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
@@ -125,6 +130,7 @@ module OCI
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
         'task_status': :'String',
+        'pause_reason': :'String',
         'work_request_id': :'String',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
@@ -148,6 +154,7 @@ module OCI
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :task_status The value to assign to the {#task_status} property
+    # @option attributes [String] :pause_reason The value to assign to the {#pause_reason} property
     # @option attributes [String] :work_request_id The value to assign to the {#work_request_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -197,6 +204,12 @@ module OCI
       raise 'You cannot provide both :taskStatus and :task_status' if attributes.key?(:'taskStatus') && attributes.key?(:'task_status')
 
       self.task_status = attributes[:'task_status'] if attributes[:'task_status']
+
+      self.pause_reason = attributes[:'pauseReason'] if attributes[:'pauseReason']
+
+      raise 'You cannot provide both :pauseReason and :pause_reason' if attributes.key?(:'pauseReason') && attributes.key?(:'pause_reason')
+
+      self.pause_reason = attributes[:'pause_reason'] if attributes[:'pause_reason']
 
       self.work_request_id = attributes[:'workRequestId'] if attributes[:'workRequestId']
 
@@ -292,6 +305,7 @@ module OCI
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
         task_status == other.task_status &&
+        pause_reason == other.pause_reason &&
         work_request_id == other.work_request_id &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
@@ -313,7 +327,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, task_type, compartment_id, time_created, time_updated, lifecycle_state, task_status, work_request_id, display_name, freeform_tags, defined_tags, last_execution_status, time_last_executed].hash
+      [id, task_type, compartment_id, time_created, time_updated, lifecycle_state, task_status, pause_reason, work_request_id, display_name, freeform_tags, defined_tags, last_execution_status, time_last_executed].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

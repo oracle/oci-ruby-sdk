@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Description of the BDS instance
+  # Description of the cluster.
   class Bds::Models::BdsInstance
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
@@ -24,38 +24,39 @@ module OCI
     CLUSTER_VERSION_ENUM = [
       CLUSTER_VERSION_CDH5 = 'CDH5'.freeze,
       CLUSTER_VERSION_CDH6 = 'CDH6'.freeze,
+      CLUSTER_VERSION_ODH1 = 'ODH1'.freeze,
       CLUSTER_VERSION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the BDS resource
+    # **[Required]** The OCID of the Big Data Service resource.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the compartment
+    # **[Required]** The OCID of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** Name of the BDS instance
+    # **[Required]** The name of the cluster.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The state of the BDS instance
+    # **[Required]** The state of the cluster.
     # @return [String]
     attr_reader :lifecycle_state
 
-    # Version of the Hadoop distribution
+    # Version of the Hadoop distribution.
     # @return [String]
     attr_reader :cluster_version
 
-    # **[Required]** Boolean flag specifying whether or not the cluster is HA
+    # **[Required]** Boolean flag specifying whether or not the cluster is highly available (HA)
     # @return [BOOLEAN]
     attr_accessor :is_high_availability
 
-    # **[Required]** Boolean flag specifying whether or not the cluster should be setup as secure.
+    # **[Required]** Boolean flag specifying whether or not the cluster should be set up as secure.
     # @return [BOOLEAN]
     attr_accessor :is_secure
 
-    # **[Required]** Boolean flag specifying whether we configure Cloud SQL or not
+    # **[Required]** Boolean flag specifying whether or not Cloud SQL should be configured.
     # @return [BOOLEAN]
     attr_accessor :is_cloud_sql_configured
 
@@ -65,22 +66,22 @@ module OCI
     # @return [OCI::Bds::Models::ClusterDetails]
     attr_accessor :cluster_details
 
-    # **[Required]** The list of nodes in the BDS instance
+    # **[Required]** The list of nodes in the cluster.
     # @return [Array<OCI::Bds::Models::Node>]
     attr_accessor :nodes
 
     # @return [OCI::Bds::Models::CloudSqlDetails]
     attr_accessor :cloud_sql_details
 
-    # The user who created the BDS instance.
+    # The user who created the cluster.
     # @return [String]
     attr_accessor :created_by
 
-    # The time the BDS instance was created. An RFC3339 formatted datetime string
+    # The time the cluster was created, shown as an RFC 3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The time the BDS instance was updated. An RFC3339 formatted datetime string
+    # The time the cluster was updated, shown as an RFC 3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_updated
 
@@ -88,14 +89,14 @@ module OCI
     # @return [Integer]
     attr_accessor :number_of_nodes
 
-    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # Simple key-value pair that is applied without any predefined name, type, or scope.
+    # Exists for cross-compatibility only. For example, `{\"bar-key\": \"value\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    # For example, `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags

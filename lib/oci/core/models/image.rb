@@ -133,6 +133,13 @@ module OCI
     # @return [Integer]
     attr_accessor :size_in_mbs
 
+    # The size of the internal storage for this image that is subject to billing (1 GB = 1,073,741,824 bytes).
+    #
+    # Example: `100`
+    #
+    # @return [Integer]
+    attr_accessor :billable_size_in_gbs
+
     # **[Required]** The date and time the image was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
@@ -159,6 +166,7 @@ module OCI
         'agent_features': :'agentFeatures',
         'listing_type': :'listingType',
         'size_in_mbs': :'sizeInMBs',
+        'billable_size_in_gbs': :'billableSizeInGBs',
         'time_created': :'timeCreated'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -183,6 +191,7 @@ module OCI
         'agent_features': :'OCI::Core::Models::InstanceAgentFeatures',
         'listing_type': :'String',
         'size_in_mbs': :'Integer',
+        'billable_size_in_gbs': :'Integer',
         'time_created': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -209,6 +218,7 @@ module OCI
     # @option attributes [OCI::Core::Models::InstanceAgentFeatures] :agent_features The value to assign to the {#agent_features} property
     # @option attributes [String] :listing_type The value to assign to the {#listing_type} property
     # @option attributes [Integer] :size_in_mbs The value to assign to the {#size_in_mbs} property
+    # @option attributes [Integer] :billable_size_in_gbs The value to assign to the {#billable_size_in_gbs} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -302,6 +312,12 @@ module OCI
 
       self.size_in_mbs = attributes[:'size_in_mbs'] if attributes[:'size_in_mbs']
 
+      self.billable_size_in_gbs = attributes[:'billableSizeInGBs'] if attributes[:'billableSizeInGBs']
+
+      raise 'You cannot provide both :billableSizeInGBs and :billable_size_in_gbs' if attributes.key?(:'billableSizeInGBs') && attributes.key?(:'billable_size_in_gbs')
+
+      self.billable_size_in_gbs = attributes[:'billable_size_in_gbs'] if attributes[:'billable_size_in_gbs']
+
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
@@ -374,6 +390,7 @@ module OCI
         agent_features == other.agent_features &&
         listing_type == other.listing_type &&
         size_in_mbs == other.size_in_mbs &&
+        billable_size_in_gbs == other.billable_size_in_gbs &&
         time_created == other.time_created
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -390,7 +407,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [base_image_id, compartment_id, create_image_allowed, defined_tags, display_name, freeform_tags, id, launch_mode, launch_options, lifecycle_state, operating_system, operating_system_version, agent_features, listing_type, size_in_mbs, time_created].hash
+      [base_image_id, compartment_id, create_image_allowed, defined_tags, display_name, freeform_tags, id, launch_mode, launch_options, lifecycle_state, operating_system, operating_system_version, agent_features, listing_type, size_in_mbs, billable_size_in_gbs, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

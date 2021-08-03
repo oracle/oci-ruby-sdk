@@ -5,19 +5,18 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about added Cloud SQL capability
+  # The information about the added Cloud SQL.
   class Bds::Models::AddCloudSqlDetails
-    # **[Required]** Shape of the node
+    # **[Required]** Shape of the node.
     # @return [String]
     attr_accessor :shape
 
-    # The size of block volume in GB that needs to be attached to a given node.
-    # All the necessary details needed for attachment are managed by service itself.
+    # The size of block volume in GB to be attached to the given node. All details needed for attaching the block volume are managed by the service itself.
     #
     # @return [Integer]
     attr_accessor :block_volume_size_in_gbs
 
-    # **[Required]** Base-64 encoded password for Cloudera Manager admin user
+    # **[Required]** Base-64 encoded password for the cluster (and Cloudera Manager) admin user.
     # @return [String]
     attr_accessor :cluster_admin_password
 

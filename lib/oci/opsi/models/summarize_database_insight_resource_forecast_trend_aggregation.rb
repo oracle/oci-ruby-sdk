@@ -60,6 +60,10 @@ module OCI
     # @return [String]
     attr_reader :pattern
 
+    # **[Required]** The name of tablespace.
+    # @return [String]
+    attr_accessor :tablespace_name
+
     # **[Required]** Time series data used for the forecast analysis.
     # @return [Array<OCI::Opsi::Models::HistoricalDataItem>]
     attr_accessor :historical_data
@@ -77,6 +81,7 @@ module OCI
         'resource_metric': :'resourceMetric',
         'usage_unit': :'usageUnit',
         'pattern': :'pattern',
+        'tablespace_name': :'tablespaceName',
         'historical_data': :'historicalData',
         'projected_data': :'projectedData'
         # rubocop:enable Style/SymbolLiteral
@@ -92,6 +97,7 @@ module OCI
         'resource_metric': :'String',
         'usage_unit': :'String',
         'pattern': :'String',
+        'tablespace_name': :'String',
         'historical_data': :'Array<OCI::Opsi::Models::HistoricalDataItem>',
         'projected_data': :'Array<OCI::Opsi::Models::ProjectedDataItem>'
         # rubocop:enable Style/SymbolLiteral
@@ -109,6 +115,7 @@ module OCI
     # @option attributes [String] :resource_metric The value to assign to the {#resource_metric} property
     # @option attributes [String] :usage_unit The value to assign to the {#usage_unit} property
     # @option attributes [String] :pattern The value to assign to the {#pattern} property
+    # @option attributes [String] :tablespace_name The value to assign to the {#tablespace_name} property
     # @option attributes [Array<OCI::Opsi::Models::HistoricalDataItem>] :historical_data The value to assign to the {#historical_data} property
     # @option attributes [Array<OCI::Opsi::Models::ProjectedDataItem>] :projected_data The value to assign to the {#projected_data} property
     def initialize(attributes = {})
@@ -142,6 +149,12 @@ module OCI
       self.usage_unit = attributes[:'usage_unit'] if attributes[:'usage_unit']
 
       self.pattern = attributes[:'pattern'] if attributes[:'pattern']
+
+      self.tablespace_name = attributes[:'tablespaceName'] if attributes[:'tablespaceName']
+
+      raise 'You cannot provide both :tablespaceName and :tablespace_name' if attributes.key?(:'tablespaceName') && attributes.key?(:'tablespace_name')
+
+      self.tablespace_name = attributes[:'tablespace_name'] if attributes[:'tablespace_name']
 
       self.historical_data = attributes[:'historicalData'] if attributes[:'historicalData']
 
@@ -211,6 +224,7 @@ module OCI
         resource_metric == other.resource_metric &&
         usage_unit == other.usage_unit &&
         pattern == other.pattern &&
+        tablespace_name == other.tablespace_name &&
         historical_data == other.historical_data &&
         projected_data == other.projected_data
     end
@@ -228,7 +242,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [time_interval_start, time_interval_end, resource_metric, usage_unit, pattern, historical_data, projected_data].hash
+      [time_interval_start, time_interval_end, resource_metric, usage_unit, pattern, tablespace_name, historical_data, projected_data].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

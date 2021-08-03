@@ -5,21 +5,21 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The updated details of the resource
+  # The model for the parameters needed to update a publication.
   class Marketplace::Models::UpdatePublicationDetails
-    # The name of the listing.
+    # The name of the publication, which is also used in the listing.
     # @return [String]
     attr_accessor :name
 
-    # short description of the catalog listing
+    # A short description of the publication to use in the listing.
     # @return [String]
     attr_accessor :short_description
 
-    # short description of the catalog listing
+    # A long description of the publication to use in the listing.
     # @return [String]
     attr_accessor :long_description
 
-    # Contact information to use to get support from the publisher for the listing.
+    # Contact information for getting support from the publisher for the listing.
     # @return [Array<OCI::Marketplace::Models::SupportContact>]
     attr_accessor :support_contacts
 

@@ -27,7 +27,7 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The name of the resolver endpoint. Must be unique within the resolver.
+    # **[Required]** The name of the resolver endpoint. Must be unique, case-insensitive, within the resolver.
     #
     # @return [String]
     attr_accessor :name
@@ -54,7 +54,7 @@ module OCI
     attr_accessor :is_listening
 
     # An IP address to listen to queries on. For VNIC endpoints this IP address must be part of the
-    # subnet and will be assigned by the system if unspecified.
+    # subnet and will be assigned by the system if unspecified when isListening is true.
     #
     # @return [String]
     attr_accessor :listening_address

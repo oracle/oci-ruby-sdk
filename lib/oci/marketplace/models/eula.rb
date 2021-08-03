@@ -5,14 +5,14 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A base object for all types of End User Licenses
+  # A base object for all types of end user license agreements.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Marketplace::Models::Eula
     EULA_TYPE_ENUM = [
       EULA_TYPE_TEXT = 'TEXT'.freeze
     ].freeze
 
-    # **[Required]** the specified eula's type
+    # **[Required]** The end user license agreement's type.
     # @return [String]
     attr_reader :eula_type
 

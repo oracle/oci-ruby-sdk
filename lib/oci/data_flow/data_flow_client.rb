@@ -1057,6 +1057,8 @@ module OCI
     #
     # @option opts [String] :display_name_starts_with The displayName prefix.
     #
+    # @option opts [String] :spark_version The Spark version utilized to run the application.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::DataFlow::Models::ApplicationSummary ApplicationSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataflow/list_applications.rb.html) to see an example of how to use list_applications API.
     def list_applications(compartment_id, opts = {})
@@ -1086,6 +1088,7 @@ module OCI
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
       query_params[:ownerPrincipalId] = opts[:owner_principal_id] if opts[:owner_principal_id]
       query_params[:displayNameStartsWith] = opts[:display_name_starts_with] if opts[:display_name_starts_with]
+      query_params[:sparkVersion] = opts[:spark_version] if opts[:spark_version]
 
       # Header Params
       header_params = {}

@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An autoscaling action is triggered when a performance metric meets or exceeds a threshold
+  # An autoscale action is triggered when a performance metric meets or exceeds a threshold.
   class Bds::Models::MetricThresholdRule
     OPERATOR_ENUM = [
       OPERATOR_GT = 'GT'.freeze,
@@ -14,15 +14,15 @@ module OCI
       OPERATOR_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** This value is the minimum period of time metric value meets or exceeds threshold value before action is trigger. The value is in minutes.
+    # **[Required]** This value is the minimum period of time the metric value meets or exceeds the threshold value before the action is triggered. The value is in minutes.
     # @return [Integer]
     attr_accessor :duration_in_minutes
 
-    # **[Required]** The comparison operator to use. Options are greater than (GT), less than (LT).
+    # **[Required]** The comparison operator to use. Options are greater than (GT) or less than (LT).
     # @return [String]
     attr_reader :operator
 
-    # **[Required]** integer non negative value. 0 < value < 100
+    # **[Required]** Integer non-negative value. 0 < value < 100
     # @return [Integer]
     attr_accessor :value
 

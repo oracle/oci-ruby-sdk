@@ -11,7 +11,10 @@ module OCI
     MODEL_TYPE_ENUM = [
       MODEL_TYPE_INTEGRATION_TASK = 'INTEGRATION_TASK'.freeze,
       MODEL_TYPE_DATA_LOADER_TASK = 'DATA_LOADER_TASK'.freeze,
-      MODEL_TYPE_PIPELINE_TASK = 'PIPELINE_TASK'.freeze
+      MODEL_TYPE_PIPELINE_TASK = 'PIPELINE_TASK'.freeze,
+      MODEL_TYPE_SQL_TASK = 'SQL_TASK'.freeze,
+      MODEL_TYPE_OCI_DATAFLOW_TASK = 'OCI_DATAFLOW_TASK'.freeze,
+      MODEL_TYPE_REST_TASK = 'REST_TASK'.freeze
     ].freeze
 
     # **[Required]** The type of the task.
@@ -124,7 +127,10 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'modelType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::DataIntegration::Models::UpdateTaskFromRestTask' if type == 'REST_TASK'
       return 'OCI::DataIntegration::Models::UpdateTaskFromPipelineTask' if type == 'PIPELINE_TASK'
+      return 'OCI::DataIntegration::Models::UpdateTaskFromOCIDataflowTask' if type == 'OCI_DATAFLOW_TASK'
+      return 'OCI::DataIntegration::Models::UpdateTaskFromSQLTask' if type == 'SQL_TASK'
       return 'OCI::DataIntegration::Models::UpdateTaskFromDataLoaderTask' if type == 'DATA_LOADER_TASK'
       return 'OCI::DataIntegration::Models::UpdateTaskFromIntegrationTask' if type == 'INTEGRATION_TASK'
 

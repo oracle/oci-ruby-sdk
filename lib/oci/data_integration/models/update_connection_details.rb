@@ -14,7 +14,9 @@ module OCI
       MODEL_TYPE_ORACLE_OBJECT_STORAGE_CONNECTION = 'ORACLE_OBJECT_STORAGE_CONNECTION'.freeze,
       MODEL_TYPE_ORACLEDB_CONNECTION = 'ORACLEDB_CONNECTION'.freeze,
       MODEL_TYPE_MYSQL_CONNECTION = 'MYSQL_CONNECTION'.freeze,
-      MODEL_TYPE_GENERIC_JDBC_CONNECTION = 'GENERIC_JDBC_CONNECTION'.freeze
+      MODEL_TYPE_GENERIC_JDBC_CONNECTION = 'GENERIC_JDBC_CONNECTION'.freeze,
+      MODEL_TYPE_BICC_CONNECTION = 'BICC_CONNECTION'.freeze,
+      MODEL_TYPE_AMAZON_S3_CONNECTION = 'AMAZON_S3_CONNECTION'.freeze
     ].freeze
 
     # **[Required]** The type of the connection.
@@ -107,6 +109,8 @@ module OCI
 
       return 'OCI::DataIntegration::Models::UpdateConnectionFromJdbc' if type == 'GENERIC_JDBC_CONNECTION'
       return 'OCI::DataIntegration::Models::UpdateConnectionFromObjectStorage' if type == 'ORACLE_OBJECT_STORAGE_CONNECTION'
+      return 'OCI::DataIntegration::Models::UpdateConnectionFromBICC' if type == 'BICC_CONNECTION'
+      return 'OCI::DataIntegration::Models::UpdateConnectionFromAmazonS3' if type == 'AMAZON_S3_CONNECTION'
       return 'OCI::DataIntegration::Models::UpdateConnectionFromAtp' if type == 'ORACLE_ATP_CONNECTION'
       return 'OCI::DataIntegration::Models::UpdateConnectionFromOracle' if type == 'ORACLEDB_CONNECTION'
       return 'OCI::DataIntegration::Models::UpdateConnectionFromAdwc' if type == 'ORACLE_ADWC_CONNECTION'

@@ -13,9 +13,13 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** ID of the dashboard.
+    # **[Required]** ID of the dashboard.  Same as id.
     # @return [String]
     attr_accessor :dashboard_id
+
+    # **[Required]** ID of the dashboard.  Same as dashboardId.
+    # @return [String]
+    attr_accessor :id
 
     # **[Required]** Display name of the dashboard.
     # @return [String]
@@ -86,6 +90,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'dashboard_id': :'dashboardId',
+        'id': :'id',
         'display_name': :'displayName',
         'description': :'description',
         'compartment_id': :'compartmentId',
@@ -110,6 +115,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'dashboard_id': :'String',
+        'id': :'String',
         'display_name': :'String',
         'description': :'String',
         'compartment_id': :'String',
@@ -136,6 +142,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :dashboard_id The value to assign to the {#dashboard_id} property
+    # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
@@ -162,6 +169,8 @@ module OCI
       raise 'You cannot provide both :dashboardId and :dashboard_id' if attributes.key?(:'dashboardId') && attributes.key?(:'dashboard_id')
 
       self.dashboard_id = attributes[:'dashboard_id'] if attributes[:'dashboard_id']
+
+      self.id = attributes[:'id'] if attributes[:'id']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -267,6 +276,7 @@ module OCI
 
       self.class == other.class &&
         dashboard_id == other.dashboard_id &&
+        id == other.id &&
         display_name == other.display_name &&
         description == other.description &&
         compartment_id == other.compartment_id &&
@@ -297,7 +307,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [dashboard_id, display_name, description, compartment_id, is_oob_dashboard, created_by, time_created, updated_by, time_updated, metadata_version, screen_image, nls, type, lifecycle_state, freeform_tags, defined_tags].hash
+      [dashboard_id, id, display_name, description, compartment_id, is_oob_dashboard, created_by, time_created, updated_by, time_updated, metadata_version, screen_image, nls, type, lifecycle_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -32,6 +32,16 @@ module OCI
       TASK_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    PAUSE_REASON_ENUM = [
+      PAUSE_REASON_METRIC_EXTRACTION_NOT_VALID = 'METRIC_EXTRACTION_NOT_VALID'.freeze,
+      PAUSE_REASON_SAVED_SEARCH_NOT_VALID = 'SAVED_SEARCH_NOT_VALID'.freeze,
+      PAUSE_REASON_SAVED_SEARCH_NOT_FOUND = 'SAVED_SEARCH_NOT_FOUND'.freeze,
+      PAUSE_REASON_QUERY_STRING_NOT_VALID = 'QUERY_STRING_NOT_VALID'.freeze,
+      PAUSE_REASON_USER_ACTION = 'USER_ACTION'.freeze,
+      PAUSE_REASON_TENANCY_LIFECYCLE = 'TENANCY_LIFECYCLE'.freeze,
+      PAUSE_REASON_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
@@ -71,6 +81,10 @@ module OCI
     # @return [String]
     attr_reader :task_status
 
+    # reason for taskStatus PAUSED.
+    # @return [String]
+    attr_reader :pause_reason
+
     # most recent Work Request Identifier [OCID] (https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the asynchronous request.
     # @return [String]
     attr_accessor :work_request_id
@@ -92,6 +106,12 @@ module OCI
     #
     # @return [DateTime]
     attr_accessor :time_updated
+
+    # The date and time the scheduled task will execute next,
+    # in the format defined by RFC3339.
+    #
+    # @return [DateTime]
+    attr_accessor :time_of_next_execution
 
     # **[Required]** The current state of the scheduled task.
     # @return [String]
@@ -120,11 +140,13 @@ module OCI
         'schedules': :'schedules',
         'action': :'action',
         'task_status': :'taskStatus',
+        'pause_reason': :'pauseReason',
         'work_request_id': :'workRequestId',
         'num_occurrences': :'numOccurrences',
         'compartment_id': :'compartmentId',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
+        'time_of_next_execution': :'timeOfNextExecution',
         'lifecycle_state': :'lifecycleState',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
@@ -143,11 +165,13 @@ module OCI
         'schedules': :'Array<OCI::LogAnalytics::Models::Schedule>',
         'action': :'OCI::LogAnalytics::Models::Action',
         'task_status': :'String',
+        'pause_reason': :'String',
         'work_request_id': :'String',
         'num_occurrences': :'Integer',
         'compartment_id': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
+        'time_of_next_execution': :'DateTime',
         'lifecycle_state': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
@@ -183,11 +207,13 @@ module OCI
     # @option attributes [Array<OCI::LogAnalytics::Models::Schedule>] :schedules The value to assign to the {#schedules} property
     # @option attributes [OCI::LogAnalytics::Models::Action] :action The value to assign to the {#action} property
     # @option attributes [String] :task_status The value to assign to the {#task_status} property
+    # @option attributes [String] :pause_reason The value to assign to the {#pause_reason} property
     # @option attributes [String] :work_request_id The value to assign to the {#work_request_id} property
     # @option attributes [Integer] :num_occurrences The value to assign to the {#num_occurrences} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [DateTime] :time_of_next_execution The value to assign to the {#time_of_next_execution} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -223,6 +249,12 @@ module OCI
 
       self.task_status = attributes[:'task_status'] if attributes[:'task_status']
 
+      self.pause_reason = attributes[:'pauseReason'] if attributes[:'pauseReason']
+
+      raise 'You cannot provide both :pauseReason and :pause_reason' if attributes.key?(:'pauseReason') && attributes.key?(:'pause_reason')
+
+      self.pause_reason = attributes[:'pause_reason'] if attributes[:'pause_reason']
+
       self.work_request_id = attributes[:'workRequestId'] if attributes[:'workRequestId']
 
       raise 'You cannot provide both :workRequestId and :work_request_id' if attributes.key?(:'workRequestId') && attributes.key?(:'work_request_id')
@@ -252,6 +284,12 @@ module OCI
       raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
 
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.time_of_next_execution = attributes[:'timeOfNextExecution'] if attributes[:'timeOfNextExecution']
+
+      raise 'You cannot provide both :timeOfNextExecution and :time_of_next_execution' if attributes.key?(:'timeOfNextExecution') && attributes.key?(:'time_of_next_execution')
+
+      self.time_of_next_execution = attributes[:'time_of_next_execution'] if attributes[:'time_of_next_execution']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -314,6 +352,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] pause_reason Object to be assigned
+    def pause_reason=(pause_reason)
+      # rubocop:disable Style/ConditionalAssignment
+      if pause_reason && !PAUSE_REASON_ENUM.include?(pause_reason)
+        OCI.logger.debug("Unknown value for 'pause_reason' [" + pause_reason + "]. Mapping to 'PAUSE_REASON_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @pause_reason = PAUSE_REASON_UNKNOWN_ENUM_VALUE
+      else
+        @pause_reason = pause_reason
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -342,11 +393,13 @@ module OCI
         schedules == other.schedules &&
         action == other.action &&
         task_status == other.task_status &&
+        pause_reason == other.pause_reason &&
         work_request_id == other.work_request_id &&
         num_occurrences == other.num_occurrences &&
         compartment_id == other.compartment_id &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
+        time_of_next_execution == other.time_of_next_execution &&
         lifecycle_state == other.lifecycle_state &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
@@ -365,7 +418,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [kind, id, display_name, task_type, schedules, action, task_status, work_request_id, num_occurrences, compartment_id, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags].hash
+      [kind, id, display_name, task_type, schedules, action, task_status, pause_reason, work_request_id, num_occurrences, compartment_id, time_created, time_updated, time_of_next_execution, lifecycle_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

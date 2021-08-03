@@ -58,6 +58,9 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_favorite
 
+    # @return [OCI::DataIntegration::Models::CountStatistic]
+    attr_accessor :count_statistics
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -74,7 +77,8 @@ module OCI
         'info_fields': :'infoFields',
         'registry_version': :'registryVersion',
         'labels': :'labels',
-        'is_favorite': :'isFavorite'
+        'is_favorite': :'isFavorite',
+        'count_statistics': :'countStatistics'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -95,7 +99,8 @@ module OCI
         'info_fields': :'Hash<String, String>',
         'registry_version': :'Integer',
         'labels': :'Array<String>',
-        'is_favorite': :'BOOLEAN'
+        'is_favorite': :'BOOLEAN',
+        'count_statistics': :'OCI::DataIntegration::Models::CountStatistic'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -119,6 +124,7 @@ module OCI
     # @option attributes [Integer] :registry_version The value to assign to the {#registry_version} property
     # @option attributes [Array<String>] :labels The value to assign to the {#labels} property
     # @option attributes [BOOLEAN] :is_favorite The value to assign to the {#is_favorite} property
+    # @option attributes [OCI::DataIntegration::Models::CountStatistic] :count_statistics The value to assign to the {#count_statistics} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -196,6 +202,12 @@ module OCI
 
       self.is_favorite = attributes[:'is_favorite'] unless attributes[:'is_favorite'].nil?
       self.is_favorite = false if is_favorite.nil? && !attributes.key?(:'isFavorite') && !attributes.key?(:'is_favorite') # rubocop:disable Style/StringLiterals
+
+      self.count_statistics = attributes[:'countStatistics'] if attributes[:'countStatistics']
+
+      raise 'You cannot provide both :countStatistics and :count_statistics' if attributes.key?(:'countStatistics') && attributes.key?(:'count_statistics')
+
+      self.count_statistics = attributes[:'count_statistics'] if attributes[:'count_statistics']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -221,7 +233,8 @@ module OCI
         info_fields == other.info_fields &&
         registry_version == other.registry_version &&
         labels == other.labels &&
-        is_favorite == other.is_favorite
+        is_favorite == other.is_favorite &&
+        count_statistics == other.count_statistics
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -237,7 +250,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [created_by, created_by_name, updated_by, updated_by_name, time_created, time_updated, aggregator_key, aggregator, identifier_path, info_fields, registry_version, labels, is_favorite].hash
+      [created_by, created_by_name, updated_by, updated_by_name, time_created, time_updated, aggregator_key, aggregator, identifier_path, info_fields, registry_version, labels, is_favorite, count_statistics].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

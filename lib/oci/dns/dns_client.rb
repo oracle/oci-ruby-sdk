@@ -85,7 +85,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://dns.{region}.{secondLevelDomain}') + '/20180115'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://dns.{region}.oci.{secondLevelDomain}') + '/20180115'
       logger.info "DnsClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -100,7 +100,7 @@ module OCI
 
 
     # Moves a resolver into a different compartment along with its protected default view and any endpoints.
-    # Zones in the default view are not moved.
+    # Zones in the default view are not moved. Requires a `PRIVATE` scope query parameter.
     #
     # @param [String] resolver_id The OCID of the target resolver.
     # @param [OCI::Dns::Models::ChangeResolverCompartmentDetails] change_resolver_compartment_details Details for moving a resolver, along with its protected default view and endpoints, into a
@@ -185,6 +185,7 @@ module OCI
 
 
     # Moves a steering policy into a different compartment.
+    #
     # @param [String] steering_policy_id The OCID of the target steering policy.
     # @param [OCI::Dns::Models::ChangeSteeringPolicyCompartmentDetails] change_steering_policy_compartment_details Details for moving a steering policy into a different compartment.
     # @param [Hash] opts the optional parameters
@@ -266,6 +267,7 @@ module OCI
 
 
     # Moves a TSIG key into a different compartment.
+    #
     # @param [String] tsig_key_id The OCID of the target TSIG key.
     # @param [OCI::Dns::Models::ChangeTsigKeyCompartmentDetails] change_tsig_key_compartment_details Details for moving a TSIG key into a different compartment.
     # @param [Hash] opts the optional parameters
@@ -346,7 +348,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves a view into a different compartment. Protected views cannot have their compartment changed.
+    # Moves a view into a different compartment. Protected views cannot have their compartment changed. Requires a
+    # `PRIVATE` scope query parameter.
     #
     # @param [String] view_id The OCID of the target view.
     # @param [OCI::Dns::Models::ChangeViewCompartmentDetails] change_view_compartment_details Details for moving a view into a different compartment.
@@ -428,7 +431,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves a zone into a different compartment. Protected zones cannot have their compartment changed.
+    # Moves a zone into a different compartment. Protected zones cannot have their compartment changed. For private
+    # zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is provided as a
+    # path parameter and `PRIVATE` is used for the scope query parameter then the viewId query parameter is required.
     #
     # **Note:** All SteeringPolicyAttachment objects associated with this zone will also be moved into the provided compartment.
     #
@@ -512,7 +517,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new resolver endpoint.
+    # Creates a new resolver endpoint. Requires a `PRIVATE` scope query parameter.
     #
     # @param [String] resolver_id The OCID of the target resolver.
     # @param [OCI::Dns::Models::CreateResolverEndpointDetails] create_resolver_endpoint_details Details for creating a new resolver endpoint.
@@ -805,7 +810,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new view in the specified compartment.
+    # Creates a new view in the specified compartment. Requires a `PRIVATE` scope query parameter.
     #
     # @param [OCI::Dns::Models::CreateViewDetails] create_view_details Details for creating a new view.
     # @param [Hash] opts the optional parameters
@@ -878,9 +883,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new zone in the specified compartment. If the `Content-Type` header for the request is `text/dns`, the
-    # `compartmentId` query parameter is required. Additionally, for `text/dns`, the `scope` and `viewId` query
-    # parameters are required to create a private zone.
+    # Creates a new zone in the specified compartment. For global zones, if the `Content-Type` header for the request
+    # is `text/dns`, the `compartmentId` query parameter is required. `text/dns` for the `Content-Type` header is
+    # not supported for private zones. Query parameter scope with a value of `PRIVATE` is required when creating a
+    # private zone. Private zones must have a zone type of `PRIMARY`. Creating a private zone at or under
+    # `oraclevcn.com` within the default protected view of a VCN-dedicated resolver is not permitted.
     #
     # @param [OCI::Dns::Models::CreateZoneBaseDetails] create_zone_details Details for creating a new zone.
     # @param [Hash] opts the optional parameters
@@ -948,7 +955,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes all records at the specified zone and domain.
+    # Deletes all records at the specified zone and domain. For private zones, the scope query parameter is
+    # required with a value of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used
+    # for the scope query parameter then the viewId query parameter is required.
+    #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
     # @param [Hash] opts the optional parameters
@@ -1033,8 +1043,9 @@ module OCI
 
 
     # Deletes the specified resolver endpoint. Note that attempting to delete a resolver endpoint in the
-    # DELETED lifecycle state will result in a 404 to be consistent with other operations of the API.
-    # Resolver endpoints may not be deleted if they are referenced by a resolver rule.
+    # DELETED lifecycle state will result in a `404` response to be consistent with other operations of the API.
+    # Resolver endpoints may not be deleted if they are referenced by a resolver rule. Requires a `PRIVATE` scope
+    # query parameter.
     #
     # @param [String] resolver_id The OCID of the target resolver.
     # @param [String] resolver_endpoint_name The name of the target resolver endpoint.
@@ -1115,7 +1126,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes all records in the specified RRSet.
+    # Deletes all records in the specified RRSet. For private zones, the scope query parameter is required with a
+    # value of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used for the scope
+    # query parameter then the viewId query parameter is required.
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
@@ -1442,10 +1455,10 @@ module OCI
 
 
     # Deletes the specified view. Note that attempting to delete a
-    # view in the DELETED lifecycleState will result in a 404 to be
-    # consistent with other operations of the API. Views can not be
+    # view in the DELETED lifecycleState will result in a `404` response to be
+    # consistent with other operations of the API. Views cannot be
     # deleted if they are referenced by non-deleted zones or resolvers.
-    # Protected views cannot be deleted.
+    # Protected views cannot be deleted. Requires a `PRIVATE` scope query parameter.
     #
     # @param [String] view_id The OCID of the target view.
     # @param [Hash] opts the optional parameters
@@ -1523,9 +1536,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the specified zone and all its steering policy attachments.
-    # A `204` response indicates that the zone has been successfully deleted.
-    # Protected zones cannot be deleted.
+    # Deletes the specified zone and all its steering policy attachments. A `204` response indicates that the zone has
+    # been successfully deleted. Protected zones cannot be deleted. For private zones, the scope query parameter is
+    # required with a value of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used
+    # for the scope query parameter then the viewId query parameter is required.
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [Hash] opts the optional parameters
@@ -1607,9 +1621,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of all records at the specified zone and domain.
-    # The results are sorted by `rtype` in alphabetical order by default. You
-    # can optionally filter and/or sort the results using the listed parameters.
+    # Gets a list of all records at the specified zone and domain. The results are sorted by `rtype` in
+    # alphabetical order by default. You can optionally filter and/or sort the results using the listed parameters.
+    # For private zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is
+    # provided as a path parameter and `PRIVATE` is used for the scope query parameter then the viewId query
+    # parameter is required.
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
@@ -1720,9 +1736,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get information about a specific resolver. Note that attempting to get a
-    # resolver in the DELETED lifecycleState will result in a 404 to be
-    # consistent with other operations of the API.
+    # Gets information about a specific resolver. Note that attempting to get a
+    # resolver in the DELETED lifecycleState will result in a `404` response to be
+    # consistent with other operations of the API. Requires a `PRIVATE` scope query parameter.
     #
     # @param [String] resolver_id The OCID of the target resolver.
     # @param [Hash] opts the optional parameters
@@ -1799,8 +1815,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get information about a specific resolver endpoint. Note that attempting to get a resolver endpoint
-    # in the DELETED lifecycle state will result in a 404 to be consistent with other operations of the API.
+    # Gets information about a specific resolver endpoint. Note that attempting to get a resolver endpoint
+    # in the DELETED lifecycle state will result in a `404` response to be consistent with other operations of the
+    # API. Requires a `PRIVATE` scope query parameter.
     #
     # @param [String] resolver_id The OCID of the target resolver.
     # @param [String] resolver_endpoint_name The name of the target resolver endpoint.
@@ -1880,8 +1897,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of all records in the specified RRSet. The results are
-    # sorted by `recordHash` by default.
+    # Gets a list of all records in the specified RRSet. The results are sorted by `recordHash` by default. For
+    # private zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is
+    # provided as a path parameter and `PRIVATE` is used for the scope query parameter then the viewId query
+    # parameter is required.
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
@@ -2208,9 +2227,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get information about a specific view. Note that attempting to get a
-    # view in the DELETED lifecycleState will result in a 404 to be
-    # consistent with other operations of the API.
+    # Gets information about a specific view. Note that attempting to get a
+    # view in the DELETED lifecycleState will result in a `404` response to be
+    # consistent with other operations of the API. Requires a `PRIVATE` scope query parameter.
     #
     # @param [String] view_id The OCID of the target view.
     # @param [Hash] opts the optional parameters
@@ -2287,8 +2306,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets information about the specified zone, including its creation date,
-    # zone type, and serial.
+    # Gets information about the specified zone, including its creation date, zone type, and serial. For private
+    # zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is provided as a
+    # path parameter and `PRIVATE` is used for the scope query parameter then the viewId query parameter is required.
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [Hash] opts the optional parameters
@@ -2369,9 +2389,136 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets all records in the specified zone. The results are
-    # sorted by `domain` in alphabetical order by default. For more
-    # information about records, see [Resource Record (RR) TYPEs](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4).
+    # Gets the requested zone's zone file.
+    #
+    # @param [String] zone_name_or_id The name or OCID of the target zone.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_none_match The `If-None-Match` header field makes the request method conditional on
+    #   the absence of any current representation of the target resource, when
+    #   the field-value is `*`, or having a selected representation with an
+    #   entity-tag that does not match any of those listed in the field-value.
+    #
+    # @option opts [String] :if_modified_since The `If-Modified-Since` header field makes a GET or HEAD request method
+    #   conditional on the selected representation's modification date being more
+    #   recent than the date provided in the field-value.  Transfer of the
+    #   selected representation's data is avoided if that data has not changed.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :view_id The OCID of the view the resource is associated with.
+    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
+    # @option [Block] &block Streaming http body to the block
+    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/get_zone_content.rb.html) to see an example of how to use get_zone_content API.
+    def get_zone_content(zone_name_or_id, opts = {}, &block)
+      logger.debug 'Calling operation DnsClient#get_zone_content.' if logger
+
+      raise "Missing the required parameter 'zone_name_or_id' when calling get_zone_content." if zone_name_or_id.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+      raise "Parameter value for 'zone_name_or_id' must not be blank" if OCI::Internal::Util.blank_string?(zone_name_or_id)
+
+      path = '/zones/{zoneNameOrId}/content'.sub('{zoneNameOrId}', zone_name_or_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:viewId] = opts[:view_id] if opts[:view_id]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = opts[:accept] if opts[:accept]
+      header_params[:accept] ||= 'text/dns'
+      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
+      header_params[:'if-modified-since'] = opts[:if_modified_since] if opts[:if_modified_since]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#get_zone_content') do
+        if !block.nil?
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'Stream',
+            &block
+          )
+        elsif opts[:response_target]
+          if opts[:response_target].respond_to? :write
+            @api_client.call_api(
+              :GET,
+              path,
+              endpoint,
+              header_params: header_params,
+              query_params: query_params,
+              operation_signing_strategy: operation_signing_strategy,
+              body: post_body,
+              return_type: 'Stream',
+              &proc { |chunk, _response| opts[:response_target].write(chunk) }
+            )
+          elsif opts[:response_target].is_a?(String)
+            File.open(opts[:response_target], 'wb') do |output|
+              return @api_client.call_api(
+                :GET,
+                path,
+                endpoint,
+                header_params: header_params,
+                query_params: query_params,
+                operation_signing_strategy: operation_signing_strategy,
+                body: post_body,
+                return_type: 'Stream',
+                &proc { |chunk, _response| output.write(chunk) }
+              )
+            end
+          end
+        else
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'String'
+          )
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets all records in the specified zone. The results are sorted by `domain` in alphabetical order by default.
+    # For more information about records, see [Resource Record (RR) TYPEs](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-4).
+    # For private zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is
+    # provided as a path parameter and `PRIVATE` is used for the scope query parameter then the viewId query
+    # parameter is required.
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [Hash] opts the optional parameters
@@ -2489,8 +2636,8 @@ module OCI
 
     # Gets a list of all endpoints within a resolver. The collection can be filtered by name or lifecycle state.
     # It can be sorted on creation time or name both in ASC or DESC order. Note that when no lifecycleState
-    # query parameter is provided that the collection does not include resolver endpoints in the DELETED
-    # lifecycle state to be consistent with other operations of the API.
+    # query parameter is provided, the collection does not include resolver endpoints in the DELETED
+    # lifecycle state to be consistent with other operations of the API. Requires a `PRIVATE` scope query parameter.
     #
     # @param [String] resolver_id The OCID of the target resolver.
     # @param [Hash] opts the optional parameters
@@ -2586,9 +2733,9 @@ module OCI
     # Gets a list of all resolvers within a compartment. The collection can
     # be filtered by display name, id, or lifecycle state. It can be sorted
     # on creation time or displayName both in ASC or DESC order. Note that
-    # when no lifecycleState query parameter is provided that the collection
+    # when no lifecycleState query parameter is provided, the collection
     # does not include resolvers in the DELETED lifecycleState to be consistent
-    # with other operations of the API.
+    # with other operations of the API. Requires a `PRIVATE` scope query parameter.
     #
     # @param [String] compartment_id The OCID of the compartment the resource belongs to.
     # @param [Hash] opts the optional parameters
@@ -3015,9 +3162,9 @@ module OCI
     # Gets a list of all views within a compartment. The collection can
     # be filtered by display name, id, or lifecycle state. It can be sorted
     # on creation time or displayName both in ASC or DESC order. Note that
-    # when no lifecycleState query parameter is provided that the collection
+    # when no lifecycleState query parameter is provided, the collection
     # does not include views in the DELETED lifecycleState to be consistent
-    # with other operations of the API.
+    # with other operations of the API. Requires a `PRIVATE` scope query parameter.
     #
     # @param [String] compartment_id The OCID of the compartment the resource belongs to.
     # @param [Hash] opts the optional parameters
@@ -3112,8 +3259,78 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of all zones in the specified compartment. The collection
-    # can be filtered by name, time created, scope, associated view, and zone type.
+    # Gets a list of IP addresses of OCI nameservers for inbound and outbound transfer of zones in the specified
+    # compartment (which must be the root compartment of a tenancy) that transfer zone data with external master or
+    # downstream nameservers.
+    #
+    # @param [String] compartment_id The OCID of the compartment the resource belongs to.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need
+    #   to contact Oracle about a particular request, please provide
+    #   the request ID.
+    #
+    # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
+    #
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::ZoneTransferServer ZoneTransferServer}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/list_zone_transfer_servers.rb.html) to see an example of how to use list_zone_transfer_servers API.
+    def list_zone_transfer_servers(compartment_id, opts = {})
+      logger.debug 'Calling operation DnsClient#list_zone_transfer_servers.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_zone_transfer_servers." if compartment_id.nil?
+
+      if opts[:scope] && !OCI::Dns::Models::SCOPE_ENUM.include?(opts[:scope])
+        raise 'Invalid value for "scope", must be one of the values in OCI::Dns::Models::SCOPE_ENUM.'
+      end
+
+      path = '/zoneTransferServers'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:scope] = opts[:scope] if opts[:scope]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DnsClient#list_zone_transfer_servers') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Dns::Models::ZoneTransferServer>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of all zones in the specified compartment. The collection can be filtered by name, time created,
+    # scope, associated view, and zone type. Filtering by view is only supported for private zones.
     #
     # @param [String] compartment_id The OCID of the compartment the resource belongs to.
     # @param [Hash] opts the optional parameters
@@ -3144,7 +3361,7 @@ module OCI
     #   all returned resources were created before the indicated time.
     #
     # @option opts [String] :lifecycle_state The state of a resource. (default to ACTIVE)
-    #   Allowed values are: ACTIVE, CREATING, DELETED, DELETING, FAILED
+    #   Allowed values are: ACTIVE, CREATING, DELETED, DELETING, FAILED, UPDATING
     # @option opts [String] :sort_by The field by which to sort zones. (default to timeCreated)
     #   Allowed values are: name, zoneType, timeCreated
     # @option opts [String] :sort_order The order to sort the resources.
@@ -3152,6 +3369,8 @@ module OCI
     # @option opts [String] :scope Specifies to operate only on resources that have a matching DNS scope.
     #
     # @option opts [String] :view_id The OCID of the view the resource is associated with.
+    # @option opts [String] :tsig_key_id Search for zones that are associated with a TSIG key.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Dns::Models::ZoneSummary ZoneSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dns/list_zones.rb.html) to see an example of how to use list_zones API.
     def list_zones(compartment_id, opts = {})
@@ -3163,8 +3382,8 @@ module OCI
         raise 'Invalid value for "zone_type", must be one of PRIMARY, SECONDARY.'
       end
 
-      if opts[:lifecycle_state] && !%w[ACTIVE CREATING DELETED DELETING FAILED].include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of ACTIVE, CREATING, DELETED, DELETING, FAILED.'
+      if opts[:lifecycle_state] && !%w[ACTIVE CREATING DELETED DELETING FAILED UPDATING].include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of ACTIVE, CREATING, DELETED, DELETING, FAILED, UPDATING.'
       end
 
       if opts[:sort_by] && !%w[name zoneType timeCreated].include?(opts[:sort_by])
@@ -3198,6 +3417,7 @@ module OCI
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:scope] = opts[:scope] if opts[:scope]
       query_params[:viewId] = opts[:view_id] if opts[:view_id]
+      query_params[:tsigKeyId] = opts[:tsig_key_id] if opts[:tsig_key_id]
 
       # Header Params
       header_params = {}
@@ -3232,10 +3452,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates records in the specified zone at a domain. You can update
-    # one record or all records for the specified zone depending on the changes
-    # provided in the request body. You can also add or remove records using this
-    # function.
+    # Updates records in the specified zone at a domain. You can update one record or all records for the specified
+    # zone depending on the changes provided in the request body. You can also add or remove records using this
+    # function. For private zones, the scope query parameter is required with a value of `PRIVATE`. When the zone
+    # name is provided as a path parameter and `PRIVATE` is used for the scope query parameter then the viewId
+    # query parameter is required.
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
@@ -3323,7 +3544,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates records in the specified RRSet.
+    # Updates records in the specified RRSet. For private zones, the scope query parameter is required with a value
+    # of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used for the scope query
+    # parameter then the viewId query parameter is required.
+    #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
     # @param [String] rtype The type of the target RRSet within the target zone.
@@ -3413,10 +3637,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates a collection of records in the specified zone. You can update
-    # one record or all records for the specified zone depending on the
-    # changes provided in the request body. You can also add or remove records
-    # using this function.
+    # Updates a collection of records in the specified zone. You can update one record or all records for the
+    # specified zone depending on the changes provided in the request body. You can also add or remove records
+    # using this function. For private zones, the scope query parameter is required with a value of `PRIVATE`. When
+    # the zone name is provided as a path parameter and `PRIVATE` is used for the scope query parameter then the
+    # viewId query parameter is required.
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [OCI::Dns::Models::PatchZoneRecordsDetails] patch_zone_records_details The operations describing how to modify the collection of records.
@@ -3502,12 +3727,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Replaces records in the specified zone at a domain with the records
-    # specified in the request body. If a specified record does not exist,
-    # it will be created. If the record exists, then it will be updated to
-    # represent the record in the body of the request. If a record in the zone
-    # does not exist in the request body, the record will be removed from the
-    # zone.
+    # Replaces records in the specified zone at a domain with the records specified in the request body. If a
+    # specified record does not exist, it will be created. If the record exists, then it will be updated to
+    # represent the record in the body of the request. If a record in the zone does not exist in the request body,
+    # the record will be removed from the zone. For private zones, the scope query parameter is required with a
+    # value of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used for the scope
+    # query parameter then the viewId query parameter is required.
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
@@ -3595,7 +3820,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified resolver with your new information.
+    # Updates the specified resolver with your new information. Requires a `PRIVATE` scope query parameter.
     #
     # @param [String] resolver_id The OCID of the target resolver.
     # @param [OCI::Dns::Models::UpdateResolverDetails] update_resolver_details New data for the resolver.
@@ -3676,7 +3901,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified resolver endpoint with your new information.
+    # Updates the specified resolver endpoint with your new information. Requires a `PRIVATE` scope query parameter.
     #
     # @param [String] resolver_id The OCID of the target resolver.
     # @param [String] resolver_endpoint_name The name of the target resolver endpoint.
@@ -3760,7 +3985,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Replaces records in the specified RRSet.
+    # Replaces records in the specified RRSet. For private zones, the scope query parameter is required with a
+    # value of `PRIVATE`. When the zone name is provided as a path parameter and `PRIVATE` is used for the scope
+    # query parameter then the viewId query parameter is required.
+    #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [String] domain The target fully-qualified domain name (FQDN) within the target zone.
     # @param [String] rtype The type of the target RRSet within the target zone.
@@ -4093,7 +4321,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified view with your new information.
+    # Updates the specified view with your new information. Requires a `PRIVATE` scope query parameter.
     #
     # @param [String] view_id The OCID of the target view.
     # @param [OCI::Dns::Models::UpdateViewDetails] update_view_details New data for the view.
@@ -4174,9 +4402,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified secondary zone with your new external master
-    # server information. For more information about secondary zone, see
-    # [Manage DNS Service Zone](https://docs.cloud.oracle.com/iaas/Content/DNS/Tasks/managingdnszones.htm).
+    # Updates the zone with the specified information. Global secondary zones may have their external masters updated.
+    # For more information about secondary zone, see [Manage DNS Service Zone](https://docs.cloud.oracle.com/iaas/Content/DNS/Tasks/managingdnszones.htm).
+    # For private zones, the scope query parameter is required with a value of `PRIVATE`. When the zone name is
+    # provided as a path parameter and `PRIVATE` is used for the scope query parameter then the viewId query
+    # parameter is required.
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [OCI::Dns::Models::UpdateZoneDetails] update_zone_details New data for the zone.
@@ -4261,11 +4491,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Replaces records in the specified zone with the records specified in the
-    # request body. If a specified record does not exist, it will be created.
-    # If the record exists, then it will be updated to represent the record in
-    # the body of the request. If a record in the zone does not exist in the
-    # request body, the record will be removed from the zone.
+    # Replaces records in the specified zone with the records specified in the request body. If a specified record
+    # does not exist, it will be created. If the record exists, then it will be updated to represent the record in
+    # the body of the request. If a record in the zone does not exist in the request body, the record will be
+    # removed from the zone. For private zones, the scope query parameter is required with a value of `PRIVATE`.
+    # When the zone name is provided as a path parameter and `PRIVATE` is used for the scope query parameter then
+    # the viewId query parameter is required.
     #
     # @param [String] zone_name_or_id The name or OCID of the target zone.
     # @param [OCI::Dns::Models::UpdateZoneRecordsDetails] update_zone_records_details A full list of records for the zone.

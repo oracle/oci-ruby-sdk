@@ -13,6 +13,9 @@ module OCI
       MODEL_TYPE_INTEGRATION_TASK = 'INTEGRATION_TASK'.freeze,
       MODEL_TYPE_DATA_LOADER_TASK = 'DATA_LOADER_TASK'.freeze,
       MODEL_TYPE_PIPELINE_TASK = 'PIPELINE_TASK'.freeze,
+      MODEL_TYPE_SQL_TASK = 'SQL_TASK'.freeze,
+      MODEL_TYPE_OCI_DATAFLOW_TASK = 'OCI_DATAFLOW_TASK'.freeze,
+      MODEL_TYPE_REST_TASK = 'REST_TASK'.freeze,
       MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -76,6 +79,9 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :key_map
 
+    # @return [OCI::DataIntegration::Models::RegistryMetadata]
+    attr_accessor :registry_metadata
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -95,7 +101,8 @@ module OCI
         'op_config_values': :'opConfigValues',
         'config_provider_delegate': :'configProviderDelegate',
         'metadata': :'metadata',
-        'key_map': :'keyMap'
+        'key_map': :'keyMap',
+        'registry_metadata': :'registryMetadata'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -119,7 +126,8 @@ module OCI
         'op_config_values': :'OCI::DataIntegration::Models::ConfigValues',
         'config_provider_delegate': :'OCI::DataIntegration::Models::ConfigProvider',
         'metadata': :'OCI::DataIntegration::Models::ObjectMetadata',
-        'key_map': :'Hash<String, String>'
+        'key_map': :'Hash<String, String>',
+        'registry_metadata': :'OCI::DataIntegration::Models::RegistryMetadata'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -134,6 +142,9 @@ module OCI
 
       return 'OCI::DataIntegration::Models::TaskFromPipelineTaskDetails' if type == 'PIPELINE_TASK'
       return 'OCI::DataIntegration::Models::TaskFromIntegrationTaskDetails' if type == 'INTEGRATION_TASK'
+      return 'OCI::DataIntegration::Models::TaskFromSQLTaskDetails' if type == 'SQL_TASK'
+      return 'OCI::DataIntegration::Models::TaskFromRestTaskDetails' if type == 'REST_TASK'
+      return 'OCI::DataIntegration::Models::TaskFromOCIDataflowTaskDetails' if type == 'OCI_DATAFLOW_TASK'
       return 'OCI::DataIntegration::Models::TaskFromDataLoaderTaskDetails' if type == 'DATA_LOADER_TASK'
 
       # TODO: Log a warning when the subtype is not found.
@@ -163,6 +174,7 @@ module OCI
     # @option attributes [OCI::DataIntegration::Models::ConfigProvider] :config_provider_delegate The value to assign to the {#config_provider_delegate} property
     # @option attributes [OCI::DataIntegration::Models::ObjectMetadata] :metadata The value to assign to the {#metadata} property
     # @option attributes [Hash<String, String>] :key_map The value to assign to the {#key_map} property
+    # @option attributes [OCI::DataIntegration::Models::RegistryMetadata] :registry_metadata The value to assign to the {#registry_metadata} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -240,6 +252,12 @@ module OCI
       raise 'You cannot provide both :keyMap and :key_map' if attributes.key?(:'keyMap') && attributes.key?(:'key_map')
 
       self.key_map = attributes[:'key_map'] if attributes[:'key_map']
+
+      self.registry_metadata = attributes[:'registryMetadata'] if attributes[:'registryMetadata']
+
+      raise 'You cannot provide both :registryMetadata and :registry_metadata' if attributes.key?(:'registryMetadata') && attributes.key?(:'registry_metadata')
+
+      self.registry_metadata = attributes[:'registry_metadata'] if attributes[:'registry_metadata']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -281,7 +299,8 @@ module OCI
         op_config_values == other.op_config_values &&
         config_provider_delegate == other.config_provider_delegate &&
         metadata == other.metadata &&
-        key_map == other.key_map
+        key_map == other.key_map &&
+        registry_metadata == other.registry_metadata
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -297,7 +316,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, parent_ref, name, description, object_version, object_status, identifier, input_ports, output_ports, parameters, op_config_values, config_provider_delegate, metadata, key_map].hash
+      [model_type, key, model_version, parent_ref, name, description, object_version, object_status, identifier, input_ports, output_ports, parameters, op_config_values, config_provider_delegate, metadata, key_map, registry_metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

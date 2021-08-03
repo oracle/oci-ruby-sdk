@@ -7,7 +7,8 @@ module OCI
       SOURCE_TYPES_OCIC = 'OCIC'.freeze,
       SOURCE_TYPES_INTERNAL_COMPUTE = 'INTERNAL_COMPUTE'.freeze,
       SOURCE_TYPES_OCC = 'OCC'.freeze,
-      SOURCE_TYPES_OCIC_IDCS = 'OCIC_IDCS'.freeze
+      SOURCE_TYPES_OCIC_IDCS = 'OCIC_IDCS'.freeze,
+      SOURCE_TYPES_IMPORT = 'IMPORT'.freeze
     ].freeze
   end
 end

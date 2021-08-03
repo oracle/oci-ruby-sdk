@@ -44,6 +44,10 @@ module OCI
     # @return [OCI::Database::Models::MaintenanceWindow]
     attr_accessor :maintenance_window
 
+    # The requested number of additional storage servers for the Exadata infrastructure.
+    # @return [Integer]
+    attr_accessor :additional_storage_count
+
     # The list of DNS server IP addresses. Maximum of 3 allowed.
     # @return [Array<String>]
     attr_accessor :dns_server
@@ -84,6 +88,7 @@ module OCI
         'corporate_proxy': :'corporateProxy',
         'contacts': :'contacts',
         'maintenance_window': :'maintenanceWindow',
+        'additional_storage_count': :'additionalStorageCount',
         'dns_server': :'dnsServer',
         'ntp_server': :'ntpServer',
         'time_zone': :'timeZone',
@@ -106,6 +111,7 @@ module OCI
         'corporate_proxy': :'String',
         'contacts': :'Array<OCI::Database::Models::ExadataInfrastructureContact>',
         'maintenance_window': :'OCI::Database::Models::MaintenanceWindow',
+        'additional_storage_count': :'Integer',
         'dns_server': :'Array<String>',
         'ntp_server': :'Array<String>',
         'time_zone': :'String',
@@ -130,6 +136,7 @@ module OCI
     # @option attributes [String] :corporate_proxy The value to assign to the {#corporate_proxy} property
     # @option attributes [Array<OCI::Database::Models::ExadataInfrastructureContact>] :contacts The value to assign to the {#contacts} property
     # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window The value to assign to the {#maintenance_window} property
+    # @option attributes [Integer] :additional_storage_count The value to assign to the {#additional_storage_count} property
     # @option attributes [Array<String>] :dns_server The value to assign to the {#dns_server} property
     # @option attributes [Array<String>] :ntp_server The value to assign to the {#ntp_server} property
     # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
@@ -183,6 +190,12 @@ module OCI
 
       self.maintenance_window = attributes[:'maintenance_window'] if attributes[:'maintenance_window']
 
+      self.additional_storage_count = attributes[:'additionalStorageCount'] if attributes[:'additionalStorageCount']
+
+      raise 'You cannot provide both :additionalStorageCount and :additional_storage_count' if attributes.key?(:'additionalStorageCount') && attributes.key?(:'additional_storage_count')
+
+      self.additional_storage_count = attributes[:'additional_storage_count'] if attributes[:'additional_storage_count']
+
       self.dns_server = attributes[:'dnsServer'] if attributes[:'dnsServer']
 
       raise 'You cannot provide both :dnsServer and :dns_server' if attributes.key?(:'dnsServer') && attributes.key?(:'dns_server')
@@ -234,6 +247,7 @@ module OCI
         corporate_proxy == other.corporate_proxy &&
         contacts == other.contacts &&
         maintenance_window == other.maintenance_window &&
+        additional_storage_count == other.additional_storage_count &&
         dns_server == other.dns_server &&
         ntp_server == other.ntp_server &&
         time_zone == other.time_zone &&
@@ -254,7 +268,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, contacts, maintenance_window, dns_server, ntp_server, time_zone, freeform_tags, defined_tags].hash
+      [cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, contacts, maintenance_window, additional_storage_count, dns_server, ntp_server, time_zone, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

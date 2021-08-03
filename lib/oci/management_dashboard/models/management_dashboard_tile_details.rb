@@ -61,6 +61,10 @@ module OCI
     # @return [Object]
     attr_accessor :drilldown_config
 
+    # Specifies the saved search parameters values
+    # @return [Object]
+    attr_accessor :parameters_map
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -75,7 +79,8 @@ module OCI
         'ui_config': :'uiConfig',
         'data_config': :'dataConfig',
         'state': :'state',
-        'drilldown_config': :'drilldownConfig'
+        'drilldown_config': :'drilldownConfig',
+        'parameters_map': :'parametersMap'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -94,7 +99,8 @@ module OCI
         'ui_config': :'Object',
         'data_config': :'Array<Object>',
         'state': :'String',
-        'drilldown_config': :'Object'
+        'drilldown_config': :'Object',
+        'parameters_map': :'Object'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -116,6 +122,7 @@ module OCI
     # @option attributes [Array<Object>] :data_config The value to assign to the {#data_config} property
     # @option attributes [String] :state The value to assign to the {#state} property
     # @option attributes [Object] :drilldown_config The value to assign to the {#drilldown_config} property
+    # @option attributes [Object] :parameters_map The value to assign to the {#parameters_map} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -163,6 +170,12 @@ module OCI
       raise 'You cannot provide both :drilldownConfig and :drilldown_config' if attributes.key?(:'drilldownConfig') && attributes.key?(:'drilldown_config')
 
       self.drilldown_config = attributes[:'drilldown_config'] if attributes[:'drilldown_config']
+
+      self.parameters_map = attributes[:'parametersMap'] if attributes[:'parametersMap']
+
+      raise 'You cannot provide both :parametersMap and :parameters_map' if attributes.key?(:'parametersMap') && attributes.key?(:'parameters_map')
+
+      self.parameters_map = attributes[:'parameters_map'] if attributes[:'parameters_map']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -199,7 +212,8 @@ module OCI
         ui_config == other.ui_config &&
         data_config == other.data_config &&
         state == other.state &&
-        drilldown_config == other.drilldown_config
+        drilldown_config == other.drilldown_config &&
+        parameters_map == other.parameters_map
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -215,7 +229,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, saved_search_id, row, column, height, width, nls, ui_config, data_config, state, drilldown_config].hash
+      [display_name, saved_search_id, row, column, height, width, nls, ui_config, data_config, state, drilldown_config, parameters_map].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

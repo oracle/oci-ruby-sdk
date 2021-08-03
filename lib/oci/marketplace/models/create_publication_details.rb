@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Publication Creation Details
+  # The model for the parameters needed to create a publication.
   class Marketplace::Models::CreatePublicationDetails
     LISTING_TYPE_ENUM = [
       LISTING_TYPE_COMMUNITY = 'COMMUNITY'.freeze,
@@ -13,27 +13,28 @@ module OCI
       LISTING_TYPE_PRIVATE = 'PRIVATE'.freeze
     ].freeze
 
-    # **[Required]** In which catalog the listing should exist.
+    # **[Required]** The publisher category to which the publication belongs. The publisher category informs where the listing appears for use.
+    #
     # @return [String]
     attr_reader :listing_type
 
-    # **[Required]** The name of the listing.
+    # **[Required]** The name of the publication, which is also used in the listing.
     # @return [String]
     attr_accessor :name
 
-    # **[Required]** short description of the catalog listing
+    # **[Required]** A short description of the publication to use in the listing.
     # @return [String]
     attr_accessor :short_description
 
-    # short description of the catalog listing
+    # A long description of the publication to use in the listing.
     # @return [String]
     attr_accessor :long_description
 
-    # **[Required]** Contact information to use to get support from the publisher for the listing.
+    # **[Required]** Contact information for getting support from the publisher for the listing.
     # @return [Array<OCI::Marketplace::Models::SupportContact>]
     attr_accessor :support_contacts
 
-    # **[Required]** The OCID of the compartment to create the resource within.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment where you want to create the publication.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -41,7 +42,8 @@ module OCI
     # @return [OCI::Marketplace::Models::CreatePublicationPackage]
     attr_accessor :package_details
 
-    # **[Required]** Acknowledgement that invoker has the right and authority to share this Community Image in accordance with their agreement with Oracle applicable to the Services and the related Service Specifications
+    # **[Required]** Whether the publisher acknowledged that they have the right and authority to share the contents of the publication and that they accepted the Oracle terms of use agreements required to create a publication.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_agreement_acknowledged
 

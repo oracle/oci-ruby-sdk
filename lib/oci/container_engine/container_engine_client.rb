@@ -100,6 +100,68 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Initiates cluster migration to use native VCN.
+    # @param [String] cluster_id The OCID of the cluster.
+    # @param [OCI::ContainerEngine::Models::ClusterMigrateToNativeVcnDetails] cluster_migrate_to_native_vcn_details The details for the cluster's migration to native VCN.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/cluster_migrate_to_native_vcn.rb.html) to see an example of how to use cluster_migrate_to_native_vcn API.
+    def cluster_migrate_to_native_vcn(cluster_id, cluster_migrate_to_native_vcn_details, opts = {})
+      logger.debug 'Calling operation ContainerEngineClient#cluster_migrate_to_native_vcn.' if logger
+
+      raise "Missing the required parameter 'cluster_id' when calling cluster_migrate_to_native_vcn." if cluster_id.nil?
+      raise "Missing the required parameter 'cluster_migrate_to_native_vcn_details' when calling cluster_migrate_to_native_vcn." if cluster_migrate_to_native_vcn_details.nil?
+      raise "Parameter value for 'cluster_id' must not be blank" if OCI::Internal::Util.blank_string?(cluster_id)
+
+      path = '/clusters/{clusterId}/actions/migrateToNativeVcn'.sub('{clusterId}', cluster_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(cluster_migrate_to_native_vcn_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ContainerEngineClient#cluster_migrate_to_native_vcn') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Create a new cluster.
     # @param [OCI::ContainerEngine::Models::CreateClusterDetails] create_cluster_details The details of the cluster to create.
     # @param [Hash] opts the optional parameters
@@ -544,6 +606,62 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::ContainerEngine::Models::Cluster'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Get details on a cluster's migration to native VCN.
+    # @param [String] cluster_id The OCID of the cluster.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::ContainerEngine::Models::ClusterMigrateToNativeVcnStatus ClusterMigrateToNativeVcnStatus}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/get_cluster_migrate_to_native_vcn_status.rb.html) to see an example of how to use get_cluster_migrate_to_native_vcn_status API.
+    def get_cluster_migrate_to_native_vcn_status(cluster_id, opts = {})
+      logger.debug 'Calling operation ContainerEngineClient#get_cluster_migrate_to_native_vcn_status.' if logger
+
+      raise "Missing the required parameter 'cluster_id' when calling get_cluster_migrate_to_native_vcn_status." if cluster_id.nil?
+      raise "Parameter value for 'cluster_id' must not be blank" if OCI::Internal::Util.blank_string?(cluster_id)
+
+      path = '/clusters/{clusterId}/migrateToNativeVcnStatus'.sub('{clusterId}', cluster_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ContainerEngineClient#get_cluster_migrate_to_native_vcn_status') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ContainerEngine::Models::ClusterMigrateToNativeVcnStatus'
         )
       end
       # rubocop:enable Metrics/BlockLength

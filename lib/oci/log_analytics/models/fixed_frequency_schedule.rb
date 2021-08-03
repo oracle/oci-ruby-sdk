@@ -29,6 +29,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'type': :'type',
         'misfire_policy': :'misfirePolicy',
+        'time_of_first_execution': :'timeOfFirstExecution',
         'recurring_interval': :'recurringInterval',
         'repeat_count': :'repeatCount'
         # rubocop:enable Style/SymbolLiteral
@@ -41,6 +42,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'type': :'String',
         'misfire_policy': :'String',
+        'time_of_first_execution': :'DateTime',
         'recurring_interval': :'String',
         'repeat_count': :'Integer'
         # rubocop:enable Style/SymbolLiteral
@@ -54,6 +56,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :misfire_policy The value to assign to the {OCI::LogAnalytics::Models::Schedule#misfire_policy #misfire_policy} proprety
+    # @option attributes [DateTime] :time_of_first_execution The value to assign to the {OCI::LogAnalytics::Models::Schedule#time_of_first_execution #time_of_first_execution} proprety
     # @option attributes [String] :recurring_interval The value to assign to the {#recurring_interval} property
     # @option attributes [Integer] :repeat_count The value to assign to the {#repeat_count} property
     def initialize(attributes = {})
@@ -94,6 +97,7 @@ module OCI
       self.class == other.class &&
         type == other.type &&
         misfire_policy == other.misfire_policy &&
+        time_of_first_execution == other.time_of_first_execution &&
         recurring_interval == other.recurring_interval &&
         repeat_count == other.repeat_count
     end
@@ -111,7 +115,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, misfire_policy, recurring_interval, repeat_count].hash
+      [type, misfire_policy, time_of_first_execution, recurring_interval, repeat_count].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

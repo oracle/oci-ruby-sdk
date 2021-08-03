@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details for the query to update reportQuery, costAnalysisUI and displayName.
+  # Details for the query to update reportQuery, costAnalysisUI, and displayName.
   class UsageApi::Models::UpdateQueryDetails
     # This attribute is required.
     # @return [OCI::UsageApi::Models::QueryDefinition]

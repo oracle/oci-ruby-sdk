@@ -61,6 +61,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_shown_in_list
 
+    # If an OCI Event will be emitted when the custom property is modified.
+    # @return [BOOLEAN]
+    attr_accessor :is_event_enabled
+
     # Is this property allowed to have list of values
     # @return [BOOLEAN]
     attr_accessor :is_list_type
@@ -84,6 +88,7 @@ module OCI
         'is_hidden': :'isHidden',
         'is_editable': :'isEditable',
         'is_shown_in_list': :'isShownInList',
+        'is_event_enabled': :'isEventEnabled',
         'is_list_type': :'isListType',
         'allowed_values': :'allowedValues'
         # rubocop:enable Style/SymbolLiteral
@@ -105,6 +110,7 @@ module OCI
         'is_hidden': :'BOOLEAN',
         'is_editable': :'BOOLEAN',
         'is_shown_in_list': :'BOOLEAN',
+        'is_event_enabled': :'BOOLEAN',
         'is_list_type': :'BOOLEAN',
         'allowed_values': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
@@ -128,6 +134,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_hidden The value to assign to the {#is_hidden} property
     # @option attributes [BOOLEAN] :is_editable The value to assign to the {#is_editable} property
     # @option attributes [BOOLEAN] :is_shown_in_list The value to assign to the {#is_shown_in_list} property
+    # @option attributes [BOOLEAN] :is_event_enabled The value to assign to the {#is_event_enabled} property
     # @option attributes [BOOLEAN] :is_list_type The value to assign to the {#is_list_type} property
     # @option attributes [Array<String>] :allowed_values The value to assign to the {#allowed_values} property
     def initialize(attributes = {})
@@ -198,6 +205,14 @@ module OCI
       self.is_shown_in_list = attributes[:'is_shown_in_list'] unless attributes[:'is_shown_in_list'].nil?
       self.is_shown_in_list = false if is_shown_in_list.nil? && !attributes.key?(:'isShownInList') && !attributes.key?(:'is_shown_in_list') # rubocop:disable Style/StringLiterals
 
+      self.is_event_enabled = attributes[:'isEventEnabled'] unless attributes[:'isEventEnabled'].nil?
+      self.is_event_enabled = false if is_event_enabled.nil? && !attributes.key?(:'isEventEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isEventEnabled and :is_event_enabled' if attributes.key?(:'isEventEnabled') && attributes.key?(:'is_event_enabled')
+
+      self.is_event_enabled = attributes[:'is_event_enabled'] unless attributes[:'is_event_enabled'].nil?
+      self.is_event_enabled = false if is_event_enabled.nil? && !attributes.key?(:'isEventEnabled') && !attributes.key?(:'is_event_enabled') # rubocop:disable Style/StringLiterals
+
       self.is_list_type = attributes[:'isListType'] unless attributes[:'isListType'].nil?
       self.is_list_type = false if is_list_type.nil? && !attributes.key?(:'isListType') # rubocop:disable Style/StringLiterals
 
@@ -248,6 +263,7 @@ module OCI
         is_hidden == other.is_hidden &&
         is_editable == other.is_editable &&
         is_shown_in_list == other.is_shown_in_list &&
+        is_event_enabled == other.is_event_enabled &&
         is_list_type == other.is_list_type &&
         allowed_values == other.allowed_values
     end
@@ -265,7 +281,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, value, data_type, namespace_name, namespace_key, is_multi_valued, is_hidden, is_editable, is_shown_in_list, is_list_type, allowed_values].hash
+      [key, display_name, description, value, data_type, namespace_name, namespace_key, is_multi_valued, is_hidden, is_editable, is_shown_in_list, is_event_enabled, is_list_type, allowed_values].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

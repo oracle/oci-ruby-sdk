@@ -6,7 +6,7 @@ require_relative 'enable_host_insight_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about host to be analyzed.
+  # The information about the MACS-managed external host to be analyzed.
   class Opsi::Models::EnableMacsManagedExternalHostInsightDetails < Opsi::Models::EnableHostInsightDetails
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map

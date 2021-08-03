@@ -15,6 +15,7 @@ module OCI
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_NEEDS_ATTENTION = 'NEEDS_ATTENTION'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -41,6 +42,10 @@ module OCI
     # **[Required]** Object Storage Bucket Name
     # @return [String]
     attr_accessor :object_storage_bucket_name
+
+    # A message describing status of the object storage bucket of this resource. For example, it can be used to provide actionable information about the permission and content validity of the bucket.
+    # @return [String]
+    attr_accessor :object_storage_bucket_status_details
 
     # **[Required]** Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
@@ -86,6 +91,7 @@ module OCI
         'description': :'description',
         'object_storage_namespace_name': :'objectStorageNamespaceName',
         'object_storage_bucket_name': :'objectStorageBucketName',
+        'object_storage_bucket_status_details': :'objectStorageBucketStatusDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'system_tags': :'systemTags',
@@ -107,6 +113,7 @@ module OCI
         'description': :'String',
         'object_storage_namespace_name': :'String',
         'object_storage_bucket_name': :'String',
+        'object_storage_bucket_status_details': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'system_tags': :'Hash<String, Hash<String, Object>>',
@@ -130,6 +137,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :object_storage_namespace_name The value to assign to the {#object_storage_namespace_name} property
     # @option attributes [String] :object_storage_bucket_name The value to assign to the {#object_storage_bucket_name} property
+    # @option attributes [String] :object_storage_bucket_status_details The value to assign to the {#object_storage_bucket_status_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
@@ -170,6 +178,12 @@ module OCI
       raise 'You cannot provide both :objectStorageBucketName and :object_storage_bucket_name' if attributes.key?(:'objectStorageBucketName') && attributes.key?(:'object_storage_bucket_name')
 
       self.object_storage_bucket_name = attributes[:'object_storage_bucket_name'] if attributes[:'object_storage_bucket_name']
+
+      self.object_storage_bucket_status_details = attributes[:'objectStorageBucketStatusDetails'] if attributes[:'objectStorageBucketStatusDetails']
+
+      raise 'You cannot provide both :objectStorageBucketStatusDetails and :object_storage_bucket_status_details' if attributes.key?(:'objectStorageBucketStatusDetails') && attributes.key?(:'object_storage_bucket_status_details')
+
+      self.object_storage_bucket_status_details = attributes[:'object_storage_bucket_status_details'] if attributes[:'object_storage_bucket_status_details']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -244,6 +258,7 @@ module OCI
         description == other.description &&
         object_storage_namespace_name == other.object_storage_namespace_name &&
         object_storage_bucket_name == other.object_storage_bucket_name &&
+        object_storage_bucket_status_details == other.object_storage_bucket_status_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         system_tags == other.system_tags &&
@@ -266,7 +281,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, description, object_storage_namespace_name, object_storage_bucket_name, freeform_tags, defined_tags, system_tags, time_created, time_updated, lifecycle_state, lifecycle_details].hash
+      [id, compartment_id, display_name, description, object_storage_namespace_name, object_storage_bucket_name, object_storage_bucket_status_details, freeform_tags, defined_tags, system_tags, time_created, time_updated, lifecycle_state, lifecycle_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

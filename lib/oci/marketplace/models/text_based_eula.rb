@@ -6,9 +6,9 @@ require_relative 'eula'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An EULA that is provided as text
+  # An end user license agreement that is provided as text.
   class Marketplace::Models::TextBasedEula < Marketplace::Models::Eula
-    # text of the eula
+    # The text of the end user license agreement.
     # @return [String]
     attr_accessor :license_text
 

@@ -7,6 +7,12 @@ require 'date'
 module OCI
   # CreateDhcpDetails model.
   class Core::Models::CreateDhcpDetails
+    DOMAIN_NAME_TYPE_ENUM = [
+      DOMAIN_NAME_TYPE_SUBNET_DOMAIN = 'SUBNET_DOMAIN'.freeze,
+      DOMAIN_NAME_TYPE_VCN_DOMAIN = 'VCN_DOMAIN'.freeze,
+      DOMAIN_NAME_TYPE_CUSTOM_DOMAIN = 'CUSTOM_DOMAIN'.freeze
+    ].freeze
+
     # **[Required]** The OCID of the compartment to contain the set of DHCP options.
     # @return [String]
     attr_accessor :compartment_id
@@ -41,6 +47,10 @@ module OCI
     # @return [String]
     attr_accessor :vcn_id
 
+    # The search domain name type of DHCP options
+    # @return [String]
+    attr_reader :domain_name_type
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -50,7 +60,8 @@ module OCI
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'options': :'options',
-        'vcn_id': :'vcnId'
+        'vcn_id': :'vcnId',
+        'domain_name_type': :'domainNameType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -64,7 +75,8 @@ module OCI
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'options': :'Array<OCI::Core::Models::DhcpOption>',
-        'vcn_id': :'String'
+        'vcn_id': :'String',
+        'domain_name_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -81,6 +93,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Array<OCI::Core::Models::DhcpOption>] :options The value to assign to the {#options} property
     # @option attributes [String] :vcn_id The value to assign to the {#vcn_id} property
+    # @option attributes [String] :domain_name_type The value to assign to the {#domain_name_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -118,9 +131,23 @@ module OCI
       raise 'You cannot provide both :vcnId and :vcn_id' if attributes.key?(:'vcnId') && attributes.key?(:'vcn_id')
 
       self.vcn_id = attributes[:'vcn_id'] if attributes[:'vcn_id']
+
+      self.domain_name_type = attributes[:'domainNameType'] if attributes[:'domainNameType']
+
+      raise 'You cannot provide both :domainNameType and :domain_name_type' if attributes.key?(:'domainNameType') && attributes.key?(:'domain_name_type')
+
+      self.domain_name_type = attributes[:'domain_name_type'] if attributes[:'domain_name_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] domain_name_type Object to be assigned
+    def domain_name_type=(domain_name_type)
+      raise "Invalid value for 'domain_name_type': this must be one of the values in DOMAIN_NAME_TYPE_ENUM." if domain_name_type && !DOMAIN_NAME_TYPE_ENUM.include?(domain_name_type)
+
+      @domain_name_type = domain_name_type
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -136,7 +163,8 @@ module OCI
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         options == other.options &&
-        vcn_id == other.vcn_id
+        vcn_id == other.vcn_id &&
+        domain_name_type == other.domain_name_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -152,7 +180,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, options, vcn_id].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, options, vcn_id, domain_name_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

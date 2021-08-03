@@ -11,49 +11,52 @@ module OCI
     # @return [String]
     attr_accessor :bda_version
 
-    # Big Data Manager version installed in the cluster
+    # Big Data Manager version installed in the cluster.
     # @return [String]
     attr_accessor :bdm_version
 
-    # Big Data Service version installed in the cluster
+    # Big Data Service version installed in the cluster.
     # @return [String]
     attr_accessor :bds_version
 
-    # Oracle Linux version installed in the cluster
+    # Oracle Linux version installed in the cluster.
     # @return [String]
     attr_accessor :os_version
 
-    # Query Server Database version
+    # Cloud SQL query server database version.
     # @return [String]
     attr_accessor :db_version
 
-    # Cloud SQL cell version
+    # Cloud SQL cell version.
     # @return [String]
     attr_accessor :bd_cell_version
 
-    # Big Data SQL version
+    # Big Data SQL version.
     # @return [String]
     attr_accessor :csql_cell_version
 
-    # **[Required]** The time the cluster was created. An RFC3339 formatted datetime string
+    # **[Required]** The time the cluster was created, shown as an RFC 3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The time the BDS instance was automatically, or manually refreshed.
-    # An RFC3339 formatted datetime string
+    # The time the cluster was automatically or manually refreshed, shown as an RFC 3339 formatted datetime string.
     #
     # @return [DateTime]
     attr_accessor :time_refreshed
 
-    # The URL of a Cloudera Manager
+    # The URL of Cloudera Manager
     # @return [String]
     attr_accessor :cloudera_manager_url
 
-    # The URL of a Big Data Manager
+    # The URL of Ambari
+    # @return [String]
+    attr_accessor :ambari_url
+
+    # The URL of Big Data Manager.
     # @return [String]
     attr_accessor :big_data_manager_url
 
-    # The URL of a Hue Server
+    # The URL of the Hue server.
     # @return [String]
     attr_accessor :hue_server_url
 
@@ -71,6 +74,7 @@ module OCI
         'time_created': :'timeCreated',
         'time_refreshed': :'timeRefreshed',
         'cloudera_manager_url': :'clouderaManagerUrl',
+        'ambari_url': :'ambariUrl',
         'big_data_manager_url': :'bigDataManagerUrl',
         'hue_server_url': :'hueServerUrl'
         # rubocop:enable Style/SymbolLiteral
@@ -91,6 +95,7 @@ module OCI
         'time_created': :'DateTime',
         'time_refreshed': :'DateTime',
         'cloudera_manager_url': :'String',
+        'ambari_url': :'String',
         'big_data_manager_url': :'String',
         'hue_server_url': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -113,6 +118,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_refreshed The value to assign to the {#time_refreshed} property
     # @option attributes [String] :cloudera_manager_url The value to assign to the {#cloudera_manager_url} property
+    # @option attributes [String] :ambari_url The value to assign to the {#ambari_url} property
     # @option attributes [String] :big_data_manager_url The value to assign to the {#big_data_manager_url} property
     # @option attributes [String] :hue_server_url The value to assign to the {#hue_server_url} property
     def initialize(attributes = {})
@@ -181,6 +187,12 @@ module OCI
 
       self.cloudera_manager_url = attributes[:'cloudera_manager_url'] if attributes[:'cloudera_manager_url']
 
+      self.ambari_url = attributes[:'ambariUrl'] if attributes[:'ambariUrl']
+
+      raise 'You cannot provide both :ambariUrl and :ambari_url' if attributes.key?(:'ambariUrl') && attributes.key?(:'ambari_url')
+
+      self.ambari_url = attributes[:'ambari_url'] if attributes[:'ambari_url']
+
       self.big_data_manager_url = attributes[:'bigDataManagerUrl'] if attributes[:'bigDataManagerUrl']
 
       raise 'You cannot provide both :bigDataManagerUrl and :big_data_manager_url' if attributes.key?(:'bigDataManagerUrl') && attributes.key?(:'big_data_manager_url')
@@ -215,6 +227,7 @@ module OCI
         time_created == other.time_created &&
         time_refreshed == other.time_refreshed &&
         cloudera_manager_url == other.cloudera_manager_url &&
+        ambari_url == other.ambari_url &&
         big_data_manager_url == other.big_data_manager_url &&
         hue_server_url == other.hue_server_url
     end
@@ -232,7 +245,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bda_version, bdm_version, bds_version, os_version, db_version, bd_cell_version, csql_cell_version, time_created, time_refreshed, cloudera_manager_url, big_data_manager_url, hue_server_url].hash
+      [bda_version, bdm_version, bds_version, os_version, db_version, bd_cell_version, csql_cell_version, time_created, time_refreshed, cloudera_manager_url, ambari_url, big_data_manager_url, hue_server_url].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

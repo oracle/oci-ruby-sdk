@@ -7,12 +7,12 @@ require 'date'
 module OCI
   # Oracle Cloud Agent features supported on the image.
   class Core::Models::InstanceAgentFeatures
-    # Whether Oracle Cloud Agent can gather performance metrics and monitor the instance.
+    # This attribute is not used.
     #
     # @return [BOOLEAN]
     attr_accessor :is_monitoring_supported
 
-    # Whether Oracle Cloud Agent can run all the available management plugins.
+    # This attribute is not used.
     #
     # @return [BOOLEAN]
     attr_accessor :is_management_supported

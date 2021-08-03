@@ -6,13 +6,13 @@ require_relative 'publication_package'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A publication package for orchestration.
+  # A publication package for stack publications.
   class Marketplace::Models::OrchestrationPublicationPackage < Marketplace::Models::PublicationPackage
-    # Link to the orchestration resource.
+    # A link to the stack resource.
     # @return [String]
     attr_accessor :resource_link
 
-    # List of variables for the orchestration resource.
+    # A list of variables for the stack resource.
     # @return [Array<OCI::Marketplace::Models::OrchestrationVariable>]
     attr_accessor :variables
 

@@ -599,6 +599,75 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a volume group backup copy in specified region. For general information about volume group backups,
+    # see [Overview of Block Volume Service Backups](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumebackups.htm)
+    #
+    # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
+    #
+    # @param [OCI::Core::Models::CopyVolumeGroupBackupDetails] copy_volume_group_backup_details Request to create a cross-region copy of given volume group backup.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroupBackup VolumeGroupBackup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/copy_volume_group_backup.rb.html) to see an example of how to use copy_volume_group_backup API.
+    def copy_volume_group_backup(volume_group_backup_id, copy_volume_group_backup_details, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#copy_volume_group_backup.' if logger
+
+      raise "Missing the required parameter 'volume_group_backup_id' when calling copy_volume_group_backup." if volume_group_backup_id.nil?
+      raise "Missing the required parameter 'copy_volume_group_backup_details' when calling copy_volume_group_backup." if copy_volume_group_backup_details.nil?
+      raise "Parameter value for 'volume_group_backup_id' must not be blank" if OCI::Internal::Util.blank_string?(volume_group_backup_id)
+
+      path = '/volumeGroupBackups/{volumeGroupBackupId}/actions/copy'.sub('{volumeGroupBackupId}', volume_group_backup_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(copy_volume_group_backup_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#copy_volume_group_backup') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::VolumeGroupBackup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new boot volume in the specified compartment from an existing boot volume or a boot volume backup.
     # For general information about boot volumes, see [Boot Volumes](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/bootvolumes.htm).
     # You may optionally specify a *display name* for the volume, which is simply a friendly name or
@@ -990,7 +1059,7 @@ module OCI
 
     # Creates a new volume group in the specified compartment.
     # A volume group is a collection of volumes and may be created from a list of volumes, cloning an existing
-    # volume group, or by restoring a volume group backup. A volume group can contain up to 64 volumes.
+    # volume group, or by restoring a volume group backup.
     # You may optionally specify a *display name* for the volume group, which is simply a friendly name or
     # description. It does not have to be unique, and you can change it. Avoid entering confidential information.
     #

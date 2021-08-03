@@ -55,6 +55,10 @@ module OCI
     # @return [String]
     attr_reader :source
 
+    # If true, the customer acknowledges that the specified Oracle Database software is an older release that is not currently supported by OCI.
+    # @return [BOOLEAN]
+    attr_accessor :is_desupported_version
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -65,7 +69,8 @@ module OCI
         'database_software_image_id': :'databaseSoftwareImageId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'source': :'source'
+        'source': :'source',
+        'is_desupported_version': :'isDesupportedVersion'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -80,7 +85,8 @@ module OCI
         'database_software_image_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'source': :'String'
+        'source': :'String',
+        'is_desupported_version': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -117,6 +123,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :source The value to assign to the {#source} property
+    # @option attributes [BOOLEAN] :is_desupported_version The value to assign to the {#is_desupported_version} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -161,6 +168,12 @@ module OCI
 
       self.source = attributes[:'source'] if attributes[:'source']
       self.source = "NONE" if source.nil? && !attributes.key?(:'source') # rubocop:disable Style/StringLiterals
+
+      self.is_desupported_version = attributes[:'isDesupportedVersion'] unless attributes[:'isDesupportedVersion'].nil?
+
+      raise 'You cannot provide both :isDesupportedVersion and :is_desupported_version' if attributes.key?(:'isDesupportedVersion') && attributes.key?(:'is_desupported_version')
+
+      self.is_desupported_version = attributes[:'is_desupported_version'] unless attributes[:'is_desupported_version'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -188,7 +201,8 @@ module OCI
         database_software_image_id == other.database_software_image_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        source == other.source
+        source == other.source &&
+        is_desupported_version == other.is_desupported_version
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -204,7 +218,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, kms_key_id, kms_key_version_id, database_software_image_id, freeform_tags, defined_tags, source].hash
+      [display_name, kms_key_id, kms_key_version_id, database_software_image_id, freeform_tags, defined_tags, source, is_desupported_version].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

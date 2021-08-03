@@ -18,18 +18,18 @@ module OCI
       REASON_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The OCID of the compartment to contain the suppression. Since
+    # **[Required]** The OCID of the compartment to contain the suppression. Since
     # suppressions are at the customer level, this must be the tenancy
     # OCID.
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # Email address of the suppression.
+    # **[Required]** Email address of the suppression.
     # @return [String]
     attr_accessor :email_address
 
-    # The unique ID of the suppression.
+    # **[Required]** The unique ID of the suppression.
     # @return [String]
     attr_accessor :id
 
@@ -43,6 +43,36 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # The last date and time the suppression prevented submission
+    # in \"YYYY-MM-ddThh:mmZ\"
+    # format with a Z offset, as defined by RFC 3339.
+    #
+    # @return [DateTime]
+    attr_accessor :time_last_suppressed
+
+    # The value of the Message-ID header from the email that triggered a suppression.
+    # This value is as defined in RFC 5322 section 3.6.4, excluding angle-brackets.
+    # Not provided for all types of suppressions.
+    #
+    # @return [String]
+    attr_accessor :message_id
+
+    # The specific error message returned by a system that resulted in the suppression.
+    # This message is usually an SMTP error code with additional descriptive text.
+    # Not provided for all types of suppressions.
+    #
+    # @return [String]
+    attr_accessor :error_detail
+
+    # DNS name of the source of the error that caused the suppression.
+    # Will be set to either the remote-mta or reporting-mta field from a delivery status notification (RFC 3464) when available.
+    # Not provided for all types of suppressions, and not always known.
+    #
+    # Note: Most SMTP errors that cause suppressions come from software run by email receiving systems rather than from OCI email delivery itself.
+    #
+    # @return [String]
+    attr_accessor :error_source
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -51,7 +81,11 @@ module OCI
         'email_address': :'emailAddress',
         'id': :'id',
         'reason': :'reason',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'time_last_suppressed': :'timeLastSuppressed',
+        'message_id': :'messageId',
+        'error_detail': :'errorDetail',
+        'error_source': :'errorSource'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -64,7 +98,11 @@ module OCI
         'email_address': :'String',
         'id': :'String',
         'reason': :'String',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'time_last_suppressed': :'DateTime',
+        'message_id': :'String',
+        'error_detail': :'String',
+        'error_source': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -80,6 +118,10 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :reason The value to assign to the {#reason} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [DateTime] :time_last_suppressed The value to assign to the {#time_last_suppressed} property
+    # @option attributes [String] :message_id The value to assign to the {#message_id} property
+    # @option attributes [String] :error_detail The value to assign to the {#error_detail} property
+    # @option attributes [String] :error_source The value to assign to the {#error_source} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -107,6 +149,30 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.time_last_suppressed = attributes[:'timeLastSuppressed'] if attributes[:'timeLastSuppressed']
+
+      raise 'You cannot provide both :timeLastSuppressed and :time_last_suppressed' if attributes.key?(:'timeLastSuppressed') && attributes.key?(:'time_last_suppressed')
+
+      self.time_last_suppressed = attributes[:'time_last_suppressed'] if attributes[:'time_last_suppressed']
+
+      self.message_id = attributes[:'messageId'] if attributes[:'messageId']
+
+      raise 'You cannot provide both :messageId and :message_id' if attributes.key?(:'messageId') && attributes.key?(:'message_id')
+
+      self.message_id = attributes[:'message_id'] if attributes[:'message_id']
+
+      self.error_detail = attributes[:'errorDetail'] if attributes[:'errorDetail']
+
+      raise 'You cannot provide both :errorDetail and :error_detail' if attributes.key?(:'errorDetail') && attributes.key?(:'error_detail')
+
+      self.error_detail = attributes[:'error_detail'] if attributes[:'error_detail']
+
+      self.error_source = attributes[:'errorSource'] if attributes[:'errorSource']
+
+      raise 'You cannot provide both :errorSource and :error_source' if attributes.key?(:'errorSource') && attributes.key?(:'error_source')
+
+      self.error_source = attributes[:'error_source'] if attributes[:'error_source']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -137,7 +203,11 @@ module OCI
         email_address == other.email_address &&
         id == other.id &&
         reason == other.reason &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        time_last_suppressed == other.time_last_suppressed &&
+        message_id == other.message_id &&
+        error_detail == other.error_detail &&
+        error_source == other.error_source
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -153,7 +223,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, email_address, id, reason, time_created].hash
+      [compartment_id, email_address, id, reason, time_created, time_last_suppressed, message_id, error_detail, error_source].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

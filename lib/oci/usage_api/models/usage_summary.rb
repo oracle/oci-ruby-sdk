@@ -115,7 +115,7 @@ module OCI
     # @return [String]
     attr_accessor :overage
 
-    # is forecasted data
+    # The forecasted data.
     # @return [BOOLEAN]
     attr_accessor :is_forecast
 

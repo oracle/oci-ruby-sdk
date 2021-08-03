@@ -6,9 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API for the Big Data Service. Use this API to build, deploy, and manage fully elastic Big Data Service
-  # build on Hadoop, Spark and Data Science distribution, which can be fully integrated with existing enterprise
-  # data in Oracle Database and Oracle Applications..
+  # REST API for Oracle Big Data Service. Use this API to build, deploy, and manage fully elastic Big Data Service clusters. Build on Hadoop, Spark and Data Science distributions, which can be fully integrated with existing enterprise data in Oracle Database and Oracle applications.
   class Bds::BdsClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -100,10 +98,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Add autoscaling configuration.
+    # Add an autoscale configuration to the cluster.
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
-    # @param [OCI::Bds::Models::AddAutoScalingConfigurationDetails] add_auto_scaling_configuration_details Details for create an autoscaling configuration.
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [OCI::Bds::Models::AddAutoScalingConfigurationDetails] add_auto_scaling_configuration_details Details for creating an autoscale configuration.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -115,8 +113,8 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
+    #   hours but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
     #
@@ -171,11 +169,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Adds storage to existing worker nodes. The same amount of storage will be added to all workers.
-    # No change will be made to already attached storage. Block Storage once added cannot be removed.
+    # Adds block storage to existing worker nodes. The same amount of  storage will be added to all worker nodes. No change will be made  to storage that is already attached. Block storage cannot be removed.
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
-    # @param [OCI::Bds::Models::AddBlockStorageDetails] add_block_storage_details Details for the newly added block storage
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [OCI::Bds::Models::AddBlockStorageDetails] add_block_storage_details Details for the added block storage.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -187,8 +184,8 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
+    #   hours but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
     #
@@ -243,10 +240,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Adds Cloud SQL to your cluster. This will add a query server node to the cluster
-    # and create cell servers on all your worker nodes.
+    # Adds Cloud SQL to your cluster. You can use Cloud SQL to query against non-relational data stored in multiple big data sources, including Apache Hive, HDFS, Oracle NoSQL Database, and Apache HBase. Adding Cloud SQL adds a query server node to the cluster and creates cell servers on all the worker nodes in the cluster.
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
+    # @param [String] bds_instance_id The OCID of the cluster.
     # @param [OCI::Bds::Models::AddCloudSqlDetails] add_cloud_sql_details Details for the Cloud SQL capability
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -259,8 +255,8 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
+    #   hours but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
     #
@@ -315,11 +311,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Add worker nodes to an existing cluster. The worker nodes added will be based on an identical shape
-    # and have the same amount of attached block storage as other worker nodes in the cluster.
+    # Increases the size (scales out) a cluster by adding worker nodes. The added worker nodes will have the same shape and will have the same amount of attached block storage as other worker nodes in the cluster.
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
-    # @param [OCI::Bds::Models::AddWorkerNodesDetails] add_worker_nodes_details Details for the newly added nodes
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [OCI::Bds::Models::AddWorkerNodesDetails] add_worker_nodes_details Details for the newly added nodes.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -331,8 +326,8 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
+    #   hours but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
     #
@@ -387,9 +382,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves a BDS instance into a different compartment.
+    # Moves a Big Data Service cluster into a different compartment.
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
+    # @param [String] bds_instance_id The OCID of the cluster.
     # @param [OCI::Bds::Models::ChangeBdsInstanceCompartmentDetails] change_bds_instance_compartment_details Details for the comparment change.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -402,8 +397,8 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
+    #   hours but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
     #
@@ -458,12 +453,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Scale-up/down individial nodes (per role type) in the cluster. Customer can choose
-    # arbitrarty VM_STANDARD shape to scale-up/down the instance. Only VM_STANDARD nodes
-    # can be re-shaped.
+    # Changes the size of a cluster by scaling up or scaling down the nodes. Nodes are scaled up or down by changing the shapes of all the nodes of the same type to the next larger or smaller shape. The node types are master, utility, worker, and Cloud SQL. Only nodes with VM-STANDARD shapes can be scaled.
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
-    # @param [OCI::Bds::Models::ChangeShapeDetails] change_shape_details Individual change shape settings per node group. You can change the shape of master, worker, utility and cloudsql nodes.
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [OCI::Bds::Models::ChangeShapeDetails] change_shape_details Individual change shape settings per node type. You can change the shape of master, worker, utility and Cloud SQL nodes.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -475,8 +468,8 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
+    #   hours but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
     #
@@ -531,16 +524,16 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new BDS instance.
+    # Creates a Big Data Service cluster.
     #
-    # @param [OCI::Bds::Models::CreateBdsInstanceDetails] create_bds_instance_details Details for the new BDS instace.
+    # @param [OCI::Bds::Models::CreateBdsInstanceDetails] create_bds_instance_details Details for the new cluster.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
+    #   hours but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
     #
@@ -592,8 +585,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes a BDS instance by identifier
-    # @param [String] bds_instance_id The OCID of the BDS instance
+    # Deletes the cluster identified by the given ID.
+    # @param [String] bds_instance_id The OCID of the cluster.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -652,10 +645,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets information about the specified autoscaling configuration.
+    # Returns details of the autoscale configuration identified by the given ID.
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
-    # @param [String] auto_scaling_configuration_id Unique Oracle-assigned identifier of the autoscaling configuration.
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [String] auto_scaling_configuration_id Unique Oracle-assigned identifier of the autoscale configuration.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -710,8 +703,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a BDS instance by identifier
-    # @param [String] bds_instance_id The OCID of the BDS instance
+    # Returns information about the Big Data Service cluster identified by the given ID.
+    # @param [String] bds_instance_id The OCID of the cluster.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -764,7 +757,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the status of the work request with the given ID.
+    # Returns the status of the work request identified by the given ID.
     # @param [String] work_request_id The ID of the asynchronous request.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -818,10 +811,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets information about the  autoscaling configuration.
+    # Returns information about the autoscaling configurations for a cluster.
     #
     # @param [String] compartment_id The OCID of the compartment.
-    # @param [String] bds_instance_id The OCID of the BDS instance
+    # @param [String] bds_instance_id The OCID of the cluster.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -832,7 +825,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
-    # @option opts [String] :lifecycle_state The state of the autoscaling configuration.
+    # @option opts [String] :lifecycle_state The state of the autoscale configuration.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::Bds::Models::AutoScalingConfigurationSummary AutoScalingConfigurationSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/list_auto_scaling_configurations.rb.html) to see an example of how to use list_auto_scaling_configurations API.
@@ -902,13 +895,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns a list of BDS instances.
+    # Returns a list of all Big Data Service clusters in a compartment.
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :lifecycle_state The state of the BDS instance.
+    # @option opts [String] :lifecycle_state The state of the cluster.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
     # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
@@ -983,7 +976,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Return a (paginated) list of errors for a given work request.
+    # Returns a paginated list of errors for a work request identified by the given ID.
     #
     # @param [String] work_request_id The ID of the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -1056,7 +1049,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Return a (paginated) list of logs for a given work request.
+    # Returns a paginated list of logs for a given work request.
     #
     # @param [String] work_request_id The ID of the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -1204,11 +1197,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Remove autoscaling configuration.
+    # Deletes an autoscale configuration.
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
-    # @param [String] auto_scaling_configuration_id Unique Oracle-assigned identifier of the autoscaling configuration.
-    # @param [OCI::Bds::Models::RemoveAutoScalingConfigurationDetails] remove_auto_scaling_configuration_details Details for the Auto Scaling Configuration
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [String] auto_scaling_configuration_id Unique Oracle-assigned identifier of the autoscale configuration.
+    # @param [OCI::Bds::Models::RemoveAutoScalingConfigurationDetails] remove_auto_scaling_configuration_details Details for the autoscale configuration
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1220,8 +1213,8 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
+    #   hours but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
     #
@@ -1278,9 +1271,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Remove Cloud SQL capability.
+    # Removes Cloud SQL from the cluster.
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
+    # @param [String] bds_instance_id The OCID of the cluster.
     # @param [OCI::Bds::Models::RemoveCloudSqlDetails] remove_cloud_sql_details Details for the Cloud SQL capability
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1293,8 +1286,8 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
+    #   hours but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
     #
@@ -1349,9 +1342,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Restarts a single node of a BDS instance.
+    # Restarts a single node of a Big Data Service cluster
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
+    # @param [String] bds_instance_id The OCID of the cluster.
     # @param [OCI::Bds::Models::RestartNodeDetails] restart_node_details Details for restarting the node.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1364,8 +1357,8 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
+    #   hours but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
     #
@@ -1420,10 +1413,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates certain fields on the specified autoscaling configuration, such as the name, the threshold value, and whether the autoscaling configuration is enabled.
+    # Updates fields on an autoscale configuration, including the name, the threshold value, and whether the autoscale configuration is enabled.
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
-    # @param [String] auto_scaling_configuration_id Unique Oracle-assigned identifier of the autoscaling configuration.
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [String] auto_scaling_configuration_id Unique Oracle-assigned identifier of the autoscale configuration.
     # @param [OCI::Bds::Models::UpdateAutoScalingConfigurationDetails] update_auto_scaling_configuration_details Details for update an autoscaling configuration.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1436,8 +1429,8 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
-    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
+    #   hours but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
     #
@@ -1494,9 +1487,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Update the BDS instance identified by the id
-    # @param [String] bds_instance_id The OCID of the BDS instance
-    # @param [OCI::Bds::Models::UpdateBdsInstanceDetails] update_bds_instance_details Details for the to-be-updated BDS instace.
+    # Updates the Big Data Service cluster identified by the given ID.
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [OCI::Bds::Models::UpdateBdsInstanceDetails] update_bds_instance_details Details for the cluster to be updated.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

@@ -5,56 +5,56 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary of the BDS instance
+  # Summary details of the Big Data Service cluster.
   class Bds::Models::BdsInstanceSummary
-    # **[Required]** The OCID of the BDS resource
+    # **[Required]** The OCID of the Big Data Service resource.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the compartment
+    # **[Required]** The OCID of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** Name of the BDS instance
+    # **[Required]** The name of the cluster.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The state of the BDS instance
+    # **[Required]** The state of the cluster.
     # @return [String]
     attr_accessor :lifecycle_state
 
-    # **[Required]** Number of nodes that forming the cluster
+    # **[Required]** The number of nodes that form the cluster.
     # @return [Integer]
     attr_accessor :number_of_nodes
 
-    # Version of the Hadoop distribution
+    # Version of the Hadoop distribution.
     # @return [String]
     attr_accessor :cluster_version
 
-    # **[Required]** Boolean flag specifying whether or not the cluster is HA
+    # **[Required]** Boolean flag specifying whether or not the cluster is highly available(HA).
     # @return [BOOLEAN]
     attr_accessor :is_high_availability
 
-    # **[Required]** Boolean flag specifying whether or not the cluster should be setup as secure.
+    # **[Required]** Boolean flag specifying whether or not the cluster should be set up as secure.
     # @return [BOOLEAN]
     attr_accessor :is_secure
 
-    # **[Required]** Boolean flag specifying whether we configure Cloud SQL or not
+    # **[Required]** Boolean flag specifying whether Cloud SQL is configured or not.
     # @return [BOOLEAN]
     attr_accessor :is_cloud_sql_configured
 
-    # **[Required]** The time the BDS instance was created. An RFC3339 formatted datetime string
+    # **[Required]** The time the cluster was created, shown as an RFC 3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # Simple key-value pair that is applied without any predefined name, type, or scope.
+    # Exists for cross-compatibility only. For example, `{\"bar-key\": \"value\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    # For example, `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags

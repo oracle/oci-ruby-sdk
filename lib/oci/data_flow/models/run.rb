@@ -148,6 +148,11 @@ module OCI
     # @return [String]
     attr_accessor :logs_bucket_uri
 
+    # The OCID of OCI Hive Metastore.
+    #
+    # @return [String]
+    attr_accessor :metastore_id
+
     # **[Required]** The number of executor VMs requested.
     #
     # @return [Integer]
@@ -265,6 +270,7 @@ module OCI
         'lifecycle_details': :'lifecycleDetails',
         'lifecycle_state': :'lifecycleState',
         'logs_bucket_uri': :'logsBucketUri',
+        'metastore_id': :'metastoreId',
         'num_executors': :'numExecutors',
         'opc_request_id': :'opcRequestId',
         'owner_principal_id': :'ownerPrincipalId',
@@ -309,6 +315,7 @@ module OCI
         'lifecycle_details': :'String',
         'lifecycle_state': :'String',
         'logs_bucket_uri': :'String',
+        'metastore_id': :'String',
         'num_executors': :'Integer',
         'opc_request_id': :'String',
         'owner_principal_id': :'String',
@@ -355,6 +362,7 @@ module OCI
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :logs_bucket_uri The value to assign to the {#logs_bucket_uri} property
+    # @option attributes [String] :metastore_id The value to assign to the {#metastore_id} property
     # @option attributes [Integer] :num_executors The value to assign to the {#num_executors} property
     # @option attributes [String] :opc_request_id The value to assign to the {#opc_request_id} property
     # @option attributes [String] :owner_principal_id The value to assign to the {#owner_principal_id} property
@@ -476,6 +484,12 @@ module OCI
       raise 'You cannot provide both :logsBucketUri and :logs_bucket_uri' if attributes.key?(:'logsBucketUri') && attributes.key?(:'logs_bucket_uri')
 
       self.logs_bucket_uri = attributes[:'logs_bucket_uri'] if attributes[:'logs_bucket_uri']
+
+      self.metastore_id = attributes[:'metastoreId'] if attributes[:'metastoreId']
+
+      raise 'You cannot provide both :metastoreId and :metastore_id' if attributes.key?(:'metastoreId') && attributes.key?(:'metastore_id')
+
+      self.metastore_id = attributes[:'metastore_id'] if attributes[:'metastore_id']
 
       self.num_executors = attributes[:'numExecutors'] if attributes[:'numExecutors']
 
@@ -627,6 +641,7 @@ module OCI
         lifecycle_details == other.lifecycle_details &&
         lifecycle_state == other.lifecycle_state &&
         logs_bucket_uri == other.logs_bucket_uri &&
+        metastore_id == other.metastore_id &&
         num_executors == other.num_executors &&
         opc_request_id == other.opc_request_id &&
         owner_principal_id == other.owner_principal_id &&
@@ -658,7 +673,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [archive_uri, arguments, application_id, class_name, compartment_id, configuration, data_read_in_bytes, data_written_in_bytes, defined_tags, display_name, driver_shape, execute, executor_shape, file_uri, freeform_tags, id, language, lifecycle_details, lifecycle_state, logs_bucket_uri, num_executors, opc_request_id, owner_principal_id, owner_user_name, parameters, private_endpoint_dns_zones, private_endpoint_max_host_count, private_endpoint_nsg_ids, private_endpoint_id, private_endpoint_subnet_id, run_duration_in_milliseconds, spark_version, time_created, time_updated, total_o_cpu, warehouse_bucket_uri].hash
+      [archive_uri, arguments, application_id, class_name, compartment_id, configuration, data_read_in_bytes, data_written_in_bytes, defined_tags, display_name, driver_shape, execute, executor_shape, file_uri, freeform_tags, id, language, lifecycle_details, lifecycle_state, logs_bucket_uri, metastore_id, num_executors, opc_request_id, owner_principal_id, owner_user_name, parameters, private_endpoint_dns_zones, private_endpoint_max_host_count, private_endpoint_nsg_ids, private_endpoint_id, private_endpoint_subnet_id, run_duration_in_milliseconds, spark_version, time_created, time_updated, total_o_cpu, warehouse_bucket_uri].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

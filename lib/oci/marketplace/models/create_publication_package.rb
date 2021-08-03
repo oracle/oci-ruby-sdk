@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A base object for the properties of the package
+  # A base object for creating a publication package.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Marketplace::Models::CreatePublicationPackage
     PACKAGE_TYPE_ENUM = [
@@ -13,11 +13,11 @@ module OCI
       PACKAGE_TYPE_IMAGE = 'IMAGE'.freeze
     ].freeze
 
-    # **[Required]** The version of the package
+    # **[Required]** The package version.
     # @return [String]
     attr_accessor :package_version
 
-    # **[Required]** Type of the artifact of the listing
+    # **[Required]** The package's type.
     # @return [String]
     attr_reader :package_type
 
@@ -25,7 +25,7 @@ module OCI
     # @return [OCI::Marketplace::Models::OperatingSystem]
     attr_accessor :operating_system
 
-    # **[Required]** End User License Agreeement that a consumer of this listing has to accept
+    # **[Required]** The end user license agreeement (EULA) that consumers of this listing must accept.
     # @return [Array<OCI::Marketplace::Models::Eula>]
     attr_accessor :eula
 

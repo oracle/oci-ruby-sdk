@@ -636,6 +636,199 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets the AWR report for the specified Managed Database.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] awr_db_id The parameter to filter the database by internal ID.
+    #   Note that the internal ID of the database can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Array<Integer>] :inst_nums The optional multiple value query parameter to filter the database instance numbers.
+    # @option opts [Integer] :begin_sn_id_greater_than_or_equal_to The optional greater than or equal to filter on the snapshot ID.
+    # @option opts [Integer] :end_sn_id_less_than_or_equal_to The optional less than or equal to query parameter to filter the snapshot ID.
+    # @option opts [DateTime] :time_greater_than_or_equal_to The optional greater than or equal to query parameter to filter the timestamp.
+    # @option opts [DateTime] :time_less_than_or_equal_to The optional less than or equal to query parameter to filter the timestamp.
+    # @option opts [String] :report_type The query parameter to filter the AWR report types. (default to AWR)
+    #   Allowed values are: AWR, ASH
+    # @option opts [Integer] :container_id The optional query parameter to filter the database container by an exact ID value.
+    #   Note that the database container ID can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
+    #
+    # @option opts [String] :report_format The format of the AWR report. (default to HTML)
+    #   Allowed values are: HTML, TEXT
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::AwrDbReport AwrDbReport}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/get_awr_db_report.rb.html) to see an example of how to use get_awr_db_report API.
+    def get_awr_db_report(managed_database_id, awr_db_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#get_awr_db_report.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling get_awr_db_report." if managed_database_id.nil?
+      raise "Missing the required parameter 'awr_db_id' when calling get_awr_db_report." if awr_db_id.nil?
+
+      if opts[:report_type] && !%w[AWR ASH].include?(opts[:report_type])
+        raise 'Invalid value for "report_type", must be one of AWR, ASH.'
+      end
+
+      if opts[:report_format] && !%w[HTML TEXT].include?(opts[:report_format])
+        raise 'Invalid value for "report_format", must be one of HTML, TEXT.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'awr_db_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_db_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/awrDbs/{awrDbId}/awrDbReport'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{awrDbId}', awr_db_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:instNums] = OCI::ApiClient.build_collection_params(opts[:inst_nums], :csv) if opts[:inst_nums] && !opts[:inst_nums].empty?
+      query_params[:beginSnIdGreaterThanOrEqualTo] = opts[:begin_sn_id_greater_than_or_equal_to] if opts[:begin_sn_id_greater_than_or_equal_to]
+      query_params[:endSnIdLessThanOrEqualTo] = opts[:end_sn_id_less_than_or_equal_to] if opts[:end_sn_id_less_than_or_equal_to]
+      query_params[:timeGreaterThanOrEqualTo] = opts[:time_greater_than_or_equal_to] if opts[:time_greater_than_or_equal_to]
+      query_params[:timeLessThanOrEqualTo] = opts[:time_less_than_or_equal_to] if opts[:time_less_than_or_equal_to]
+      query_params[:reportType] = opts[:report_type] if opts[:report_type]
+      query_params[:containerId] = opts[:container_id] if opts[:container_id]
+      query_params[:reportFormat] = opts[:report_format] if opts[:report_format]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#get_awr_db_report') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::AwrDbReport'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Get a AWR SQL report for one SQL.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] awr_db_id The parameter to filter the database by internal ID.
+    #   Note that the internal ID of the database can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #
+    # @param [String] sql_id The parameter to filter SQL by ID. Note that the SQL ID is generated internally by Oracle for each SQL statement and can be retrieved from AWR Report API (/managedDatabases/{managedDatabaseId}/awrDbs/{awrDbId}/awrDbReport) or Performance Hub API (/internal/managedDatabases/{managedDatabaseId}/actions/retrievePerformanceData)
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :inst_num The optional single value query parameter to filter the database instance number.
+    # @option opts [Integer] :begin_sn_id_greater_than_or_equal_to The optional greater than or equal to filter on the snapshot ID.
+    # @option opts [Integer] :end_sn_id_less_than_or_equal_to The optional less than or equal to query parameter to filter the snapshot ID.
+    # @option opts [DateTime] :time_greater_than_or_equal_to The optional greater than or equal to query parameter to filter the timestamp.
+    # @option opts [DateTime] :time_less_than_or_equal_to The optional less than or equal to query parameter to filter the timestamp.
+    # @option opts [String] :report_format The format of the AWR report. (default to HTML)
+    #   Allowed values are: HTML, TEXT
+    # @option opts [Integer] :container_id The optional query parameter to filter the database container by an exact ID value.
+    #   Note that the database container ID can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::AwrDbSqlReport AwrDbSqlReport}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/get_awr_db_sql_report.rb.html) to see an example of how to use get_awr_db_sql_report API.
+    def get_awr_db_sql_report(managed_database_id, awr_db_id, sql_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#get_awr_db_sql_report.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling get_awr_db_sql_report." if managed_database_id.nil?
+      raise "Missing the required parameter 'awr_db_id' when calling get_awr_db_sql_report." if awr_db_id.nil?
+      raise "Missing the required parameter 'sql_id' when calling get_awr_db_sql_report." if sql_id.nil?
+
+      if opts[:report_format] && !%w[HTML TEXT].include?(opts[:report_format])
+        raise 'Invalid value for "report_format", must be one of HTML, TEXT.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'awr_db_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_db_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/awrDbs/{awrDbId}/awrDbSqlReport'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{awrDbId}', awr_db_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:sqlId] = sql_id
+      query_params[:instNum] = opts[:inst_num] if opts[:inst_num]
+      query_params[:beginSnIdGreaterThanOrEqualTo] = opts[:begin_sn_id_greater_than_or_equal_to] if opts[:begin_sn_id_greater_than_or_equal_to]
+      query_params[:endSnIdLessThanOrEqualTo] = opts[:end_sn_id_less_than_or_equal_to] if opts[:end_sn_id_less_than_or_equal_to]
+      query_params[:timeGreaterThanOrEqualTo] = opts[:time_greater_than_or_equal_to] if opts[:time_greater_than_or_equal_to]
+      query_params[:timeLessThanOrEqualTo] = opts[:time_less_than_or_equal_to] if opts[:time_less_than_or_equal_to]
+      query_params[:reportFormat] = opts[:report_format] if opts[:report_format]
+      query_params[:containerId] = opts[:container_id] if opts[:container_id]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#get_awr_db_sql_report') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::AwrDbSqlReport'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the metrics related to cluster cache for the Oracle
     # Real Application Clusters (Oracle RAC) database specified
     # by managedDatabaseId.
@@ -1117,6 +1310,197 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists AWR snapshots for the specified database in the AWR.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] awr_db_id The parameter to filter the database by internal ID.
+    #   Note that the internal ID of the database can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :inst_num The optional single value query parameter to filter the database instance number.
+    # @option opts [Integer] :begin_sn_id_greater_than_or_equal_to The optional greater than or equal to filter on the snapshot ID.
+    # @option opts [Integer] :end_sn_id_less_than_or_equal_to The optional less than or equal to query parameter to filter the snapshot ID.
+    # @option opts [DateTime] :time_greater_than_or_equal_to The optional greater than or equal to query parameter to filter the timestamp.
+    # @option opts [DateTime] :time_less_than_or_equal_to The optional less than or equal to query parameter to filter the timestamp.
+    # @option opts [Integer] :container_id The optional query parameter to filter the database container by an exact ID value.
+    #   Note that the database container ID can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
+    #
+    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [Integer] :limit The maximum number of records returned in paginated response. (default to 10)
+    # @option opts [String] :sort_by The option to sort the AWR snapshot summary data. (default to TIME_BEGIN)
+    #   Allowed values are: TIME_BEGIN, SNAPSHOT_ID
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::AwrDbSnapshotCollection AwrDbSnapshotCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_awr_db_snapshots.rb.html) to see an example of how to use list_awr_db_snapshots API.
+    def list_awr_db_snapshots(managed_database_id, awr_db_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#list_awr_db_snapshots.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling list_awr_db_snapshots." if managed_database_id.nil?
+      raise "Missing the required parameter 'awr_db_id' when calling list_awr_db_snapshots." if awr_db_id.nil?
+
+      if opts[:sort_by] && !%w[TIME_BEGIN SNAPSHOT_ID].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIME_BEGIN, SNAPSHOT_ID.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'awr_db_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_db_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/awrDbs/{awrDbId}/awrDbSnapshots'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{awrDbId}', awr_db_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:instNum] = opts[:inst_num] if opts[:inst_num]
+      query_params[:beginSnIdGreaterThanOrEqualTo] = opts[:begin_sn_id_greater_than_or_equal_to] if opts[:begin_sn_id_greater_than_or_equal_to]
+      query_params[:endSnIdLessThanOrEqualTo] = opts[:end_sn_id_less_than_or_equal_to] if opts[:end_sn_id_less_than_or_equal_to]
+      query_params[:timeGreaterThanOrEqualTo] = opts[:time_greater_than_or_equal_to] if opts[:time_greater_than_or_equal_to]
+      query_params[:timeLessThanOrEqualTo] = opts[:time_less_than_or_equal_to] if opts[:time_less_than_or_equal_to]
+      query_params[:containerId] = opts[:container_id] if opts[:container_id]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#list_awr_db_snapshots') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::AwrDbSnapshotCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the list of databases and their snapshot summary details available in the AWR of the specified Managed Database.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :name The optional single value query parameter to filter the entity name.
+    # @option opts [DateTime] :time_greater_than_or_equal_to The optional greater than or equal to query parameter to filter the timestamp.
+    # @option opts [DateTime] :time_less_than_or_equal_to The optional less than or equal to query parameter to filter the timestamp.
+    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [Integer] :limit The maximum number of records returned in paginated response. (default to 10)
+    # @option opts [String] :sort_by The option to sort the AWR summary data. (default to END_INTERVAL_TIME)
+    #   Allowed values are: END_INTERVAL_TIME, NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::AwrDbCollection AwrDbCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_awr_dbs.rb.html) to see an example of how to use list_awr_dbs API.
+    def list_awr_dbs(managed_database_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#list_awr_dbs.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling list_awr_dbs." if managed_database_id.nil?
+
+      if opts[:sort_by] && !%w[END_INTERVAL_TIME NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of END_INTERVAL_TIME, NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/awrDbs'.sub('{managedDatabaseId}', managed_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:timeGreaterThanOrEqualTo] = opts[:time_greater_than_or_equal_to] if opts[:time_greater_than_or_equal_to]
+      query_params[:timeLessThanOrEqualTo] = opts[:time_less_than_or_equal_to] if opts[:time_less_than_or_equal_to]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#list_awr_dbs') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::AwrDbCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the list of database parameters for the specified Managed Database. The parameters are listed in alphabetical order, along with their current values.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
@@ -1138,7 +1522,7 @@ module OCI
     #   default sort order for `NAME` is ascending and it is case-sensitive.
     #    (default to NAME)
     #   Allowed values are: NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. (default to ASC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the the default order. (default to ASC)
     # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::DatabaseParametersCollection DatabaseParametersCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_database_parameters.rb.html) to see an example of how to use list_database_parameters API.
     def list_database_parameters(managed_database_id, opts = {})
@@ -1229,7 +1613,7 @@ module OCI
     #   The \u2018NAME\u2019 sort order is case-sensitive.
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. (default to ASC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the the default order. (default to ASC)
     # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::JobExecutionCollection JobExecutionCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_job_executions.rb.html) to see an example of how to use list_job_executions API.
     def list_job_executions(compartment_id, opts = {})
@@ -1321,7 +1705,7 @@ module OCI
     #   The \u2018NAME\u2019 sort order is case-sensitive.
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. (default to ASC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the the default order. (default to ASC)
     # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::JobRunCollection JobRunCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_job_runs.rb.html) to see an example of how to use list_job_runs API.
     def list_job_runs(compartment_id, opts = {})
@@ -1412,7 +1796,7 @@ module OCI
     #   The \u2018NAME\u2019 sort order is case-sensitive.
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. (default to ASC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the the default order. (default to ASC)
     # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::JobCollection JobCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_jobs.rb.html) to see an example of how to use list_jobs API.
     def list_jobs(compartment_id, opts = {})
@@ -1504,7 +1888,7 @@ module OCI
     #   The \u2018NAME\u2019 sort order is case-sensitive.
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. (default to ASC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the the default order. (default to ASC)
     # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::ManagedDatabaseGroupCollection ManagedDatabaseGroupCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_managed_database_groups.rb.html) to see an example of how to use list_managed_database_groups API.
     def list_managed_database_groups(compartment_id, opts = {})
@@ -1592,7 +1976,7 @@ module OCI
     #   The \u2018NAME\u2019 sort order is case-sensitive.
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. (default to ASC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the the default order. (default to ASC)
     # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::ManagedDatabaseCollection ManagedDatabaseCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_managed_databases.rb.html) to see an example of how to use list_managed_databases API.
     def list_managed_databases(compartment_id, opts = {})
@@ -1667,7 +2051,7 @@ module OCI
     #   The \u2018NAME\u2019 sort order is case-sensitive.
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. (default to ASC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the the default order. (default to ASC)
     # @option opts [String] :page The page token representing the page, from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
@@ -1852,6 +2236,992 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DatabaseManagement::Models::UpdateDatabaseParametersResult'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Summarizes the AWR CPU resource limits and metrics for the specified database in AWR.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] awr_db_id The parameter to filter the database by internal ID.
+    #   Note that the internal ID of the database can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :inst_num The optional single value query parameter to filter the database instance number.
+    # @option opts [Integer] :begin_sn_id_greater_than_or_equal_to The optional greater than or equal to filter on the snapshot ID.
+    # @option opts [Integer] :end_sn_id_less_than_or_equal_to The optional less than or equal to query parameter to filter the snapshot ID.
+    # @option opts [DateTime] :time_greater_than_or_equal_to The optional greater than or equal to query parameter to filter the timestamp.
+    # @option opts [DateTime] :time_less_than_or_equal_to The optional less than or equal to query parameter to filter the timestamp.
+    # @option opts [String] :session_type The optional query parameter to filter ASH activities by FOREGROUND or BACKGROUND. (default to FOREGROUND)
+    #   Allowed values are: FOREGROUND, BACKGROUND, ALL
+    # @option opts [Integer] :container_id The optional query parameter to filter the database container by an exact ID value.
+    #   Note that the database container ID can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
+    #
+    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [Integer] :limit The maximum number of records returned in large paginated response. (default to 1000)
+    # @option opts [String] :sort_by The option to sort the AWR CPU usage summary data. (default to TIME_SAMPLED)
+    #   Allowed values are: TIME_SAMPLED, AVG_VALUE
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::AwrDbCpuUsageCollection AwrDbCpuUsageCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/summarize_awr_db_cpu_usages.rb.html) to see an example of how to use summarize_awr_db_cpu_usages API.
+    def summarize_awr_db_cpu_usages(managed_database_id, awr_db_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#summarize_awr_db_cpu_usages.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling summarize_awr_db_cpu_usages." if managed_database_id.nil?
+      raise "Missing the required parameter 'awr_db_id' when calling summarize_awr_db_cpu_usages." if awr_db_id.nil?
+
+      if opts[:session_type] && !%w[FOREGROUND BACKGROUND ALL].include?(opts[:session_type])
+        raise 'Invalid value for "session_type", must be one of FOREGROUND, BACKGROUND, ALL.'
+      end
+
+      if opts[:sort_by] && !%w[TIME_SAMPLED AVG_VALUE].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIME_SAMPLED, AVG_VALUE.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'awr_db_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_db_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/awrDbs/{awrDbId}/awrDbCpuUsages'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{awrDbId}', awr_db_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:instNum] = opts[:inst_num] if opts[:inst_num]
+      query_params[:beginSnIdGreaterThanOrEqualTo] = opts[:begin_sn_id_greater_than_or_equal_to] if opts[:begin_sn_id_greater_than_or_equal_to]
+      query_params[:endSnIdLessThanOrEqualTo] = opts[:end_sn_id_less_than_or_equal_to] if opts[:end_sn_id_less_than_or_equal_to]
+      query_params[:timeGreaterThanOrEqualTo] = opts[:time_greater_than_or_equal_to] if opts[:time_greater_than_or_equal_to]
+      query_params[:timeLessThanOrEqualTo] = opts[:time_less_than_or_equal_to] if opts[:time_less_than_or_equal_to]
+      query_params[:sessionType] = opts[:session_type] if opts[:session_type]
+      query_params[:containerId] = opts[:container_id] if opts[:container_id]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#summarize_awr_db_cpu_usages') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::AwrDbCpuUsageCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Summarizes the metric samples for the specified database in the AWR. The metric samples are summarized based on the Time dimension for each metric.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] awr_db_id The parameter to filter the database by internal ID.
+    #   Note that the internal ID of the database can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #
+    # @param [Array<String>] name The required multiple value query parameter to filter the entity name.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :inst_num The optional single value query parameter to filter the database instance number.
+    # @option opts [Integer] :begin_sn_id_greater_than_or_equal_to The optional greater than or equal to filter on the snapshot ID.
+    # @option opts [Integer] :end_sn_id_less_than_or_equal_to The optional less than or equal to query parameter to filter the snapshot ID.
+    # @option opts [DateTime] :time_greater_than_or_equal_to The optional greater than or equal to query parameter to filter the timestamp.
+    # @option opts [DateTime] :time_less_than_or_equal_to The optional less than or equal to query parameter to filter the timestamp.
+    # @option opts [Integer] :container_id The optional query parameter to filter the database container by an exact ID value.
+    #   Note that the database container ID can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
+    #
+    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [Integer] :limit The maximum number of records returned in large paginated response. (default to 1000)
+    # @option opts [String] :sort_by The option to sort the AWR time series summary data. (default to TIMESTAMP)
+    #   Allowed values are: TIMESTAMP, NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::AwrDbMetricCollection AwrDbMetricCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/summarize_awr_db_metrics.rb.html) to see an example of how to use summarize_awr_db_metrics API.
+    def summarize_awr_db_metrics(managed_database_id, awr_db_id, name, opts = {})
+      logger.debug 'Calling operation DbManagementClient#summarize_awr_db_metrics.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling summarize_awr_db_metrics." if managed_database_id.nil?
+      raise "Missing the required parameter 'awr_db_id' when calling summarize_awr_db_metrics." if awr_db_id.nil?
+      raise "Missing the required parameter 'name' when calling summarize_awr_db_metrics." if name.nil?
+
+      if opts[:sort_by] && !%w[TIMESTAMP NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMESTAMP, NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'awr_db_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_db_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/awrDbs/{awrDbId}/awrDbMetrics'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{awrDbId}', awr_db_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = OCI::ApiClient.build_collection_params(name, :multi)
+      query_params[:instNum] = opts[:inst_num] if opts[:inst_num]
+      query_params[:beginSnIdGreaterThanOrEqualTo] = opts[:begin_sn_id_greater_than_or_equal_to] if opts[:begin_sn_id_greater_than_or_equal_to]
+      query_params[:endSnIdLessThanOrEqualTo] = opts[:end_sn_id_less_than_or_equal_to] if opts[:end_sn_id_less_than_or_equal_to]
+      query_params[:timeGreaterThanOrEqualTo] = opts[:time_greater_than_or_equal_to] if opts[:time_greater_than_or_equal_to]
+      query_params[:timeLessThanOrEqualTo] = opts[:time_less_than_or_equal_to] if opts[:time_less_than_or_equal_to]
+      query_params[:containerId] = opts[:container_id] if opts[:container_id]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#summarize_awr_db_metrics') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::AwrDbMetricCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Summarizes the AWR database parameter change history for one database parameter of the specified Managed Database. One change history record contains
+    # the previous value, the changed value, and the corresponding time range. If the database parameter value was changed multiple times within the time range, then multiple change history records are created for the same parameter.
+    # Note that this API only returns information on change history details for one database parameter.
+    # To get a list of all the database parameters whose values were changed during a specified time range, use the following API endpoint:
+    # /managedDatabases/{managedDatabaseId}/awrDbs/{awrDbId}/awrDbParameters
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] awr_db_id The parameter to filter the database by internal ID.
+    #   Note that the internal ID of the database can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #
+    # @param [String] name The required single value query parameter to filter the entity name.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :inst_num The optional single value query parameter to filter the database instance number.
+    # @option opts [Integer] :begin_sn_id_greater_than_or_equal_to The optional greater than or equal to filter on the snapshot ID.
+    # @option opts [Integer] :end_sn_id_less_than_or_equal_to The optional less than or equal to query parameter to filter the snapshot ID.
+    # @option opts [DateTime] :time_greater_than_or_equal_to The optional greater than or equal to query parameter to filter the timestamp.
+    # @option opts [DateTime] :time_less_than_or_equal_to The optional less than or equal to query parameter to filter the timestamp.
+    # @option opts [Integer] :container_id The optional query parameter to filter the database container by an exact ID value.
+    #   Note that the database container ID can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
+    #
+    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [Integer] :limit The maximum number of records returned in large paginated response. (default to 1000)
+    # @option opts [String] :sort_by The option to sort the AWR database parameter change history data. (default to IS_CHANGED)
+    #   Allowed values are: IS_CHANGED, NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::AwrDbParameterChangeCollection AwrDbParameterChangeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/summarize_awr_db_parameter_changes.rb.html) to see an example of how to use summarize_awr_db_parameter_changes API.
+    def summarize_awr_db_parameter_changes(managed_database_id, awr_db_id, name, opts = {})
+      logger.debug 'Calling operation DbManagementClient#summarize_awr_db_parameter_changes.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling summarize_awr_db_parameter_changes." if managed_database_id.nil?
+      raise "Missing the required parameter 'awr_db_id' when calling summarize_awr_db_parameter_changes." if awr_db_id.nil?
+      raise "Missing the required parameter 'name' when calling summarize_awr_db_parameter_changes." if name.nil?
+
+      if opts[:sort_by] && !%w[IS_CHANGED NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of IS_CHANGED, NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'awr_db_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_db_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/awrDbs/{awrDbId}/awrDbParameterChanges'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{awrDbId}', awr_db_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = name
+      query_params[:instNum] = opts[:inst_num] if opts[:inst_num]
+      query_params[:beginSnIdGreaterThanOrEqualTo] = opts[:begin_sn_id_greater_than_or_equal_to] if opts[:begin_sn_id_greater_than_or_equal_to]
+      query_params[:endSnIdLessThanOrEqualTo] = opts[:end_sn_id_less_than_or_equal_to] if opts[:end_sn_id_less_than_or_equal_to]
+      query_params[:timeGreaterThanOrEqualTo] = opts[:time_greater_than_or_equal_to] if opts[:time_greater_than_or_equal_to]
+      query_params[:timeLessThanOrEqualTo] = opts[:time_less_than_or_equal_to] if opts[:time_less_than_or_equal_to]
+      query_params[:containerId] = opts[:container_id] if opts[:container_id]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#summarize_awr_db_parameter_changes') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::AwrDbParameterChangeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Summarizes the AWR database parameter history for the specified Managed Database. This includes the list of database
+    # parameters, with information on whether the parameter values were modified within the query time range. Note that
+    # each database parameter is only listed once. The returned summary gets all the database parameters, which include:
+    #  -Each parameter whose value was changed during the time range: AwrDbParameterValueOptionalQueryParam (valueChanged =\"Y\")
+    #  -Each parameter whose value was unchanged during the time range: AwrDbParameterValueOptionalQueryParam (valueChanged =\"N\")
+    #  -Each parameter whose value was changed at the system level during the time range: (valueChanged =\"Y\"  and valueModified = \"SYSTEM_MOD\").
+    #  -Each parameter whose value was unchanged during the time range, however, the value is not the default value: (valueChanged =\"N\" and  valueDefault = \"FALSE\")
+    # Note that this API does not return information on the number of times each database parameter has been changed within the time range. To get the database parameter value change history for a specific parameter, use the following API endpoint:
+    # /managedDatabases/{managedDatabaseId}/awrDbs/{awrDbId}/awrDbParameterChanges
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] awr_db_id The parameter to filter the database by internal ID.
+    #   Note that the internal ID of the database can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :inst_num The optional single value query parameter to filter the database instance number.
+    # @option opts [Integer] :begin_sn_id_greater_than_or_equal_to The optional greater than or equal to filter on the snapshot ID.
+    # @option opts [Integer] :end_sn_id_less_than_or_equal_to The optional less than or equal to query parameter to filter the snapshot ID.
+    # @option opts [DateTime] :time_greater_than_or_equal_to The optional greater than or equal to query parameter to filter the timestamp.
+    # @option opts [DateTime] :time_less_than_or_equal_to The optional less than or equal to query parameter to filter the timestamp.
+    # @option opts [Integer] :container_id The optional query parameter to filter the database container by an exact ID value.
+    #   Note that the database container ID can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
+    #
+    # @option opts [Array<String>] :name The optional multiple value query parameter to filter the entity name.
+    # @option opts [String] :name_contains The optional contains query parameter to filter the entity name by any part of the name.
+    # @option opts [String] :value_changed The optional query parameter to filter database parameters whose values were changed. (default to Y)
+    #   Allowed values are: Y, N
+    # @option opts [String] :value_default The optional query parameter to filter the database parameters that had the default value in the last snapshot.
+    #   Allowed values are: TRUE, FALSE
+    # @option opts [String] :value_modified The optional query parameter to filter the database parameters that had a modified value in the last snapshot.
+    #   Allowed values are: MODIFIED, SYSTEM_MOD, FALSE
+    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [Integer] :limit The maximum number of records returned in large paginated response. (default to 1000)
+    # @option opts [String] :sort_by The option to sort the AWR database parameter change history data. (default to IS_CHANGED)
+    #   Allowed values are: IS_CHANGED, NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::AwrDbParameterCollection AwrDbParameterCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/summarize_awr_db_parameters.rb.html) to see an example of how to use summarize_awr_db_parameters API.
+    def summarize_awr_db_parameters(managed_database_id, awr_db_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#summarize_awr_db_parameters.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling summarize_awr_db_parameters." if managed_database_id.nil?
+      raise "Missing the required parameter 'awr_db_id' when calling summarize_awr_db_parameters." if awr_db_id.nil?
+
+      if opts[:value_changed] && !%w[Y N].include?(opts[:value_changed])
+        raise 'Invalid value for "value_changed", must be one of Y, N.'
+      end
+
+      if opts[:value_default] && !%w[TRUE FALSE].include?(opts[:value_default])
+        raise 'Invalid value for "value_default", must be one of TRUE, FALSE.'
+      end
+
+      if opts[:value_modified] && !%w[MODIFIED SYSTEM_MOD FALSE].include?(opts[:value_modified])
+        raise 'Invalid value for "value_modified", must be one of MODIFIED, SYSTEM_MOD, FALSE.'
+      end
+
+      if opts[:sort_by] && !%w[IS_CHANGED NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of IS_CHANGED, NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'awr_db_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_db_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/awrDbs/{awrDbId}/awrDbParameters'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{awrDbId}', awr_db_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:instNum] = opts[:inst_num] if opts[:inst_num]
+      query_params[:beginSnIdGreaterThanOrEqualTo] = opts[:begin_sn_id_greater_than_or_equal_to] if opts[:begin_sn_id_greater_than_or_equal_to]
+      query_params[:endSnIdLessThanOrEqualTo] = opts[:end_sn_id_less_than_or_equal_to] if opts[:end_sn_id_less_than_or_equal_to]
+      query_params[:timeGreaterThanOrEqualTo] = opts[:time_greater_than_or_equal_to] if opts[:time_greater_than_or_equal_to]
+      query_params[:timeLessThanOrEqualTo] = opts[:time_less_than_or_equal_to] if opts[:time_less_than_or_equal_to]
+      query_params[:containerId] = opts[:container_id] if opts[:container_id]
+      query_params[:name] = OCI::ApiClient.build_collection_params(opts[:name], :multi) if opts[:name] && !opts[:name].empty?
+      query_params[:nameContains] = opts[:name_contains] if opts[:name_contains]
+      query_params[:valueChanged] = opts[:value_changed] if opts[:value_changed]
+      query_params[:valueDefault] = opts[:value_default] if opts[:value_default]
+      query_params[:valueModified] = opts[:value_modified] if opts[:value_modified]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#summarize_awr_db_parameters') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::AwrDbParameterCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Summarizes the AWR snapshot ranges that contain continuous snapshots, for the specified Managed Database.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :name The optional single value query parameter to filter the entity name.
+    # @option opts [DateTime] :time_greater_than_or_equal_to The optional greater than or equal to query parameter to filter the timestamp.
+    # @option opts [DateTime] :time_less_than_or_equal_to The optional less than or equal to query parameter to filter the timestamp.
+    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [Integer] :limit The maximum number of records returned in paginated response. (default to 10)
+    # @option opts [String] :sort_by The option to sort the AWR summary data. (default to END_INTERVAL_TIME)
+    #   Allowed values are: END_INTERVAL_TIME, NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::AwrDbSnapshotRangeCollection AwrDbSnapshotRangeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/summarize_awr_db_snapshot_ranges.rb.html) to see an example of how to use summarize_awr_db_snapshot_ranges API.
+    def summarize_awr_db_snapshot_ranges(managed_database_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#summarize_awr_db_snapshot_ranges.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling summarize_awr_db_snapshot_ranges." if managed_database_id.nil?
+
+      if opts[:sort_by] && !%w[END_INTERVAL_TIME NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of END_INTERVAL_TIME, NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges'.sub('{managedDatabaseId}', managed_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:timeGreaterThanOrEqualTo] = opts[:time_greater_than_or_equal_to] if opts[:time_greater_than_or_equal_to]
+      query_params[:timeLessThanOrEqualTo] = opts[:time_less_than_or_equal_to] if opts[:time_less_than_or_equal_to]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#summarize_awr_db_snapshot_ranges') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::AwrDbSnapshotRangeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Summarizes the AWR SYSSTAT sample data for the specified database in AWR. The statistical data is summarized based on the Time dimension for each statistic.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] awr_db_id The parameter to filter the database by internal ID.
+    #   Note that the internal ID of the database can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #
+    # @param [Array<String>] name The required multiple value query parameter to filter the entity name.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :inst_num The optional single value query parameter to filter the database instance number.
+    # @option opts [Integer] :begin_sn_id_greater_than_or_equal_to The optional greater than or equal to filter on the snapshot ID.
+    # @option opts [Integer] :end_sn_id_less_than_or_equal_to The optional less than or equal to query parameter to filter the snapshot ID.
+    # @option opts [DateTime] :time_greater_than_or_equal_to The optional greater than or equal to query parameter to filter the timestamp.
+    # @option opts [DateTime] :time_less_than_or_equal_to The optional less than or equal to query parameter to filter the timestamp.
+    # @option opts [Integer] :container_id The optional query parameter to filter the database container by an exact ID value.
+    #   Note that the database container ID can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
+    #
+    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [Integer] :limit The maximum number of records returned in large paginated response. (default to 1000)
+    # @option opts [String] :sort_by The option to sort the data within a time period. (default to TIME_BEGIN)
+    #   Allowed values are: TIME_BEGIN, NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::AwrDbSysstatCollection AwrDbSysstatCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/summarize_awr_db_sysstats.rb.html) to see an example of how to use summarize_awr_db_sysstats API.
+    def summarize_awr_db_sysstats(managed_database_id, awr_db_id, name, opts = {})
+      logger.debug 'Calling operation DbManagementClient#summarize_awr_db_sysstats.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling summarize_awr_db_sysstats." if managed_database_id.nil?
+      raise "Missing the required parameter 'awr_db_id' when calling summarize_awr_db_sysstats." if awr_db_id.nil?
+      raise "Missing the required parameter 'name' when calling summarize_awr_db_sysstats." if name.nil?
+
+      if opts[:sort_by] && !%w[TIME_BEGIN NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIME_BEGIN, NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'awr_db_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_db_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/awrDbs/{awrDbId}/awrDbSysstats'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{awrDbId}', awr_db_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = OCI::ApiClient.build_collection_params(name, :multi)
+      query_params[:instNum] = opts[:inst_num] if opts[:inst_num]
+      query_params[:beginSnIdGreaterThanOrEqualTo] = opts[:begin_sn_id_greater_than_or_equal_to] if opts[:begin_sn_id_greater_than_or_equal_to]
+      query_params[:endSnIdLessThanOrEqualTo] = opts[:end_sn_id_less_than_or_equal_to] if opts[:end_sn_id_less_than_or_equal_to]
+      query_params[:timeGreaterThanOrEqualTo] = opts[:time_greater_than_or_equal_to] if opts[:time_greater_than_or_equal_to]
+      query_params[:timeLessThanOrEqualTo] = opts[:time_less_than_or_equal_to] if opts[:time_less_than_or_equal_to]
+      query_params[:containerId] = opts[:container_id] if opts[:container_id]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#summarize_awr_db_sysstats') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::AwrDbSysstatCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Summarizes the AWR top wait events.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] awr_db_id The parameter to filter the database by internal ID.
+    #   Note that the internal ID of the database can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :inst_num The optional single value query parameter to filter the database instance number.
+    # @option opts [Integer] :begin_sn_id_greater_than_or_equal_to The optional greater than or equal to filter on the snapshot ID.
+    # @option opts [Integer] :end_sn_id_less_than_or_equal_to The optional less than or equal to query parameter to filter the snapshot ID.
+    # @option opts [DateTime] :time_greater_than_or_equal_to The optional greater than or equal to query parameter to filter the timestamp.
+    # @option opts [DateTime] :time_less_than_or_equal_to The optional less than or equal to query parameter to filter the timestamp.
+    # @option opts [String] :session_type The optional query parameter to filter ASH activities by FOREGROUND or BACKGROUND. (default to FOREGROUND)
+    #   Allowed values are: FOREGROUND, BACKGROUND, ALL
+    # @option opts [Integer] :container_id The optional query parameter to filter the database container by an exact ID value.
+    #   Note that the database container ID can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
+    #
+    # @option opts [Integer] :top_n The optional query parameter to filter the number of top categories to be returned. (default to 10)
+    # @option opts [String] :sort_by The option to sort the AWR top event summary data. (default to WAITS_PERSEC)
+    #   Allowed values are: WAITS_PERSEC, AVG_WAIT_TIME_PERSEC
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::AwrDbTopWaitEventCollection AwrDbTopWaitEventCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/summarize_awr_db_top_wait_events.rb.html) to see an example of how to use summarize_awr_db_top_wait_events API.
+    def summarize_awr_db_top_wait_events(managed_database_id, awr_db_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#summarize_awr_db_top_wait_events.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling summarize_awr_db_top_wait_events." if managed_database_id.nil?
+      raise "Missing the required parameter 'awr_db_id' when calling summarize_awr_db_top_wait_events." if awr_db_id.nil?
+
+      if opts[:session_type] && !%w[FOREGROUND BACKGROUND ALL].include?(opts[:session_type])
+        raise 'Invalid value for "session_type", must be one of FOREGROUND, BACKGROUND, ALL.'
+      end
+
+      if opts[:sort_by] && !%w[WAITS_PERSEC AVG_WAIT_TIME_PERSEC].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of WAITS_PERSEC, AVG_WAIT_TIME_PERSEC.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'awr_db_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_db_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/awrDbs/{awrDbId}/awrDbTopWaitEvents'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{awrDbId}', awr_db_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:instNum] = opts[:inst_num] if opts[:inst_num]
+      query_params[:beginSnIdGreaterThanOrEqualTo] = opts[:begin_sn_id_greater_than_or_equal_to] if opts[:begin_sn_id_greater_than_or_equal_to]
+      query_params[:endSnIdLessThanOrEqualTo] = opts[:end_sn_id_less_than_or_equal_to] if opts[:end_sn_id_less_than_or_equal_to]
+      query_params[:timeGreaterThanOrEqualTo] = opts[:time_greater_than_or_equal_to] if opts[:time_greater_than_or_equal_to]
+      query_params[:timeLessThanOrEqualTo] = opts[:time_less_than_or_equal_to] if opts[:time_less_than_or_equal_to]
+      query_params[:sessionType] = opts[:session_type] if opts[:session_type]
+      query_params[:containerId] = opts[:container_id] if opts[:container_id]
+      query_params[:topN] = opts[:top_n] if opts[:top_n]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#summarize_awr_db_top_wait_events') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::AwrDbTopWaitEventCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Summarizes AWR wait event data into value buckets and frequency, for the specified database in the AWR.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] awr_db_id The parameter to filter the database by internal ID.
+    #   Note that the internal ID of the database can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #
+    # @param [String] name The required single value query parameter to filter the entity name.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :inst_num The optional single value query parameter to filter the database instance number.
+    # @option opts [Integer] :begin_sn_id_greater_than_or_equal_to The optional greater than or equal to filter on the snapshot ID.
+    # @option opts [Integer] :end_sn_id_less_than_or_equal_to The optional less than or equal to query parameter to filter the snapshot ID.
+    # @option opts [DateTime] :time_greater_than_or_equal_to The optional greater than or equal to query parameter to filter the timestamp.
+    # @option opts [DateTime] :time_less_than_or_equal_to The optional less than or equal to query parameter to filter the timestamp.
+    # @option opts [Integer] :num_bucket The number of buckets within the histogram. (default to 10)
+    # @option opts [Float] :min_value The minimum value of the histogram. (default to 0)
+    # @option opts [Float] :max_value The maximum value of the histogram.
+    # @option opts [Integer] :container_id The optional query parameter to filter the database container by an exact ID value.
+    #   Note that the database container ID can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
+    #
+    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [Integer] :limit The maximum number of records returned in large paginated response. (default to 1000)
+    # @option opts [String] :sort_by The option to sort distribution data. (default to CATEGORY)
+    #   Allowed values are: CATEGORY, PERCENTAGE
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the the default order. (default to ASC)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::AwrDbWaitEventBucketCollection AwrDbWaitEventBucketCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/summarize_awr_db_wait_event_buckets.rb.html) to see an example of how to use summarize_awr_db_wait_event_buckets API.
+    def summarize_awr_db_wait_event_buckets(managed_database_id, awr_db_id, name, opts = {})
+      logger.debug 'Calling operation DbManagementClient#summarize_awr_db_wait_event_buckets.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling summarize_awr_db_wait_event_buckets." if managed_database_id.nil?
+      raise "Missing the required parameter 'awr_db_id' when calling summarize_awr_db_wait_event_buckets." if awr_db_id.nil?
+      raise "Missing the required parameter 'name' when calling summarize_awr_db_wait_event_buckets." if name.nil?
+
+      if opts[:sort_by] && !%w[CATEGORY PERCENTAGE].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of CATEGORY, PERCENTAGE.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'awr_db_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_db_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/awrDbs/{awrDbId}/awrDbWaitEventBuckets'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{awrDbId}', awr_db_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = name
+      query_params[:instNum] = opts[:inst_num] if opts[:inst_num]
+      query_params[:beginSnIdGreaterThanOrEqualTo] = opts[:begin_sn_id_greater_than_or_equal_to] if opts[:begin_sn_id_greater_than_or_equal_to]
+      query_params[:endSnIdLessThanOrEqualTo] = opts[:end_sn_id_less_than_or_equal_to] if opts[:end_sn_id_less_than_or_equal_to]
+      query_params[:timeGreaterThanOrEqualTo] = opts[:time_greater_than_or_equal_to] if opts[:time_greater_than_or_equal_to]
+      query_params[:timeLessThanOrEqualTo] = opts[:time_less_than_or_equal_to] if opts[:time_less_than_or_equal_to]
+      query_params[:numBucket] = opts[:num_bucket] if opts[:num_bucket]
+      query_params[:minValue] = opts[:min_value] if opts[:min_value]
+      query_params[:maxValue] = opts[:max_value] if opts[:max_value]
+      query_params[:containerId] = opts[:container_id] if opts[:container_id]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#summarize_awr_db_wait_event_buckets') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::AwrDbWaitEventBucketCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Summarizes the AWR wait event sample data for the specified database in the AWR. The event data is summarized based on the Time dimension for each event.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] awr_db_id The parameter to filter the database by internal ID.
+    #   Note that the internal ID of the database can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :inst_num The optional single value query parameter to filter the database instance number.
+    # @option opts [Integer] :begin_sn_id_greater_than_or_equal_to The optional greater than or equal to filter on the snapshot ID.
+    # @option opts [Integer] :end_sn_id_less_than_or_equal_to The optional less than or equal to query parameter to filter the snapshot ID.
+    # @option opts [DateTime] :time_greater_than_or_equal_to The optional greater than or equal to query parameter to filter the timestamp.
+    # @option opts [DateTime] :time_less_than_or_equal_to The optional less than or equal to query parameter to filter the timestamp.
+    # @option opts [Array<String>] :name The optional multiple value query parameter to filter the entity name.
+    # @option opts [String] :session_type The optional query parameter to filter ASH activities by FOREGROUND or BACKGROUND. (default to FOREGROUND)
+    #   Allowed values are: FOREGROUND, BACKGROUND, ALL
+    # @option opts [Integer] :container_id The optional query parameter to filter the database container by an exact ID value.
+    #   Note that the database container ID can be retrieved from the following endpoint:
+    #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
+    #
+    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [Integer] :limit The maximum number of records returned in large paginated response. (default to 1000)
+    # @option opts [String] :sort_by The option to sort the data within a time period. (default to TIME_BEGIN)
+    #   Allowed values are: TIME_BEGIN, NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::AwrDbWaitEventCollection AwrDbWaitEventCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/summarize_awr_db_wait_events.rb.html) to see an example of how to use summarize_awr_db_wait_events API.
+    def summarize_awr_db_wait_events(managed_database_id, awr_db_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#summarize_awr_db_wait_events.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling summarize_awr_db_wait_events." if managed_database_id.nil?
+      raise "Missing the required parameter 'awr_db_id' when calling summarize_awr_db_wait_events." if awr_db_id.nil?
+
+      if opts[:session_type] && !%w[FOREGROUND BACKGROUND ALL].include?(opts[:session_type])
+        raise 'Invalid value for "session_type", must be one of FOREGROUND, BACKGROUND, ALL.'
+      end
+
+      if opts[:sort_by] && !%w[TIME_BEGIN NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIME_BEGIN, NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'awr_db_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_db_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/awrDbs/{awrDbId}/awrDbWaitEvents'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{awrDbId}', awr_db_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:instNum] = opts[:inst_num] if opts[:inst_num]
+      query_params[:beginSnIdGreaterThanOrEqualTo] = opts[:begin_sn_id_greater_than_or_equal_to] if opts[:begin_sn_id_greater_than_or_equal_to]
+      query_params[:endSnIdLessThanOrEqualTo] = opts[:end_sn_id_less_than_or_equal_to] if opts[:end_sn_id_less_than_or_equal_to]
+      query_params[:timeGreaterThanOrEqualTo] = opts[:time_greater_than_or_equal_to] if opts[:time_greater_than_or_equal_to]
+      query_params[:timeLessThanOrEqualTo] = opts[:time_less_than_or_equal_to] if opts[:time_less_than_or_equal_to]
+      query_params[:name] = OCI::ApiClient.build_collection_params(opts[:name], :multi) if opts[:name] && !opts[:name].empty?
+      query_params[:sessionType] = opts[:session_type] if opts[:session_type]
+      query_params[:containerId] = opts[:container_id] if opts[:container_id]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#summarize_awr_db_wait_events') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::AwrDbWaitEventCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength

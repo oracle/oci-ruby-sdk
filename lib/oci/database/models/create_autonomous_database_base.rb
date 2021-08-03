@@ -7,6 +7,11 @@ require 'date'
 module OCI
   # Details to create an Oracle Autonomous Database.
   #
+  # **Notes:**
+  # - To specify OCPU core count, you must use either `ocpuCount` or `cpuCoreCount`. You cannot use both parameters at the same time.
+  # - To specify a storage allocation, you must use  either `dataStorageSizeInGBs` or `dataStorageSizeInTBs`.
+  # - See the individual parameter discriptions for more information on the OCPU and storage value parameters.
+  #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
@@ -28,7 +33,13 @@ module OCI
       SOURCE_DATABASE = 'DATABASE'.freeze,
       SOURCE_BACKUP_FROM_ID = 'BACKUP_FROM_ID'.freeze,
       SOURCE_BACKUP_FROM_TIMESTAMP = 'BACKUP_FROM_TIMESTAMP'.freeze,
-      SOURCE_CLONE_TO_REFRESHABLE = 'CLONE_TO_REFRESHABLE'.freeze
+      SOURCE_CLONE_TO_REFRESHABLE = 'CLONE_TO_REFRESHABLE'.freeze,
+      SOURCE_CROSS_REGION_DATAGUARD = 'CROSS_REGION_DATAGUARD'.freeze
+    ].freeze
+
+    AUTONOMOUS_MAINTENANCE_SCHEDULE_TYPE_ENUM = [
+      AUTONOMOUS_MAINTENANCE_SCHEDULE_TYPE_EARLY = 'EARLY'.freeze,
+      AUTONOMOUS_MAINTENANCE_SCHEDULE_TYPE_REGULAR = 'REGULAR'.freeze
     ].freeze
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment of the Autonomous Database.
@@ -39,9 +50,25 @@ module OCI
     # @return [String]
     attr_accessor :db_name
 
-    # **[Required]** The number of OCPU cores to be made available to the database.
+    # The number of OCPU cores to be made available to the database. For Autonomous Databases on dedicated Exadata infrastructure, the maximum number of cores is determined by the infrastructure shape. See [Characteristics of Infrastructure Shapes](https://www.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database&id=ATPFG-GUID-B0F033C1-CC5A-42F0-B2E7-3CECFEDA1FD1) for shape details.
+    #
+    # **Note:** This parameter cannot be used with the `ocpuCount` parameter.
+    #
     # @return [Integer]
     attr_accessor :cpu_core_count
+
+    # The number of OCPU cores to be made available to the database.
+    #
+    # The following points apply:
+    # - For Autonomous Databases on dedicated Exadata infrastructure, to provision less than 1 core, enter a fractional value in an increment of 0.1. For example, you can provision 0.3 or 0.4 cores, but not 0.35 cores. (Note that fractional OCPU values are not supported for Autonomous Databasese on shared Exadata infrastructure.)
+    # - To provision 1 or more cores, you must enter an integer between 1 and the maximum number of cores available for the infrastructure shape. For example, you can provision 2 cores or 3 cores, but not 2.5 cores. This applies to Autonomous Databases on both shared and dedicated Exadata infrastructure.
+    #
+    # For Autonomous Databases on dedicated Exadata infrastructure, the maximum number of cores is determined by the infrastructure shape. See [Characteristics of Infrastructure Shapes](https://www.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database&id=ATPFG-GUID-B0F033C1-CC5A-42F0-B2E7-3CECFEDA1FD1) for shape details.
+    #
+    # **Note:** This parameter cannot be used with the `cpuCoreCount` parameter.
+    #
+    # @return [Float]
+    attr_accessor :ocpu_count
 
     # The Autonomous Database workload type. The following values are valid:
     #
@@ -53,15 +80,34 @@ module OCI
     # @return [String]
     attr_reader :db_workload
 
-    # The size, in terabytes, of the data volume that will be created and attached to the database. This storage can later be scaled up if needed.
+    # The size, in terabytes, of the data volume that will be created and attached to the database. This storage can later be scaled up if needed. For Autonomous Databases on dedicated Exadata infrastructure, the maximum storage value is determined by the infrastructure shape. See [Characteristics of Infrastructure Shapes](https://www.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database&id=ATPFG-GUID-B0F033C1-CC5A-42F0-B2E7-3CECFEDA1FD1) for shape details.
+    #
+    # **Note:** This parameter cannot be used with the `dataStorageSizeInGBs` parameter.
     #
     # @return [Integer]
     attr_accessor :data_storage_size_in_tbs
+
+    # The size, in gigabytes, of the data volume that will be created and attached to the database. This storage can later be scaled up if needed. The maximum storage value is determined by the infrastructure shape. See [Characteristics of Infrastructure Shapes](https://www.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database&id=ATPFG-GUID-B0F033C1-CC5A-42F0-B2E7-3CECFEDA1FD1) for shape details.
+    #
+    # **Notes**
+    # - This parameter is only supported for dedicated Exadata infrastructure.
+    # - This parameter cannot be used with the `dataStorageSizeInTBs` parameter.
+    #
+    # @return [Integer]
+    attr_accessor :data_storage_size_in_gbs
 
     # Indicates if this is an Always Free resource. The default value is false. Note that Always Free Autonomous Databases have 1 CPU and 20GB of memory. For Always Free databases, memory and CPU cannot be scaled.
     #
     # @return [BOOLEAN]
     attr_accessor :is_free_tier
+
+    # The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
+    # @return [String]
+    attr_accessor :kms_key_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Oracle Cloud Infrastructure [vault](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm#concepts).
+    # @return [String]
+    attr_accessor :vault_id
 
     # The password must be between 12 and 30 characters long, and must contain at least 1 uppercase, 1 lowercase, and 1 numeric character. It cannot contain the double quote symbol (\") or the username \"admin\", regardless of casing.
     # @return [String]
@@ -202,6 +248,12 @@ module OCI
     # @return [Array<OCI::Database::Models::CustomerContact>]
     attr_accessor :customer_contacts
 
+    # The maintenance schedule type of the Autonomous Database on shared Exadata infrastructure. The EARLY maintenance schedule of this Autonomous Database
+    # follows a schedule that applies patches prior to the REGULAR schedule.The REGULAR maintenance schedule of this Autonomous Database follows the normal cycle.
+    #
+    # @return [String]
+    attr_reader :autonomous_maintenance_schedule_type
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -209,9 +261,13 @@ module OCI
         'compartment_id': :'compartmentId',
         'db_name': :'dbName',
         'cpu_core_count': :'cpuCoreCount',
+        'ocpu_count': :'ocpuCount',
         'db_workload': :'dbWorkload',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
+        'data_storage_size_in_gbs': :'dataStorageSizeInGBs',
         'is_free_tier': :'isFreeTier',
+        'kms_key_id': :'kmsKeyId',
+        'vault_id': :'vaultId',
         'admin_password': :'adminPassword',
         'display_name': :'displayName',
         'license_model': :'licenseModel',
@@ -231,7 +287,8 @@ module OCI
         'defined_tags': :'definedTags',
         'db_version': :'dbVersion',
         'source': :'source',
-        'customer_contacts': :'customerContacts'
+        'customer_contacts': :'customerContacts',
+        'autonomous_maintenance_schedule_type': :'autonomousMaintenanceScheduleType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -243,9 +300,13 @@ module OCI
         'compartment_id': :'String',
         'db_name': :'String',
         'cpu_core_count': :'Integer',
+        'ocpu_count': :'Float',
         'db_workload': :'String',
         'data_storage_size_in_tbs': :'Integer',
+        'data_storage_size_in_gbs': :'Integer',
         'is_free_tier': :'BOOLEAN',
+        'kms_key_id': :'String',
+        'vault_id': :'String',
         'admin_password': :'String',
         'display_name': :'String',
         'license_model': :'String',
@@ -265,7 +326,8 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'db_version': :'String',
         'source': :'String',
-        'customer_contacts': :'Array<OCI::Database::Models::CustomerContact>'
+        'customer_contacts': :'Array<OCI::Database::Models::CustomerContact>',
+        'autonomous_maintenance_schedule_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -282,6 +344,7 @@ module OCI
       return 'OCI::Database::Models::CreateRefreshableAutonomousDatabaseCloneDetails' if type == 'CLONE_TO_REFRESHABLE'
       return 'OCI::Database::Models::CreateAutonomousDatabaseFromBackupDetails' if type == 'BACKUP_FROM_ID'
       return 'OCI::Database::Models::CreateAutonomousDatabaseFromBackupTimestampDetails' if type == 'BACKUP_FROM_TIMESTAMP'
+      return 'OCI::Database::Models::CreateCrossRegionAutonomousDatabaseDataGuardDetails' if type == 'CROSS_REGION_DATAGUARD'
       return 'OCI::Database::Models::CreateAutonomousDatabaseDetails' if type == 'NONE'
 
       # TODO: Log a warning when the subtype is not found.
@@ -298,9 +361,13 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
+    # @option attributes [Float] :ocpu_count The value to assign to the {#ocpu_count} property
     # @option attributes [String] :db_workload The value to assign to the {#db_workload} property
     # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
+    # @option attributes [Integer] :data_storage_size_in_gbs The value to assign to the {#data_storage_size_in_gbs} property
     # @option attributes [BOOLEAN] :is_free_tier The value to assign to the {#is_free_tier} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
+    # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
     # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
@@ -321,6 +388,7 @@ module OCI
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [String] :source The value to assign to the {#source} property
     # @option attributes [Array<OCI::Database::Models::CustomerContact>] :customer_contacts The value to assign to the {#customer_contacts} property
+    # @option attributes [String] :autonomous_maintenance_schedule_type The value to assign to the {#autonomous_maintenance_schedule_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -345,6 +413,12 @@ module OCI
 
       self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
 
+      self.ocpu_count = attributes[:'ocpuCount'] if attributes[:'ocpuCount']
+
+      raise 'You cannot provide both :ocpuCount and :ocpu_count' if attributes.key?(:'ocpuCount') && attributes.key?(:'ocpu_count')
+
+      self.ocpu_count = attributes[:'ocpu_count'] if attributes[:'ocpu_count']
+
       self.db_workload = attributes[:'dbWorkload'] if attributes[:'dbWorkload']
 
       raise 'You cannot provide both :dbWorkload and :db_workload' if attributes.key?(:'dbWorkload') && attributes.key?(:'db_workload')
@@ -357,6 +431,12 @@ module OCI
 
       self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
 
+      self.data_storage_size_in_gbs = attributes[:'dataStorageSizeInGBs'] if attributes[:'dataStorageSizeInGBs']
+
+      raise 'You cannot provide both :dataStorageSizeInGBs and :data_storage_size_in_gbs' if attributes.key?(:'dataStorageSizeInGBs') && attributes.key?(:'data_storage_size_in_gbs')
+
+      self.data_storage_size_in_gbs = attributes[:'data_storage_size_in_gbs'] if attributes[:'data_storage_size_in_gbs']
+
       self.is_free_tier = attributes[:'isFreeTier'] unless attributes[:'isFreeTier'].nil?
       self.is_free_tier = false if is_free_tier.nil? && !attributes.key?(:'isFreeTier') # rubocop:disable Style/StringLiterals
 
@@ -364,6 +444,18 @@ module OCI
 
       self.is_free_tier = attributes[:'is_free_tier'] unless attributes[:'is_free_tier'].nil?
       self.is_free_tier = false if is_free_tier.nil? && !attributes.key?(:'isFreeTier') && !attributes.key?(:'is_free_tier') # rubocop:disable Style/StringLiterals
+
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
+      self.vault_id = attributes[:'vaultId'] if attributes[:'vaultId']
+
+      raise 'You cannot provide both :vaultId and :vault_id' if attributes.key?(:'vaultId') && attributes.key?(:'vault_id')
+
+      self.vault_id = attributes[:'vault_id'] if attributes[:'vault_id']
 
       self.admin_password = attributes[:'adminPassword'] if attributes[:'adminPassword']
 
@@ -485,6 +577,12 @@ module OCI
       raise 'You cannot provide both :customerContacts and :customer_contacts' if attributes.key?(:'customerContacts') && attributes.key?(:'customer_contacts')
 
       self.customer_contacts = attributes[:'customer_contacts'] if attributes[:'customer_contacts']
+
+      self.autonomous_maintenance_schedule_type = attributes[:'autonomousMaintenanceScheduleType'] if attributes[:'autonomousMaintenanceScheduleType']
+
+      raise 'You cannot provide both :autonomousMaintenanceScheduleType and :autonomous_maintenance_schedule_type' if attributes.key?(:'autonomousMaintenanceScheduleType') && attributes.key?(:'autonomous_maintenance_schedule_type')
+
+      self.autonomous_maintenance_schedule_type = attributes[:'autonomous_maintenance_schedule_type'] if attributes[:'autonomous_maintenance_schedule_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -513,6 +611,14 @@ module OCI
       @source = source
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] autonomous_maintenance_schedule_type Object to be assigned
+    def autonomous_maintenance_schedule_type=(autonomous_maintenance_schedule_type)
+      raise "Invalid value for 'autonomous_maintenance_schedule_type': this must be one of the values in AUTONOMOUS_MAINTENANCE_SCHEDULE_TYPE_ENUM." if autonomous_maintenance_schedule_type && !AUTONOMOUS_MAINTENANCE_SCHEDULE_TYPE_ENUM.include?(autonomous_maintenance_schedule_type)
+
+      @autonomous_maintenance_schedule_type = autonomous_maintenance_schedule_type
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -525,9 +631,13 @@ module OCI
         compartment_id == other.compartment_id &&
         db_name == other.db_name &&
         cpu_core_count == other.cpu_core_count &&
+        ocpu_count == other.ocpu_count &&
         db_workload == other.db_workload &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
+        data_storage_size_in_gbs == other.data_storage_size_in_gbs &&
         is_free_tier == other.is_free_tier &&
+        kms_key_id == other.kms_key_id &&
+        vault_id == other.vault_id &&
         admin_password == other.admin_password &&
         display_name == other.display_name &&
         license_model == other.license_model &&
@@ -547,7 +657,8 @@ module OCI
         defined_tags == other.defined_tags &&
         db_version == other.db_version &&
         source == other.source &&
-        customer_contacts == other.customer_contacts
+        customer_contacts == other.customer_contacts &&
+        autonomous_maintenance_schedule_type == other.autonomous_maintenance_schedule_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -563,7 +674,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, customer_contacts].hash
+      [compartment_id, db_name, cpu_core_count, ocpu_count, db_workload, data_storage_size_in_tbs, data_storage_size_in_gbs, is_free_tier, kms_key_id, vault_id, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, customer_contacts, autonomous_maintenance_schedule_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -13,8 +13,8 @@ module OCI
     # @return [Array<String>]
     attr_accessor :destination_addresses
 
-    # **[Required]** Name of an endpoint, that is a sub-resource of the resolver, to use as the forwarding interface. The
-    # endpoint must have isForwarding set to true.
+    # **[Required]** Case-insensitive name of an endpoint, that is a sub-resource of the resolver, to use as the forwarding
+    # interface. The endpoint must have isForwarding set to true.
     #
     # @return [String]
     attr_accessor :source_endpoint_name

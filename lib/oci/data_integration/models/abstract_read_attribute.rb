@@ -12,6 +12,7 @@ module OCI
     MODEL_TYPE_ENUM = [
       MODEL_TYPE_ORACLEREADATTRIBUTE = 'ORACLEREADATTRIBUTE'.freeze,
       MODEL_TYPE_ORACLE_READ_ATTRIBUTE = 'ORACLE_READ_ATTRIBUTE'.freeze,
+      MODEL_TYPE_BICC_READ_ATTRIBUTE = 'BICC_READ_ATTRIBUTE'.freeze,
       MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -45,6 +46,8 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'modelType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::DataIntegration::Models::OracleReadAttributes' if type == 'ORACLE_READ_ATTRIBUTE'
+      return 'OCI::DataIntegration::Models::BiccReadAttributes' if type == 'BICC_READ_ATTRIBUTE'
       return 'OCI::DataIntegration::Models::OracleReadAttribute' if type == 'ORACLEREADATTRIBUTE'
 
       # TODO: Log a warning when the subtype is not found.

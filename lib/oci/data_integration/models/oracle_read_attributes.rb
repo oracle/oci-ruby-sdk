@@ -2,11 +2,12 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require_relative 'abstract_read_attribute'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Properties to configure reading from an Oracle Database.
-  class DataIntegration::Models::OracleReadAttributes
+  class DataIntegration::Models::OracleReadAttributes < DataIntegration::Models::AbstractReadAttribute
     # The fetch size for reading.
     # @return [Integer]
     attr_accessor :fetch_size
@@ -15,6 +16,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'model_type': :'modelType',
         'fetch_size': :'fetchSize'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -24,6 +26,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'model_type': :'String',
         'fetch_size': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -38,6 +41,13 @@ module OCI
     # @option attributes [Integer] :fetch_size The value to assign to the {#fetch_size} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
+
+      attributes['modelType'] = 'ORACLE_READ_ATTRIBUTE'
+
+      super(attributes)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.fetch_size = attributes[:'fetchSize'] if attributes[:'fetchSize']
 
@@ -57,6 +67,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        model_type == other.model_type &&
         fetch_size == other.fetch_size
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -73,7 +84,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [fetch_size].hash
+      [model_type, fetch_size].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

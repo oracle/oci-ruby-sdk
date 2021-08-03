@@ -8,7 +8,7 @@ require_relative 'instance_source_details'
 module OCI
   # InstanceSourceViaImageDetails model.
   class Core::Models::InstanceSourceViaImageDetails < Core::Models::InstanceSourceDetails
-    # The size of the boot volume in GBs. Minimum value is 50 GB and maximum value is 16384 GB (16TB).
+    # The size of the boot volume in GBs. Minimum value is 50 GB and maximum value is 32,768 GB (32 TB).
     #
     # @return [Integer]
     attr_accessor :boot_volume_size_in_gbs

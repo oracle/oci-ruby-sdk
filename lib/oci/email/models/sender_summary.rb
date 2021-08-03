@@ -16,15 +16,15 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The OCID for the compartment.
+    # **[Required]** The OCID for the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # The email address of the sender.
+    # **[Required]** The email address of the sender.
     # @return [String]
     attr_accessor :email_address
 
-    # The unique ID of the sender.
+    # **[Required]** The unique ID of the sender.
     # @return [String]
     attr_accessor :id
 
@@ -40,6 +40,7 @@ module OCI
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
@@ -47,6 +48,7 @@ module OCI
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]

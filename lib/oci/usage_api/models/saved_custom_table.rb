@@ -7,11 +7,11 @@ require 'date'
 module OCI
   # The custom table for Cost Analysis UI rendering.
   class UsageApi::Models::SavedCustomTable
-    # **[Required]** the name of custom table.
+    # **[Required]** The name of the custom table.
     # @return [String]
     attr_accessor :display_name
 
-    # row groupBy key list.
+    # The row groupBy key list.
     # example:
     #   `[\"tagNamespace\", \"tagKey\", \"tagValue\", \"service\", \"skuName\", \"skuPartNumber\", \"unit\",
     #     \"compartmentName\", \"compartmentPath\", \"compartmentId\", \"platform\", \"region\", \"logicalAd\",
@@ -20,7 +20,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :row_group_by
 
-    # column groupBy key list.
+    # The column groupBy key list.
     # example:
     #   `[\"tagNamespace\", \"tagKey\", \"tagValue\", \"service\", \"skuName\", \"skuPartNumber\", \"unit\",
     #     \"compartmentName\", \"compartmentPath\", \"compartmentId\", \"platform\", \"region\", \"logicalAd\",
@@ -29,8 +29,8 @@ module OCI
     # @return [Array<String>]
     attr_accessor :column_group_by
 
-    # GroupBy a specific tagKey. Provide tagNamespace and tagKey in tag object. Only support one tag in the list
-    # example:
+    # GroupBy a specific tagKey. Provide the tagNamespace and tagKey in the tag object. Only one tag in the list is supported.
+    # For example:
     #   `[{\"namespace\":\"oracle\", \"key\":\"createdBy\"]`
     #
     # @return [Array<OCI::UsageApi::Models::Tag>]
@@ -40,7 +40,7 @@ module OCI
     # @return [Float]
     attr_accessor :compartment_depth
 
-    # the version of custom table.
+    # The version of the custom table.
     # @return [Float]
     attr_accessor :version
 

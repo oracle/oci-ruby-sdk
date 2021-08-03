@@ -20,6 +20,12 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    ENCRYPTION_IN_TRANSIT_TYPE_ENUM = [
+      ENCRYPTION_IN_TRANSIT_TYPE_NONE = 'NONE'.freeze,
+      ENCRYPTION_IN_TRANSIT_TYPE_BM_ENCRYPTION_IN_TRANSIT = 'BM_ENCRYPTION_IN_TRANSIT'.freeze,
+      ENCRYPTION_IN_TRANSIT_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The availability domain of an instance.
     #
     # Example: `Uocm:PHX-AD-1`
@@ -66,6 +72,12 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_pv_encryption_in_transit_enabled
 
+    # Refer the top-level definition of encryptionInTransitType.
+    # The default value is NONE.
+    #
+    # @return [String]
+    attr_reader :encryption_in_transit_type
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -78,7 +90,8 @@ module OCI
         'instance_id': :'instanceId',
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
-        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled'
+        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled',
+        'encryption_in_transit_type': :'encryptionInTransitType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -95,7 +108,8 @@ module OCI
         'instance_id': :'String',
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
-        'is_pv_encryption_in_transit_enabled': :'BOOLEAN'
+        'is_pv_encryption_in_transit_enabled': :'BOOLEAN',
+        'encryption_in_transit_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -115,6 +129,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [BOOLEAN] :is_pv_encryption_in_transit_enabled The value to assign to the {#is_pv_encryption_in_transit_enabled} property
+    # @option attributes [String] :encryption_in_transit_type The value to assign to the {#encryption_in_transit_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -170,6 +185,14 @@ module OCI
       raise 'You cannot provide both :isPvEncryptionInTransitEnabled and :is_pv_encryption_in_transit_enabled' if attributes.key?(:'isPvEncryptionInTransitEnabled') && attributes.key?(:'is_pv_encryption_in_transit_enabled')
 
       self.is_pv_encryption_in_transit_enabled = attributes[:'is_pv_encryption_in_transit_enabled'] unless attributes[:'is_pv_encryption_in_transit_enabled'].nil?
+
+      self.encryption_in_transit_type = attributes[:'encryptionInTransitType'] if attributes[:'encryptionInTransitType']
+      self.encryption_in_transit_type = "NONE" if encryption_in_transit_type.nil? && !attributes.key?(:'encryptionInTransitType') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :encryptionInTransitType and :encryption_in_transit_type' if attributes.key?(:'encryptionInTransitType') && attributes.key?(:'encryption_in_transit_type')
+
+      self.encryption_in_transit_type = attributes[:'encryption_in_transit_type'] if attributes[:'encryption_in_transit_type']
+      self.encryption_in_transit_type = "NONE" if encryption_in_transit_type.nil? && !attributes.key?(:'encryptionInTransitType') && !attributes.key?(:'encryption_in_transit_type') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -183,6 +206,19 @@ module OCI
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] encryption_in_transit_type Object to be assigned
+    def encryption_in_transit_type=(encryption_in_transit_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if encryption_in_transit_type && !ENCRYPTION_IN_TRANSIT_TYPE_ENUM.include?(encryption_in_transit_type)
+        OCI.logger.debug("Unknown value for 'encryption_in_transit_type' [" + encryption_in_transit_type + "]. Mapping to 'ENCRYPTION_IN_TRANSIT_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @encryption_in_transit_type = ENCRYPTION_IN_TRANSIT_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @encryption_in_transit_type = encryption_in_transit_type
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -204,7 +240,8 @@ module OCI
         instance_id == other.instance_id &&
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
-        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled
+        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled &&
+        encryption_in_transit_type == other.encryption_in_transit_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -220,7 +257,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, boot_volume_id, compartment_id, display_name, id, instance_id, lifecycle_state, time_created, is_pv_encryption_in_transit_enabled].hash
+      [availability_domain, boot_volume_id, compartment_id, display_name, id, instance_id, lifecycle_state, time_created, is_pv_encryption_in_transit_enabled, encryption_in_transit_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

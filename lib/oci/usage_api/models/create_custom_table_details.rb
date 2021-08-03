@@ -11,9 +11,9 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The user OCID.
+    # **[Required]** The associated saved report OCID.
     # @return [String]
-    attr_accessor :user_id
+    attr_accessor :saved_report_id
 
     # This attribute is required.
     # @return [OCI::UsageApi::Models::SavedCustomTable]
@@ -24,7 +24,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'compartmentId',
-        'user_id': :'userId',
+        'saved_report_id': :'savedReportId',
         'saved_custom_table': :'savedCustomTable'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -35,7 +35,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'String',
-        'user_id': :'String',
+        'saved_report_id': :'String',
         'saved_custom_table': :'OCI::UsageApi::Models::SavedCustomTable'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -48,7 +48,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
-    # @option attributes [String] :user_id The value to assign to the {#user_id} property
+    # @option attributes [String] :saved_report_id The value to assign to the {#saved_report_id} property
     # @option attributes [OCI::UsageApi::Models::SavedCustomTable] :saved_custom_table The value to assign to the {#saved_custom_table} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -62,11 +62,11 @@ module OCI
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
-      self.user_id = attributes[:'userId'] if attributes[:'userId']
+      self.saved_report_id = attributes[:'savedReportId'] if attributes[:'savedReportId']
 
-      raise 'You cannot provide both :userId and :user_id' if attributes.key?(:'userId') && attributes.key?(:'user_id')
+      raise 'You cannot provide both :savedReportId and :saved_report_id' if attributes.key?(:'savedReportId') && attributes.key?(:'saved_report_id')
 
-      self.user_id = attributes[:'user_id'] if attributes[:'user_id']
+      self.saved_report_id = attributes[:'saved_report_id'] if attributes[:'saved_report_id']
 
       self.saved_custom_table = attributes[:'savedCustomTable'] if attributes[:'savedCustomTable']
 
@@ -87,7 +87,7 @@ module OCI
 
       self.class == other.class &&
         compartment_id == other.compartment_id &&
-        user_id == other.user_id &&
+        saved_report_id == other.saved_report_id &&
         saved_custom_table == other.saved_custom_table
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -104,7 +104,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, user_id, saved_custom_table].hash
+      [compartment_id, saved_report_id, saved_custom_table].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

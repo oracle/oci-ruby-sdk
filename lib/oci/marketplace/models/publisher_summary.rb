@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # Summary details about the publisher of the listing.
   class Marketplace::Models::PublisherSummary
-    # Unique identifier for the publisher.
+    # The unique identifier for the publisher.
     # @return [String]
     attr_accessor :id
 

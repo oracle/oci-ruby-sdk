@@ -29,7 +29,10 @@ module OCI
     # @return [String]
     attr_accessor :patch_id
 
-    # Maintenance method, it will be either \"ROLLING\" or \"NONROLLING\". Default value is ROLLING.
+    # Cloud Exadata infrastructure node patching method, either \"ROLLING\" or \"NONROLLING\". Default value is ROLLING.
+    #
+    # *IMPORTANT*: Non-rolling infrastructure patching involves system down time. See [Oracle-Managed Infrastructure Maintenance Updates](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/examaintenance.htm#Oracle) for more information.
+    #
     # @return [String]
     attr_reader :patching_mode
 

@@ -61,6 +61,12 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # System tags for this resource. Each key is predefined and scoped to a namespace. For more information, see Resource Tags.
+    # Example: `{\"orcl-cloud\": {\"free-tier-retained\": \"true\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :system_tags
+
     # Created version of the on-premises connector.
     # @return [String]
     attr_accessor :created_version
@@ -78,6 +84,7 @@ module OCI
         'lifecycle_details': :'lifecycleDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
+        'system_tags': :'systemTags',
         'created_version': :'createdVersion'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -96,6 +103,7 @@ module OCI
         'lifecycle_details': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'system_tags': :'Hash<String, Hash<String, Object>>',
         'created_version': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -116,6 +124,7 @@ module OCI
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     # @option attributes [String] :created_version The value to assign to the {#created_version} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -169,6 +178,12 @@ module OCI
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
+      self.system_tags = attributes[:'systemTags'] if attributes[:'systemTags']
+
+      raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
+
+      self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
+
       self.created_version = attributes[:'createdVersion'] if attributes[:'createdVersion']
 
       raise 'You cannot provide both :createdVersion and :created_version' if attributes.key?(:'createdVersion') && attributes.key?(:'created_version')
@@ -209,6 +224,7 @@ module OCI
         lifecycle_details == other.lifecycle_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
+        system_tags == other.system_tags &&
         created_version == other.created_version
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -225,7 +241,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, description, time_created, lifecycle_state, lifecycle_details, freeform_tags, defined_tags, created_version].hash
+      [id, display_name, compartment_id, description, time_created, lifecycle_state, lifecycle_details, freeform_tags, defined_tags, system_tags, created_version].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
