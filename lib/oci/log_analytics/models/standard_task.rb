@@ -35,11 +35,13 @@ module OCI
         'schedules': :'schedules',
         'action': :'action',
         'task_status': :'taskStatus',
+        'pause_reason': :'pauseReason',
         'work_request_id': :'workRequestId',
         'num_occurrences': :'numOccurrences',
         'compartment_id': :'compartmentId',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
+        'time_of_next_execution': :'timeOfNextExecution',
         'lifecycle_state': :'lifecycleState',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
@@ -60,11 +62,13 @@ module OCI
         'schedules': :'Array<OCI::LogAnalytics::Models::Schedule>',
         'action': :'OCI::LogAnalytics::Models::Action',
         'task_status': :'String',
+        'pause_reason': :'String',
         'work_request_id': :'String',
         'num_occurrences': :'Integer',
         'compartment_id': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
+        'time_of_next_execution': :'DateTime',
         'lifecycle_state': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -86,11 +90,13 @@ module OCI
     # @option attributes [Array<OCI::LogAnalytics::Models::Schedule>] :schedules The value to assign to the {OCI::LogAnalytics::Models::ScheduledTask#schedules #schedules} proprety
     # @option attributes [OCI::LogAnalytics::Models::Action] :action The value to assign to the {OCI::LogAnalytics::Models::ScheduledTask#action #action} proprety
     # @option attributes [String] :task_status The value to assign to the {OCI::LogAnalytics::Models::ScheduledTask#task_status #task_status} proprety
+    # @option attributes [String] :pause_reason The value to assign to the {OCI::LogAnalytics::Models::ScheduledTask#pause_reason #pause_reason} proprety
     # @option attributes [String] :work_request_id The value to assign to the {OCI::LogAnalytics::Models::ScheduledTask#work_request_id #work_request_id} proprety
     # @option attributes [Integer] :num_occurrences The value to assign to the {OCI::LogAnalytics::Models::ScheduledTask#num_occurrences #num_occurrences} proprety
     # @option attributes [String] :compartment_id The value to assign to the {OCI::LogAnalytics::Models::ScheduledTask#compartment_id #compartment_id} proprety
     # @option attributes [DateTime] :time_created The value to assign to the {OCI::LogAnalytics::Models::ScheduledTask#time_created #time_created} proprety
     # @option attributes [DateTime] :time_updated The value to assign to the {OCI::LogAnalytics::Models::ScheduledTask#time_updated #time_updated} proprety
+    # @option attributes [DateTime] :time_of_next_execution The value to assign to the {OCI::LogAnalytics::Models::ScheduledTask#time_of_next_execution #time_of_next_execution} proprety
     # @option attributes [String] :lifecycle_state The value to assign to the {OCI::LogAnalytics::Models::ScheduledTask#lifecycle_state #lifecycle_state} proprety
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::LogAnalytics::Models::ScheduledTask#freeform_tags #freeform_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::LogAnalytics::Models::ScheduledTask#defined_tags #defined_tags} proprety
@@ -150,11 +156,13 @@ module OCI
         schedules == other.schedules &&
         action == other.action &&
         task_status == other.task_status &&
+        pause_reason == other.pause_reason &&
         work_request_id == other.work_request_id &&
         num_occurrences == other.num_occurrences &&
         compartment_id == other.compartment_id &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
+        time_of_next_execution == other.time_of_next_execution &&
         lifecycle_state == other.lifecycle_state &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
@@ -175,7 +183,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [kind, id, display_name, task_type, schedules, action, task_status, work_request_id, num_occurrences, compartment_id, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags, last_execution_status, time_last_executed].hash
+      [kind, id, display_name, task_type, schedules, action, task_status, pause_reason, work_request_id, num_occurrences, compartment_id, time_created, time_updated, time_of_next_execution, lifecycle_state, freeform_tags, defined_tags, last_execution_status, time_last_executed].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

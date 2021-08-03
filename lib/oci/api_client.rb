@@ -202,13 +202,13 @@ module OCI
       #   {
       #       "stuff" => "things",
       #       "anArrayType" => ["hello", "world"]
-      #       "definedTags" => { "tag1" => ["val1", "val2", "val3"], "tag2" => ["val1"] },
-      #       "definedTagsExists" => { "tag3" => true, "tag4" => true }
+      #       "hashType" => { "key" => ["val1", "val2", "val3"], "key2" => ["val1"] },
+      #
       #   }
       #
       # So our simple_params will be: { "stuff" => "things" }
       # And our array_params will be: { "anArrayType" => ["hello", "world"]}
-      # And our hash_params will be: { "definedTags" => { "tag1" => ["val1", "val2", "val3"], "tag2" => ["val1"] }, "definedTagsExists" => { "tag3" => true, "tag4" => true } }
+      # And our hash_params will be: { "hashType" => { "key" => ["val1", "val2", "val3"], "key2" => ["val1"] }
       simple_params = query_params.select { |_k, v| !v.is_a?(Hash) && !v.is_a?(Array) }.to_h
       array_params = query_params.select { |_k, v| v.is_a?(Array) }.to_h
       hash_params = query_params.select { |_k, v| v.is_a?(Hash) }.to_h
@@ -231,7 +231,7 @@ module OCI
       end
 
       # Using the previous comment:
-      #    k = "definedTags", v = { "tag1" => [...] }
+      #    k = "hashType", v = { "key1" => [...] }
       #
       # Hash params are exploded as follows:
       #

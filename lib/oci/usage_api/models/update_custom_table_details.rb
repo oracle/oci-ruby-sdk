@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details for updating custom table.
+  # Details for updating the custom table.
   class UsageApi::Models::UpdateCustomTableDetails
     # This attribute is required.
     # @return [OCI::UsageApi::Models::SavedCustomTable]

@@ -105,6 +105,23 @@ module OCI
     # @return [Array<String>]
     attr_accessor :allowed_values
 
+    # The last time that any change was made to the custom property. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
+    #
+    # @return [DateTime]
+    attr_accessor :time_updated
+
+    # OCID of the user who created the custom property.
+    # @return [String]
+    attr_accessor :created_by_id
+
+    # OCID of the user who last modified the custom property.
+    # @return [String]
+    attr_accessor :updated_by_id
+
+    # If an OCI Event will be emitted when the custom property is modified.
+    # @return [BOOLEAN]
+    attr_accessor :is_event_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -126,7 +143,11 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'usage_count': :'usageCount',
         'scope': :'scope',
-        'allowed_values': :'allowedValues'
+        'allowed_values': :'allowedValues',
+        'time_updated': :'timeUpdated',
+        'created_by_id': :'createdById',
+        'updated_by_id': :'updatedById',
+        'is_event_enabled': :'isEventEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -152,7 +173,11 @@ module OCI
         'lifecycle_state': :'String',
         'usage_count': :'Integer',
         'scope': :'Array<OCI::DataCatalog::Models::CustomPropertyTypeUsage>',
-        'allowed_values': :'Array<String>'
+        'allowed_values': :'Array<String>',
+        'time_updated': :'DateTime',
+        'created_by_id': :'String',
+        'updated_by_id': :'String',
+        'is_event_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -181,6 +206,10 @@ module OCI
     # @option attributes [Integer] :usage_count The value to assign to the {#usage_count} property
     # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertyTypeUsage>] :scope The value to assign to the {#scope} property
     # @option attributes [Array<String>] :allowed_values The value to assign to the {#allowed_values} property
+    # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [String] :created_by_id The value to assign to the {#created_by_id} property
+    # @option attributes [String] :updated_by_id The value to assign to the {#updated_by_id} property
+    # @option attributes [BOOLEAN] :is_event_enabled The value to assign to the {#is_event_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -298,6 +327,32 @@ module OCI
       raise 'You cannot provide both :allowedValues and :allowed_values' if attributes.key?(:'allowedValues') && attributes.key?(:'allowed_values')
 
       self.allowed_values = attributes[:'allowed_values'] if attributes[:'allowed_values']
+
+      self.time_updated = attributes[:'timeUpdated'] if attributes[:'timeUpdated']
+
+      raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
+
+      self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.created_by_id = attributes[:'createdById'] if attributes[:'createdById']
+
+      raise 'You cannot provide both :createdById and :created_by_id' if attributes.key?(:'createdById') && attributes.key?(:'created_by_id')
+
+      self.created_by_id = attributes[:'created_by_id'] if attributes[:'created_by_id']
+
+      self.updated_by_id = attributes[:'updatedById'] if attributes[:'updatedById']
+
+      raise 'You cannot provide both :updatedById and :updated_by_id' if attributes.key?(:'updatedById') && attributes.key?(:'updated_by_id')
+
+      self.updated_by_id = attributes[:'updated_by_id'] if attributes[:'updated_by_id']
+
+      self.is_event_enabled = attributes[:'isEventEnabled'] unless attributes[:'isEventEnabled'].nil?
+      self.is_event_enabled = false if is_event_enabled.nil? && !attributes.key?(:'isEventEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isEventEnabled and :is_event_enabled' if attributes.key?(:'isEventEnabled') && attributes.key?(:'is_event_enabled')
+
+      self.is_event_enabled = attributes[:'is_event_enabled'] unless attributes[:'is_event_enabled'].nil?
+      self.is_event_enabled = false if is_event_enabled.nil? && !attributes.key?(:'isEventEnabled') && !attributes.key?(:'is_event_enabled') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -354,7 +409,11 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         usage_count == other.usage_count &&
         scope == other.scope &&
-        allowed_values == other.allowed_values
+        allowed_values == other.allowed_values &&
+        time_updated == other.time_updated &&
+        created_by_id == other.created_by_id &&
+        updated_by_id == other.updated_by_id &&
+        is_event_enabled == other.is_event_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -370,7 +429,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, data_type, namespace_name, is_sortable, is_filterable, is_multi_valued, is_hidden, is_editable, is_shown_in_list, is_service_defined, is_hidden_in_search, time_created, lifecycle_state, usage_count, scope, allowed_values].hash
+      [key, display_name, description, data_type, namespace_name, is_sortable, is_filterable, is_multi_valued, is_hidden, is_editable, is_shown_in_list, is_service_defined, is_hidden_in_search, time_created, lifecycle_state, usage_count, scope, allowed_values, time_updated, created_by_id, updated_by_id, is_event_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

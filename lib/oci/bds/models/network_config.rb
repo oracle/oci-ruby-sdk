@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Additional configuration of customer's network.
+  # Additional configuration of the user's network.
   class Bds::Models::NetworkConfig
     # A boolean flag whether to configure a NAT gateway.
     # @return [BOOLEAN]

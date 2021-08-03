@@ -241,7 +241,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new dashboard.  Limit for number of saved searches in a dashboard is 20.
+    # Creates a new dashboard.  Limit for number of saved searches in a dashboard is 20. To get an example of what needs to be passed to CREATE, one can use GET API.
+    # oci management-dashboard dashboard get --management-dashboard-id  \"ocid1.managementdashboard.oc1..dashboardId1\" --query data > Create.json
+    #
+    # Modify the Create.json by removing \"id\" attribute and other desired changes, then do
+    # oci management-dashboard dashboard create  --from-json file://Create.json
     #
     # @param [OCI::ManagementDashboard::Models::CreateManagementDashboardDetails] create_management_dashboard_details JSON metadata for creating a new dashboard.
     # @param [Hash] opts the optional parameters
@@ -303,7 +307,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new saved search.
+    # Creates a new saved search. To get an example of what needs to be passed to CREATE, one can use GET API.
+    # oci management-dashboard saved-search get --management-saved-search-id ocid1.managementsavedsearch.oc1..savedsearchId1 --query data > Create.json
+    #
+    # Modify the Create.json by removing \"id\" attribute and other desired changes, then do
+    # oci management-dashboard saved-search create  --from-json file://Create.json
     #
     # @param [OCI::ManagementDashboard::Models::CreateManagementSavedSearchDetails] create_management_saved_search_details JSON metadata for the saved search.
     # @param [Hash] opts the optional parameters
@@ -485,8 +493,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Exports an array of dashboards and their saved searches.
-    # @param [String] export_dashboard_id {\"dashboardIds\":[\"dashboardId1\", \"dashboardId2\", ...]}
+    # Exports an array of dashboards and their saved searches. Export is designed to work with importDashboard. An example using OCI CLI is $oci management-dashboard dashboard export --query data --export-dashboard-id \"{\\\"dashboardIds\\\":[\\\"ocid1.managementdashboard.oc1..dashboardId1\\\"]}\"  > dashboards.json $oci management-dashboard dashboard import --from-json file://dashboards.json
+    # @param [String] export_dashboard_id List of dashboardIds in plain text. The syntaxt is '{\"dashboardIds\":[\"dashboardId1\", \"dashboardId2\", ...]}'. Escaping is needed when using in OCI CLI. For example, \"{\\\"dashboardIds\\\":[\\\"ocid1.managementdashboard.oc1..dashboardId1\\\"]}\" .
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -671,7 +679,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Imports an array of dashboards and their saved searches.
+    # Imports an array of dashboards and their saved searches. Import is designed to work with exportDashboard. An example using OCI CLI is
+    #     $oci management-dashboard dashboard export --query data --export-dashboard-id \"{\\\"dashboardIds\\\":[\\\"ocid1.managementdashboard.oc1..dashboardId1\\\"]}\"  > dashboards.json
+    #     $oci management-dashboard dashboard import --from-json file://dashboards.json
     #
     # @param [OCI::ManagementDashboard::Models::ManagementDashboardImportDetails] management_dashboard_import_details JSON metadata for importing dashboards and their saved searches.
     # @param [Hash] opts the optional parameters
@@ -739,7 +749,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the list of dashboards and their saved searches in a compartment with pagination.  Returned properties are the summary.
+    # Gets the list of dashboards in a compartment with pagination.  Returned properties are the summary.
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level

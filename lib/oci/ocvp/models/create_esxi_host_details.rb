@@ -40,7 +40,9 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** Billing option selected during SDDC creation.
+    # Billing option selected during SDDC creation.
+    # Oracle Cloud Infrastructure VMware Solution supports the following billing interval SKUs:
+    # HOUR, MONTH, ONE_YEAR, and THREE_YEARS.
     # {#list_supported_skus list_supported_skus}.
     #
     # @return [String]

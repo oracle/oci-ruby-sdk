@@ -62,6 +62,22 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # An array of custom metadata details for the model.
+    # @return [Array<OCI::DataScience::Models::Metadata>]
+    attr_accessor :custom_metadata_list
+
+    # An array of defined metadata details for the model.
+    # @return [Array<OCI::DataScience::Models::Metadata>]
+    attr_accessor :defined_metadata_list
+
+    # Input schema file content in String format
+    # @return [String]
+    attr_accessor :input_schema
+
+    # Output schema file content in String format
+    # @return [String]
+    attr_accessor :output_schema
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -75,7 +91,11 @@ module OCI
         'time_created': :'timeCreated',
         'created_by': :'createdBy',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'custom_metadata_list': :'customMetadataList',
+        'defined_metadata_list': :'definedMetadataList',
+        'input_schema': :'inputSchema',
+        'output_schema': :'outputSchema'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -93,7 +113,11 @@ module OCI
         'time_created': :'DateTime',
         'created_by': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'custom_metadata_list': :'Array<OCI::DataScience::Models::Metadata>',
+        'defined_metadata_list': :'Array<OCI::DataScience::Models::Metadata>',
+        'input_schema': :'String',
+        'output_schema': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -114,6 +138,10 @@ module OCI
     # @option attributes [String] :created_by The value to assign to the {#created_by} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Array<OCI::DataScience::Models::Metadata>] :custom_metadata_list The value to assign to the {#custom_metadata_list} property
+    # @option attributes [Array<OCI::DataScience::Models::Metadata>] :defined_metadata_list The value to assign to the {#defined_metadata_list} property
+    # @option attributes [String] :input_schema The value to assign to the {#input_schema} property
+    # @option attributes [String] :output_schema The value to assign to the {#output_schema} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -171,6 +199,30 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.custom_metadata_list = attributes[:'customMetadataList'] if attributes[:'customMetadataList']
+
+      raise 'You cannot provide both :customMetadataList and :custom_metadata_list' if attributes.key?(:'customMetadataList') && attributes.key?(:'custom_metadata_list')
+
+      self.custom_metadata_list = attributes[:'custom_metadata_list'] if attributes[:'custom_metadata_list']
+
+      self.defined_metadata_list = attributes[:'definedMetadataList'] if attributes[:'definedMetadataList']
+
+      raise 'You cannot provide both :definedMetadataList and :defined_metadata_list' if attributes.key?(:'definedMetadataList') && attributes.key?(:'defined_metadata_list')
+
+      self.defined_metadata_list = attributes[:'defined_metadata_list'] if attributes[:'defined_metadata_list']
+
+      self.input_schema = attributes[:'inputSchema'] if attributes[:'inputSchema']
+
+      raise 'You cannot provide both :inputSchema and :input_schema' if attributes.key?(:'inputSchema') && attributes.key?(:'input_schema')
+
+      self.input_schema = attributes[:'input_schema'] if attributes[:'input_schema']
+
+      self.output_schema = attributes[:'outputSchema'] if attributes[:'outputSchema']
+
+      raise 'You cannot provide both :outputSchema and :output_schema' if attributes.key?(:'outputSchema') && attributes.key?(:'output_schema')
+
+      self.output_schema = attributes[:'output_schema'] if attributes[:'output_schema']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -206,7 +258,11 @@ module OCI
         time_created == other.time_created &&
         created_by == other.created_by &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        custom_metadata_list == other.custom_metadata_list &&
+        defined_metadata_list == other.defined_metadata_list &&
+        input_schema == other.input_schema &&
+        output_schema == other.output_schema
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -222,7 +278,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, project_id, display_name, description, lifecycle_state, time_created, created_by, freeform_tags, defined_tags].hash
+      [id, compartment_id, project_id, display_name, description, lifecycle_state, time_created, created_by, freeform_tags, defined_tags, custom_metadata_list, defined_metadata_list, input_schema, output_schema].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

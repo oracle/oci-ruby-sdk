@@ -24,7 +24,9 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'volume_id': :'volumeId',
-        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled'
+        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled',
+        'is_multipath': :'isMultipath',
+        'iscsi_login_state': :'iscsiLoginState'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -45,7 +47,9 @@ module OCI
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'volume_id': :'String',
-        'is_pv_encryption_in_transit_enabled': :'BOOLEAN'
+        'is_pv_encryption_in_transit_enabled': :'BOOLEAN',
+        'is_multipath': :'BOOLEAN',
+        'iscsi_login_state': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -68,6 +72,8 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {OCI::Core::Models::VolumeAttachment#time_created #time_created} proprety
     # @option attributes [String] :volume_id The value to assign to the {OCI::Core::Models::VolumeAttachment#volume_id #volume_id} proprety
     # @option attributes [BOOLEAN] :is_pv_encryption_in_transit_enabled The value to assign to the {OCI::Core::Models::VolumeAttachment#is_pv_encryption_in_transit_enabled #is_pv_encryption_in_transit_enabled} proprety
+    # @option attributes [BOOLEAN] :is_multipath The value to assign to the {OCI::Core::Models::VolumeAttachment#is_multipath #is_multipath} proprety
+    # @option attributes [String] :iscsi_login_state The value to assign to the {OCI::Core::Models::VolumeAttachment#iscsi_login_state #iscsi_login_state} proprety
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -99,7 +105,9 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         volume_id == other.volume_id &&
-        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled
+        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled &&
+        is_multipath == other.is_multipath &&
+        iscsi_login_state == other.iscsi_login_state
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -115,7 +123,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [attachment_type, availability_domain, compartment_id, device, display_name, id, instance_id, is_read_only, is_shareable, lifecycle_state, time_created, volume_id, is_pv_encryption_in_transit_enabled].hash
+      [attachment_type, availability_domain, compartment_id, device, display_name, id, instance_id, is_read_only, is_shareable, lifecycle_state, time_created, volume_id, is_pv_encryption_in_transit_enabled, is_multipath, iscsi_login_state].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -28,8 +28,8 @@ module OCI
     # Calls {OCI::Bds::BdsClient#add_auto_scaling_configuration} and then waits for the {OCI::Bds::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
-    # @param [OCI::Bds::Models::AddAutoScalingConfigurationDetails] add_auto_scaling_configuration_details Details for create an autoscaling configuration.
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [OCI::Bds::Models::AddAutoScalingConfigurationDetails] add_auto_scaling_configuration_details Details for creating an autoscale configuration.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Bds::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Bds::BdsClient#add_auto_scaling_configuration}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -78,8 +78,8 @@ module OCI
     # Calls {OCI::Bds::BdsClient#add_block_storage} and then waits for the {OCI::Bds::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
-    # @param [OCI::Bds::Models::AddBlockStorageDetails] add_block_storage_details Details for the newly added block storage
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [OCI::Bds::Models::AddBlockStorageDetails] add_block_storage_details Details for the added block storage.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Bds::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Bds::BdsClient#add_block_storage}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -128,7 +128,7 @@ module OCI
     # Calls {OCI::Bds::BdsClient#add_cloud_sql} and then waits for the {OCI::Bds::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
+    # @param [String] bds_instance_id The OCID of the cluster.
     # @param [OCI::Bds::Models::AddCloudSqlDetails] add_cloud_sql_details Details for the Cloud SQL capability
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Bds::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Bds::BdsClient#add_cloud_sql}
@@ -178,8 +178,8 @@ module OCI
     # Calls {OCI::Bds::BdsClient#add_worker_nodes} and then waits for the {OCI::Bds::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
-    # @param [OCI::Bds::Models::AddWorkerNodesDetails] add_worker_nodes_details Details for the newly added nodes
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [OCI::Bds::Models::AddWorkerNodesDetails] add_worker_nodes_details Details for the newly added nodes.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Bds::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Bds::BdsClient#add_worker_nodes}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -228,7 +228,7 @@ module OCI
     # Calls {OCI::Bds::BdsClient#change_bds_instance_compartment} and then waits for the {OCI::Bds::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
+    # @param [String] bds_instance_id The OCID of the cluster.
     # @param [OCI::Bds::Models::ChangeBdsInstanceCompartmentDetails] change_bds_instance_compartment_details Details for the comparment change.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Bds::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Bds::BdsClient#change_bds_instance_compartment}
@@ -278,8 +278,8 @@ module OCI
     # Calls {OCI::Bds::BdsClient#change_shape} and then waits for the {OCI::Bds::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
-    # @param [OCI::Bds::Models::ChangeShapeDetails] change_shape_details Individual change shape settings per node group. You can change the shape of master, worker, utility and cloudsql nodes.
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [OCI::Bds::Models::ChangeShapeDetails] change_shape_details Individual change shape settings per node type. You can change the shape of master, worker, utility and Cloud SQL nodes.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Bds::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Bds::BdsClient#change_shape}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -328,7 +328,7 @@ module OCI
     # Calls {OCI::Bds::BdsClient#create_bds_instance} and then waits for the {OCI::Bds::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::Bds::Models::CreateBdsInstanceDetails] create_bds_instance_details Details for the new BDS instace.
+    # @param [OCI::Bds::Models::CreateBdsInstanceDetails] create_bds_instance_details Details for the new cluster.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Bds::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Bds::BdsClient#create_bds_instance}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -377,7 +377,7 @@ module OCI
     # Calls {OCI::Bds::BdsClient#delete_bds_instance} and then waits for the {OCI::Bds::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
+    # @param [String] bds_instance_id The OCID of the cluster.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Bds::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Bds::BdsClient#delete_bds_instance}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -426,9 +426,9 @@ module OCI
     # Calls {OCI::Bds::BdsClient#remove_auto_scaling_configuration} and then waits for the {OCI::Bds::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
-    # @param [String] auto_scaling_configuration_id Unique Oracle-assigned identifier of the autoscaling configuration.
-    # @param [OCI::Bds::Models::RemoveAutoScalingConfigurationDetails] remove_auto_scaling_configuration_details Details for the Auto Scaling Configuration
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [String] auto_scaling_configuration_id Unique Oracle-assigned identifier of the autoscale configuration.
+    # @param [OCI::Bds::Models::RemoveAutoScalingConfigurationDetails] remove_auto_scaling_configuration_details Details for the autoscale configuration
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Bds::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Bds::BdsClient#remove_auto_scaling_configuration}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -477,7 +477,7 @@ module OCI
     # Calls {OCI::Bds::BdsClient#remove_cloud_sql} and then waits for the {OCI::Bds::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
+    # @param [String] bds_instance_id The OCID of the cluster.
     # @param [OCI::Bds::Models::RemoveCloudSqlDetails] remove_cloud_sql_details Details for the Cloud SQL capability
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Bds::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Bds::BdsClient#remove_cloud_sql}
@@ -527,7 +527,7 @@ module OCI
     # Calls {OCI::Bds::BdsClient#restart_node} and then waits for the {OCI::Bds::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
+    # @param [String] bds_instance_id The OCID of the cluster.
     # @param [OCI::Bds::Models::RestartNodeDetails] restart_node_details Details for restarting the node.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Bds::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Bds::BdsClient#restart_node}
@@ -577,8 +577,8 @@ module OCI
     # Calls {OCI::Bds::BdsClient#update_auto_scaling_configuration} and then waits for the {OCI::Bds::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
-    # @param [String] auto_scaling_configuration_id Unique Oracle-assigned identifier of the autoscaling configuration.
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [String] auto_scaling_configuration_id Unique Oracle-assigned identifier of the autoscale configuration.
     # @param [OCI::Bds::Models::UpdateAutoScalingConfigurationDetails] update_auto_scaling_configuration_details Details for update an autoscaling configuration.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Bds::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Bds::BdsClient#update_auto_scaling_configuration}
@@ -628,8 +628,8 @@ module OCI
     # Calls {OCI::Bds::BdsClient#update_bds_instance} and then waits for the {OCI::Bds::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] bds_instance_id The OCID of the BDS instance
-    # @param [OCI::Bds::Models::UpdateBdsInstanceDetails] update_bds_instance_details Details for the to-be-updated BDS instace.
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [OCI::Bds::Models::UpdateBdsInstanceDetails] update_bds_instance_details Details for the cluster to be updated.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Bds::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Bds::BdsClient#update_bds_instance}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

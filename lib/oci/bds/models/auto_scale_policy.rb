@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Policy definitions for the autoscaling configuration
+  # Policy definitions for the autoscale configuration.
   class Bds::Models::AutoScalePolicy
     POLICY_TYPE_ENUM = [
       POLICY_TYPE_THRESHOLD_BASED = 'THRESHOLD_BASED'.freeze,
@@ -14,11 +14,11 @@ module OCI
       POLICY_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Types of autoscaling policies. SCHEDULE-BASED or  THRESHOLD-BASED, current only supported THRESHOLD-BASED.
+    # **[Required]** Types of autoscale policies. Options are SCHEDULE-BASED or THRESHOLD-BASED. (Only THRESHOLD-BASED is supported in this release.)
     # @return [String]
     attr_reader :policy_type
 
-    # **[Required]** The list of rules for autoscaling. If an action have multiple rules, last rule in the array will be applied.
+    # **[Required]** The list of rules for autoscaling. If an action has multiple rules, the last rule in the array will be applied.
     # @return [Array<OCI::Bds::Models::AutoScalePolicyRule>]
     attr_accessor :rules
 

@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Model deployments are interactive coding environments for data scientists.
+  # Model deployments are used by data scientists to perform predictions from the model hosted on an HTTP server.
   #
   class DataScience::Models::ModelDeployment
     LIFECYCLE_STATE_ENUM = [

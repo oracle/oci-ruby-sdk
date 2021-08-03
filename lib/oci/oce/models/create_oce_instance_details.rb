@@ -19,7 +19,9 @@ module OCI
 
     INSTANCE_LICENSE_TYPE_ENUM = [
       INSTANCE_LICENSE_TYPE_NEW = 'NEW'.freeze,
-      INSTANCE_LICENSE_TYPE_BYOL = 'BYOL'.freeze
+      INSTANCE_LICENSE_TYPE_BYOL = 'BYOL'.freeze,
+      INSTANCE_LICENSE_TYPE_PREMIUM = 'PREMIUM'.freeze,
+      INSTANCE_LICENSE_TYPE_STARTER = 'STARTER'.freeze
     ].freeze
 
     # OceInstance description

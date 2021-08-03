@@ -69,6 +69,10 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_last_pushed
 
+    # **[Required]** Total storage size in GBs that will be charged.
+    # @return [Integer]
+    attr_accessor :billable_size_in_gbs
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -85,7 +89,8 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'readme': :'readme',
         'time_created': :'timeCreated',
-        'time_last_pushed': :'timeLastPushed'
+        'time_last_pushed': :'timeLastPushed',
+        'billable_size_in_gbs': :'billableSizeInGBs'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -106,7 +111,8 @@ module OCI
         'lifecycle_state': :'String',
         'readme': :'OCI::Artifacts::Models::ContainerRepositoryReadme',
         'time_created': :'DateTime',
-        'time_last_pushed': :'DateTime'
+        'time_last_pushed': :'DateTime',
+        'billable_size_in_gbs': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -130,6 +136,7 @@ module OCI
     # @option attributes [OCI::Artifacts::Models::ContainerRepositoryReadme] :readme The value to assign to the {#readme} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_last_pushed The value to assign to the {#time_last_pushed} property
+    # @option attributes [Integer] :billable_size_in_gbs The value to assign to the {#billable_size_in_gbs} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -205,6 +212,12 @@ module OCI
       raise 'You cannot provide both :timeLastPushed and :time_last_pushed' if attributes.key?(:'timeLastPushed') && attributes.key?(:'time_last_pushed')
 
       self.time_last_pushed = attributes[:'time_last_pushed'] if attributes[:'time_last_pushed']
+
+      self.billable_size_in_gbs = attributes[:'billableSizeInGBs'] if attributes[:'billableSizeInGBs']
+
+      raise 'You cannot provide both :billableSizeInGBs and :billable_size_in_gbs' if attributes.key?(:'billableSizeInGBs') && attributes.key?(:'billable_size_in_gbs')
+
+      self.billable_size_in_gbs = attributes[:'billable_size_in_gbs'] if attributes[:'billable_size_in_gbs']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -243,7 +256,8 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         readme == other.readme &&
         time_created == other.time_created &&
-        time_last_pushed == other.time_last_pushed
+        time_last_pushed == other.time_last_pushed &&
+        billable_size_in_gbs == other.billable_size_in_gbs
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -259,7 +273,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, created_by, display_name, id, image_count, is_immutable, is_public, layer_count, layers_size_in_bytes, lifecycle_state, readme, time_created, time_last_pushed].hash
+      [compartment_id, created_by, display_name, id, image_count, is_immutable, is_public, layer_count, layers_size_in_bytes, lifecycle_state, readme, time_created, time_last_pushed, billable_size_in_gbs].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

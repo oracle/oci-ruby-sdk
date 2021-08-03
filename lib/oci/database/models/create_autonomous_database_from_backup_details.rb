@@ -29,9 +29,13 @@ module OCI
         'compartment_id': :'compartmentId',
         'db_name': :'dbName',
         'cpu_core_count': :'cpuCoreCount',
+        'ocpu_count': :'ocpuCount',
         'db_workload': :'dbWorkload',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
+        'data_storage_size_in_gbs': :'dataStorageSizeInGBs',
         'is_free_tier': :'isFreeTier',
+        'kms_key_id': :'kmsKeyId',
+        'vault_id': :'vaultId',
         'admin_password': :'adminPassword',
         'display_name': :'displayName',
         'license_model': :'licenseModel',
@@ -52,6 +56,7 @@ module OCI
         'db_version': :'dbVersion',
         'source': :'source',
         'customer_contacts': :'customerContacts',
+        'autonomous_maintenance_schedule_type': :'autonomousMaintenanceScheduleType',
         'autonomous_database_backup_id': :'autonomousDatabaseBackupId',
         'clone_type': :'cloneType'
         # rubocop:enable Style/SymbolLiteral
@@ -65,9 +70,13 @@ module OCI
         'compartment_id': :'String',
         'db_name': :'String',
         'cpu_core_count': :'Integer',
+        'ocpu_count': :'Float',
         'db_workload': :'String',
         'data_storage_size_in_tbs': :'Integer',
+        'data_storage_size_in_gbs': :'Integer',
         'is_free_tier': :'BOOLEAN',
+        'kms_key_id': :'String',
+        'vault_id': :'String',
         'admin_password': :'String',
         'display_name': :'String',
         'license_model': :'String',
@@ -88,6 +97,7 @@ module OCI
         'db_version': :'String',
         'source': :'String',
         'customer_contacts': :'Array<OCI::Database::Models::CustomerContact>',
+        'autonomous_maintenance_schedule_type': :'String',
         'autonomous_database_backup_id': :'String',
         'clone_type': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -103,9 +113,13 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#compartment_id #compartment_id} proprety
     # @option attributes [String] :db_name The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#db_name #db_name} proprety
     # @option attributes [Integer] :cpu_core_count The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#cpu_core_count #cpu_core_count} proprety
+    # @option attributes [Float] :ocpu_count The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#ocpu_count #ocpu_count} proprety
     # @option attributes [String] :db_workload The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#db_workload #db_workload} proprety
     # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#data_storage_size_in_tbs #data_storage_size_in_tbs} proprety
+    # @option attributes [Integer] :data_storage_size_in_gbs The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#data_storage_size_in_gbs #data_storage_size_in_gbs} proprety
     # @option attributes [BOOLEAN] :is_free_tier The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_free_tier #is_free_tier} proprety
+    # @option attributes [String] :kms_key_id The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#kms_key_id #kms_key_id} proprety
+    # @option attributes [String] :vault_id The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#vault_id #vault_id} proprety
     # @option attributes [String] :admin_password The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#admin_password #admin_password} proprety
     # @option attributes [String] :display_name The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#display_name #display_name} proprety
     # @option attributes [String] :license_model The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#license_model #license_model} proprety
@@ -125,6 +139,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#defined_tags #defined_tags} proprety
     # @option attributes [String] :db_version The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#db_version #db_version} proprety
     # @option attributes [Array<OCI::Database::Models::CustomerContact>] :customer_contacts The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#customer_contacts #customer_contacts} proprety
+    # @option attributes [String] :autonomous_maintenance_schedule_type The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#autonomous_maintenance_schedule_type #autonomous_maintenance_schedule_type} proprety
     # @option attributes [String] :autonomous_database_backup_id The value to assign to the {#autonomous_database_backup_id} property
     # @option attributes [String] :clone_type The value to assign to the {#clone_type} property
     def initialize(attributes = {})
@@ -172,9 +187,13 @@ module OCI
         compartment_id == other.compartment_id &&
         db_name == other.db_name &&
         cpu_core_count == other.cpu_core_count &&
+        ocpu_count == other.ocpu_count &&
         db_workload == other.db_workload &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
+        data_storage_size_in_gbs == other.data_storage_size_in_gbs &&
         is_free_tier == other.is_free_tier &&
+        kms_key_id == other.kms_key_id &&
+        vault_id == other.vault_id &&
         admin_password == other.admin_password &&
         display_name == other.display_name &&
         license_model == other.license_model &&
@@ -195,6 +214,7 @@ module OCI
         db_version == other.db_version &&
         source == other.source &&
         customer_contacts == other.customer_contacts &&
+        autonomous_maintenance_schedule_type == other.autonomous_maintenance_schedule_type &&
         autonomous_database_backup_id == other.autonomous_database_backup_id &&
         clone_type == other.clone_type
     end
@@ -212,7 +232,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, db_workload, data_storage_size_in_tbs, is_free_tier, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, customer_contacts, autonomous_database_backup_id, clone_type].hash
+      [compartment_id, db_name, cpu_core_count, ocpu_count, db_workload, data_storage_size_in_tbs, data_storage_size_in_gbs, is_free_tier, kms_key_id, vault_id, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, customer_contacts, autonomous_maintenance_schedule_type, autonomous_database_backup_id, clone_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

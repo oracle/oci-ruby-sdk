@@ -34,6 +34,7 @@ require 'oci/management_dashboard/models/update_management_saved_search_details'
 
 # Require generated clients
 require 'oci/management_dashboard/dashx_apis_client'
+require 'oci/management_dashboard/dashx_apis_client_composite_operations'
 
 # Require service utilities
 require 'oci/management_dashboard/util'

@@ -51,6 +51,10 @@ module OCI
     # @return [String]
     attr_accessor :parent_folder_key
 
+    # The type of folder object. Type keys can be found via the '/types' endpoint.
+    # @return [String]
+    attr_accessor :type_key
+
     # Full path of the folder.
     # @return [String]
     attr_accessor :path
@@ -87,6 +91,7 @@ module OCI
         'description': :'description',
         'data_asset_key': :'dataAssetKey',
         'parent_folder_key': :'parentFolderKey',
+        'type_key': :'typeKey',
         'path': :'path',
         'external_key': :'externalKey',
         'time_external': :'timeExternal',
@@ -107,6 +112,7 @@ module OCI
         'description': :'String',
         'data_asset_key': :'String',
         'parent_folder_key': :'String',
+        'type_key': :'String',
         'path': :'String',
         'external_key': :'String',
         'time_external': :'DateTime',
@@ -129,6 +135,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :data_asset_key The value to assign to the {#data_asset_key} property
     # @option attributes [String] :parent_folder_key The value to assign to the {#parent_folder_key} property
+    # @option attributes [String] :type_key The value to assign to the {#type_key} property
     # @option attributes [String] :path The value to assign to the {#path} property
     # @option attributes [String] :external_key The value to assign to the {#external_key} property
     # @option attributes [DateTime] :time_external The value to assign to the {#time_external} property
@@ -168,6 +175,12 @@ module OCI
       raise 'You cannot provide both :parentFolderKey and :parent_folder_key' if attributes.key?(:'parentFolderKey') && attributes.key?(:'parent_folder_key')
 
       self.parent_folder_key = attributes[:'parent_folder_key'] if attributes[:'parent_folder_key']
+
+      self.type_key = attributes[:'typeKey'] if attributes[:'typeKey']
+
+      raise 'You cannot provide both :typeKey and :type_key' if attributes.key?(:'typeKey') && attributes.key?(:'type_key')
+
+      self.type_key = attributes[:'type_key'] if attributes[:'type_key']
 
       self.path = attributes[:'path'] if attributes[:'path']
 
@@ -228,6 +241,7 @@ module OCI
         description == other.description &&
         data_asset_key == other.data_asset_key &&
         parent_folder_key == other.parent_folder_key &&
+        type_key == other.type_key &&
         path == other.path &&
         external_key == other.external_key &&
         time_external == other.time_external &&
@@ -249,7 +263,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, business_name, description, data_asset_key, parent_folder_key, path, external_key, time_external, time_created, uri, lifecycle_state].hash
+      [key, display_name, business_name, description, data_asset_key, parent_folder_key, type_key, path, external_key, time_external, time_created, uri, lifecycle_state].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

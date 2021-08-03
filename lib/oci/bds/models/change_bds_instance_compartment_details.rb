@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Moves a BDS instance into a different compartment.
+  # Move a Cluster to a Different Compartment
   class Bds::Models::ChangeBdsInstanceCompartmentDetails
-    # **[Required]** The OCID of the compartment
+    # **[Required]** The OCID of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 

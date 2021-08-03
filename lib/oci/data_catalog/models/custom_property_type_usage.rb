@@ -19,13 +19,18 @@ module OCI
     # @return [Integer]
     attr_accessor :count
 
+    # If an OCI Event will be emitted when the custom property is modified.
+    # @return [BOOLEAN]
+    attr_accessor :is_event_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'type_id': :'typeId',
         'type_name': :'typeName',
-        'count': :'count'
+        'count': :'count',
+        'is_event_enabled': :'isEventEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,7 +41,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'type_id': :'String',
         'type_name': :'String',
-        'count': :'Integer'
+        'count': :'Integer',
+        'is_event_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -50,6 +56,7 @@ module OCI
     # @option attributes [String] :type_id The value to assign to the {#type_id} property
     # @option attributes [String] :type_name The value to assign to the {#type_name} property
     # @option attributes [Integer] :count The value to assign to the {#count} property
+    # @option attributes [BOOLEAN] :is_event_enabled The value to assign to the {#is_event_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -69,6 +76,14 @@ module OCI
       self.type_name = attributes[:'type_name'] if attributes[:'type_name']
 
       self.count = attributes[:'count'] if attributes[:'count']
+
+      self.is_event_enabled = attributes[:'isEventEnabled'] unless attributes[:'isEventEnabled'].nil?
+      self.is_event_enabled = false if is_event_enabled.nil? && !attributes.key?(:'isEventEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isEventEnabled and :is_event_enabled' if attributes.key?(:'isEventEnabled') && attributes.key?(:'is_event_enabled')
+
+      self.is_event_enabled = attributes[:'is_event_enabled'] unless attributes[:'is_event_enabled'].nil?
+      self.is_event_enabled = false if is_event_enabled.nil? && !attributes.key?(:'isEventEnabled') && !attributes.key?(:'is_event_enabled') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -84,7 +99,8 @@ module OCI
       self.class == other.class &&
         type_id == other.type_id &&
         type_name == other.type_name &&
-        count == other.count
+        count == other.count &&
+        is_event_enabled == other.is_event_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -100,7 +116,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type_id, type_name, count].hash
+      [type_id, type_name, count, is_event_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

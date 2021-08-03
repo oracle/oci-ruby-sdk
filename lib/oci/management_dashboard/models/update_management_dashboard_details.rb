@@ -75,6 +75,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_favorite
 
+    # Defines parameters for the dashboard.
+    # @return [Array<Object>]
+    attr_accessor :parameters_config
+
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
     #
@@ -108,6 +112,7 @@ module OCI
         'data_config': :'dataConfig',
         'type': :'type',
         'is_favorite': :'isFavorite',
+        'parameters_config': :'parametersConfig',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -135,6 +140,7 @@ module OCI
         'data_config': :'Array<Object>',
         'type': :'String',
         'is_favorite': :'BOOLEAN',
+        'parameters_config': :'Array<Object>',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -164,6 +170,7 @@ module OCI
     # @option attributes [Array<Object>] :data_config The value to assign to the {#data_config} property
     # @option attributes [String] :type The value to assign to the {#type} property
     # @option attributes [BOOLEAN] :is_favorite The value to assign to the {#is_favorite} property
+    # @option attributes [Array<Object>] :parameters_config The value to assign to the {#parameters_config} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -258,6 +265,12 @@ module OCI
 
       self.is_favorite = attributes[:'is_favorite'] unless attributes[:'is_favorite'].nil?
 
+      self.parameters_config = attributes[:'parametersConfig'] if attributes[:'parametersConfig']
+
+      raise 'You cannot provide both :parametersConfig and :parameters_config' if attributes.key?(:'parametersConfig') && attributes.key?(:'parameters_config')
+
+      self.parameters_config = attributes[:'parameters_config'] if attributes[:'parameters_config']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -299,6 +312,7 @@ module OCI
         data_config == other.data_config &&
         type == other.type &&
         is_favorite == other.is_favorite &&
+        parameters_config == other.parameters_config &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -316,7 +330,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [provider_id, provider_name, provider_version, tiles, display_name, description, compartment_id, is_oob_dashboard, is_show_in_home, metadata_version, is_show_description, screen_image, nls, ui_config, data_config, type, is_favorite, freeform_tags, defined_tags].hash
+      [provider_id, provider_name, provider_version, tiles, display_name, description, compartment_id, is_oob_dashboard, is_show_in_home, metadata_version, is_show_description, screen_image, nls, ui_config, data_config, type, is_favorite, parameters_config, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

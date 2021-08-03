@@ -11,7 +11,10 @@ module OCI
     MODEL_TYPE_ENUM = [
       MODEL_TYPE_INTEGRATION_TASK = 'INTEGRATION_TASK'.freeze,
       MODEL_TYPE_DATA_LOADER_TASK = 'DATA_LOADER_TASK'.freeze,
-      MODEL_TYPE_PIPELINE_TASK = 'PIPELINE_TASK'.freeze
+      MODEL_TYPE_PIPELINE_TASK = 'PIPELINE_TASK'.freeze,
+      MODEL_TYPE_SQL_TASK = 'SQL_TASK'.freeze,
+      MODEL_TYPE_OCI_DATAFLOW_TASK = 'OCI_DATAFLOW_TASK'.freeze,
+      MODEL_TYPE_REST_TASK = 'REST_TASK'.freeze
     ].freeze
 
     # **[Required]** The type of the task.
@@ -122,6 +125,9 @@ module OCI
       return 'OCI::DataIntegration::Models::CreateTaskFromIntegrationTask' if type == 'INTEGRATION_TASK'
       return 'OCI::DataIntegration::Models::CreateTaskFromDataLoaderTask' if type == 'DATA_LOADER_TASK'
       return 'OCI::DataIntegration::Models::CreateTaskFromPipelineTask' if type == 'PIPELINE_TASK'
+      return 'OCI::DataIntegration::Models::CreateTaskFromOCIDataflowTask' if type == 'OCI_DATAFLOW_TASK'
+      return 'OCI::DataIntegration::Models::CreateTaskFromSQLTask' if type == 'SQL_TASK'
+      return 'OCI::DataIntegration::Models::CreateTaskFromRestTask' if type == 'REST_TASK'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::DataIntegration::Models::CreateTaskDetails'

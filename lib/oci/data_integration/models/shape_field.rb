@@ -9,7 +9,7 @@ module OCI
   # The shape field object.
   class DataIntegration::Models::ShapeField < DataIntegration::Models::TypedObject
     # The reference to the type.
-    # @return [String]
+    # @return [Object]
     attr_accessor :type
 
     # Labels are keywords or labels that you can add to data assets, dataflows etc. You can define your own labels and use them to categorize content.
@@ -50,7 +50,7 @@ module OCI
         'object_status': :'Integer',
         'name': :'String',
         'description': :'String',
-        'type': :'String',
+        'type': :'Object',
         'labels': :'Array<String>',
         'native_shape_field': :'OCI::DataIntegration::Models::NativeShapeField'
         # rubocop:enable Style/SymbolLiteral
@@ -70,7 +70,7 @@ module OCI
     # @option attributes [Integer] :object_status The value to assign to the {OCI::DataIntegration::Models::TypedObject#object_status #object_status} proprety
     # @option attributes [String] :name The value to assign to the {OCI::DataIntegration::Models::TypedObject#name #name} proprety
     # @option attributes [String] :description The value to assign to the {OCI::DataIntegration::Models::TypedObject#description #description} proprety
-    # @option attributes [String] :type The value to assign to the {#type} property
+    # @option attributes [Object] :type The value to assign to the {#type} property
     # @option attributes [Array<String>] :labels The value to assign to the {#labels} property
     # @option attributes [OCI::DataIntegration::Models::NativeShapeField] :native_shape_field The value to assign to the {#native_shape_field} property
     def initialize(attributes = {})

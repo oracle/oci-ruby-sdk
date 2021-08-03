@@ -7,7 +7,7 @@ require_relative 'host_insight_summary'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary of a host insight resource.
+  # Summary of a MACS-managed external host insight resource.
   class Opsi::Models::MacsManagedExternalHostInsightSummary < Opsi::Models::HostInsightSummary
     PLATFORM_TYPE_ENUM = [
       PLATFORM_TYPE_LINUX = 'LINUX'.freeze,

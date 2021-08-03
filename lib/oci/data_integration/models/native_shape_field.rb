@@ -16,7 +16,7 @@ module OCI
     attr_accessor :model_type
 
     # The type reference.
-    # @return [String]
+    # @return [Object]
     attr_accessor :type
 
     # @return [OCI::DataIntegration::Models::ConfigValues]
@@ -55,7 +55,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
         'model_type': :'String',
-        'type': :'String',
+        'type': :'Object',
         'config_values': :'OCI::DataIntegration::Models::ConfigValues',
         'position': :'Integer',
         'default_value_string': :'String',
@@ -72,7 +72,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :model_type The value to assign to the {#model_type} property
-    # @option attributes [String] :type The value to assign to the {#type} property
+    # @option attributes [Object] :type The value to assign to the {#type} property
     # @option attributes [OCI::DataIntegration::Models::ConfigValues] :config_values The value to assign to the {#config_values} property
     # @option attributes [Integer] :position The value to assign to the {#position} property
     # @option attributes [String] :default_value_string The value to assign to the {#default_value_string} property

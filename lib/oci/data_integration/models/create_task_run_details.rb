@@ -34,6 +34,10 @@ module OCI
     # @return [String]
     attr_accessor :identifier
 
+    # Optional task schedule key reference.
+    # @return [String]
+    attr_accessor :task_schedule_key
+
     # @return [OCI::DataIntegration::Models::RegistryMetadata]
     attr_accessor :registry_metadata
 
@@ -48,6 +52,7 @@ module OCI
         'description': :'description',
         'config_provider': :'configProvider',
         'identifier': :'identifier',
+        'task_schedule_key': :'taskScheduleKey',
         'registry_metadata': :'registryMetadata'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -64,6 +69,7 @@ module OCI
         'description': :'String',
         'config_provider': :'OCI::DataIntegration::Models::CreateConfigProvider',
         'identifier': :'String',
+        'task_schedule_key': :'String',
         'registry_metadata': :'OCI::DataIntegration::Models::RegistryMetadata'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -82,6 +88,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [OCI::DataIntegration::Models::CreateConfigProvider] :config_provider The value to assign to the {#config_provider} property
     # @option attributes [String] :identifier The value to assign to the {#identifier} property
+    # @option attributes [String] :task_schedule_key The value to assign to the {#task_schedule_key} property
     # @option attributes [OCI::DataIntegration::Models::RegistryMetadata] :registry_metadata The value to assign to the {#registry_metadata} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -115,6 +122,12 @@ module OCI
 
       self.identifier = attributes[:'identifier'] if attributes[:'identifier']
 
+      self.task_schedule_key = attributes[:'taskScheduleKey'] if attributes[:'taskScheduleKey']
+
+      raise 'You cannot provide both :taskScheduleKey and :task_schedule_key' if attributes.key?(:'taskScheduleKey') && attributes.key?(:'task_schedule_key')
+
+      self.task_schedule_key = attributes[:'task_schedule_key'] if attributes[:'task_schedule_key']
+
       self.registry_metadata = attributes[:'registryMetadata'] if attributes[:'registryMetadata']
 
       raise 'You cannot provide both :registryMetadata and :registry_metadata' if attributes.key?(:'registryMetadata') && attributes.key?(:'registry_metadata')
@@ -140,6 +153,7 @@ module OCI
         description == other.description &&
         config_provider == other.config_provider &&
         identifier == other.identifier &&
+        task_schedule_key == other.task_schedule_key &&
         registry_metadata == other.registry_metadata
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -156,7 +170,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, model_type, model_version, name, description, config_provider, identifier, registry_metadata].hash
+      [key, model_type, model_version, name, description, config_provider, identifier, task_schedule_key, registry_metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

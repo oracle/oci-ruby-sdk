@@ -30,12 +30,19 @@ module OCI
     # @return [String]
     attr_reader :misfire_policy
 
+    # The date and time the scheduled task should execute first time after create or update;
+    # thereafter the task will execute as specified in the schedule.
+    #
+    # @return [DateTime]
+    attr_accessor :time_of_first_execution
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'type': :'type',
-        'misfire_policy': :'misfirePolicy'
+        'misfire_policy': :'misfirePolicy',
+        'time_of_first_execution': :'timeOfFirstExecution'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -45,7 +52,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'type': :'String',
-        'misfire_policy': :'String'
+        'misfire_policy': :'String',
+        'time_of_first_execution': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -74,6 +82,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :type The value to assign to the {#type} property
     # @option attributes [String] :misfire_policy The value to assign to the {#misfire_policy} property
+    # @option attributes [DateTime] :time_of_first_execution The value to assign to the {#time_of_first_execution} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -89,6 +98,12 @@ module OCI
 
       self.misfire_policy = attributes[:'misfire_policy'] if attributes[:'misfire_policy']
       self.misfire_policy = "RETRY_INDEFINITELY" if misfire_policy.nil? && !attributes.key?(:'misfirePolicy') && !attributes.key?(:'misfire_policy') # rubocop:disable Style/StringLiterals
+
+      self.time_of_first_execution = attributes[:'timeOfFirstExecution'] if attributes[:'timeOfFirstExecution']
+
+      raise 'You cannot provide both :timeOfFirstExecution and :time_of_first_execution' if attributes.key?(:'timeOfFirstExecution') && attributes.key?(:'time_of_first_execution')
+
+      self.time_of_first_execution = attributes[:'time_of_first_execution'] if attributes[:'time_of_first_execution']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -129,7 +144,8 @@ module OCI
 
       self.class == other.class &&
         type == other.type &&
-        misfire_policy == other.misfire_policy
+        misfire_policy == other.misfire_policy &&
+        time_of_first_execution == other.time_of_first_execution
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -145,7 +161,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, misfire_policy].hash
+      [type, misfire_policy, time_of_first_execution].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

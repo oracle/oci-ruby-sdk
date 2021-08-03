@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Custom table in list request.
+  # Custom table in the list request.
   class UsageApi::Models::CustomTableSummary
     # **[Required]** The custom table OCID.
     # @return [String]

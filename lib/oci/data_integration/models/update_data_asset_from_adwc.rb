@@ -26,6 +26,22 @@ module OCI
     # @return [OCI::DataIntegration::Models::SensitiveAttribute]
     attr_accessor :wallet_password_secret
 
+    # The Autonomous Data Warehouse instance region Id.
+    # @return [String]
+    attr_accessor :region_id
+
+    # The Autonomous Data Warehouse instance tenancy Id.
+    # @return [String]
+    attr_accessor :tenancy_id
+
+    # The Autonomous Data Warehouse instance compartment Id.
+    # @return [String]
+    attr_accessor :compartment_id
+
+    # Tha Autonomous Database Id
+    # @return [String]
+    attr_accessor :autonomous_db_id
+
     # @return [OCI::DataIntegration::Models::UpdateConnectionFromAdwc]
     attr_accessor :default_connection
 
@@ -49,6 +65,10 @@ module OCI
         'credential_file_content': :'credentialFileContent',
         'wallet_secret': :'walletSecret',
         'wallet_password_secret': :'walletPasswordSecret',
+        'region_id': :'regionId',
+        'tenancy_id': :'tenancyId',
+        'compartment_id': :'compartmentId',
+        'autonomous_db_id': :'autonomousDbId',
         'default_connection': :'defaultConnection'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -74,6 +94,10 @@ module OCI
         'credential_file_content': :'String',
         'wallet_secret': :'OCI::DataIntegration::Models::SensitiveAttribute',
         'wallet_password_secret': :'OCI::DataIntegration::Models::SensitiveAttribute',
+        'region_id': :'String',
+        'tenancy_id': :'String',
+        'compartment_id': :'String',
+        'autonomous_db_id': :'String',
         'default_connection': :'OCI::DataIntegration::Models::UpdateConnectionFromAdwc'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -100,6 +124,10 @@ module OCI
     # @option attributes [String] :credential_file_content The value to assign to the {#credential_file_content} property
     # @option attributes [OCI::DataIntegration::Models::SensitiveAttribute] :wallet_secret The value to assign to the {#wallet_secret} property
     # @option attributes [OCI::DataIntegration::Models::SensitiveAttribute] :wallet_password_secret The value to assign to the {#wallet_password_secret} property
+    # @option attributes [String] :region_id The value to assign to the {#region_id} property
+    # @option attributes [String] :tenancy_id The value to assign to the {#tenancy_id} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :autonomous_db_id The value to assign to the {#autonomous_db_id} property
     # @option attributes [OCI::DataIntegration::Models::UpdateConnectionFromAdwc] :default_connection The value to assign to the {#default_connection} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -141,6 +169,30 @@ module OCI
 
       self.wallet_password_secret = attributes[:'wallet_password_secret'] if attributes[:'wallet_password_secret']
 
+      self.region_id = attributes[:'regionId'] if attributes[:'regionId']
+
+      raise 'You cannot provide both :regionId and :region_id' if attributes.key?(:'regionId') && attributes.key?(:'region_id')
+
+      self.region_id = attributes[:'region_id'] if attributes[:'region_id']
+
+      self.tenancy_id = attributes[:'tenancyId'] if attributes[:'tenancyId']
+
+      raise 'You cannot provide both :tenancyId and :tenancy_id' if attributes.key?(:'tenancyId') && attributes.key?(:'tenancy_id')
+
+      self.tenancy_id = attributes[:'tenancy_id'] if attributes[:'tenancy_id']
+
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.autonomous_db_id = attributes[:'autonomousDbId'] if attributes[:'autonomousDbId']
+
+      raise 'You cannot provide both :autonomousDbId and :autonomous_db_id' if attributes.key?(:'autonomousDbId') && attributes.key?(:'autonomous_db_id')
+
+      self.autonomous_db_id = attributes[:'autonomous_db_id'] if attributes[:'autonomous_db_id']
+
       self.default_connection = attributes[:'defaultConnection'] if attributes[:'defaultConnection']
 
       raise 'You cannot provide both :defaultConnection and :default_connection' if attributes.key?(:'defaultConnection') && attributes.key?(:'default_connection')
@@ -175,6 +227,10 @@ module OCI
         credential_file_content == other.credential_file_content &&
         wallet_secret == other.wallet_secret &&
         wallet_password_secret == other.wallet_password_secret &&
+        region_id == other.region_id &&
+        tenancy_id == other.tenancy_id &&
+        compartment_id == other.compartment_id &&
+        autonomous_db_id == other.autonomous_db_id &&
         default_connection == other.default_connection
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -191,7 +247,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, name, description, object_status, object_version, identifier, external_key, asset_properties, registry_metadata, service_name, driver_class, credential_file_content, wallet_secret, wallet_password_secret, default_connection].hash
+      [model_type, key, model_version, name, description, object_status, object_version, identifier, external_key, asset_properties, registry_metadata, service_name, driver_class, credential_file_content, wallet_secret, wallet_password_secret, region_id, tenancy_id, compartment_id, autonomous_db_id, default_connection].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -16,7 +16,10 @@ module OCI
 
     QUERY_TYPE_ENUM = [
       QUERY_TYPE_USAGE = 'USAGE'.freeze,
-      QUERY_TYPE_COST = 'COST'.freeze
+      QUERY_TYPE_COST = 'COST'.freeze,
+      QUERY_TYPE_CREDIT = 'CREDIT'.freeze,
+      QUERY_TYPE_EXPIREDCREDIT = 'EXPIREDCREDIT'.freeze,
+      QUERY_TYPE_ALLCREDIT = 'ALLCREDIT'.freeze
     ].freeze
 
     # **[Required]** Tenant ID.
@@ -40,16 +43,19 @@ module OCI
     # @return [String]
     attr_reader :granularity
 
-    # is aggregated by time. true isAggregateByTime will add up all usage/cost over query time period
+    # Whether aggregated by time. If isAggregateByTime is true, all usage/cost over the query time period will be added up.
     # @return [BOOLEAN]
     attr_accessor :is_aggregate_by_time
 
     # @return [OCI::UsageApi::Models::Forecast]
     attr_accessor :forecast
 
-    # The query usage type. COST by default if it is missing
+    # The query usage type. COST by default if it is missing.
     # Usage - Query the usage data.
     # Cost - Query the cost/billing data.
+    # Credit - Query the credit adjustments data.
+    # ExpiredCredit - Query the expired credits data.
+    # AllCredit - Query the credit adjustments and expired credit.
     #
     # @return [String]
     attr_reader :query_type
@@ -63,8 +69,8 @@ module OCI
     # @return [Array<String>]
     attr_accessor :group_by
 
-    # GroupBy a specific tagKey. Provide tagNamespace and tagKey in tag object. Only support one tag in the list
-    # example:
+    # GroupBy a specific tagKey. Provide the tagNamespace and tagKey in the tag object. Only supports one tag in the list.
+    # For example:
     #   `[{\"namespace\":\"oracle\", \"key\":\"createdBy\"]`
     #
     # @return [Array<OCI::UsageApi::Models::Tag>]

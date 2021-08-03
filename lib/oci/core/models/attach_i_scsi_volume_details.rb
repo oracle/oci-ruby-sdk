@@ -8,10 +8,21 @@ require_relative 'attach_volume_details'
 module OCI
   # AttachIScsiVolumeDetails model.
   class Core::Models::AttachIScsiVolumeDetails < Core::Models::AttachVolumeDetails
+    ENCRYPTION_IN_TRANSIT_TYPE_ENUM = [
+      ENCRYPTION_IN_TRANSIT_TYPE_NONE = 'NONE'.freeze,
+      ENCRYPTION_IN_TRANSIT_TYPE_BM_ENCRYPTION_IN_TRANSIT = 'BM_ENCRYPTION_IN_TRANSIT'.freeze
+    ].freeze
+
     # Whether to use CHAP authentication for the volume attachment. Defaults to false.
     #
     # @return [BOOLEAN]
     attr_accessor :use_chap
+
+    # Refer the top-level definition of encryptionInTransitType.
+    # The default value is NONE.
+    #
+    # @return [String]
+    attr_reader :encryption_in_transit_type
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -24,7 +35,8 @@ module OCI
         'is_shareable': :'isShareable',
         'type': :'type',
         'volume_id': :'volumeId',
-        'use_chap': :'useChap'
+        'use_chap': :'useChap',
+        'encryption_in_transit_type': :'encryptionInTransitType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -40,7 +52,8 @@ module OCI
         'is_shareable': :'BOOLEAN',
         'type': :'String',
         'volume_id': :'String',
-        'use_chap': :'BOOLEAN'
+        'use_chap': :'BOOLEAN',
+        'encryption_in_transit_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -58,6 +71,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_shareable The value to assign to the {OCI::Core::Models::AttachVolumeDetails#is_shareable #is_shareable} proprety
     # @option attributes [String] :volume_id The value to assign to the {OCI::Core::Models::AttachVolumeDetails#volume_id #volume_id} proprety
     # @option attributes [BOOLEAN] :use_chap The value to assign to the {#use_chap} property
+    # @option attributes [String] :encryption_in_transit_type The value to assign to the {#encryption_in_transit_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -73,9 +87,25 @@ module OCI
       raise 'You cannot provide both :useChap and :use_chap' if attributes.key?(:'useChap') && attributes.key?(:'use_chap')
 
       self.use_chap = attributes[:'use_chap'] unless attributes[:'use_chap'].nil?
+
+      self.encryption_in_transit_type = attributes[:'encryptionInTransitType'] if attributes[:'encryptionInTransitType']
+      self.encryption_in_transit_type = "NONE" if encryption_in_transit_type.nil? && !attributes.key?(:'encryptionInTransitType') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :encryptionInTransitType and :encryption_in_transit_type' if attributes.key?(:'encryptionInTransitType') && attributes.key?(:'encryption_in_transit_type')
+
+      self.encryption_in_transit_type = attributes[:'encryption_in_transit_type'] if attributes[:'encryption_in_transit_type']
+      self.encryption_in_transit_type = "NONE" if encryption_in_transit_type.nil? && !attributes.key?(:'encryptionInTransitType') && !attributes.key?(:'encryption_in_transit_type') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] encryption_in_transit_type Object to be assigned
+    def encryption_in_transit_type=(encryption_in_transit_type)
+      raise "Invalid value for 'encryption_in_transit_type': this must be one of the values in ENCRYPTION_IN_TRANSIT_TYPE_ENUM." if encryption_in_transit_type && !ENCRYPTION_IN_TRANSIT_TYPE_ENUM.include?(encryption_in_transit_type)
+
+      @encryption_in_transit_type = encryption_in_transit_type
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -93,7 +123,8 @@ module OCI
         is_shareable == other.is_shareable &&
         type == other.type &&
         volume_id == other.volume_id &&
-        use_chap == other.use_chap
+        use_chap == other.use_chap &&
+        encryption_in_transit_type == other.encryption_in_transit_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -109,7 +140,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [device, display_name, instance_id, is_read_only, is_shareable, type, volume_id, use_chap].hash
+      [device, display_name, instance_id, is_read_only, is_shareable, type, volume_id, use_chap, encryption_in_transit_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

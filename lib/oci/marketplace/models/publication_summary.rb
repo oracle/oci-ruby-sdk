@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The model for a summary of an Oracle Cloud Infrastructure publication
+  # The model for a summary of an Oracle Cloud Infrastructure publication.
   class Marketplace::Models::PublicationSummary
     PACKAGE_TYPE_ENUM = [
       PACKAGE_TYPE_ORCHESTRATION = 'ORCHESTRATION'.freeze,
@@ -21,23 +21,23 @@ module OCI
       LISTING_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** the lifecycleState of the listing
+    # **[Required]** The lifecycle state of the publication.
     # @return [String]
     attr_accessor :lifecycle_state
 
-    # **[Required]** The Compartment id where the listings exists
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment where the publication exists.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The unique identifier for the listing in Marketplace.
+    # **[Required]** The unique identifier for the publication in Marketplace.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The name of the listing.
+    # **[Required]** The name of the publication, which is also used in the listing.
     # @return [String]
     attr_accessor :name
 
-    # A short description of the listing.
+    # A short description of the publication to use in the listing.
     # @return [String]
     attr_accessor :short_description
 
@@ -48,15 +48,15 @@ module OCI
     # @return [String]
     attr_reader :package_type
 
-    # List of operating systems supprted.
+    # The list of operating systems supported by the listing.
     # @return [Array<OCI::Marketplace::Models::OperatingSystem>]
     attr_accessor :supported_operating_systems
 
-    # **[Required]** In which catalog the listing should exist.
+    # **[Required]** The publisher category to which the publication belongs. The publisher category informs where the listing appears for use.
     # @return [String]
     attr_reader :listing_type
 
-    # The date and time this publication was created, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339)
+    # The date and time the publication was created, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339)
     # timestamp format.
     #
     # Example: `2016-08-25T21:10:29.600Z`

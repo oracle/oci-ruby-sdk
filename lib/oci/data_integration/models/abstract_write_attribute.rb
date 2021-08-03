@@ -13,9 +13,11 @@ module OCI
       MODEL_TYPE_ORACLEWRITEATTRIBUTE = 'ORACLEWRITEATTRIBUTE'.freeze,
       MODEL_TYPE_ORACLEATPWRITEATTRIBUTE = 'ORACLEATPWRITEATTRIBUTE'.freeze,
       MODEL_TYPE_ORACLEADWCWRITEATTRIBUTE = 'ORACLEADWCWRITEATTRIBUTE'.freeze,
+      MODEL_TYPE_OBJECTSTORAGEWRITEATTRIBUTE = 'OBJECTSTORAGEWRITEATTRIBUTE'.freeze,
       MODEL_TYPE_ORACLE_WRITE_ATTRIBUTE = 'ORACLE_WRITE_ATTRIBUTE'.freeze,
       MODEL_TYPE_ORACLE_ATP_WRITE_ATTRIBUTE = 'ORACLE_ATP_WRITE_ATTRIBUTE'.freeze,
       MODEL_TYPE_ORACLE_ADWC_WRITE_ATTRIBUTE = 'ORACLE_ADWC_WRITE_ATTRIBUTE'.freeze,
+      MODEL_TYPE_OBJECT_STORAGE_WRITE_ATTRIBUTE = 'OBJECT_STORAGE_WRITE_ATTRIBUTE'.freeze,
       MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -50,8 +52,13 @@ module OCI
       type = object_hash[:'modelType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::DataIntegration::Models::OracleAdwcWriteAttribute' if type == 'ORACLEADWCWRITEATTRIBUTE'
+      return 'OCI::DataIntegration::Models::OracleAtpWriteAttributes' if type == 'ORACLE_ATP_WRITE_ATTRIBUTE'
       return 'OCI::DataIntegration::Models::OracleWriteAttribute' if type == 'ORACLEWRITEATTRIBUTE'
+      return 'OCI::DataIntegration::Models::OracleWriteAttributes' if type == 'ORACLE_WRITE_ATTRIBUTE'
       return 'OCI::DataIntegration::Models::OracleAtpWriteAttribute' if type == 'ORACLEATPWRITEATTRIBUTE'
+      return 'OCI::DataIntegration::Models::ObjectStorageWriteAttribute' if type == 'OBJECTSTORAGEWRITEATTRIBUTE'
+      return 'OCI::DataIntegration::Models::OracleAdwcWriteAttributes' if type == 'ORACLE_ADWC_WRITE_ATTRIBUTE'
+      return 'OCI::DataIntegration::Models::ObjectStorageWriteAttributes' if type == 'OBJECT_STORAGE_WRITE_ATTRIBUTE'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::DataIntegration::Models::AbstractWriteAttribute'

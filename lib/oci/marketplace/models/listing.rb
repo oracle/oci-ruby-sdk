@@ -127,11 +127,11 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_featured
 
-    # In which catalog the listing should exist.
+    # The publisher category to which the listing belongs. The publisher category informs where the listing appears for use.
     # @return [String]
     attr_reader :listing_type
 
-    # List of operating systems supported.
+    # List of operating systems supported by the listing.
     # @return [Array<OCI::Marketplace::Models::OperatingSystem>]
     attr_accessor :supported_operating_systems
 

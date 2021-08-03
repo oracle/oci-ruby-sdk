@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details about Kerberos principals
+  # Details about the Kerberos principals.
   class Bds::Models::KerberosDetails
-    # **[Required]** Name of the Kerberos principal
+    # **[Required]** Name of the Kerberos principal.
     # @return [String]
     attr_accessor :principal_name
 

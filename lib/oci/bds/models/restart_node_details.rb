@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about restarted node
+  # The information about restarted node.
   class Bds::Models::RestartNodeDetails
-    # **[Required]** OCID of the BDS node which should be restarted
+    # **[Required]** OCID of the node to be restarted.
     # @return [String]
     attr_accessor :node_id
 

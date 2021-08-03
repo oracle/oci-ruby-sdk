@@ -9,7 +9,9 @@ module OCI
   class Oce::Models::UpdateOceInstanceDetails
     INSTANCE_LICENSE_TYPE_ENUM = [
       INSTANCE_LICENSE_TYPE_NEW = 'NEW'.freeze,
-      INSTANCE_LICENSE_TYPE_BYOL = 'BYOL'.freeze
+      INSTANCE_LICENSE_TYPE_BYOL = 'BYOL'.freeze,
+      INSTANCE_LICENSE_TYPE_PREMIUM = 'PREMIUM'.freeze,
+      INSTANCE_LICENSE_TYPE_STARTER = 'STARTER'.freeze
     ].freeze
 
     INSTANCE_USAGE_TYPE_ENUM = [

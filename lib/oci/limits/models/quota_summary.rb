@@ -6,8 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Entails a subset of all the properties of the corresponding Quota and is recommended to be used in cases requiring
-  # security of quota details and slightly better API performance.
+  # Consists of a subset of all the properties of the corresponding quota, and is recommended to be used in cases requiring
+  # security of quota details, and for slightly better API performance.
   #
   class Limits::Models::QuotaSummary
     LIFECYCLE_STATE_ENUM = [
@@ -34,7 +34,7 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** Date and time the quota was created, in the format defined by RFC3339.
+    # **[Required]** Date and time the quota was created, in the format defined by RFC 3339.
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]

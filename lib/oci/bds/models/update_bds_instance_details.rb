@@ -5,20 +5,20 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about to-be-updated BDS instance
+  # The information about to-be-updated Big Data Service cluster.
   class Bds::Models::UpdateBdsInstanceDetails
-    # Name of the BDS instance
+    # Name of the cluster.
     # @return [String]
     attr_accessor :display_name
 
-    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # Simple key-value pair that is applied without any predefined name, type, or scope.
+    # Exists for cross-compatibility only. For example, `{\"bar-key\": \"value\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    # For example, `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags

@@ -42,6 +42,34 @@ module OCI
     # @return [String]
     attr_accessor :backup_vnic_id
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the host IP address associated with the database node.
+    #
+    # **Note:** Applies only to Exadata Cloud Service.
+    #
+    # @return [String]
+    attr_accessor :host_ip_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the backup IP address associated with the database node.
+    #
+    # **Note:** Applies only to Exadata Cloud Service.
+    #
+    # @return [String]
+    attr_accessor :backup_ip_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the second VNIC.
+    #
+    # **Note:** Applies only to Exadata Cloud Service.
+    #
+    # @return [String]
+    attr_accessor :vnic2_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the second backup VNIC.
+    #
+    # **Note:** Applies only to Exadata Cloud Service.
+    #
+    # @return [String]
+    attr_accessor :backup_vnic2_id
+
     # **[Required]** The current state of the database node.
     # @return [String]
     attr_reader :lifecycle_state
@@ -87,6 +115,10 @@ module OCI
         'db_system_id': :'dbSystemId',
         'vnic_id': :'vnicId',
         'backup_vnic_id': :'backupVnicId',
+        'host_ip_id': :'hostIpId',
+        'backup_ip_id': :'backupIpId',
+        'vnic2_id': :'vnic2Id',
+        'backup_vnic2_id': :'backupVnic2Id',
         'lifecycle_state': :'lifecycleState',
         'hostname': :'hostname',
         'fault_domain': :'faultDomain',
@@ -108,6 +140,10 @@ module OCI
         'db_system_id': :'String',
         'vnic_id': :'String',
         'backup_vnic_id': :'String',
+        'host_ip_id': :'String',
+        'backup_ip_id': :'String',
+        'vnic2_id': :'String',
+        'backup_vnic2_id': :'String',
         'lifecycle_state': :'String',
         'hostname': :'String',
         'fault_domain': :'String',
@@ -131,6 +167,10 @@ module OCI
     # @option attributes [String] :db_system_id The value to assign to the {#db_system_id} property
     # @option attributes [String] :vnic_id The value to assign to the {#vnic_id} property
     # @option attributes [String] :backup_vnic_id The value to assign to the {#backup_vnic_id} property
+    # @option attributes [String] :host_ip_id The value to assign to the {#host_ip_id} property
+    # @option attributes [String] :backup_ip_id The value to assign to the {#backup_ip_id} property
+    # @option attributes [String] :vnic2_id The value to assign to the {#vnic2_id} property
+    # @option attributes [String] :backup_vnic2_id The value to assign to the {#backup_vnic2_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
     # @option attributes [String] :fault_domain The value to assign to the {#fault_domain} property
@@ -162,6 +202,30 @@ module OCI
       raise 'You cannot provide both :backupVnicId and :backup_vnic_id' if attributes.key?(:'backupVnicId') && attributes.key?(:'backup_vnic_id')
 
       self.backup_vnic_id = attributes[:'backup_vnic_id'] if attributes[:'backup_vnic_id']
+
+      self.host_ip_id = attributes[:'hostIpId'] if attributes[:'hostIpId']
+
+      raise 'You cannot provide both :hostIpId and :host_ip_id' if attributes.key?(:'hostIpId') && attributes.key?(:'host_ip_id')
+
+      self.host_ip_id = attributes[:'host_ip_id'] if attributes[:'host_ip_id']
+
+      self.backup_ip_id = attributes[:'backupIpId'] if attributes[:'backupIpId']
+
+      raise 'You cannot provide both :backupIpId and :backup_ip_id' if attributes.key?(:'backupIpId') && attributes.key?(:'backup_ip_id')
+
+      self.backup_ip_id = attributes[:'backup_ip_id'] if attributes[:'backup_ip_id']
+
+      self.vnic2_id = attributes[:'vnic2Id'] if attributes[:'vnic2Id']
+
+      raise 'You cannot provide both :vnic2Id and :vnic2_id' if attributes.key?(:'vnic2Id') && attributes.key?(:'vnic2_id')
+
+      self.vnic2_id = attributes[:'vnic2_id'] if attributes[:'vnic2_id']
+
+      self.backup_vnic2_id = attributes[:'backupVnic2Id'] if attributes[:'backupVnic2Id']
+
+      raise 'You cannot provide both :backupVnic2Id and :backup_vnic2_id' if attributes.key?(:'backupVnic2Id') && attributes.key?(:'backup_vnic2_id')
+
+      self.backup_vnic2_id = attributes[:'backup_vnic2_id'] if attributes[:'backup_vnic2_id']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -255,6 +319,10 @@ module OCI
         db_system_id == other.db_system_id &&
         vnic_id == other.vnic_id &&
         backup_vnic_id == other.backup_vnic_id &&
+        host_ip_id == other.host_ip_id &&
+        backup_ip_id == other.backup_ip_id &&
+        vnic2_id == other.vnic2_id &&
+        backup_vnic2_id == other.backup_vnic2_id &&
         lifecycle_state == other.lifecycle_state &&
         hostname == other.hostname &&
         fault_domain == other.fault_domain &&
@@ -279,7 +347,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, db_system_id, vnic_id, backup_vnic_id, lifecycle_state, hostname, fault_domain, time_created, software_storage_size_in_gb, maintenance_type, time_maintenance_window_start, time_maintenance_window_end, additional_details].hash
+      [id, db_system_id, vnic_id, backup_vnic_id, host_ip_id, backup_ip_id, vnic2_id, backup_vnic2_id, lifecycle_state, hostname, fault_domain, time_created, software_storage_size_in_gb, maintenance_type, time_maintenance_window_start, time_maintenance_window_end, additional_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

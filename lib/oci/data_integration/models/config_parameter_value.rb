@@ -27,6 +27,10 @@ module OCI
     # @return [String]
     attr_accessor :parameter_value
 
+    # The root object value, used in custom parameters.
+    # @return [Object]
+    attr_accessor :root_object_value
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -35,7 +39,8 @@ module OCI
         'int_value': :'intValue',
         'object_value': :'objectValue',
         'ref_value': :'refValue',
-        'parameter_value': :'parameterValue'
+        'parameter_value': :'parameterValue',
+        'root_object_value': :'rootObjectValue'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,7 +53,8 @@ module OCI
         'int_value': :'Integer',
         'object_value': :'Object',
         'ref_value': :'Object',
-        'parameter_value': :'String'
+        'parameter_value': :'String',
+        'root_object_value': :'Object'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -64,6 +70,7 @@ module OCI
     # @option attributes [Object] :object_value The value to assign to the {#object_value} property
     # @option attributes [Object] :ref_value The value to assign to the {#ref_value} property
     # @option attributes [String] :parameter_value The value to assign to the {#parameter_value} property
+    # @option attributes [Object] :root_object_value The value to assign to the {#root_object_value} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -99,6 +106,12 @@ module OCI
       raise 'You cannot provide both :parameterValue and :parameter_value' if attributes.key?(:'parameterValue') && attributes.key?(:'parameter_value')
 
       self.parameter_value = attributes[:'parameter_value'] if attributes[:'parameter_value']
+
+      self.root_object_value = attributes[:'rootObjectValue'] if attributes[:'rootObjectValue']
+
+      raise 'You cannot provide both :rootObjectValue and :root_object_value' if attributes.key?(:'rootObjectValue') && attributes.key?(:'root_object_value')
+
+      self.root_object_value = attributes[:'root_object_value'] if attributes[:'root_object_value']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -116,7 +129,8 @@ module OCI
         int_value == other.int_value &&
         object_value == other.object_value &&
         ref_value == other.ref_value &&
-        parameter_value == other.parameter_value
+        parameter_value == other.parameter_value &&
+        root_object_value == other.root_object_value
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -132,7 +146,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [string_value, int_value, object_value, ref_value, parameter_value].hash
+      [string_value, int_value, object_value, ref_value, parameter_value, root_object_value].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

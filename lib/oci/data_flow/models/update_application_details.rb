@@ -111,6 +111,11 @@ module OCI
     # @return [String]
     attr_accessor :logs_bucket_uri
 
+    # The OCID of OCI Hive Metastore.
+    #
+    # @return [String]
+    attr_accessor :metastore_id
+
     # The number of executor VMs requested.
     #
     # @return [Integer]
@@ -155,6 +160,7 @@ module OCI
         'executor_shape': :'executorShape',
         'freeform_tags': :'freeformTags',
         'logs_bucket_uri': :'logsBucketUri',
+        'metastore_id': :'metastoreId',
         'num_executors': :'numExecutors',
         'parameters': :'parameters',
         'private_endpoint_id': :'privateEndpointId',
@@ -182,6 +188,7 @@ module OCI
         'executor_shape': :'String',
         'freeform_tags': :'Hash<String, String>',
         'logs_bucket_uri': :'String',
+        'metastore_id': :'String',
         'num_executors': :'Integer',
         'parameters': :'Array<OCI::DataFlow::Models::ApplicationParameter>',
         'private_endpoint_id': :'String',
@@ -211,6 +218,7 @@ module OCI
     # @option attributes [String] :executor_shape The value to assign to the {#executor_shape} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :logs_bucket_uri The value to assign to the {#logs_bucket_uri} property
+    # @option attributes [String] :metastore_id The value to assign to the {#metastore_id} property
     # @option attributes [Integer] :num_executors The value to assign to the {#num_executors} property
     # @option attributes [Array<OCI::DataFlow::Models::ApplicationParameter>] :parameters The value to assign to the {#parameters} property
     # @option attributes [String] :private_endpoint_id The value to assign to the {#private_endpoint_id} property
@@ -291,6 +299,12 @@ module OCI
 
       self.logs_bucket_uri = attributes[:'logs_bucket_uri'] if attributes[:'logs_bucket_uri']
 
+      self.metastore_id = attributes[:'metastoreId'] if attributes[:'metastoreId']
+
+      raise 'You cannot provide both :metastoreId and :metastore_id' if attributes.key?(:'metastoreId') && attributes.key?(:'metastore_id')
+
+      self.metastore_id = attributes[:'metastore_id'] if attributes[:'metastore_id']
+
       self.num_executors = attributes[:'numExecutors'] if attributes[:'numExecutors']
 
       raise 'You cannot provide both :numExecutors and :num_executors' if attributes.key?(:'numExecutors') && attributes.key?(:'num_executors')
@@ -346,6 +360,7 @@ module OCI
         executor_shape == other.executor_shape &&
         freeform_tags == other.freeform_tags &&
         logs_bucket_uri == other.logs_bucket_uri &&
+        metastore_id == other.metastore_id &&
         num_executors == other.num_executors &&
         parameters == other.parameters &&
         private_endpoint_id == other.private_endpoint_id &&
@@ -365,7 +380,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [class_name, file_uri, spark_version, language, archive_uri, arguments, configuration, defined_tags, description, display_name, driver_shape, execute, executor_shape, freeform_tags, logs_bucket_uri, num_executors, parameters, private_endpoint_id, warehouse_bucket_uri].hash
+      [class_name, file_uri, spark_version, language, archive_uri, arguments, configuration, defined_tags, description, display_name, driver_shape, execute, executor_shape, freeform_tags, logs_bucket_uri, metastore_id, num_executors, parameters, private_endpoint_id, warehouse_bucket_uri].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

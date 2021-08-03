@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specific info about a node
+  # Details about a node.
   class Bds::Models::Node
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
@@ -29,23 +29,23 @@ module OCI
       NODE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the underlying compute instance
+    # **[Required]** The OCID of the underlying Oracle Cloud Infrastructure Compute instance.
     # @return [String]
     attr_accessor :instance_id
 
-    # **[Required]** The name of the node
+    # **[Required]** The name of the node.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The state of the node
+    # **[Required]** The state of the node.
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** BDS instance node type
+    # **[Required]** Cluster node type.
     # @return [String]
     attr_reader :node_type
 
-    # **[Required]** Shape of the node
+    # **[Required]** Shape of the node.
     # @return [String]
     attr_accessor :shape
 
@@ -53,39 +53,39 @@ module OCI
     # @return [Array<OCI::Bds::Models::VolumeAttachmentDetail>]
     attr_accessor :attached_block_volumes
 
-    # **[Required]** The OCID of the subnet in which the node should be created
+    # **[Required]** The OCID of the subnet in which the node is to be created.
     # @return [String]
     attr_accessor :subnet_id
 
-    # **[Required]** IP address of the node
+    # **[Required]** IP address of the node.
     # @return [String]
     attr_accessor :ip_address
 
-    # The fully-qualified hostname (FQDN) of the node
+    # The fully-qualified hostname (FQDN) of the node.
     # @return [String]
     attr_accessor :hostname
 
-    # The OCID of the image from which the node was created
+    # The OCID of the image from which the node was created.
     # @return [String]
     attr_accessor :image_id
 
-    # **[Required]** The fingerprint of the SSH key used for node access
+    # **[Required]** The fingerprint of the SSH key used for node access.
     # @return [String]
     attr_accessor :ssh_fingerprint
 
-    # **[Required]** The name of the availability domain the node is running in
+    # **[Required]** The name of the availability domain in which the node is running.
     # @return [String]
     attr_accessor :availability_domain
 
-    # **[Required]** The name of the fault domain the node is running in
+    # **[Required]** The name of the fault domain in which the node is running.
     # @return [String]
     attr_accessor :fault_domain
 
-    # **[Required]** The time the node was created. An RFC3339 formatted datetime string
+    # **[Required]** The time the node was created, shown as an RFC 3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The time the BDS instance was updated. An RFC3339 formatted datetime string
+    # The time the cluster was updated, shown as an RFC 3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_updated
 

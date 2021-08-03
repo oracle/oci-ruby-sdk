@@ -25,8 +25,9 @@ module OCI
       MODEL_TYPE_START_OPERATOR = 'START_OPERATOR'.freeze,
       MODEL_TYPE_END_OPERATOR = 'END_OPERATOR'.freeze,
       MODEL_TYPE_PIPELINE_OPERATOR = 'PIPELINE_OPERATOR'.freeze,
-      MODEL_TYPE_REST_OPERATOR = 'REST_OPERATOR'.freeze,
       MODEL_TYPE_TASK_OPERATOR = 'TASK_OPERATOR'.freeze,
+      MODEL_TYPE_EXPRESSION_OPERATOR = 'EXPRESSION_OPERATOR'.freeze,
+      MODEL_TYPE_LOOKUP_OPERATOR = 'LOOKUP_OPERATOR'.freeze,
       MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -138,10 +139,12 @@ module OCI
       return 'OCI::DataIntegration::Models::EndOperator' if type == 'END_OPERATOR'
       return 'OCI::DataIntegration::Models::Source' if type == 'SOURCE_OPERATOR'
       return 'OCI::DataIntegration::Models::Union' if type == 'UNION_OPERATOR'
+      return 'OCI::DataIntegration::Models::ExpressionOperator' if type == 'EXPRESSION_OPERATOR'
       return 'OCI::DataIntegration::Models::Intersect' if type == 'INTERSECT_OPERATOR'
       return 'OCI::DataIntegration::Models::Target' if type == 'TARGET_OPERATOR'
       return 'OCI::DataIntegration::Models::Distinct' if type == 'DISTINCT_OPERATOR'
       return 'OCI::DataIntegration::Models::Filter' if type == 'FILTER_OPERATOR'
+      return 'OCI::DataIntegration::Models::Lookup' if type == 'LOOKUP_OPERATOR'
       return 'OCI::DataIntegration::Models::StartOperator' if type == 'START_OPERATOR'
       return 'OCI::DataIntegration::Models::MergeOperator' if type == 'MERGE_OPERATOR'
       return 'OCI::DataIntegration::Models::Minus' if type == 'MINUS_OPERATOR'

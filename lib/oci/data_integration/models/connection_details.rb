@@ -14,7 +14,9 @@ module OCI
       MODEL_TYPE_ORACLE_OBJECT_STORAGE_CONNECTION = 'ORACLE_OBJECT_STORAGE_CONNECTION'.freeze,
       MODEL_TYPE_ORACLEDB_CONNECTION = 'ORACLEDB_CONNECTION'.freeze,
       MODEL_TYPE_MYSQL_CONNECTION = 'MYSQL_CONNECTION'.freeze,
-      MODEL_TYPE_GENERIC_JDBC_CONNECTION = 'GENERIC_JDBC_CONNECTION'.freeze
+      MODEL_TYPE_GENERIC_JDBC_CONNECTION = 'GENERIC_JDBC_CONNECTION'.freeze,
+      MODEL_TYPE_BICC_CONNECTION = 'BICC_CONNECTION'.freeze,
+      MODEL_TYPE_AMAZON_S3_CONNECTION = 'AMAZON_S3_CONNECTION'.freeze
     ].freeze
 
     # **[Required]** The type of the connection.
@@ -117,7 +119,9 @@ module OCI
       type = object_hash[:'modelType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::DataIntegration::Models::ConnectionFromJdbcDetails' if type == 'GENERIC_JDBC_CONNECTION'
+      return 'OCI::DataIntegration::Models::ConnectionFromAmazonS3Details' if type == 'AMAZON_S3_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionFromObjectStorageDetails' if type == 'ORACLE_OBJECT_STORAGE_CONNECTION'
+      return 'OCI::DataIntegration::Models::ConnectionFromBICCDetails' if type == 'BICC_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionFromMySQLDetails' if type == 'MYSQL_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionFromAdwcDetails' if type == 'ORACLE_ADWC_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionFromAtpDetails' if type == 'ORACLE_ATP_CONNECTION'

@@ -23,6 +23,7 @@ module OCI
       TYPE_INTERNAL_COMPUTE = 'INTERNAL_COMPUTE'.freeze,
       TYPE_OCC = 'OCC'.freeze,
       TYPE_OCIC_IDCS = 'OCIC_IDCS'.freeze,
+      TYPE_IMPORT = 'IMPORT'.freeze,
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -57,6 +58,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'type'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::ApplicationMigration::Models::ImportSourceDetails' if type == 'IMPORT'
       return 'OCI::ApplicationMigration::Models::OccSourceDetails' if type == 'OCC'
       return 'OCI::ApplicationMigration::Models::InternalSourceDetails' if type == 'INTERNAL_COMPUTE'
       return 'OCI::ApplicationMigration::Models::OcicSourceDetails' if type == 'OCIC'

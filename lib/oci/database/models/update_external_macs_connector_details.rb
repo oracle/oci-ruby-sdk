@@ -6,7 +6,8 @@ require_relative 'update_external_database_connector_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details for updating an external [Management Agent cloud service (MACS)](https://docs.cloud.oracle.com/iaas/management-agents/index.html) database connection.
+  # Details for updating an external [Management Agent cloud service (MACS)](https://docs.cloud.oracle.com/iaas/management-agents/index.html)
+  # database connection.
   #
   class Database::Models::UpdateExternalMacsConnectorDetails < Database::Models::UpdateExternalDatabaseConnectorDetails
     # @return [OCI::Database::Models::DatabaseConnectionString]

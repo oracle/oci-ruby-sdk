@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Query summery in list request.
+  # Query summery in the list request.
   class UsageApi::Models::QuerySummary
     # **[Required]** The query OCID.
     # @return [String]

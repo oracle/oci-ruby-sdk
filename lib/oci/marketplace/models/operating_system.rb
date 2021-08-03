@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # OS used by the listing.
+  # The operating system used by the listing.
   class Marketplace::Models::OperatingSystem
-    # name of the operating system
+    # The name of the operating system.
     # @return [String]
     attr_accessor :name
 

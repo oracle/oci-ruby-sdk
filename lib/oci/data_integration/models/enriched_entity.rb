@@ -13,12 +13,21 @@ module OCI
     # @return [OCI::DataIntegration::Models::DataFormat]
     attr_accessor :data_format
 
+    # The model type for the entity which is referenced.
+    # @return [String]
+    attr_accessor :model_type
+
+    # @return [OCI::DataIntegration::Models::ParentReference]
+    attr_accessor :parent_ref
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'entity': :'entity',
-        'data_format': :'dataFormat'
+        'data_format': :'dataFormat',
+        'model_type': :'modelType',
+        'parent_ref': :'parentRef'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -28,7 +37,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'entity': :'OCI::DataIntegration::Models::DataEntity',
-        'data_format': :'OCI::DataIntegration::Models::DataFormat'
+        'data_format': :'OCI::DataIntegration::Models::DataFormat',
+        'model_type': :'String',
+        'parent_ref': :'OCI::DataIntegration::Models::ParentReference'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -41,6 +52,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [OCI::DataIntegration::Models::DataEntity] :entity The value to assign to the {#entity} property
     # @option attributes [OCI::DataIntegration::Models::DataFormat] :data_format The value to assign to the {#data_format} property
+    # @option attributes [String] :model_type The value to assign to the {#model_type} property
+    # @option attributes [OCI::DataIntegration::Models::ParentReference] :parent_ref The value to assign to the {#parent_ref} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -54,6 +67,18 @@ module OCI
       raise 'You cannot provide both :dataFormat and :data_format' if attributes.key?(:'dataFormat') && attributes.key?(:'data_format')
 
       self.data_format = attributes[:'data_format'] if attributes[:'data_format']
+
+      self.model_type = attributes[:'modelType'] if attributes[:'modelType']
+
+      raise 'You cannot provide both :modelType and :model_type' if attributes.key?(:'modelType') && attributes.key?(:'model_type')
+
+      self.model_type = attributes[:'model_type'] if attributes[:'model_type']
+
+      self.parent_ref = attributes[:'parentRef'] if attributes[:'parentRef']
+
+      raise 'You cannot provide both :parentRef and :parent_ref' if attributes.key?(:'parentRef') && attributes.key?(:'parent_ref')
+
+      self.parent_ref = attributes[:'parent_ref'] if attributes[:'parent_ref']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -68,7 +93,9 @@ module OCI
 
       self.class == other.class &&
         entity == other.entity &&
-        data_format == other.data_format
+        data_format == other.data_format &&
+        model_type == other.model_type &&
+        parent_ref == other.parent_ref
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -84,7 +111,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [entity, data_format].hash
+      [entity, data_format, model_type, parent_ref].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

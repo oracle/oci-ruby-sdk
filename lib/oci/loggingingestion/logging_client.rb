@@ -107,7 +107,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [DateTime] :timestamp_opc_agent_processing Effective timestamp, for when the agent started processing the log
-    #   segment being sent. An RFC3339-formatted date-time string.
+    #   segment being sent. An RFC3339-formatted date-time string with milliseconds precision.
     #
     # @option opts [String] :opc_agent_version Version of the agent sending the request.
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about

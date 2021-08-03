@@ -2,12 +2,21 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The compute shape used to launch a notebook session compute instance.
   #
   class DataScience::Models::NotebookSessionShapeSummary
+    SHAPE_SERIES_ENUM = [
+      SHAPE_SERIES_AMD_ROME = 'AMD_ROME'.freeze,
+      SHAPE_SERIES_INTEL_SKYLAKE = 'INTEL_SKYLAKE'.freeze,
+      SHAPE_SERIES_NVIDIA_GPU = 'NVIDIA_GPU'.freeze,
+      SHAPE_SERIES_LEGACY = 'LEGACY'.freeze,
+      SHAPE_SERIES_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The name of the notebook session shape.
     #
     # @return [String]
@@ -23,13 +32,19 @@ module OCI
     # @return [Integer]
     attr_accessor :memory_in_gbs
 
+    # **[Required]** The family that the compute shape belongs to.
+    #
+    # @return [String]
+    attr_reader :shape_series
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
         'core_count': :'coreCount',
-        'memory_in_gbs': :'memoryInGBs'
+        'memory_in_gbs': :'memoryInGBs',
+        'shape_series': :'shapeSeries'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -40,7 +55,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
         'core_count': :'Integer',
-        'memory_in_gbs': :'Integer'
+        'memory_in_gbs': :'Integer',
+        'shape_series': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -54,6 +70,7 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [Integer] :core_count The value to assign to the {#core_count} property
     # @option attributes [Integer] :memory_in_gbs The value to assign to the {#memory_in_gbs} property
+    # @option attributes [String] :shape_series The value to assign to the {#shape_series} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -73,9 +90,28 @@ module OCI
       raise 'You cannot provide both :memoryInGBs and :memory_in_gbs' if attributes.key?(:'memoryInGBs') && attributes.key?(:'memory_in_gbs')
 
       self.memory_in_gbs = attributes[:'memory_in_gbs'] if attributes[:'memory_in_gbs']
+
+      self.shape_series = attributes[:'shapeSeries'] if attributes[:'shapeSeries']
+
+      raise 'You cannot provide both :shapeSeries and :shape_series' if attributes.key?(:'shapeSeries') && attributes.key?(:'shape_series')
+
+      self.shape_series = attributes[:'shape_series'] if attributes[:'shape_series']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] shape_series Object to be assigned
+    def shape_series=(shape_series)
+      # rubocop:disable Style/ConditionalAssignment
+      if shape_series && !SHAPE_SERIES_ENUM.include?(shape_series)
+        OCI.logger.debug("Unknown value for 'shape_series' [" + shape_series + "]. Mapping to 'SHAPE_SERIES_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @shape_series = SHAPE_SERIES_UNKNOWN_ENUM_VALUE
+      else
+        @shape_series = shape_series
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -88,7 +124,8 @@ module OCI
       self.class == other.class &&
         name == other.name &&
         core_count == other.core_count &&
-        memory_in_gbs == other.memory_in_gbs
+        memory_in_gbs == other.memory_in_gbs &&
+        shape_series == other.shape_series
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -104,7 +141,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, core_count, memory_in_gbs].hash
+      [name, core_count, memory_in_gbs, shape_series].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

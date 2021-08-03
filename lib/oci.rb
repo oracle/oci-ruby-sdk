@@ -92,6 +92,11 @@ require 'oci/database_migration/database_migration'
 require 'oci/service_catalog/service_catalog'
 require 'oci/ai_language/ai_language'
 require 'oci/operator_access_control/operator_access_control'
+require 'oci/bastion/bastion'
+require 'oci/generic_artifacts_content/generic_artifacts_content'
+require 'oci/jms/jms'
+require 'oci/devops/devops'
+require 'oci/ai_anomaly_detection/ai_anomaly_detection'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI

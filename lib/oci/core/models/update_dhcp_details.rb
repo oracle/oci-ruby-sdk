@@ -7,6 +7,12 @@ require 'date'
 module OCI
   # UpdateDhcpDetails model.
   class Core::Models::UpdateDhcpDetails
+    DOMAIN_NAME_TYPE_ENUM = [
+      DOMAIN_NAME_TYPE_SUBNET_DOMAIN = 'SUBNET_DOMAIN'.freeze,
+      DOMAIN_NAME_TYPE_VCN_DOMAIN = 'VCN_DOMAIN'.freeze,
+      DOMAIN_NAME_TYPE_CUSTOM_DOMAIN = 'CUSTOM_DOMAIN'.freeze
+    ].freeze
+
     # Defined tags for this resource. Each key is predefined and scoped to a
     # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
@@ -32,6 +38,10 @@ module OCI
     # @return [Array<OCI::Core::Models::DhcpOption>]
     attr_accessor :options
 
+    # The search domain name type of DHCP options
+    # @return [String]
+    attr_reader :domain_name_type
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -39,7 +49,8 @@ module OCI
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
-        'options': :'options'
+        'options': :'options',
+        'domain_name_type': :'domainNameType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -51,7 +62,8 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'options': :'Array<OCI::Core::Models::DhcpOption>'
+        'options': :'Array<OCI::Core::Models::DhcpOption>',
+        'domain_name_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -66,6 +78,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Array<OCI::Core::Models::DhcpOption>] :options The value to assign to the {#options} property
+    # @option attributes [String] :domain_name_type The value to assign to the {#domain_name_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -91,9 +104,23 @@ module OCI
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
       self.options = attributes[:'options'] if attributes[:'options']
+
+      self.domain_name_type = attributes[:'domainNameType'] if attributes[:'domainNameType']
+
+      raise 'You cannot provide both :domainNameType and :domain_name_type' if attributes.key?(:'domainNameType') && attributes.key?(:'domain_name_type')
+
+      self.domain_name_type = attributes[:'domain_name_type'] if attributes[:'domain_name_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] domain_name_type Object to be assigned
+    def domain_name_type=(domain_name_type)
+      raise "Invalid value for 'domain_name_type': this must be one of the values in DOMAIN_NAME_TYPE_ENUM." if domain_name_type && !DOMAIN_NAME_TYPE_ENUM.include?(domain_name_type)
+
+      @domain_name_type = domain_name_type
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -107,7 +134,8 @@ module OCI
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
-        options == other.options
+        options == other.options &&
+        domain_name_type == other.domain_name_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -123,7 +151,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, options].hash
+      [defined_tags, display_name, freeform_tags, options, domain_name_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

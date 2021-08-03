@@ -7,7 +7,15 @@ require 'date'
 module OCI
   # CreateVlanDetails model.
   class Core::Models::CreateVlanDetails
-    # **[Required]** The availability domain of the VLAN.
+    # Controls whether the VLAN is regional or specific to an availability domain.
+    # A regional VLAN has the flexibility to implement failover across availability domains.
+    # Previously, all VLANs were AD-specific.
+    #
+    # To create a regional VLAN, omit this attribute. Resources created subsequently in this
+    # VLAN (such as a Compute instance) can be created in any availability domain in the region.
+    #
+    # To create an AD-specific VLAN, use this attribute to specify the availability domain.
+    # Resources created in this VLAN must be in that availability domain.
     #
     # Example: `Uocm:PHX-AD-1`
     #
@@ -17,8 +25,8 @@ module OCI
     # **[Required]** The range of IPv4 addresses that will be used for layer 3 communication with
     # hosts outside the VLAN. The CIDR must maintain the following rules -
     #
-    # a. The CIDR block is valid and correctly formatted.
-    # b. The new range is within one of the parent VCN ranges.
+    # 1. The CIDR block is valid and correctly formatted.
+    # 2. The new range is within one of the parent VCN ranges.
     #
     # Example: `192.0.2.0/24`
     #

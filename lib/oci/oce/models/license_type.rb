@@ -5,7 +5,9 @@ module OCI
   module Oce::Models
     LICENSE_TYPE_ENUM = [
       LICENSE_TYPE_NEW = 'NEW'.freeze,
-      LICENSE_TYPE_BYOL = 'BYOL'.freeze
+      LICENSE_TYPE_BYOL = 'BYOL'.freeze,
+      LICENSE_TYPE_PREMIUM = 'PREMIUM'.freeze,
+      LICENSE_TYPE_STARTER = 'STARTER'.freeze
     ].freeze
   end
 end

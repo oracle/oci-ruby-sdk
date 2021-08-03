@@ -6,18 +6,18 @@ require_relative 'publication_package'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A package for image publications.
+  # A publication package for image publications.
   class Marketplace::Models::ImagePublicationPackage < Marketplace::Models::PublicationPackage
     # The ID of the listing resource associated with this publication package. For more information, see [AppCatalogListing](https://docs.cloud.oracle.com/en-us/iaas/api/#/en/iaas/latest/AppCatalogListing/) in the Core Services API.
     #
     # @return [String]
     attr_accessor :app_catalog_listing_id
 
-    # The resource version of the listing resource associated with this listing package.
+    # The resource version of the listing resource associated with this publication package.
     # @return [String]
     attr_accessor :app_catalog_listing_resource_version
 
-    # The ID of the image corresponding to the package.
+    # The ID of the image that corresponds to the package.
     # @return [String]
     attr_accessor :image_id
 

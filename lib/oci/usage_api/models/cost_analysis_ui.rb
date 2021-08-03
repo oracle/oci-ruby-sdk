@@ -15,11 +15,11 @@ module OCI
       GRAPH_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # the type of graph mode.
+    # The graph type.
     # @return [String]
     attr_reader :graph
 
-    # is cumulative graph.
+    # A cumulative graph.
     # @return [BOOLEAN]
     attr_accessor :is_cumulative_graph
 

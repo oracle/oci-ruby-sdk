@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about host to be analyzed.
+  # The information about the host to be analyzed.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Opsi::Models::EnableHostInsightDetails
     ENTITY_SOURCE_ENUM = [

@@ -139,6 +139,10 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # Type name of the attribute. For example - complex, primitive, or array.
+    # @return [String]
+    attr_accessor :attribute_type
+
     # Expression for logical entities against which names of dataObjects will be matched.
     # @return [String]
     attr_accessor :expression
@@ -179,6 +183,7 @@ module OCI
         'path': :'path',
         'business_name': :'businessName',
         'lifecycle_state': :'lifecycleState',
+        'attribute_type': :'attributeType',
         'expression': :'expression',
         'custom_properties': :'customProperties'
         # rubocop:enable Style/SymbolLiteral
@@ -217,6 +222,7 @@ module OCI
         'path': :'String',
         'business_name': :'String',
         'lifecycle_state': :'String',
+        'attribute_type': :'String',
         'expression': :'String',
         'custom_properties': :'Array<OCI::DataCatalog::Models::FacetedSearchCustomProperty>'
         # rubocop:enable Style/SymbolLiteral
@@ -257,6 +263,7 @@ module OCI
     # @option attributes [String] :path The value to assign to the {#path} property
     # @option attributes [String] :business_name The value to assign to the {#business_name} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :attribute_type The value to assign to the {#attribute_type} property
     # @option attributes [String] :expression The value to assign to the {#expression} property
     # @option attributes [Array<OCI::DataCatalog::Models::FacetedSearchCustomProperty>] :custom_properties The value to assign to the {#custom_properties} property
     def initialize(attributes = {})
@@ -413,6 +420,12 @@ module OCI
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
+      self.attribute_type = attributes[:'attributeType'] if attributes[:'attributeType']
+
+      raise 'You cannot provide both :attributeType and :attribute_type' if attributes.key?(:'attributeType') && attributes.key?(:'attribute_type')
+
+      self.attribute_type = attributes[:'attribute_type'] if attributes[:'attribute_type']
+
       self.expression = attributes[:'expression'] if attributes[:'expression']
 
       self.custom_properties = attributes[:'customProperties'] if attributes[:'customProperties']
@@ -474,6 +487,7 @@ module OCI
         path == other.path &&
         business_name == other.business_name &&
         lifecycle_state == other.lifecycle_state &&
+        attribute_type == other.attribute_type &&
         expression == other.expression &&
         custom_properties == other.custom_properties
     end
@@ -491,7 +505,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, name, description, time_created, time_updated, tag_summary, term_summary, type_name, external_type_name, external_data_type, data_asset_key, data_asset_type, data_asset_name, folder_key, folder_type, folder_name, entitykey, entity_type, entity_name, glossary_key, glossary_name, parent_term_key, parent_term_name, created_by_id, updated_by_id, path, business_name, lifecycle_state, expression, custom_properties].hash
+      [key, name, description, time_created, time_updated, tag_summary, term_summary, type_name, external_type_name, external_data_type, data_asset_key, data_asset_type, data_asset_name, folder_key, folder_type, folder_name, entitykey, entity_type, entity_name, glossary_key, glossary_name, parent_term_key, parent_term_name, created_by_id, updated_by_id, path, business_name, lifecycle_state, attribute_type, expression, custom_properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

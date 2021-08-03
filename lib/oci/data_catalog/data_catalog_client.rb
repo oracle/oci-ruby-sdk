@@ -441,6 +441,68 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a resource into a different compartment. When provided, 'If-Match' is checked against 'ETag' values of the resource.
+    # @param [OCI::DataCatalog::Models::ChangeMetastoreCompartmentDetails] change_metastore_compartment_details Information about a change in metastore compartment.
+    # @param [String] metastore_id The metastore's OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/change_metastore_compartment.rb.html) to see an example of how to use change_metastore_compartment API.
+    def change_metastore_compartment(change_metastore_compartment_details, metastore_id, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#change_metastore_compartment.' if logger
+
+      raise "Missing the required parameter 'change_metastore_compartment_details' when calling change_metastore_compartment." if change_metastore_compartment_details.nil?
+      raise "Missing the required parameter 'metastore_id' when calling change_metastore_compartment." if metastore_id.nil?
+      raise "Parameter value for 'metastore_id' must not be blank" if OCI::Internal::Util.blank_string?(metastore_id)
+
+      path = '/metastores/{metastoreId}/actions/changeCompartment'.sub('{metastoreId}', metastore_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(change_metastore_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#change_metastore_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new entity attribute.
     # @param [String] catalog_id Unique catalog identifier.
     # @param [String] data_asset_key Unique data asset key.
@@ -1492,6 +1554,67 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataCatalog::Models::JobExecution'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new metastore.
+    #
+    # @param [OCI::DataCatalog::Models::CreateMetastoreDetails] create_metastore_details Information about a new metastore to be created.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/create_metastore.rb.html) to see an example of how to use create_metastore API.
+    def create_metastore(create_metastore_details, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#create_metastore.' if logger
+
+      raise "Missing the required parameter 'create_metastore_details' when calling create_metastore." if create_metastore_details.nil?
+
+      path = '/metastores'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_metastore_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#create_metastore') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2752,6 +2875,66 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes a metastore resource by identifier.
+    # @param [String] metastore_id The metastore's OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/delete_metastore.rb.html) to see an example of how to use delete_metastore API.
+    def delete_metastore(metastore_id, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#delete_metastore.' if logger
+
+      raise "Missing the required parameter 'metastore_id' when calling delete_metastore." if metastore_id.nil?
+      raise "Parameter value for 'metastore_id' must not be blank" if OCI::Internal::Util.blank_string?(metastore_id)
+
+      path = '/metastores/{metastoreId}'.sub('{metastoreId}', metastore_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#delete_metastore') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes a specific Namespace identified by it's key.
     # @param [String] catalog_id Unique catalog identifier.
     # @param [String] namespace_id Unique namespace identifier.
@@ -3290,6 +3473,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :is_include_object_relationships Indicates whether the list of objects and their relationships to this object will be provided in the response. (default to false)
     # @option opts [Array<String>] :fields Specifies the fields to return in an entity attribute response.
     #
     #   Allowed values are: key, displayName, description, entityKey, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, externalDataType, externalKey, isIncrementalData, isNullable, length, position, precision, scale, timeExternal, uri, properties, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey
@@ -3324,6 +3508,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:isIncludeObjectRelationships] = opts[:is_include_object_relationships] if !opts[:is_include_object_relationships].nil?
       query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
 
       # Header Params
@@ -3847,6 +4032,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :is_include_object_relationships Indicates whether the list of objects and their relationships to this object will be provided in the response. (default to false)
     # @option opts [Array<String>] :fields Specifies the fields to return in an entity response.
     #
     #   Allowed values are: key, displayName, description, dataAssetKey, timeCreated, timeUpdated, createdById, updatedById, lifecycleState, externalKey, timeExternal, timeStatusUpdated, isLogical, isPartition, folderKey, folderName, typeKey, path, harvestStatus, lastJobKey, uri, properties
@@ -3879,6 +4065,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:isIncludeObjectRelationships] = opts[:is_include_object_relationships] if !opts[:is_include_object_relationships].nil?
       query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
 
       # Header Params
@@ -3998,6 +4185,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :is_include_object_relationships Indicates whether the list of objects and their relationships to this object will be provided in the response. (default to false)
     # @option opts [Array<String>] :fields Specifies the fields to return in a folder response.
     #
     #   Allowed values are: key, displayName, description, parentFolderKey, path, dataAssetKey, properties, externalKey, timeCreated, timeUpdated, createdById, updatedById, timeExternal, lifecycleState, harvestStatus, lastJobKey, uri
@@ -4030,6 +4218,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:isIncludeObjectRelationships] = opts[:is_include_object_relationships] if !opts[:is_include_object_relationships].nil?
       query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
 
       # Header Params
@@ -4583,6 +4772,60 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets a metastore by identifier.
+    # @param [String] metastore_id The metastore's OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Metastore Metastore}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_metastore.rb.html) to see an example of how to use get_metastore API.
+    def get_metastore(metastore_id, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#get_metastore.' if logger
+
+      raise "Missing the required parameter 'metastore_id' when calling get_metastore." if metastore_id.nil?
+      raise "Parameter value for 'metastore_id' must not be blank" if OCI::Internal::Util.blank_string?(metastore_id)
+
+      path = '/metastores/{metastoreId}'.sub('{metastoreId}', metastore_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#get_metastore') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::Metastore'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets a specific namespace for the given key within a data catalog.
     # @param [String] catalog_id Unique catalog identifier.
     # @param [String] namespace_id Unique namespace identifier.
@@ -5062,6 +5305,86 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataCatalog::Models::Connection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Import technical objects to a Data Asset
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] data_asset_key Unique data asset key.
+    # @param [OCI::DataCatalog::Models::ImportDataAssetDetails] import_data_asset_details The file contents to be imported.
+    # @param [Array<String>] import_type Type of import.
+    #   Allowed values are: CUSTOM_PROPERTY_VALUES, ALL
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :is_missing_value_ignored Specify whether to ignore the missing values in the import file. (default to true)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::ImportDataAssetJobResult ImportDataAssetJobResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/import_data_asset.rb.html) to see an example of how to use import_data_asset API.
+    def import_data_asset(catalog_id, data_asset_key, import_data_asset_details, import_type, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#import_data_asset.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling import_data_asset." if catalog_id.nil?
+      raise "Missing the required parameter 'data_asset_key' when calling import_data_asset." if data_asset_key.nil?
+      raise "Missing the required parameter 'import_data_asset_details' when calling import_data_asset." if import_data_asset_details.nil?
+      raise "Missing the required parameter 'import_type' when calling import_data_asset." if import_type.nil?
+
+      import_type_allowable_values = %w[CUSTOM_PROPERTY_VALUES ALL]
+      import_type.each do |val_to_check|
+        unless import_type_allowable_values.include?(val_to_check)
+          raise "Invalid value for 'import_type', must be one of CUSTOM_PROPERTY_VALUES, ALL."
+        end
+      end
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'data_asset_key' must not be blank" if OCI::Internal::Util.blank_string?(data_asset_key)
+
+      path = '/catalogs/{catalogId}/dataAssets/{dataAssetKey}/actions/import'.sub('{catalogId}', catalog_id.to_s).sub('{dataAssetKey}', data_asset_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:importType] = OCI::ApiClient.build_collection_params(import_type, :multi)
+      query_params[:isMissingValueIgnored] = opts[:is_missing_value_ignored] if !opts[:is_missing_value_ignored].nil?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(import_data_asset_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#import_data_asset') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::ImportDataAssetJobResult'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -5788,7 +6111,7 @@ module OCI
     #
     #   Allowed values are: TEXT, RICH_TEXT, BOOLEAN, NUMBER, DATE
     # @option opts [Array<String>] :type_name A filter to return only resources that match the entire type name given. The match is not case sensitive
-    #   Allowed values are: DATA_ASSET, AUTONOMOUS_DATA_WAREHOUSE, HIVE, KAFKA, MYSQL, ORACLE_OBJECT_STORAGE, AUTONOMOUS_TRANSACTION_PROCESSING, ORACLE, POSTGRESQL, MICROSOFT_AZURE_SQL_DATABASE, MICROSOFT_SQL_SERVER, IBM_DB2, DATA_ENTITY, LOGICAL_ENTITY, TABLE, VIEW, ATTRIBUTE, FOLDER, CONNECTION, GLOSSARY, TERM, CATEGORY, FILE, BUCKET, MESSAGE, UNRECOGNIZED_FILE
+    #   Allowed values are: DATA_ASSET, AUTONOMOUS_DATA_WAREHOUSE, HIVE, KAFKA, MYSQL, ORACLE_OBJECT_STORAGE, AUTONOMOUS_TRANSACTION_PROCESSING, ORACLE, POSTGRESQL, MICROSOFT_AZURE_SQL_DATABASE, MICROSOFT_SQL_SERVER, IBM_DB2, DATA_ENTITY, LOGICAL_ENTITY, TABLE, VIEW, ATTRIBUTE, FOLDER, ORACLE_ANALYTICS_SERVER, ORACLE_ANALYTICS_CLOUD, ORACLE_ANALYTICS_SUBJECT_AREA, ORACLE_ANALYTICS_DASHBOARD, ORACLE_ANALYTICS_BUSINESS_MODEL, ORACLE_ANALYTICS_PHYSICAL_DATABASE, ORACLE_ANALYTICS_PHYSICAL_SCHEMA, ORACLE_ANALYTICS_PRESENTATION_TABLE, ORACLE_ANALYTICS_LOGICAL_TABLE, ORACLE_ANALYTICS_PHYSICAL_TABLE, ORACLE_ANALYTICS_ANALYSIS, DATABASE_SCHEMA, TOPIC, CONNECTION, GLOSSARY, TERM, CATEGORY, FILE, BUCKET, MESSAGE, UNRECOGNIZED_FILE
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
     # @option opts [DateTime] :time_updated Time that the resource was updated. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -5824,11 +6147,11 @@ module OCI
       end
 
 
-      type_name_allowable_values = %w[DATA_ASSET AUTONOMOUS_DATA_WAREHOUSE HIVE KAFKA MYSQL ORACLE_OBJECT_STORAGE AUTONOMOUS_TRANSACTION_PROCESSING ORACLE POSTGRESQL MICROSOFT_AZURE_SQL_DATABASE MICROSOFT_SQL_SERVER IBM_DB2 DATA_ENTITY LOGICAL_ENTITY TABLE VIEW ATTRIBUTE FOLDER CONNECTION GLOSSARY TERM CATEGORY FILE BUCKET MESSAGE UNRECOGNIZED_FILE]
+      type_name_allowable_values = %w[DATA_ASSET AUTONOMOUS_DATA_WAREHOUSE HIVE KAFKA MYSQL ORACLE_OBJECT_STORAGE AUTONOMOUS_TRANSACTION_PROCESSING ORACLE POSTGRESQL MICROSOFT_AZURE_SQL_DATABASE MICROSOFT_SQL_SERVER IBM_DB2 DATA_ENTITY LOGICAL_ENTITY TABLE VIEW ATTRIBUTE FOLDER ORACLE_ANALYTICS_SERVER ORACLE_ANALYTICS_CLOUD ORACLE_ANALYTICS_SUBJECT_AREA ORACLE_ANALYTICS_DASHBOARD ORACLE_ANALYTICS_BUSINESS_MODEL ORACLE_ANALYTICS_PHYSICAL_DATABASE ORACLE_ANALYTICS_PHYSICAL_SCHEMA ORACLE_ANALYTICS_PRESENTATION_TABLE ORACLE_ANALYTICS_LOGICAL_TABLE ORACLE_ANALYTICS_PHYSICAL_TABLE ORACLE_ANALYTICS_ANALYSIS DATABASE_SCHEMA TOPIC CONNECTION GLOSSARY TERM CATEGORY FILE BUCKET MESSAGE UNRECOGNIZED_FILE]
       if opts[:type_name] && !opts[:type_name].empty?
         opts[:type_name].each do |val_to_check|
           unless type_name_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "type_name", must be one of DATA_ASSET, AUTONOMOUS_DATA_WAREHOUSE, HIVE, KAFKA, MYSQL, ORACLE_OBJECT_STORAGE, AUTONOMOUS_TRANSACTION_PROCESSING, ORACLE, POSTGRESQL, MICROSOFT_AZURE_SQL_DATABASE, MICROSOFT_SQL_SERVER, IBM_DB2, DATA_ENTITY, LOGICAL_ENTITY, TABLE, VIEW, ATTRIBUTE, FOLDER, CONNECTION, GLOSSARY, TERM, CATEGORY, FILE, BUCKET, MESSAGE, UNRECOGNIZED_FILE.'
+            raise 'Invalid value for "type_name", must be one of DATA_ASSET, AUTONOMOUS_DATA_WAREHOUSE, HIVE, KAFKA, MYSQL, ORACLE_OBJECT_STORAGE, AUTONOMOUS_TRANSACTION_PROCESSING, ORACLE, POSTGRESQL, MICROSOFT_AZURE_SQL_DATABASE, MICROSOFT_SQL_SERVER, IBM_DB2, DATA_ENTITY, LOGICAL_ENTITY, TABLE, VIEW, ATTRIBUTE, FOLDER, ORACLE_ANALYTICS_SERVER, ORACLE_ANALYTICS_CLOUD, ORACLE_ANALYTICS_SUBJECT_AREA, ORACLE_ANALYTICS_DASHBOARD, ORACLE_ANALYTICS_BUSINESS_MODEL, ORACLE_ANALYTICS_PHYSICAL_DATABASE, ORACLE_ANALYTICS_PHYSICAL_SCHEMA, ORACLE_ANALYTICS_PRESENTATION_TABLE, ORACLE_ANALYTICS_LOGICAL_TABLE, ORACLE_ANALYTICS_PHYSICAL_TABLE, ORACLE_ANALYTICS_ANALYSIS, DATABASE_SCHEMA, TOPIC, CONNECTION, GLOSSARY, TERM, CATEGORY, FILE, BUCKET, MESSAGE, UNRECOGNIZED_FILE.'
           end
         end
       end
@@ -6987,9 +7310,9 @@ module OCI
     # @option opts [Array<String>] :fields Specifies the fields to return in a job execution summary response.
     #
     #   Allowed values are: key, jobKey, jobType, parentKey, scheduleInstanceKey, lifecycleState, timeCreated, timeStarted, timeEnded, uri
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided; the default is descending. Use sortOrder query param to specify order.
     #
-    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    #   Allowed values are: TIMECREATED
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     #   Allowed values are: ASC, DESC
     # @option opts [Integer] :limit The maximum number of items to return.
@@ -7021,8 +7344,8 @@ module OCI
         end
       end
 
-      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      if opts[:sort_by] && !%w[TIMECREATED].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED.'
       end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
@@ -7452,6 +7775,88 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataCatalog::Models::JobCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of all metastores in the specified compartment.
+    #
+    # @param [String] compartment_id The OCID of the compartment where you want to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [Integer] :limit The maximum number of items to return.
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type Array<{OCI::DataCatalog::Models::MetastoreSummary MetastoreSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_metastores.rb.html) to see an example of how to use list_metastores API.
+    def list_metastores(compartment_id, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#list_metastores.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_metastores." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::DataCatalog::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataCatalog::Models::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      path = '/metastores'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#list_metastores') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::DataCatalog::Models::MetastoreSummary>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -8962,6 +9367,130 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Export technical objects from a Data Asset
+    # @param [String] catalog_id Unique catalog identifier.
+    # @param [String] data_asset_key Unique data asset key.
+    # @param [OCI::DataCatalog::Models::ExportDataAssetDetails] synchronous_export_data_asset_details The details of what needs to be exported.
+    # @param [Array<String>] export_type Type of export.
+    #   Allowed values are: CUSTOM_PROPERTY_VALUES, ALL
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
+    # @option [Block] &block Streaming http body to the block
+    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/synchronous_export_data_asset.rb.html) to see an example of how to use synchronous_export_data_asset API.
+    def synchronous_export_data_asset(catalog_id, data_asset_key, synchronous_export_data_asset_details, export_type, opts = {}, &block)
+      logger.debug 'Calling operation DataCatalogClient#synchronous_export_data_asset.' if logger
+
+      raise "Missing the required parameter 'catalog_id' when calling synchronous_export_data_asset." if catalog_id.nil?
+      raise "Missing the required parameter 'data_asset_key' when calling synchronous_export_data_asset." if data_asset_key.nil?
+      raise "Missing the required parameter 'synchronous_export_data_asset_details' when calling synchronous_export_data_asset." if synchronous_export_data_asset_details.nil?
+      raise "Missing the required parameter 'export_type' when calling synchronous_export_data_asset." if export_type.nil?
+
+      export_type_allowable_values = %w[CUSTOM_PROPERTY_VALUES ALL]
+      export_type.each do |val_to_check|
+        unless export_type_allowable_values.include?(val_to_check)
+          raise "Invalid value for 'export_type', must be one of CUSTOM_PROPERTY_VALUES, ALL."
+        end
+      end
+      raise "Parameter value for 'catalog_id' must not be blank" if OCI::Internal::Util.blank_string?(catalog_id)
+      raise "Parameter value for 'data_asset_key' must not be blank" if OCI::Internal::Util.blank_string?(data_asset_key)
+
+      path = '/catalogs/{catalogId}/dataAssets/{dataAssetKey}/actions/synchronousExport'.sub('{catalogId}', catalog_id.to_s).sub('{dataAssetKey}', data_asset_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:exportType] = OCI::ApiClient.build_collection_params(export_type, :multi)
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = opts[:accept] if opts[:accept]
+      header_params[:accept] ||= 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(synchronous_export_data_asset_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#synchronous_export_data_asset') do
+        if !block.nil?
+          @api_client.call_api(
+            :POST,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'Stream',
+            &block
+          )
+        elsif opts[:response_target]
+          if opts[:response_target].respond_to? :write
+            @api_client.call_api(
+              :POST,
+              path,
+              endpoint,
+              header_params: header_params,
+              query_params: query_params,
+              operation_signing_strategy: operation_signing_strategy,
+              body: post_body,
+              return_type: 'Stream',
+              &proc { |chunk, _response| opts[:response_target].write(chunk) }
+            )
+          elsif opts[:response_target].is_a?(String)
+            File.open(opts[:response_target], 'wb') do |output|
+              return @api_client.call_api(
+                :POST,
+                path,
+                endpoint,
+                header_params: header_params,
+                query_params: query_params,
+                operation_signing_strategy: operation_signing_strategy,
+                body: post_body,
+                return_type: 'Stream',
+                &proc { |chunk, _response| output.write(chunk) }
+              )
+            end
+          end
+        else
+          @api_client.call_api(
+            :POST,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'String'
+          )
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Test the connection by connecting to the data asset using credentials in the metadata.
     # @param [String] catalog_id Unique catalog identifier.
     # @param [String] data_asset_key Unique data asset key.
@@ -9754,6 +10283,69 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataCatalog::Models::JobDefinition'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates a metastore resource by identifier.
+    # @param [String] metastore_id The metastore's OCID.
+    # @param [OCI::DataCatalog::Models::UpdateMetastoreDetails] update_metastore_details The metastore information to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Metastore Metastore}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/update_metastore.rb.html) to see an example of how to use update_metastore API.
+    def update_metastore(metastore_id, update_metastore_details, opts = {})
+      logger.debug 'Calling operation DataCatalogClient#update_metastore.' if logger
+
+      raise "Missing the required parameter 'metastore_id' when calling update_metastore." if metastore_id.nil?
+      raise "Missing the required parameter 'update_metastore_details' when calling update_metastore." if update_metastore_details.nil?
+      raise "Parameter value for 'metastore_id' must not be blank" if OCI::Internal::Util.blank_string?(metastore_id)
+
+      path = '/metastores/{metastoreId}'.sub('{metastoreId}', metastore_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_metastore_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataCatalogClient#update_metastore') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataCatalog::Models::Metastore'
         )
       end
       # rubocop:enable Metrics/BlockLength

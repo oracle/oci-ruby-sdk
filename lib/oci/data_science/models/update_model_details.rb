@@ -30,6 +30,14 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # An array of custom metadata details for the model.
+    # @return [Array<OCI::DataScience::Models::Metadata>]
+    attr_accessor :custom_metadata_list
+
+    # An array of defined metadata details for the model.
+    # @return [Array<OCI::DataScience::Models::Metadata>]
+    attr_accessor :defined_metadata_list
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -37,7 +45,9 @@ module OCI
         'display_name': :'displayName',
         'description': :'description',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'custom_metadata_list': :'customMetadataList',
+        'defined_metadata_list': :'definedMetadataList'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -49,7 +59,9 @@ module OCI
         'display_name': :'String',
         'description': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'custom_metadata_list': :'Array<OCI::DataScience::Models::Metadata>',
+        'defined_metadata_list': :'Array<OCI::DataScience::Models::Metadata>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -64,6 +76,8 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Array<OCI::DataScience::Models::Metadata>] :custom_metadata_list The value to assign to the {#custom_metadata_list} property
+    # @option attributes [Array<OCI::DataScience::Models::Metadata>] :defined_metadata_list The value to assign to the {#defined_metadata_list} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -89,6 +103,18 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.custom_metadata_list = attributes[:'customMetadataList'] if attributes[:'customMetadataList']
+
+      raise 'You cannot provide both :customMetadataList and :custom_metadata_list' if attributes.key?(:'customMetadataList') && attributes.key?(:'custom_metadata_list')
+
+      self.custom_metadata_list = attributes[:'custom_metadata_list'] if attributes[:'custom_metadata_list']
+
+      self.defined_metadata_list = attributes[:'definedMetadataList'] if attributes[:'definedMetadataList']
+
+      raise 'You cannot provide both :definedMetadataList and :defined_metadata_list' if attributes.key?(:'definedMetadataList') && attributes.key?(:'defined_metadata_list')
+
+      self.defined_metadata_list = attributes[:'defined_metadata_list'] if attributes[:'defined_metadata_list']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -105,7 +131,9 @@ module OCI
         display_name == other.display_name &&
         description == other.description &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        custom_metadata_list == other.custom_metadata_list &&
+        defined_metadata_list == other.defined_metadata_list
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -121,7 +149,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, freeform_tags, defined_tags].hash
+      [display_name, description, freeform_tags, defined_tags, custom_metadata_list, defined_metadata_list].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

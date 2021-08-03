@@ -42,6 +42,9 @@ module OCI
     # @return [OCI::Database::Models::PatchDetails]
     attr_accessor :version
 
+    # @return [OCI::Database::Models::VmClusterUpdateDetails]
+    attr_accessor :update_details
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -67,6 +70,7 @@ module OCI
         'license_model': :'licenseModel',
         'ssh_public_keys': :'sshPublicKeys',
         'version': :'version',
+        'update_details': :'updateDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -84,6 +88,7 @@ module OCI
         'license_model': :'String',
         'ssh_public_keys': :'Array<String>',
         'version': :'OCI::Database::Models::PatchDetails',
+        'update_details': :'OCI::Database::Models::VmClusterUpdateDetails',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -103,6 +108,7 @@ module OCI
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
     # @option attributes [OCI::Database::Models::PatchDetails] :version The value to assign to the {#version} property
+    # @option attributes [OCI::Database::Models::VmClusterUpdateDetails] :update_details The value to assign to the {#update_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -149,6 +155,12 @@ module OCI
 
       self.version = attributes[:'version'] if attributes[:'version']
 
+      self.update_details = attributes[:'updateDetails'] if attributes[:'updateDetails']
+
+      raise 'You cannot provide both :updateDetails and :update_details' if attributes.key?(:'updateDetails') && attributes.key?(:'update_details')
+
+      self.update_details = attributes[:'update_details'] if attributes[:'update_details']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -188,6 +200,7 @@ module OCI
         license_model == other.license_model &&
         ssh_public_keys == other.ssh_public_keys &&
         version == other.version &&
+        update_details == other.update_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -205,7 +218,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, license_model, ssh_public_keys, version, freeform_tags, defined_tags].hash
+      [cpu_core_count, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, license_model, ssh_public_keys, version, update_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about additionaly added nodes
+  # The information about added nodes.
   class Bds::Models::AddWorkerNodesDetails
-    # **[Required]** Base-64 encoded password for Cloudera Manager admin user
+    # **[Required]** Base-64 encoded password for the cluster (and Cloudera Manager) admin user.
     # @return [String]
     attr_accessor :cluster_admin_password
 
-    # **[Required]** Number of additional worker nodes for the BDS instance
+    # **[Required]** Number of additional worker nodes for the cluster.
     # @return [Integer]
     attr_accessor :number_of_worker_nodes
 

@@ -92,6 +92,10 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # Defines parameters for the saved search.
+    # @return [Array<Object>]
+    attr_accessor :parameters_config
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -113,7 +117,8 @@ module OCI
         'widget_template': :'widgetTemplate',
         'widget_vm': :'widgetVM',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'parameters_config': :'parametersConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -139,7 +144,8 @@ module OCI
         'widget_template': :'String',
         'widget_vm': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'parameters_config': :'Array<Object>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -168,6 +174,7 @@ module OCI
     # @option attributes [String] :widget_vm The value to assign to the {#widget_vm} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Array<Object>] :parameters_config The value to assign to the {#parameters_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -265,6 +272,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.parameters_config = attributes[:'parametersConfig'] if attributes[:'parametersConfig']
+
+      raise 'You cannot provide both :parametersConfig and :parameters_config' if attributes.key?(:'parametersConfig') && attributes.key?(:'parameters_config')
+
+      self.parameters_config = attributes[:'parameters_config'] if attributes[:'parameters_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -308,7 +321,8 @@ module OCI
         widget_template == other.widget_template &&
         widget_vm == other.widget_vm &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        parameters_config == other.parameters_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -324,7 +338,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, provider_id, provider_version, provider_name, compartment_id, is_oob_saved_search, description, nls, type, ui_config, data_config, screen_image, metadata_version, widget_template, widget_vm, freeform_tags, defined_tags].hash
+      [id, display_name, provider_id, provider_version, provider_name, compartment_id, is_oob_saved_search, description, nls, type, ui_config, data_config, screen_image, metadata_version, widget_template, widget_vm, freeform_tags, defined_tags, parameters_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

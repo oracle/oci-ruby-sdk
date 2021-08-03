@@ -113,6 +113,10 @@ module OCI
     # @return [Integer]
     attr_accessor :usage_count
 
+    # If an OCI Event will be emitted when the custom property is modified.
+    # @return [BOOLEAN]
+    attr_accessor :is_event_enabled
+
     # Type or scope of the custom property belongs to. This will be an array of type id it will be belongs to
     #
     # @return [Array<OCI::DataCatalog::Models::CustomPropertyTypeUsage>]
@@ -155,6 +159,7 @@ module OCI
         'created_by_id': :'createdById',
         'updated_by_id': :'updatedById',
         'usage_count': :'usageCount',
+        'is_event_enabled': :'isEventEnabled',
         'scope': :'scope',
         'allowed_values': :'allowedValues',
         'properties': :'properties'
@@ -186,6 +191,7 @@ module OCI
         'created_by_id': :'String',
         'updated_by_id': :'String',
         'usage_count': :'Integer',
+        'is_event_enabled': :'BOOLEAN',
         'scope': :'Array<OCI::DataCatalog::Models::CustomPropertyTypeUsage>',
         'allowed_values': :'Array<String>',
         'properties': :'Hash<String, Hash<String, String>>'
@@ -219,6 +225,7 @@ module OCI
     # @option attributes [String] :created_by_id The value to assign to the {#created_by_id} property
     # @option attributes [String] :updated_by_id The value to assign to the {#updated_by_id} property
     # @option attributes [Integer] :usage_count The value to assign to the {#usage_count} property
+    # @option attributes [BOOLEAN] :is_event_enabled The value to assign to the {#is_event_enabled} property
     # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertyTypeUsage>] :scope The value to assign to the {#scope} property
     # @option attributes [Array<String>] :allowed_values The value to assign to the {#allowed_values} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
@@ -358,6 +365,14 @@ module OCI
 
       self.usage_count = attributes[:'usage_count'] if attributes[:'usage_count']
 
+      self.is_event_enabled = attributes[:'isEventEnabled'] unless attributes[:'isEventEnabled'].nil?
+      self.is_event_enabled = false if is_event_enabled.nil? && !attributes.key?(:'isEventEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isEventEnabled and :is_event_enabled' if attributes.key?(:'isEventEnabled') && attributes.key?(:'is_event_enabled')
+
+      self.is_event_enabled = attributes[:'is_event_enabled'] unless attributes[:'is_event_enabled'].nil?
+      self.is_event_enabled = false if is_event_enabled.nil? && !attributes.key?(:'isEventEnabled') && !attributes.key?(:'is_event_enabled') # rubocop:disable Style/StringLiterals
+
       self.scope = attributes[:'scope'] if attributes[:'scope']
 
       self.allowed_values = attributes[:'allowedValues'] if attributes[:'allowedValues']
@@ -426,6 +441,7 @@ module OCI
         created_by_id == other.created_by_id &&
         updated_by_id == other.updated_by_id &&
         usage_count == other.usage_count &&
+        is_event_enabled == other.is_event_enabled &&
         scope == other.scope &&
         allowed_values == other.allowed_values &&
         properties == other.properties
@@ -444,7 +460,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, data_type, description, namespace_name, is_list_type, is_sortable, is_filterable, is_multi_valued, is_hidden, is_editable, is_shown_in_list, is_service_defined, is_hidden_in_search, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, usage_count, scope, allowed_values, properties].hash
+      [key, display_name, data_type, description, namespace_name, is_list_type, is_sortable, is_filterable, is_multi_valued, is_hidden, is_editable, is_shown_in_list, is_service_defined, is_hidden_in_search, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, usage_count, is_event_enabled, scope, allowed_values, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

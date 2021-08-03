@@ -98,9 +98,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Changes the compartment of the Publication
-    # @param [String] publication_id The unique identifier for the listing.
-    # @param [OCI::Marketplace::Models::ChangePublicationCompartmentDetails] change_publication_compartment_details Request to change the compartment of a given Publication.
+    # Moves the specified publication from one compartment to another.
+    # @param [String] publication_id The unique identifier for the publication.
+    # @param [OCI::Marketplace::Models::ChangePublicationCompartmentDetails] change_publication_compartment_details The details of the request to change the compartment of a given publication.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -231,8 +231,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a publication of the given type with an optional default package
-    # @param [OCI::Marketplace::Models::CreatePublicationDetails] create_publication_details Details of Publication to be created including optional default package.
+    # Creates a publication of the specified listing type with an optional default package.
+    # @param [OCI::Marketplace::Models::CreatePublicationDetails] create_publication_details The details for creating the publication.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -294,7 +294,7 @@ module OCI
 
 
     # Removes a previously accepted terms of use agreement from the list of agreements that Marketplace checks
-    # before initiating a deployment. Listings in the Marketplace that require acceptance of the specified terms
+    # before initiating a deployment. Listings in Marketplace that require acceptance of the specified terms
     # of use can no longer be deployed, but existing deployments aren't affected.
     #
     # @param [String] accepted_agreement_id The unique identifier for the accepted terms of use agreement.
@@ -358,8 +358,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes a Publication. This will also remove the associated Listing from Marketplace.
-    # @param [String] publication_id The unique identifier for the listing.
+    # Deletes a publication, which also removes the associated listing from anywhere it was published, such as Marketplace or Compute.
+    # @param [String] publication_id The unique identifier for the publication.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -689,8 +689,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get details of a publication
-    # @param [String] publication_id The unique identifier for the listing.
+    # Gets the details of the specified publication.
+    # @param [String] publication_id The unique identifier for the publication.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -745,8 +745,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the details of a specific package within a given Publication
-    # @param [String] publication_id The unique identifier for the listing.
+    # Gets the details of a specific package version within a given publication.
+    # @param [String] publication_id The unique identifier for the publication.
     # @param [String] package_version The version of the package. Package versions are unique within a listing.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1067,9 +1067,9 @@ module OCI
     #   Allowed values are: FREE, BYOL, PAYGO
     # @option opts [BOOLEAN] :is_featured Indicates whether to show only featured listings. If this is set to `false` or is omitted, then all listings will be returned.
     #    (default to false)
-    # @option opts [Array<String>] :listing_types The type of the listing
+    # @option opts [Array<String>] :listing_types The type of the listing.
     #   Allowed values are: COMMUNITY, PARTNER, PRIVATE
-    # @option opts [Array<String>] :operating_systems OS of the listing.
+    # @option opts [Array<String>] :operating_systems The operating system of the listing.
     # @option opts [String] :compartment_id The unique identifier for the compartment.
     # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::ListingSummary ListingSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/list_listings.rb.html) to see an example of how to use list_listings API.
@@ -1258,8 +1258,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the packages in the given Publication
-    # @param [String] publication_id The unique identifier for the listing.
+    # Lists the packages in the specified publication.
+    # @param [String] publication_id The unique identifier for the publication.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1341,15 +1341,15 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the publications in the given compartment
+    # Lists the publications in the specified compartment.
     # @param [String] compartment_id The unique identifier for the compartment.
-    # @param [String] listing_type The type of the listing
+    # @param [String] listing_type The type of the listing.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [Array<String>] :name The name of the listing.
-    # @option opts [String] :publication_id The unique identifier for the listing.
-    # @option opts [Array<String>] :operating_systems OS of the listing.
+    # @option opts [Array<String>] :name The name of the publication.
+    # @option opts [String] :publication_id The unique identifier for the publication.
+    # @option opts [Array<String>] :operating_systems The operating system of the listing.
     # @option opts [String] :sort_by The field to use to sort listed results. You can only specify one field to sort by.
     #   `TIMERELEASED` displays results in descending order by default.
     #   You can change your preference by specifying a different sort order.
@@ -1675,6 +1675,68 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Find listings that match the specified criteria. The search query could be free text
+    # or structured.
+    #
+    # @param [OCI::Marketplace::Models::SearchListingsDetails] search_listings_details Details related to the search query
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [Integer] :limit How many records to return. Specify a value greater than zero and less than or equal to 1000. The default is 30.
+    #    (default to 30)
+    # @return [Response] A Response object with data of type Array<{OCI::Marketplace::Models::ListingSummary ListingSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/search_listings.rb.html) to see an example of how to use search_listings API.
+    def search_listings(search_listings_details, opts = {})
+      logger.debug 'Calling operation MarketplaceClient#search_listings.' if logger
+
+      raise "Missing the required parameter 'search_listings_details' when calling search_listings." if search_listings_details.nil?
+
+      path = '/searchListings'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(search_listings_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#search_listings') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Marketplace::Models::ListingSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates the display name or tags associated with a listing's previously accepted terms of use agreement.
     #
     # @param [String] accepted_agreement_id The unique identifier for the accepted terms of use agreement.
@@ -1746,9 +1808,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates details of an existing Publication
-    # @param [String] publication_id The unique identifier for the listing.
-    # @param [OCI::Marketplace::Models::UpdatePublicationDetails] update_publication_details Details of the Publication which needs to be updated
+    # Updates the details of an existing publication.
+    # @param [String] publication_id The unique identifier for the publication.
+    # @param [OCI::Marketplace::Models::UpdatePublicationDetails] update_publication_details The details for updating the publication.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

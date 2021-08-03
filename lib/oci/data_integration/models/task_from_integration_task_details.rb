@@ -31,6 +31,7 @@ module OCI
         'config_provider_delegate': :'configProviderDelegate',
         'metadata': :'metadata',
         'key_map': :'keyMap',
+        'registry_metadata': :'registryMetadata',
         'data_flow': :'dataFlow'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -56,6 +57,7 @@ module OCI
         'config_provider_delegate': :'OCI::DataIntegration::Models::ConfigProvider',
         'metadata': :'OCI::DataIntegration::Models::ObjectMetadata',
         'key_map': :'Hash<String, String>',
+        'registry_metadata': :'OCI::DataIntegration::Models::RegistryMetadata',
         'data_flow': :'OCI::DataIntegration::Models::DataFlow'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -82,6 +84,7 @@ module OCI
     # @option attributes [OCI::DataIntegration::Models::ConfigProvider] :config_provider_delegate The value to assign to the {OCI::DataIntegration::Models::Task#config_provider_delegate #config_provider_delegate} proprety
     # @option attributes [OCI::DataIntegration::Models::ObjectMetadata] :metadata The value to assign to the {OCI::DataIntegration::Models::Task#metadata #metadata} proprety
     # @option attributes [Hash<String, String>] :key_map The value to assign to the {OCI::DataIntegration::Models::Task#key_map #key_map} proprety
+    # @option attributes [OCI::DataIntegration::Models::RegistryMetadata] :registry_metadata The value to assign to the {OCI::DataIntegration::Models::Task#registry_metadata #registry_metadata} proprety
     # @option attributes [OCI::DataIntegration::Models::DataFlow] :data_flow The value to assign to the {#data_flow} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -127,6 +130,7 @@ module OCI
         config_provider_delegate == other.config_provider_delegate &&
         metadata == other.metadata &&
         key_map == other.key_map &&
+        registry_metadata == other.registry_metadata &&
         data_flow == other.data_flow
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -143,7 +147,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, parent_ref, name, description, object_version, object_status, identifier, input_ports, output_ports, parameters, op_config_values, config_provider_delegate, metadata, key_map, data_flow].hash
+      [model_type, key, model_version, parent_ref, name, description, object_version, object_status, identifier, input_ports, output_ports, parameters, op_config_values, config_provider_delegate, metadata, key_map, registry_metadata, data_flow].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

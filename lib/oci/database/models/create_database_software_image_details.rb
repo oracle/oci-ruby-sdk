@@ -67,6 +67,10 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Home.
+    # @return [String]
+    attr_accessor :source_db_home_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -80,7 +84,8 @@ module OCI
         'database_software_image_one_off_patches': :'databaseSoftwareImageOneOffPatches',
         'ls_inventory': :'lsInventory',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'source_db_home_id': :'sourceDbHomeId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -98,7 +103,8 @@ module OCI
         'database_software_image_one_off_patches': :'Array<String>',
         'ls_inventory': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'source_db_home_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -119,6 +125,7 @@ module OCI
     # @option attributes [String] :ls_inventory The value to assign to the {#ls_inventory} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :source_db_home_id The value to assign to the {#source_db_home_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -188,6 +195,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.source_db_home_id = attributes[:'sourceDbHomeId'] if attributes[:'sourceDbHomeId']
+
+      raise 'You cannot provide both :sourceDbHomeId and :source_db_home_id' if attributes.key?(:'sourceDbHomeId') && attributes.key?(:'source_db_home_id')
+
+      self.source_db_home_id = attributes[:'source_db_home_id'] if attributes[:'source_db_home_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -226,7 +239,8 @@ module OCI
         database_software_image_one_off_patches == other.database_software_image_one_off_patches &&
         ls_inventory == other.ls_inventory &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        source_db_home_id == other.source_db_home_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -242,7 +256,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, database_version, display_name, image_shape_family, image_type, patch_set, database_software_image_one_off_patches, ls_inventory, freeform_tags, defined_tags].hash
+      [compartment_id, database_version, display_name, image_shape_family, image_type, patch_set, database_software_image_one_off_patches, ls_inventory, freeform_tags, defined_tags, source_db_home_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

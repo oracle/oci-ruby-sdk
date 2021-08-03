@@ -29,6 +29,8 @@ module OCI
     INSTANCE_LICENSE_TYPE_ENUM = [
       INSTANCE_LICENSE_TYPE_NEW = 'NEW'.freeze,
       INSTANCE_LICENSE_TYPE_BYOL = 'BYOL'.freeze,
+      INSTANCE_LICENSE_TYPE_PREMIUM = 'PREMIUM'.freeze,
+      INSTANCE_LICENSE_TYPE_STARTER = 'STARTER'.freeze,
       INSTANCE_LICENSE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -135,6 +137,12 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # Usage of system tag keys. These predefined keys are scoped to namespaces.
+    # Example: `{\"orcl-cloud\": {\"free-tier-retained\": \"true\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :system_tags
+
     # SERVICE data.
     # Example: `{\"service\": {\"IDCS\": \"value\"}}`
     #
@@ -167,6 +175,7 @@ module OCI
         'state_message': :'stateMessage',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
+        'system_tags': :'systemTags',
         'service': :'service'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -198,6 +207,7 @@ module OCI
         'state_message': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'system_tags': :'Hash<String, Hash<String, Object>>',
         'service': :'Hash<String, Object>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -231,6 +241,7 @@ module OCI
     # @option attributes [String] :state_message The value to assign to the {#state_message} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     # @option attributes [Hash<String, Object>] :service The value to assign to the {#service} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -354,6 +365,12 @@ module OCI
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
+      self.system_tags = attributes[:'systemTags'] if attributes[:'systemTags']
+
+      raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
+
+      self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
+
       self.service = attributes[:'service'] if attributes[:'service']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -455,6 +472,7 @@ module OCI
         state_message == other.state_message &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
+        system_tags == other.system_tags &&
         service == other.service
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -471,7 +489,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, guid, description, compartment_id, name, tenancy_id, idcs_tenancy, tenancy_name, upgrade_schedule, identity_stripe, instance_usage_type, object_storage_namespace, admin_email, waf_primary_domain, instance_access_type, instance_license_type, time_created, time_updated, lifecycle_state, state_message, freeform_tags, defined_tags, service].hash
+      [id, guid, description, compartment_id, name, tenancy_id, idcs_tenancy, tenancy_name, upgrade_schedule, identity_stripe, instance_usage_type, object_storage_namespace, admin_email, waf_primary_domain, instance_access_type, instance_license_type, time_created, time_updated, lifecycle_state, state_message, freeform_tags, defined_tags, system_tags, service].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

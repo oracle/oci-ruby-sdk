@@ -20,7 +20,7 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # Optional. The timestamp associated with the log entry. An RFC3339-formatted date-time string.
+    # Optional. The timestamp associated with the log entry. An RFC3339-formatted date-time string with milliseconds precision.
     # If unspecified, defaults to PutLogsDetails.defaultlogentrytime.
     #
     # @return [DateTime]

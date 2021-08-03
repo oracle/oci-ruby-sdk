@@ -14,7 +14,9 @@ module OCI
       MODEL_TYPE_ORACLE_ATP_DATA_ASSET = 'ORACLE_ATP_DATA_ASSET'.freeze,
       MODEL_TYPE_ORACLE_ADWC_DATA_ASSET = 'ORACLE_ADWC_DATA_ASSET'.freeze,
       MODEL_TYPE_MYSQL_DATA_ASSET = 'MYSQL_DATA_ASSET'.freeze,
-      MODEL_TYPE_GENERIC_JDBC_DATA_ASSET = 'GENERIC_JDBC_DATA_ASSET'.freeze
+      MODEL_TYPE_GENERIC_JDBC_DATA_ASSET = 'GENERIC_JDBC_DATA_ASSET'.freeze,
+      MODEL_TYPE_FUSION_APP_DATA_ASSET = 'FUSION_APP_DATA_ASSET'.freeze,
+      MODEL_TYPE_AMAZON_S3_DATA_ASSET = 'AMAZON_S3_DATA_ASSET'.freeze
     ].freeze
 
     # **[Required]** The type of the data asset.
@@ -104,6 +106,8 @@ module OCI
       return 'OCI::DataIntegration::Models::CreateDataAssetFromMySQL' if type == 'MYSQL_DATA_ASSET'
       return 'OCI::DataIntegration::Models::CreateDataAssetFromOracle' if type == 'ORACLE_DATA_ASSET'
       return 'OCI::DataIntegration::Models::CreateDataAssetFromAdwc' if type == 'ORACLE_ADWC_DATA_ASSET'
+      return 'OCI::DataIntegration::Models::CreateDataAssetFromAmazonS3' if type == 'AMAZON_S3_DATA_ASSET'
+      return 'OCI::DataIntegration::Models::CreateDataAssetFromFusionApp' if type == 'FUSION_APP_DATA_ASSET'
       return 'OCI::DataIntegration::Models::CreateDataAssetFromAtp' if type == 'ORACLE_ATP_DATA_ASSET'
       return 'OCI::DataIntegration::Models::CreateDataAssetFromObjectStorage' if type == 'ORACLE_OBJECT_STORAGE_DATA_ASSET'
 

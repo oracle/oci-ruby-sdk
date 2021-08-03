@@ -17,6 +17,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'model_type': :'modelType',
+        'is_file_pattern': :'isFilePattern',
         'encoding': :'encoding'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -27,6 +28,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'model_type': :'String',
+        'is_file_pattern': :'BOOLEAN',
         'encoding': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -38,6 +40,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [BOOLEAN] :is_file_pattern The value to assign to the {OCI::DataIntegration::Models::AbstractFormatAttribute#is_file_pattern #is_file_pattern} proprety
     # @option attributes [String] :encoding The value to assign to the {#encoding} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -64,6 +67,7 @@ module OCI
 
       self.class == other.class &&
         model_type == other.model_type &&
+        is_file_pattern == other.is_file_pattern &&
         encoding == other.encoding
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -80,7 +84,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, encoding].hash
+      [model_type, is_file_pattern, encoding].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

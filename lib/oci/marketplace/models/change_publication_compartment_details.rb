@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Contains details indicating to which compartment the Publication should be moved
+  # The model for the parameters needed move a publication from one compartment to another.
   class Marketplace::Models::ChangePublicationCompartmentDetails
-    # The unique identifier for the compartment to which the Publication should be moved.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment where you want to move the publication.
     # @return [String]
     attr_accessor :compartment_id
 

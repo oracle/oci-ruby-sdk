@@ -1076,6 +1076,72 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Endpoint to create a new schedule
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] application_key The application key.
+    # @param [OCI::DataIntegration::Models::CreateScheduleDetails] create_schedule_details Request body parameter for Schedule details
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Schedule Schedule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_schedule.rb.html) to see an example of how to use create_schedule API.
+    def create_schedule(workspace_id, application_key, create_schedule_details, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#create_schedule.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling create_schedule." if workspace_id.nil?
+      raise "Missing the required parameter 'application_key' when calling create_schedule." if application_key.nil?
+      raise "Missing the required parameter 'create_schedule_details' when calling create_schedule." if create_schedule_details.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'application_key' must not be blank" if OCI::Internal::Util.blank_string?(application_key)
+
+      path = '/workspaces/{workspaceId}/applications/{applicationKey}/schedules'.sub('{workspaceId}', workspace_id.to_s).sub('{applicationKey}', application_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_schedule_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#create_schedule') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::Schedule'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new task ready for performing data integrations. There are specialized types of tasks that include data loader and integration tasks.
     #
     # @param [String] workspace_id The workspace ID.
@@ -1193,6 +1259,72 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataIntegration::Models::TaskRun'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Endpoint to be used create TaskSchedule.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] application_key The application key.
+    # @param [OCI::DataIntegration::Models::CreateTaskScheduleDetails] create_task_schedule_details Request body parameter for TaskSchedule details
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::TaskSchedule TaskSchedule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_task_schedule.rb.html) to see an example of how to use create_task_schedule API.
+    def create_task_schedule(workspace_id, application_key, create_task_schedule_details, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#create_task_schedule.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling create_task_schedule." if workspace_id.nil?
+      raise "Missing the required parameter 'application_key' when calling create_task_schedule." if application_key.nil?
+      raise "Missing the required parameter 'create_task_schedule_details' when calling create_task_schedule." if create_task_schedule_details.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'application_key' must not be blank" if OCI::Internal::Util.blank_string?(application_key)
+
+      path = '/workspaces/{workspaceId}/applications/{applicationKey}/taskSchedules'.sub('{workspaceId}', workspace_id.to_s).sub('{applicationKey}', application_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_task_schedule_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#create_task_schedule') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::TaskSchedule'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2171,6 +2303,73 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Endpoint to delete schedule.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] application_key The application key.
+    # @param [String] schedule_key Schedule Key
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the `etag` from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the `etag` you provide matches the resource's current `etag` value.
+    #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_schedule.rb.html) to see an example of how to use delete_schedule API.
+    def delete_schedule(workspace_id, application_key, schedule_key, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#delete_schedule.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling delete_schedule." if workspace_id.nil?
+      raise "Missing the required parameter 'application_key' when calling delete_schedule." if application_key.nil?
+      raise "Missing the required parameter 'schedule_key' when calling delete_schedule." if schedule_key.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'application_key' must not be blank" if OCI::Internal::Util.blank_string?(application_key)
+      raise "Parameter value for 'schedule_key' must not be blank" if OCI::Internal::Util.blank_string?(schedule_key)
+
+      path = '/workspaces/{workspaceId}/applications/{applicationKey}/schedules/{scheduleKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{applicationKey}', application_key.to_s).sub('{scheduleKey}', schedule_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#delete_schedule') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Removes a task using the specified identifier.
     # @param [String] workspace_id The workspace ID.
     # @param [String] task_key The task key.
@@ -2281,6 +2480,73 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#delete_task_run') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Endpoint to delete TaskSchedule.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] application_key The application key.
+    # @param [String] task_schedule_key TaskSchedule Key
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the `etag` from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the `etag` you provide matches the resource's current `etag` value.
+    #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_task_schedule.rb.html) to see an example of how to use delete_task_schedule API.
+    def delete_task_schedule(workspace_id, application_key, task_schedule_key, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#delete_task_schedule.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling delete_task_schedule." if workspace_id.nil?
+      raise "Missing the required parameter 'application_key' when calling delete_task_schedule." if application_key.nil?
+      raise "Missing the required parameter 'task_schedule_key' when calling delete_task_schedule." if task_schedule_key.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'application_key' must not be blank" if OCI::Internal::Util.blank_string?(application_key)
+      raise "Parameter value for 'task_schedule_key' must not be blank" if OCI::Internal::Util.blank_string?(task_schedule_key)
+
+      path = '/workspaces/{workspaceId}/applications/{applicationKey}/taskSchedules/{taskScheduleKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{applicationKey}', application_key.to_s).sub('{taskScheduleKey}', task_schedule_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#delete_task_schedule') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -2810,6 +3076,7 @@ module OCI
     #   you need to contact Oracle about a particular request,
     #   please provide the request ID.
     #
+    # @option opts [String] :expand_references Used to expand references of the object. If value is true, then all referenced objects are expanded. If value is false, then shallow objects are returned in place of references. Default is false. <br><br><B>Example:</B><br> <ul> <li><B>?expandReferences=true</B> returns all objects of type data loader task</li> </ul> (default to false)
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DataFlow DataFlow}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_data_flow.rb.html) to see an example of how to use get_data_flow API.
     def get_data_flow(workspace_id, data_flow_key, opts = {})
@@ -2826,6 +3093,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:expandReferences] = opts[:expand_references] if opts[:expand_references]
 
       # Header Params
       header_params = {}
@@ -3119,6 +3387,8 @@ module OCI
     #   you need to contact Oracle about a particular request,
     #   please provide the request ID.
     #
+    # @option opts [Array<String>] :projection This parameter allows users to specify which view of the object to return. CHILD_COUNT_STATISTICS - This option is used to get statistics on immediate children of the object by their type. (default to [])
+    #   Allowed values are: CHILD_COUNT_STATISTICS
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Folder Folder}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_folder.rb.html) to see an example of how to use get_folder API.
     def get_folder(workspace_id, folder_key, opts = {})
@@ -3126,6 +3396,16 @@ module OCI
 
       raise "Missing the required parameter 'workspace_id' when calling get_folder." if workspace_id.nil?
       raise "Missing the required parameter 'folder_key' when calling get_folder." if folder_key.nil?
+
+
+      projection_allowable_values = %w[CHILD_COUNT_STATISTICS]
+      if opts[:projection] && !opts[:projection].empty?
+        opts[:projection].each do |val_to_check|
+          unless projection_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "projection", must be one of CHILD_COUNT_STATISTICS.'
+          end
+        end
+      end
       raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
       raise "Parameter value for 'folder_key' must not be blank" if OCI::Internal::Util.blank_string?(folder_key)
 
@@ -3135,6 +3415,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:projection] = OCI::ApiClient.build_collection_params(opts[:projection], :multi) if opts[:projection] && !opts[:projection].empty?
 
       # Header Params
       header_params = {}
@@ -3242,6 +3523,7 @@ module OCI
     #   you need to contact Oracle about a particular request,
     #   please provide the request ID.
     #
+    # @option opts [String] :expand_references Used to expand references of the object. If value is true, then all referenced objects are expanded. If value is false, then shallow objects are returned in place of references. Default is false. <br><br><B>Example:</B><br> <ul> <li><B>?expandReferences=true</B> returns all objects of type data loader task</li> </ul> (default to false)
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Pipeline Pipeline}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_pipeline.rb.html) to see an example of how to use get_pipeline API.
     def get_pipeline(workspace_id, pipeline_key, opts = {})
@@ -3258,6 +3540,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:expandReferences] = opts[:expand_references] if opts[:expand_references]
 
       # Header Params
       header_params = {}
@@ -3362,6 +3645,8 @@ module OCI
     #   you need to contact Oracle about a particular request,
     #   please provide the request ID.
     #
+    # @option opts [Array<String>] :projection This parameter allows users to specify which view of the object to return. CHILD_COUNT_STATISTICS - This option is used to get statistics on immediate children of the object by their type. (default to [])
+    #   Allowed values are: CHILD_COUNT_STATISTICS
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Project Project}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_project.rb.html) to see an example of how to use get_project API.
     def get_project(workspace_id, project_key, opts = {})
@@ -3369,6 +3654,16 @@ module OCI
 
       raise "Missing the required parameter 'workspace_id' when calling get_project." if workspace_id.nil?
       raise "Missing the required parameter 'project_key' when calling get_project." if project_key.nil?
+
+
+      projection_allowable_values = %w[CHILD_COUNT_STATISTICS]
+      if opts[:projection] && !opts[:projection].empty?
+        opts[:projection].each do |val_to_check|
+          unless projection_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "projection", must be one of CHILD_COUNT_STATISTICS.'
+          end
+        end
+      end
       raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
       raise "Parameter value for 'project_key' must not be blank" if OCI::Internal::Util.blank_string?(project_key)
 
@@ -3378,6 +3673,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:projection] = OCI::ApiClient.build_collection_params(opts[:projection], :multi) if opts[:projection] && !opts[:projection].empty?
 
       # Header Params
       header_params = {}
@@ -3527,6 +3823,69 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataIntegration::Models::Reference'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves schedule by schedule key
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] application_key The application key.
+    # @param [String] schedule_key Schedule Key
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Schedule Schedule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_schedule.rb.html) to see an example of how to use get_schedule API.
+    def get_schedule(workspace_id, application_key, schedule_key, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#get_schedule.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling get_schedule." if workspace_id.nil?
+      raise "Missing the required parameter 'application_key' when calling get_schedule." if application_key.nil?
+      raise "Missing the required parameter 'schedule_key' when calling get_schedule." if schedule_key.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'application_key' must not be blank" if OCI::Internal::Util.blank_string?(application_key)
+      raise "Parameter value for 'schedule_key' must not be blank" if OCI::Internal::Util.blank_string?(schedule_key)
+
+      path = '/workspaces/{workspaceId}/applications/{applicationKey}/schedules/{scheduleKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{applicationKey}', application_key.to_s).sub('{scheduleKey}', schedule_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#get_schedule') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::Schedule'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -3715,6 +4074,69 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataIntegration::Models::TaskRun'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Endpoint used to get taskSchedule by its key
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] application_key The application key.
+    # @param [String] task_schedule_key TaskSchedule Key
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::TaskSchedule TaskSchedule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_task_schedule.rb.html) to see an example of how to use get_task_schedule API.
+    def get_task_schedule(workspace_id, application_key, task_schedule_key, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#get_task_schedule.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling get_task_schedule." if workspace_id.nil?
+      raise "Missing the required parameter 'application_key' when calling get_task_schedule." if application_key.nil?
+      raise "Missing the required parameter 'task_schedule_key' when calling get_task_schedule." if task_schedule_key.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'application_key' must not be blank" if OCI::Internal::Util.blank_string?(application_key)
+      raise "Parameter value for 'task_schedule_key' must not be blank" if OCI::Internal::Util.blank_string?(task_schedule_key)
+
+      path = '/workspaces/{workspaceId}/applications/{applicationKey}/taskSchedules/{taskScheduleKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{applicationKey}', application_key.to_s).sub('{taskScheduleKey}', task_schedule_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#get_task_schedule') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::TaskSchedule'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -5434,6 +5856,93 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Use this endpoint to list schedules.
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] application_key The application key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Array<String>] :key Used to filter by the key of the object. (default to [])
+    # @option opts [String] :name Used to filter by the name of the object.
+    # @option opts [Array<String>] :identifier Used to filter by the identifier of the object. (default to [])
+    # @option opts [Array<String>] :type Used to filter by the object type of the object. It can be suffixed with an optional filter operator InSubtree. If this operator is not specified, then exact match is considered. <br><br><B>Examples:</B><br> <ul> <li><B>?type=DATA_LOADER_TASK&typeInSubtree=false</B> returns all objects of type data loader task</li> <li><B>?type=DATA_LOADER_TASK</B> returns all objects of type data loader task</li> <li><B>?type=DATA_LOADER_TASK&typeInSubtree=true</B> returns all objects of type data loader task</li> </ul> (default to [])
+    # @option opts [String] :page For list pagination. The value for this parameter is the `opc-next-page` or the `opc-prev-page` response header from the previous `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [Integer] :limit Sets the maximum number of results per page, or items to return in a paginated `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine). (default to 100)
+    # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
+    #   Allowed values are: TIME_CREATED, DISPLAY_NAME
+    # @option opts [String] :sort_order Specifies sort order to use, either `ASC` (ascending) or `DESC` (descending). (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::ScheduleSummaryCollection ScheduleSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_schedules.rb.html) to see an example of how to use list_schedules API.
+    def list_schedules(workspace_id, application_key, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#list_schedules.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling list_schedules." if workspace_id.nil?
+      raise "Missing the required parameter 'application_key' when calling list_schedules." if application_key.nil?
+
+      if opts[:sort_by] && !%w[TIME_CREATED DISPLAY_NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIME_CREATED, DISPLAY_NAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'application_key' must not be blank" if OCI::Internal::Util.blank_string?(application_key)
+
+      path = '/workspaces/{workspaceId}/applications/{applicationKey}/schedules'.sub('{workspaceId}', workspace_id.to_s).sub('{applicationKey}', application_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:key] = OCI::ApiClient.build_collection_params(opts[:key], :multi) if opts[:key] && !opts[:key].empty?
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:identifier] = OCI::ApiClient.build_collection_params(opts[:identifier], :multi) if opts[:identifier] && !opts[:identifier].empty?
+      query_params[:type] = OCI::ApiClient.build_collection_params(opts[:type], :multi) if opts[:type] && !opts[:type].empty?
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#list_schedules') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::ScheduleSummaryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Retrieves a list of all the schemas that can be accessed using the specified connection.
     # @param [String] workspace_id The workspace ID.
     # @param [String] connection_key The connection key.
@@ -5612,6 +6121,7 @@ module OCI
     #   you need to contact Oracle about a particular request,
     #   please provide the request ID.
     #
+    # @option opts [Array<String>] :key Used to filter by the key of the object. (default to [])
     # @option opts [String] :aggregator_key Used to filter by the project or the folder object.
     #
     # @option opts [Array<String>] :fields Specifies the fields to get for an object. (default to [])
@@ -5623,6 +6133,7 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
     #   Allowed values are: TIME_CREATED, DISPLAY_NAME
+    # @option opts [Array<String>] :filter This filter parameter can be used to filter by model specific queryable fields of the object <br><br><B>Examples:-</B><br> <ul> <li><B>?filter=status eq Failed</B> returns all objects that have a status field with value Failed</li> </ul> (default to [])
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::TaskRunSummaryCollection TaskRunSummaryCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_task_runs.rb.html) to see an example of how to use list_task_runs API.
     def list_task_runs(workspace_id, application_key, opts = {})
@@ -5647,6 +6158,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:key] = OCI::ApiClient.build_collection_params(opts[:key], :multi) if opts[:key] && !opts[:key].empty?
       query_params[:aggregatorKey] = opts[:aggregator_key] if opts[:aggregator_key]
       query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
       query_params[:name] = opts[:name] if opts[:name]
@@ -5655,6 +6167,7 @@ module OCI
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:filter] = OCI::ApiClient.build_collection_params(opts[:filter], :multi) if opts[:filter] && !opts[:filter].empty?
 
       # Header Params
       header_params = {}
@@ -5676,6 +6189,95 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataIntegration::Models::TaskRunSummaryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # This endpoint can be used to get the list of all the TaskSchedule objects.
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] application_key The application key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Array<String>] :key Used to filter by the key of the object. (default to [])
+    # @option opts [String] :name Used to filter by the name of the object.
+    # @option opts [Array<String>] :identifier Used to filter by the identifier of the object. (default to [])
+    # @option opts [Array<String>] :type Used to filter by the object type of the object. It can be suffixed with an optional filter operator InSubtree. If this operator is not specified, then exact match is considered. <br><br><B>Examples:</B><br> <ul> <li><B>?type=DATA_LOADER_TASK&typeInSubtree=false</B> returns all objects of type data loader task</li> <li><B>?type=DATA_LOADER_TASK</B> returns all objects of type data loader task</li> <li><B>?type=DATA_LOADER_TASK&typeInSubtree=true</B> returns all objects of type data loader task</li> </ul> (default to [])
+    # @option opts [String] :page For list pagination. The value for this parameter is the `opc-next-page` or the `opc-prev-page` response header from the previous `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [Integer] :limit Sets the maximum number of results per page, or items to return in a paginated `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine). (default to 100)
+    # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
+    #   Allowed values are: TIME_CREATED, DISPLAY_NAME
+    # @option opts [String] :sort_order Specifies sort order to use, either `ASC` (ascending) or `DESC` (descending). (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [BOOLEAN] :is_enabled This filter parameter can be used to filter task schedule by its state.
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::TaskScheduleSummaryCollection TaskScheduleSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_task_schedules.rb.html) to see an example of how to use list_task_schedules API.
+    def list_task_schedules(workspace_id, application_key, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#list_task_schedules.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling list_task_schedules." if workspace_id.nil?
+      raise "Missing the required parameter 'application_key' when calling list_task_schedules." if application_key.nil?
+
+      if opts[:sort_by] && !%w[TIME_CREATED DISPLAY_NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIME_CREATED, DISPLAY_NAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'application_key' must not be blank" if OCI::Internal::Util.blank_string?(application_key)
+
+      path = '/workspaces/{workspaceId}/applications/{applicationKey}/taskSchedules'.sub('{workspaceId}', workspace_id.to_s).sub('{applicationKey}', application_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:key] = OCI::ApiClient.build_collection_params(opts[:key], :multi) if opts[:key] && !opts[:key].empty?
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:identifier] = OCI::ApiClient.build_collection_params(opts[:identifier], :multi) if opts[:identifier] && !opts[:identifier].empty?
+      query_params[:type] = OCI::ApiClient.build_collection_params(opts[:type], :multi) if opts[:type] && !opts[:type].empty?
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:isEnabled] = opts[:is_enabled] if !opts[:is_enabled].nil?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#list_task_schedules') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::TaskScheduleSummaryCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -6023,7 +6625,7 @@ module OCI
     #   you need to contact Oracle about a particular request,
     #   please provide the request ID.
     #
-    # @option opts [String] :workspace_id DIS workspace id
+    # @option opts [String] :workspace_id DIS workspace id (default to )
     # @option opts [String] :work_request_status The work request status.
     #   Allowed values are: ACCEPTED, IN_PROGRESS, FAILED, SUCCEEDED, CANCELING, CANCELED
     # @option opts [String] :page For list pagination. The value for this parameter is the `opc-next-page` or the `opc-prev-page` response header from the previous `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
@@ -6931,6 +7533,76 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Endpoint used to update the schedule
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] application_key The application key.
+    # @param [String] schedule_key Schedule Key
+    # @param [OCI::DataIntegration::Models::UpdateScheduleDetails] update_schedule_details Request body parameter for Schedule details
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the `etag` from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the `etag` you provide matches the resource's current `etag` value.
+    #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::Schedule Schedule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_schedule.rb.html) to see an example of how to use update_schedule API.
+    def update_schedule(workspace_id, application_key, schedule_key, update_schedule_details, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#update_schedule.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling update_schedule." if workspace_id.nil?
+      raise "Missing the required parameter 'application_key' when calling update_schedule." if application_key.nil?
+      raise "Missing the required parameter 'schedule_key' when calling update_schedule." if schedule_key.nil?
+      raise "Missing the required parameter 'update_schedule_details' when calling update_schedule." if update_schedule_details.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'application_key' must not be blank" if OCI::Internal::Util.blank_string?(application_key)
+      raise "Parameter value for 'schedule_key' must not be blank" if OCI::Internal::Util.blank_string?(schedule_key)
+
+      path = '/workspaces/{workspaceId}/applications/{applicationKey}/schedules/{scheduleKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{applicationKey}', application_key.to_s).sub('{scheduleKey}', schedule_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_schedule_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#update_schedule') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::Schedule'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates a specific task. For example, you can update the task description or move the task to a different folder by changing the `aggregatorKey` to a different folder in the registry.
     # @param [String] workspace_id The workspace ID.
     # @param [String] task_key The task key.
@@ -7055,6 +7727,76 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataIntegration::Models::TaskRunDetails'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Endpoint used to update the TaskSchedule
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] application_key The application key.
+    # @param [String] task_schedule_key TaskSchedule Key
+    # @param [OCI::DataIntegration::Models::UpdateTaskScheduleDetails] update_task_schedule_details Request body parameter for TaskSchedule details
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the `etag` from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the `etag` you provide matches the resource's current `etag` value.
+    #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::TaskSchedule TaskSchedule}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_task_schedule.rb.html) to see an example of how to use update_task_schedule API.
+    def update_task_schedule(workspace_id, application_key, task_schedule_key, update_task_schedule_details, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#update_task_schedule.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling update_task_schedule." if workspace_id.nil?
+      raise "Missing the required parameter 'application_key' when calling update_task_schedule." if application_key.nil?
+      raise "Missing the required parameter 'task_schedule_key' when calling update_task_schedule." if task_schedule_key.nil?
+      raise "Missing the required parameter 'update_task_schedule_details' when calling update_task_schedule." if update_task_schedule_details.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'application_key' must not be blank" if OCI::Internal::Util.blank_string?(application_key)
+      raise "Parameter value for 'task_schedule_key' must not be blank" if OCI::Internal::Util.blank_string?(task_schedule_key)
+
+      path = '/workspaces/{workspaceId}/applications/{applicationKey}/taskSchedules/{taskScheduleKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{applicationKey}', application_key.to_s).sub('{taskScheduleKey}', task_schedule_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_task_schedule_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#update_task_schedule') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::TaskSchedule'
         )
       end
       # rubocop:enable Metrics/BlockLength

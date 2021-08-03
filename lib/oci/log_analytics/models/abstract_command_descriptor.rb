@@ -52,6 +52,7 @@ module OCI
       NAME_CREATE_VIEW = 'CREATE_VIEW'.freeze,
       NAME_MAP = 'MAP'.freeze,
       NAME_NLP = 'NLP'.freeze,
+      NAME_COMPARE = 'COMPARE'.freeze,
       NAME_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -124,6 +125,7 @@ module OCI
       return 'OCI::LogAnalytics::Models::TopCommandDescriptor' if type == 'TOP'
       return 'OCI::LogAnalytics::Models::HighlightCommandDescriptor' if type == 'HIGHLIGHT'
       return 'OCI::LogAnalytics::Models::MultiSearchCommandDescriptor' if type == 'MULTI_SEARCH'
+      return 'OCI::LogAnalytics::Models::CompareCommandDescriptor' if type == 'COMPARE'
       return 'OCI::LogAnalytics::Models::StatsCommandDescriptor' if type == 'STATS'
       return 'OCI::LogAnalytics::Models::TimeCompareCommandDescriptor' if type == 'TIME_COMPARE'
       return 'OCI::LogAnalytics::Models::TailCommandDescriptor' if type == 'TAIL'

@@ -16,6 +16,8 @@ module OCI
       MODEL_TYPE_ORACLE_ADWC_DATA_ASSET = 'ORACLE_ADWC_DATA_ASSET'.freeze,
       MODEL_TYPE_MYSQL_DATA_ASSET = 'MYSQL_DATA_ASSET'.freeze,
       MODEL_TYPE_GENERIC_JDBC_DATA_ASSET = 'GENERIC_JDBC_DATA_ASSET'.freeze,
+      MODEL_TYPE_FUSION_APP_DATA_ASSET = 'FUSION_APP_DATA_ASSET'.freeze,
+      MODEL_TYPE_AMAZON_S3_DATA_ASSET = 'AMAZON_S3_DATA_ASSET'.freeze,
       MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -122,8 +124,10 @@ module OCI
       return 'OCI::DataIntegration::Models::DataAssetSummaryFromAtp' if type == 'ORACLE_ATP_DATA_ASSET'
       return 'OCI::DataIntegration::Models::DataAssetSummaryFromAdwc' if type == 'ORACLE_ADWC_DATA_ASSET'
       return 'OCI::DataIntegration::Models::DataAssetSummaryFromJdbc' if type == 'GENERIC_JDBC_DATA_ASSET'
+      return 'OCI::DataIntegration::Models::DataAssetSummaryFromAmazonS3' if type == 'AMAZON_S3_DATA_ASSET'
       return 'OCI::DataIntegration::Models::DataAssetSummaryFromObjectStorage' if type == 'ORACLE_OBJECT_STORAGE_DATA_ASSET'
       return 'OCI::DataIntegration::Models::DataAssetSummaryFromOracle' if type == 'ORACLE_DATA_ASSET'
+      return 'OCI::DataIntegration::Models::DataAssetSummaryFromFusionApp' if type == 'FUSION_APP_DATA_ASSET'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::DataIntegration::Models::DataAssetSummary'

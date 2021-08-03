@@ -13,6 +13,7 @@ module OCI
       MODEL_TYPE_VIEW_ENTITY = 'VIEW_ENTITY'.freeze,
       MODEL_TYPE_TABLE_ENTITY = 'TABLE_ENTITY'.freeze,
       MODEL_TYPE_FILE_ENTITY = 'FILE_ENTITY'.freeze,
+      MODEL_TYPE_DATA_STORE_ENTITY = 'DATA_STORE_ENTITY'.freeze,
       MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -53,6 +54,7 @@ module OCI
 
       return 'OCI::DataIntegration::Models::DataEntitySummaryFromFile' if type == 'FILE_ENTITY'
       return 'OCI::DataIntegration::Models::DataEntitySummaryFromTable' if type == 'TABLE_ENTITY'
+      return 'OCI::DataIntegration::Models::DataEntitySummaryFromDataStore' if type == 'DATA_STORE_ENTITY'
       return 'OCI::DataIntegration::Models::DataEntitySummaryFromView' if type == 'VIEW_ENTITY'
 
       # TODO: Log a warning when the subtype is not found.

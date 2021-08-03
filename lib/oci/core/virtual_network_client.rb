@@ -11075,12 +11075,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the network security groups in the specified compartment.
+    # Lists either the network security groups in the specified compartment, or those associated with the specified VLAN.
+    # You must specify either a `vlanId` or a `compartmentId`, but not both. If you specify a `vlanId`, all other parameters are ignored.
     #
-    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @option opts [String] :vlan_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VLAN.
     # @option opts [String] :vcn_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN.
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
     #   \"List\" call. For important details about how pagination works, see
@@ -11113,10 +11115,9 @@ module OCI
     #
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::NetworkSecurityGroup NetworkSecurityGroup}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_network_security_groups.rb.html) to see an example of how to use list_network_security_groups API.
-    def list_network_security_groups(compartment_id, opts = {})
+    def list_network_security_groups(opts = {})
       logger.debug 'Calling operation VirtualNetworkClient#list_network_security_groups.' if logger
 
-      raise "Missing the required parameter 'compartment_id' when calling list_network_security_groups." if compartment_id.nil?
 
       if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
         raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
@@ -11136,7 +11137,8 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
-      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:vlanId] = opts[:vlan_id] if opts[:vlan_id]
       query_params[:vcnId] = opts[:vcn_id] if opts[:vcn_id]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]

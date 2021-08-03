@@ -98,7 +98,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a secret bundle that matches either the specified `stage`, `label`, or `versionNumber` parameter.
+    # Gets a secret bundle that matches either the specified `stage`, `secretVersionName`, or `versionNumber` parameter.
     # If none of these parameters are provided, the bundle for the secret version marked as `CURRENT` will be returned.
     #
     # @param [String] secret_id The OCID of the secret.
@@ -145,6 +145,76 @@ module OCI
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'SecretsClient#get_secret_bundle') do
         @api_client.call_api(
           :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Secrets::Models::SecretBundle'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a secret bundle by secret name and vault ID, and secret version that matches either the specified `stage`, `secretVersionName`, or `versionNumber` parameter.
+    # If none of these parameters are provided, the bundle for the secret version marked as `CURRENT` is returned.
+    #
+    # @param [String] secret_name A user-friendly name for the secret. Secret names are unique within a vault. Secret names are case-sensitive.
+    # @param [String] vault_id The OCID of the vault that contains the secret.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [Integer] :version_number The version number of the secret. (default to 0)
+    # @option opts [String] :secret_version_name The name of the secret. (This might be referred to as the name of the secret version. Names are unique across the different versions of a secret.)
+    # @option opts [String] :stage The rotation state of the secret version.
+    #   Allowed values are: CURRENT, PENDING, LATEST, PREVIOUS, DEPRECATED
+    # @return [Response] A Response object with data of type {OCI::Secrets::Models::SecretBundle SecretBundle}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/secrets/get_secret_bundle_by_name.rb.html) to see an example of how to use get_secret_bundle_by_name API.
+    def get_secret_bundle_by_name(secret_name, vault_id, opts = {})
+      logger.debug 'Calling operation SecretsClient#get_secret_bundle_by_name.' if logger
+
+      raise "Missing the required parameter 'secret_name' when calling get_secret_bundle_by_name." if secret_name.nil?
+      raise "Missing the required parameter 'vault_id' when calling get_secret_bundle_by_name." if vault_id.nil?
+
+      if opts[:stage] && !%w[CURRENT PENDING LATEST PREVIOUS DEPRECATED].include?(opts[:stage])
+        raise 'Invalid value for "stage", must be one of CURRENT, PENDING, LATEST, PREVIOUS, DEPRECATED.'
+      end
+
+      path = '/secretbundles/actions/getByName'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:secretName] = secret_name
+      query_params[:vaultId] = vault_id
+      query_params[:versionNumber] = opts[:version_number] if opts[:version_number]
+      query_params[:secretVersionName] = opts[:secret_version_name] if opts[:secret_version_name]
+      query_params[:stage] = opts[:stage] if opts[:stage]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'SecretsClient#get_secret_bundle_by_name') do
+        @api_client.call_api(
+          :POST,
           path,
           endpoint,
           header_params: header_params,

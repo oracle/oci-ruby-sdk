@@ -98,6 +98,82 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a DB System Backup into a different compartment.
+    # When provided, If-Match is checked against ETag values of the Backup.
+    #
+    # @param [String] backup_id The OCID of the Backup
+    # @param [OCI::Mysql::Models::ChangeBackupCompartmentDetails] change_backup_compartment_details Target compartment for a DB System Backup.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a
+    #   resource, set the `If-Match` header to the value of the etag from a
+    #   previous GET or POST response for that resource. The resource will be
+    #   updated or deleted only if the etag you provide matches the resource's
+    #   current etag value.
+    #
+    # @option opts [String] :opc_request_id Customer-defined unique identifier for the request. If you need to
+    #   contact Oracle about a specific request, please provide the request
+    #   ID that you supplied in this header with the request.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case
+    #   of a timeout or server error without risk of executing that same action
+    #   again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been
+    #   deleted and purged from the system, then a retry of the original
+    #   creation request may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/change_backup_compartment.rb.html) to see an example of how to use change_backup_compartment API.
+    def change_backup_compartment(backup_id, change_backup_compartment_details, opts = {})
+      logger.debug 'Calling operation DbBackupsClient#change_backup_compartment.' if logger
+
+      raise "Missing the required parameter 'backup_id' when calling change_backup_compartment." if backup_id.nil?
+      raise "Missing the required parameter 'change_backup_compartment_details' when calling change_backup_compartment." if change_backup_compartment_details.nil?
+      raise "Parameter value for 'backup_id' must not be blank" if OCI::Internal::Util.blank_string?(backup_id)
+
+      path = '/backups/{backupId}/actions/changeCompartment'.sub('{backupId}', backup_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_backup_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbBackupsClient#change_backup_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Create a backup of a DB System.
     #
     # @param [OCI::Mysql::Models::CreateBackupDetails] create_backup_details Create a Backup of a DB System.
