@@ -1,12 +1,19 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A load balancer IP address.
   class NetworkLoadBalancer::Models::IpAddress
+    IP_VERSION_ENUM = [
+      IP_VERSION_IPV4 = 'IPV4'.freeze,
+      IP_VERSION_IPV6 = 'IPV6'.freeze,
+      IP_VERSION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** An IP address.
     #
     # Example: `192.168.0.3`
@@ -23,6 +30,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_public
 
+    # IP version associated with this IP address.
+    # @return [String]
+    attr_reader :ip_version
+
     # @return [OCI::NetworkLoadBalancer::Models::ReservedIP]
     attr_accessor :reserved_ip
 
@@ -32,6 +43,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'ip_address': :'ipAddress',
         'is_public': :'isPublic',
+        'ip_version': :'ipVersion',
         'reserved_ip': :'reservedIp'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -43,6 +55,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'ip_address': :'String',
         'is_public': :'BOOLEAN',
+        'ip_version': :'String',
         'reserved_ip': :'OCI::NetworkLoadBalancer::Models::ReservedIP'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -56,6 +69,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :ip_address The value to assign to the {#ip_address} property
     # @option attributes [BOOLEAN] :is_public The value to assign to the {#is_public} property
+    # @option attributes [String] :ip_version The value to assign to the {#ip_version} property
     # @option attributes [OCI::NetworkLoadBalancer::Models::ReservedIP] :reserved_ip The value to assign to the {#reserved_ip} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -75,6 +89,14 @@ module OCI
 
       self.is_public = attributes[:'is_public'] unless attributes[:'is_public'].nil?
 
+      self.ip_version = attributes[:'ipVersion'] if attributes[:'ipVersion']
+      self.ip_version = "IPV4" if ip_version.nil? && !attributes.key?(:'ipVersion') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :ipVersion and :ip_version' if attributes.key?(:'ipVersion') && attributes.key?(:'ip_version')
+
+      self.ip_version = attributes[:'ip_version'] if attributes[:'ip_version']
+      self.ip_version = "IPV4" if ip_version.nil? && !attributes.key?(:'ipVersion') && !attributes.key?(:'ip_version') # rubocop:disable Style/StringLiterals
+
       self.reserved_ip = attributes[:'reservedIp'] if attributes[:'reservedIp']
 
       raise 'You cannot provide both :reservedIp and :reserved_ip' if attributes.key?(:'reservedIp') && attributes.key?(:'reserved_ip')
@@ -83,6 +105,19 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] ip_version Object to be assigned
+    def ip_version=(ip_version)
+      # rubocop:disable Style/ConditionalAssignment
+      if ip_version && !IP_VERSION_ENUM.include?(ip_version)
+        OCI.logger.debug("Unknown value for 'ip_version' [" + ip_version + "]. Mapping to 'IP_VERSION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @ip_version = IP_VERSION_UNKNOWN_ENUM_VALUE
+      else
+        @ip_version = ip_version
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -95,6 +130,7 @@ module OCI
       self.class == other.class &&
         ip_address == other.ip_address &&
         is_public == other.is_public &&
+        ip_version == other.ip_version &&
         reserved_ip == other.reserved_ip
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -111,7 +147,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [ip_address, is_public, reserved_ip].hash
+      [ip_address, is_public, ip_version, reserved_ip].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

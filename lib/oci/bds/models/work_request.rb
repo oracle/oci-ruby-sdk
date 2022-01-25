@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -22,6 +22,14 @@ module OCI
       OPERATION_TYPE_RESTART_NODE = 'RESTART_NODE'.freeze,
       OPERATION_TYPE_AUTOSCALE_CONFIG = 'AUTOSCALE_CONFIG'.freeze,
       OPERATION_TYPE_AUTOSCALE_RUN = 'AUTOSCALE_RUN'.freeze,
+      OPERATION_TYPE_CREATE_API_KEY = 'CREATE_API_KEY'.freeze,
+      OPERATION_TYPE_DELETE_API_KEY = 'DELETE_API_KEY'.freeze,
+      OPERATION_TYPE_TEST_OBJECT_STORE_CONNECTION = 'TEST_OBJECT_STORE_CONNECTION'.freeze,
+      OPERATION_TYPE_CREATE_METASTORE_CONFIG = 'CREATE_METASTORE_CONFIG'.freeze,
+      OPERATION_TYPE_DELETE_METASTORE_CONFIG = 'DELETE_METASTORE_CONFIG'.freeze,
+      OPERATION_TYPE_UPDATE_METASTORE_CONFIG = 'UPDATE_METASTORE_CONFIG'.freeze,
+      OPERATION_TYPE_ACTIVATE_METASTORE_CONFIG = 'ACTIVATE_METASTORE_CONFIG'.freeze,
+      OPERATION_TYPE_TEST_METASTORE_CONFIG = 'TEST_METASTORE_CONFIG'.freeze,
       OPERATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 

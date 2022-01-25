@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of the network load balancer API
+  # This describes the network load balancer API.
   class NetworkLoadBalancer::NetworkLoadBalancerClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -464,7 +464,10 @@ module OCI
     #
     #   Example: `example_backend_set`
     #
-    # @param [String] backend_name The name of the backend server to remove. This is specified as <ip>:<port>, or as <ip> <OCID>:<port>.
+    # @param [String] backend_name The name of the backend server to remove.
+    #   If the backend was created with an explicitly specified name, that name should be used here.
+    #   If the backend was created without explicitly specifying the name, but was created using ipAddress, this is specified as <ipAddress>:<port>.
+    #   If the backend was created without explicitly specifying the name, but was created using targetId, this is specified as <targetId>:<port>.
     #
     #   Example: `10.0.0.3:8080` or `ocid1.privateip..oc1.<var>&lt;unique_ID&gt;</var>:8080`
     #
@@ -739,7 +742,10 @@ module OCI
     #
     #   Example: `example_backend_set`
     #
-    # @param [String] backend_name The name of the backend server to retrieve. This is specified as <ip>:<port>, or as <ip> <OCID>:<port>.
+    # @param [String] backend_name The name of the backend server to retrieve.
+    #   If the backend was created with an explicitly specified name, that name should be used here.
+    #   If the backend was created without explicitly specifying the name, but was created using ipAddress, this is specified as <ipAddress>:<port>.
+    #   If the backend was created without explicitly specifying the name, but was created using targetId, this is specified as <targetId>:<port>.
     #
     #   Example: `10.0.0.3:8080` or `ocid1.privateip..oc1.<var>&lt;unique_ID&gt;</var>:8080`
     #
@@ -814,7 +820,10 @@ module OCI
     #
     #   Example: `example_backend_set`
     #
-    # @param [String] backend_name The name of the backend server for which to retrieve the health status, specified as <ip>:<port> or as <ip> <OCID>:<port>.
+    # @param [String] backend_name The name of the backend server to retrieve health status for.
+    #   If the backend was created with an explicitly specified name, that name should be used here.
+    #   If the backend was created without explicitly specifying the name, but was created using ipAddress, this is specified as <ipAddress>:<port>.
+    #   If the backend was created without explicitly specifying the name, but was created using targetId, this is specified as <targetId>:<port>.
     #
     #   Example: `10.0.0.3:8080` or `ocid1.privateip..oc1.<var>&lt;unique_ID&gt;</var>:8080`
     #
@@ -1350,6 +1359,10 @@ module OCI
     #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_order The sort order to use, either 'asc' (ascending) or 'desc' (descending). (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order can be provided. The default order for timeCreated is descending.
+    #   The default order for displayName is ascending. If no value is specified, then timeCreated is the default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
     # @return [Response] A Response object with data of type {OCI::NetworkLoadBalancer::Models::BackendSetCollection BackendSetCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/networkloadbalancer/list_backend_sets.rb.html) to see an example of how to use list_backend_sets API.
     def list_backend_sets(network_load_balancer_id, opts = {})
@@ -1359,6 +1372,10 @@ module OCI
 
       if opts[:sort_order] && !OCI::NetworkLoadBalancer::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of the values in OCI::NetworkLoadBalancer::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
       end
       raise "Parameter value for 'network_load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(network_load_balancer_id)
 
@@ -1371,6 +1388,7 @@ module OCI
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
 
       # Header Params
       header_params = {}
@@ -1432,6 +1450,10 @@ module OCI
     #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_order The sort order to use, either 'asc' (ascending) or 'desc' (descending). (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order can be provided. The default order for timeCreated is descending.
+    #   The default order for displayName is ascending. If no value is specified, then timeCreated is the default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
     # @return [Response] A Response object with data of type {OCI::NetworkLoadBalancer::Models::BackendCollection BackendCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/networkloadbalancer/list_backends.rb.html) to see an example of how to use list_backends API.
     def list_backends(network_load_balancer_id, backend_set_name, opts = {})
@@ -1442,6 +1464,10 @@ module OCI
 
       if opts[:sort_order] && !OCI::NetworkLoadBalancer::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of the values in OCI::NetworkLoadBalancer::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
       end
       raise "Parameter value for 'network_load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(network_load_balancer_id)
       raise "Parameter value for 'backend_set_name' must not be blank" if OCI::Internal::Util.blank_string?(backend_set_name)
@@ -1455,6 +1481,7 @@ module OCI
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
 
       # Header Params
       header_params = {}
@@ -1512,6 +1539,10 @@ module OCI
     #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_order The sort order to use, either 'asc' (ascending) or 'desc' (descending). (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order can be provided. The default order for timeCreated is descending.
+    #   The default order for displayName is ascending. If no value is specified, then timeCreated is the default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
     # @return [Response] A Response object with data of type {OCI::NetworkLoadBalancer::Models::ListenerCollection ListenerCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/networkloadbalancer/list_listeners.rb.html) to see an example of how to use list_listeners API.
     def list_listeners(network_load_balancer_id, opts = {})
@@ -1521,6 +1552,10 @@ module OCI
 
       if opts[:sort_order] && !OCI::NetworkLoadBalancer::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of the values in OCI::NetworkLoadBalancer::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
       end
       raise "Parameter value for 'network_load_balancer_id' must not be blank" if OCI::Internal::Util.blank_string?(network_load_balancer_id)
 
@@ -1533,6 +1568,7 @@ module OCI
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
 
       # Header Params
       header_params = {}
@@ -1754,6 +1790,10 @@ module OCI
     #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_order The sort order to use, either 'asc' (ascending) or 'desc' (descending). (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order can be provided. The default order for timeCreated is descending.
+    #   The default order for displayName is ascending. If no value is specified, then timeCreated is the default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
     # @return [Response] A Response object with data of type {OCI::NetworkLoadBalancer::Models::NetworkLoadBalancersPolicyCollection NetworkLoadBalancersPolicyCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/networkloadbalancer/list_network_load_balancers_policies.rb.html) to see an example of how to use list_network_load_balancers_policies API.
     def list_network_load_balancers_policies(opts = {})
@@ -1762,6 +1802,10 @@ module OCI
 
       if opts[:sort_order] && !OCI::NetworkLoadBalancer::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of the values in OCI::NetworkLoadBalancer::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
       end
 
       path = '/networkLoadBalancersPolicies'
@@ -1773,6 +1817,7 @@ module OCI
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
 
       # Header Params
       header_params = {}
@@ -1807,7 +1852,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # This API has been deprecated so it won't return the updated list of supported protocls.
     # Lists all supported traffic protocols.
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1822,6 +1869,10 @@ module OCI
     #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [String] :sort_order The sort order to use, either 'asc' (ascending) or 'desc' (descending). (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order can be provided. The default order for timeCreated is descending.
+    #   The default order for displayName is ascending. If no value is specified, then timeCreated is the default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
     # @return [Response] A Response object with data of type {OCI::NetworkLoadBalancer::Models::NetworkLoadBalancersProtocolCollection NetworkLoadBalancersProtocolCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/networkloadbalancer/list_network_load_balancers_protocols.rb.html) to see an example of how to use list_network_load_balancers_protocols API.
     def list_network_load_balancers_protocols(opts = {})
@@ -1830,6 +1881,10 @@ module OCI
 
       if opts[:sort_order] && !OCI::NetworkLoadBalancer::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of the values in OCI::NetworkLoadBalancer::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
       end
 
       path = '/networkLoadBalancersProtocols'
@@ -1841,6 +1896,7 @@ module OCI
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
 
       # Header Params
       header_params = {}
@@ -2088,7 +2144,10 @@ module OCI
     #
     #   Example: `example_backend_set`
     #
-    # @param [String] backend_name The name of the backend server to update. This is specified as <ip>:<port>, or as <ip> <OCID>:<port>.
+    # @param [String] backend_name The name of the backend server to update.
+    #   If the backend was created with an explicitly specified name, that name should be used here.
+    #   If the backend was created without explicitly specifying the name, but was created using ipAddress, this is specified as <ipAddress>:<port>.
+    #   If the backend was created without explicitly specifying the name, but was created using targetId, this is specified as <targetId>:<port>.
     #
     #   Example: `10.0.0.3:8080` or `ocid1.privateip..oc1.<var>&lt;unique_ID&gt;</var>:8080`
     #
@@ -2399,7 +2458,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the network load balancer.
+    # Updates the network load balancer
     # @param [String] network_load_balancer_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network load balancer to update.
     # @param [OCI::NetworkLoadBalancer::Models::UpdateNetworkLoadBalancerDetails] update_network_load_balancer_details The information to be updated.
     # @param [Hash] opts the optional parameters

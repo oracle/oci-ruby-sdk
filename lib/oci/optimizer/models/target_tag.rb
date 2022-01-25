@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,7 +6,9 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A target tag with tag namespace, tag definition, tag value type, and tag values attached to the current profile override.
+  # A tag key definition used in the current profile override, including the tag namespace, tag key, tag value type, and tag values.
+  # Only defined tags are supported.
+  # For more information about tagging, see [Tagging Overview](https://docs.cloud.oracle.com/iaas/Content/Tagging/Concepts/taggingoverview.htm)
   #
   class Optimizer::Models::TargetTag
     TAG_VALUE_TYPE_ENUM = [
@@ -19,15 +21,22 @@ module OCI
     # @return [String]
     attr_accessor :tag_namespace_name
 
-    # **[Required]** The name of the tag definition.
+    # **[Required]** The name you use to refer to the tag, also known as the tag key.
     # @return [String]
     attr_accessor :tag_definition_name
 
-    # **[Required]** The tag value type.
+    # **[Required]** Specifies which tag value types in the `tagValues` field result in overrides of the recommendation criteria.
+    #
+    # When the value for this field is `ANY`, the `tagValues` field should be empty, which enforces overrides to the recommendation
+    # for resources with any tag values attached to them.
+    #
+    # When the value for this field value is `VALUE`, the `tagValues` field must include a specific value or list of values.
+    # Overrides to the recommendation criteria only occur for resources that match the values in the `tagValues` fields.
+    #
     # @return [String]
     attr_reader :tag_value_type
 
-    # The list of tag values.
+    # The list of tag values. The tag value is the value that the user applying the tag adds to the tag key.
     # @return [Array<String>]
     attr_accessor :tag_values
 

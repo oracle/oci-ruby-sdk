@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -22,6 +22,7 @@ require 'oci/optimizer/models/create_profile_details'
 require 'oci/optimizer/models/enrollment_status'
 require 'oci/optimizer/models/enrollment_status_collection'
 require 'oci/optimizer/models/enrollment_status_summary'
+require 'oci/optimizer/models/evaluated_metric'
 require 'oci/optimizer/models/history_collection'
 require 'oci/optimizer/models/history_summary'
 require 'oci/optimizer/models/importance'
@@ -33,7 +34,12 @@ require 'oci/optimizer/models/operation_type'
 require 'oci/optimizer/models/optimizer_enrollment_status'
 require 'oci/optimizer/models/profile'
 require 'oci/optimizer/models/profile_collection'
+require 'oci/optimizer/models/profile_level_collection'
+require 'oci/optimizer/models/profile_level_summary'
 require 'oci/optimizer/models/profile_summary'
+require 'oci/optimizer/models/query_details'
+require 'oci/optimizer/models/queryable_field_collection'
+require 'oci/optimizer/models/queryable_field_summary'
 require 'oci/optimizer/models/recommendation'
 require 'oci/optimizer/models/recommendation_collection'
 require 'oci/optimizer/models/recommendation_count'
@@ -67,6 +73,7 @@ require 'oci/optimizer/models/work_request_error_collection'
 require 'oci/optimizer/models/work_request_log_entry'
 require 'oci/optimizer/models/work_request_log_entry_collection'
 require 'oci/optimizer/models/work_request_resource'
+require 'oci/optimizer/models/work_request_resource_metadata_key'
 
 # Require generated clients
 require 'oci/optimizer/optimizer_client'

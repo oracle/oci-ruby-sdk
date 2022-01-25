@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,10 +7,6 @@ require 'date'
 module OCI
   # Details required to update console-managed properties of the Management Agent.
   class ManagementAgent::Models::UpdateManagementAgentDetails
-    # true if the agent can be upgraded automatically; false if it must be upgraded manually. true is currently unsupported.
-    # @return [BOOLEAN]
-    attr_accessor :is_agent_auto_upgradable
-
     # New displayName of Agent.
     # @return [String]
     attr_accessor :display_name
@@ -31,7 +27,6 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'is_agent_auto_upgradable': :'isAgentAutoUpgradable',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
@@ -43,7 +38,6 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'is_agent_auto_upgradable': :'BOOLEAN',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
@@ -57,7 +51,6 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [BOOLEAN] :is_agent_auto_upgradable The value to assign to the {#is_agent_auto_upgradable} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -66,12 +59,6 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
-
-      self.is_agent_auto_upgradable = attributes[:'isAgentAutoUpgradable'] unless attributes[:'isAgentAutoUpgradable'].nil?
-
-      raise 'You cannot provide both :isAgentAutoUpgradable and :is_agent_auto_upgradable' if attributes.key?(:'isAgentAutoUpgradable') && attributes.key?(:'is_agent_auto_upgradable')
-
-      self.is_agent_auto_upgradable = attributes[:'is_agent_auto_upgradable'] unless attributes[:'is_agent_auto_upgradable'].nil?
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -103,7 +90,6 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        is_agent_auto_upgradable == other.is_agent_auto_upgradable &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
@@ -122,7 +108,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_agent_auto_upgradable, display_name, freeform_tags, defined_tags].hash
+      [display_name, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

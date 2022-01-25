@@ -1,7 +1,8 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -20,7 +21,8 @@ module OCI
       MODEL_TYPE_OUTPUT_PORT = 'OUTPUT_PORT'.freeze,
       MODEL_TYPE_DYNAMIC_INPUT_FIELD = 'DYNAMIC_INPUT_FIELD'.freeze,
       MODEL_TYPE_PROXY_FIELD = 'PROXY_FIELD'.freeze,
-      MODEL_TYPE_PARAMETER = 'PARAMETER'.freeze
+      MODEL_TYPE_PARAMETER = 'PARAMETER'.freeze,
+      MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The type of the types object.
@@ -175,9 +177,14 @@ module OCI
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] model_type Object to be assigned
     def model_type=(model_type)
-      raise "Invalid value for 'model_type': this must be one of the values in MODEL_TYPE_ENUM." if model_type && !MODEL_TYPE_ENUM.include?(model_type)
-
-      @model_type = model_type
+      # rubocop:disable Style/ConditionalAssignment
+      if model_type && !MODEL_TYPE_ENUM.include?(model_type)
+        OCI.logger.debug("Unknown value for 'model_type' [" + model_type + "]. Mapping to 'MODEL_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @model_type = MODEL_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @model_type = model_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines

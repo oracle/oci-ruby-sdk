@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -19,7 +19,11 @@ module OCI
     # @return [String]
     attr_accessor :expression
 
-    # Collection of logical entities derived from the expression applied to a list of file paths.
+    # The prefix used in the pattern validation.
+    # @return [String]
+    attr_accessor :file_path_prefix
+
+    # Collection of logical entities derived from the pattern, as applied to a list of file paths.
     # @return [Array<OCI::DataCatalog::Models::DerivedLogicalEntities>]
     attr_accessor :derived_logical_entities
 
@@ -30,6 +34,7 @@ module OCI
         'message': :'message',
         'status': :'status',
         'expression': :'expression',
+        'file_path_prefix': :'filePathPrefix',
         'derived_logical_entities': :'derivedLogicalEntities'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -42,6 +47,7 @@ module OCI
         'message': :'String',
         'status': :'String',
         'expression': :'String',
+        'file_path_prefix': :'String',
         'derived_logical_entities': :'Array<OCI::DataCatalog::Models::DerivedLogicalEntities>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -56,6 +62,7 @@ module OCI
     # @option attributes [String] :message The value to assign to the {#message} property
     # @option attributes [String] :status The value to assign to the {#status} property
     # @option attributes [String] :expression The value to assign to the {#expression} property
+    # @option attributes [String] :file_path_prefix The value to assign to the {#file_path_prefix} property
     # @option attributes [Array<OCI::DataCatalog::Models::DerivedLogicalEntities>] :derived_logical_entities The value to assign to the {#derived_logical_entities} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -68,6 +75,12 @@ module OCI
       self.status = attributes[:'status'] if attributes[:'status']
 
       self.expression = attributes[:'expression'] if attributes[:'expression']
+
+      self.file_path_prefix = attributes[:'filePathPrefix'] if attributes[:'filePathPrefix']
+
+      raise 'You cannot provide both :filePathPrefix and :file_path_prefix' if attributes.key?(:'filePathPrefix') && attributes.key?(:'file_path_prefix')
+
+      self.file_path_prefix = attributes[:'file_path_prefix'] if attributes[:'file_path_prefix']
 
       self.derived_logical_entities = attributes[:'derivedLogicalEntities'] if attributes[:'derivedLogicalEntities']
 
@@ -90,6 +103,7 @@ module OCI
         message == other.message &&
         status == other.status &&
         expression == other.expression &&
+        file_path_prefix == other.file_path_prefix &&
         derived_logical_entities == other.derived_logical_entities
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -106,7 +120,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [message, status, expression, derived_logical_entities].hash
+      [message, status, expression, file_path_prefix, derived_logical_entities].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # CreateCrossConnectGroupDetails model.
   class Core::Models::CreateCrossConnectGroupDetails
-    # **[Required]** The OCID of the compartment to contain the cross-connect group.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment to contain the cross-connect group.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -39,6 +39,9 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # @return [OCI::Core::Models::CreateMacsecProperties]
+    attr_accessor :macsec_properties
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -47,7 +50,8 @@ module OCI
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'customer_reference_name': :'customerReferenceName',
-        'freeform_tags': :'freeformTags'
+        'freeform_tags': :'freeformTags',
+        'macsec_properties': :'macsecProperties'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -60,7 +64,8 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'customer_reference_name': :'String',
-        'freeform_tags': :'Hash<String, String>'
+        'freeform_tags': :'Hash<String, String>',
+        'macsec_properties': :'OCI::Core::Models::CreateMacsecProperties'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -76,6 +81,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :customer_reference_name The value to assign to the {#customer_reference_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [OCI::Core::Models::CreateMacsecProperties] :macsec_properties The value to assign to the {#macsec_properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -111,6 +117,12 @@ module OCI
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.macsec_properties = attributes[:'macsecProperties'] if attributes[:'macsecProperties']
+
+      raise 'You cannot provide both :macsecProperties and :macsec_properties' if attributes.key?(:'macsecProperties') && attributes.key?(:'macsec_properties')
+
+      self.macsec_properties = attributes[:'macsec_properties'] if attributes[:'macsec_properties']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -128,7 +140,8 @@ module OCI
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         customer_reference_name == other.customer_reference_name &&
-        freeform_tags == other.freeform_tags
+        freeform_tags == other.freeform_tags &&
+        macsec_properties == other.macsec_properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -144,7 +157,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, customer_reference_name, freeform_tags].hash
+      [compartment_id, defined_tags, display_name, customer_reference_name, freeform_tags, macsec_properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

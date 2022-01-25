@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -18,6 +18,10 @@ module OCI
     # @return [Integer]
     attr_accessor :cpu_core_count
 
+    # The number of OCPU cores to enable for the VM cluster. Only 1 decimal place is allowed for the fractional part.
+    # @return [Float]
+    attr_accessor :ocpu_count
+
     # The memory to be allocated in GBs.
     # @return [Integer]
     attr_accessor :memory_size_in_gbs
@@ -29,6 +33,10 @@ module OCI
     # The data disk group size to be allocated in TBs.
     # @return [Float]
     attr_accessor :data_storage_size_in_tbs
+
+    # The data disk group size to be allocated in GBs.
+    # @return [Float]
+    attr_accessor :data_storage_size_in_gbs
 
     # The Oracle license model that applies to the VM cluster. The default is BRING_YOUR_OWN_LICENSE.
     #
@@ -64,9 +72,11 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'cpu_core_count': :'cpuCoreCount',
+        'ocpu_count': :'ocpuCount',
         'memory_size_in_gbs': :'memorySizeInGBs',
         'db_node_storage_size_in_gbs': :'dbNodeStorageSizeInGBs',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
+        'data_storage_size_in_gbs': :'dataStorageSizeInGBs',
         'license_model': :'licenseModel',
         'ssh_public_keys': :'sshPublicKeys',
         'version': :'version',
@@ -82,9 +92,11 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'cpu_core_count': :'Integer',
+        'ocpu_count': :'Float',
         'memory_size_in_gbs': :'Integer',
         'db_node_storage_size_in_gbs': :'Integer',
         'data_storage_size_in_tbs': :'Float',
+        'data_storage_size_in_gbs': :'Float',
         'license_model': :'String',
         'ssh_public_keys': :'Array<String>',
         'version': :'OCI::Database::Models::PatchDetails',
@@ -102,9 +114,11 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
+    # @option attributes [Float] :ocpu_count The value to assign to the {#ocpu_count} property
     # @option attributes [Integer] :memory_size_in_gbs The value to assign to the {#memory_size_in_gbs} property
     # @option attributes [Integer] :db_node_storage_size_in_gbs The value to assign to the {#db_node_storage_size_in_gbs} property
     # @option attributes [Float] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
+    # @option attributes [Float] :data_storage_size_in_gbs The value to assign to the {#data_storage_size_in_gbs} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
     # @option attributes [OCI::Database::Models::PatchDetails] :version The value to assign to the {#version} property
@@ -123,6 +137,12 @@ module OCI
 
       self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
 
+      self.ocpu_count = attributes[:'ocpuCount'] if attributes[:'ocpuCount']
+
+      raise 'You cannot provide both :ocpuCount and :ocpu_count' if attributes.key?(:'ocpuCount') && attributes.key?(:'ocpu_count')
+
+      self.ocpu_count = attributes[:'ocpu_count'] if attributes[:'ocpu_count']
+
       self.memory_size_in_gbs = attributes[:'memorySizeInGBs'] if attributes[:'memorySizeInGBs']
 
       raise 'You cannot provide both :memorySizeInGBs and :memory_size_in_gbs' if attributes.key?(:'memorySizeInGBs') && attributes.key?(:'memory_size_in_gbs')
@@ -140,6 +160,12 @@ module OCI
       raise 'You cannot provide both :dataStorageSizeInTBs and :data_storage_size_in_tbs' if attributes.key?(:'dataStorageSizeInTBs') && attributes.key?(:'data_storage_size_in_tbs')
 
       self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
+
+      self.data_storage_size_in_gbs = attributes[:'dataStorageSizeInGBs'] if attributes[:'dataStorageSizeInGBs']
+
+      raise 'You cannot provide both :dataStorageSizeInGBs and :data_storage_size_in_gbs' if attributes.key?(:'dataStorageSizeInGBs') && attributes.key?(:'data_storage_size_in_gbs')
+
+      self.data_storage_size_in_gbs = attributes[:'data_storage_size_in_gbs'] if attributes[:'data_storage_size_in_gbs']
 
       self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
 
@@ -194,9 +220,11 @@ module OCI
 
       self.class == other.class &&
         cpu_core_count == other.cpu_core_count &&
+        ocpu_count == other.ocpu_count &&
         memory_size_in_gbs == other.memory_size_in_gbs &&
         db_node_storage_size_in_gbs == other.db_node_storage_size_in_gbs &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
+        data_storage_size_in_gbs == other.data_storage_size_in_gbs &&
         license_model == other.license_model &&
         ssh_public_keys == other.ssh_public_keys &&
         version == other.version &&
@@ -218,7 +246,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, license_model, ssh_public_keys, version, update_details, freeform_tags, defined_tags].hash
+      [cpu_core_count, ocpu_count, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, data_storage_size_in_gbs, license_model, ssh_public_keys, version, update_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

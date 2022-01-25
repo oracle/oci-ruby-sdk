@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -73,6 +73,20 @@ module OCI
     # @return [String]
     attr_accessor :creation_type
 
+    # True if active Data Guard is enabled.
+    # @return [BOOLEAN]
+    attr_accessor :is_active_data_guard_enabled
+
+    # Specifies the `DB_UNIQUE_NAME` of the peer database to be created.
+    #
+    # @return [String]
+    attr_accessor :peer_db_unique_name
+
+    # Specifies a prefix for the `Oracle SID` of the database to be created.
+    #
+    # @return [String]
+    attr_accessor :peer_sid_prefix
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -81,7 +95,10 @@ module OCI
         'database_admin_password': :'databaseAdminPassword',
         'protection_mode': :'protectionMode',
         'transport_type': :'transportType',
-        'creation_type': :'creationType'
+        'creation_type': :'creationType',
+        'is_active_data_guard_enabled': :'isActiveDataGuardEnabled',
+        'peer_db_unique_name': :'peerDbUniqueName',
+        'peer_sid_prefix': :'peerSidPrefix'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -94,7 +111,10 @@ module OCI
         'database_admin_password': :'String',
         'protection_mode': :'String',
         'transport_type': :'String',
-        'creation_type': :'String'
+        'creation_type': :'String',
+        'is_active_data_guard_enabled': :'BOOLEAN',
+        'peer_db_unique_name': :'String',
+        'peer_sid_prefix': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -127,6 +147,9 @@ module OCI
     # @option attributes [String] :protection_mode The value to assign to the {#protection_mode} property
     # @option attributes [String] :transport_type The value to assign to the {#transport_type} property
     # @option attributes [String] :creation_type The value to assign to the {#creation_type} property
+    # @option attributes [BOOLEAN] :is_active_data_guard_enabled The value to assign to the {#is_active_data_guard_enabled} property
+    # @option attributes [String] :peer_db_unique_name The value to assign to the {#peer_db_unique_name} property
+    # @option attributes [String] :peer_sid_prefix The value to assign to the {#peer_sid_prefix} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -162,6 +185,24 @@ module OCI
       raise 'You cannot provide both :creationType and :creation_type' if attributes.key?(:'creationType') && attributes.key?(:'creation_type')
 
       self.creation_type = attributes[:'creation_type'] if attributes[:'creation_type']
+
+      self.is_active_data_guard_enabled = attributes[:'isActiveDataGuardEnabled'] unless attributes[:'isActiveDataGuardEnabled'].nil?
+
+      raise 'You cannot provide both :isActiveDataGuardEnabled and :is_active_data_guard_enabled' if attributes.key?(:'isActiveDataGuardEnabled') && attributes.key?(:'is_active_data_guard_enabled')
+
+      self.is_active_data_guard_enabled = attributes[:'is_active_data_guard_enabled'] unless attributes[:'is_active_data_guard_enabled'].nil?
+
+      self.peer_db_unique_name = attributes[:'peerDbUniqueName'] if attributes[:'peerDbUniqueName']
+
+      raise 'You cannot provide both :peerDbUniqueName and :peer_db_unique_name' if attributes.key?(:'peerDbUniqueName') && attributes.key?(:'peer_db_unique_name')
+
+      self.peer_db_unique_name = attributes[:'peer_db_unique_name'] if attributes[:'peer_db_unique_name']
+
+      self.peer_sid_prefix = attributes[:'peerSidPrefix'] if attributes[:'peerSidPrefix']
+
+      raise 'You cannot provide both :peerSidPrefix and :peer_sid_prefix' if attributes.key?(:'peerSidPrefix') && attributes.key?(:'peer_sid_prefix')
+
+      self.peer_sid_prefix = attributes[:'peer_sid_prefix'] if attributes[:'peer_sid_prefix']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -195,7 +236,10 @@ module OCI
         database_admin_password == other.database_admin_password &&
         protection_mode == other.protection_mode &&
         transport_type == other.transport_type &&
-        creation_type == other.creation_type
+        creation_type == other.creation_type &&
+        is_active_data_guard_enabled == other.is_active_data_guard_enabled &&
+        peer_db_unique_name == other.peer_db_unique_name &&
+        peer_sid_prefix == other.peer_sid_prefix
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -211,7 +255,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_software_image_id, database_admin_password, protection_mode, transport_type, creation_type].hash
+      [database_software_image_id, database_admin_password, protection_mode, transport_type, creation_type, is_active_data_guard_enabled, peer_db_unique_name, peer_sid_prefix].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

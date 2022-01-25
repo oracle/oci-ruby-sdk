@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,6 +8,14 @@ require_relative 'connection'
 module OCI
   # The connection details for an Autonomous Data Warehouse data asset.
   class DataIntegration::Models::ConnectionFromAdwc < DataIntegration::Models::Connection
+    # The Autonomous Data Warehouse instance service name.
+    # @return [String]
+    attr_accessor :tns_alias
+
+    # Array of service names that are available for selection in the tnsAlias property.
+    # @return [Array<String>]
+    attr_accessor :tns_names
+
     # The user name for the connection.
     # @return [String]
     attr_accessor :username
@@ -37,6 +45,8 @@ module OCI
         'is_default': :'isDefault',
         'metadata': :'metadata',
         'key_map': :'keyMap',
+        'tns_alias': :'tnsAlias',
+        'tns_names': :'tnsNames',
         'username': :'username',
         'password': :'password',
         'password_secret': :'passwordSecret'
@@ -62,6 +72,8 @@ module OCI
         'is_default': :'BOOLEAN',
         'metadata': :'OCI::DataIntegration::Models::ObjectMetadata',
         'key_map': :'Hash<String, String>',
+        'tns_alias': :'String',
+        'tns_names': :'Array<String>',
         'username': :'String',
         'password': :'String',
         'password_secret': :'OCI::DataIntegration::Models::SensitiveAttribute'
@@ -88,6 +100,8 @@ module OCI
     # @option attributes [BOOLEAN] :is_default The value to assign to the {OCI::DataIntegration::Models::Connection#is_default #is_default} proprety
     # @option attributes [OCI::DataIntegration::Models::ObjectMetadata] :metadata The value to assign to the {OCI::DataIntegration::Models::Connection#metadata #metadata} proprety
     # @option attributes [Hash<String, String>] :key_map The value to assign to the {OCI::DataIntegration::Models::Connection#key_map #key_map} proprety
+    # @option attributes [String] :tns_alias The value to assign to the {#tns_alias} property
+    # @option attributes [Array<String>] :tns_names The value to assign to the {#tns_names} property
     # @option attributes [String] :username The value to assign to the {#username} property
     # @option attributes [String] :password The value to assign to the {#password} property
     # @option attributes [OCI::DataIntegration::Models::SensitiveAttribute] :password_secret The value to assign to the {#password_secret} property
@@ -100,6 +114,18 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.tns_alias = attributes[:'tnsAlias'] if attributes[:'tnsAlias']
+
+      raise 'You cannot provide both :tnsAlias and :tns_alias' if attributes.key?(:'tnsAlias') && attributes.key?(:'tns_alias')
+
+      self.tns_alias = attributes[:'tns_alias'] if attributes[:'tns_alias']
+
+      self.tns_names = attributes[:'tnsNames'] if attributes[:'tnsNames']
+
+      raise 'You cannot provide both :tnsNames and :tns_names' if attributes.key?(:'tnsNames') && attributes.key?(:'tns_names')
+
+      self.tns_names = attributes[:'tns_names'] if attributes[:'tns_names']
 
       self.username = attributes[:'username'] if attributes[:'username']
 
@@ -137,6 +163,8 @@ module OCI
         is_default == other.is_default &&
         metadata == other.metadata &&
         key_map == other.key_map &&
+        tns_alias == other.tns_alias &&
+        tns_names == other.tns_names &&
         username == other.username &&
         password == other.password &&
         password_secret == other.password_secret
@@ -155,7 +183,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, parent_ref, name, description, object_version, object_status, identifier, primary_schema, connection_properties, is_default, metadata, key_map, username, password, password_secret].hash
+      [model_type, key, model_version, parent_ref, name, description, object_version, object_status, identifier, primary_schema, connection_properties, is_default, metadata, key_map, tns_alias, tns_names, username, password, password_secret].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

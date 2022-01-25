@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details of a datafile.
+  # The details of a data file.
   class DatabaseManagement::Models::Datafile
     STATUS_ENUM = [
       STATUS_AVAILABLE = 'AVAILABLE'.freeze,
@@ -40,11 +40,11 @@ module OCI
       SHARED_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The filename (including the path) of the datafile or tempfile.
+    # **[Required]** The filename (including the path) of the data file or temp file.
     # @return [String]
     attr_accessor :name
 
-    # The status of the file. INVALID status is used when the file number is not in use, for example, a file in a tablespace that was dropped.
+    # The status of the file. INVALID status is used when the file number is not in use, for example, a file in a tablespace that was removed.
     # @return [String]
     attr_reader :status
 
@@ -52,7 +52,7 @@ module OCI
     # @return [String]
     attr_reader :online_status
 
-    # Indicates whether the datafile is auto-extensible.
+    # Indicates whether the data file is auto-extensible.
     # @return [BOOLEAN]
     attr_accessor :is_auto_extensible
 
@@ -84,11 +84,11 @@ module OCI
     # @return [Float]
     attr_accessor :increment_by
 
-    # The free space available in the datafile in KB.
+    # The free space available in the data file in KB.
     # @return [Float]
     attr_accessor :free_space_kb
 
-    # The total space used in the datafile in KB.
+    # The total space used in the data file in KB.
     # @return [Float]
     attr_accessor :used_space_kb
 

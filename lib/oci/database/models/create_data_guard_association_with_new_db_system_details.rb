@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -63,6 +63,9 @@ module OCI
         'protection_mode': :'protectionMode',
         'transport_type': :'transportType',
         'creation_type': :'creationType',
+        'is_active_data_guard_enabled': :'isActiveDataGuardEnabled',
+        'peer_db_unique_name': :'peerDbUniqueName',
+        'peer_sid_prefix': :'peerSidPrefix',
         'display_name': :'displayName',
         'availability_domain': :'availabilityDomain',
         'shape': :'shape',
@@ -83,6 +86,9 @@ module OCI
         'protection_mode': :'String',
         'transport_type': :'String',
         'creation_type': :'String',
+        'is_active_data_guard_enabled': :'BOOLEAN',
+        'peer_db_unique_name': :'String',
+        'peer_sid_prefix': :'String',
         'display_name': :'String',
         'availability_domain': :'String',
         'shape': :'String',
@@ -104,6 +110,9 @@ module OCI
     # @option attributes [String] :database_admin_password The value to assign to the {OCI::Database::Models::CreateDataGuardAssociationDetails#database_admin_password #database_admin_password} proprety
     # @option attributes [String] :protection_mode The value to assign to the {OCI::Database::Models::CreateDataGuardAssociationDetails#protection_mode #protection_mode} proprety
     # @option attributes [String] :transport_type The value to assign to the {OCI::Database::Models::CreateDataGuardAssociationDetails#transport_type #transport_type} proprety
+    # @option attributes [BOOLEAN] :is_active_data_guard_enabled The value to assign to the {OCI::Database::Models::CreateDataGuardAssociationDetails#is_active_data_guard_enabled #is_active_data_guard_enabled} proprety
+    # @option attributes [String] :peer_db_unique_name The value to assign to the {OCI::Database::Models::CreateDataGuardAssociationDetails#peer_db_unique_name #peer_db_unique_name} proprety
+    # @option attributes [String] :peer_sid_prefix The value to assign to the {OCI::Database::Models::CreateDataGuardAssociationDetails#peer_sid_prefix #peer_sid_prefix} proprety
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
@@ -172,6 +181,9 @@ module OCI
         protection_mode == other.protection_mode &&
         transport_type == other.transport_type &&
         creation_type == other.creation_type &&
+        is_active_data_guard_enabled == other.is_active_data_guard_enabled &&
+        peer_db_unique_name == other.peer_db_unique_name &&
+        peer_sid_prefix == other.peer_sid_prefix &&
         display_name == other.display_name &&
         availability_domain == other.availability_domain &&
         shape == other.shape &&
@@ -194,7 +206,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_software_image_id, database_admin_password, protection_mode, transport_type, creation_type, display_name, availability_domain, shape, subnet_id, nsg_ids, backup_network_nsg_ids, hostname].hash
+      [database_software_image_id, database_admin_password, protection_mode, transport_type, creation_type, is_active_data_guard_enabled, peer_db_unique_name, peer_sid_prefix, display_name, availability_domain, shape, subnet_id, nsg_ids, backup_network_nsg_ids, hostname].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -43,7 +43,9 @@ module OCI
         'db_version': :'dbVersion',
         'source': :'source',
         'customer_contacts': :'customerContacts',
-        'autonomous_maintenance_schedule_type': :'autonomousMaintenanceScheduleType'
+        'is_mtls_connection_required': :'isMtlsConnectionRequired',
+        'autonomous_maintenance_schedule_type': :'autonomousMaintenanceScheduleType',
+        'scheduled_operations': :'scheduledOperations'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -82,7 +84,9 @@ module OCI
         'db_version': :'String',
         'source': :'String',
         'customer_contacts': :'Array<OCI::Database::Models::CustomerContact>',
-        'autonomous_maintenance_schedule_type': :'String'
+        'is_mtls_connection_required': :'BOOLEAN',
+        'autonomous_maintenance_schedule_type': :'String',
+        'scheduled_operations': :'Array<OCI::Database::Models::ScheduledOperationDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -122,7 +126,9 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#defined_tags #defined_tags} proprety
     # @option attributes [String] :db_version The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#db_version #db_version} proprety
     # @option attributes [Array<OCI::Database::Models::CustomerContact>] :customer_contacts The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#customer_contacts #customer_contacts} proprety
+    # @option attributes [BOOLEAN] :is_mtls_connection_required The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_mtls_connection_required #is_mtls_connection_required} proprety
     # @option attributes [String] :autonomous_maintenance_schedule_type The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#autonomous_maintenance_schedule_type #autonomous_maintenance_schedule_type} proprety
+    # @option attributes [Array<OCI::Database::Models::ScheduledOperationDetails>] :scheduled_operations The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#scheduled_operations #scheduled_operations} proprety
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -172,7 +178,9 @@ module OCI
         db_version == other.db_version &&
         source == other.source &&
         customer_contacts == other.customer_contacts &&
-        autonomous_maintenance_schedule_type == other.autonomous_maintenance_schedule_type
+        is_mtls_connection_required == other.is_mtls_connection_required &&
+        autonomous_maintenance_schedule_type == other.autonomous_maintenance_schedule_type &&
+        scheduled_operations == other.scheduled_operations
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -188,7 +196,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, ocpu_count, db_workload, data_storage_size_in_tbs, data_storage_size_in_gbs, is_free_tier, kms_key_id, vault_id, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, customer_contacts, autonomous_maintenance_schedule_type].hash
+      [compartment_id, db_name, cpu_core_count, ocpu_count, db_workload, data_storage_size_in_tbs, data_storage_size_in_gbs, is_free_tier, kms_key_id, vault_id, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, customer_contacts, is_mtls_connection_required, autonomous_maintenance_schedule_type, scheduled_operations].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

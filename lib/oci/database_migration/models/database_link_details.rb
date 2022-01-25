@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,16 +8,20 @@ module OCI
   # Optional details for creating a network database link from OCI database to on-premise database.
   #
   class DatabaseMigration::Models::DatabaseLinkDetails
-    # **[Required]** Name of database link from OCI database to on-premise database. ODMS will create link, if the link does not already exist.
+    # Name of database link from OCI database to on-premise database. ODMS will create link, if the link does not already exist.
     #
     # @return [String]
     attr_accessor :name
+
+    # @return [OCI::DatabaseMigration::Models::ObjectStoreBucket]
+    attr_accessor :wallet_bucket
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'name': :'name'
+        'name': :'name',
+        'wallet_bucket': :'walletBucket'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -26,7 +30,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'name': :'String'
+        'name': :'String',
+        'wallet_bucket': :'OCI::DatabaseMigration::Models::ObjectStoreBucket'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -38,6 +43,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :name The value to assign to the {#name} property
+    # @option attributes [OCI::DatabaseMigration::Models::ObjectStoreBucket] :wallet_bucket The value to assign to the {#wallet_bucket} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -45,6 +51,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.name = attributes[:'name'] if attributes[:'name']
+
+      self.wallet_bucket = attributes[:'walletBucket'] if attributes[:'walletBucket']
+
+      raise 'You cannot provide both :walletBucket and :wallet_bucket' if attributes.key?(:'walletBucket') && attributes.key?(:'wallet_bucket')
+
+      self.wallet_bucket = attributes[:'wallet_bucket'] if attributes[:'wallet_bucket']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -58,7 +70,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        name == other.name
+        name == other.name &&
+        wallet_bucket == other.wallet_bucket
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -74,7 +87,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name].hash
+      [name, wallet_bucket].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

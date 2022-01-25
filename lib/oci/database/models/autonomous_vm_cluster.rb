@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -71,6 +71,10 @@ module OCI
     # @return [Integer]
     attr_accessor :cpus_enabled
 
+    # The number of enabled OCPU cores.
+    # @return [Float]
+    attr_accessor :ocpus_enabled
+
     # The numnber of CPU cores available.
     # @return [Integer]
     attr_accessor :available_cpus
@@ -86,6 +90,10 @@ module OCI
     # The total data storage allocated in TBs
     # @return [Float]
     attr_accessor :data_storage_size_in_tbs
+
+    # The total data storage allocated in GBs.
+    # @return [Float]
+    attr_accessor :data_storage_size_in_gbs
 
     # The data storage available in TBs
     # @return [Float]
@@ -125,10 +133,12 @@ module OCI
         'vm_cluster_network_id': :'vmClusterNetworkId',
         'is_local_backup_enabled': :'isLocalBackupEnabled',
         'cpus_enabled': :'cpusEnabled',
+        'ocpus_enabled': :'ocpusEnabled',
         'available_cpus': :'availableCpus',
         'memory_size_in_gbs': :'memorySizeInGBs',
         'db_node_storage_size_in_gbs': :'dbNodeStorageSizeInGBs',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
+        'data_storage_size_in_gbs': :'dataStorageSizeInGBs',
         'available_data_storage_size_in_tbs': :'availableDataStorageSizeInTBs',
         'license_model': :'licenseModel',
         'freeform_tags': :'freeformTags',
@@ -152,10 +162,12 @@ module OCI
         'vm_cluster_network_id': :'String',
         'is_local_backup_enabled': :'BOOLEAN',
         'cpus_enabled': :'Integer',
+        'ocpus_enabled': :'Float',
         'available_cpus': :'Integer',
         'memory_size_in_gbs': :'Integer',
         'db_node_storage_size_in_gbs': :'Integer',
         'data_storage_size_in_tbs': :'Float',
+        'data_storage_size_in_gbs': :'Float',
         'available_data_storage_size_in_tbs': :'Float',
         'license_model': :'String',
         'freeform_tags': :'Hash<String, String>',
@@ -181,10 +193,12 @@ module OCI
     # @option attributes [String] :vm_cluster_network_id The value to assign to the {#vm_cluster_network_id} property
     # @option attributes [BOOLEAN] :is_local_backup_enabled The value to assign to the {#is_local_backup_enabled} property
     # @option attributes [Integer] :cpus_enabled The value to assign to the {#cpus_enabled} property
+    # @option attributes [Float] :ocpus_enabled The value to assign to the {#ocpus_enabled} property
     # @option attributes [Integer] :available_cpus The value to assign to the {#available_cpus} property
     # @option attributes [Integer] :memory_size_in_gbs The value to assign to the {#memory_size_in_gbs} property
     # @option attributes [Integer] :db_node_storage_size_in_gbs The value to assign to the {#db_node_storage_size_in_gbs} property
     # @option attributes [Float] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
+    # @option attributes [Float] :data_storage_size_in_gbs The value to assign to the {#data_storage_size_in_gbs} property
     # @option attributes [Float] :available_data_storage_size_in_tbs The value to assign to the {#available_data_storage_size_in_tbs} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -254,6 +268,12 @@ module OCI
 
       self.cpus_enabled = attributes[:'cpus_enabled'] if attributes[:'cpus_enabled']
 
+      self.ocpus_enabled = attributes[:'ocpusEnabled'] if attributes[:'ocpusEnabled']
+
+      raise 'You cannot provide both :ocpusEnabled and :ocpus_enabled' if attributes.key?(:'ocpusEnabled') && attributes.key?(:'ocpus_enabled')
+
+      self.ocpus_enabled = attributes[:'ocpus_enabled'] if attributes[:'ocpus_enabled']
+
       self.available_cpus = attributes[:'availableCpus'] if attributes[:'availableCpus']
 
       raise 'You cannot provide both :availableCpus and :available_cpus' if attributes.key?(:'availableCpus') && attributes.key?(:'available_cpus')
@@ -277,6 +297,12 @@ module OCI
       raise 'You cannot provide both :dataStorageSizeInTBs and :data_storage_size_in_tbs' if attributes.key?(:'dataStorageSizeInTBs') && attributes.key?(:'data_storage_size_in_tbs')
 
       self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
+
+      self.data_storage_size_in_gbs = attributes[:'dataStorageSizeInGBs'] if attributes[:'dataStorageSizeInGBs']
+
+      raise 'You cannot provide both :dataStorageSizeInGBs and :data_storage_size_in_gbs' if attributes.key?(:'dataStorageSizeInGBs') && attributes.key?(:'data_storage_size_in_gbs')
+
+      self.data_storage_size_in_gbs = attributes[:'data_storage_size_in_gbs'] if attributes[:'data_storage_size_in_gbs']
 
       self.available_data_storage_size_in_tbs = attributes[:'availableDataStorageSizeInTBs'] if attributes[:'availableDataStorageSizeInTBs']
 
@@ -351,10 +377,12 @@ module OCI
         vm_cluster_network_id == other.vm_cluster_network_id &&
         is_local_backup_enabled == other.is_local_backup_enabled &&
         cpus_enabled == other.cpus_enabled &&
+        ocpus_enabled == other.ocpus_enabled &&
         available_cpus == other.available_cpus &&
         memory_size_in_gbs == other.memory_size_in_gbs &&
         db_node_storage_size_in_gbs == other.db_node_storage_size_in_gbs &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
+        data_storage_size_in_gbs == other.data_storage_size_in_gbs &&
         available_data_storage_size_in_tbs == other.available_data_storage_size_in_tbs &&
         license_model == other.license_model &&
         freeform_tags == other.freeform_tags &&
@@ -374,7 +402,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, time_created, lifecycle_state, lifecycle_details, time_zone, exadata_infrastructure_id, vm_cluster_network_id, is_local_backup_enabled, cpus_enabled, available_cpus, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, available_data_storage_size_in_tbs, license_model, freeform_tags, defined_tags].hash
+      [id, compartment_id, display_name, time_created, lifecycle_state, lifecycle_details, time_zone, exadata_infrastructure_id, vm_cluster_network_id, is_local_backup_enabled, cpus_enabled, ocpus_enabled, available_cpus, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, data_storage_size_in_gbs, available_data_storage_size_in_tbs, license_model, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

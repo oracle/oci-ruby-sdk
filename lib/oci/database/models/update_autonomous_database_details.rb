@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -119,8 +119,8 @@ module OCI
 
     # The Oracle license model that applies to the Oracle Autonomous Database. Bring your own license (BYOL) allows you to apply your current on-premises Oracle software licenses to equivalent, highly automated Oracle PaaS and IaaS services in the cloud.
     # License Included allows you to subscribe to new Oracle Database software licenses and the Database service.
-    # Note that when provisioning an Autonomous Database on [dedicated Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm), this attribute must be null because the attribute is already set at the
-    # Autonomous Exadata Infrastructure level. When using [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI), if a value is not specified, the system will supply the value of `BRING_YOUR_OWN_LICENSE`.
+    # Note that when provisioning an Autonomous Database on [dedicated Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html), this attribute must be null because the attribute is already set at the
+    # Autonomous Exadata Infrastructure level. When using [shared Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html), if a value is not specified, the system will supply the value of `BRING_YOUR_OWN_LICENSE`.
     #
     # @return [String]
     attr_reader :license_model
@@ -136,7 +136,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_access_control_enabled
 
-    # The client IP access control list (ACL). This feature is available for autonomous databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) and on Exadata Cloud@Customer.
+    # The client IP access control list (ACL). This feature is available for autonomous databases on [shared Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html) and on Exadata Cloud@Customer.
     # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance.
     #
     # For shared Exadata infrastructure, this is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet or VCN OCID.
@@ -151,13 +151,13 @@ module OCI
     attr_accessor :whitelisted_ips
 
     # This field will be null if the Autonomous Database is not Data Guard enabled or Access Control is disabled.
-    # It's value would be `TRUE` if Autonomous Database is Data Guard enabled and Access Control is enabled and if the Autonomous Database uses primary IP access control list (ACL) for standby.
-    # It's value would be `FALSE` if Autonomous Database is Data Guard enabled and Access Control is enabled and if the Autonomous Database uses different IP access control list (ACL) for standby compared to primary.
+    # `TRUE` if the Autonomous Database has Data Guard and Access Control enabled, and the Autonomous Database uses the primary's IP access control list (ACL) for standby.
+    # `FALSE` if the Autonomous Database has Data Guard and Access Control enabled, and the Autonomous Database uses a different IP access control list (ACL) for standby compared to primary.
     #
     # @return [BOOLEAN]
     attr_accessor :are_primary_whitelisted_ips_used
 
-    # The client IP access control list (ACL). This feature is available for autonomous databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) and on Exadata Cloud@Customer.
+    # The client IP access control list (ACL). This feature is available for autonomous databases on [shared Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html) and on Exadata Cloud@Customer.
     # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance.
     #
     # For shared Exadata infrastructure, this is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet or VCN OCID.
@@ -171,7 +171,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :standby_whitelisted_ips
 
-    # Indicates whether to enable or disable auto scaling for the Autonomous Database OCPU core count. Setting to `true` enables auto scaling. Setting to `false` disables auto scaling. The default value is true. Auto scaling is available for databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) only.
+    # Indicates whether auto scaling is enabled for the Autonomous Database OCPU core count. Setting to `TRUE` enables auto scaling. Setting to `FALSE` disables auto scaling. The default value is true. Auto scaling is available for databases on [shared Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html) only.
     #
     # @return [BOOLEAN]
     attr_accessor :is_auto_scaling_enabled
@@ -184,12 +184,22 @@ module OCI
     # @return [String]
     attr_reader :refreshable_mode
 
-    # If set to `FALSE` and `peerDbId` is specified, the specified remote region peer database is terminated. If set to `FALSE` and `peerDbId` is not specified, the peer database in the region of the source primary database terminated.
+    # Indicates whether the Autonomous Database has a local (in-region) standby database. Not applicable when creating a cross-region Autonomous Data Guard associations, or to
+    # Autonomous Databases using dedicated Exadata infrastructure or Exadata Cloud@Customer infrastructure.
+    #
+    # To create a local standby, set to `TRUE`. To delete a local standby, set to `FALSE`. For more information on using Autonomous Data Guard on shared Exadata infrastructure (local and cross-region) , see [About Standby Databases](https://docs.oracle.com/en/cloud/paas/autonomous-database/adbsa/autonomous-data-guard-about.html#GUID-045AD017-8120-4BDC-AF58-7430FFE28D2B)
+    #
+    # To enable cross-region Autonomous Data Guard on shared Exadata infrastructure, see {#create_cross_region_autonomous_database_data_guard_details create_cross_region_autonomous_database_data_guard_details}.
+    #
+    # To delete a cross-region standby database, provide the `peerDbId` for the standby database in a remote region, and set `isDataGuardEnabled` to `FALSE`.
     #
     # @return [BOOLEAN]
     attr_accessor :is_data_guard_enabled
 
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Autonomous Data Guard standby database located in a different (remote) region from the source primary Autonomous Database.
+    #
+    # To create or delete a local (in-region) standby, see the `isDataGuardEnabled` parameter.
+    #
     # @return [String]
     attr_accessor :peer_db_id
 
@@ -234,6 +244,14 @@ module OCI
     # @return [Array<OCI::Database::Models::CustomerContact>]
     attr_accessor :customer_contacts
 
+    # Indicates whether the Autonomous Database requires mTLS connections.
+    # @return [BOOLEAN]
+    attr_accessor :is_mtls_connection_required
+
+    # list of scheduled operations
+    # @return [Array<OCI::Database::Models::ScheduledOperationDetails>]
+    attr_accessor :scheduled_operations
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -265,7 +283,9 @@ module OCI
         'subnet_id': :'subnetId',
         'private_endpoint_label': :'privateEndpointLabel',
         'nsg_ids': :'nsgIds',
-        'customer_contacts': :'customerContacts'
+        'customer_contacts': :'customerContacts',
+        'is_mtls_connection_required': :'isMtlsConnectionRequired',
+        'scheduled_operations': :'scheduledOperations'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -301,7 +321,9 @@ module OCI
         'subnet_id': :'String',
         'private_endpoint_label': :'String',
         'nsg_ids': :'Array<String>',
-        'customer_contacts': :'Array<OCI::Database::Models::CustomerContact>'
+        'customer_contacts': :'Array<OCI::Database::Models::CustomerContact>',
+        'is_mtls_connection_required': :'BOOLEAN',
+        'scheduled_operations': :'Array<OCI::Database::Models::ScheduledOperationDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -340,6 +362,8 @@ module OCI
     # @option attributes [String] :private_endpoint_label The value to assign to the {#private_endpoint_label} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [Array<OCI::Database::Models::CustomerContact>] :customer_contacts The value to assign to the {#customer_contacts} property
+    # @option attributes [BOOLEAN] :is_mtls_connection_required The value to assign to the {#is_mtls_connection_required} property
+    # @option attributes [Array<OCI::Database::Models::ScheduledOperationDetails>] :scheduled_operations The value to assign to the {#scheduled_operations} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -515,6 +539,20 @@ module OCI
       raise 'You cannot provide both :customerContacts and :customer_contacts' if attributes.key?(:'customerContacts') && attributes.key?(:'customer_contacts')
 
       self.customer_contacts = attributes[:'customer_contacts'] if attributes[:'customer_contacts']
+
+      self.is_mtls_connection_required = attributes[:'isMtlsConnectionRequired'] unless attributes[:'isMtlsConnectionRequired'].nil?
+      self.is_mtls_connection_required = true if is_mtls_connection_required.nil? && !attributes.key?(:'isMtlsConnectionRequired') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isMtlsConnectionRequired and :is_mtls_connection_required' if attributes.key?(:'isMtlsConnectionRequired') && attributes.key?(:'is_mtls_connection_required')
+
+      self.is_mtls_connection_required = attributes[:'is_mtls_connection_required'] unless attributes[:'is_mtls_connection_required'].nil?
+      self.is_mtls_connection_required = true if is_mtls_connection_required.nil? && !attributes.key?(:'isMtlsConnectionRequired') && !attributes.key?(:'is_mtls_connection_required') # rubocop:disable Style/StringLiterals
+
+      self.scheduled_operations = attributes[:'scheduledOperations'] if attributes[:'scheduledOperations']
+
+      raise 'You cannot provide both :scheduledOperations and :scheduled_operations' if attributes.key?(:'scheduledOperations') && attributes.key?(:'scheduled_operations')
+
+      self.scheduled_operations = attributes[:'scheduled_operations'] if attributes[:'scheduled_operations']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -595,7 +633,9 @@ module OCI
         subnet_id == other.subnet_id &&
         private_endpoint_label == other.private_endpoint_label &&
         nsg_ids == other.nsg_ids &&
-        customer_contacts == other.customer_contacts
+        customer_contacts == other.customer_contacts &&
+        is_mtls_connection_required == other.is_mtls_connection_required &&
+        scheduled_operations == other.scheduled_operations
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -611,7 +651,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, ocpu_count, data_storage_size_in_tbs, data_storage_size_in_gbs, display_name, is_free_tier, admin_password, db_name, freeform_tags, defined_tags, db_workload, license_model, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_auto_scaling_enabled, is_refreshable_clone, refreshable_mode, is_data_guard_enabled, peer_db_id, db_version, open_mode, permission_level, subnet_id, private_endpoint_label, nsg_ids, customer_contacts].hash
+      [cpu_core_count, ocpu_count, data_storage_size_in_tbs, data_storage_size_in_gbs, display_name, is_free_tier, admin_password, db_name, freeform_tags, defined_tags, db_workload, license_model, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_auto_scaling_enabled, is_refreshable_clone, refreshable_mode, is_data_guard_enabled, peer_db_id, db_version, open_mode, permission_level, subnet_id, private_endpoint_label, nsg_ids, customer_contacts, is_mtls_connection_required, scheduled_operations].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

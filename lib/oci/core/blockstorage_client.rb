@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,11 +6,11 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API covering the [Networking](/iaas/Content/Network/Concepts/overview.htm),
+  # Use the Core Services API to manage resources such as virtual cloud networks (VCNs),
+  # compute instances, and block storage volumes. For more information, see the console
+  # documentation for the [Networking](/iaas/Content/Network/Concepts/overview.htm),
   # [Compute](/iaas/Content/Compute/Concepts/computeoverview.htm), and
-  # [Block Volume](/iaas/Content/Block/Concepts/overview.htm) services. Use this API
-  # to manage resources such as virtual cloud networks (VCNs), compute instances, and
-  # block storage volumes.
+  # [Block Volume](/iaas/Content/Block/Concepts/overview.htm) services.
   class Core::BlockstorageClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -2432,6 +2432,60 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
+    # Gets information for the specified volume group replica.
+    # @param [String] volume_group_replica_id The OCID of the volume replica group.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroupReplica VolumeGroupReplica}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_volume_group_replica.rb.html) to see an example of how to use get_volume_group_replica API.
+    def get_volume_group_replica(volume_group_replica_id, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#get_volume_group_replica.' if logger
+
+      raise "Missing the required parameter 'volume_group_replica_id' when calling get_volume_group_replica." if volume_group_replica_id.nil?
+      raise "Parameter value for 'volume_group_replica_id' must not be blank" if OCI::Internal::Util.blank_string?(volume_group_replica_id)
+
+      path = '/volumeGroupReplicas/{volumeGroupReplicaId}'.sub('{volumeGroupReplicaId}', volume_group_replica_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#get_volume_group_replica') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::VolumeGroupReplica'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
     # Gets the Key Management encryption key assigned to the specified volume.
@@ -3149,6 +3203,112 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the volume group replicas in the specified compartment. You can filter the results by volume group.
+    # For more information, see [Volume Group Replication](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/volumegroupreplication.htm).
+    #
+    # @param [String] availability_domain The name of the availability domain.
+    #
+    #   Example: `Uocm:PHX-AD-1`
+    #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for DISPLAYNAME is ascending. The DISPLAYNAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by availability domain if the scope of the resource type is within a
+    #   single availability domain. If you call one of these \"List\" operations without specifying
+    #   an availability domain, the resources are grouped by availability domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The DISPLAYNAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state. The state value is case-insensitive.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::VolumeGroupReplica VolumeGroupReplica}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_volume_group_replicas.rb.html) to see an example of how to use list_volume_group_replicas API.
+    def list_volume_group_replicas(availability_domain, compartment_id, opts = {})
+      logger.debug 'Calling operation BlockstorageClient#list_volume_group_replicas.' if logger
+
+      raise "Missing the required parameter 'availability_domain' when calling list_volume_group_replicas." if availability_domain.nil?
+      raise "Missing the required parameter 'compartment_id' when calling list_volume_group_replicas." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Core::Models::VolumeGroupReplica::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Core::Models::VolumeGroupReplica::LIFECYCLE_STATE_ENUM.'
+      end
+
+      path = '/volumeGroupReplicas'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:availabilityDomain] = availability_domain
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockstorageClient#list_volume_group_replicas') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::VolumeGroupReplica>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the volume groups in the specified compartment and availability domain.
     # For more information, see [Volume Groups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/volumegroups.htm).
     #
@@ -3756,6 +3916,10 @@ module OCI
     #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
+    # @option opts [BOOLEAN] :preserve_volume_replica Specifies whether to disable or preserve the individual volume replication when removing a volume from the
+    #   replication enabled volume group. When set to `true`, the individual volume replica is preserved. The default
+    #   value is `true`.
+    #
     # @return [Response] A Response object with data of type {OCI::Core::Models::VolumeGroup VolumeGroup}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_volume_group.rb.html) to see an example of how to use update_volume_group API.
     def update_volume_group(volume_group_id, update_volume_group_details, opts = {})
@@ -3771,6 +3935,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:preserveVolumeReplica] = opts[:preserve_volume_replica] if !opts[:preserve_volume_replica].nil?
 
       # Header Params
       header_params = {}

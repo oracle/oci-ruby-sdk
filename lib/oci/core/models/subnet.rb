@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -41,7 +41,7 @@ module OCI
     # @return [String]
     attr_accessor :cidr_block
 
-    # **[Required]** The OCID of the compartment containing the subnet.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the subnet.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -53,7 +53,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The OCID of the set of DHCP options that the subnet uses.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the set of DHCP options that the subnet uses.
     #
     # @return [String]
     attr_accessor :dhcp_options_id
@@ -89,7 +89,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The subnet's Oracle ID (OCID).
+    # **[Required]** The subnet's Oracle ID ([OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)).
     # @return [String]
     attr_accessor :id
 
@@ -144,7 +144,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :prohibit_public_ip_on_vnic
 
-    # **[Required]** The OCID of the route table that the subnet uses.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the route table that the subnet uses.
     # @return [String]
     attr_accessor :route_table_id
 
@@ -173,7 +173,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The OCID of the VCN the subnet is in.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN the subnet is in.
     # @return [String]
     attr_accessor :vcn_id
 

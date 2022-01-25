@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -377,6 +377,12 @@ module OCI
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/delete_blockchain_platform.rb.html) to see an example of how to use delete_blockchain_platform API.
     def delete_blockchain_platform(blockchain_platform_id, opts = {})
@@ -398,7 +404,9 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = nil
 
@@ -501,6 +509,12 @@ module OCI
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/delete_peer.rb.html) to see an example of how to use delete_peer API.
     def delete_peer(blockchain_platform_id, peer_id, opts = {})
@@ -524,7 +538,9 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
       # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
       post_body = nil
 
@@ -820,6 +836,64 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Blockchain::Models::WorkRequest'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List Blockchain Platform Patches
+    # @param [String] blockchain_platform_id Unique service identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The page at which to start retrieving results.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::Blockchain::Models::BlockchainPlatformPatchCollection BlockchainPlatformPatchCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/list_blockchain_platform_patches.rb.html) to see an example of how to use list_blockchain_platform_patches API.
+    def list_blockchain_platform_patches(blockchain_platform_id, opts = {})
+      logger.debug 'Calling operation BlockchainPlatformClient#list_blockchain_platform_patches.' if logger
+
+      raise "Missing the required parameter 'blockchain_platform_id' when calling list_blockchain_platform_patches." if blockchain_platform_id.nil?
+      raise "Parameter value for 'blockchain_platform_id' must not be blank" if OCI::Internal::Util.blank_string?(blockchain_platform_id)
+
+      path = '/blockchainPlatforms/{blockchainPlatformId}/patches'.sub('{blockchainPlatformId}', blockchain_platform_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockchainPlatformClient#list_blockchain_platform_patches') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Blockchain::Models::BlockchainPlatformPatchCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1746,6 +1820,76 @@ module OCI
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockchainPlatformClient#update_peer') do
         @api_client.call_api(
           :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Upgrade a Blockchain Platform version
+    # @param [OCI::Blockchain::Models::UpgradeBlockchainPlatformDetails] upgrade_blockchain_platform_details Details for the new version to which it needs to be upgraded.
+    # @param [String] blockchain_platform_id Unique service identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/blockchain/upgrade_blockchain_platform.rb.html) to see an example of how to use upgrade_blockchain_platform API.
+    def upgrade_blockchain_platform(upgrade_blockchain_platform_details, blockchain_platform_id, opts = {})
+      logger.debug 'Calling operation BlockchainPlatformClient#upgrade_blockchain_platform.' if logger
+
+      raise "Missing the required parameter 'upgrade_blockchain_platform_details' when calling upgrade_blockchain_platform." if upgrade_blockchain_platform_details.nil?
+      raise "Missing the required parameter 'blockchain_platform_id' when calling upgrade_blockchain_platform." if blockchain_platform_id.nil?
+      raise "Parameter value for 'blockchain_platform_id' must not be blank" if OCI::Internal::Util.blank_string?(blockchain_platform_id)
+
+      path = '/blockchainPlatforms/{blockchainPlatformId}/actions/upgrade'.sub('{blockchainPlatformId}', blockchain_platform_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(upgrade_blockchain_platform_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BlockchainPlatformClient#upgrade_blockchain_platform') do
+        @api_client.call_api(
+          :POST,
           path,
           endpoint,
           header_params: header_params,

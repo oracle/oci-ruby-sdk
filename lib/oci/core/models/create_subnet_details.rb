@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -34,7 +34,7 @@ module OCI
     # @return [String]
     attr_accessor :cidr_block
 
-    # **[Required]** The OCID of the compartment to contain the subnet.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment to contain the subnet.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -46,7 +46,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The OCID of the set of DHCP options the subnet will use. If you don't
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the set of DHCP options the subnet will use. If you don't
     # provide a value, the subnet uses the VCN's default set of DHCP options.
     #
     # @return [String]
@@ -125,7 +125,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :prohibit_public_ip_on_vnic
 
-    # The OCID of the route table the subnet will use. If you don't provide a value,
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the route table the subnet will use. If you don't provide a value,
     # the subnet uses the VCN's default route table.
     #
     # @return [String]
@@ -139,7 +139,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :security_list_ids
 
-    # **[Required]** The OCID of the VCN to contain the subnet.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN to contain the subnet.
     # @return [String]
     attr_accessor :vcn_id
 

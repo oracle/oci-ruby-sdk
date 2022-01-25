@@ -1,11 +1,11 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A template that contains the settings to use when defining the instance reservation configuration.
+  # A template that contains the settings to use when defining the instance capacity configuration.
   #
   class Core::Models::InstanceReservationConfigDetails
     # **[Required]** The shape requested when launching instances using reserved capacity.
@@ -19,7 +19,7 @@ module OCI
     # @return [OCI::Core::Models::InstanceReservationShapeConfigDetails]
     attr_accessor :instance_shape_config
 
-    # The fault domain to use for instances created using this reservation configuration.
+    # The fault domain to use for instances created using this capacity configuration.
     # For more information, see [Fault Domains](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm#fault).
     # If you do not specify the fault domain, the capacity is available for an instance
     # that does not specify a fault domain. To change the fault domain for a reservation,
@@ -33,7 +33,7 @@ module OCI
     # @return [String]
     attr_accessor :fault_domain
 
-    # **[Required]** The amount of capacity to reserve in this reservation configuration.
+    # **[Required]** The total number of instances that can be launched from the capacity configuration.
     # @return [Integer]
     attr_accessor :reserved_count
 

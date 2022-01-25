@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -34,7 +34,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** Number of nodes desired in the cluster, between 5 and 15.
+    # **[Required]** Number of nodes desired in the cluster, in standalone clusters, between 5 and 15 inclusive. In station clusters, between 15 and 30 inclusive.
     # @return [Integer]
     attr_accessor :cluster_size
 
@@ -89,6 +89,22 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_state_details
 
+    # The flag indicating that customer requests data to be imported to OCI upon Rover cluster return.
+    # @return [BOOLEAN]
+    attr_accessor :is_import_requested
+
+    # An OCID of a compartment where data will be imported to upon Rover cluster return.
+    # @return [String]
+    attr_accessor :import_compartment_id
+
+    # Name of a bucket where files from NFS share will be imported to upon Rover cluster return.
+    # @return [String]
+    attr_accessor :import_file_bucket
+
+    # Validation code returned by data validation tool. Required for return shipping label generation if data import was requested.
+    # @return [String]
+    attr_accessor :data_validation_code
+
     # The freeform tags associated with this resource, if any. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Department\": \"Finance\"}`
@@ -130,6 +146,10 @@ module OCI
         'oracle_shipping_tracking_url': :'oracleShippingTrackingUrl',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_state_details': :'lifecycleStateDetails',
+        'is_import_requested': :'isImportRequested',
+        'import_compartment_id': :'importCompartmentId',
+        'import_file_bucket': :'importFileBucket',
+        'data_validation_code': :'dataValidationCode',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'system_tags': :'systemTags'
@@ -157,6 +177,10 @@ module OCI
         'oracle_shipping_tracking_url': :'String',
         'lifecycle_state': :'String',
         'lifecycle_state_details': :'String',
+        'is_import_requested': :'BOOLEAN',
+        'import_compartment_id': :'String',
+        'import_file_bucket': :'String',
+        'data_validation_code': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'system_tags': :'Hash<String, Hash<String, Object>>'
@@ -186,6 +210,10 @@ module OCI
     # @option attributes [String] :oracle_shipping_tracking_url The value to assign to the {#oracle_shipping_tracking_url} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_state_details The value to assign to the {#lifecycle_state_details} property
+    # @option attributes [BOOLEAN] :is_import_requested The value to assign to the {#is_import_requested} property
+    # @option attributes [String] :import_compartment_id The value to assign to the {#import_compartment_id} property
+    # @option attributes [String] :import_file_bucket The value to assign to the {#import_file_bucket} property
+    # @option attributes [String] :data_validation_code The value to assign to the {#data_validation_code} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
@@ -293,6 +321,30 @@ module OCI
 
       self.lifecycle_state_details = attributes[:'lifecycle_state_details'] if attributes[:'lifecycle_state_details']
 
+      self.is_import_requested = attributes[:'isImportRequested'] unless attributes[:'isImportRequested'].nil?
+
+      raise 'You cannot provide both :isImportRequested and :is_import_requested' if attributes.key?(:'isImportRequested') && attributes.key?(:'is_import_requested')
+
+      self.is_import_requested = attributes[:'is_import_requested'] unless attributes[:'is_import_requested'].nil?
+
+      self.import_compartment_id = attributes[:'importCompartmentId'] if attributes[:'importCompartmentId']
+
+      raise 'You cannot provide both :importCompartmentId and :import_compartment_id' if attributes.key?(:'importCompartmentId') && attributes.key?(:'import_compartment_id')
+
+      self.import_compartment_id = attributes[:'import_compartment_id'] if attributes[:'import_compartment_id']
+
+      self.import_file_bucket = attributes[:'importFileBucket'] if attributes[:'importFileBucket']
+
+      raise 'You cannot provide both :importFileBucket and :import_file_bucket' if attributes.key?(:'importFileBucket') && attributes.key?(:'import_file_bucket')
+
+      self.import_file_bucket = attributes[:'import_file_bucket'] if attributes[:'import_file_bucket']
+
+      self.data_validation_code = attributes[:'dataValidationCode'] if attributes[:'dataValidationCode']
+
+      raise 'You cannot provide both :dataValidationCode and :data_validation_code' if attributes.key?(:'dataValidationCode') && attributes.key?(:'data_validation_code')
+
+      self.data_validation_code = attributes[:'data_validation_code'] if attributes[:'data_validation_code']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -363,6 +415,10 @@ module OCI
         oracle_shipping_tracking_url == other.oracle_shipping_tracking_url &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_state_details == other.lifecycle_state_details &&
+        is_import_requested == other.is_import_requested &&
+        import_compartment_id == other.import_compartment_id &&
+        import_file_bucket == other.import_file_bucket &&
+        data_validation_code == other.data_validation_code &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         system_tags == other.system_tags
@@ -381,7 +437,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, compartment_id, cluster_size, customer_shipping_address, cluster_workloads, super_user_password, enclosure_type, unlock_passphrase, point_of_contact, point_of_contact_phone_number, shipping_preference, shipping_vendor, time_pickup_expected, oracle_shipping_tracking_url, lifecycle_state, lifecycle_state_details, freeform_tags, defined_tags, system_tags].hash
+      [display_name, compartment_id, cluster_size, customer_shipping_address, cluster_workloads, super_user_password, enclosure_type, unlock_passphrase, point_of_contact, point_of_contact_phone_number, shipping_preference, shipping_vendor, time_pickup_expected, oracle_shipping_tracking_url, lifecycle_state, lifecycle_state_details, is_import_requested, import_compartment_id, import_file_bucket, data_validation_code, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

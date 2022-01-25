@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -12,8 +12,8 @@ module OCI
       LIFETIME_RESERVED = 'RESERVED'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the compartment to contain the public IP. For ephemeral public IPs,
-    # you must set this to the private IP's compartment OCID.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment to contain the public IP. For ephemeral public IPs,
+    # you must set this to the private IP's compartment [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #
     # @return [String]
     attr_accessor :compartment_id
@@ -26,8 +26,8 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid
-    # entering confidential information.
+    # A user-friendly name. Does not have to be unique, and it's changeable.
+    # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
@@ -47,7 +47,7 @@ module OCI
     # @return [String]
     attr_reader :lifetime
 
-    # The OCID of the private IP to assign the public IP to.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the private IP to assign the public IP to.
     #
     # Required for an ephemeral public IP because it must always be assigned to a private IP
     # (specifically a *primary* private IP).

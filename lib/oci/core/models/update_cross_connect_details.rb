@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -39,11 +39,13 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_active
 
-    # A reference name or identifier for the physical fiber connection that this cross-connect
-    # uses.
+    # A reference name or identifier for the physical fiber connection this cross-connect uses.
     #
     # @return [String]
     attr_accessor :customer_reference_name
+
+    # @return [OCI::Core::Models::UpdateMacsecProperties]
+    attr_accessor :macsec_properties
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -53,7 +55,8 @@ module OCI
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'is_active': :'isActive',
-        'customer_reference_name': :'customerReferenceName'
+        'customer_reference_name': :'customerReferenceName',
+        'macsec_properties': :'macsecProperties'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -66,7 +69,8 @@ module OCI
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'is_active': :'BOOLEAN',
-        'customer_reference_name': :'String'
+        'customer_reference_name': :'String',
+        'macsec_properties': :'OCI::Core::Models::UpdateMacsecProperties'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -82,6 +86,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [BOOLEAN] :is_active The value to assign to the {#is_active} property
     # @option attributes [String] :customer_reference_name The value to assign to the {#customer_reference_name} property
+    # @option attributes [OCI::Core::Models::UpdateMacsecProperties] :macsec_properties The value to assign to the {#macsec_properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -117,6 +122,12 @@ module OCI
       raise 'You cannot provide both :customerReferenceName and :customer_reference_name' if attributes.key?(:'customerReferenceName') && attributes.key?(:'customer_reference_name')
 
       self.customer_reference_name = attributes[:'customer_reference_name'] if attributes[:'customer_reference_name']
+
+      self.macsec_properties = attributes[:'macsecProperties'] if attributes[:'macsecProperties']
+
+      raise 'You cannot provide both :macsecProperties and :macsec_properties' if attributes.key?(:'macsecProperties') && attributes.key?(:'macsec_properties')
+
+      self.macsec_properties = attributes[:'macsec_properties'] if attributes[:'macsec_properties']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -134,7 +145,8 @@ module OCI
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         is_active == other.is_active &&
-        customer_reference_name == other.customer_reference_name
+        customer_reference_name == other.customer_reference_name &&
+        macsec_properties == other.macsec_properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -150,7 +162,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, is_active, customer_reference_name].hash
+      [defined_tags, display_name, freeform_tags, is_active, customer_reference_name, macsec_properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -36,6 +36,7 @@ module OCI
     CREATION_TYPE_ENUM = [
       CREATION_TYPE_MANUAL = 'MANUAL'.freeze,
       CREATION_TYPE_AUTOMATIC = 'AUTOMATIC'.freeze,
+      CREATION_TYPE_OPERATOR = 'OPERATOR'.freeze,
       CREATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -75,7 +76,8 @@ module OCI
     # @return [String]
     attr_reader :backup_type
 
-    # **[Required]** If the backup was created automatically, or by a manual request.
+    # **[Required]** Indicates how the backup was created: manually, automatic, or by an Operator.
+    #
     # @return [String]
     attr_reader :creation_type
 

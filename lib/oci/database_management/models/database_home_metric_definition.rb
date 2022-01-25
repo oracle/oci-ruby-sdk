@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -27,6 +27,15 @@ module OCI
     # @return [OCI::DatabaseManagement::Models::DatabaseStorageAggregateMetrics]
     attr_accessor :db_storage_aggregate_metrics
 
+    # @return [OCI::DatabaseManagement::Models::CpuUtilizationAggregateMetrics]
+    attr_accessor :cpu_utilization_aggregate_metrics
+
+    # @return [OCI::DatabaseManagement::Models::StatementsAggregateMetrics]
+    attr_accessor :statements_aggregate_metrics
+
+    # @return [OCI::DatabaseManagement::Models::FailedConnectionsAggregateMetrics]
+    attr_accessor :failed_connections_aggregate_metrics
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -35,7 +44,10 @@ module OCI
         'db_time_aggregate_metrics': :'dbTimeAggregateMetrics',
         'io_aggregate_metrics': :'ioAggregateMetrics',
         'memory_aggregate_metrics': :'memoryAggregateMetrics',
-        'db_storage_aggregate_metrics': :'dbStorageAggregateMetrics'
+        'db_storage_aggregate_metrics': :'dbStorageAggregateMetrics',
+        'cpu_utilization_aggregate_metrics': :'cpuUtilizationAggregateMetrics',
+        'statements_aggregate_metrics': :'statementsAggregateMetrics',
+        'failed_connections_aggregate_metrics': :'failedConnectionsAggregateMetrics'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,7 +60,10 @@ module OCI
         'db_time_aggregate_metrics': :'OCI::DatabaseManagement::Models::DatabaseTimeAggregateMetrics',
         'io_aggregate_metrics': :'OCI::DatabaseManagement::Models::DatabaseIOAggregateMetrics',
         'memory_aggregate_metrics': :'OCI::DatabaseManagement::Models::MemoryAggregateMetrics',
-        'db_storage_aggregate_metrics': :'OCI::DatabaseManagement::Models::DatabaseStorageAggregateMetrics'
+        'db_storage_aggregate_metrics': :'OCI::DatabaseManagement::Models::DatabaseStorageAggregateMetrics',
+        'cpu_utilization_aggregate_metrics': :'OCI::DatabaseManagement::Models::CpuUtilizationAggregateMetrics',
+        'statements_aggregate_metrics': :'OCI::DatabaseManagement::Models::StatementsAggregateMetrics',
+        'failed_connections_aggregate_metrics': :'OCI::DatabaseManagement::Models::FailedConnectionsAggregateMetrics'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -64,6 +79,9 @@ module OCI
     # @option attributes [OCI::DatabaseManagement::Models::DatabaseIOAggregateMetrics] :io_aggregate_metrics The value to assign to the {#io_aggregate_metrics} property
     # @option attributes [OCI::DatabaseManagement::Models::MemoryAggregateMetrics] :memory_aggregate_metrics The value to assign to the {#memory_aggregate_metrics} property
     # @option attributes [OCI::DatabaseManagement::Models::DatabaseStorageAggregateMetrics] :db_storage_aggregate_metrics The value to assign to the {#db_storage_aggregate_metrics} property
+    # @option attributes [OCI::DatabaseManagement::Models::CpuUtilizationAggregateMetrics] :cpu_utilization_aggregate_metrics The value to assign to the {#cpu_utilization_aggregate_metrics} property
+    # @option attributes [OCI::DatabaseManagement::Models::StatementsAggregateMetrics] :statements_aggregate_metrics The value to assign to the {#statements_aggregate_metrics} property
+    # @option attributes [OCI::DatabaseManagement::Models::FailedConnectionsAggregateMetrics] :failed_connections_aggregate_metrics The value to assign to the {#failed_connections_aggregate_metrics} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -99,6 +117,24 @@ module OCI
       raise 'You cannot provide both :dbStorageAggregateMetrics and :db_storage_aggregate_metrics' if attributes.key?(:'dbStorageAggregateMetrics') && attributes.key?(:'db_storage_aggregate_metrics')
 
       self.db_storage_aggregate_metrics = attributes[:'db_storage_aggregate_metrics'] if attributes[:'db_storage_aggregate_metrics']
+
+      self.cpu_utilization_aggregate_metrics = attributes[:'cpuUtilizationAggregateMetrics'] if attributes[:'cpuUtilizationAggregateMetrics']
+
+      raise 'You cannot provide both :cpuUtilizationAggregateMetrics and :cpu_utilization_aggregate_metrics' if attributes.key?(:'cpuUtilizationAggregateMetrics') && attributes.key?(:'cpu_utilization_aggregate_metrics')
+
+      self.cpu_utilization_aggregate_metrics = attributes[:'cpu_utilization_aggregate_metrics'] if attributes[:'cpu_utilization_aggregate_metrics']
+
+      self.statements_aggregate_metrics = attributes[:'statementsAggregateMetrics'] if attributes[:'statementsAggregateMetrics']
+
+      raise 'You cannot provide both :statementsAggregateMetrics and :statements_aggregate_metrics' if attributes.key?(:'statementsAggregateMetrics') && attributes.key?(:'statements_aggregate_metrics')
+
+      self.statements_aggregate_metrics = attributes[:'statements_aggregate_metrics'] if attributes[:'statements_aggregate_metrics']
+
+      self.failed_connections_aggregate_metrics = attributes[:'failedConnectionsAggregateMetrics'] if attributes[:'failedConnectionsAggregateMetrics']
+
+      raise 'You cannot provide both :failedConnectionsAggregateMetrics and :failed_connections_aggregate_metrics' if attributes.key?(:'failedConnectionsAggregateMetrics') && attributes.key?(:'failed_connections_aggregate_metrics')
+
+      self.failed_connections_aggregate_metrics = attributes[:'failed_connections_aggregate_metrics'] if attributes[:'failed_connections_aggregate_metrics']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -116,7 +152,10 @@ module OCI
         db_time_aggregate_metrics == other.db_time_aggregate_metrics &&
         io_aggregate_metrics == other.io_aggregate_metrics &&
         memory_aggregate_metrics == other.memory_aggregate_metrics &&
-        db_storage_aggregate_metrics == other.db_storage_aggregate_metrics
+        db_storage_aggregate_metrics == other.db_storage_aggregate_metrics &&
+        cpu_utilization_aggregate_metrics == other.cpu_utilization_aggregate_metrics &&
+        statements_aggregate_metrics == other.statements_aggregate_metrics &&
+        failed_connections_aggregate_metrics == other.failed_connections_aggregate_metrics
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -132,7 +171,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [activity_time_series_metrics, db_time_aggregate_metrics, io_aggregate_metrics, memory_aggregate_metrics, db_storage_aggregate_metrics].hash
+      [activity_time_series_metrics, db_time_aggregate_metrics, io_aggregate_metrics, memory_aggregate_metrics, db_storage_aggregate_metrics, cpu_utilization_aggregate_metrics, statements_aggregate_metrics, failed_connections_aggregate_metrics].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

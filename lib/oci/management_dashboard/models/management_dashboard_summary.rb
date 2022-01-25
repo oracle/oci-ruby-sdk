@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -32,6 +32,18 @@ module OCI
     # **[Required]** OCID of the compartment in which the dashboard resides.
     # @return [String]
     attr_accessor :compartment_id
+
+    # **[Required]** ID of the service (for example, log-analytics) that owns the dashboard. Each service has a unique ID.
+    # @return [String]
+    attr_accessor :provider_id
+
+    # **[Required]** Name of the service (for example, Logging Analytics) that owns the dashboard.
+    # @return [String]
+    attr_accessor :provider_name
+
+    # **[Required]** Version of the service that owns the dashboard.
+    # @return [String]
+    attr_accessor :provider_version
 
     # **[Required]** Determines whether the dashboard is an Out-of-the-Box (OOB) dashboard. Note that OOB dashboards are only provided by Oracle and cannot be modified.
     # @return [BOOLEAN]
@@ -94,6 +106,9 @@ module OCI
         'display_name': :'displayName',
         'description': :'description',
         'compartment_id': :'compartmentId',
+        'provider_id': :'providerId',
+        'provider_name': :'providerName',
+        'provider_version': :'providerVersion',
         'is_oob_dashboard': :'isOobDashboard',
         'created_by': :'createdBy',
         'time_created': :'timeCreated',
@@ -119,6 +134,9 @@ module OCI
         'display_name': :'String',
         'description': :'String',
         'compartment_id': :'String',
+        'provider_id': :'String',
+        'provider_name': :'String',
+        'provider_version': :'String',
         'is_oob_dashboard': :'BOOLEAN',
         'created_by': :'String',
         'time_created': :'DateTime',
@@ -146,6 +164,9 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :provider_id The value to assign to the {#provider_id} property
+    # @option attributes [String] :provider_name The value to assign to the {#provider_name} property
+    # @option attributes [String] :provider_version The value to assign to the {#provider_version} property
     # @option attributes [BOOLEAN] :is_oob_dashboard The value to assign to the {#is_oob_dashboard} property
     # @option attributes [String] :created_by The value to assign to the {#created_by} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -185,6 +206,24 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.provider_id = attributes[:'providerId'] if attributes[:'providerId']
+
+      raise 'You cannot provide both :providerId and :provider_id' if attributes.key?(:'providerId') && attributes.key?(:'provider_id')
+
+      self.provider_id = attributes[:'provider_id'] if attributes[:'provider_id']
+
+      self.provider_name = attributes[:'providerName'] if attributes[:'providerName']
+
+      raise 'You cannot provide both :providerName and :provider_name' if attributes.key?(:'providerName') && attributes.key?(:'provider_name')
+
+      self.provider_name = attributes[:'provider_name'] if attributes[:'provider_name']
+
+      self.provider_version = attributes[:'providerVersion'] if attributes[:'providerVersion']
+
+      raise 'You cannot provide both :providerVersion and :provider_version' if attributes.key?(:'providerVersion') && attributes.key?(:'provider_version')
+
+      self.provider_version = attributes[:'provider_version'] if attributes[:'provider_version']
 
       self.is_oob_dashboard = attributes[:'isOobDashboard'] unless attributes[:'isOobDashboard'].nil?
 
@@ -280,6 +319,9 @@ module OCI
         display_name == other.display_name &&
         description == other.description &&
         compartment_id == other.compartment_id &&
+        provider_id == other.provider_id &&
+        provider_name == other.provider_name &&
+        provider_version == other.provider_version &&
         is_oob_dashboard == other.is_oob_dashboard &&
         created_by == other.created_by &&
         time_created == other.time_created &&
@@ -307,7 +349,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [dashboard_id, id, display_name, description, compartment_id, is_oob_dashboard, created_by, time_created, updated_by, time_updated, metadata_version, screen_image, nls, type, lifecycle_state, freeform_tags, defined_tags].hash
+      [dashboard_id, id, display_name, description, compartment_id, provider_id, provider_name, provider_version, is_oob_dashboard, created_by, time_created, updated_by, time_updated, metadata_version, screen_image, nls, type, lifecycle_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

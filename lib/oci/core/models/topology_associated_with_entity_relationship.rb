@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,19 +6,23 @@ require_relative 'topology_entity_relationship'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Defines the `associatedWith` relationship between virtual network topology entities. An `AssociatedWith` relationship
+  # Defines the `AssociatedWith` relationship between virtual network topology entities. An `AssociatedWith` relationship
   # is defined when there is no obvious `contains` relationship but entities are still related.
   # For example, a DRG is associated with a VCN because a DRG is not managed by VCN but can be
   # attached to a VCN.
   #
   class Core::Models::TopologyAssociatedWithEntityRelationship < Core::Models::TopologyEntityRelationship
+    # @return [OCI::Core::Models::TopologyAssociatedWithRelationshipDetails]
+    attr_accessor :associated_with_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'id1': :'id1',
         'id2': :'id2',
-        'type': :'type'
+        'type': :'type',
+        'associated_with_details': :'associatedWithDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -29,7 +33,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'id1': :'String',
         'id2': :'String',
-        'type': :'String'
+        'type': :'String',
+        'associated_with_details': :'OCI::Core::Models::TopologyAssociatedWithRelationshipDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,12 +47,22 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :id1 The value to assign to the {OCI::Core::Models::TopologyEntityRelationship#id1 #id1} proprety
     # @option attributes [String] :id2 The value to assign to the {OCI::Core::Models::TopologyEntityRelationship#id2 #id2} proprety
+    # @option attributes [OCI::Core::Models::TopologyAssociatedWithRelationshipDetails] :associated_with_details The value to assign to the {#associated_with_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       attributes['type'] = 'ASSOCIATED_WITH'
 
       super(attributes)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.associated_with_details = attributes[:'associatedWithDetails'] if attributes[:'associatedWithDetails']
+
+      raise 'You cannot provide both :associatedWithDetails and :associated_with_details' if attributes.key?(:'associatedWithDetails') && attributes.key?(:'associated_with_details')
+
+      self.associated_with_details = attributes[:'associated_with_details'] if attributes[:'associated_with_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -63,7 +78,8 @@ module OCI
       self.class == other.class &&
         id1 == other.id1 &&
         id2 == other.id2 &&
-        type == other.type
+        type == other.type &&
+        associated_with_details == other.associated_with_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -79,7 +95,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id1, id2, type].hash
+      [id1, id2, type, associated_with_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

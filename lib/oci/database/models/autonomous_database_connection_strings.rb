@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,6 +6,52 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Connection strings to connect to an Oracle Autonomous Database.
+  #
+  # Example output for connection strings. See {#database_connection_string_profile database_connection_string_profile} for additional details:
+  #
+  #     \t\"connectionStrings\": {
+  #         \"allConnectionStrings\": {
+  #           \"HIGH\": \"adb.region.oraclecloud.com:1522/unique_id_databasename_high.adwc.oraclecloud.com\",
+  #           \"LOW\": \"adb.region.oraclecloud.com:1522/unique_id_databasename_low.adwc.oraclecloud.com\",
+  #           \"MEDIUM\": \"adb.region.oraclecloud.com:1522/unique_id_databasename_medium.adwc.oraclecloud.com\"
+  #         },
+  #         \"profiles\": [
+  #           {
+  #             \"displayName\": \"databasename_high\",
+  #             \"value\": \"(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.region.oraclecloud.com))(connect_data=(service_name=unique_id_databasename_high.adwc.oraclecloud.com))(security=(ssl_server_cert_dn=\"CN=adwc.uscom-east-1.oraclecloud.com,OU=Oracle BMCS US,O=Oracle Corporation,L=Redwood City,ST=California,C=US\")))\",
+  #             \"consumerGroup\": \"HIGH\",
+  #             \"protocol\": \"TCPS\",
+  #             \"tlsAuthentication\": \"MUTUAL\",
+  #             \"hostFormat\": \"FQDN\",
+  #             \"sessionMode\": \"DIRECT\",
+  #             \"syntaxFormat\": \"LONG\"
+  #           },
+  #           {
+  #             \"displayName\": \"databasename_low\",
+  #             \"value\": \"(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.region.oraclecloud.com))(connect_data=(service_name=unique_id_databasename_low.adwc.oraclecloud.com))(security=(ssl_server_cert_dn=\"CN=adwc.uscom-east-1.oraclecloud.com,OU=Oracle BMCS US,O=Oracle Corporation,L=Redwood City,ST=California,C=US\")))\",
+  #             \"consumerGroup\": \"LOW\",
+  #             \"protocol\": \"TCPS\",
+  #             \"tlsAuthentication\": \"MUTUAL\",
+  #             \"hostFormat\": \"FQDN\",
+  #             \"sessionMode\": \"DIRECT\",
+  #             \"syntaxFormat\": \"LONG\"
+  #           },
+  #           {
+  #             \"displayName\": \"databasename_medium\",
+  #             \"value\": \"(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.region.oraclecloud.com))(connect_data=(service_name=unique_id_databasename_medium.adwc.oraclecloud.com))(security=(ssl_server_cert_dn=\"CN=adwc.uscom-east-1.oraclecloud.com,OU=Oracle BMCS US,O=Oracle Corporation,L=Redwood City,ST=California,C=US\")))\",
+  #             \"consumerGroup\": \"MEDIUM\",
+  #             \"protocol\": \"TCPS\",
+  #             \"tlsAuthentication\": \"MUTUAL\",
+  #             \"hostFormat\": \"FQDN\",
+  #             \"sessionMode\": \"DIRECT\",
+  #             \"syntaxFormat\": \"LONG\"
+  #           }
+  #         ],
+  #         \"dedicated\": null,
+  #         \"high\": \"adb.region.oraclecloud.com:1522/unique_id_databasename_high.adwc.oraclecloud.com\",
+  #         \"low\": \"adb.region.oraclecloud.com:1522/unique_id_databasename_low.adwc.oraclecloud.com\",
+  #         \"medium\": \"adb.region.oraclecloud.com:1522/unique_id_databasename_medium.adwc.oraclecloud.com\"
+  #       }
   #
   class Database::Models::AutonomousDatabaseConnectionStrings
     # The High database service provides the highest level of resources to each SQL statement resulting in the highest performance, but supports the fewest number of concurrent SQL statements.
@@ -30,6 +76,11 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :all_connection_strings
 
+    # A list of connection string profiles to allow clients to group, filter and select connection string values based on structured metadata.
+    #
+    # @return [Array<OCI::Database::Models::DatabaseConnectionStringProfile>]
+    attr_accessor :profiles
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -38,7 +89,8 @@ module OCI
         'medium': :'medium',
         'low': :'low',
         'dedicated': :'dedicated',
-        'all_connection_strings': :'allConnectionStrings'
+        'all_connection_strings': :'allConnectionStrings',
+        'profiles': :'profiles'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -51,7 +103,8 @@ module OCI
         'medium': :'String',
         'low': :'String',
         'dedicated': :'String',
-        'all_connection_strings': :'Hash<String, String>'
+        'all_connection_strings': :'Hash<String, String>',
+        'profiles': :'Array<OCI::Database::Models::DatabaseConnectionStringProfile>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -67,6 +120,7 @@ module OCI
     # @option attributes [String] :low The value to assign to the {#low} property
     # @option attributes [String] :dedicated The value to assign to the {#dedicated} property
     # @option attributes [Hash<String, String>] :all_connection_strings The value to assign to the {#all_connection_strings} property
+    # @option attributes [Array<OCI::Database::Models::DatabaseConnectionStringProfile>] :profiles The value to assign to the {#profiles} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -86,6 +140,8 @@ module OCI
       raise 'You cannot provide both :allConnectionStrings and :all_connection_strings' if attributes.key?(:'allConnectionStrings') && attributes.key?(:'all_connection_strings')
 
       self.all_connection_strings = attributes[:'all_connection_strings'] if attributes[:'all_connection_strings']
+
+      self.profiles = attributes[:'profiles'] if attributes[:'profiles']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -103,7 +159,8 @@ module OCI
         medium == other.medium &&
         low == other.low &&
         dedicated == other.dedicated &&
-        all_connection_strings == other.all_connection_strings
+        all_connection_strings == other.all_connection_strings &&
+        profiles == other.profiles
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -119,7 +176,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [high, medium, low, dedicated, all_connection_strings].hash
+      [high, medium, low, dedicated, all_connection_strings, profiles].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

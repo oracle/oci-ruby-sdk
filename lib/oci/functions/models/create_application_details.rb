@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -33,6 +33,11 @@ module OCI
     # @return [Array<String>]
     attr_accessor :subnet_ids
 
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)s of the Network Security Groups to add the application to.
+    #
+    # @return [Array<String>]
+    attr_accessor :network_security_group_ids
+
     # A syslog URL to which to send all function logs. Supports tcp, udp, and tcp+tls.
     # The syslog URL must be reachable from all of the subnets configured for the application.
     # Note: If you enable the OCI Logging service for this application, the syslogUrl value is ignored. Function logs are sent to the OCI Logging service, and not to the syslog URL.
@@ -60,6 +65,9 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # @return [OCI::Functions::Models::ImagePolicyConfig]
+    attr_accessor :image_policy_config
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -68,10 +76,12 @@ module OCI
         'display_name': :'displayName',
         'config': :'config',
         'subnet_ids': :'subnetIds',
+        'network_security_group_ids': :'networkSecurityGroupIds',
         'syslog_url': :'syslogUrl',
         'trace_config': :'traceConfig',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'image_policy_config': :'imagePolicyConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -84,10 +94,12 @@ module OCI
         'display_name': :'String',
         'config': :'Hash<String, String>',
         'subnet_ids': :'Array<String>',
+        'network_security_group_ids': :'Array<String>',
         'syslog_url': :'String',
         'trace_config': :'OCI::Functions::Models::ApplicationTraceConfig',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'image_policy_config': :'OCI::Functions::Models::ImagePolicyConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -102,10 +114,12 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :config The value to assign to the {#config} property
     # @option attributes [Array<String>] :subnet_ids The value to assign to the {#subnet_ids} property
+    # @option attributes [Array<String>] :network_security_group_ids The value to assign to the {#network_security_group_ids} property
     # @option attributes [String] :syslog_url The value to assign to the {#syslog_url} property
     # @option attributes [OCI::Functions::Models::ApplicationTraceConfig] :trace_config The value to assign to the {#trace_config} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [OCI::Functions::Models::ImagePolicyConfig] :image_policy_config The value to assign to the {#image_policy_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -132,6 +146,12 @@ module OCI
 
       self.subnet_ids = attributes[:'subnet_ids'] if attributes[:'subnet_ids']
 
+      self.network_security_group_ids = attributes[:'networkSecurityGroupIds'] if attributes[:'networkSecurityGroupIds']
+
+      raise 'You cannot provide both :networkSecurityGroupIds and :network_security_group_ids' if attributes.key?(:'networkSecurityGroupIds') && attributes.key?(:'network_security_group_ids')
+
+      self.network_security_group_ids = attributes[:'network_security_group_ids'] if attributes[:'network_security_group_ids']
+
       self.syslog_url = attributes[:'syslogUrl'] if attributes[:'syslogUrl']
 
       raise 'You cannot provide both :syslogUrl and :syslog_url' if attributes.key?(:'syslogUrl') && attributes.key?(:'syslog_url')
@@ -155,6 +175,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.image_policy_config = attributes[:'imagePolicyConfig'] if attributes[:'imagePolicyConfig']
+
+      raise 'You cannot provide both :imagePolicyConfig and :image_policy_config' if attributes.key?(:'imagePolicyConfig') && attributes.key?(:'image_policy_config')
+
+      self.image_policy_config = attributes[:'image_policy_config'] if attributes[:'image_policy_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -172,10 +198,12 @@ module OCI
         display_name == other.display_name &&
         config == other.config &&
         subnet_ids == other.subnet_ids &&
+        network_security_group_ids == other.network_security_group_ids &&
         syslog_url == other.syslog_url &&
         trace_config == other.trace_config &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        image_policy_config == other.image_policy_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -191,7 +219,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, config, subnet_ids, syslog_url, trace_config, freeform_tags, defined_tags].hash
+      [compartment_id, display_name, config, subnet_ids, network_security_group_ids, syslog_url, trace_config, freeform_tags, defined_tags, image_policy_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,7 +1,8 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -16,7 +17,8 @@ module OCI
       VALUE_TYPE_LONG = 'LONG'.freeze,
       VALUE_TYPE_INTEGER = 'INTEGER'.freeze,
       VALUE_TYPE_TIMESTAMP = 'TIMESTAMP'.freeze,
-      VALUE_TYPE_FACET = 'FACET'.freeze
+      VALUE_TYPE_FACET = 'FACET'.freeze,
+      VALUE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # Internal identifier for the column.
@@ -95,9 +97,14 @@ module OCI
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] value_type Object to be assigned
     def value_type=(value_type)
-      raise "Invalid value for 'value_type': this must be one of the values in VALUE_TYPE_ENUM." if value_type && !VALUE_TYPE_ENUM.include?(value_type)
-
-      @value_type = value_type
+      # rubocop:disable Style/ConditionalAssignment
+      if value_type && !VALUE_TYPE_ENUM.include?(value_type)
+        OCI.logger.debug("Unknown value for 'value_type' [" + value_type + "]. Mapping to 'VALUE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @value_type = VALUE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @value_type = value_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines

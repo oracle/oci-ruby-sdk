@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,11 +6,11 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API covering the [Networking](/iaas/Content/Network/Concepts/overview.htm),
+  # Use the Core Services API to manage resources such as virtual cloud networks (VCNs),
+  # compute instances, and block storage volumes. For more information, see the console
+  # documentation for the [Networking](/iaas/Content/Network/Concepts/overview.htm),
   # [Compute](/iaas/Content/Compute/Concepts/computeoverview.htm), and
-  # [Block Volume](/iaas/Content/Block/Concepts/overview.htm) services. Use this API
-  # to manage resources such as virtual cloud networks (VCNs), compute instances, and
-  # block storage volumes.
+  # [Block Volume](/iaas/Content/Block/Concepts/overview.htm) services.
   class Core::ComputeManagementClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]

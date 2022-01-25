@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -23,6 +23,10 @@ module OCI
     # @return [String]
     attr_accessor :application_type
 
+    # The operating systems running this application.
+    # @return [Array<OCI::Jms::Models::OperatingSystem>]
+    attr_accessor :operating_systems
+
     # The approximate count of installations running this application.
     # @return [Integer]
     attr_accessor :approximate_installation_count
@@ -35,11 +39,11 @@ module OCI
     # @return [Integer]
     attr_accessor :approximate_managed_instance_count
 
-    # Lower bound of the specified time period filter.
+    # Lower bound of the specified time period filter. JMS provides a view of the data that is _per day_. The query uses only the date element of the parameter.
     # @return [DateTime]
     attr_accessor :time_start
 
-    # Upper bound of the specified time period filter.
+    # Upper bound of the specified time period filter. JMS provides a view of the data that is _per day_. The query uses only the date element of the parameter.
     # @return [DateTime]
     attr_accessor :time_end
 
@@ -66,6 +70,7 @@ module OCI
         'application_id': :'applicationId',
         'display_name': :'displayName',
         'application_type': :'applicationType',
+        'operating_systems': :'operatingSystems',
         'approximate_installation_count': :'approximateInstallationCount',
         'approximate_jre_count': :'approximateJreCount',
         'approximate_managed_instance_count': :'approximateManagedInstanceCount',
@@ -84,6 +89,7 @@ module OCI
         'application_id': :'String',
         'display_name': :'String',
         'application_type': :'String',
+        'operating_systems': :'Array<OCI::Jms::Models::OperatingSystem>',
         'approximate_installation_count': :'Integer',
         'approximate_jre_count': :'Integer',
         'approximate_managed_instance_count': :'Integer',
@@ -104,6 +110,7 @@ module OCI
     # @option attributes [String] :application_id The value to assign to the {#application_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :application_type The value to assign to the {#application_type} property
+    # @option attributes [Array<OCI::Jms::Models::OperatingSystem>] :operating_systems The value to assign to the {#operating_systems} property
     # @option attributes [Integer] :approximate_installation_count The value to assign to the {#approximate_installation_count} property
     # @option attributes [Integer] :approximate_jre_count The value to assign to the {#approximate_jre_count} property
     # @option attributes [Integer] :approximate_managed_instance_count The value to assign to the {#approximate_managed_instance_count} property
@@ -134,6 +141,12 @@ module OCI
       raise 'You cannot provide both :applicationType and :application_type' if attributes.key?(:'applicationType') && attributes.key?(:'application_type')
 
       self.application_type = attributes[:'application_type'] if attributes[:'application_type']
+
+      self.operating_systems = attributes[:'operatingSystems'] if attributes[:'operatingSystems']
+
+      raise 'You cannot provide both :operatingSystems and :operating_systems' if attributes.key?(:'operatingSystems') && attributes.key?(:'operating_systems')
+
+      self.operating_systems = attributes[:'operating_systems'] if attributes[:'operating_systems']
 
       self.approximate_installation_count = attributes[:'approximateInstallationCount'] if attributes[:'approximateInstallationCount']
 
@@ -192,6 +205,7 @@ module OCI
         application_id == other.application_id &&
         display_name == other.display_name &&
         application_type == other.application_type &&
+        operating_systems == other.operating_systems &&
         approximate_installation_count == other.approximate_installation_count &&
         approximate_jre_count == other.approximate_jre_count &&
         approximate_managed_instance_count == other.approximate_managed_instance_count &&
@@ -214,7 +228,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [application_id, display_name, application_type, approximate_installation_count, approximate_jre_count, approximate_managed_instance_count, time_start, time_end, time_first_seen, time_last_seen].hash
+      [application_id, display_name, application_type, operating_systems, approximate_installation_count, approximate_jre_count, approximate_managed_instance_count, time_start, time_end, time_first_seen, time_last_seen].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -18,6 +18,11 @@ module OCI
     #
     # @return [String]
     attr_accessor :priority
+
+    # List of fields to search for terms or phrases to highlight.  If not specified all string fields are scanned.
+    #
+    # @return [Array<String>]
+    attr_accessor :match_only
 
     # List of fields to search for terms or phrases to highlight.
     #
@@ -46,6 +51,7 @@ module OCI
         'declared_fields': :'declaredFields',
         'color': :'color',
         'priority': :'priority',
+        'match_only': :'matchOnly',
         'fields': :'fields',
         'keywords': :'keywords',
         'sub_queries': :'subQueries'
@@ -65,6 +71,7 @@ module OCI
         'declared_fields': :'Array<OCI::LogAnalytics::Models::AbstractField>',
         'color': :'String',
         'priority': :'String',
+        'match_only': :'Array<String>',
         'fields': :'Array<String>',
         'keywords': :'Array<String>',
         'sub_queries': :'Array<OCI::LogAnalytics::Models::ParseQueryOutput>'
@@ -85,6 +92,7 @@ module OCI
     # @option attributes [Array<OCI::LogAnalytics::Models::AbstractField>] :declared_fields The value to assign to the {OCI::LogAnalytics::Models::AbstractCommandDescriptor#declared_fields #declared_fields} proprety
     # @option attributes [String] :color The value to assign to the {#color} property
     # @option attributes [String] :priority The value to assign to the {#priority} property
+    # @option attributes [Array<String>] :match_only The value to assign to the {#match_only} property
     # @option attributes [Array<String>] :fields The value to assign to the {#fields} property
     # @option attributes [Array<String>] :keywords The value to assign to the {#keywords} property
     # @option attributes [Array<OCI::LogAnalytics::Models::ParseQueryOutput>] :sub_queries The value to assign to the {#sub_queries} property
@@ -101,6 +109,12 @@ module OCI
       self.color = attributes[:'color'] if attributes[:'color']
 
       self.priority = attributes[:'priority'] if attributes[:'priority']
+
+      self.match_only = attributes[:'matchOnly'] if attributes[:'matchOnly']
+
+      raise 'You cannot provide both :matchOnly and :match_only' if attributes.key?(:'matchOnly') && attributes.key?(:'match_only')
+
+      self.match_only = attributes[:'match_only'] if attributes[:'match_only']
 
       self.fields = attributes[:'fields'] if attributes[:'fields']
 
@@ -132,6 +146,7 @@ module OCI
         declared_fields == other.declared_fields &&
         color == other.color &&
         priority == other.priority &&
+        match_only == other.match_only &&
         fields == other.fields &&
         keywords == other.keywords &&
         sub_queries == other.sub_queries
@@ -150,7 +165,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, display_query_string, internal_query_string, category, referenced_fields, declared_fields, color, priority, fields, keywords, sub_queries].hash
+      [name, display_query_string, internal_query_string, category, referenced_fields, declared_fields, color, priority, match_only, fields, keywords, sub_queries].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

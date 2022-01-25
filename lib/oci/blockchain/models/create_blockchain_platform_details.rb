@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -30,6 +30,10 @@ module OCI
     # Bring your own license
     # @return [BOOLEAN]
     attr_accessor :is_byol
+
+    # Platform version
+    # @return [String]
+    attr_accessor :platform_version
 
     # **[Required]** IDCS access token with Identity Domain Administrator role
     # @return [String]
@@ -72,6 +76,7 @@ module OCI
         'platform_role': :'platformRole',
         'compute_shape': :'computeShape',
         'is_byol': :'isByol',
+        'platform_version': :'platformVersion',
         'idcs_access_token': :'idcsAccessToken',
         'federated_user_id': :'federatedUserId',
         'ca_cert_archive_text': :'caCertArchiveText',
@@ -91,6 +96,7 @@ module OCI
         'platform_role': :'String',
         'compute_shape': :'String',
         'is_byol': :'BOOLEAN',
+        'platform_version': :'String',
         'idcs_access_token': :'String',
         'federated_user_id': :'String',
         'ca_cert_archive_text': :'String',
@@ -112,6 +118,7 @@ module OCI
     # @option attributes [String] :platform_role The value to assign to the {#platform_role} property
     # @option attributes [String] :compute_shape The value to assign to the {#compute_shape} property
     # @option attributes [BOOLEAN] :is_byol The value to assign to the {#is_byol} property
+    # @option attributes [String] :platform_version The value to assign to the {#platform_version} property
     # @option attributes [String] :idcs_access_token The value to assign to the {#idcs_access_token} property
     # @option attributes [String] :federated_user_id The value to assign to the {#federated_user_id} property
     # @option attributes [String] :ca_cert_archive_text The value to assign to the {#ca_cert_archive_text} property
@@ -156,6 +163,12 @@ module OCI
 
       self.is_byol = attributes[:'is_byol'] unless attributes[:'is_byol'].nil?
       self.is_byol = false if is_byol.nil? && !attributes.key?(:'isByol') && !attributes.key?(:'is_byol') # rubocop:disable Style/StringLiterals
+
+      self.platform_version = attributes[:'platformVersion'] if attributes[:'platformVersion']
+
+      raise 'You cannot provide both :platformVersion and :platform_version' if attributes.key?(:'platformVersion') && attributes.key?(:'platform_version')
+
+      self.platform_version = attributes[:'platform_version'] if attributes[:'platform_version']
 
       self.idcs_access_token = attributes[:'idcsAccessToken'] if attributes[:'idcsAccessToken']
 
@@ -205,6 +218,7 @@ module OCI
         platform_role == other.platform_role &&
         compute_shape == other.compute_shape &&
         is_byol == other.is_byol &&
+        platform_version == other.platform_version &&
         idcs_access_token == other.idcs_access_token &&
         federated_user_id == other.federated_user_id &&
         ca_cert_archive_text == other.ca_cert_archive_text &&
@@ -225,7 +239,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, compartment_id, description, platform_role, compute_shape, is_byol, idcs_access_token, federated_user_id, ca_cert_archive_text, freeform_tags, defined_tags].hash
+      [display_name, compartment_id, description, platform_role, compute_shape, is_byol, platform_version, idcs_access_token, federated_user_id, ca_cert_archive_text, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

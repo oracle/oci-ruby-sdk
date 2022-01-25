@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # OCI AI Service solutions can help Enterprise customers integrate AI into their products immediately using our proven,
+  # OCI Language Service solutions can help enterprise customers integrate AI into their products immediately using our proven,
   #     pre-trained and custom models or containers, without a need to set up an house team of AI and ML experts.
   #     This allows enterprises to focus on business drivers and development work rather than AI and ML operations, which shortens the time to market.
   class AiLanguage::AIServiceLanguageClient
@@ -101,9 +101,294 @@ module OCI
 
 
     # Make a detect call to language detection pre-deployed model.
+    # @param [OCI::AiLanguage::Models::BatchDetectDominantLanguageDetails] batch_detect_dominant_language_details The details to make a language detection detect call.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::AiLanguage::Models::BatchDetectDominantLanguageResult BatchDetectDominantLanguageResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ailanguage/batch_detect_dominant_language.rb.html) to see an example of how to use batch_detect_dominant_language API.
+    def batch_detect_dominant_language(batch_detect_dominant_language_details, opts = {})
+      logger.debug 'Calling operation AIServiceLanguageClient#batch_detect_dominant_language.' if logger
+
+      raise "Missing the required parameter 'batch_detect_dominant_language_details' when calling batch_detect_dominant_language." if batch_detect_dominant_language_details.nil?
+
+      path = '/actions/batchDetectDominantLanguage'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(batch_detect_dominant_language_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AIServiceLanguageClient#batch_detect_dominant_language') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::AiLanguage::Models::BatchDetectDominantLanguageResult'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Make a batch detect call to entity pre-deployed model
+    # @param [OCI::AiLanguage::Models::BatchDetectLanguageEntitiesDetails] batch_detect_language_entities_details The details to make a Entity detect call.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::AiLanguage::Models::BatchDetectLanguageEntitiesResult BatchDetectLanguageEntitiesResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ailanguage/batch_detect_language_entities.rb.html) to see an example of how to use batch_detect_language_entities API.
+    def batch_detect_language_entities(batch_detect_language_entities_details, opts = {})
+      logger.debug 'Calling operation AIServiceLanguageClient#batch_detect_language_entities.' if logger
+
+      raise "Missing the required parameter 'batch_detect_language_entities_details' when calling batch_detect_language_entities." if batch_detect_language_entities_details.nil?
+
+      path = '/actions/batchDetectLanguageEntities'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(batch_detect_language_entities_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AIServiceLanguageClient#batch_detect_language_entities') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::AiLanguage::Models::BatchDetectLanguageEntitiesResult'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Make a detect call to the keyPhrase pre-deployed model.
+    # @param [OCI::AiLanguage::Models::BatchDetectLanguageKeyPhrasesDetails] batch_detect_language_key_phrases_details The details to make keyPhrase detect call.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::AiLanguage::Models::BatchDetectLanguageKeyPhrasesResult BatchDetectLanguageKeyPhrasesResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ailanguage/batch_detect_language_key_phrases.rb.html) to see an example of how to use batch_detect_language_key_phrases API.
+    def batch_detect_language_key_phrases(batch_detect_language_key_phrases_details, opts = {})
+      logger.debug 'Calling operation AIServiceLanguageClient#batch_detect_language_key_phrases.' if logger
+
+      raise "Missing the required parameter 'batch_detect_language_key_phrases_details' when calling batch_detect_language_key_phrases." if batch_detect_language_key_phrases_details.nil?
+
+      path = '/actions/batchDetectLanguageKeyPhrases'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(batch_detect_language_key_phrases_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AIServiceLanguageClient#batch_detect_language_key_phrases') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::AiLanguage::Models::BatchDetectLanguageKeyPhrasesResult'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Make a detect call to sentiment pre-deployed model.
+    # @param [OCI::AiLanguage::Models::BatchDetectLanguageSentimentsDetails] batch_detect_language_sentiments_details The details to make sentiment detect call.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [Array<String>] :level Set this parameter for sentence and aspect level sentiment analysis.
+    #   Allowed values are:
+    #      - ASPECT
+    #      - SENTENCE
+    #
+    #   Allowed values are: ASPECT, SENTENCE
+    # @return [Response] A Response object with data of type {OCI::AiLanguage::Models::BatchDetectLanguageSentimentsResult BatchDetectLanguageSentimentsResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ailanguage/batch_detect_language_sentiments.rb.html) to see an example of how to use batch_detect_language_sentiments API.
+    def batch_detect_language_sentiments(batch_detect_language_sentiments_details, opts = {})
+      logger.debug 'Calling operation AIServiceLanguageClient#batch_detect_language_sentiments.' if logger
+
+      raise "Missing the required parameter 'batch_detect_language_sentiments_details' when calling batch_detect_language_sentiments." if batch_detect_language_sentiments_details.nil?
+
+
+      level_allowable_values = %w[ASPECT SENTENCE]
+      if opts[:level] && !opts[:level].empty?
+        opts[:level].each do |val_to_check|
+          unless level_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "level", must be one of ASPECT, SENTENCE.'
+          end
+        end
+      end
+
+      path = '/actions/batchDetectLanguageSentiments'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:level] = OCI::ApiClient.build_collection_params(opts[:level], :multi) if opts[:level] && !opts[:level].empty?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(batch_detect_language_sentiments_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AIServiceLanguageClient#batch_detect_language_sentiments') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::AiLanguage::Models::BatchDetectLanguageSentimentsResult'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Make a detect call to text classification from the pre-deployed model.
+    # @param [OCI::AiLanguage::Models::BatchDetectLanguageTextClassificationDetails] batch_detect_language_text_classification_details The details to make text classification detect call.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::AiLanguage::Models::BatchDetectLanguageTextClassificationResult BatchDetectLanguageTextClassificationResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ailanguage/batch_detect_language_text_classification.rb.html) to see an example of how to use batch_detect_language_text_classification API.
+    def batch_detect_language_text_classification(batch_detect_language_text_classification_details, opts = {})
+      logger.debug 'Calling operation AIServiceLanguageClient#batch_detect_language_text_classification.' if logger
+
+      raise "Missing the required parameter 'batch_detect_language_text_classification_details' when calling batch_detect_language_text_classification." if batch_detect_language_text_classification_details.nil?
+
+      path = '/actions/batchDetectLanguageTextClassification'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(batch_detect_language_text_classification_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AIServiceLanguageClient#batch_detect_language_text_classification') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::AiLanguage::Models::BatchDetectLanguageTextClassificationResult'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Make a detect call to language detection pre-deployed model.
     # @param [OCI::AiLanguage::Models::DetectDominantLanguageDetails] detect_dominant_language_details The details to make a language detection detect call.
-    #   Example: `{\"text\": \"If an emerging growth company, indicate by check mark if the registrant has elected not
-    #               to use the extended transition period for complying\"}`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -158,8 +443,6 @@ module OCI
 
     # Make a detect call to enitiy pre-deployed model
     # @param [OCI::AiLanguage::Models::DetectLanguageEntitiesDetails] detect_language_entities_details The details to make a Entity detect call.
-    #   Example: `{\"text\": \"If an emerging growth company, indicate by check mark if the registrant has elected not
-    #              to use the extended transition period for complying\"}`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -224,8 +507,6 @@ module OCI
 
     # Make a detect call to the keyPhrase pre-deployed model.
     # @param [OCI::AiLanguage::Models::DetectLanguageKeyPhrasesDetails] detect_language_key_phrases_details The details to make keyPhrase detect call.
-    #    Example: `{\"text\": \"If an emerging growth company, indicate by check mark if the registrant has elected not
-    #                  to use the extended transition period for complying\"}`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -280,8 +561,6 @@ module OCI
 
     # Make a detect call to sentiment pre-deployed model.
     # @param [OCI::AiLanguage::Models::DetectLanguageSentimentsDetails] detect_language_sentiments_details The details to make sentiment detect call.
-    #   Example: `{\"text\": \"If an emerging growth company, indicate by check mark if the registrant has elected not
-    #               to use the extended transition period for complying\"}`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -336,7 +615,6 @@ module OCI
 
     # Make a detect call to text classification from the pre-deployed model.
     # @param [OCI::AiLanguage::Models::DetectLanguageTextClassificationDetails] detect_language_text_classification_details The details to make text classification detect call.
-    #   Example: `{\"text\": \"If an emerging growth company, indicate by check mark if the registrant has elected not to use the extended transition period for complying\"}`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level

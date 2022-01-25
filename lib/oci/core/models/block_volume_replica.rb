@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -95,6 +95,11 @@ module OCI
     # @return [Integer]
     attr_accessor :total_data_transferred_in_gbs
 
+    # The OCID of the volume group replica.
+    #
+    # @return [String]
+    attr_accessor :volume_group_replica_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -110,7 +115,8 @@ module OCI
         'time_created': :'timeCreated',
         'time_last_synced': :'timeLastSynced',
         'block_volume_id': :'blockVolumeId',
-        'total_data_transferred_in_gbs': :'totalDataTransferredInGBs'
+        'total_data_transferred_in_gbs': :'totalDataTransferredInGBs',
+        'volume_group_replica_id': :'volumeGroupReplicaId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -130,7 +136,8 @@ module OCI
         'time_created': :'DateTime',
         'time_last_synced': :'DateTime',
         'block_volume_id': :'String',
-        'total_data_transferred_in_gbs': :'Integer'
+        'total_data_transferred_in_gbs': :'Integer',
+        'volume_group_replica_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -153,6 +160,7 @@ module OCI
     # @option attributes [DateTime] :time_last_synced The value to assign to the {#time_last_synced} property
     # @option attributes [String] :block_volume_id The value to assign to the {#block_volume_id} property
     # @option attributes [Integer] :total_data_transferred_in_gbs The value to assign to the {#total_data_transferred_in_gbs} property
+    # @option attributes [String] :volume_group_replica_id The value to assign to the {#volume_group_replica_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -226,6 +234,12 @@ module OCI
       raise 'You cannot provide both :totalDataTransferredInGBs and :total_data_transferred_in_gbs' if attributes.key?(:'totalDataTransferredInGBs') && attributes.key?(:'total_data_transferred_in_gbs')
 
       self.total_data_transferred_in_gbs = attributes[:'total_data_transferred_in_gbs'] if attributes[:'total_data_transferred_in_gbs']
+
+      self.volume_group_replica_id = attributes[:'volumeGroupReplicaId'] if attributes[:'volumeGroupReplicaId']
+
+      raise 'You cannot provide both :volumeGroupReplicaId and :volume_group_replica_id' if attributes.key?(:'volumeGroupReplicaId') && attributes.key?(:'volume_group_replica_id')
+
+      self.volume_group_replica_id = attributes[:'volume_group_replica_id'] if attributes[:'volume_group_replica_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -263,7 +277,8 @@ module OCI
         time_created == other.time_created &&
         time_last_synced == other.time_last_synced &&
         block_volume_id == other.block_volume_id &&
-        total_data_transferred_in_gbs == other.total_data_transferred_in_gbs
+        total_data_transferred_in_gbs == other.total_data_transferred_in_gbs &&
+        volume_group_replica_id == other.volume_group_replica_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -279,7 +294,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, size_in_gbs, time_created, time_last_synced, block_volume_id, total_data_transferred_in_gbs].hash
+      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, size_in_gbs, time_created, time_last_synced, block_volume_id, total_data_transferred_in_gbs, volume_group_replica_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

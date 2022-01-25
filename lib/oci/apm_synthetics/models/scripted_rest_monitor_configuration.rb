@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,12 +8,16 @@ require_relative 'monitor_configuration'
 module OCI
   # Configuration details for the SCRIPTED_REST monitor type.
   class ApmSynthetics::Models::ScriptedRestMonitorConfiguration < ApmSynthetics::Models::MonitorConfiguration
+    # @return [OCI::ApmSynthetics::Models::NetworkConfiguration]
+    attr_accessor :network_configuration
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'config_type': :'configType',
-        'is_failure_retried': :'isFailureRetried'
+        'is_failure_retried': :'isFailureRetried',
+        'network_configuration': :'networkConfiguration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -23,7 +27,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'config_type': :'String',
-        'is_failure_retried': :'BOOLEAN'
+        'is_failure_retried': :'BOOLEAN',
+        'network_configuration': :'OCI::ApmSynthetics::Models::NetworkConfiguration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -35,12 +40,22 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [BOOLEAN] :is_failure_retried The value to assign to the {OCI::ApmSynthetics::Models::MonitorConfiguration#is_failure_retried #is_failure_retried} proprety
+    # @option attributes [OCI::ApmSynthetics::Models::NetworkConfiguration] :network_configuration The value to assign to the {#network_configuration} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       attributes['configType'] = 'SCRIPTED_REST_CONFIG'
 
       super(attributes)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.network_configuration = attributes[:'networkConfiguration'] if attributes[:'networkConfiguration']
+
+      raise 'You cannot provide both :networkConfiguration and :network_configuration' if attributes.key?(:'networkConfiguration') && attributes.key?(:'network_configuration')
+
+      self.network_configuration = attributes[:'network_configuration'] if attributes[:'network_configuration']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -55,7 +70,8 @@ module OCI
 
       self.class == other.class &&
         config_type == other.config_type &&
-        is_failure_retried == other.is_failure_retried
+        is_failure_retried == other.is_failure_retried &&
+        network_configuration == other.network_configuration
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -71,7 +87,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [config_type, is_failure_retried].hash
+      [config_type, is_failure_retried, network_configuration].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

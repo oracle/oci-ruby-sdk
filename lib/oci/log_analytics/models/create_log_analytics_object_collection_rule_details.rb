@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -87,6 +87,13 @@ module OCI
     # @return [Hash<String, Array<OCI::LogAnalytics::Models::PropertyOverride>>]
     attr_accessor :overrides
 
+    # When the filters are provided, only the objects matching the filters are picked up for processing.
+    # The matchType supported is exact match and accommodates wildcard \"*\".
+    # For more information on filters, see [Event Filters](https://docs.oracle.com/en-us/iaas/Content/Events/Concepts/filterevents.htm).
+    #
+    # @return [Array<String>]
+    attr_accessor :object_name_filters
+
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
     #
@@ -117,6 +124,7 @@ module OCI
         'char_encoding': :'charEncoding',
         'is_enabled': :'isEnabled',
         'overrides': :'overrides',
+        'object_name_filters': :'objectNameFilters',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags'
         # rubocop:enable Style/SymbolLiteral
@@ -141,6 +149,7 @@ module OCI
         'char_encoding': :'String',
         'is_enabled': :'BOOLEAN',
         'overrides': :'Hash<String, Array<OCI::LogAnalytics::Models::PropertyOverride>>',
+        'object_name_filters': :'Array<String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
@@ -167,6 +176,7 @@ module OCI
     # @option attributes [String] :char_encoding The value to assign to the {#char_encoding} property
     # @option attributes [BOOLEAN] :is_enabled The value to assign to the {#is_enabled} property
     # @option attributes [Hash<String, Array<OCI::LogAnalytics::Models::PropertyOverride>>] :overrides The value to assign to the {#overrides} property
+    # @option attributes [Array<String>] :object_name_filters The value to assign to the {#object_name_filters} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     def initialize(attributes = {})
@@ -255,6 +265,12 @@ module OCI
 
       self.overrides = attributes[:'overrides'] if attributes[:'overrides']
 
+      self.object_name_filters = attributes[:'objectNameFilters'] if attributes[:'objectNameFilters']
+
+      raise 'You cannot provide both :objectNameFilters and :object_name_filters' if attributes.key?(:'objectNameFilters') && attributes.key?(:'object_name_filters')
+
+      self.object_name_filters = attributes[:'object_name_filters'] if attributes[:'object_name_filters']
+
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
@@ -301,6 +317,7 @@ module OCI
         char_encoding == other.char_encoding &&
         is_enabled == other.is_enabled &&
         overrides == other.overrides &&
+        object_name_filters == other.object_name_filters &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags
     end
@@ -318,7 +335,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, description, compartment_id, os_namespace, os_bucket_name, collection_type, poll_since, poll_till, log_group_id, log_source_name, entity_id, char_encoding, is_enabled, overrides, defined_tags, freeform_tags].hash
+      [name, description, compartment_id, os_namespace, os_bucket_name, collection_type, poll_since, poll_till, log_group_id, log_source_name, entity_id, char_encoding, is_enabled, overrides, object_name_filters, defined_tags, freeform_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,11 +6,11 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API covering the [Networking](/iaas/Content/Network/Concepts/overview.htm),
+  # Use the Core Services API to manage resources such as virtual cloud networks (VCNs),
+  # compute instances, and block storage volumes. For more information, see the console
+  # documentation for the [Networking](/iaas/Content/Network/Concepts/overview.htm),
   # [Compute](/iaas/Content/Compute/Concepts/computeoverview.htm), and
-  # [Block Volume](/iaas/Content/Block/Concepts/overview.htm) services. Use this API
-  # to manage resources such as virtual cloud networks (VCNs), compute instances, and
-  # block storage volumes.
+  # [Block Volume](/iaas/Content/Block/Concepts/overview.htm) services.
   class Core::VirtualNetworkClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -1083,7 +1083,7 @@ module OCI
     # about moving resources between compartments, see
     # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
     #
-    # @param [String] drg_id The [[OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)](/iaas/Content/General/Concepts/identifiers.htm) of the DRG.
+    # @param [String] drg_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG.
     # @param [OCI::Core::Models::ChangeDrgCompartmentDetails] change_drg_compartment_details Request to change the compartment of a DRG.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2366,7 +2366,7 @@ module OCI
 
 
     # Creates a new virtual customer-premises equipment (CPE) object in the specified compartment. For
-    # more information, see [IPSec VPNs](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingIPsec.htm).
+    # more information, see [Site-to-Site VPN Overview](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/overviewIPsec.htm).
     #
     # For the purposes of access control, you must provide the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment where you want
     # the CPE to reside. Notice that the CPE doesn't have to be in the same compartment as the IPSec
@@ -2376,7 +2376,7 @@ module OCI
     # For information about OCIDs, see [Resource Identifiers](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #
     # You must provide the public IP address of your on-premises router. See
-    # [Configuring Your On-Premises Router for an IPSec VPN](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/configuringCPE.htm).
+    # [CPE Configuration](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/configuringCPE.htm).
     #
     # You may optionally specify a *display name* for the CPE, otherwise a default is provided. It does not have to
     # be unique, and you can change it. Avoid entering confidential information.
@@ -2665,7 +2665,7 @@ module OCI
     # Creates a new dynamic routing gateway (DRG) in the specified compartment. For more information,
     # see [Dynamic Routing Gateways (DRGs)](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingDRGs.htm).
     #
-    # For the purposes of access control, you must provide the OCID of the compartment where you want
+    # For the purposes of access control, you must provide the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment where you want
     # the DRG to reside. Notice that the DRG doesn't have to be in the same compartment as the VCN,
     # the DRG attachment, or other Networking Service components. If you're not sure which compartment
     # to use, put the DRG in the same compartment as the VCN. For more information about compartments
@@ -3007,7 +3007,7 @@ module OCI
 
 
     # Creates a new IPSec connection between the specified DRG and CPE. For more information, see
-    # [IPSec VPNs](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingIPsec.htm).
+    # [Site-to-Site VPN Overview](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/overviewIPsec.htm).
     #
     # If you configure at least one tunnel to use static routing, then in the request you must provide
     # at least one valid static route (you're allowed a maximum of 10). For example: 10.0.0.0/16.
@@ -3033,7 +3033,7 @@ module OCI
     #
     # For each tunnel, you need the IP address of Oracle's VPN headend and the shared secret
     # (that is, the pre-shared key). For more information, see
-    # [Configuring Your On-Premises Router for an IPSec VPN](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/configuringCPE.htm).
+    # [CPE Configuration](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/configuringCPE.htm).
     #
     # @param [OCI::Core::Models::CreateIPSecConnectionDetails] create_ip_sec_connection_details Details for creating an `IPSecConnection`.
     # @param [Hash] opts the optional parameters
@@ -3405,7 +3405,7 @@ module OCI
     # [Public IP Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingpublicIPs.htm).
     #
     # * **For an ephemeral public IP assigned to a private IP:** You must also specify a `privateIpId`
-    # with the OCID of the primary private IP you want to assign the public IP to. The public IP is
+    # with the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the primary private IP you want to assign the public IP to. The public IP is
     # created in the same availability domain as the private IP. An ephemeral public IP must always be
     # assigned to a private IP, and only to the *primary* private IP on a VNIC, not a secondary
     # private IP. Exception: If you create a {NatGateway}, Oracle
@@ -3610,7 +3610,7 @@ module OCI
     # tables in your VCN and the types of targets you can use in route rules,
     # see [Route Tables](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingroutetables.htm).
     #
-    # For the purposes of access control, you must provide the OCID of the compartment where you want the route
+    # For the purposes of access control, you must provide the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment where you want the route
     # table to reside. Notice that the route table doesn't have to be in the same compartment as the VCN, subnets,
     # or other Networking Service components. If you're not sure which compartment to use, put the route
     # table in the same compartment as the VCN. For more information about compartments and access control, see
@@ -3683,7 +3683,7 @@ module OCI
     # For information on the number of rules you can have in a security list, see
     # [Service Limits](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/servicelimits.htm).
     #
-    # For the purposes of access control, you must provide the OCID of the compartment where you want the security
+    # For the purposes of access control, you must provide the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment where you want the security
     # list to reside. Notice that the security list doesn't have to be in the same compartment as the VCN, subnets,
     # or other Networking Service components. If you're not sure which compartment to use, put the security
     # list in the same compartment as the VCN. For more information about compartments and access control, see
@@ -3753,7 +3753,7 @@ module OCI
 
     # Creates a new service gateway in the specified compartment.
     #
-    # For the purposes of access control, you must provide the OCID of the compartment where you want
+    # For the purposes of access control, you must provide the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment where you want
     # the service gateway to reside. For more information about compartments and access control, see
     # [Overview of the IAM Service](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/overview.htm).
     # For information about OCIDs, see [Resource Identifiers](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
@@ -3825,7 +3825,7 @@ module OCI
     # For information on the number of subnets you can have in a VCN, see
     # [Service Limits](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/servicelimits.htm).
     #
-    # For the purposes of access control, you must provide the OCID of the compartment where you want the subnet
+    # For the purposes of access control, you must provide the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment where you want the subnet
     # to reside. Notice that the subnet doesn't have to be in the same compartment as the VCN, route tables, or
     # other Networking Service components. If you're not sure which compartment to use, put the subnet in
     # the same compartment as the VCN. For more information about compartments and access control, see
@@ -3921,7 +3921,7 @@ module OCI
     # For a CIDR block, Oracle recommends that you use one of the private IP address ranges specified in [RFC 1918](https://tools.ietf.org/html/rfc1918) (10.0.0.0/8, 172.16/12, and 192.168/16). Example:
     # 172.16.0.0/16. The CIDR blocks can range from /16 to /30.
     #
-    # For the purposes of access control, you must provide the OCID of the compartment where you want the VCN to
+    # For the purposes of access control, you must provide the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment where you want the VCN to
     # reside. Consult an Oracle Cloud Infrastructure administrator in your organization if you're not sure which
     # compartment to use. Notice that the VCN doesn't have to be in the same compartment as the subnets or other
     # Networking Service components. For more information about compartments and access control, see
@@ -3936,10 +3936,10 @@ module OCI
     # [DNS in Your Virtual Cloud Network](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/dns.htm).
     #
     # The VCN automatically comes with a default route table, default security list, and default set of DHCP options.
-    # The OCID for each is returned in the response. You can't delete these default objects, but you can change their
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for each is returned in the response. You can't delete these default objects, but you can change their
     # contents (that is, change the route rules, security list rules, and so on).
     #
-    # The VCN and subnets you create are not accessible until you attach an internet gateway or set up an IPSec VPN
+    # The VCN and subnets you create are not accessible until you attach an internet gateway or set up a Site-to-Site VPN
     # or FastConnect. For more information, see
     # [Overview of the Networking Service](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/overview.htm).
     #
@@ -4005,7 +4005,7 @@ module OCI
     # Infrastructure FastConnect. For more information, see
     # [FastConnect Overview](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/fastconnect.htm).
     #
-    # For the purposes of access control, you must provide the OCID of the
+    # For the purposes of access control, you must provide the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the
     # compartment where you want the virtual circuit to reside. If you're
     # not sure which compartment to use, put the virtual circuit in the
     # same compartment with the DRG it's using. For more information about
@@ -4452,7 +4452,7 @@ module OCI
     # operation. The DRG's `lifecycleState` will change to TERMINATING temporarily until the DRG is completely
     # removed.
     #
-    # @param [String] drg_id The [[OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)](/iaas/Content/General/Concepts/identifiers.htm) of the DRG.
+    # @param [String] drg_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4743,9 +4743,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the specified IPSec connection. If your goal is to disable the IPSec VPN between your VCN and
-    # on-premises network, it's easiest to simply detach the DRG but keep all the IPSec VPN components intact.
-    # If you were to delete all the components and then later need to create an IPSec VPN again, you would
+    # Deletes the specified IPSec connection. If your goal is to disable the Site-to-Site VPN between your VCN and
+    # on-premises network, it's easiest to simply detach the DRG but keep all the Site-to-Site VPN components intact.
+    # If you were to delete all the components and then later need to create an Site-to-Site VPN again, you would
     # need to configure your on-premises router again with the new information returned from
     # {#create_ip_sec_connection create_ip_sec_connection}.
     #
@@ -4995,7 +4995,7 @@ module OCI
     # To get a list of the VNICs in a network security group, use
     # {#list_network_security_group_vnics list_network_security_group_vnics}.
     # Each returned {NetworkSecurityGroupVnic} object
-    # contains both the OCID of the VNIC and the OCID of the VNIC's parent resource (for example,
+    # contains both the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VNIC and the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VNIC's parent resource (for example,
     # the Compute instance that the VNIC is attached to).
     #
     # @param [String] network_security_group_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the network security group.
@@ -5054,7 +5054,7 @@ module OCI
 
 
     # Unassigns and deletes the specified private IP. You must
-    # specify the object's OCID. The private IP address is returned to
+    # specify the object's [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). The private IP address is returned to
     # the subnet's pool of available addresses.
     #
     # This operation cannot be used with primary private IPs, which are
@@ -5121,7 +5121,7 @@ module OCI
 
 
     # Unassigns and deletes the specified public IP (either ephemeral or reserved).
-    # You must specify the object's OCID. The public IP address is returned to the
+    # You must specify the object's [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). The public IP address is returned to the
     # Oracle Cloud Infrastructure public IP pool.
     #
     # **Note:** You cannot update, unassign, or delete the public IP that Oracle automatically
@@ -5807,7 +5807,7 @@ module OCI
 
     # Returns a complete list of DRG attachments that belong to a particular DRG.
     #
-    # @param [String] drg_id The [[OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)](/iaas/Content/General/Concepts/identifiers.htm) of the DRG.
+    # @param [String] drg_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -5870,6 +5870,60 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Core::Models::DrgAttachmentInfo>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # The allowed parameters for IKE IPSec
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::AllowedIkeIPSecParameters AllowedIkeIPSecParameters}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_allowed_ike_ip_sec_parameters.rb.html) to see an example of how to use get_allowed_ike_ip_sec_parameters API.
+    def get_allowed_ike_ip_sec_parameters(opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#get_allowed_ike_ip_sec_parameters.' if logger
+
+
+      path = '/ipsecAlgorithms'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#get_allowed_ike_ip_sec_parameters') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::AllowedIkeIPSecParameters'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -6009,9 +6063,9 @@ module OCI
     # Here are similar operations:
     #
     #   * {#get_ipsec_cpe_device_config_content get_ipsec_cpe_device_config_content}
-    #   returns CPE configuration content for all tunnels in a single IPSec connection.
+    #   returns CPE configuration content for all IPSec tunnels in a single IPSec connection.
     #   * {#get_tunnel_cpe_device_config_content get_tunnel_cpe_device_config_content}
-    #   returns CPE configuration content for a specific tunnel within an IPSec connection.
+    #   returns CPE configuration content for a specific IPSec tunnel in an IPSec connection.
     #
     # @param [String] cpe_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the CPE.
     # @param [Hash] opts the optional parameters
@@ -6452,7 +6506,7 @@ module OCI
 
 
     # Gets the specified DRG's information.
-    # @param [String] drg_id The [[OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)](/iaas/Content/General/Concepts/identifiers.htm) of the DRG.
+    # @param [String] drg_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -6561,7 +6615,7 @@ module OCI
     # Gets the redundancy status for the specified DRG. For more information, see
     # [Redundancy Remedies](https://docs.cloud.oracle.com/iaas/Content/Network/Troubleshoot/drgredundancy.htm).
     #
-    # @param [String] drg_id The [[OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)](/iaas/Content/General/Concepts/identifiers.htm) of the DRG.
+    # @param [String] drg_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -7129,6 +7183,64 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
+    # Get the identified error for the specified IPSec Tunnel ID.
+    #
+    # @param [String] ipsc_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the IPSec connection.
+    # @param [String] tunnel_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the tunnel.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Core::Models::IPSecConnectionTunnelErrorDetails IPSecConnectionTunnelErrorDetails}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_ip_sec_connection_tunnel_error.rb.html) to see an example of how to use get_ip_sec_connection_tunnel_error API.
+    def get_ip_sec_connection_tunnel_error(ipsc_id, tunnel_id, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#get_ip_sec_connection_tunnel_error.' if logger
+
+      raise "Missing the required parameter 'ipsc_id' when calling get_ip_sec_connection_tunnel_error." if ipsc_id.nil?
+      raise "Missing the required parameter 'tunnel_id' when calling get_ip_sec_connection_tunnel_error." if tunnel_id.nil?
+      raise "Parameter value for 'ipsc_id' must not be blank" if OCI::Internal::Util.blank_string?(ipsc_id)
+      raise "Parameter value for 'tunnel_id' must not be blank" if OCI::Internal::Util.blank_string?(tunnel_id)
+
+      path = '/ipsecConnections/{ipscId}/tunnels/{tunnelId}/error'.sub('{ipscId}', ipsc_id.to_s).sub('{tunnelId}', tunnel_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#get_ip_sec_connection_tunnel_error') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::IPSecConnectionTunnelErrorDetails'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
     # Gets the specified tunnel's shared secret (pre-shared key). To get other information
     # about the tunnel, use {#get_ip_sec_connection_tunnel get_ip_sec_connection_tunnel}.
     #
@@ -7311,7 +7423,7 @@ module OCI
     # Gets the specified IPv6. You must specify the object's [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # Alternatively, you can get the object by using
     # {#list_ipv6s list_ipv6s}
-    # with the IPv6 address (for example, 2001:0db8:0123:1111:98fe:dcba:9876:4321) and subnet OCID.
+    # with the IPv6 address (for example, 2001:0db8:0123:1111:98fe:dcba:9876:4321) and subnet [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #
     # @param [String] ipv6_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the IPv6.
     # @param [Hash] opts the optional parameters
@@ -7625,10 +7737,10 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets the specified private IP. You must specify the object's OCID.
+    # Gets the specified private IP. You must specify the object's [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     # Alternatively, you can get the object by using
     # {#list_private_ips list_private_ips}
-    # with the private IP address (for example, 10.0.3.3) and subnet OCID.
+    # with the private IP address (for example, 10.0.3.3) and subnet [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #
     # @param [String] private_ip_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the private IP.
     # @param [Hash] opts the optional parameters
@@ -7683,17 +7795,17 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
-    # Gets the specified public IP. You must specify the object's OCID.
+    # Gets the specified public IP. You must specify the object's [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #
     # Alternatively, you can get the object by using {#get_public_ip_by_ip_address get_public_ip_by_ip_address}
     # with the public IP address (for example, 203.0.113.2).
     #
     # Or you can use {#get_public_ip_by_private_ip_id get_public_ip_by_private_ip_id}
-    # with the OCID of the private IP that the public IP is assigned to.
+    # with the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the private IP that the public IP is assigned to.
     #
     # **Note:** If you're fetching a reserved public IP that is in the process of being
     # moved to a different private IP, the service returns the public IP object with
-    # `lifecycleState` = ASSIGNING and `assignedEntityId` = OCID of the target private IP.
+    # `lifecycleState` = ASSIGNING and `assignedEntityId` = [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the target private IP.
     #
     # @param [String] public_ip_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the public IP.
     # @param [Hash] opts the optional parameters
@@ -7752,7 +7864,7 @@ module OCI
     #
     # **Note:** If you're fetching a reserved public IP that is in the process of being
     # moved to a different private IP, the service returns the public IP object with
-    # `lifecycleState` = ASSIGNING and `assignedEntityId` = OCID of the target private IP.
+    # `lifecycleState` = ASSIGNING and `assignedEntityId` = [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the target private IP.
     #
     # @param [OCI::Core::Models::GetPublicIpByIpAddressDetails] get_public_ip_by_ip_address_details IP address details for fetching the public IP.
     # @param [Hash] opts the optional parameters
@@ -7810,13 +7922,13 @@ module OCI
     # of the private IP. If no public IP is assigned, a 404 is returned.
     #
     # **Note:** If you're fetching a reserved public IP that is in the process of being
-    # moved to a different private IP, and you provide the OCID of the original private
-    # IP, this operation returns a 404. If you instead provide the OCID of the target
+    # moved to a different private IP, and you provide the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the original private
+    # IP, this operation returns a 404. If you instead provide the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the target
     # private IP, or if you instead call
     # {#get_public_ip get_public_ip} or
     # {#get_public_ip_by_ip_address get_public_ip_by_ip_address}, the
     # service returns the public IP object with `lifecycleState` = ASSIGNING and
-    # `assignedEntityId` = OCID of the target private IP.
+    # `assignedEntityId` = [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the target private IP.
     #
     # @param [OCI::Core::Models::GetPublicIpByPrivateIpIdDetails] get_public_ip_by_private_ip_id_details Private IP details for fetching the public IP.
     # @param [Hash] opts the optional parameters
@@ -8252,6 +8364,96 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets a topology for a given subnet.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] subnet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the subnet.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :access_level Valid values are `ANY` and `ACCESSIBLE`. The default is `ANY`.
+    #   Setting this to `ACCESSIBLE` returns only compartments for which a
+    #   user has INSPECT permissions, either directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). A restricted set of fields is returned for compartments in which a user has
+    #   indirect INSPECT permissions.
+    #
+    #   When set to `ANY` permissions are not checked.
+    #
+    #   Allowed values are: ANY, ACCESSIBLE
+    # @option opts [BOOLEAN] :query_compartment_subtree When set to true, the hierarchy of compartments is traversed
+    #   and the specified compartment and its subcompartments are
+    #   inspected depending on the the setting of `accessLevel`.
+    #   Default is false.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_none_match For querying if there is a cached value on the server. The If-None-Match HTTP request header
+    #   makes the request conditional. For GET and HEAD methods, the server will send back the requested
+    #   resource, with a 200 status, only if it doesn't have an ETag matching the given ones.
+    #   For other methods, the request will be processed only if the eventually existing resource's
+    #   ETag doesn't match any of the values listed.
+    #
+    # @option opts [String] :cache_control The Cache-Control HTTP header holds directives (instructions)
+    #   for caching in both requests and responses.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::SubnetTopology SubnetTopology}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_subnet_topology.rb.html) to see an example of how to use get_subnet_topology API.
+    def get_subnet_topology(compartment_id, subnet_id, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#get_subnet_topology.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling get_subnet_topology." if compartment_id.nil?
+      raise "Missing the required parameter 'subnet_id' when calling get_subnet_topology." if subnet_id.nil?
+
+      if opts[:access_level] && !%w[ANY ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of ANY, ACCESSIBLE.'
+      end
+
+      path = '/subnetTopology'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:subnetId] = subnet_id
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:queryCompartmentSubtree] = opts[:query_compartment_subtree] if !opts[:query_compartment_subtree].nil?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-none-match'] = opts[:if_none_match] if opts[:if_none_match]
+      header_params[:'cache-control'] = opts[:cache_control] if opts[:cache_control]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#get_subnet_topology') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::SubnetTopology'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the set of CPE configuration answers for the tunnel, which the customer provided in
     # {#update_tunnel_cpe_device_config update_tunnel_cpe_device_config}.
     # To get the full set of content for the tunnel (any answers merged with the template of other
@@ -8441,7 +8643,7 @@ module OCI
 
     # Returns the DRG upgrade status. The status can be not updated, in progress, or updated. Also indicates how much of the upgrade is completed.
     #
-    # @param [String] drg_id The [[OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)](/iaas/Content/General/Concepts/identifiers.htm) of the DRG.
+    # @param [String] drg_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -8808,7 +9010,7 @@ module OCI
 
 
     # Gets the information for the specified virtual network interface card (VNIC).
-    # You can get the VNIC OCID from the
+    # You can get the VNIC [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) from the
     # {#list_vnic_attachments list_vnic_attachments}
     # operation.
     #
@@ -10517,6 +10719,151 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # The routes advertised to the Customer and the routes received from the Customer.
+    #
+    # @param [String] ipsc_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the IPSec connection.
+    # @param [String] tunnel_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the tunnel.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :advertiser Specifies the advertiser of the routes. If set to ORACLE, then returns only the
+    #   routes advertised by ORACLE, else if set to CUSTOMER, then returns only the
+    #   routes advertised by the CUSTOMER.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::TunnelRouteSummary TunnelRouteSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_ip_sec_connection_tunnel_routes.rb.html) to see an example of how to use list_ip_sec_connection_tunnel_routes API.
+    def list_ip_sec_connection_tunnel_routes(ipsc_id, tunnel_id, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#list_ip_sec_connection_tunnel_routes.' if logger
+
+      raise "Missing the required parameter 'ipsc_id' when calling list_ip_sec_connection_tunnel_routes." if ipsc_id.nil?
+      raise "Missing the required parameter 'tunnel_id' when calling list_ip_sec_connection_tunnel_routes." if tunnel_id.nil?
+
+      if opts[:advertiser] && !OCI::Core::Models::TunnelRouteSummary::ADVERTISER_ENUM.include?(opts[:advertiser])
+        raise 'Invalid value for "advertiser", must be one of the values in OCI::Core::Models::TunnelRouteSummary::ADVERTISER_ENUM.'
+      end
+      raise "Parameter value for 'ipsc_id' must not be blank" if OCI::Internal::Util.blank_string?(ipsc_id)
+      raise "Parameter value for 'tunnel_id' must not be blank" if OCI::Internal::Util.blank_string?(tunnel_id)
+
+      path = '/ipsecConnections/{ipscId}/tunnels/{tunnelId}/routes'.sub('{ipscId}', ipsc_id.to_s).sub('{tunnelId}', tunnel_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:advertiser] = opts[:advertiser] if opts[:advertiser]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#list_ip_sec_connection_tunnel_routes') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::TunnelRouteSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the tunnel Security Associations information for the specified IPSec Tunnel ID.
+    #
+    # @param [String] ipsc_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the IPSec connection.
+    # @param [String] tunnel_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the tunnel.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::TunnelSecurityAssociationSummary TunnelSecurityAssociationSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_ip_sec_connection_tunnel_security_associations.rb.html) to see an example of how to use list_ip_sec_connection_tunnel_security_associations API.
+    def list_ip_sec_connection_tunnel_security_associations(ipsc_id, tunnel_id, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#list_ip_sec_connection_tunnel_security_associations.' if logger
+
+      raise "Missing the required parameter 'ipsc_id' when calling list_ip_sec_connection_tunnel_security_associations." if ipsc_id.nil?
+      raise "Missing the required parameter 'tunnel_id' when calling list_ip_sec_connection_tunnel_security_associations." if tunnel_id.nil?
+      raise "Parameter value for 'ipsc_id' must not be blank" if OCI::Internal::Util.blank_string?(ipsc_id)
+      raise "Parameter value for 'tunnel_id' must not be blank" if OCI::Internal::Util.blank_string?(tunnel_id)
+
+      path = '/ipsecConnections/{ipscId}/tunnels/{tunnelId}/tunnelSecurityAssociations'.sub('{ipscId}', ipsc_id.to_s).sub('{tunnelId}', tunnel_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#list_ip_sec_connection_tunnel_security_associations') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::TunnelSecurityAssociationSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the tunnel information for the specified IPSec connection.
     #
     # @param [String] ipsc_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the IPSec connection.
@@ -10655,11 +11002,11 @@ module OCI
     # Lists the {Ipv6} objects based
     # on one of these filters:
     #
-    #   * Subnet OCID.
-    #   * VNIC OCID.
+    #   * Subnet [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+    #   * VNIC [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #   * Both IPv6 address and subnet OCID: This lets you get an `Ipv6` object based on its private
-    #   IPv6 address (for example, 2001:0db8:0123:1111:abcd:ef01:2345:6789) and not its OCID. For comparison,
-    #   {#get_ipv6 get_ipv6} requires the OCID.
+    #   IPv6 address (for example, 2001:0db8:0123:1111:abcd:ef01:2345:6789) and not its [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). For comparison,
+    #   {#get_ipv6 get_ipv6} requires the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -11182,19 +11529,19 @@ module OCI
     # Lists the {PrivateIp} objects based
     # on one of these filters:
     #
-    #   - Subnet OCID.
-    #   - VNIC OCID.
+    #   - Subnet [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+    #   - VNIC [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #   - Both private IP address and subnet OCID: This lets
     #   you get a `privateIP` object based on its private IP
-    #   address (for example, 10.0.3.3) and not its OCID. For comparison,
+    #   address (for example, 10.0.3.3) and not its [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). For comparison,
     #   {#get_private_ip get_private_ip}
-    #   requires the OCID.
+    #   requires the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #
     # If you're listing all the private IPs associated with a given subnet
     # or VNIC, the response includes both primary and secondary private IPs.
     #
     # If you are an Oracle Cloud VMware Solution customer and have VLANs
-    # in your VCN, you can filter the list by VLAN OCID. See {Vlan}.
+    # in your VCN, you can filter the list by VLAN [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). See {Vlan}.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -12125,7 +12472,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # The deprecated operation lists available bandwidth levels for virtual circuits. For the compartment ID, provide the OCID of your tenancy (the root compartment).
+    # The deprecated operation lists available bandwidth levels for virtual circuits. For the compartment ID, provide the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of your tenancy (the root compartment).
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
@@ -13288,7 +13635,7 @@ module OCI
 
     # Updates the specified DRG's display name or tags. Avoid entering confidential information.
     #
-    # @param [String] drg_id The [[OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)](/iaas/Content/General/Concepts/identifiers.htm) of the DRG.
+    # @param [String] drg_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG.
     # @param [OCI::Core::Models::UpdateDrgDetails] update_drg_details Details object for updating a DRG.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -13713,7 +14060,7 @@ module OCI
     # {#update_ip_sec_connection_tunnel update_ip_sec_connection_tunnel}.
     #
     # @param [String] ipsc_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the IPSec connection.
-    # @param [OCI::Core::Models::UpdateIPSecConnectionDetails] update_ip_sec_connection_details Details object for updating a IPSec connection.
+    # @param [OCI::Core::Models::UpdateIPSecConnectionDetails] update_ip_sec_connection_details Details object for updating an IPSec connection.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -13913,7 +14260,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified IPv6. You must specify the object's OCID.
+    # Updates the specified IPv6. You must specify the object's [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     # Use this operation if you want to:
     #
     #   * Move an IPv6 to a different VNIC in the same subnet.
@@ -14108,7 +14455,7 @@ module OCI
     # To add or remove an existing VNIC from the group, use
     # {#update_vnic update_vnic}.
     #
-    # To add a VNIC to the group *when you create the VNIC*, specify the NSG's OCID during creation.
+    # To add a VNIC to the group *when you create the VNIC*, specify the NSG's [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) during creation.
     # For example, see the `nsgIds` attribute in {#create_vnic_details create_vnic_details}.
     #
     # To add or remove security rules from the group, use
@@ -14236,7 +14583,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified private IP. You must specify the object's OCID.
+    # Updates the specified private IP. You must specify the object's [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     # Use this operation if you want to:
     #
     #   - Move a secondary private IP to a different VNIC in the same subnet.
@@ -14305,7 +14652,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the specified public IP. You must specify the object's OCID. Use this operation if you want to:
+    # Updates the specified public IP. You must specify the object's [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). Use this operation if you want to:
     #
     # * Assign a reserved public IP in your pool to a private IP.
     # * Move a reserved public IP to a different private IP.
@@ -15123,7 +15470,7 @@ module OCI
     # Upgrades the DRG. After upgrade, you can control routing inside your DRG
     # via DRG attachments, route distributions, and DRG route tables.
     #
-    # @param [String] drg_id The [[OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)](/iaas/Content/General/Concepts/identifiers.htm) of the DRG.
+    # @param [String] drg_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

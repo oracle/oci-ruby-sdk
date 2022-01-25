@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -40,6 +40,25 @@ module OCI
       ROUTING_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    ORACLE_CAN_INITIATE_ENUM = [
+      ORACLE_CAN_INITIATE_INITIATOR_OR_RESPONDER = 'INITIATOR_OR_RESPONDER'.freeze,
+      ORACLE_CAN_INITIATE_RESPONDER_ONLY = 'RESPONDER_ONLY'.freeze,
+      ORACLE_CAN_INITIATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    NAT_TRANSLATION_ENABLED_ENUM = [
+      NAT_TRANSLATION_ENABLED_ENABLED = 'ENABLED'.freeze,
+      NAT_TRANSLATION_ENABLED_DISABLED = 'DISABLED'.freeze,
+      NAT_TRANSLATION_ENABLED_AUTO = 'AUTO'.freeze,
+      NAT_TRANSLATION_ENABLED_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    DPD_MODE_ENUM = [
+      DPD_MODE_INITIATE_AND_RESPOND = 'INITIATE_AND_RESPOND'.freeze,
+      DPD_MODE_RESPOND_ONLY = 'RESPOND_ONLY'.freeze,
+      DPD_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the tunnel.
     #
     # @return [String]
@@ -76,8 +95,8 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid
-    # entering confidential information.
+    # A user-friendly name. Does not have to be unique, and it's changeable.
+    # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
@@ -107,6 +126,28 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_status_updated
 
+    # Indicates whether Oracle can either initiate the tunnel or respond, or respond only.
+    # @return [String]
+    attr_reader :oracle_can_initiate
+
+    # Whether NAT-T Enabled on the tunnel
+    # @return [String]
+    attr_reader :nat_translation_enabled
+
+    # dpd mode
+    # @return [String]
+    attr_reader :dpd_mode
+
+    # Dead peer detection (DPD) timeout in seconds.
+    # @return [Integer]
+    attr_accessor :dpd_timeout_in_sec
+
+    # @return [OCI::Core::Models::TunnelPhaseOneDetails]
+    attr_accessor :phase_one_details
+
+    # @return [OCI::Core::Models::TunnelPhaseTwoDetails]
+    attr_accessor :phase_two_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -123,7 +164,13 @@ module OCI
         'encryption_domain_config': :'encryptionDomainConfig',
         'routing': :'routing',
         'time_created': :'timeCreated',
-        'time_status_updated': :'timeStatusUpdated'
+        'time_status_updated': :'timeStatusUpdated',
+        'oracle_can_initiate': :'oracleCanInitiate',
+        'nat_translation_enabled': :'natTranslationEnabled',
+        'dpd_mode': :'dpdMode',
+        'dpd_timeout_in_sec': :'dpdTimeoutInSec',
+        'phase_one_details': :'phaseOneDetails',
+        'phase_two_details': :'phaseTwoDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -144,7 +191,13 @@ module OCI
         'encryption_domain_config': :'OCI::Core::Models::EncryptionDomainConfig',
         'routing': :'String',
         'time_created': :'DateTime',
-        'time_status_updated': :'DateTime'
+        'time_status_updated': :'DateTime',
+        'oracle_can_initiate': :'String',
+        'nat_translation_enabled': :'String',
+        'dpd_mode': :'String',
+        'dpd_timeout_in_sec': :'Integer',
+        'phase_one_details': :'OCI::Core::Models::TunnelPhaseOneDetails',
+        'phase_two_details': :'OCI::Core::Models::TunnelPhaseTwoDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -168,6 +221,12 @@ module OCI
     # @option attributes [String] :routing The value to assign to the {#routing} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_status_updated The value to assign to the {#time_status_updated} property
+    # @option attributes [String] :oracle_can_initiate The value to assign to the {#oracle_can_initiate} property
+    # @option attributes [String] :nat_translation_enabled The value to assign to the {#nat_translation_enabled} property
+    # @option attributes [String] :dpd_mode The value to assign to the {#dpd_mode} property
+    # @option attributes [Integer] :dpd_timeout_in_sec The value to assign to the {#dpd_timeout_in_sec} property
+    # @option attributes [OCI::Core::Models::TunnelPhaseOneDetails] :phase_one_details The value to assign to the {#phase_one_details} property
+    # @option attributes [OCI::Core::Models::TunnelPhaseTwoDetails] :phase_two_details The value to assign to the {#phase_two_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -239,6 +298,42 @@ module OCI
       raise 'You cannot provide both :timeStatusUpdated and :time_status_updated' if attributes.key?(:'timeStatusUpdated') && attributes.key?(:'time_status_updated')
 
       self.time_status_updated = attributes[:'time_status_updated'] if attributes[:'time_status_updated']
+
+      self.oracle_can_initiate = attributes[:'oracleCanInitiate'] if attributes[:'oracleCanInitiate']
+
+      raise 'You cannot provide both :oracleCanInitiate and :oracle_can_initiate' if attributes.key?(:'oracleCanInitiate') && attributes.key?(:'oracle_can_initiate')
+
+      self.oracle_can_initiate = attributes[:'oracle_can_initiate'] if attributes[:'oracle_can_initiate']
+
+      self.nat_translation_enabled = attributes[:'natTranslationEnabled'] if attributes[:'natTranslationEnabled']
+
+      raise 'You cannot provide both :natTranslationEnabled and :nat_translation_enabled' if attributes.key?(:'natTranslationEnabled') && attributes.key?(:'nat_translation_enabled')
+
+      self.nat_translation_enabled = attributes[:'nat_translation_enabled'] if attributes[:'nat_translation_enabled']
+
+      self.dpd_mode = attributes[:'dpdMode'] if attributes[:'dpdMode']
+
+      raise 'You cannot provide both :dpdMode and :dpd_mode' if attributes.key?(:'dpdMode') && attributes.key?(:'dpd_mode')
+
+      self.dpd_mode = attributes[:'dpd_mode'] if attributes[:'dpd_mode']
+
+      self.dpd_timeout_in_sec = attributes[:'dpdTimeoutInSec'] if attributes[:'dpdTimeoutInSec']
+
+      raise 'You cannot provide both :dpdTimeoutInSec and :dpd_timeout_in_sec' if attributes.key?(:'dpdTimeoutInSec') && attributes.key?(:'dpd_timeout_in_sec')
+
+      self.dpd_timeout_in_sec = attributes[:'dpd_timeout_in_sec'] if attributes[:'dpd_timeout_in_sec']
+
+      self.phase_one_details = attributes[:'phaseOneDetails'] if attributes[:'phaseOneDetails']
+
+      raise 'You cannot provide both :phaseOneDetails and :phase_one_details' if attributes.key?(:'phaseOneDetails') && attributes.key?(:'phase_one_details')
+
+      self.phase_one_details = attributes[:'phase_one_details'] if attributes[:'phase_one_details']
+
+      self.phase_two_details = attributes[:'phaseTwoDetails'] if attributes[:'phaseTwoDetails']
+
+      raise 'You cannot provide both :phaseTwoDetails and :phase_two_details' if attributes.key?(:'phaseTwoDetails') && attributes.key?(:'phase_two_details')
+
+      self.phase_two_details = attributes[:'phase_two_details'] if attributes[:'phase_two_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -295,6 +390,45 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] oracle_can_initiate Object to be assigned
+    def oracle_can_initiate=(oracle_can_initiate)
+      # rubocop:disable Style/ConditionalAssignment
+      if oracle_can_initiate && !ORACLE_CAN_INITIATE_ENUM.include?(oracle_can_initiate)
+        OCI.logger.debug("Unknown value for 'oracle_can_initiate' [" + oracle_can_initiate + "]. Mapping to 'ORACLE_CAN_INITIATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @oracle_can_initiate = ORACLE_CAN_INITIATE_UNKNOWN_ENUM_VALUE
+      else
+        @oracle_can_initiate = oracle_can_initiate
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] nat_translation_enabled Object to be assigned
+    def nat_translation_enabled=(nat_translation_enabled)
+      # rubocop:disable Style/ConditionalAssignment
+      if nat_translation_enabled && !NAT_TRANSLATION_ENABLED_ENUM.include?(nat_translation_enabled)
+        OCI.logger.debug("Unknown value for 'nat_translation_enabled' [" + nat_translation_enabled + "]. Mapping to 'NAT_TRANSLATION_ENABLED_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @nat_translation_enabled = NAT_TRANSLATION_ENABLED_UNKNOWN_ENUM_VALUE
+      else
+        @nat_translation_enabled = nat_translation_enabled
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] dpd_mode Object to be assigned
+    def dpd_mode=(dpd_mode)
+      # rubocop:disable Style/ConditionalAssignment
+      if dpd_mode && !DPD_MODE_ENUM.include?(dpd_mode)
+        OCI.logger.debug("Unknown value for 'dpd_mode' [" + dpd_mode + "]. Mapping to 'DPD_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @dpd_mode = DPD_MODE_UNKNOWN_ENUM_VALUE
+      else
+        @dpd_mode = dpd_mode
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -316,7 +450,13 @@ module OCI
         encryption_domain_config == other.encryption_domain_config &&
         routing == other.routing &&
         time_created == other.time_created &&
-        time_status_updated == other.time_status_updated
+        time_status_updated == other.time_status_updated &&
+        oracle_can_initiate == other.oracle_can_initiate &&
+        nat_translation_enabled == other.nat_translation_enabled &&
+        dpd_mode == other.dpd_mode &&
+        dpd_timeout_in_sec == other.dpd_timeout_in_sec &&
+        phase_one_details == other.phase_one_details &&
+        phase_two_details == other.phase_two_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -332,7 +472,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, id, vpn_ip, cpe_ip, status, ike_version, lifecycle_state, display_name, bgp_session_info, encryption_domain_config, routing, time_created, time_status_updated].hash
+      [compartment_id, id, vpn_ip, cpe_ip, status, ike_version, lifecycle_state, display_name, bgp_session_info, encryption_domain_config, routing, time_created, time_status_updated, oracle_can_initiate, nat_translation_enabled, dpd_mode, dpd_timeout_in_sec, phase_one_details, phase_two_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

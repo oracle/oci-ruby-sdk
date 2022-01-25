@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -16,7 +16,15 @@ module OCI
       OPERATION_TYPES_UPDATE_INFRA = 'UPDATE_INFRA'.freeze,
       OPERATION_TYPES_RESTART_NODE = 'RESTART_NODE'.freeze,
       OPERATION_TYPES_AUTOSCALE_CONFIG = 'AUTOSCALE_CONFIG'.freeze,
-      OPERATION_TYPES_AUTOSCALE_RUN = 'AUTOSCALE_RUN'.freeze
+      OPERATION_TYPES_AUTOSCALE_RUN = 'AUTOSCALE_RUN'.freeze,
+      OPERATION_TYPES_CREATE_API_KEY = 'CREATE_API_KEY'.freeze,
+      OPERATION_TYPES_DELETE_API_KEY = 'DELETE_API_KEY'.freeze,
+      OPERATION_TYPES_TEST_OBJECT_STORE_CONNECTION = 'TEST_OBJECT_STORE_CONNECTION'.freeze,
+      OPERATION_TYPES_CREATE_METASTORE_CONFIG = 'CREATE_METASTORE_CONFIG'.freeze,
+      OPERATION_TYPES_DELETE_METASTORE_CONFIG = 'DELETE_METASTORE_CONFIG'.freeze,
+      OPERATION_TYPES_UPDATE_METASTORE_CONFIG = 'UPDATE_METASTORE_CONFIG'.freeze,
+      OPERATION_TYPES_ACTIVATE_METASTORE_CONFIG = 'ACTIVATE_METASTORE_CONFIG'.freeze,
+      OPERATION_TYPES_TEST_METASTORE_CONFIG = 'TEST_METASTORE_CONFIG'.freeze
     ].freeze
   end
 end

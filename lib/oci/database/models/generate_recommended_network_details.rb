@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -15,6 +15,14 @@ module OCI
     # **[Required]** The user-friendly name for the VM cluster network. The name does not need to be unique.
     # @return [String]
     attr_accessor :display_name
+
+    # The SCAN TCPIP port. Default is 1521.
+    # @return [Integer]
+    attr_accessor :scan_listener_port_tcp
+
+    # The SCAN TCPIP SSL port. Default is 2484.
+    # @return [Integer]
+    attr_accessor :scan_listener_port_tcp_ssl
 
     # **[Required]** List of parameters for generation of the client and backup networks.
     # @return [Array<OCI::Database::Models::InfoForNetworkGenDetails>]
@@ -48,6 +56,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'compartmentId',
         'display_name': :'displayName',
+        'scan_listener_port_tcp': :'scanListenerPortTcp',
+        'scan_listener_port_tcp_ssl': :'scanListenerPortTcpSsl',
         'networks': :'networks',
         'dns': :'dns',
         'ntp': :'ntp',
@@ -63,6 +73,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'String',
         'display_name': :'String',
+        'scan_listener_port_tcp': :'Integer',
+        'scan_listener_port_tcp_ssl': :'Integer',
         'networks': :'Array<OCI::Database::Models::InfoForNetworkGenDetails>',
         'dns': :'Array<String>',
         'ntp': :'Array<String>',
@@ -80,6 +92,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [Integer] :scan_listener_port_tcp The value to assign to the {#scan_listener_port_tcp} property
+    # @option attributes [Integer] :scan_listener_port_tcp_ssl The value to assign to the {#scan_listener_port_tcp_ssl} property
     # @option attributes [Array<OCI::Database::Models::InfoForNetworkGenDetails>] :networks The value to assign to the {#networks} property
     # @option attributes [Array<String>] :dns The value to assign to the {#dns} property
     # @option attributes [Array<String>] :ntp The value to assign to the {#ntp} property
@@ -102,6 +116,18 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.scan_listener_port_tcp = attributes[:'scanListenerPortTcp'] if attributes[:'scanListenerPortTcp']
+
+      raise 'You cannot provide both :scanListenerPortTcp and :scan_listener_port_tcp' if attributes.key?(:'scanListenerPortTcp') && attributes.key?(:'scan_listener_port_tcp')
+
+      self.scan_listener_port_tcp = attributes[:'scan_listener_port_tcp'] if attributes[:'scan_listener_port_tcp']
+
+      self.scan_listener_port_tcp_ssl = attributes[:'scanListenerPortTcpSsl'] if attributes[:'scanListenerPortTcpSsl']
+
+      raise 'You cannot provide both :scanListenerPortTcpSsl and :scan_listener_port_tcp_ssl' if attributes.key?(:'scanListenerPortTcpSsl') && attributes.key?(:'scan_listener_port_tcp_ssl')
+
+      self.scan_listener_port_tcp_ssl = attributes[:'scan_listener_port_tcp_ssl'] if attributes[:'scan_listener_port_tcp_ssl']
 
       self.networks = attributes[:'networks'] if attributes[:'networks']
 
@@ -135,6 +161,8 @@ module OCI
       self.class == other.class &&
         compartment_id == other.compartment_id &&
         display_name == other.display_name &&
+        scan_listener_port_tcp == other.scan_listener_port_tcp &&
+        scan_listener_port_tcp_ssl == other.scan_listener_port_tcp_ssl &&
         networks == other.networks &&
         dns == other.dns &&
         ntp == other.ntp &&
@@ -155,7 +183,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, networks, dns, ntp, freeform_tags, defined_tags].hash
+      [compartment_id, display_name, scan_listener_port_tcp, scan_listener_port_tcp_ssl, networks, dns, ntp, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

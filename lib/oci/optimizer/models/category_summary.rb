@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -30,11 +30,11 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The name assigned to the category. Avoid entering confidential information.
+    # **[Required]** The name assigned to the category.
     # @return [String]
     attr_accessor :name
 
-    # **[Required]** Text describing the category. Avoid entering confidential information.
+    # **[Required]** Text describing the category.
     # @return [String]
     attr_accessor :description
 
@@ -62,6 +62,15 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_updated
 
+    # Additional metadata key/value pairs for the category summary.
+    #
+    # For example:
+    #
+    # `{\"EstimatedSaving\": \"200\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :extended_metadata
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -75,7 +84,8 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'estimated_cost_saving': :'estimatedCostSaving',
         'time_created': :'timeCreated',
-        'time_updated': :'timeUpdated'
+        'time_updated': :'timeUpdated',
+        'extended_metadata': :'extendedMetadata'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -93,7 +103,8 @@ module OCI
         'lifecycle_state': :'String',
         'estimated_cost_saving': :'Float',
         'time_created': :'DateTime',
-        'time_updated': :'DateTime'
+        'time_updated': :'DateTime',
+        'extended_metadata': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -114,6 +125,7 @@ module OCI
     # @option attributes [Float] :estimated_cost_saving The value to assign to the {#estimated_cost_saving} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [Hash<String, String>] :extended_metadata The value to assign to the {#extended_metadata} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -167,6 +179,12 @@ module OCI
       raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
 
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.extended_metadata = attributes[:'extendedMetadata'] if attributes[:'extendedMetadata']
+
+      raise 'You cannot provide both :extendedMetadata and :extended_metadata' if attributes.key?(:'extendedMetadata') && attributes.key?(:'extended_metadata')
+
+      self.extended_metadata = attributes[:'extended_metadata'] if attributes[:'extended_metadata']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -202,7 +220,8 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         estimated_cost_saving == other.estimated_cost_saving &&
         time_created == other.time_created &&
-        time_updated == other.time_updated
+        time_updated == other.time_updated &&
+        extended_metadata == other.extended_metadata
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -218,7 +237,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, recommendation_counts, resource_counts, lifecycle_state, estimated_cost_saving, time_created, time_updated].hash
+      [id, compartment_id, name, description, recommendation_counts, resource_counts, lifecycle_state, estimated_cost_saving, time_created, time_updated, extended_metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

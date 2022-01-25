@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -22,6 +22,10 @@ module OCI
     # @return [String]
     attr_accessor :password
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the secret containing the user password.
+    # @return [String]
+    attr_accessor :secret_id
+
     # The role of the database user. Indicates whether the database user is a normal user or sysdba.
     # @return [String]
     attr_reader :role
@@ -32,6 +36,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'user_name': :'userName',
         'password': :'password',
+        'secret_id': :'secretId',
         'role': :'role'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -43,6 +48,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'user_name': :'String',
         'password': :'String',
+        'secret_id': :'String',
         'role': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -56,6 +62,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :user_name The value to assign to the {#user_name} property
     # @option attributes [String] :password The value to assign to the {#password} property
+    # @option attributes [String] :secret_id The value to assign to the {#secret_id} property
     # @option attributes [String] :role The value to assign to the {#role} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -70,6 +77,12 @@ module OCI
       self.user_name = attributes[:'user_name'] if attributes[:'user_name']
 
       self.password = attributes[:'password'] if attributes[:'password']
+
+      self.secret_id = attributes[:'secretId'] if attributes[:'secretId']
+
+      raise 'You cannot provide both :secretId and :secret_id' if attributes.key?(:'secretId') && attributes.key?(:'secret_id')
+
+      self.secret_id = attributes[:'secret_id'] if attributes[:'secret_id']
 
       self.role = attributes[:'role'] if attributes[:'role']
     end
@@ -95,6 +108,7 @@ module OCI
       self.class == other.class &&
         user_name == other.user_name &&
         password == other.password &&
+        secret_id == other.secret_id &&
         role == other.role
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -111,7 +125,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [user_name, password, role].hash
+      [user_name, password, secret_id, role].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

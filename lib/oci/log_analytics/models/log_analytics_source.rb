@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -158,6 +158,12 @@ module OCI
     # @return [Array<OCI::LogAnalytics::Models::EventType>]
     attr_accessor :event_types
 
+    # An array of categories assigned to this source.
+    # The isSystem flag denotes if each category assignment is user-created or Oracle-defined.
+    #
+    # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsCategory>]
+    attr_accessor :categories
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -197,7 +203,8 @@ module OCI
         'is_timezone_override': :'isTimezoneOverride',
         'user_parsers': :'userParsers',
         'time_updated': :'timeUpdated',
-        'event_types': :'eventTypes'
+        'event_types': :'eventTypes',
+        'categories': :'categories'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -241,7 +248,8 @@ module OCI
         'is_timezone_override': :'BOOLEAN',
         'user_parsers': :'Array<OCI::LogAnalytics::Models::LogAnalyticsParser>',
         'time_updated': :'DateTime',
-        'event_types': :'Array<OCI::LogAnalytics::Models::EventType>'
+        'event_types': :'Array<OCI::LogAnalytics::Models::EventType>',
+        'categories': :'Array<OCI::LogAnalytics::Models::LogAnalyticsCategory>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -288,6 +296,7 @@ module OCI
     # @option attributes [Array<OCI::LogAnalytics::Models::LogAnalyticsParser>] :user_parsers The value to assign to the {#user_parsers} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [Array<OCI::LogAnalytics::Models::EventType>] :event_types The value to assign to the {#event_types} property
+    # @option attributes [Array<OCI::LogAnalytics::Models::LogAnalyticsCategory>] :categories The value to assign to the {#categories} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -477,6 +486,8 @@ module OCI
       raise 'You cannot provide both :eventTypes and :event_types' if attributes.key?(:'eventTypes') && attributes.key?(:'event_types')
 
       self.event_types = attributes[:'event_types'] if attributes[:'event_types']
+
+      self.categories = attributes[:'categories'] if attributes[:'categories']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -525,7 +536,8 @@ module OCI
         is_timezone_override == other.is_timezone_override &&
         user_parsers == other.user_parsers &&
         time_updated == other.time_updated &&
-        event_types == other.event_types
+        event_types == other.event_types &&
+        categories == other.categories
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -541,7 +553,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [label_conditions, association_count, association_entity, data_filter_definitions, database_credential, extended_field_definitions, is_for_cloud, labels, metric_definitions, metrics, oob_parsers, parameters, pattern_count, patterns, description, display_name, edit_version, functions, source_id, name, is_secure_content, is_system, parsers, is_auto_association_enabled, is_auto_association_override, rule_id, type_name, type_display_name, warning_config, metadata_fields, label_definitions, entity_types, is_timezone_override, user_parsers, time_updated, event_types].hash
+      [label_conditions, association_count, association_entity, data_filter_definitions, database_credential, extended_field_definitions, is_for_cloud, labels, metric_definitions, metrics, oob_parsers, parameters, pattern_count, patterns, description, display_name, edit_version, functions, source_id, name, is_secure_content, is_system, parsers, is_auto_association_enabled, is_auto_association_override, rule_id, type_name, type_display_name, warning_config, metadata_fields, label_definitions, entity_types, is_timezone_override, user_parsers, time_updated, event_types, categories].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

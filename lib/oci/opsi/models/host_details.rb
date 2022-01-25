@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -10,12 +10,18 @@ module OCI
   class Opsi::Models::HostDetails
     PLATFORM_TYPE_ENUM = [
       PLATFORM_TYPE_LINUX = 'LINUX'.freeze,
+      PLATFORM_TYPE_SOLARIS = 'SOLARIS'.freeze,
+      PLATFORM_TYPE_SUNOS = 'SUNOS'.freeze,
       PLATFORM_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the host.
     # @return [String]
     attr_accessor :id
+
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @return [String]
+    attr_accessor :compartment_id
 
     # **[Required]** The host name. The host name is unique amongst the hosts managed by the same management agent.
     # @return [String]
@@ -26,6 +32,9 @@ module OCI
     attr_accessor :host_display_name
 
     # **[Required]** Platform type.
+    # Supported platformType(s) for MACS-managed external host insight: [LINUX].
+    # Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS].
+    #
     # @return [String]
     attr_reader :platform_type
 
@@ -38,6 +47,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'id': :'id',
+        'compartment_id': :'compartmentId',
         'host_name': :'hostName',
         'host_display_name': :'hostDisplayName',
         'platform_type': :'platformType',
@@ -51,6 +61,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'id': :'String',
+        'compartment_id': :'String',
         'host_name': :'String',
         'host_display_name': :'String',
         'platform_type': :'String',
@@ -66,6 +77,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :host_name The value to assign to the {#host_name} property
     # @option attributes [String] :host_display_name The value to assign to the {#host_display_name} property
     # @option attributes [String] :platform_type The value to assign to the {#platform_type} property
@@ -77,6 +89,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.id = attributes[:'id'] if attributes[:'id']
+
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
       self.host_name = attributes[:'hostName'] if attributes[:'hostName']
 
@@ -128,6 +146,7 @@ module OCI
 
       self.class == other.class &&
         id == other.id &&
+        compartment_id == other.compartment_id &&
         host_name == other.host_name &&
         host_display_name == other.host_display_name &&
         platform_type == other.platform_type &&
@@ -147,7 +166,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, host_name, host_display_name, platform_type, agent_identifier].hash
+      [id, compartment_id, host_name, host_display_name, platform_type, agent_identifier].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

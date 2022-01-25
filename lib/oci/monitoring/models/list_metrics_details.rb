@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -36,9 +36,8 @@ module OCI
     # @return [String]
     attr_accessor :namespace
 
-    # Resource group that you want to use as a filter. The specified resource group must exist in the definition of the posted metric. Only one resource group can be applied per metric.
+    # Resource group that you want to match. A null value returns only metric data that has no resource groups. The specified resource group must exist in the definition of the posted metric. Only one resource group can be applied per metric.
     # A valid resourceGroup value starts with an alphabetical character and includes only alphanumeric characters, periods (.), underscores (_), hyphens (-), and dollar signs ($).
-    # Avoid entering confidential information.
     #
     # Example: `frontend-fleet`
     #
@@ -48,7 +47,7 @@ module OCI
     # Qualifiers that you want to use when searching for metric definitions.
     # Available dimensions vary by metric namespace. Each dimension takes the form of a key-value pair.
     #
-    # Example: { \"resourceId\": \"<var>&lt;instance_OCID&gt;</var>\" }
+    # Example: `\"resourceId\": \"ocid1.instance.region1.phx.exampleuniqueID\"`
     #
     # @return [Hash<String, String>]
     attr_accessor :dimension_filters

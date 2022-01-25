@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -26,10 +26,15 @@ module OCI
     # @return [String]
     attr_accessor :image_id
 
-    # **[Required]** A user-friendly name for the compute image capability schema.
+    # **[Required]** A user-friendly name. Does not have to be unique, and it's changeable.
+    # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
+
+    # A mapping of each capability name to its ImageCapabilityDescriptor.
+    # @return [Hash<String, OCI::Core::Models::ImageCapabilitySchemaDescriptor>]
+    attr_accessor :schema_data
 
     # **[Required]** The date and time the compute image capability schema was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
@@ -63,6 +68,7 @@ module OCI
         'compute_global_image_capability_schema_version_name': :'computeGlobalImageCapabilitySchemaVersionName',
         'image_id': :'imageId',
         'display_name': :'displayName',
+        'schema_data': :'schemaData',
         'time_created': :'timeCreated',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags'
@@ -79,6 +85,7 @@ module OCI
         'compute_global_image_capability_schema_version_name': :'String',
         'image_id': :'String',
         'display_name': :'String',
+        'schema_data': :'Hash<String, OCI::Core::Models::ImageCapabilitySchemaDescriptor>',
         'time_created': :'DateTime',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>'
@@ -97,6 +104,7 @@ module OCI
     # @option attributes [String] :compute_global_image_capability_schema_version_name The value to assign to the {#compute_global_image_capability_schema_version_name} property
     # @option attributes [String] :image_id The value to assign to the {#image_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [Hash<String, OCI::Core::Models::ImageCapabilitySchemaDescriptor>] :schema_data The value to assign to the {#schema_data} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -131,6 +139,12 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.schema_data = attributes[:'schemaData'] if attributes[:'schemaData']
+
+      raise 'You cannot provide both :schemaData and :schema_data' if attributes.key?(:'schemaData') && attributes.key?(:'schema_data')
+
+      self.schema_data = attributes[:'schema_data'] if attributes[:'schema_data']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -167,6 +181,7 @@ module OCI
         compute_global_image_capability_schema_version_name == other.compute_global_image_capability_schema_version_name &&
         image_id == other.image_id &&
         display_name == other.display_name &&
+        schema_data == other.schema_data &&
         time_created == other.time_created &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags
@@ -185,7 +200,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, compute_global_image_capability_schema_version_name, image_id, display_name, time_created, defined_tags, freeform_tags].hash
+      [id, compartment_id, compute_global_image_capability_schema_version_name, image_id, display_name, schema_data, time_created, defined_tags, freeform_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -14,6 +14,11 @@ module OCI
     #
     # @return [String]
     attr_accessor :display_name
+
+    # An array of Network Security Groups OCIDs associated with this API Gateway.
+    #
+    # @return [Array<String>]
+    attr_accessor :network_security_group_ids
 
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the resource.
     #
@@ -41,15 +46,21 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # An array of CA bundles that should be used on the Gateway for TLS validation.
+    # @return [Array<OCI::Apigateway::Models::CaBundle>]
+    attr_accessor :ca_bundles
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
+        'network_security_group_ids': :'networkSecurityGroupIds',
         'certificate_id': :'certificateId',
         'response_cache_details': :'responseCacheDetails',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'ca_bundles': :'caBundles'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -59,10 +70,12 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
+        'network_security_group_ids': :'Array<String>',
         'certificate_id': :'String',
         'response_cache_details': :'OCI::Apigateway::Models::ResponseCacheDetails',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'ca_bundles': :'Array<OCI::Apigateway::Models::CaBundle>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -74,10 +87,12 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [Array<String>] :network_security_group_ids The value to assign to the {#network_security_group_ids} property
     # @option attributes [String] :certificate_id The value to assign to the {#certificate_id} property
     # @option attributes [OCI::Apigateway::Models::ResponseCacheDetails] :response_cache_details The value to assign to the {#response_cache_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Array<OCI::Apigateway::Models::CaBundle>] :ca_bundles The value to assign to the {#ca_bundles} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -89,6 +104,12 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.network_security_group_ids = attributes[:'networkSecurityGroupIds'] if attributes[:'networkSecurityGroupIds']
+
+      raise 'You cannot provide both :networkSecurityGroupIds and :network_security_group_ids' if attributes.key?(:'networkSecurityGroupIds') && attributes.key?(:'network_security_group_ids')
+
+      self.network_security_group_ids = attributes[:'network_security_group_ids'] if attributes[:'network_security_group_ids']
 
       self.certificate_id = attributes[:'certificateId'] if attributes[:'certificateId']
 
@@ -113,6 +134,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.ca_bundles = attributes[:'caBundles'] if attributes[:'caBundles']
+
+      raise 'You cannot provide both :caBundles and :ca_bundles' if attributes.key?(:'caBundles') && attributes.key?(:'ca_bundles')
+
+      self.ca_bundles = attributes[:'ca_bundles'] if attributes[:'ca_bundles']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -127,10 +154,12 @@ module OCI
 
       self.class == other.class &&
         display_name == other.display_name &&
+        network_security_group_ids == other.network_security_group_ids &&
         certificate_id == other.certificate_id &&
         response_cache_details == other.response_cache_details &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        ca_bundles == other.ca_bundles
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -146,7 +175,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, certificate_id, response_cache_details, freeform_tags, defined_tags].hash
+      [display_name, network_security_group_ids, certificate_id, response_cache_details, freeform_tags, defined_tags, ca_bundles].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

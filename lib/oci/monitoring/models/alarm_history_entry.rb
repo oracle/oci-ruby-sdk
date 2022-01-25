@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -9,7 +9,7 @@ module OCI
   # If the entry corresponds to a state transition, such as OK to Firing, then the entry also includes a transition timestamp.
   #
   class Monitoring::Models::AlarmHistoryEntry
-    # **[Required]** Description for this alarm history entry. Avoid entering confidential information.
+    # **[Required]** Description for this alarm history entry.
     #
     # Example 1 - alarm state history entry: `The alarm state is FIRING`
     #

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -33,13 +33,21 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_oob_saved_search
 
+    # **[Required]** OCID of the compartment in which the saved search resides.
+    # @return [String]
+    attr_accessor :compartment_id
+
     # **[Required]** ID of the service (for example log-analytics) that owns the saved search. Each service has a unique ID.
     # @return [String]
     attr_accessor :provider_id
 
-    # **[Required]** OCID of the compartment in which the saved search resides.
+    # **[Required]** Version of the service that owns this saved search.
     # @return [String]
-    attr_accessor :compartment_id
+    attr_accessor :provider_version
+
+    # **[Required]** Name of the service (for example, Logging Analytics) that owns the saved search.
+    # @return [String]
+    attr_accessor :provider_name
 
     # **[Required]** Description of the saved search.
     # @return [String]
@@ -120,8 +128,10 @@ module OCI
         'id': :'id',
         'display_name': :'displayName',
         'is_oob_saved_search': :'isOobSavedSearch',
-        'provider_id': :'providerId',
         'compartment_id': :'compartmentId',
+        'provider_id': :'providerId',
+        'provider_version': :'providerVersion',
+        'provider_name': :'providerName',
         'description': :'description',
         'nls': :'nls',
         'type': :'type',
@@ -150,8 +160,10 @@ module OCI
         'id': :'String',
         'display_name': :'String',
         'is_oob_saved_search': :'BOOLEAN',
-        'provider_id': :'String',
         'compartment_id': :'String',
+        'provider_id': :'String',
+        'provider_version': :'String',
+        'provider_name': :'String',
         'description': :'String',
         'nls': :'Object',
         'type': :'String',
@@ -182,8 +194,10 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [BOOLEAN] :is_oob_saved_search The value to assign to the {#is_oob_saved_search} property
-    # @option attributes [String] :provider_id The value to assign to the {#provider_id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :provider_id The value to assign to the {#provider_id} property
+    # @option attributes [String] :provider_version The value to assign to the {#provider_version} property
+    # @option attributes [String] :provider_name The value to assign to the {#provider_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [Object] :nls The value to assign to the {#nls} property
     # @option attributes [String] :type The value to assign to the {#type} property
@@ -221,17 +235,29 @@ module OCI
 
       self.is_oob_saved_search = attributes[:'is_oob_saved_search'] unless attributes[:'is_oob_saved_search'].nil?
 
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
       self.provider_id = attributes[:'providerId'] if attributes[:'providerId']
 
       raise 'You cannot provide both :providerId and :provider_id' if attributes.key?(:'providerId') && attributes.key?(:'provider_id')
 
       self.provider_id = attributes[:'provider_id'] if attributes[:'provider_id']
 
-      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+      self.provider_version = attributes[:'providerVersion'] if attributes[:'providerVersion']
 
-      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+      raise 'You cannot provide both :providerVersion and :provider_version' if attributes.key?(:'providerVersion') && attributes.key?(:'provider_version')
 
-      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+      self.provider_version = attributes[:'provider_version'] if attributes[:'provider_version']
+
+      self.provider_name = attributes[:'providerName'] if attributes[:'providerName']
+
+      raise 'You cannot provide both :providerName and :provider_name' if attributes.key?(:'providerName') && attributes.key?(:'provider_name')
+
+      self.provider_name = attributes[:'provider_name'] if attributes[:'provider_name']
 
       self.description = attributes[:'description'] if attributes[:'description']
 
@@ -364,8 +390,10 @@ module OCI
         id == other.id &&
         display_name == other.display_name &&
         is_oob_saved_search == other.is_oob_saved_search &&
-        provider_id == other.provider_id &&
         compartment_id == other.compartment_id &&
+        provider_id == other.provider_id &&
+        provider_version == other.provider_version &&
+        provider_name == other.provider_name &&
         description == other.description &&
         nls == other.nls &&
         type == other.type &&
@@ -398,7 +426,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, is_oob_saved_search, provider_id, compartment_id, description, nls, type, ui_config, data_config, created_by, updated_by, time_created, time_updated, screen_image, metadata_version, widget_template, widget_vm, lifecycle_state, parameters_config, freeform_tags, defined_tags].hash
+      [id, display_name, is_oob_saved_search, compartment_id, provider_id, provider_version, provider_name, description, nls, type, ui_config, data_config, created_by, updated_by, time_created, time_updated, screen_image, metadata_version, widget_template, widget_vm, lifecycle_state, parameters_config, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

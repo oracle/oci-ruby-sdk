@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,6 +8,13 @@ require 'logger'
 module OCI
   # Summary of the OperatorControl.
   class OperatorAccessControl::Models::OperatorControlSummary
+    RESOURCE_TYPE_ENUM = [
+      RESOURCE_TYPE_EXACC = 'EXACC'.freeze,
+      RESOURCE_TYPE_EXADATAINFRASTRUCTURE = 'EXADATAINFRASTRUCTURE'.freeze,
+      RESOURCE_TYPE_AUTONOMOUSVMCLUSTER = 'AUTONOMOUSVMCLUSTER'.freeze,
+      RESOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATED = 'CREATED'.freeze,
       LIFECYCLE_STATE_ASSIGNED = 'ASSIGNED'.freeze,
@@ -31,6 +38,10 @@ module OCI
     # Whether all operator actions are pre-approved. If yes, an access request associated with a resource governed by the operator control will be automatically approved by the system.
     # @return [BOOLEAN]
     attr_accessor :is_fully_pre_approved
+
+    # resourceType for which the OperatorControl is applicable
+    # @return [String]
+    attr_reader :resource_type
 
     # Time when the operator control was created, expressed in [RFC 3339] (https://tools.ietf.org/html/rfc3339) timestamp format. Example: '2020-05-22T21:10:29.600Z'
     #
@@ -69,6 +80,7 @@ module OCI
         'operator_control_name': :'operatorControlName',
         'compartment_id': :'compartmentId',
         'is_fully_pre_approved': :'isFullyPreApproved',
+        'resource_type': :'resourceType',
         'time_of_creation': :'timeOfCreation',
         'time_of_modification': :'timeOfModification',
         'time_of_deletion': :'timeOfDeletion',
@@ -87,6 +99,7 @@ module OCI
         'operator_control_name': :'String',
         'compartment_id': :'String',
         'is_fully_pre_approved': :'BOOLEAN',
+        'resource_type': :'String',
         'time_of_creation': :'DateTime',
         'time_of_modification': :'DateTime',
         'time_of_deletion': :'DateTime',
@@ -107,6 +120,7 @@ module OCI
     # @option attributes [String] :operator_control_name The value to assign to the {#operator_control_name} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [BOOLEAN] :is_fully_pre_approved The value to assign to the {#is_fully_pre_approved} property
+    # @option attributes [String] :resource_type The value to assign to the {#resource_type} property
     # @option attributes [DateTime] :time_of_creation The value to assign to the {#time_of_creation} property
     # @option attributes [DateTime] :time_of_modification The value to assign to the {#time_of_modification} property
     # @option attributes [DateTime] :time_of_deletion The value to assign to the {#time_of_deletion} property
@@ -138,6 +152,12 @@ module OCI
       raise 'You cannot provide both :isFullyPreApproved and :is_fully_pre_approved' if attributes.key?(:'isFullyPreApproved') && attributes.key?(:'is_fully_pre_approved')
 
       self.is_fully_pre_approved = attributes[:'is_fully_pre_approved'] unless attributes[:'is_fully_pre_approved'].nil?
+
+      self.resource_type = attributes[:'resourceType'] if attributes[:'resourceType']
+
+      raise 'You cannot provide both :resourceType and :resource_type' if attributes.key?(:'resourceType') && attributes.key?(:'resource_type')
+
+      self.resource_type = attributes[:'resource_type'] if attributes[:'resource_type']
 
       self.time_of_creation = attributes[:'timeOfCreation'] if attributes[:'timeOfCreation']
 
@@ -179,6 +199,19 @@ module OCI
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] resource_type Object to be assigned
+    def resource_type=(resource_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if resource_type && !RESOURCE_TYPE_ENUM.include?(resource_type)
+        OCI.logger.debug("Unknown value for 'resource_type' [" + resource_type + "]. Mapping to 'RESOURCE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @resource_type = RESOURCE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @resource_type = resource_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -204,6 +237,7 @@ module OCI
         operator_control_name == other.operator_control_name &&
         compartment_id == other.compartment_id &&
         is_fully_pre_approved == other.is_fully_pre_approved &&
+        resource_type == other.resource_type &&
         time_of_creation == other.time_of_creation &&
         time_of_modification == other.time_of_modification &&
         time_of_deletion == other.time_of_deletion &&
@@ -225,7 +259,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, operator_control_name, compartment_id, is_fully_pre_approved, time_of_creation, time_of_modification, time_of_deletion, lifecycle_state, freeform_tags, defined_tags].hash
+      [id, operator_control_name, compartment_id, is_fully_pre_approved, resource_type, time_of_creation, time_of_modification, time_of_deletion, lifecycle_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -30,6 +30,11 @@ module OCI
     #
     # @return [Integer]
     attr_accessor :data_storage_size_in_gbs
+
+    # The size, in gigabytes, to scale the attached RECO storage up to for this virtual machine DB system. This value must be greater than current storage size. Note that the resulting total storage size attached will be greater than the amount requested to allow for the software volume. Applies only to virtual machine DB systems.
+    #
+    # @return [Integer]
+    attr_accessor :reco_storage_size_in_gbs
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -81,6 +86,7 @@ module OCI
         'version': :'version',
         'ssh_public_keys': :'sshPublicKeys',
         'data_storage_size_in_gbs': :'dataStorageSizeInGBs',
+        'reco_storage_size_in_gbs': :'recoStorageSizeInGBs',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'shape': :'shape',
@@ -100,6 +106,7 @@ module OCI
         'version': :'OCI::Database::Models::PatchDetails',
         'ssh_public_keys': :'Array<String>',
         'data_storage_size_in_gbs': :'Integer',
+        'reco_storage_size_in_gbs': :'Integer',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'shape': :'String',
@@ -121,6 +128,7 @@ module OCI
     # @option attributes [OCI::Database::Models::PatchDetails] :version The value to assign to the {#version} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
     # @option attributes [Integer] :data_storage_size_in_gbs The value to assign to the {#data_storage_size_in_gbs} property
+    # @option attributes [Integer] :reco_storage_size_in_gbs The value to assign to the {#reco_storage_size_in_gbs} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
@@ -153,6 +161,12 @@ module OCI
       raise 'You cannot provide both :dataStorageSizeInGBs and :data_storage_size_in_gbs' if attributes.key?(:'dataStorageSizeInGBs') && attributes.key?(:'data_storage_size_in_gbs')
 
       self.data_storage_size_in_gbs = attributes[:'data_storage_size_in_gbs'] if attributes[:'data_storage_size_in_gbs']
+
+      self.reco_storage_size_in_gbs = attributes[:'recoStorageSizeInGBs'] if attributes[:'recoStorageSizeInGBs']
+
+      raise 'You cannot provide both :recoStorageSizeInGBs and :reco_storage_size_in_gbs' if attributes.key?(:'recoStorageSizeInGBs') && attributes.key?(:'reco_storage_size_in_gbs')
+
+      self.reco_storage_size_in_gbs = attributes[:'reco_storage_size_in_gbs'] if attributes[:'reco_storage_size_in_gbs']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -216,6 +230,7 @@ module OCI
         version == other.version &&
         ssh_public_keys == other.ssh_public_keys &&
         data_storage_size_in_gbs == other.data_storage_size_in_gbs &&
+        reco_storage_size_in_gbs == other.reco_storage_size_in_gbs &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         shape == other.shape &&
@@ -238,7 +253,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, version, ssh_public_keys, data_storage_size_in_gbs, freeform_tags, defined_tags, shape, nsg_ids, backup_network_nsg_ids, license_model, maintenance_window_details].hash
+      [cpu_core_count, version, ssh_public_keys, data_storage_size_in_gbs, reco_storage_size_in_gbs, freeform_tags, defined_tags, shape, nsg_ids, backup_network_nsg_ids, license_model, maintenance_window_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

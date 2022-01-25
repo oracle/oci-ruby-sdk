@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Use the Data Science APIs to organize your data science work, access data and computing resources, and build, train, deploy, and manage models on Oracle Cloud.
+  # Use the Data Science API to organize your data science work, access data and computing resources, and build, train, deploy and manage models and model deployments. For more information, see [Data Science](https://docs.oracle.com/iaas/data-science/using/data-science.htm).
   class DataScience::DataScienceClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -282,6 +282,67 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Cancels an IN_PROGRESS job run.
+    # @param [String] job_run_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job run.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource is updated or deleted only if the `etag` you
+    #   provide matches the resource's current `etag` value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/cancel_job_run.rb.html) to see an example of how to use cancel_job_run API.
+    def cancel_job_run(job_run_id, opts = {})
+      logger.debug 'Calling operation DataScienceClient#cancel_job_run.' if logger
+
+      raise "Missing the required parameter 'job_run_id' when calling cancel_job_run." if job_run_id.nil?
+      raise "Parameter value for 'job_run_id' must not be blank" if OCI::Internal::Util.blank_string?(job_run_id)
+
+      path = '/jobRuns/{jobRunId}/actions/cancelJobRun'.sub('{jobRunId}', job_run_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#cancel_job_run') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Cancels a work request that has not started.
     # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the work request.
     # @param [Hash] opts the optional parameters
@@ -324,6 +385,132 @@ module OCI
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#cancel_work_request') do
         @api_client.call_api(
           :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Changes a job's compartment
+    # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
+    # @param [OCI::DataScience::Models::ChangeJobCompartmentDetails] change_job_compartment_details Details for changing the compartment of a job.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource is updated or deleted only if the `etag` you
+    #   provide matches the resource's current `etag` value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/change_job_compartment.rb.html) to see an example of how to use change_job_compartment API.
+    def change_job_compartment(job_id, change_job_compartment_details, opts = {})
+      logger.debug 'Calling operation DataScienceClient#change_job_compartment.' if logger
+
+      raise "Missing the required parameter 'job_id' when calling change_job_compartment." if job_id.nil?
+      raise "Missing the required parameter 'change_job_compartment_details' when calling change_job_compartment." if change_job_compartment_details.nil?
+      raise "Parameter value for 'job_id' must not be blank" if OCI::Internal::Util.blank_string?(job_id)
+
+      path = '/jobs/{jobId}/actions/changeCompartment'.sub('{jobId}', job_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(change_job_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#change_job_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Changes a job run's compartment
+    # @param [String] job_run_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job run.
+    # @param [OCI::DataScience::Models::ChangeJobRunCompartmentDetails] change_job_run_compartment_details Details for changing the compartment of a job.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource is updated or deleted only if the `etag` you
+    #   provide matches the resource's current `etag` value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/change_job_run_compartment.rb.html) to see an example of how to use change_job_run_compartment API.
+    def change_job_run_compartment(job_run_id, change_job_run_compartment_details, opts = {})
+      logger.debug 'Calling operation DataScienceClient#change_job_run_compartment.' if logger
+
+      raise "Missing the required parameter 'job_run_id' when calling change_job_run_compartment." if job_run_id.nil?
+      raise "Missing the required parameter 'change_job_run_compartment_details' when calling change_job_run_compartment." if change_job_run_compartment_details.nil?
+      raise "Parameter value for 'job_run_id' must not be blank" if OCI::Internal::Util.blank_string?(job_run_id)
+
+      path = '/jobRuns/{jobRunId}/actions/changeCompartment'.sub('{jobRunId}', job_run_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(change_job_run_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#change_job_run_compartment') do
+        @api_client.call_api(
+          :POST,
           path,
           endpoint,
           header_params: header_params,
@@ -598,6 +785,193 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a job.
+    # @param [OCI::DataScience::Models::CreateJobDetails] create_job_details Details for creating a new job.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataScience::Models::Job Job}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/create_job.rb.html) to see an example of how to use create_job API.
+    def create_job(create_job_details, opts = {})
+      logger.debug 'Calling operation DataScienceClient#create_job.' if logger
+
+      raise "Missing the required parameter 'create_job_details' when calling create_job." if create_job_details.nil?
+
+      path = '/jobs'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_job_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#create_job') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataScience::Models::Job'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Uploads a job artifact.
+    # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
+    # @param [String, IO] job_artifact The job artifact to upload.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :content_length The content length of the body.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @option opts [String] :content_disposition This header allows you to specify a filename during upload. This file name is used to dispose of the file contents
+    #   while downloading the file. If this optional field is not populated in the request, then the OCID of the model is used for the file
+    #   name when downloading.
+    #   Example: `{\"Content-Disposition\": \"attachment\"
+    #              \"filename\"=\"model.tar.gz\"
+    #              \"Content-Length\": \"2347\"
+    #              \"Content-Type\": \"application/gzip\"}`
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/create_job_artifact.rb.html) to see an example of how to use create_job_artifact API.
+    def create_job_artifact(job_id, job_artifact, opts = {})
+      logger.debug 'Calling operation DataScienceClient#create_job_artifact.' if logger
+
+      raise "Missing the required parameter 'job_id' when calling create_job_artifact." if job_id.nil?
+      raise "Missing the required parameter 'job_artifact' when calling create_job_artifact." if job_artifact.nil?
+      raise "Parameter value for 'job_id' must not be blank" if OCI::Internal::Util.blank_string?(job_id)
+
+      path = '/jobs/{jobId}/artifact'.sub('{jobId}', job_id.to_s)
+      operation_signing_strategy = :exclude_body
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'content-length'] = opts[:content_length] if opts[:content_length]
+      header_params[:'content-disposition'] = opts[:content_disposition] if opts[:content_disposition]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'content-type'] ||= 'application/octet-stream'
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(job_artifact)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#create_job_artifact') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a job run.
+    # @param [OCI::DataScience::Models::CreateJobRunDetails] create_job_run_details Details for creating a new job run.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataScience::Models::JobRun JobRun}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/create_job_run.rb.html) to see an example of how to use create_job_run API.
+    def create_job_run(create_job_run_details, opts = {})
+      logger.debug 'Calling operation DataScienceClient#create_job_run.' if logger
+
+      raise "Missing the required parameter 'create_job_run_details' when calling create_job_run." if create_job_run_details.nil?
+
+      path = '/jobRuns'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_job_run_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#create_job_run') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataScience::Models::JobRun'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1159,6 +1533,130 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes a job.
+    # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource is updated or deleted only if the `etag` you
+    #   provide matches the resource's current `etag` value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @option opts [BOOLEAN] :delete_related_job_runs Delete all JobRuns associated with this job. (default to false)
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/delete_job.rb.html) to see an example of how to use delete_job API.
+    def delete_job(job_id, opts = {})
+      logger.debug 'Calling operation DataScienceClient#delete_job.' if logger
+
+      raise "Missing the required parameter 'job_id' when calling delete_job." if job_id.nil?
+      raise "Parameter value for 'job_id' must not be blank" if OCI::Internal::Util.blank_string?(job_id)
+
+      path = '/jobs/{jobId}'.sub('{jobId}', job_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:deleteRelatedJobRuns] = opts[:delete_related_job_runs] if !opts[:delete_related_job_runs].nil?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#delete_job') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a job run.
+    # @param [String] job_run_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job run.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource is updated or deleted only if the `etag` you
+    #   provide matches the resource's current `etag` value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/delete_job_run.rb.html) to see an example of how to use delete_job_run API.
+    def delete_job_run(job_run_id, opts = {})
+      logger.debug 'Calling operation DataScienceClient#delete_job_run.' if logger
+
+      raise "Missing the required parameter 'job_run_id' when calling delete_job_run." if job_run_id.nil?
+      raise "Parameter value for 'job_run_id' must not be blank" if OCI::Internal::Util.blank_string?(job_run_id)
+
+      path = '/jobRuns/{jobRunId}'.sub('{jobRunId}', job_run_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#delete_job_run') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes the specified model.
     # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model.
     # @param [Hash] opts the optional parameters
@@ -1390,6 +1888,221 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a job.
+    # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataScience::Models::Job Job}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/get_job.rb.html) to see an example of how to use get_job API.
+    def get_job(job_id, opts = {})
+      logger.debug 'Calling operation DataScienceClient#get_job.' if logger
+
+      raise "Missing the required parameter 'job_id' when calling get_job." if job_id.nil?
+      raise "Parameter value for 'job_id' must not be blank" if OCI::Internal::Util.blank_string?(job_id)
+
+      path = '/jobs/{jobId}'.sub('{jobId}', job_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#get_job') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataScience::Models::Job'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Downloads job artifact content for specified job.
+    # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @option opts [String] :range Optional byte range to fetch, as described in [RFC 7233](https://tools.ietf.org/html/rfc7232#section-2.1), section 2.1.
+    #   Note that only a single range of bytes is supported.
+    #
+    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
+    # @option [Block] &block Streaming http body to the block
+    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/get_job_artifact_content.rb.html) to see an example of how to use get_job_artifact_content API.
+    def get_job_artifact_content(job_id, opts = {}, &block)
+      logger.debug 'Calling operation DataScienceClient#get_job_artifact_content.' if logger
+
+      raise "Missing the required parameter 'job_id' when calling get_job_artifact_content." if job_id.nil?
+      raise "Parameter value for 'job_id' must not be blank" if OCI::Internal::Util.blank_string?(job_id)
+
+      path = '/jobs/{jobId}/artifact/content'.sub('{jobId}', job_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = opts[:accept] if opts[:accept]
+      header_params[:accept] ||= 'application/octet-stream'
+      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:range] = opts[:range] if opts[:range]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#get_job_artifact_content') do
+        if !block.nil?
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'Stream',
+            &block
+          )
+        elsif opts[:response_target]
+          if opts[:response_target].respond_to? :write
+            @api_client.call_api(
+              :GET,
+              path,
+              endpoint,
+              header_params: header_params,
+              query_params: query_params,
+              operation_signing_strategy: operation_signing_strategy,
+              body: post_body,
+              return_type: 'Stream',
+              &proc { |chunk, _response| opts[:response_target].write(chunk) }
+            )
+          elsif opts[:response_target].is_a?(String)
+            File.open(opts[:response_target], 'wb') do |output|
+              return @api_client.call_api(
+                :GET,
+                path,
+                endpoint,
+                header_params: header_params,
+                query_params: query_params,
+                operation_signing_strategy: operation_signing_strategy,
+                body: post_body,
+                return_type: 'Stream',
+                &proc { |chunk, _response| output.write(chunk) }
+              )
+            end
+          end
+        else
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'String'
+          )
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a job run.
+    # @param [String] job_run_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job run.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataScience::Models::JobRun JobRun}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/get_job_run.rb.html) to see an example of how to use get_job_run API.
+    def get_job_run(job_run_id, opts = {})
+      logger.debug 'Calling operation DataScienceClient#get_job_run.' if logger
+
+      raise "Missing the required parameter 'job_run_id' when calling get_job_run." if job_run_id.nil?
+      raise "Parameter value for 'job_run_id' must not be blank" if OCI::Internal::Util.blank_string?(job_run_id)
+
+      path = '/jobRuns/{jobRunId}'.sub('{jobRunId}', job_run_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#get_job_run') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataScience::Models::JobRun'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1838,6 +2551,60 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets job artifact metadata.
+    # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/head_job_artifact.rb.html) to see an example of how to use head_job_artifact API.
+    def head_job_artifact(job_id, opts = {})
+      logger.debug 'Calling operation DataScienceClient#head_job_artifact.' if logger
+
+      raise "Missing the required parameter 'job_id' when calling head_job_artifact." if job_id.nil?
+      raise "Parameter value for 'job_id' must not be blank" if OCI::Internal::Util.blank_string?(job_id)
+
+      path = '/jobs/{jobId}/artifact/content'.sub('{jobId}', job_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#head_job_artifact') do
+        @api_client.call_api(
+          :HEAD,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets model artifact metadata for specified model.
     # @param [String] model_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the model.
     # @param [Hash] opts the optional parameters
@@ -1879,6 +2646,285 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List out job runs.
+    # @param [String] compartment_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :id <b>Filter</b> results by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). Must be an OCID of the correct type for the resource type.
+    #
+    # @option opts [String] :job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
+    # @option opts [String] :created_by <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the user who created the resource.
+    # @option opts [String] :display_name <b>Filter</b> results by its user-friendly name.
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
+    #   or items to return in a paginated \"List\" call.
+    #   1 is the minimum, 1000 is the maximum.
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `500`
+    #    (default to 10)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
+    #   header from the previous \"List\" call.
+    #
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :sort_order Specifies sort order to use, either `ASC` (ascending) or `DESC` (descending).
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field.
+    #   By default, when you sort by `timeCreated`, the results are shown
+    #   in descending order. When you sort by `displayName`, the results are
+    #   shown in ascending order. Sort order for the `displayName` field is case sensitive.
+    #
+    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :lifecycle_state <b>Filter</b> results by the specified lifecycle state. Must be a valid
+    #   state for the resource type.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::JobRunSummary JobRunSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_job_runs.rb.html) to see an example of how to use list_job_runs API.
+    def list_job_runs(compartment_id, opts = {})
+      logger.debug 'Calling operation DataScienceClient#list_job_runs.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_job_runs." if compartment_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::DataScience::Models::JOB_RUN_LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataScience::Models::JOB_RUN_LIFECYCLE_STATE_ENUM.'
+      end
+
+      path = '/jobRuns'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:jobId] = opts[:job_id] if opts[:job_id]
+      query_params[:createdBy] = opts[:created_by] if opts[:created_by]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#list_job_runs') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::DataScience::Models::JobRunSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List job shapes available in the specified compartment.
+    # @param [String] compartment_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
+    #   or items to return in a paginated \"List\" call.
+    #   1 is the minimum, 1000 is the maximum.
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `500`
+    #    (default to 10)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
+    #   header from the previous \"List\" call.
+    #
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::JobShapeSummary JobShapeSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_job_shapes.rb.html) to see an example of how to use list_job_shapes API.
+    def list_job_shapes(compartment_id, opts = {})
+      logger.debug 'Calling operation DataScienceClient#list_job_shapes.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_job_shapes." if compartment_id.nil?
+
+      path = '/jobShapes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#list_job_shapes') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::DataScience::Models::JobShapeSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List jobs in the specified compartment.
+    # @param [String] compartment_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :project_id <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the project.
+    # @option opts [String] :id <b>Filter</b> results by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). Must be an OCID of the correct type for the resource type.
+    #
+    # @option opts [String] :display_name <b>Filter</b> results by its user-friendly name.
+    # @option opts [String] :lifecycle_state <b>Filter</b> results by the specified lifecycle state. Must be a valid
+    #     state for the resource type.
+    #
+    # @option opts [String] :created_by <b>Filter</b> results by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the user who created the resource.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
+    #   or items to return in a paginated \"List\" call.
+    #   1 is the minimum, 1000 is the maximum.
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `500`
+    #    (default to 10)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response
+    #   header from the previous \"List\" call.
+    #
+    #   See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :sort_order Specifies sort order to use, either `ASC` (ascending) or `DESC` (descending).
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field.
+    #   By default, when you sort by `timeCreated`, the results are shown
+    #   in descending order. When you sort by `displayName`, the results are
+    #   shown in ascending order. Sort order for the `displayName` field is case sensitive.
+    #
+    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::DataScience::Models::JobSummary JobSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/list_jobs.rb.html) to see an example of how to use list_jobs API.
+    def list_jobs(compartment_id, opts = {})
+      logger.debug 'Calling operation DataScienceClient#list_jobs.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_jobs." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::DataScience::Models::JOB_LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataScience::Models::JOB_LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      path = '/jobs'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:projectId] = opts[:project_id] if opts[:project_id]
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:createdBy] = opts[:created_by] if opts[:created_by]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#list_jobs') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::DataScience::Models::JobSummary>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2566,7 +3612,7 @@ module OCI
     # @option opts [String] :id <b>Filter</b> results by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm). Must be an OCID of the correct type for the resource type.
     #
     # @option opts [String] :operation_type <b>Filter</b> results by the type of the operation associated with the work request.
-    #   Allowed values are: NOTEBOOK_SESSION_CREATE, NOTEBOOK_SESSION_DELETE, NOTEBOOK_SESSION_ACTIVATE, NOTEBOOK_SESSION_DEACTIVATE, MODEL_DEPLOYMENT_CREATE, MODEL_DEPLOYMENT_DELETE, MODEL_DEPLOYMENT_ACTIVATE, MODEL_DEPLOYMENT_DEACTIVATE, MODEL_DEPLOYMENT_UPDATE, PROJECT_DELETE, WORKREQUEST_CANCEL
+    #   Allowed values are: NOTEBOOK_SESSION_CREATE, NOTEBOOK_SESSION_DELETE, NOTEBOOK_SESSION_ACTIVATE, NOTEBOOK_SESSION_DEACTIVATE, MODEL_DEPLOYMENT_CREATE, MODEL_DEPLOYMENT_DELETE, MODEL_DEPLOYMENT_ACTIVATE, MODEL_DEPLOYMENT_DEACTIVATE, MODEL_DEPLOYMENT_UPDATE, PROJECT_DELETE, WORKREQUEST_CANCEL, JOB_DELETE
     # @option opts [String] :status <b>Filter</b> results by work request status.
     #   Allowed values are: ACCEPTED, IN_PROGRESS, FAILED, SUCCEEDED, CANCELING, CANCELED
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
@@ -2596,8 +3642,8 @@ module OCI
 
       raise "Missing the required parameter 'compartment_id' when calling list_work_requests." if compartment_id.nil?
 
-      if opts[:operation_type] && !%w[NOTEBOOK_SESSION_CREATE NOTEBOOK_SESSION_DELETE NOTEBOOK_SESSION_ACTIVATE NOTEBOOK_SESSION_DEACTIVATE MODEL_DEPLOYMENT_CREATE MODEL_DEPLOYMENT_DELETE MODEL_DEPLOYMENT_ACTIVATE MODEL_DEPLOYMENT_DEACTIVATE MODEL_DEPLOYMENT_UPDATE PROJECT_DELETE WORKREQUEST_CANCEL].include?(opts[:operation_type])
-        raise 'Invalid value for "operation_type", must be one of NOTEBOOK_SESSION_CREATE, NOTEBOOK_SESSION_DELETE, NOTEBOOK_SESSION_ACTIVATE, NOTEBOOK_SESSION_DEACTIVATE, MODEL_DEPLOYMENT_CREATE, MODEL_DEPLOYMENT_DELETE, MODEL_DEPLOYMENT_ACTIVATE, MODEL_DEPLOYMENT_DEACTIVATE, MODEL_DEPLOYMENT_UPDATE, PROJECT_DELETE, WORKREQUEST_CANCEL.'
+      if opts[:operation_type] && !%w[NOTEBOOK_SESSION_CREATE NOTEBOOK_SESSION_DELETE NOTEBOOK_SESSION_ACTIVATE NOTEBOOK_SESSION_DEACTIVATE MODEL_DEPLOYMENT_CREATE MODEL_DEPLOYMENT_DELETE MODEL_DEPLOYMENT_ACTIVATE MODEL_DEPLOYMENT_DEACTIVATE MODEL_DEPLOYMENT_UPDATE PROJECT_DELETE WORKREQUEST_CANCEL JOB_DELETE].include?(opts[:operation_type])
+        raise 'Invalid value for "operation_type", must be one of NOTEBOOK_SESSION_CREATE, NOTEBOOK_SESSION_DELETE, NOTEBOOK_SESSION_ACTIVATE, NOTEBOOK_SESSION_DEACTIVATE, MODEL_DEPLOYMENT_CREATE, MODEL_DEPLOYMENT_DELETE, MODEL_DEPLOYMENT_ACTIVATE, MODEL_DEPLOYMENT_DEACTIVATE, MODEL_DEPLOYMENT_UPDATE, PROJECT_DELETE, WORKREQUEST_CANCEL, JOB_DELETE.'
       end
 
       if opts[:status] && !%w[ACCEPTED IN_PROGRESS FAILED SUCCEEDED CANCELING CANCELED].include?(opts[:status])
@@ -2647,6 +3693,134 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::DataScience::Models::WorkRequestSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates a job.
+    # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
+    # @param [OCI::DataScience::Models::UpdateJobDetails] update_job_details Details for updating a job.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource is updated or deleted only if the `etag` you
+    #   provide matches the resource's current `etag` value.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataScience::Models::Job Job}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/update_job.rb.html) to see an example of how to use update_job API.
+    def update_job(job_id, update_job_details, opts = {})
+      logger.debug 'Calling operation DataScienceClient#update_job.' if logger
+
+      raise "Missing the required parameter 'job_id' when calling update_job." if job_id.nil?
+      raise "Missing the required parameter 'update_job_details' when calling update_job." if update_job_details.nil?
+      raise "Parameter value for 'job_id' must not be blank" if OCI::Internal::Util.blank_string?(job_id)
+
+      path = '/jobs/{jobId}'.sub('{jobId}', job_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_job_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#update_job') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataScience::Models::Job'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates a job run.
+    # @param [String] job_run_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job run.
+    # @param [OCI::DataScience::Models::UpdateJobRunDetails] update_job_run_details Details for updating a job.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle assigned identifier for the request. If you need to contact Oracle about a particular request, then provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource is updated or deleted only if the `etag` you
+    #   provide matches the resource's current `etag` value.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataScience::Models::JobRun JobRun}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datascience/update_job_run.rb.html) to see an example of how to use update_job_run API.
+    def update_job_run(job_run_id, update_job_run_details, opts = {})
+      logger.debug 'Calling operation DataScienceClient#update_job_run.' if logger
+
+      raise "Missing the required parameter 'job_run_id' when calling update_job_run." if job_run_id.nil?
+      raise "Missing the required parameter 'update_job_run_details' when calling update_job_run." if update_job_run_details.nil?
+      raise "Parameter value for 'job_run_id' must not be blank" if OCI::Internal::Util.blank_string?(job_run_id)
+
+      path = '/jobRuns/{jobRunId}'.sub('{jobRunId}', job_run_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_job_run_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataScienceClient#update_job_run') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataScience::Models::JobRun'
         )
       end
       # rubocop:enable Metrics/BlockLength

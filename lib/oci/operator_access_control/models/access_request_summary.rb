@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,6 +8,13 @@ require 'logger'
 module OCI
   # Summary of access request.
   class OperatorAccessControl::Models::AccessRequestSummary
+    RESOURCE_TYPE_ENUM = [
+      RESOURCE_TYPE_EXACC = 'EXACC'.freeze,
+      RESOURCE_TYPE_EXADATAINFRASTRUCTURE = 'EXADATAINFRASTRUCTURE'.freeze,
+      RESOURCE_TYPE_AUTONOMOUSVMCLUSTER = 'AUTONOMOUSVMCLUSTER'.freeze,
+      RESOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATED = 'CREATED'.freeze,
       LIFECYCLE_STATE_APPROVALWAITING = 'APPROVALWAITING'.freeze,
@@ -29,6 +36,8 @@ module OCI
       LIFECYCLE_STATE_COMPLETING = 'COMPLETING'.freeze,
       LIFECYCLE_STATE_COMPLETED = 'COMPLETED'.freeze,
       LIFECYCLE_STATE_EXPIRED = 'EXPIRED'.freeze,
+      LIFECYCLE_STATE_APPROVEDFORFUTURE = 'APPROVEDFORFUTURE'.freeze,
+      LIFECYCLE_STATE_INREVIEW = 'INREVIEW'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -66,6 +75,10 @@ module OCI
     # @return [String]
     attr_accessor :resource_name
 
+    # resourceType for which the AccessRequest is applicable
+    # @return [String]
+    attr_reader :resource_type
+
     # The current state of the AccessRequest.
     # @return [String]
     attr_reader :lifecycle_state
@@ -79,6 +92,11 @@ module OCI
     #
     # @return [DateTime]
     attr_accessor :time_of_modification
+
+    # The time when access request is scheduled to be approved in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.Example: '2020-05-22T21:10:29.600Z'
+    #
+    # @return [DateTime]
+    attr_accessor :time_of_user_creation
 
     # Duration in hours for which access is sought on the target resource.
     # @return [Integer]
@@ -116,9 +134,11 @@ module OCI
         'compartment_id': :'compartmentId',
         'resource_id': :'resourceId',
         'resource_name': :'resourceName',
+        'resource_type': :'resourceType',
         'lifecycle_state': :'lifecycleState',
         'time_of_creation': :'timeOfCreation',
         'time_of_modification': :'timeOfModification',
+        'time_of_user_creation': :'timeOfUserCreation',
         'duration': :'duration',
         'extend_duration': :'extendDuration',
         'severity': :'severity',
@@ -139,9 +159,11 @@ module OCI
         'compartment_id': :'String',
         'resource_id': :'String',
         'resource_name': :'String',
+        'resource_type': :'String',
         'lifecycle_state': :'String',
         'time_of_creation': :'DateTime',
         'time_of_modification': :'DateTime',
+        'time_of_user_creation': :'DateTime',
         'duration': :'Integer',
         'extend_duration': :'Integer',
         'severity': :'String',
@@ -164,9 +186,11 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :resource_id The value to assign to the {#resource_id} property
     # @option attributes [String] :resource_name The value to assign to the {#resource_name} property
+    # @option attributes [String] :resource_type The value to assign to the {#resource_type} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_of_creation The value to assign to the {#time_of_creation} property
     # @option attributes [DateTime] :time_of_modification The value to assign to the {#time_of_modification} property
+    # @option attributes [DateTime] :time_of_user_creation The value to assign to the {#time_of_user_creation} property
     # @option attributes [Integer] :duration The value to assign to the {#duration} property
     # @option attributes [Integer] :extend_duration The value to assign to the {#extend_duration} property
     # @option attributes [String] :severity The value to assign to the {#severity} property
@@ -211,6 +235,12 @@ module OCI
 
       self.resource_name = attributes[:'resource_name'] if attributes[:'resource_name']
 
+      self.resource_type = attributes[:'resourceType'] if attributes[:'resourceType']
+
+      raise 'You cannot provide both :resourceType and :resource_type' if attributes.key?(:'resourceType') && attributes.key?(:'resource_type')
+
+      self.resource_type = attributes[:'resource_type'] if attributes[:'resource_type']
+
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
@@ -228,6 +258,12 @@ module OCI
       raise 'You cannot provide both :timeOfModification and :time_of_modification' if attributes.key?(:'timeOfModification') && attributes.key?(:'time_of_modification')
 
       self.time_of_modification = attributes[:'time_of_modification'] if attributes[:'time_of_modification']
+
+      self.time_of_user_creation = attributes[:'timeOfUserCreation'] if attributes[:'timeOfUserCreation']
+
+      raise 'You cannot provide both :timeOfUserCreation and :time_of_user_creation' if attributes.key?(:'timeOfUserCreation') && attributes.key?(:'time_of_user_creation')
+
+      self.time_of_user_creation = attributes[:'time_of_user_creation'] if attributes[:'time_of_user_creation']
 
       self.duration = attributes[:'duration'] if attributes[:'duration']
 
@@ -259,6 +295,19 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] resource_type Object to be assigned
+    def resource_type=(resource_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if resource_type && !RESOURCE_TYPE_ENUM.include?(resource_type)
+        OCI.logger.debug("Unknown value for 'resource_type' [" + resource_type + "]. Mapping to 'RESOURCE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @resource_type = RESOURCE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @resource_type = resource_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
@@ -301,9 +350,11 @@ module OCI
         compartment_id == other.compartment_id &&
         resource_id == other.resource_id &&
         resource_name == other.resource_name &&
+        resource_type == other.resource_type &&
         lifecycle_state == other.lifecycle_state &&
         time_of_creation == other.time_of_creation &&
         time_of_modification == other.time_of_modification &&
+        time_of_user_creation == other.time_of_user_creation &&
         duration == other.duration &&
         extend_duration == other.extend_duration &&
         severity == other.severity &&
@@ -325,7 +376,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, request_id, access_reason_summary, compartment_id, resource_id, resource_name, lifecycle_state, time_of_creation, time_of_modification, duration, extend_duration, severity, is_auto_approved, freeform_tags, defined_tags].hash
+      [id, request_id, access_reason_summary, compartment_id, resource_id, resource_name, resource_type, lifecycle_state, time_of_creation, time_of_modification, time_of_user_creation, duration, extend_duration, severity, is_auto_approved, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

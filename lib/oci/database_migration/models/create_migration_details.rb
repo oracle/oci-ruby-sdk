@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -52,13 +52,24 @@ module OCI
     # @return [OCI::DatabaseMigration::Models::CreateDataTransferMediumDetails]
     attr_accessor :data_transfer_medium_details
 
+    # @return [OCI::DatabaseMigration::Models::CreateDumpTransferDetails]
+    attr_accessor :dump_transfer_details
+
     # @return [OCI::DatabaseMigration::Models::CreateDataPumpSettings]
     attr_accessor :datapump_settings
 
-    # Database objects to exclude from migration.
+    # @return [OCI::DatabaseMigration::Models::CreateAdvisorSettings]
+    attr_accessor :advisor_settings
+
+    # Database objects to exclude from migration, cannot be specified alongside 'includeObjects'
     #
     # @return [Array<OCI::DatabaseMigration::Models::DatabaseObject>]
     attr_accessor :exclude_objects
+
+    # Database objects to include from migration, cannot be specified alongside 'excludeObjects'
+    #
+    # @return [Array<OCI::DatabaseMigration::Models::DatabaseObject>]
+    attr_accessor :include_objects
 
     # @return [OCI::DatabaseMigration::Models::CreateGoldenGateDetails]
     attr_accessor :golden_gate_details
@@ -90,8 +101,11 @@ module OCI
         'source_container_database_connection_id': :'sourceContainerDatabaseConnectionId',
         'target_database_connection_id': :'targetDatabaseConnectionId',
         'data_transfer_medium_details': :'dataTransferMediumDetails',
+        'dump_transfer_details': :'dumpTransferDetails',
         'datapump_settings': :'datapumpSettings',
+        'advisor_settings': :'advisorSettings',
         'exclude_objects': :'excludeObjects',
+        'include_objects': :'includeObjects',
         'golden_gate_details': :'goldenGateDetails',
         'vault_details': :'vaultDetails',
         'freeform_tags': :'freeformTags',
@@ -112,8 +126,11 @@ module OCI
         'source_container_database_connection_id': :'String',
         'target_database_connection_id': :'String',
         'data_transfer_medium_details': :'OCI::DatabaseMigration::Models::CreateDataTransferMediumDetails',
+        'dump_transfer_details': :'OCI::DatabaseMigration::Models::CreateDumpTransferDetails',
         'datapump_settings': :'OCI::DatabaseMigration::Models::CreateDataPumpSettings',
+        'advisor_settings': :'OCI::DatabaseMigration::Models::CreateAdvisorSettings',
         'exclude_objects': :'Array<OCI::DatabaseMigration::Models::DatabaseObject>',
+        'include_objects': :'Array<OCI::DatabaseMigration::Models::DatabaseObject>',
         'golden_gate_details': :'OCI::DatabaseMigration::Models::CreateGoldenGateDetails',
         'vault_details': :'OCI::DatabaseMigration::Models::CreateVaultDetails',
         'freeform_tags': :'Hash<String, String>',
@@ -136,8 +153,11 @@ module OCI
     # @option attributes [String] :source_container_database_connection_id The value to assign to the {#source_container_database_connection_id} property
     # @option attributes [String] :target_database_connection_id The value to assign to the {#target_database_connection_id} property
     # @option attributes [OCI::DatabaseMigration::Models::CreateDataTransferMediumDetails] :data_transfer_medium_details The value to assign to the {#data_transfer_medium_details} property
+    # @option attributes [OCI::DatabaseMigration::Models::CreateDumpTransferDetails] :dump_transfer_details The value to assign to the {#dump_transfer_details} property
     # @option attributes [OCI::DatabaseMigration::Models::CreateDataPumpSettings] :datapump_settings The value to assign to the {#datapump_settings} property
+    # @option attributes [OCI::DatabaseMigration::Models::CreateAdvisorSettings] :advisor_settings The value to assign to the {#advisor_settings} property
     # @option attributes [Array<OCI::DatabaseMigration::Models::DatabaseObject>] :exclude_objects The value to assign to the {#exclude_objects} property
+    # @option attributes [Array<OCI::DatabaseMigration::Models::DatabaseObject>] :include_objects The value to assign to the {#include_objects} property
     # @option attributes [OCI::DatabaseMigration::Models::CreateGoldenGateDetails] :golden_gate_details The value to assign to the {#golden_gate_details} property
     # @option attributes [OCI::DatabaseMigration::Models::CreateVaultDetails] :vault_details The value to assign to the {#vault_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -192,17 +212,35 @@ module OCI
 
       self.data_transfer_medium_details = attributes[:'data_transfer_medium_details'] if attributes[:'data_transfer_medium_details']
 
+      self.dump_transfer_details = attributes[:'dumpTransferDetails'] if attributes[:'dumpTransferDetails']
+
+      raise 'You cannot provide both :dumpTransferDetails and :dump_transfer_details' if attributes.key?(:'dumpTransferDetails') && attributes.key?(:'dump_transfer_details')
+
+      self.dump_transfer_details = attributes[:'dump_transfer_details'] if attributes[:'dump_transfer_details']
+
       self.datapump_settings = attributes[:'datapumpSettings'] if attributes[:'datapumpSettings']
 
       raise 'You cannot provide both :datapumpSettings and :datapump_settings' if attributes.key?(:'datapumpSettings') && attributes.key?(:'datapump_settings')
 
       self.datapump_settings = attributes[:'datapump_settings'] if attributes[:'datapump_settings']
 
+      self.advisor_settings = attributes[:'advisorSettings'] if attributes[:'advisorSettings']
+
+      raise 'You cannot provide both :advisorSettings and :advisor_settings' if attributes.key?(:'advisorSettings') && attributes.key?(:'advisor_settings')
+
+      self.advisor_settings = attributes[:'advisor_settings'] if attributes[:'advisor_settings']
+
       self.exclude_objects = attributes[:'excludeObjects'] if attributes[:'excludeObjects']
 
       raise 'You cannot provide both :excludeObjects and :exclude_objects' if attributes.key?(:'excludeObjects') && attributes.key?(:'exclude_objects')
 
       self.exclude_objects = attributes[:'exclude_objects'] if attributes[:'exclude_objects']
+
+      self.include_objects = attributes[:'includeObjects'] if attributes[:'includeObjects']
+
+      raise 'You cannot provide both :includeObjects and :include_objects' if attributes.key?(:'includeObjects') && attributes.key?(:'include_objects')
+
+      self.include_objects = attributes[:'include_objects'] if attributes[:'include_objects']
 
       self.golden_gate_details = attributes[:'goldenGateDetails'] if attributes[:'goldenGateDetails']
 
@@ -256,8 +294,11 @@ module OCI
         source_container_database_connection_id == other.source_container_database_connection_id &&
         target_database_connection_id == other.target_database_connection_id &&
         data_transfer_medium_details == other.data_transfer_medium_details &&
+        dump_transfer_details == other.dump_transfer_details &&
         datapump_settings == other.datapump_settings &&
+        advisor_settings == other.advisor_settings &&
         exclude_objects == other.exclude_objects &&
+        include_objects == other.include_objects &&
         golden_gate_details == other.golden_gate_details &&
         vault_details == other.vault_details &&
         freeform_tags == other.freeform_tags &&
@@ -277,7 +318,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, display_name, compartment_id, agent_id, source_database_connection_id, source_container_database_connection_id, target_database_connection_id, data_transfer_medium_details, datapump_settings, exclude_objects, golden_gate_details, vault_details, freeform_tags, defined_tags].hash
+      [type, display_name, compartment_id, agent_id, source_database_connection_id, source_container_database_connection_id, target_database_connection_id, data_transfer_medium_details, dump_transfer_details, datapump_settings, advisor_settings, exclude_objects, include_objects, golden_gate_details, vault_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

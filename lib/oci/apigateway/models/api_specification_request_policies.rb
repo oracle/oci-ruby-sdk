@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -16,13 +16,17 @@ module OCI
     # @return [OCI::Apigateway::Models::CorsPolicy]
     attr_accessor :cors
 
+    # @return [OCI::Apigateway::Models::MutualTlsDetails]
+    attr_accessor :mutual_tls
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'authentication': :'authentication',
         'rate_limiting': :'rateLimiting',
-        'cors': :'cors'
+        'cors': :'cors',
+        'mutual_tls': :'mutualTls'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -33,7 +37,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'authentication': :'OCI::Apigateway::Models::AuthenticationPolicy',
         'rate_limiting': :'OCI::Apigateway::Models::RateLimitingPolicy',
-        'cors': :'OCI::Apigateway::Models::CorsPolicy'
+        'cors': :'OCI::Apigateway::Models::CorsPolicy',
+        'mutual_tls': :'OCI::Apigateway::Models::MutualTlsDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -47,6 +52,7 @@ module OCI
     # @option attributes [OCI::Apigateway::Models::AuthenticationPolicy] :authentication The value to assign to the {#authentication} property
     # @option attributes [OCI::Apigateway::Models::RateLimitingPolicy] :rate_limiting The value to assign to the {#rate_limiting} property
     # @option attributes [OCI::Apigateway::Models::CorsPolicy] :cors The value to assign to the {#cors} property
+    # @option attributes [OCI::Apigateway::Models::MutualTlsDetails] :mutual_tls The value to assign to the {#mutual_tls} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -62,6 +68,12 @@ module OCI
       self.rate_limiting = attributes[:'rate_limiting'] if attributes[:'rate_limiting']
 
       self.cors = attributes[:'cors'] if attributes[:'cors']
+
+      self.mutual_tls = attributes[:'mutualTls'] if attributes[:'mutualTls']
+
+      raise 'You cannot provide both :mutualTls and :mutual_tls' if attributes.key?(:'mutualTls') && attributes.key?(:'mutual_tls')
+
+      self.mutual_tls = attributes[:'mutual_tls'] if attributes[:'mutual_tls']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -77,7 +89,8 @@ module OCI
       self.class == other.class &&
         authentication == other.authentication &&
         rate_limiting == other.rate_limiting &&
-        cors == other.cors
+        cors == other.cors &&
+        mutual_tls == other.mutual_tls
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -93,7 +106,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [authentication, rate_limiting, cors].hash
+      [authentication, rate_limiting, cors, mutual_tls].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

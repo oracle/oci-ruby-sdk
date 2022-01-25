@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -105,6 +105,15 @@ module OCI
     # @return [OCI::Optimizer::Models::SupportedLevels]
     attr_accessor :supported_levels
 
+    # Additional metadata key/value pairs for the recommendation.
+    #
+    # For example:
+    #
+    # `{\"EstimatedSaving\": \"200\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :extended_metadata
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -123,7 +132,8 @@ module OCI
         'time_status_end': :'timeStatusEnd',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
-        'supported_levels': :'supportedLevels'
+        'supported_levels': :'supportedLevels',
+        'extended_metadata': :'extendedMetadata'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -146,7 +156,8 @@ module OCI
         'time_status_end': :'DateTime',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
-        'supported_levels': :'OCI::Optimizer::Models::SupportedLevels'
+        'supported_levels': :'OCI::Optimizer::Models::SupportedLevels',
+        'extended_metadata': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -172,6 +183,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [OCI::Optimizer::Models::SupportedLevels] :supported_levels The value to assign to the {#supported_levels} property
+    # @option attributes [Hash<String, String>] :extended_metadata The value to assign to the {#extended_metadata} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -247,6 +259,12 @@ module OCI
       raise 'You cannot provide both :supportedLevels and :supported_levels' if attributes.key?(:'supportedLevels') && attributes.key?(:'supported_levels')
 
       self.supported_levels = attributes[:'supported_levels'] if attributes[:'supported_levels']
+
+      self.extended_metadata = attributes[:'extendedMetadata'] if attributes[:'extendedMetadata']
+
+      raise 'You cannot provide both :extendedMetadata and :extended_metadata' if attributes.key?(:'extendedMetadata') && attributes.key?(:'extended_metadata')
+
+      self.extended_metadata = attributes[:'extended_metadata'] if attributes[:'extended_metadata']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -313,7 +331,8 @@ module OCI
         time_status_end == other.time_status_end &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
-        supported_levels == other.supported_levels
+        supported_levels == other.supported_levels &&
+        extended_metadata == other.extended_metadata
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -329,7 +348,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, category_id, name, description, importance, resource_counts, lifecycle_state, estimated_cost_saving, status, time_status_begin, time_status_end, time_created, time_updated, supported_levels].hash
+      [id, compartment_id, category_id, name, description, importance, resource_counts, lifecycle_state, estimated_cost_saving, status, time_status_begin, time_status_end, time_created, time_updated, supported_levels, extended_metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -12,13 +12,17 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_certificate_validation_enabled
 
+    # @return [OCI::ApmSynthetics::Models::NetworkConfiguration]
+    attr_accessor :network_configuration
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'config_type': :'configType',
         'is_failure_retried': :'isFailureRetried',
-        'is_certificate_validation_enabled': :'isCertificateValidationEnabled'
+        'is_certificate_validation_enabled': :'isCertificateValidationEnabled',
+        'network_configuration': :'networkConfiguration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -29,7 +33,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'config_type': :'String',
         'is_failure_retried': :'BOOLEAN',
-        'is_certificate_validation_enabled': :'BOOLEAN'
+        'is_certificate_validation_enabled': :'BOOLEAN',
+        'network_configuration': :'OCI::ApmSynthetics::Models::NetworkConfiguration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,6 +47,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [BOOLEAN] :is_failure_retried The value to assign to the {OCI::ApmSynthetics::Models::MonitorConfiguration#is_failure_retried #is_failure_retried} proprety
     # @option attributes [BOOLEAN] :is_certificate_validation_enabled The value to assign to the {#is_certificate_validation_enabled} property
+    # @option attributes [OCI::ApmSynthetics::Models::NetworkConfiguration] :network_configuration The value to assign to the {#network_configuration} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -59,6 +65,12 @@ module OCI
 
       self.is_certificate_validation_enabled = attributes[:'is_certificate_validation_enabled'] unless attributes[:'is_certificate_validation_enabled'].nil?
       self.is_certificate_validation_enabled = true if is_certificate_validation_enabled.nil? && !attributes.key?(:'isCertificateValidationEnabled') && !attributes.key?(:'is_certificate_validation_enabled') # rubocop:disable Style/StringLiterals
+
+      self.network_configuration = attributes[:'networkConfiguration'] if attributes[:'networkConfiguration']
+
+      raise 'You cannot provide both :networkConfiguration and :network_configuration' if attributes.key?(:'networkConfiguration') && attributes.key?(:'network_configuration')
+
+      self.network_configuration = attributes[:'network_configuration'] if attributes[:'network_configuration']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -74,7 +86,8 @@ module OCI
       self.class == other.class &&
         config_type == other.config_type &&
         is_failure_retried == other.is_failure_retried &&
-        is_certificate_validation_enabled == other.is_certificate_validation_enabled
+        is_certificate_validation_enabled == other.is_certificate_validation_enabled &&
+        network_configuration == other.network_configuration
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -90,7 +103,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [config_type, is_failure_retried, is_certificate_validation_enabled].hash
+      [config_type, is_failure_retried, is_certificate_validation_enabled, network_configuration].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

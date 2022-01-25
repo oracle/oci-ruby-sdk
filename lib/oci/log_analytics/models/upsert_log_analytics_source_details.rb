@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -124,6 +124,12 @@ module OCI
     # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsParser>]
     attr_accessor :user_parsers
 
+    # An array of categories to assign to the source. Specifying the name attribute for each category would suffice.
+    # Oracle-defined category assignments cannot be removed.
+    #
+    # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsCategory>]
+    attr_accessor :categories
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -155,7 +161,8 @@ module OCI
         'label_definitions': :'labelDefinitions',
         'entity_types': :'entityTypes',
         'is_timezone_override': :'isTimezoneOverride',
-        'user_parsers': :'userParsers'
+        'user_parsers': :'userParsers',
+        'categories': :'categories'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -191,7 +198,8 @@ module OCI
         'label_definitions': :'Array<OCI::LogAnalytics::Models::LogAnalyticsLabelDefinition>',
         'entity_types': :'Array<OCI::LogAnalytics::Models::LogAnalyticsSourceEntityType>',
         'is_timezone_override': :'BOOLEAN',
-        'user_parsers': :'Array<OCI::LogAnalytics::Models::LogAnalyticsParser>'
+        'user_parsers': :'Array<OCI::LogAnalytics::Models::LogAnalyticsParser>',
+        'categories': :'Array<OCI::LogAnalytics::Models::LogAnalyticsCategory>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -230,6 +238,7 @@ module OCI
     # @option attributes [Array<OCI::LogAnalytics::Models::LogAnalyticsSourceEntityType>] :entity_types The value to assign to the {#entity_types} property
     # @option attributes [BOOLEAN] :is_timezone_override The value to assign to the {#is_timezone_override} property
     # @option attributes [Array<OCI::LogAnalytics::Models::LogAnalyticsParser>] :user_parsers The value to assign to the {#user_parsers} property
+    # @option attributes [Array<OCI::LogAnalytics::Models::LogAnalyticsCategory>] :categories The value to assign to the {#categories} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -371,6 +380,8 @@ module OCI
       raise 'You cannot provide both :userParsers and :user_parsers' if attributes.key?(:'userParsers') && attributes.key?(:'user_parsers')
 
       self.user_parsers = attributes[:'user_parsers'] if attributes[:'user_parsers']
+
+      self.categories = attributes[:'categories'] if attributes[:'categories']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -411,7 +422,8 @@ module OCI
         label_definitions == other.label_definitions &&
         entity_types == other.entity_types &&
         is_timezone_override == other.is_timezone_override &&
-        user_parsers == other.user_parsers
+        user_parsers == other.user_parsers &&
+        categories == other.categories
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -427,7 +439,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [label_conditions, data_filter_definitions, database_credential, extended_field_definitions, is_for_cloud, labels, metric_definitions, metrics, oob_parsers, parameters, patterns, description, display_name, edit_version, functions, source_id, name, is_secure_content, is_system, parsers, rule_id, type_name, warning_config, metadata_fields, label_definitions, entity_types, is_timezone_override, user_parsers].hash
+      [label_conditions, data_filter_definitions, database_credential, extended_field_definitions, is_for_cloud, labels, metric_definitions, metrics, oob_parsers, parameters, patterns, description, display_name, edit_version, functions, source_id, name, is_secure_content, is_system, parsers, rule_id, type_name, warning_config, metadata_fields, label_definitions, entity_types, is_timezone_override, user_parsers, categories].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

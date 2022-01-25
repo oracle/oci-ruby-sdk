@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -15,6 +15,7 @@ module OCI
       OPERATION_TYPE_DELETE_NON_EMPTY_TAG_NAMESPACE = 'DELETE_NON_EMPTY_TAG_NAMESPACE'.freeze,
       OPERATION_TYPE_BULK_DELETE_TAG_DEFINITION = 'BULK_DELETE_TAG_DEFINITION'.freeze,
       OPERATION_TYPE_BULK_EDIT_OF_TAGS = 'BULK_EDIT_OF_TAGS'.freeze,
+      OPERATION_TYPE_IMPORT_STANDARD_TAGS = 'IMPORT_STANDARD_TAGS'.freeze,
       OPERATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 

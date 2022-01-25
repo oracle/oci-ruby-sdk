@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -17,7 +17,18 @@ module OCI
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_NEEDS_ATTENTION = 'NEEDS_ATTENTION'.freeze,
+      LIFECYCLE_STATE_IN_PROGRESS = 'IN_PROGRESS'.freeze,
+      LIFECYCLE_STATE_CANCELING = 'CANCELING'.freeze,
+      LIFECYCLE_STATE_CANCELED = 'CANCELED'.freeze,
+      LIFECYCLE_STATE_SUCCEEDED = 'SUCCEEDED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    SESSION_MODE_ENUM = [
+      SESSION_MODE_DIRECT = 'DIRECT'.freeze,
+      SESSION_MODE_REDIRECT = 'REDIRECT'.freeze,
+      SESSION_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the databaseRegistration being referenced.
@@ -103,6 +114,11 @@ module OCI
     # @return [String]
     attr_accessor :connection_string
 
+    # The mode of the database connection session to be established by the data client. REDIRECT - for a RAC database, DIRECT - for a non-RAC database. Connection to a RAC database involves a redirection received from the SCAN listeners to the database node to connect to. By default the mode would be DIRECT.
+    #
+    # @return [String]
+    attr_reader :session_mode
+
     # Credential store alias.
     #
     # @return [String]
@@ -133,6 +149,7 @@ module OCI
         'database_id': :'databaseId',
         'username': :'username',
         'connection_string': :'connectionString',
+        'session_mode': :'sessionMode',
         'alias_name': :'aliasName',
         'secret_id': :'secretId'
         # rubocop:enable Style/SymbolLiteral
@@ -159,6 +176,7 @@ module OCI
         'database_id': :'String',
         'username': :'String',
         'connection_string': :'String',
+        'session_mode': :'String',
         'alias_name': :'String',
         'secret_id': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -187,6 +205,7 @@ module OCI
     # @option attributes [String] :database_id The value to assign to the {#database_id} property
     # @option attributes [String] :username The value to assign to the {#username} property
     # @option attributes [String] :connection_string The value to assign to the {#connection_string} property
+    # @option attributes [String] :session_mode The value to assign to the {#session_mode} property
     # @option attributes [String] :alias_name The value to assign to the {#alias_name} property
     # @option attributes [String] :secret_id The value to assign to the {#secret_id} property
     def initialize(attributes = {})
@@ -275,6 +294,14 @@ module OCI
 
       self.connection_string = attributes[:'connection_string'] if attributes[:'connection_string']
 
+      self.session_mode = attributes[:'sessionMode'] if attributes[:'sessionMode']
+      self.session_mode = "DIRECT" if session_mode.nil? && !attributes.key?(:'sessionMode') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :sessionMode and :session_mode' if attributes.key?(:'sessionMode') && attributes.key?(:'session_mode')
+
+      self.session_mode = attributes[:'session_mode'] if attributes[:'session_mode']
+      self.session_mode = "DIRECT" if session_mode.nil? && !attributes.key?(:'sessionMode') && !attributes.key?(:'session_mode') # rubocop:disable Style/StringLiterals
+
       self.alias_name = attributes[:'aliasName'] if attributes[:'aliasName']
 
       raise 'You cannot provide both :aliasName and :alias_name' if attributes.key?(:'aliasName') && attributes.key?(:'alias_name')
@@ -299,6 +326,19 @@ module OCI
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] session_mode Object to be assigned
+    def session_mode=(session_mode)
+      # rubocop:disable Style/ConditionalAssignment
+      if session_mode && !SESSION_MODE_ENUM.include?(session_mode)
+        OCI.logger.debug("Unknown value for 'session_mode' [" + session_mode + "]. Mapping to 'SESSION_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @session_mode = SESSION_MODE_UNKNOWN_ENUM_VALUE
+      else
+        @session_mode = session_mode
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -328,6 +368,7 @@ module OCI
         database_id == other.database_id &&
         username == other.username &&
         connection_string == other.connection_string &&
+        session_mode == other.session_mode &&
         alias_name == other.alias_name &&
         secret_id == other.secret_id
     end
@@ -345,7 +386,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, description, compartment_id, time_created, time_updated, lifecycle_state, lifecycle_details, freeform_tags, defined_tags, fqdn, subnet_id, system_tags, database_id, username, connection_string, alias_name, secret_id].hash
+      [id, display_name, description, compartment_id, time_created, time_updated, lifecycle_state, lifecycle_details, freeform_tags, defined_tags, fqdn, subnet_id, system_tags, database_id, username, connection_string, session_mode, alias_name, secret_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

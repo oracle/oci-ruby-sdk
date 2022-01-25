@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,17 +7,21 @@ require 'date'
 module OCI
   # Attributes to the detected language. Contains Language Name , Code, and Confidence Score.
   class AiLanguage::Models::DetectedLanguage
-    # **[Required]** Language Name
+    # **[Required]** Full language name.
+    # Example: `English, Hindi, and so on`
+    #
     # @return [String]
     attr_accessor :name
 
-    # **[Required]** Detected language code with standard [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).
-    # Example: en, fr, hi etc.
+    # **[Required]** Detected language code as per [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) standard.
+    # Example: `en, fr, hi etc`.
     #
     # @return [String]
     attr_accessor :code
 
-    # **[Required]** Score or confidence for prediction.
+    # **[Required]** Score or confidence of detected language code.
+    # Example: `0.9999856066867399`
+    #
     # @return [Float]
     attr_accessor :score
 

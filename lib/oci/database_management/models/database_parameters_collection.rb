@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -11,6 +11,10 @@ module OCI
     DATABASE_TYPE_ENUM = [
       DATABASE_TYPE_EXTERNAL_SIDB = 'EXTERNAL_SIDB'.freeze,
       DATABASE_TYPE_EXTERNAL_RAC = 'EXTERNAL_RAC'.freeze,
+      DATABASE_TYPE_CLOUD_SIDB = 'CLOUD_SIDB'.freeze,
+      DATABASE_TYPE_CLOUD_RAC = 'CLOUD_RAC'.freeze,
+      DATABASE_TYPE_SHARED = 'SHARED'.freeze,
+      DATABASE_TYPE_DEDICATED = 'DEDICATED'.freeze,
       DATABASE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -18,6 +22,8 @@ module OCI
       DATABASE_SUB_TYPE_CDB = 'CDB'.freeze,
       DATABASE_SUB_TYPE_PDB = 'PDB'.freeze,
       DATABASE_SUB_TYPE_NON_CDB = 'NON_CDB'.freeze,
+      DATABASE_SUB_TYPE_ACD = 'ACD'.freeze,
+      DATABASE_SUB_TYPE_ADB = 'ADB'.freeze,
       DATABASE_SUB_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -122,6 +122,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_event_enabled
 
+    # Event configuration for this custom property, against the desired subset of object types to which the property applies.
+    # @return [Array<OCI::DataCatalog::Models::EventConfig>]
+    attr_accessor :events
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -147,7 +151,8 @@ module OCI
         'time_updated': :'timeUpdated',
         'created_by_id': :'createdById',
         'updated_by_id': :'updatedById',
-        'is_event_enabled': :'isEventEnabled'
+        'is_event_enabled': :'isEventEnabled',
+        'events': :'events'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -177,7 +182,8 @@ module OCI
         'time_updated': :'DateTime',
         'created_by_id': :'String',
         'updated_by_id': :'String',
-        'is_event_enabled': :'BOOLEAN'
+        'is_event_enabled': :'BOOLEAN',
+        'events': :'Array<OCI::DataCatalog::Models::EventConfig>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -210,6 +216,7 @@ module OCI
     # @option attributes [String] :created_by_id The value to assign to the {#created_by_id} property
     # @option attributes [String] :updated_by_id The value to assign to the {#updated_by_id} property
     # @option attributes [BOOLEAN] :is_event_enabled The value to assign to the {#is_event_enabled} property
+    # @option attributes [Array<OCI::DataCatalog::Models::EventConfig>] :events The value to assign to the {#events} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -353,6 +360,8 @@ module OCI
 
       self.is_event_enabled = attributes[:'is_event_enabled'] unless attributes[:'is_event_enabled'].nil?
       self.is_event_enabled = false if is_event_enabled.nil? && !attributes.key?(:'isEventEnabled') && !attributes.key?(:'is_event_enabled') # rubocop:disable Style/StringLiterals
+
+      self.events = attributes[:'events'] if attributes[:'events']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -413,7 +422,8 @@ module OCI
         time_updated == other.time_updated &&
         created_by_id == other.created_by_id &&
         updated_by_id == other.updated_by_id &&
-        is_event_enabled == other.is_event_enabled
+        is_event_enabled == other.is_event_enabled &&
+        events == other.events
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -429,7 +439,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, data_type, namespace_name, is_sortable, is_filterable, is_multi_valued, is_hidden, is_editable, is_shown_in_list, is_service_defined, is_hidden_in_search, time_created, lifecycle_state, usage_count, scope, allowed_values, time_updated, created_by_id, updated_by_id, is_event_enabled].hash
+      [key, display_name, description, data_type, namespace_name, is_sortable, is_filterable, is_multi_valued, is_hidden, is_editable, is_shown_in_list, is_service_defined, is_hidden_in_search, time_created, lifecycle_state, usage_count, scope, allowed_values, time_updated, created_by_id, updated_by_id, is_event_enabled, events].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

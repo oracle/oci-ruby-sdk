@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -23,6 +23,8 @@ module OCI
     attr_accessor :compartment_id
 
     # Unique identifier for the category where the template is located.
+    # Possible values are `0` (Quick Starts), `1` (Service), `2` (Architecture), and `3` (Private).
+    #
     # @return [String]
     attr_accessor :category_id
 
@@ -37,6 +39,10 @@ module OCI
     # Detailed description of the template. This description is displayed in the Console page listing templates when the template is expanded. Avoid entering confidential information.
     # @return [String]
     attr_accessor :long_description
+
+    # whether the template will work for free tier tenancy.
+    # @return [BOOLEAN]
+    attr_accessor :is_free_tier
 
     # The date and time at which the template was created.
     # Format is defined by RFC3339.
@@ -77,6 +83,7 @@ module OCI
         'display_name': :'displayName',
         'description': :'description',
         'long_description': :'longDescription',
+        'is_free_tier': :'isFreeTier',
         'time_created': :'timeCreated',
         'template_config_source': :'templateConfigSource',
         'lifecycle_state': :'lifecycleState',
@@ -96,6 +103,7 @@ module OCI
         'display_name': :'String',
         'description': :'String',
         'long_description': :'String',
+        'is_free_tier': :'BOOLEAN',
         'time_created': :'DateTime',
         'template_config_source': :'OCI::ResourceManager::Models::TemplateConfigSource',
         'lifecycle_state': :'String',
@@ -117,6 +125,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :long_description The value to assign to the {#long_description} property
+    # @option attributes [BOOLEAN] :is_free_tier The value to assign to the {#is_free_tier} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [OCI::ResourceManager::Models::TemplateConfigSource] :template_config_source The value to assign to the {#template_config_source} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -155,6 +164,12 @@ module OCI
       raise 'You cannot provide both :longDescription and :long_description' if attributes.key?(:'longDescription') && attributes.key?(:'long_description')
 
       self.long_description = attributes[:'long_description'] if attributes[:'long_description']
+
+      self.is_free_tier = attributes[:'isFreeTier'] unless attributes[:'isFreeTier'].nil?
+
+      raise 'You cannot provide both :isFreeTier and :is_free_tier' if attributes.key?(:'isFreeTier') && attributes.key?(:'is_free_tier')
+
+      self.is_free_tier = attributes[:'is_free_tier'] unless attributes[:'is_free_tier'].nil?
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -217,6 +232,7 @@ module OCI
         display_name == other.display_name &&
         description == other.description &&
         long_description == other.long_description &&
+        is_free_tier == other.is_free_tier &&
         time_created == other.time_created &&
         template_config_source == other.template_config_source &&
         lifecycle_state == other.lifecycle_state &&
@@ -237,7 +253,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, category_id, display_name, description, long_description, time_created, template_config_source, lifecycle_state, freeform_tags, defined_tags].hash
+      [id, compartment_id, category_id, display_name, description, long_description, is_free_tier, time_created, template_config_source, lifecycle_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

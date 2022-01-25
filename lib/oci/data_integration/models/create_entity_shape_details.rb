@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -9,7 +9,8 @@ module OCI
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class DataIntegration::Models::CreateEntityShapeDetails
     MODEL_TYPE_ENUM = [
-      MODEL_TYPE_FILE_ENTITY = 'FILE_ENTITY'.freeze
+      MODEL_TYPE_FILE_ENTITY = 'FILE_ENTITY'.freeze,
+      MODEL_TYPE_SQL_ENTITY = 'SQL_ENTITY'.freeze
     ].freeze
 
     # **[Required]** The data entity type.
@@ -42,6 +43,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'modelType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::DataIntegration::Models::CreateEntityShapeFromSQL' if type == 'SQL_ENTITY'
       return 'OCI::DataIntegration::Models::CreateEntityShapeFromFile' if type == 'FILE_ENTITY'
 
       # TODO: Log a warning when the subtype is not found.

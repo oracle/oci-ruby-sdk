@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,8 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Pattern representation. A Pattern is defined using an expression and can be used as data selectors or filters
-  # to provide a singular view of an entity across multiple physical data artifacts.
+  # A pattern is a data selector or filter which can provide a singular,
+  # logical entity view aggregating multiple physical data artifacts for ease of use.
   #
   class DataCatalog::Models::Pattern
     LIFECYCLE_STATE_ENUM = [
@@ -40,7 +40,7 @@ module OCI
     # @return [String]
     attr_accessor :catalog_id
 
-    # The current state of the data asset.
+    # The current state of the pattern.
     # @return [String]
     attr_reader :lifecycle_state
 
@@ -63,12 +63,21 @@ module OCI
     # @return [String]
     attr_accessor :updated_by_id
 
-    # The expression used in the pattern that may include qualifiers. Refer to the user documentation for details of the format and examples.
+    # Input string which drives the selection process, allowing for fine-grained control using qualifiers.
+    # Refer to the user documentation for details of the format and examples. A pattern cannot include both
+    # a prefix and an expression.
     #
     # @return [String]
     attr_accessor :expression
 
-    # List of file paths against which the expression can be tried, as a check. This documents, for reference
+    # Input string which drives the selection process.
+    # Refer to the user documentation for details of the format and examples. A pattern cannot include both
+    # a prefix and an expression.
+    #
+    # @return [String]
+    attr_accessor :file_path_prefix
+
+    # List of file paths against which the pattern can be tried, as a check. This documents, for reference
     # purposes, some example objects a pattern is meant to work with. If isEnableCheckFailureLimit is set to true,
     # this will be run as a validation during the request, such that if the check fails the request fails. If
     # isEnableCheckFailureLimit instead is set to (the default) false, a pattern will still be created or updated even
@@ -77,7 +86,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :check_file_path_list
 
-    # Indicates whether the expression check, against the checkFilePathList, will fail the request if the count of
+    # Indicates whether the pattern check, against the checkFilePathList, will fail the request if the count of
     # UNMATCHED files is above the checkFailureLimit.
     #
     # @return [BOOLEAN]
@@ -110,6 +119,7 @@ module OCI
         'created_by_id': :'createdById',
         'updated_by_id': :'updatedById',
         'expression': :'expression',
+        'file_path_prefix': :'filePathPrefix',
         'check_file_path_list': :'checkFilePathList',
         'is_enable_check_failure_limit': :'isEnableCheckFailureLimit',
         'check_failure_limit': :'checkFailureLimit',
@@ -132,6 +142,7 @@ module OCI
         'created_by_id': :'String',
         'updated_by_id': :'String',
         'expression': :'String',
+        'file_path_prefix': :'String',
         'check_file_path_list': :'Array<String>',
         'is_enable_check_failure_limit': :'BOOLEAN',
         'check_failure_limit': :'Integer',
@@ -156,6 +167,7 @@ module OCI
     # @option attributes [String] :created_by_id The value to assign to the {#created_by_id} property
     # @option attributes [String] :updated_by_id The value to assign to the {#updated_by_id} property
     # @option attributes [String] :expression The value to assign to the {#expression} property
+    # @option attributes [String] :file_path_prefix The value to assign to the {#file_path_prefix} property
     # @option attributes [Array<String>] :check_file_path_list The value to assign to the {#check_file_path_list} property
     # @option attributes [BOOLEAN] :is_enable_check_failure_limit The value to assign to the {#is_enable_check_failure_limit} property
     # @option attributes [Integer] :check_failure_limit The value to assign to the {#check_failure_limit} property
@@ -214,6 +226,12 @@ module OCI
 
       self.expression = attributes[:'expression'] if attributes[:'expression']
 
+      self.file_path_prefix = attributes[:'filePathPrefix'] if attributes[:'filePathPrefix']
+
+      raise 'You cannot provide both :filePathPrefix and :file_path_prefix' if attributes.key?(:'filePathPrefix') && attributes.key?(:'file_path_prefix')
+
+      self.file_path_prefix = attributes[:'file_path_prefix'] if attributes[:'file_path_prefix']
+
       self.check_file_path_list = attributes[:'checkFilePathList'] if attributes[:'checkFilePathList']
 
       raise 'You cannot provide both :checkFilePathList and :check_file_path_list' if attributes.key?(:'checkFilePathList') && attributes.key?(:'check_file_path_list')
@@ -271,6 +289,7 @@ module OCI
         created_by_id == other.created_by_id &&
         updated_by_id == other.updated_by_id &&
         expression == other.expression &&
+        file_path_prefix == other.file_path_prefix &&
         check_file_path_list == other.check_file_path_list &&
         is_enable_check_failure_limit == other.is_enable_check_failure_limit &&
         check_failure_limit == other.check_failure_limit &&
@@ -290,7 +309,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, description, catalog_id, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, expression, check_file_path_list, is_enable_check_failure_limit, check_failure_limit, properties].hash
+      [key, display_name, description, catalog_id, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, expression, file_path_prefix, check_file_path_list, is_enable_check_failure_limit, check_failure_limit, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

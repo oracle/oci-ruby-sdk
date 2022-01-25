@@ -1,24 +1,28 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 require_relative 'task_summary'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about the Generic REST task.
+  # The information about the Generic REST task. The endpoint and cancelEndpoint  properties are deprecated, use the properties executeRestCallConfig, cancelRestCallConfig and pollRestCallConfig for execute, cancel and polling of the calls.
   class DataIntegration::Models::TaskSummaryFromRestTask < DataIntegration::Models::TaskSummary
     METHOD_TYPE_ENUM = [
       METHOD_TYPE_GET = 'GET'.freeze,
       METHOD_TYPE_POST = 'POST'.freeze,
       METHOD_TYPE_PATCH = 'PATCH'.freeze,
       METHOD_TYPE_DELETE = 'DELETE'.freeze,
-      METHOD_TYPE_PUT = 'PUT'.freeze
+      METHOD_TYPE_PUT = 'PUT'.freeze,
+      METHOD_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     API_CALL_MODE_ENUM = [
       API_CALL_MODE_SYNCHRONOUS = 'SYNCHRONOUS'.freeze,
-      API_CALL_MODE_ASYNC_OCI_WORKREQUEST = 'ASYNC_OCI_WORKREQUEST'.freeze
+      API_CALL_MODE_ASYNC_OCI_WORKREQUEST = 'ASYNC_OCI_WORKREQUEST'.freeze,
+      API_CALL_MODE_ASYNC_GENERIC = 'ASYNC_GENERIC'.freeze,
+      API_CALL_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     CANCEL_METHOD_TYPE_ENUM = [
@@ -26,7 +30,8 @@ module OCI
       CANCEL_METHOD_TYPE_POST = 'POST'.freeze,
       CANCEL_METHOD_TYPE_PATCH = 'PATCH'.freeze,
       CANCEL_METHOD_TYPE_DELETE = 'DELETE'.freeze,
-      CANCEL_METHOD_TYPE_PUT = 'PUT'.freeze
+      CANCEL_METHOD_TYPE_PUT = 'PUT'.freeze,
+      CANCEL_METHOD_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # @return [OCI::DataIntegration::Models::AuthDetails]
@@ -35,19 +40,18 @@ module OCI
     # @return [OCI::DataIntegration::Models::Expression]
     attr_accessor :endpoint
 
-    # The REST method to use.
+    # The REST method to use. This property is deprecated, use ExecuteRestCallConfig's methodType property instead.
     # @return [String]
     attr_reader :method_type
 
-    # The headers for the REST call.
     # @return [Object]
     attr_accessor :headers
 
-    # JSON data for payload body.
+    # JSON data for payload body. This property is deprecated, use ExecuteRestCallConfig's payload config param instead.
     # @return [String]
     attr_accessor :json_data
 
-    # The invocation type to be used for Generic REST invocation.
+    # The REST invocation pattern to use. ASYNC_OCI_WORKREQUEST is being deprecated as well as cancelEndpoint/MethodType.
     # @return [String]
     attr_reader :api_call_mode
 
@@ -57,6 +61,12 @@ module OCI
     # The REST method to use for canceling the original request.
     # @return [String]
     attr_reader :cancel_method_type
+
+    # @return [OCI::DataIntegration::Models::ExecuteRestCallConfig]
+    attr_accessor :execute_rest_call_config
+
+    # @return [OCI::DataIntegration::Models::CancelRestCallConfig]
+    attr_accessor :cancel_rest_call_config
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -85,7 +95,9 @@ module OCI
         'json_data': :'jsonData',
         'api_call_mode': :'apiCallMode',
         'cancel_endpoint': :'cancelEndpoint',
-        'cancel_method_type': :'cancelMethodType'
+        'cancel_method_type': :'cancelMethodType',
+        'execute_rest_call_config': :'executeRestCallConfig',
+        'cancel_rest_call_config': :'cancelRestCallConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -117,7 +129,9 @@ module OCI
         'json_data': :'String',
         'api_call_mode': :'String',
         'cancel_endpoint': :'OCI::DataIntegration::Models::Expression',
-        'cancel_method_type': :'String'
+        'cancel_method_type': :'String',
+        'execute_rest_call_config': :'OCI::DataIntegration::Models::ExecuteRestCallConfig',
+        'cancel_rest_call_config': :'OCI::DataIntegration::Models::CancelRestCallConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -151,6 +165,8 @@ module OCI
     # @option attributes [String] :api_call_mode The value to assign to the {#api_call_mode} property
     # @option attributes [OCI::DataIntegration::Models::Expression] :cancel_endpoint The value to assign to the {#cancel_endpoint} property
     # @option attributes [String] :cancel_method_type The value to assign to the {#cancel_method_type} property
+    # @option attributes [OCI::DataIntegration::Models::ExecuteRestCallConfig] :execute_rest_call_config The value to assign to the {#execute_rest_call_config} property
+    # @option attributes [OCI::DataIntegration::Models::CancelRestCallConfig] :cancel_rest_call_config The value to assign to the {#cancel_rest_call_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -184,12 +200,10 @@ module OCI
       self.json_data = attributes[:'json_data'] if attributes[:'json_data']
 
       self.api_call_mode = attributes[:'apiCallMode'] if attributes[:'apiCallMode']
-      self.api_call_mode = "SYNCHRONOUS" if api_call_mode.nil? && !attributes.key?(:'apiCallMode') # rubocop:disable Style/StringLiterals
 
       raise 'You cannot provide both :apiCallMode and :api_call_mode' if attributes.key?(:'apiCallMode') && attributes.key?(:'api_call_mode')
 
       self.api_call_mode = attributes[:'api_call_mode'] if attributes[:'api_call_mode']
-      self.api_call_mode = "SYNCHRONOUS" if api_call_mode.nil? && !attributes.key?(:'apiCallMode') && !attributes.key?(:'api_call_mode') # rubocop:disable Style/StringLiterals
 
       self.cancel_endpoint = attributes[:'cancelEndpoint'] if attributes[:'cancelEndpoint']
 
@@ -202,6 +216,18 @@ module OCI
       raise 'You cannot provide both :cancelMethodType and :cancel_method_type' if attributes.key?(:'cancelMethodType') && attributes.key?(:'cancel_method_type')
 
       self.cancel_method_type = attributes[:'cancel_method_type'] if attributes[:'cancel_method_type']
+
+      self.execute_rest_call_config = attributes[:'executeRestCallConfig'] if attributes[:'executeRestCallConfig']
+
+      raise 'You cannot provide both :executeRestCallConfig and :execute_rest_call_config' if attributes.key?(:'executeRestCallConfig') && attributes.key?(:'execute_rest_call_config')
+
+      self.execute_rest_call_config = attributes[:'execute_rest_call_config'] if attributes[:'execute_rest_call_config']
+
+      self.cancel_rest_call_config = attributes[:'cancelRestCallConfig'] if attributes[:'cancelRestCallConfig']
+
+      raise 'You cannot provide both :cancelRestCallConfig and :cancel_rest_call_config' if attributes.key?(:'cancelRestCallConfig') && attributes.key?(:'cancel_rest_call_config')
+
+      self.cancel_rest_call_config = attributes[:'cancel_rest_call_config'] if attributes[:'cancel_rest_call_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -209,25 +235,40 @@ module OCI
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] method_type Object to be assigned
     def method_type=(method_type)
-      raise "Invalid value for 'method_type': this must be one of the values in METHOD_TYPE_ENUM." if method_type && !METHOD_TYPE_ENUM.include?(method_type)
-
-      @method_type = method_type
+      # rubocop:disable Style/ConditionalAssignment
+      if method_type && !METHOD_TYPE_ENUM.include?(method_type)
+        OCI.logger.debug("Unknown value for 'method_type' [" + method_type + "]. Mapping to 'METHOD_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @method_type = METHOD_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @method_type = method_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] api_call_mode Object to be assigned
     def api_call_mode=(api_call_mode)
-      raise "Invalid value for 'api_call_mode': this must be one of the values in API_CALL_MODE_ENUM." if api_call_mode && !API_CALL_MODE_ENUM.include?(api_call_mode)
-
-      @api_call_mode = api_call_mode
+      # rubocop:disable Style/ConditionalAssignment
+      if api_call_mode && !API_CALL_MODE_ENUM.include?(api_call_mode)
+        OCI.logger.debug("Unknown value for 'api_call_mode' [" + api_call_mode + "]. Mapping to 'API_CALL_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @api_call_mode = API_CALL_MODE_UNKNOWN_ENUM_VALUE
+      else
+        @api_call_mode = api_call_mode
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] cancel_method_type Object to be assigned
     def cancel_method_type=(cancel_method_type)
-      raise "Invalid value for 'cancel_method_type': this must be one of the values in CANCEL_METHOD_TYPE_ENUM." if cancel_method_type && !CANCEL_METHOD_TYPE_ENUM.include?(cancel_method_type)
-
-      @cancel_method_type = cancel_method_type
+      # rubocop:disable Style/ConditionalAssignment
+      if cancel_method_type && !CANCEL_METHOD_TYPE_ENUM.include?(cancel_method_type)
+        OCI.logger.debug("Unknown value for 'cancel_method_type' [" + cancel_method_type + "]. Mapping to 'CANCEL_METHOD_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @cancel_method_type = CANCEL_METHOD_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @cancel_method_type = cancel_method_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -262,7 +303,9 @@ module OCI
         json_data == other.json_data &&
         api_call_mode == other.api_call_mode &&
         cancel_endpoint == other.cancel_endpoint &&
-        cancel_method_type == other.cancel_method_type
+        cancel_method_type == other.cancel_method_type &&
+        execute_rest_call_config == other.execute_rest_call_config &&
+        cancel_rest_call_config == other.cancel_rest_call_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -278,7 +321,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, parent_ref, name, description, object_version, object_status, identifier, input_ports, output_ports, parameters, op_config_values, config_provider_delegate, metadata, key_map, auth_details, endpoint, method_type, headers, json_data, api_call_mode, cancel_endpoint, cancel_method_type].hash
+      [model_type, key, model_version, parent_ref, name, description, object_version, object_status, identifier, input_ports, output_ports, parameters, op_config_values, config_provider_delegate, metadata, key_map, auth_details, endpoint, method_type, headers, json_data, api_call_mode, cancel_endpoint, cancel_method_type, execute_rest_call_config, cancel_rest_call_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

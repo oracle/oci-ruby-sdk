@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,6 +8,13 @@ require 'logger'
 module OCI
   # Details of the operator action. Operator actions are pre-defined set of commands available to the operator on different layers of the infrastructure.
   class OperatorAccessControl::Models::OperatorActionSummary
+    RESOURCE_TYPE_ENUM = [
+      RESOURCE_TYPE_EXACC = 'EXACC'.freeze,
+      RESOURCE_TYPE_EXADATAINFRASTRUCTURE = 'EXADATAINFRASTRUCTURE'.freeze,
+      RESOURCE_TYPE_AUTONOMOUSVMCLUSTER = 'AUTONOMOUSVMCLUSTER'.freeze,
+      RESOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
       LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
@@ -30,6 +37,10 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
+    # resourceType for which the OperatorAction is applicable
+    # @return [String]
+    attr_reader :resource_type
+
     # The current lifecycle state of the operator action.
     # @return [String]
     attr_reader :lifecycle_state
@@ -48,6 +59,7 @@ module OCI
         'name': :'name',
         'component': :'component',
         'compartment_id': :'compartmentId',
+        'resource_type': :'resourceType',
         'lifecycle_state': :'lifecycleState',
         'description': :'description'
         # rubocop:enable Style/SymbolLiteral
@@ -62,6 +74,7 @@ module OCI
         'name': :'String',
         'component': :'String',
         'compartment_id': :'String',
+        'resource_type': :'String',
         'lifecycle_state': :'String',
         'description': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -78,6 +91,7 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :component The value to assign to the {#component} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :resource_type The value to assign to the {#resource_type} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :description The value to assign to the {#description} property
     def initialize(attributes = {})
@@ -98,6 +112,12 @@ module OCI
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
+      self.resource_type = attributes[:'resourceType'] if attributes[:'resourceType']
+
+      raise 'You cannot provide both :resourceType and :resource_type' if attributes.key?(:'resourceType') && attributes.key?(:'resource_type')
+
+      self.resource_type = attributes[:'resource_type'] if attributes[:'resource_type']
+
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
@@ -108,6 +128,19 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] resource_type Object to be assigned
+    def resource_type=(resource_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if resource_type && !RESOURCE_TYPE_ENUM.include?(resource_type)
+        OCI.logger.debug("Unknown value for 'resource_type' [" + resource_type + "]. Mapping to 'RESOURCE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @resource_type = RESOURCE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @resource_type = resource_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
@@ -135,6 +168,7 @@ module OCI
         name == other.name &&
         component == other.component &&
         compartment_id == other.compartment_id &&
+        resource_type == other.resource_type &&
         lifecycle_state == other.lifecycle_state &&
         description == other.description
     end
@@ -152,7 +186,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, component, compartment_id, lifecycle_state, description].hash
+      [id, name, component, compartment_id, resource_type, lifecycle_state, description].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

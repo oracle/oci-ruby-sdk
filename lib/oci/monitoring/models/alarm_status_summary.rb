@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -53,6 +53,7 @@ module OCI
     attr_reader :severity
 
     # **[Required]** Timestamp for the transition of the alarm state. For example, the time when the alarm transitioned from OK to Firing.
+    # Note: A three-minute lag for this value accounts for any late-arriving metrics.
     #
     # Example: `2019-02-01T01:02:29.600Z`
     #

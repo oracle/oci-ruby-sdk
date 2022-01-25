@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -39,10 +39,15 @@ module OCI
     # @return [String]
     attr_accessor :target_database_connection_id
 
-    # Database objects to exclude from migration.
+    # Database objects to exclude from migration, cannot be specified alongside 'includeObjects'
     #
     # @return [Array<OCI::DatabaseMigration::Models::DatabaseObject>]
     attr_accessor :exclude_objects
+
+    # Database objects to include from migration, cannot be specified alongside 'excludeObjects'
+    #
+    # @return [Array<OCI::DatabaseMigration::Models::DatabaseObject>]
+    attr_accessor :include_objects
 
     # @return [OCI::DatabaseMigration::Models::CreateVaultDetails]
     attr_accessor :vault_details
@@ -70,6 +75,7 @@ module OCI
         'source_container_database_connection_id': :'sourceContainerDatabaseConnectionId',
         'target_database_connection_id': :'targetDatabaseConnectionId',
         'exclude_objects': :'excludeObjects',
+        'include_objects': :'includeObjects',
         'vault_details': :'vaultDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
@@ -88,6 +94,7 @@ module OCI
         'source_container_database_connection_id': :'String',
         'target_database_connection_id': :'String',
         'exclude_objects': :'Array<OCI::DatabaseMigration::Models::DatabaseObject>',
+        'include_objects': :'Array<OCI::DatabaseMigration::Models::DatabaseObject>',
         'vault_details': :'OCI::DatabaseMigration::Models::CreateVaultDetails',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
@@ -108,6 +115,7 @@ module OCI
     # @option attributes [String] :source_container_database_connection_id The value to assign to the {#source_container_database_connection_id} property
     # @option attributes [String] :target_database_connection_id The value to assign to the {#target_database_connection_id} property
     # @option attributes [Array<OCI::DatabaseMigration::Models::DatabaseObject>] :exclude_objects The value to assign to the {#exclude_objects} property
+    # @option attributes [Array<OCI::DatabaseMigration::Models::DatabaseObject>] :include_objects The value to assign to the {#include_objects} property
     # @option attributes [OCI::DatabaseMigration::Models::CreateVaultDetails] :vault_details The value to assign to the {#vault_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -159,6 +167,12 @@ module OCI
 
       self.exclude_objects = attributes[:'exclude_objects'] if attributes[:'exclude_objects']
 
+      self.include_objects = attributes[:'includeObjects'] if attributes[:'includeObjects']
+
+      raise 'You cannot provide both :includeObjects and :include_objects' if attributes.key?(:'includeObjects') && attributes.key?(:'include_objects')
+
+      self.include_objects = attributes[:'include_objects'] if attributes[:'include_objects']
+
       self.vault_details = attributes[:'vaultDetails'] if attributes[:'vaultDetails']
 
       raise 'You cannot provide both :vaultDetails and :vault_details' if attributes.key?(:'vaultDetails') && attributes.key?(:'vault_details')
@@ -196,6 +210,7 @@ module OCI
         source_container_database_connection_id == other.source_container_database_connection_id &&
         target_database_connection_id == other.target_database_connection_id &&
         exclude_objects == other.exclude_objects &&
+        include_objects == other.include_objects &&
         vault_details == other.vault_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
@@ -214,7 +229,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, compartment_id, agent_id, source_database_connection_id, source_container_database_connection_id, target_database_connection_id, exclude_objects, vault_details, freeform_tags, defined_tags].hash
+      [display_name, compartment_id, agent_id, source_database_connection_id, source_container_database_connection_id, target_database_connection_id, exclude_objects, include_objects, vault_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

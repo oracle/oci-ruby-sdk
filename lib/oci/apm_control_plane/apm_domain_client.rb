@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,8 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Provide a set of APIs for tenant to perform operations like create, update, delete and list APM domains, and also
-  # work request APIs to monitor progress of these operations.
+  # Use the Application Performance Monitoring Control Plane API to perform operations such as creating, updating,
+  # deleting and listing APM domains and monitoring the progress of these operations using the work request APIs.
   class ApmControlPlane::ApmDomainClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -99,15 +99,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves a APM Domain into a different compartment. When provided, If-Match is checked against ETag values of the resource.
-    # @param [String] apm_domain_id OCID of the APM Domain
+    # Moves an APM domain into a different compartment. When provided, If-Match is checked against ETag values of the APM domain.
+    # @param [String] apm_domain_id The OCID of the APM domain
     # @param [OCI::ApmControlPlane::Models::ChangeApmDomainCompartmentDetails] change_apm_domain_compartment_details The information to be used in changing compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
-    #   for a resource, set the `if-match` parameter to the value of the
-    #   etag from a previous GET or POST response for that resource.
+    # @option opts [String] :if_match For optimistic concurrency control. Set the `if-match` parameter
+    #   to the value of the etag from a previous GET or POST response for that resource.
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
@@ -169,9 +168,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new APM Domain.
+    # Creates a new APM domain.
     #
-    # @param [OCI::ApmControlPlane::Models::CreateApmDomainDetails] create_apm_domain_details Details for the new APM Domain.
+    # @param [OCI::ApmControlPlane::Models::CreateApmDomainDetails] create_apm_domain_details Details for the new APM domain.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -230,17 +229,16 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Delete the specified APM domain asynchronously. The APM domain is placed in the 'Deleting' state and will stop
+    # Deletes the specified APM domain asynchronously. The APM domain is placed in the 'Deleting' state and will stop
     # accepting any operation requests. All resources associated with the APM domain are eventually recovered. Use the
-    # returned work request to track the progress of the background activity to complete deleting the domain.
+    # returned work request ID to track the progress of the background activity to complete deleting the APM domain.
     #
-    # @param [String] apm_domain_id OCID of the APM Domain
+    # @param [String] apm_domain_id The OCID of the APM domain
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
-    #   for a resource, set the `if-match` parameter to the value of the
-    #   etag from a previous GET or POST response for that resource.
+    # @option opts [String] :if_match For optimistic concurrency control. Set the `if-match` parameter
+    #   to the value of the etag from a previous GET or POST response for that resource.
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
@@ -297,13 +295,12 @@ module OCI
     # types. These will be added to the existing set of Data Keys for the specified APM domain.
     #
     # @param [Array<OCI::ApmControlPlane::Models::OCI::ApmControlPlane::Models::GenerateDataKeyDetails>] generate_data_keys_list_details List of new Data Keys to be generated.
-    # @param [String] apm_domain_id OCID of the APM Domain
+    # @param [String] apm_domain_id The OCID of the APM domain
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
-    #   for a resource, set the `if-match` parameter to the value of the
-    #   etag from a previous GET or POST response for that resource.
+    # @option opts [String] :if_match For optimistic concurrency control. Set the `if-match` parameter
+    #   to the value of the etag from a previous GET or POST response for that resource.
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
@@ -357,8 +354,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets details of APM Domain by identifier
-    # @param [String] apm_domain_id OCID of the APM Domain
+    # Gets the details of the APM domain specified by OCID.
+    # @param [String] apm_domain_id The OCID of the APM domain
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -465,13 +462,15 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns a (paginated) list of work requests related to a specific APM Domain.
+    # Returns a (paginated) list of work requests related to a specific APM domain.
     #
-    # @param [String] apm_domain_id OCID of the APM Domain
+    # @param [String] apm_domain_id The OCID of the APM domain
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
     # @return [Response] A Response object with data of type Array<{OCI::ApmControlPlane::Models::WorkRequest WorkRequest}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apmcontrolplane/list_apm_domain_work_requests.rb.html) to see an example of how to use list_apm_domain_work_requests API.
     def list_apm_domain_work_requests(apm_domain_id, opts = {})
@@ -486,6 +485,8 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
 
       # Header Params
       header_params = {}
@@ -520,7 +521,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists all APM Domains for the specified tenant compartment.
+    # Lists all APM domains for the specified tenant compartment.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
@@ -601,10 +602,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists all Data Keys for the specified APM Domain. The caller may filter the list by specifying the 'dataKeyType'
+    # Lists all Data Keys for the specified APM domain. The caller may filter the list by specifying the 'dataKeyType'
     # query parameter.
     #
-    # @param [String] apm_domain_id OCID of the APM Domain
+    # @param [String] apm_domain_id The OCID of the APM domain
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -663,7 +664,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Return a (paginated) list of errors for a given work request.
+    # Returns a (paginated) list of errors for a given work request.
     #
     # @param [String] work_request_id The ID of the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -722,7 +723,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Return a (paginated) list of logs for a given work request.
+    # Returns a (paginated) list of logs for a given work request.
     #
     # @param [String] work_request_id The ID of the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -843,14 +844,13 @@ module OCI
     # Removes the set of specified Data Keys from the specified APM domain. Agents would no longer
     # be able to use these data keys to upload to the APM domain once this operation is completed.
     #
-    # @param [String] apm_domain_id OCID of the APM Domain
+    # @param [String] apm_domain_id The OCID of the APM domain
     # @param [Array<OCI::ApmControlPlane::Models::OCI::ApmControlPlane::Models::RemoveDataKeyDetails>] remove_data_keys_list_details List of Data Keys to be removed.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
-    #   for a resource, set the `if-match` parameter to the value of the
-    #   etag from a previous GET or POST response for that resource.
+    # @option opts [String] :if_match For optimistic concurrency control. Set the `if-match` parameter
+    #   to the value of the etag from a previous GET or POST response for that resource.
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #
@@ -904,15 +904,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Update the APM domain when it is ready and active.
-    # @param [String] apm_domain_id OCID of the APM Domain
-    # @param [OCI::ApmControlPlane::Models::UpdateApmDomainDetails] update_apm_domain_details The information to be updated for the APM Domain.
+    # Updates the APM domain.
+    # @param [String] apm_domain_id The OCID of the APM domain
+    # @param [OCI::ApmControlPlane::Models::UpdateApmDomainDetails] update_apm_domain_details The information to be updated for the APM domain.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
-    #   for a resource, set the `if-match` parameter to the value of the
-    #   etag from a previous GET or POST response for that resource.
+    # @option opts [String] :if_match For optimistic concurrency control. Set the `if-match` parameter
+    #   to the value of the etag from a previous GET or POST response for that resource.
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #

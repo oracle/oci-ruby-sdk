@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -38,8 +38,8 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # **[Required]** A user-friendly name for the volume group. Does not have to be
-    # unique, and it's changeable. Avoid entering confidential information.
+    # **[Required]** A user-friendly name. Does not have to be unique, and it's changeable.
+    # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
@@ -85,6 +85,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_hydrated
 
+    # The list of volume group replicas of this volume group.
+    # @return [Array<OCI::Core::Models::VolumeGroupReplicaInfo>]
+    attr_accessor :volume_group_replicas
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -101,7 +105,8 @@ module OCI
         'source_details': :'sourceDetails',
         'time_created': :'timeCreated',
         'volume_ids': :'volumeIds',
-        'is_hydrated': :'isHydrated'
+        'is_hydrated': :'isHydrated',
+        'volume_group_replicas': :'volumeGroupReplicas'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -122,7 +127,8 @@ module OCI
         'source_details': :'OCI::Core::Models::VolumeGroupSourceDetails',
         'time_created': :'DateTime',
         'volume_ids': :'Array<String>',
-        'is_hydrated': :'BOOLEAN'
+        'is_hydrated': :'BOOLEAN',
+        'volume_group_replicas': :'Array<OCI::Core::Models::VolumeGroupReplicaInfo>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -146,6 +152,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [Array<String>] :volume_ids The value to assign to the {#volume_ids} property
     # @option attributes [BOOLEAN] :is_hydrated The value to assign to the {#is_hydrated} property
+    # @option attributes [Array<OCI::Core::Models::VolumeGroupReplicaInfo>] :volume_group_replicas The value to assign to the {#volume_group_replicas} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -225,6 +232,12 @@ module OCI
       raise 'You cannot provide both :isHydrated and :is_hydrated' if attributes.key?(:'isHydrated') && attributes.key?(:'is_hydrated')
 
       self.is_hydrated = attributes[:'is_hydrated'] unless attributes[:'is_hydrated'].nil?
+
+      self.volume_group_replicas = attributes[:'volumeGroupReplicas'] if attributes[:'volumeGroupReplicas']
+
+      raise 'You cannot provide both :volumeGroupReplicas and :volume_group_replicas' if attributes.key?(:'volumeGroupReplicas') && attributes.key?(:'volume_group_replicas')
+
+      self.volume_group_replicas = attributes[:'volume_group_replicas'] if attributes[:'volume_group_replicas']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -263,7 +276,8 @@ module OCI
         source_details == other.source_details &&
         time_created == other.time_created &&
         volume_ids == other.volume_ids &&
-        is_hydrated == other.is_hydrated
+        is_hydrated == other.is_hydrated &&
+        volume_group_replicas == other.volume_group_replicas
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -279,7 +293,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, size_in_mbs, size_in_gbs, source_details, time_created, volume_ids, is_hydrated].hash
+      [availability_domain, compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, size_in_mbs, size_in_gbs, source_details, time_created, volume_ids, is_hydrated, volume_group_replicas].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

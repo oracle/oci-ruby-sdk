@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -23,7 +23,9 @@ module OCI
       ACCESS_REQUEST_LIFECYCLE_STATES_EXTENSIONREJECTED = 'EXTENSIONREJECTED'.freeze,
       ACCESS_REQUEST_LIFECYCLE_STATES_COMPLETING = 'COMPLETING'.freeze,
       ACCESS_REQUEST_LIFECYCLE_STATES_COMPLETED = 'COMPLETED'.freeze,
-      ACCESS_REQUEST_LIFECYCLE_STATES_EXPIRED = 'EXPIRED'.freeze
+      ACCESS_REQUEST_LIFECYCLE_STATES_EXPIRED = 'EXPIRED'.freeze,
+      ACCESS_REQUEST_LIFECYCLE_STATES_APPROVEDFORFUTURE = 'APPROVEDFORFUTURE'.freeze,
+      ACCESS_REQUEST_LIFECYCLE_STATES_INREVIEW = 'INREVIEW'.freeze
     ].freeze
   end
 end

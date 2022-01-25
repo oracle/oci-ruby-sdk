@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -23,6 +23,7 @@ module OCI
         'database_display_name': :'databaseDisplayName',
         'database_type': :'databaseType',
         'database_version': :'databaseVersion',
+        'cdb_name': :'cdbName',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags',
         'processor_count': :'processorCount',
@@ -42,6 +43,7 @@ module OCI
         'database_display_name': :'String',
         'database_type': :'String',
         'database_version': :'String',
+        'cdb_name': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>',
         'processor_count': :'Integer',
@@ -62,6 +64,7 @@ module OCI
     # @option attributes [String] :database_display_name The value to assign to the {OCI::Opsi::Models::DatabaseConfigurationSummary#database_display_name #database_display_name} proprety
     # @option attributes [String] :database_type The value to assign to the {OCI::Opsi::Models::DatabaseConfigurationSummary#database_type #database_type} proprety
     # @option attributes [String] :database_version The value to assign to the {OCI::Opsi::Models::DatabaseConfigurationSummary#database_version #database_version} proprety
+    # @option attributes [String] :cdb_name The value to assign to the {OCI::Opsi::Models::DatabaseConfigurationSummary#cdb_name #cdb_name} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Opsi::Models::DatabaseConfigurationSummary#defined_tags #defined_tags} proprety
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Opsi::Models::DatabaseConfigurationSummary#freeform_tags #freeform_tags} proprety
     # @option attributes [Integer] :processor_count The value to assign to the {OCI::Opsi::Models::DatabaseConfigurationSummary#processor_count #processor_count} proprety
@@ -101,6 +104,7 @@ module OCI
         database_display_name == other.database_display_name &&
         database_type == other.database_type &&
         database_version == other.database_version &&
+        cdb_name == other.cdb_name &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags &&
         processor_count == other.processor_count &&
@@ -120,7 +124,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_insight_id, entity_source, compartment_id, database_name, database_display_name, database_type, database_version, defined_tags, freeform_tags, processor_count, database_id].hash
+      [database_insight_id, entity_source, compartment_id, database_name, database_display_name, database_type, database_version, cdb_name, defined_tags, freeform_tags, processor_count, database_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

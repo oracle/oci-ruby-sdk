@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -43,6 +43,7 @@ module OCI
         'values': :'values',
         'is_list_of_values': :'isListOfValues',
         'is_multi_valued': :'isMultiValued',
+        'is_case_sensitive': :'isCaseSensitive',
         'is_groupable': :'isGroupable',
         'is_evaluable': :'isEvaluable',
         'value_type': :'valueType',
@@ -68,6 +69,7 @@ module OCI
         'values': :'Array<OCI::LogAnalytics::Models::FieldValue>',
         'is_list_of_values': :'BOOLEAN',
         'is_multi_valued': :'BOOLEAN',
+        'is_case_sensitive': :'BOOLEAN',
         'is_groupable': :'BOOLEAN',
         'is_evaluable': :'BOOLEAN',
         'value_type': :'String',
@@ -94,6 +96,7 @@ module OCI
     # @option attributes [Array<OCI::LogAnalytics::Models::FieldValue>] :values The value to assign to the {OCI::LogAnalytics::Models::AbstractColumn#values #values} proprety
     # @option attributes [BOOLEAN] :is_list_of_values The value to assign to the {OCI::LogAnalytics::Models::AbstractColumn#is_list_of_values #is_list_of_values} proprety
     # @option attributes [BOOLEAN] :is_multi_valued The value to assign to the {OCI::LogAnalytics::Models::AbstractColumn#is_multi_valued #is_multi_valued} proprety
+    # @option attributes [BOOLEAN] :is_case_sensitive The value to assign to the {OCI::LogAnalytics::Models::AbstractColumn#is_case_sensitive #is_case_sensitive} proprety
     # @option attributes [BOOLEAN] :is_groupable The value to assign to the {OCI::LogAnalytics::Models::AbstractColumn#is_groupable #is_groupable} proprety
     # @option attributes [BOOLEAN] :is_evaluable The value to assign to the {OCI::LogAnalytics::Models::AbstractColumn#is_evaluable #is_evaluable} proprety
     # @option attributes [String] :value_type The value to assign to the {OCI::LogAnalytics::Models::AbstractColumn#value_type #value_type} proprety
@@ -165,6 +168,7 @@ module OCI
         values == other.values &&
         is_list_of_values == other.is_list_of_values &&
         is_multi_valued == other.is_multi_valued &&
+        is_case_sensitive == other.is_case_sensitive &&
         is_groupable == other.is_groupable &&
         is_evaluable == other.is_evaluable &&
         value_type == other.value_type &&
@@ -191,7 +195,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, display_name, sub_system, values, is_list_of_values, is_multi_valued, is_groupable, is_evaluable, value_type, original_display_name, internal_name, interval_gap, intervals, total_interval_counts, total_interval_counts_after_filter, interval_group_counts, interval_group_counts_after_filter].hash
+      [type, display_name, sub_system, values, is_list_of_values, is_multi_valued, is_case_sensitive, is_groupable, is_evaluable, value_type, original_display_name, internal_name, interval_gap, intervals, total_interval_counts, total_interval_counts_after_filter, interval_group_counts, interval_group_counts_after_filter].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

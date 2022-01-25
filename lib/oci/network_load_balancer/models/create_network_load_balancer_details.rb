@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -17,6 +17,11 @@ module OCI
   # [SDKS and Other Tools](https://docs.cloud.oracle.com/Content/API/Concepts/sdks.htm).
   #
   class NetworkLoadBalancer::Models::CreateNetworkLoadBalancerDetails
+    NLB_IP_VERSION_ENUM = [
+      NLB_IP_VERSION_IPV4 = 'IPV4'.freeze,
+      NLB_IP_VERSION_IPV4_AND_IPV6 = 'IPV4_AND_IPV6'.freeze
+    ].freeze
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the network load balancer.
     # @return [String]
     attr_accessor :compartment_id
@@ -74,6 +79,10 @@ module OCI
     # @return [Array<String>]
     attr_accessor :network_security_group_ids
 
+    # IP version associated with the NLB.
+    # @return [String]
+    attr_reader :nlb_ip_version
+
     # Listeners associated with the network load balancer.
     # @return [Hash<String, OCI::NetworkLoadBalancer::Models::ListenerDetails>]
     attr_accessor :listeners
@@ -105,6 +114,7 @@ module OCI
         'is_private': :'isPrivate',
         'subnet_id': :'subnetId',
         'network_security_group_ids': :'networkSecurityGroupIds',
+        'nlb_ip_version': :'nlbIpVersion',
         'listeners': :'listeners',
         'backend_sets': :'backendSets',
         'freeform_tags': :'freeformTags',
@@ -124,6 +134,7 @@ module OCI
         'is_private': :'BOOLEAN',
         'subnet_id': :'String',
         'network_security_group_ids': :'Array<String>',
+        'nlb_ip_version': :'String',
         'listeners': :'Hash<String, OCI::NetworkLoadBalancer::Models::ListenerDetails>',
         'backend_sets': :'Hash<String, OCI::NetworkLoadBalancer::Models::BackendSetDetails>',
         'freeform_tags': :'Hash<String, String>',
@@ -145,6 +156,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_private The value to assign to the {#is_private} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [Array<String>] :network_security_group_ids The value to assign to the {#network_security_group_ids} property
+    # @option attributes [String] :nlb_ip_version The value to assign to the {#nlb_ip_version} property
     # @option attributes [Hash<String, OCI::NetworkLoadBalancer::Models::ListenerDetails>] :listeners The value to assign to the {#listeners} property
     # @option attributes [Hash<String, OCI::NetworkLoadBalancer::Models::BackendSetDetails>] :backend_sets The value to assign to the {#backend_sets} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -201,6 +213,14 @@ module OCI
 
       self.network_security_group_ids = attributes[:'network_security_group_ids'] if attributes[:'network_security_group_ids']
 
+      self.nlb_ip_version = attributes[:'nlbIpVersion'] if attributes[:'nlbIpVersion']
+      self.nlb_ip_version = "IPV4" if nlb_ip_version.nil? && !attributes.key?(:'nlbIpVersion') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :nlbIpVersion and :nlb_ip_version' if attributes.key?(:'nlbIpVersion') && attributes.key?(:'nlb_ip_version')
+
+      self.nlb_ip_version = attributes[:'nlb_ip_version'] if attributes[:'nlb_ip_version']
+      self.nlb_ip_version = "IPV4" if nlb_ip_version.nil? && !attributes.key?(:'nlbIpVersion') && !attributes.key?(:'nlb_ip_version') # rubocop:disable Style/StringLiterals
+
       self.listeners = attributes[:'listeners'] if attributes[:'listeners']
 
       self.backend_sets = attributes[:'backendSets'] if attributes[:'backendSets']
@@ -224,6 +244,14 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] nlb_ip_version Object to be assigned
+    def nlb_ip_version=(nlb_ip_version)
+      raise "Invalid value for 'nlb_ip_version': this must be one of the values in NLB_IP_VERSION_ENUM." if nlb_ip_version && !NLB_IP_VERSION_ENUM.include?(nlb_ip_version)
+
+      @nlb_ip_version = nlb_ip_version
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -240,6 +268,7 @@ module OCI
         is_private == other.is_private &&
         subnet_id == other.subnet_id &&
         network_security_group_ids == other.network_security_group_ids &&
+        nlb_ip_version == other.nlb_ip_version &&
         listeners == other.listeners &&
         backend_sets == other.backend_sets &&
         freeform_tags == other.freeform_tags &&
@@ -259,7 +288,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, is_preserve_source_destination, reserved_ips, is_private, subnet_id, network_security_group_ids, listeners, backend_sets, freeform_tags, defined_tags].hash
+      [compartment_id, display_name, is_preserve_source_destination, reserved_ips, is_private, subnet_id, network_security_group_ids, nlb_ip_version, listeners, backend_sets, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -301,6 +301,9 @@ module OCI
 
     # Creates a request to copy an object within a region or to another region.
     #
+    # See [Object Names](https://docs.cloud.oracle.com/Content/Object/Tasks/managingobjects.htm#namerequirements)
+    # for object naming requirements.
+    #
     # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
@@ -334,6 +337,9 @@ module OCI
     #   more information, see
     #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
     #
+    # @option opts [String] :opc_sse_kms_key_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a master encryption key used to call the Key
+    #   Management service to generate a data encryption key or to encrypt or decrypt a data encryption key.
+    #
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/copy_object.rb.html) to see an example of how to use copy_object API.
     def copy_object(namespace_name, bucket_name, copy_object_details, opts = {})
@@ -363,6 +369,7 @@ module OCI
       header_params[:'opc-source-sse-customer-algorithm'] = opts[:opc_source_sse_customer_algorithm] if opts[:opc_source_sse_customer_algorithm]
       header_params[:'opc-source-sse-customer-key'] = opts[:opc_source_sse_customer_key] if opts[:opc_source_sse_customer_key]
       header_params[:'opc-source-sse-customer-key-sha256'] = opts[:opc_source_sse_customer_key_sha256] if opts[:opc_source_sse_customer_key_sha256]
+      header_params[:'opc-sse-kms-key-id'] = opts[:opc_sse_kms_key_id] if opts[:opc_sse_kms_key_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(copy_object_details)
@@ -450,6 +457,9 @@ module OCI
 
     # Starts a new multipart upload to a specific object in the given bucket in the given namespace.
     #
+    # See [Object Names](https://docs.cloud.oracle.com/Content/Object/Tasks/managingobjects.htm#namerequirements)
+    # for object naming requirements.
+    #
     # @param [String] namespace_name The Object Storage namespace used for the request.
     # @param [String] bucket_name The name of the bucket. Avoid entering confidential information.
     #   Example: `my-new-bucket1`
@@ -476,6 +486,9 @@ module OCI
     # @option opts [String] :opc_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
     #   value is used to check the integrity of the encryption key. For more information, see
     #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
+    #
+    # @option opts [String] :opc_sse_kms_key_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a master encryption key used to call the Key
+    #   Management service to generate a data encryption key or to encrypt or decrypt a data encryption key.
     #
     # @return [Response] A Response object with data of type {OCI::ObjectStorage::Models::MultipartUpload MultipartUpload}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/create_multipart_upload.rb.html) to see an example of how to use create_multipart_upload API.
@@ -505,6 +518,7 @@ module OCI
       header_params[:'opc-sse-customer-algorithm'] = opts[:opc_sse_customer_algorithm] if opts[:opc_sse_customer_algorithm]
       header_params[:'opc-sse-customer-key'] = opts[:opc_sse_customer_key] if opts[:opc_sse_customer_key]
       header_params[:'opc-sse-customer-key-sha256'] = opts[:opc_sse_customer_key_sha256] if opts[:opc_sse_customer_key_sha256]
+      header_params[:'opc-sse-kms-key-id'] = opts[:opc_sse_kms_key_id] if opts[:opc_sse_kms_key_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = @api_client.object_to_http_body(create_multipart_upload_details)
@@ -1126,8 +1140,9 @@ module OCI
     #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
     #   the resource.
     #
-    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should
-    #   fail if the resource already exists.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. Wildcards ('*') are not allowed. If the specified ETag does not
+    #   match the ETag of the existing resource, the request returns the expected response. If the ETag matches
+    #   the ETag of the existing resource, the request returns an HTTP 304 status without a response body.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [Array<String>] :fields Bucket summary includes the 'namespace', 'name', 'compartmentId', 'createdBy', 'timeCreated',
@@ -1339,8 +1354,9 @@ module OCI
     #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
     #   the resource.
     #
-    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should
-    #   fail if the resource already exists.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. Wildcards ('*') are not allowed. If the specified ETag does not
+    #   match the ETag of the existing resource, the request returns the expected response. If the ETag matches
+    #   the ETag of the existing resource, the request returns an HTTP 304 status without a response body.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :range Optional byte range to fetch, as described in [RFC 7233](https://tools.ietf.org/html/rfc7233#section-2.1).
@@ -1790,8 +1806,9 @@ module OCI
     #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
     #   the resource.
     #
-    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should
-    #   fail if the resource already exists.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. Wildcards ('*') are not allowed. If the specified ETag does not
+    #   match the ETag of the existing resource, the request returns the expected response. If the ETag matches
+    #   the ETag of the existing resource, the request returns an HTTP 304 status without a response body.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type nil
@@ -1862,8 +1879,9 @@ module OCI
     #   the existing resource, GET and HEAD requests will return the resource and PUT and POST requests will upload
     #   the resource.
     #
-    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should
-    #   fail if the resource already exists.
+    # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. Wildcards ('*') are not allowed. If the specified ETag does not
+    #   match the ETag of the existing resource, the request returns the expected response. If the ETag matches
+    #   the ETag of the existing resource, the request returns an HTTP 304 status without a response body.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
     # @option opts [String] :opc_sse_customer_algorithm The optional header that specifies \"AES256\" as the encryption algorithm. For more information, see
@@ -1957,8 +1975,7 @@ module OCI
     #   details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #
     # @option opts [Array<String>] :fields Bucket summary in list of buckets includes the 'namespace', 'name', 'compartmentId', 'createdBy', 'timeCreated',
-    #   and 'etag' fields. This parameter can also include 'tags' (freeformTags and definedTags). The only supported value
-    #   of this parameter is 'tags' for now. Example 'tags'.
+    #   and 'etag' fields. This parameter can also include 'tags' (freeformTags and definedTags). The only supported value of this parameter is 'tags' for now. Example 'tags'.
     #
     #   Allowed values are: tags
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
@@ -2923,7 +2940,10 @@ module OCI
     #   fail if the resource already exists.
     #
     # @option opts [String] :opc_client_request_id The client request ID for tracing.
-    # @option opts [String] :expect 100-continue (default to 100-continue)
+    # @option opts [String] :expect A value of `100-continue` requests preliminary verification of the request method, path, and headers before the request body is sent.
+    #   If no error results from such verification, the server will send a 100 (Continue) interim response to indicate readiness for the request body.
+    #   The only allowed value for this parameter is \"100-Continue\" (case-insensitive).
+    #
     # @option opts [String] :content_md5 The optional base-64 header that defines the encoded MD5 hash of the body. If the optional Content-MD5 header is present, Object
     #   Storage performs an integrity check on the body of the HTTP request by computing the MD5 hash for the body and comparing it to the
     #   MD5 hash supplied in the header. If the two hashes do not match, the object is rejected and an HTTP-400 Unmatched Content MD5 error
@@ -2967,6 +2987,9 @@ module OCI
     # @option opts [String] :opc_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
     #   value is used to check the integrity of the encryption key. For more information, see
     #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
+    #
+    # @option opts [String] :opc_sse_kms_key_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a master encryption key used to call the Key
+    #   Management service to generate a data encryption key or to encrypt or decrypt a data encryption key.
     #
     # @option opts [String] :storage_tier The storage tier that the object should be stored in. If not specified, the object will be stored in
     #   the same storage tier as the bucket.
@@ -3014,6 +3037,7 @@ module OCI
       header_params[:'opc-sse-customer-algorithm'] = opts[:opc_sse_customer_algorithm] if opts[:opc_sse_customer_algorithm]
       header_params[:'opc-sse-customer-key'] = opts[:opc_sse_customer_key] if opts[:opc_sse_customer_key]
       header_params[:'opc-sse-customer-key-sha256'] = opts[:opc_sse_customer_key_sha256] if opts[:opc_sse_customer_key_sha256]
+      header_params[:'opc-sse-kms-key-id'] = opts[:opc_sse_kms_key_id] if opts[:opc_sse_kms_key_id]
       header_params[:'storage-tier'] = opts[:storage_tier] if opts[:storage_tier]
       # rubocop:enable Style/NegatedIf
 
@@ -3685,7 +3709,10 @@ module OCI
     # @option opts [String] :if_none_match The entity tag (ETag) to avoid matching. The only valid value is '*', which indicates that the request should
     #   fail if the resource already exists.
     #
-    # @option opts [String] :expect 100-continue (default to 100-continue)
+    # @option opts [String] :expect A value of `100-continue` requests preliminary verification of the request method, path, and headers before the request body is sent.
+    #   If no error results from such verification, the server will send a 100 (Continue) interim response to indicate readiness for the request body.
+    #   The only allowed value for this parameter is \"100-Continue\" (case-insensitive).
+    #
     # @option opts [String] :content_md5 The optional base-64 header that defines the encoded MD5 hash of the body. If the optional Content-MD5 header is present, Object
     #   Storage performs an integrity check on the body of the HTTP request by computing the MD5 hash for the body and comparing it to the
     #   MD5 hash supplied in the header. If the two hashes do not match, the object is rejected and an HTTP-400 Unmatched Content MD5 error
@@ -3703,6 +3730,9 @@ module OCI
     # @option opts [String] :opc_sse_customer_key_sha256 The optional header that specifies the base64-encoded SHA256 hash of the encryption key. This
     #   value is used to check the integrity of the encryption key. For more information, see
     #   [Using Your Own Keys for Server-Side Encryption](https://docs.cloud.oracle.com/Content/Object/Tasks/usingyourencryptionkeys.htm).
+    #
+    # @option opts [String] :opc_sse_kms_key_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a master encryption key used to call the Key
+    #   Management service to generate a data encryption key or to encrypt or decrypt a data encryption key.
     #
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/objectstorage/upload_part.rb.html) to see an example of how to use upload_part API.
@@ -3740,6 +3770,7 @@ module OCI
       header_params[:'opc-sse-customer-algorithm'] = opts[:opc_sse_customer_algorithm] if opts[:opc_sse_customer_algorithm]
       header_params[:'opc-sse-customer-key'] = opts[:opc_sse_customer_key] if opts[:opc_sse_customer_key]
       header_params[:'opc-sse-customer-key-sha256'] = opts[:opc_sse_customer_key_sha256] if opts[:opc_sse_customer_key_sha256]
+      header_params[:'opc-sse-kms-key-id'] = opts[:opc_sse_kms_key_id] if opts[:opc_sse_kms_key_id]
       # rubocop:enable Style/NegatedIf
       header_params[:'content-type'] ||= 'application/octet-stream'
       header_params[:expect] ||= '100-continue'

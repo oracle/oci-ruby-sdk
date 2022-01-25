@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -42,7 +42,7 @@ module OCI
     #     setting up a security rule for traffic destined for a particular `Service` through
     #     a service gateway. For example: `oci-phx-objectstorage`.
     #
-    #   * The OCID of a {NetworkSecurityGroup} in the same
+    #   * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of a {NetworkSecurityGroup} in the same
     #     VCN. The value can be the NSG that the rule belongs to if the rule's intent is to control
     #     traffic between VNICs in the same NSG.
     #
@@ -59,7 +59,7 @@ module OCI
     #     {Service} (the rule is for traffic destined for a
     #     particular `Service` through a service gateway).
     #
-    #   * `NETWORK_SECURITY_GROUP`: If the rule's `destination` is the OCID of a
+    #   * `NETWORK_SECURITY_GROUP`: If the rule's `destination` is the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of a
     #     {NetworkSecurityGroup}.
     #
     # @return [String]
@@ -104,7 +104,7 @@ module OCI
     #     setting up a security rule for traffic coming from a particular `Service` through
     #     a service gateway. For example: `oci-phx-objectstorage`.
     #
-    #   * The OCID of a {NetworkSecurityGroup} in the same
+    #   * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of a {NetworkSecurityGroup} in the same
     #     VCN. The value can be the NSG that the rule belongs to if the rule's intent is to control
     #     traffic between VNICs in the same NSG.
     #
@@ -119,7 +119,7 @@ module OCI
     #     {Service} (the rule is for traffic coming from a
     #     particular `Service` through a service gateway).
     #
-    #   * `NETWORK_SECURITY_GROUP`: If the rule's `source` is the OCID of a
+    #   * `NETWORK_SECURITY_GROUP`: If the rule's `source` is the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of a
     #     {NetworkSecurityGroup}.
     #
     # @return [String]

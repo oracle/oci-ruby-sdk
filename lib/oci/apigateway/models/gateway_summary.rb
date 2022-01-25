@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -39,6 +39,11 @@ module OCI
     #
     # @return [String]
     attr_accessor :subnet_id
+
+    # An array of Network Security Groups OCIDs associated with this API Gateway.
+    #
+    # @return [Array<String>]
+    attr_accessor :network_security_group_ids
 
     # The time this resource was created. An RFC3339 formatted datetime string.
     # @return [DateTime]
@@ -95,6 +100,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'endpoint_type': :'endpointType',
         'subnet_id': :'subnetId',
+        'network_security_group_ids': :'networkSecurityGroupIds',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
@@ -116,6 +122,7 @@ module OCI
         'compartment_id': :'String',
         'endpoint_type': :'String',
         'subnet_id': :'String',
+        'network_security_group_ids': :'Array<String>',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
@@ -139,6 +146,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :endpoint_type The value to assign to the {#endpoint_type} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [Array<String>] :network_security_group_ids The value to assign to the {#network_security_group_ids} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -178,6 +186,12 @@ module OCI
       raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
 
       self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
+
+      self.network_security_group_ids = attributes[:'networkSecurityGroupIds'] if attributes[:'networkSecurityGroupIds']
+
+      raise 'You cannot provide both :networkSecurityGroupIds and :network_security_group_ids' if attributes.key?(:'networkSecurityGroupIds') && attributes.key?(:'network_security_group_ids')
+
+      self.network_security_group_ids = attributes[:'network_security_group_ids'] if attributes[:'network_security_group_ids']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -240,6 +254,7 @@ module OCI
         compartment_id == other.compartment_id &&
         endpoint_type == other.endpoint_type &&
         subnet_id == other.subnet_id &&
+        network_security_group_ids == other.network_security_group_ids &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
@@ -263,7 +278,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, endpoint_type, subnet_id, time_created, time_updated, lifecycle_state, lifecycle_details, hostname, certificate_id, freeform_tags, defined_tags].hash
+      [id, display_name, compartment_id, endpoint_type, subnet_id, network_security_group_ids, time_created, time_updated, lifecycle_state, lifecycle_details, hostname, certificate_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

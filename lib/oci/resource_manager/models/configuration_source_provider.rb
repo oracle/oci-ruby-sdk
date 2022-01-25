@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,7 +8,7 @@ require 'logger'
 module OCI
   # The properties that define a configuration source provider.
   # For more information, see
-  # [Managing Configuration Source Providers](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingstacksandjobs.htm#ManagingConfigurationSourceProviders).
+  # [Managing Configuration Source Providers](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingconfigurationsourceproviders.htm).
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class ResourceManager::Models::ConfigurationSourceProvider
@@ -48,7 +48,7 @@ module OCI
 
     # The current lifecycle state of the configuration source provider.
     # For more information about configuration source provider lifecycle states in Resource Manager, see
-    # [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#CSPStates).
+    # [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#concepts__CSPStates).
     #
     # @return [String]
     attr_reader :lifecycle_state

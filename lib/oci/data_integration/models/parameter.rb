@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -45,6 +45,10 @@ module OCI
     # @return [String]
     attr_accessor :type_name
 
+    # The param name for which parameter is created for for eg. driver Shape, Operation etc.
+    # @return [String]
+    attr_accessor :used_for
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -63,7 +67,8 @@ module OCI
         'is_input': :'isInput',
         'is_output': :'isOutput',
         'output_aggregation_type': :'outputAggregationType',
-        'type_name': :'typeName'
+        'type_name': :'typeName',
+        'used_for': :'usedFor'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -86,7 +91,8 @@ module OCI
         'is_input': :'BOOLEAN',
         'is_output': :'BOOLEAN',
         'output_aggregation_type': :'String',
-        'type_name': :'String'
+        'type_name': :'String',
+        'used_for': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -111,6 +117,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_output The value to assign to the {#is_output} property
     # @option attributes [String] :output_aggregation_type The value to assign to the {#output_aggregation_type} property
     # @option attributes [String] :type_name The value to assign to the {#type_name} property
+    # @option attributes [String] :used_for The value to assign to the {#used_for} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -158,6 +165,12 @@ module OCI
       raise 'You cannot provide both :typeName and :type_name' if attributes.key?(:'typeName') && attributes.key?(:'type_name')
 
       self.type_name = attributes[:'type_name'] if attributes[:'type_name']
+
+      self.used_for = attributes[:'usedFor'] if attributes[:'usedFor']
+
+      raise 'You cannot provide both :usedFor and :used_for' if attributes.key?(:'usedFor') && attributes.key?(:'used_for')
+
+      self.used_for = attributes[:'used_for'] if attributes[:'used_for']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -198,7 +211,8 @@ module OCI
         is_input == other.is_input &&
         is_output == other.is_output &&
         output_aggregation_type == other.output_aggregation_type &&
-        type_name == other.type_name
+        type_name == other.type_name &&
+        used_for == other.used_for
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -214,7 +228,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, parent_ref, config_values, object_status, name, description, type, default_value, root_object_default_value, is_input, is_output, output_aggregation_type, type_name].hash
+      [model_type, key, model_version, parent_ref, config_values, object_status, name, description, type, default_value, root_object_default_value, is_input, is_output, output_aggregation_type, type_name, used_for].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
