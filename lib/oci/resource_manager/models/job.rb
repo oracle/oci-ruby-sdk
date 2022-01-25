@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -83,13 +83,16 @@ module OCI
 
     # Current state of the specified job.
     # For more information about job lifecycle states in Resource Manager, see
-    # [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#JobStates).
+    # [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#concepts__JobStates).
     #
     # @return [String]
     attr_reader :lifecycle_state
 
     # @return [OCI::ResourceManager::Models::FailureDetails]
     attr_accessor :failure_details
+
+    # @return [OCI::ResourceManager::Models::CancellationDetails]
+    attr_accessor :cancellation_details
 
     # File path to the directory from which Terraform runs.
     # If not specified, the root directory is used.
@@ -100,7 +103,7 @@ module OCI
 
     # Terraform variables associated with this resource.
     # Maximum number of variables supported is 250.
-    # The maximum size of each variable, including both name and value, is 4096 bytes.
+    # The maximum size of each variable, including both name and value, is 8192 bytes.
     # Example: `{\"CompartmentId\": \"compartment-id-value\"}`
     #
     # @return [Hash<String, String>]
@@ -139,6 +142,7 @@ module OCI
         'time_finished': :'timeFinished',
         'lifecycle_state': :'lifecycleState',
         'failure_details': :'failureDetails',
+        'cancellation_details': :'cancellationDetails',
         'working_directory': :'workingDirectory',
         'variables': :'variables',
         'config_source': :'configSource',
@@ -164,6 +168,7 @@ module OCI
         'time_finished': :'DateTime',
         'lifecycle_state': :'String',
         'failure_details': :'OCI::ResourceManager::Models::FailureDetails',
+        'cancellation_details': :'OCI::ResourceManager::Models::CancellationDetails',
         'working_directory': :'String',
         'variables': :'Hash<String, String>',
         'config_source': :'OCI::ResourceManager::Models::ConfigSourceRecord',
@@ -191,6 +196,7 @@ module OCI
     # @option attributes [DateTime] :time_finished The value to assign to the {#time_finished} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [OCI::ResourceManager::Models::FailureDetails] :failure_details The value to assign to the {#failure_details} property
+    # @option attributes [OCI::ResourceManager::Models::CancellationDetails] :cancellation_details The value to assign to the {#cancellation_details} property
     # @option attributes [String] :working_directory The value to assign to the {#working_directory} property
     # @option attributes [Hash<String, String>] :variables The value to assign to the {#variables} property
     # @option attributes [OCI::ResourceManager::Models::ConfigSourceRecord] :config_source The value to assign to the {#config_source} property
@@ -265,6 +271,12 @@ module OCI
       raise 'You cannot provide both :failureDetails and :failure_details' if attributes.key?(:'failureDetails') && attributes.key?(:'failure_details')
 
       self.failure_details = attributes[:'failure_details'] if attributes[:'failure_details']
+
+      self.cancellation_details = attributes[:'cancellationDetails'] if attributes[:'cancellationDetails']
+
+      raise 'You cannot provide both :cancellationDetails and :cancellation_details' if attributes.key?(:'cancellationDetails') && attributes.key?(:'cancellation_details')
+
+      self.cancellation_details = attributes[:'cancellation_details'] if attributes[:'cancellation_details']
 
       self.working_directory = attributes[:'workingDirectory'] if attributes[:'workingDirectory']
 
@@ -342,6 +354,7 @@ module OCI
         time_finished == other.time_finished &&
         lifecycle_state == other.lifecycle_state &&
         failure_details == other.failure_details &&
+        cancellation_details == other.cancellation_details &&
         working_directory == other.working_directory &&
         variables == other.variables &&
         config_source == other.config_source &&
@@ -362,7 +375,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, stack_id, compartment_id, display_name, operation, job_operation_details, apply_job_plan_resolution, resolved_plan_job_id, time_created, time_finished, lifecycle_state, failure_details, working_directory, variables, config_source, freeform_tags, defined_tags].hash
+      [id, stack_id, compartment_id, display_name, operation, job_operation_details, apply_job_plan_resolution, resolved_plan_job_id, time_created, time_finished, lifecycle_state, failure_details, cancellation_details, working_directory, variables, config_source, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

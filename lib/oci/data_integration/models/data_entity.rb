@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -13,6 +13,7 @@ module OCI
       MODEL_TYPE_VIEW_ENTITY = 'VIEW_ENTITY'.freeze,
       MODEL_TYPE_TABLE_ENTITY = 'TABLE_ENTITY'.freeze,
       MODEL_TYPE_FILE_ENTITY = 'FILE_ENTITY'.freeze,
+      MODEL_TYPE_SQL_ENTITY = 'SQL_ENTITY'.freeze,
       MODEL_TYPE_DATA_STORE_ENTITY = 'DATA_STORE_ENTITY'.freeze,
       MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
@@ -55,6 +56,7 @@ module OCI
       return 'OCI::DataIntegration::Models::DataEntityFromTable' if type == 'TABLE_ENTITY'
       return 'OCI::DataIntegration::Models::DataEntityFromDataStore' if type == 'DATA_STORE_ENTITY'
       return 'OCI::DataIntegration::Models::DataEntityFromView' if type == 'VIEW_ENTITY'
+      return 'OCI::DataIntegration::Models::DataEntityFromSql' if type == 'SQL_ENTITY'
       return 'OCI::DataIntegration::Models::DataEntityFromFile' if type == 'FILE_ENTITY'
 
       # TODO: Log a warning when the subtype is not found.

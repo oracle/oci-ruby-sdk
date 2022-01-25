@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -59,6 +59,11 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
+    # An array of Network Security Groups OCIDs associated with this API Gateway.
+    #
+    # @return [Array<String>]
+    attr_accessor :network_security_group_ids
+
     # The time this resource was created. An RFC3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_created
@@ -112,6 +117,10 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # An array of CA bundles that should be used on the Gateway for TLS validation.
+    # @return [Array<OCI::Apigateway::Models::CaBundle>]
+    attr_accessor :ca_bundles
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -121,6 +130,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'endpoint_type': :'endpointType',
         'subnet_id': :'subnetId',
+        'network_security_group_ids': :'networkSecurityGroupIds',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
@@ -130,7 +140,8 @@ module OCI
         'ip_addresses': :'ipAddresses',
         'response_cache_details': :'responseCacheDetails',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'ca_bundles': :'caBundles'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -144,6 +155,7 @@ module OCI
         'compartment_id': :'String',
         'endpoint_type': :'String',
         'subnet_id': :'String',
+        'network_security_group_ids': :'Array<String>',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
@@ -153,7 +165,8 @@ module OCI
         'ip_addresses': :'Array<OCI::Apigateway::Models::IpAddress>',
         'response_cache_details': :'OCI::Apigateway::Models::ResponseCacheDetails',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'ca_bundles': :'Array<OCI::Apigateway::Models::CaBundle>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -169,6 +182,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :endpoint_type The value to assign to the {#endpoint_type} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [Array<String>] :network_security_group_ids The value to assign to the {#network_security_group_ids} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -179,6 +193,7 @@ module OCI
     # @option attributes [OCI::Apigateway::Models::ResponseCacheDetails] :response_cache_details The value to assign to the {#response_cache_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Array<OCI::Apigateway::Models::CaBundle>] :ca_bundles The value to assign to the {#ca_bundles} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -210,6 +225,12 @@ module OCI
       raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
 
       self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
+
+      self.network_security_group_ids = attributes[:'networkSecurityGroupIds'] if attributes[:'networkSecurityGroupIds']
+
+      raise 'You cannot provide both :networkSecurityGroupIds and :network_security_group_ids' if attributes.key?(:'networkSecurityGroupIds') && attributes.key?(:'network_security_group_ids')
+
+      self.network_security_group_ids = attributes[:'network_security_group_ids'] if attributes[:'network_security_group_ids']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -266,6 +287,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.ca_bundles = attributes[:'caBundles'] if attributes[:'caBundles']
+
+      raise 'You cannot provide both :caBundles and :ca_bundles' if attributes.key?(:'caBundles') && attributes.key?(:'ca_bundles')
+
+      self.ca_bundles = attributes[:'ca_bundles'] if attributes[:'ca_bundles']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -310,6 +337,7 @@ module OCI
         compartment_id == other.compartment_id &&
         endpoint_type == other.endpoint_type &&
         subnet_id == other.subnet_id &&
+        network_security_group_ids == other.network_security_group_ids &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
@@ -319,7 +347,8 @@ module OCI
         ip_addresses == other.ip_addresses &&
         response_cache_details == other.response_cache_details &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        ca_bundles == other.ca_bundles
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -335,7 +364,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, endpoint_type, subnet_id, time_created, time_updated, lifecycle_state, lifecycle_details, hostname, certificate_id, ip_addresses, response_cache_details, freeform_tags, defined_tags].hash
+      [id, display_name, compartment_id, endpoint_type, subnet_id, network_security_group_ids, time_created, time_updated, lifecycle_state, lifecycle_details, hostname, certificate_id, ip_addresses, response_cache_details, freeform_tags, defined_tags, ca_bundles].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

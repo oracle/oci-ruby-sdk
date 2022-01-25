@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -17,6 +17,11 @@ module OCI
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_NEEDS_ATTENTION = 'NEEDS_ATTENTION'.freeze,
+      LIFECYCLE_STATE_IN_PROGRESS = 'IN_PROGRESS'.freeze,
+      LIFECYCLE_STATE_CANCELING = 'CANCELING'.freeze,
+      LIFECYCLE_STATE_CANCELED = 'CANCELED'.freeze,
+      LIFECYCLE_STATE_SUCCEEDED = 'SUCCEEDED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -65,6 +70,16 @@ module OCI
     #
     # @return [DateTime]
     attr_accessor :time_of_backup
+
+    # The time of the resource backup finish. The format is defined by [RFC3339](https://tools.ietf.org/html/rfc3339), such as `2016-08-25T21:10:29.600Z`.
+    #
+    # @return [DateTime]
+    attr_accessor :time_backup_finished
+
+    # The size of the backup stored in object storage (in bytes)
+    #
+    # @return [Float]
+    attr_accessor :size_in_bytes
 
     # Possible Deployment backup types.
     #
@@ -128,6 +143,8 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
         'time_of_backup': :'timeOfBackup',
+        'time_backup_finished': :'timeBackupFinished',
+        'size_in_bytes': :'sizeInBytes',
         'backup_type': :'backupType',
         'ogg_version': :'oggVersion',
         'namespace_name': :'namespaceName',
@@ -154,6 +171,8 @@ module OCI
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
         'time_of_backup': :'DateTime',
+        'time_backup_finished': :'DateTime',
+        'size_in_bytes': :'Float',
         'backup_type': :'String',
         'ogg_version': :'String',
         'namespace_name': :'String',
@@ -182,6 +201,8 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [DateTime] :time_of_backup The value to assign to the {#time_of_backup} property
+    # @option attributes [DateTime] :time_backup_finished The value to assign to the {#time_backup_finished} property
+    # @option attributes [Float] :size_in_bytes The value to assign to the {#size_in_bytes} property
     # @option attributes [String] :backup_type The value to assign to the {#backup_type} property
     # @option attributes [String] :ogg_version The value to assign to the {#ogg_version} property
     # @option attributes [String] :namespace_name The value to assign to the {#namespace_name} property
@@ -241,6 +262,18 @@ module OCI
       raise 'You cannot provide both :timeOfBackup and :time_of_backup' if attributes.key?(:'timeOfBackup') && attributes.key?(:'time_of_backup')
 
       self.time_of_backup = attributes[:'time_of_backup'] if attributes[:'time_of_backup']
+
+      self.time_backup_finished = attributes[:'timeBackupFinished'] if attributes[:'timeBackupFinished']
+
+      raise 'You cannot provide both :timeBackupFinished and :time_backup_finished' if attributes.key?(:'timeBackupFinished') && attributes.key?(:'time_backup_finished')
+
+      self.time_backup_finished = attributes[:'time_backup_finished'] if attributes[:'time_backup_finished']
+
+      self.size_in_bytes = attributes[:'sizeInBytes'] if attributes[:'sizeInBytes']
+
+      raise 'You cannot provide both :sizeInBytes and :size_in_bytes' if attributes.key?(:'sizeInBytes') && attributes.key?(:'size_in_bytes')
+
+      self.size_in_bytes = attributes[:'size_in_bytes'] if attributes[:'size_in_bytes']
 
       self.backup_type = attributes[:'backupType'] if attributes[:'backupType']
 
@@ -348,6 +381,8 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
         time_of_backup == other.time_of_backup &&
+        time_backup_finished == other.time_backup_finished &&
+        size_in_bytes == other.size_in_bytes &&
         backup_type == other.backup_type &&
         ogg_version == other.ogg_version &&
         namespace_name == other.namespace_name &&
@@ -373,7 +408,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, deployment_id, compartment_id, display_name, is_automatic, lifecycle_state, lifecycle_details, time_of_backup, backup_type, ogg_version, namespace_name, bucket_name, object_name, time_created, time_updated, freeform_tags, defined_tags, system_tags].hash
+      [id, deployment_id, compartment_id, display_name, is_automatic, lifecycle_state, lifecycle_details, time_of_backup, time_backup_finished, size_in_bytes, backup_type, ogg_version, namespace_name, bucket_name, object_name, time_created, time_updated, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

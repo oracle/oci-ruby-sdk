@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'oci/api_client'
@@ -9,6 +9,7 @@ require 'oci/errors'
 require 'oci/global_context'
 require 'oci/internal/internal'
 require 'oci/regions'
+require 'oci/regions_definitions'
 require 'oci/response_headers'
 require 'oci/response'
 require 'oci/base_signer'
@@ -97,6 +98,23 @@ require 'oci/generic_artifacts_content/generic_artifacts_content'
 require 'oci/jms/jms'
 require 'oci/devops/devops'
 require 'oci/ai_anomaly_detection/ai_anomaly_detection'
+require 'oci/data_labeling_service_dataplane/data_labeling_service_dataplane'
+require 'oci/apm_config/apm_config'
+require 'oci/waf/waf'
+require 'oci/data_labeling_service/data_labeling_service'
+require 'oci/certificates_management/certificates_management'
+require 'oci/certificates/certificates'
+require 'oci/usage/usage'
+require 'oci/database_tools/database_tools'
+require 'oci/service_manager_proxy/service_manager_proxy'
+require 'oci/appmgmt_control/appmgmt_control'
+require 'oci/identity_data_plane/identity_data_plane'
+require 'oci/osp_gateway/osp_gateway'
+require 'oci/visual_builder/visual_builder'
+require 'oci/osub_usage/osub_usage'
+require 'oci/osub_billing_schedule/osub_billing_schedule'
+require 'oci/osub_organization_subscription/osub_organization_subscription'
+require 'oci/osub_subscription/osub_subscription'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI

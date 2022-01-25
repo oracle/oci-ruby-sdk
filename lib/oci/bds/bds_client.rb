@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -92,6 +92,80 @@ module OCI
     def logger
       @api_client.config.logger
     end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Activate specified metastore configuration.
+    #
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [String] metastore_config_id The metastore configuration ID
+    # @param [OCI::Bds::Models::ActivateBdsMetastoreConfigurationDetails] activate_bds_metastore_configuration_details The request body when activating specified metastore configuration.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
+    #   hours but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/activate_bds_metastore_configuration.rb.html) to see an example of how to use activate_bds_metastore_configuration API.
+    def activate_bds_metastore_configuration(bds_instance_id, metastore_config_id, activate_bds_metastore_configuration_details, opts = {})
+      logger.debug 'Calling operation BdsClient#activate_bds_metastore_configuration.' if logger
+
+      raise "Missing the required parameter 'bds_instance_id' when calling activate_bds_metastore_configuration." if bds_instance_id.nil?
+      raise "Missing the required parameter 'metastore_config_id' when calling activate_bds_metastore_configuration." if metastore_config_id.nil?
+      raise "Missing the required parameter 'activate_bds_metastore_configuration_details' when calling activate_bds_metastore_configuration." if activate_bds_metastore_configuration_details.nil?
+      raise "Parameter value for 'bds_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(bds_instance_id)
+      raise "Parameter value for 'metastore_config_id' must not be blank" if OCI::Internal::Util.blank_string?(metastore_config_id)
+
+      path = '/bdsInstances/{bdsInstanceId}/metastoreConfigs/{metastoreConfigId}/actions/activate'.sub('{bdsInstanceId}', bds_instance_id.to_s).sub('{metastoreConfigId}', metastore_config_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(activate_bds_metastore_configuration_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#activate_bds_metastore_configuration') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -524,6 +598,70 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Create an API key on behalf of the specified user.
+    #
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [OCI::Bds::Models::CreateBdsApiKeyDetails] create_bds_api_key_details Create a new user's API key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
+    #   hours but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/create_bds_api_key.rb.html) to see an example of how to use create_bds_api_key API.
+    def create_bds_api_key(bds_instance_id, create_bds_api_key_details, opts = {})
+      logger.debug 'Calling operation BdsClient#create_bds_api_key.' if logger
+
+      raise "Missing the required parameter 'bds_instance_id' when calling create_bds_api_key." if bds_instance_id.nil?
+      raise "Missing the required parameter 'create_bds_api_key_details' when calling create_bds_api_key." if create_bds_api_key_details.nil?
+      raise "Parameter value for 'bds_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(bds_instance_id)
+
+      path = '/bdsInstances/{bdsInstanceId}/apiKeys'.sub('{bdsInstanceId}', bds_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_bds_api_key_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#create_bds_api_key') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a Big Data Service cluster.
     #
     # @param [OCI::Bds::Models::CreateBdsInstanceDetails] create_bds_instance_details Details for the new cluster.
@@ -566,6 +704,133 @@ module OCI
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#create_bds_instance') do
         @api_client.call_api(
           :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Create and activate external metastore configuration.
+    #
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [OCI::Bds::Models::CreateBdsMetastoreConfigurationDetails] create_bds_metastore_configuration_details The request body when creating and activating external metastore configuration.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
+    #   hours but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/create_bds_metastore_configuration.rb.html) to see an example of how to use create_bds_metastore_configuration API.
+    def create_bds_metastore_configuration(bds_instance_id, create_bds_metastore_configuration_details, opts = {})
+      logger.debug 'Calling operation BdsClient#create_bds_metastore_configuration.' if logger
+
+      raise "Missing the required parameter 'bds_instance_id' when calling create_bds_metastore_configuration." if bds_instance_id.nil?
+      raise "Missing the required parameter 'create_bds_metastore_configuration_details' when calling create_bds_metastore_configuration." if create_bds_metastore_configuration_details.nil?
+      raise "Parameter value for 'bds_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(bds_instance_id)
+
+      path = '/bdsInstances/{bdsInstanceId}/metastoreConfigs'.sub('{bdsInstanceId}', bds_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_bds_metastore_configuration_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#create_bds_metastore_configuration') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the user's API key represented by the provided ID.
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [String] api_key_id The API key identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/delete_bds_api_key.rb.html) to see an example of how to use delete_bds_api_key API.
+    def delete_bds_api_key(bds_instance_id, api_key_id, opts = {})
+      logger.debug 'Calling operation BdsClient#delete_bds_api_key.' if logger
+
+      raise "Missing the required parameter 'bds_instance_id' when calling delete_bds_api_key." if bds_instance_id.nil?
+      raise "Missing the required parameter 'api_key_id' when calling delete_bds_api_key." if api_key_id.nil?
+      raise "Parameter value for 'bds_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(bds_instance_id)
+      raise "Parameter value for 'api_key_id' must not be blank" if OCI::Internal::Util.blank_string?(api_key_id)
+
+      path = '/bdsInstances/{bdsInstanceId}/apiKeys/{apiKeyId}'.sub('{bdsInstanceId}', bds_instance_id.to_s).sub('{apiKeyId}', api_key_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#delete_bds_api_key') do
+        @api_client.call_api(
+          :DELETE,
           path,
           endpoint,
           header_params: header_params,
@@ -645,6 +910,69 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Delete the BDS metastore configuration represented by the provided ID.
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [String] metastore_config_id The metastore configuration ID
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/delete_bds_metastore_configuration.rb.html) to see an example of how to use delete_bds_metastore_configuration API.
+    def delete_bds_metastore_configuration(bds_instance_id, metastore_config_id, opts = {})
+      logger.debug 'Calling operation BdsClient#delete_bds_metastore_configuration.' if logger
+
+      raise "Missing the required parameter 'bds_instance_id' when calling delete_bds_metastore_configuration." if bds_instance_id.nil?
+      raise "Missing the required parameter 'metastore_config_id' when calling delete_bds_metastore_configuration." if metastore_config_id.nil?
+      raise "Parameter value for 'bds_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(bds_instance_id)
+      raise "Parameter value for 'metastore_config_id' must not be blank" if OCI::Internal::Util.blank_string?(metastore_config_id)
+
+      path = '/bdsInstances/{bdsInstanceId}/metastoreConfigs/{metastoreConfigId}'.sub('{bdsInstanceId}', bds_instance_id.to_s).sub('{metastoreConfigId}', metastore_config_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#delete_bds_metastore_configuration') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns details of the autoscale configuration identified by the given ID.
     #
     # @param [String] bds_instance_id The OCID of the cluster.
@@ -703,6 +1031,63 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns the user's API key information for the given ID.
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [String] api_key_id The API key identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::Bds::Models::BdsApiKey BdsApiKey}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/get_bds_api_key.rb.html) to see an example of how to use get_bds_api_key API.
+    def get_bds_api_key(bds_instance_id, api_key_id, opts = {})
+      logger.debug 'Calling operation BdsClient#get_bds_api_key.' if logger
+
+      raise "Missing the required parameter 'bds_instance_id' when calling get_bds_api_key." if bds_instance_id.nil?
+      raise "Missing the required parameter 'api_key_id' when calling get_bds_api_key." if api_key_id.nil?
+      raise "Parameter value for 'bds_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(bds_instance_id)
+      raise "Parameter value for 'api_key_id' must not be blank" if OCI::Internal::Util.blank_string?(api_key_id)
+
+      path = '/bdsInstances/{bdsInstanceId}/apiKeys/{apiKeyId}'.sub('{bdsInstanceId}', bds_instance_id.to_s).sub('{apiKeyId}', api_key_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#get_bds_api_key') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Bds::Models::BdsApiKey'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns information about the Big Data Service cluster identified by the given ID.
     # @param [String] bds_instance_id The OCID of the cluster.
     # @param [Hash] opts the optional parameters
@@ -744,6 +1129,63 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Bds::Models::BdsInstance'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns the BDS Metastore configuration information for the given ID.
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [String] metastore_config_id The metastore configuration ID
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::Bds::Models::BdsMetastoreConfiguration BdsMetastoreConfiguration}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/get_bds_metastore_configuration.rb.html) to see an example of how to use get_bds_metastore_configuration API.
+    def get_bds_metastore_configuration(bds_instance_id, metastore_config_id, opts = {})
+      logger.debug 'Calling operation BdsClient#get_bds_metastore_configuration.' if logger
+
+      raise "Missing the required parameter 'bds_instance_id' when calling get_bds_metastore_configuration." if bds_instance_id.nil?
+      raise "Missing the required parameter 'metastore_config_id' when calling get_bds_metastore_configuration." if metastore_config_id.nil?
+      raise "Parameter value for 'bds_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(bds_instance_id)
+      raise "Parameter value for 'metastore_config_id' must not be blank" if OCI::Internal::Util.blank_string?(metastore_config_id)
+
+      path = '/bdsInstances/{bdsInstanceId}/metastoreConfigs/{metastoreConfigId}'.sub('{bdsInstanceId}', bds_instance_id.to_s).sub('{metastoreConfigId}', metastore_config_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#get_bds_metastore_configuration') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Bds::Models::BdsMetastoreConfiguration'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -895,6 +1337,89 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns a list of all API keys associated with this Big Data Service cluster.
+    #
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :lifecycle_state The state of the API key.
+    # @option opts [String] :user_id The OCID of the user for whom the API key belongs.
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type Array<{OCI::Bds::Models::BdsApiKeySummary BdsApiKeySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/list_bds_api_keys.rb.html) to see an example of how to use list_bds_api_keys API.
+    def list_bds_api_keys(bds_instance_id, opts = {})
+      logger.debug 'Calling operation BdsClient#list_bds_api_keys.' if logger
+
+      raise "Missing the required parameter 'bds_instance_id' when calling list_bds_api_keys." if bds_instance_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::Bds::Models::BdsApiKey::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Bds::Models::BdsApiKey::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      if opts[:sort_order] && !OCI::Bds::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Bds::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'bds_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(bds_instance_id)
+
+      path = '/bdsInstances/{bdsInstanceId}/apiKeys'.sub('{bdsInstanceId}', bds_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:userId] = opts[:user_id] if opts[:user_id]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#list_bds_api_keys') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Bds::Models::BdsApiKeySummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of all Big Data Service clusters in a compartment.
     #
     # @param [String] compartment_id The OCID of the compartment.
@@ -963,6 +1488,97 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Bds::Models::BdsInstanceSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of metastore configurations ssociated with this Big Data Service cluster.
+    #
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :metastore_type The type of the metastore in the metastore configuration (default to EXTERNAL)
+    # @option opts [String] :metastore_id The OCID of the Data Catalog metastore in the metastore configuration
+    # @option opts [String] :lifecycle_state The lifecycle state of the metastore in the metastore configuration
+    # @option opts [String] :bds_api_key_id The ID of the API key that is associated with the external metastore in the metastore configuration
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type Array<{OCI::Bds::Models::BdsMetastoreConfigurationSummary BdsMetastoreConfigurationSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/list_bds_metastore_configurations.rb.html) to see an example of how to use list_bds_metastore_configurations API.
+    def list_bds_metastore_configurations(bds_instance_id, opts = {})
+      logger.debug 'Calling operation BdsClient#list_bds_metastore_configurations.' if logger
+
+      raise "Missing the required parameter 'bds_instance_id' when calling list_bds_metastore_configurations." if bds_instance_id.nil?
+
+      if opts[:metastore_type] && !OCI::Bds::Models::BdsMetastoreConfiguration::METASTORE_TYPE_ENUM.include?(opts[:metastore_type])
+        raise 'Invalid value for "metastore_type", must be one of the values in OCI::Bds::Models::BdsMetastoreConfiguration::METASTORE_TYPE_ENUM.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Bds::Models::BdsMetastoreConfiguration::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Bds::Models::BdsMetastoreConfiguration::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      if opts[:sort_order] && !OCI::Bds::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Bds::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'bds_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(bds_instance_id)
+
+      path = '/bdsInstances/{bdsInstanceId}/metastoreConfigs'.sub('{bdsInstanceId}', bds_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:metastoreType] = opts[:metastore_type] if opts[:metastore_type]
+      query_params[:metastoreId] = opts[:metastore_id] if opts[:metastore_id]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:bdsApiKeyId] = opts[:bds_api_key_id] if opts[:bds_api_key_id]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#list_bds_metastore_configurations') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Bds::Models::BdsMetastoreConfigurationSummary>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1413,6 +2029,130 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Test specified metastore configuration.
+    #
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [String] metastore_config_id The metastore configuration ID
+    # @param [OCI::Bds::Models::TestBdsMetastoreConfigurationDetails] test_bds_metastore_configuration_details Request body for testing BDS metastore configuration.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/test_bds_metastore_configuration.rb.html) to see an example of how to use test_bds_metastore_configuration API.
+    def test_bds_metastore_configuration(bds_instance_id, metastore_config_id, test_bds_metastore_configuration_details, opts = {})
+      logger.debug 'Calling operation BdsClient#test_bds_metastore_configuration.' if logger
+
+      raise "Missing the required parameter 'bds_instance_id' when calling test_bds_metastore_configuration." if bds_instance_id.nil?
+      raise "Missing the required parameter 'metastore_config_id' when calling test_bds_metastore_configuration." if metastore_config_id.nil?
+      raise "Missing the required parameter 'test_bds_metastore_configuration_details' when calling test_bds_metastore_configuration." if test_bds_metastore_configuration_details.nil?
+      raise "Parameter value for 'bds_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(bds_instance_id)
+      raise "Parameter value for 'metastore_config_id' must not be blank" if OCI::Internal::Util.blank_string?(metastore_config_id)
+
+      path = '/bdsInstances/{bdsInstanceId}/metastoreConfigs/{metastoreConfigId}/actions/test'.sub('{bdsInstanceId}', bds_instance_id.to_s).sub('{metastoreConfigId}', metastore_config_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(test_bds_metastore_configuration_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#test_bds_metastore_configuration') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Test access to specified Object Storage bucket using the API key.
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [String] api_key_id The API key identifier.
+    # @param [OCI::Bds::Models::TestBdsObjectStorageConnectionDetails] test_bds_object_storage_connection_details Parameters required to validate access to the specified Object Storage bucket using the API key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/test_bds_object_storage_connection.rb.html) to see an example of how to use test_bds_object_storage_connection API.
+    def test_bds_object_storage_connection(bds_instance_id, api_key_id, test_bds_object_storage_connection_details, opts = {})
+      logger.debug 'Calling operation BdsClient#test_bds_object_storage_connection.' if logger
+
+      raise "Missing the required parameter 'bds_instance_id' when calling test_bds_object_storage_connection." if bds_instance_id.nil?
+      raise "Missing the required parameter 'api_key_id' when calling test_bds_object_storage_connection." if api_key_id.nil?
+      raise "Missing the required parameter 'test_bds_object_storage_connection_details' when calling test_bds_object_storage_connection." if test_bds_object_storage_connection_details.nil?
+      raise "Parameter value for 'bds_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(bds_instance_id)
+      raise "Parameter value for 'api_key_id' must not be blank" if OCI::Internal::Util.blank_string?(api_key_id)
+
+      path = '/bdsInstances/{bdsInstanceId}/apiKeys/{apiKeyId}/actions/testObjectStorageConnection'.sub('{bdsInstanceId}', bds_instance_id.to_s).sub('{apiKeyId}', api_key_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(test_bds_object_storage_connection_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#test_bds_object_storage_connection') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates fields on an autoscale configuration, including the name, the threshold value, and whether the autoscale configuration is enabled.
     #
     # @param [String] bds_instance_id The OCID of the cluster.
@@ -1528,6 +2268,71 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#update_bds_instance') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Update the BDS metastore configuration represented by the provided ID.
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [String] metastore_config_id The metastore configuration ID
+    # @param [OCI::Bds::Models::UpdateBdsMetastoreConfigurationDetails] update_bds_metastore_configuration_details Request body for updating BDS metastore configuration.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/update_bds_metastore_configuration.rb.html) to see an example of how to use update_bds_metastore_configuration API.
+    def update_bds_metastore_configuration(bds_instance_id, metastore_config_id, update_bds_metastore_configuration_details, opts = {})
+      logger.debug 'Calling operation BdsClient#update_bds_metastore_configuration.' if logger
+
+      raise "Missing the required parameter 'bds_instance_id' when calling update_bds_metastore_configuration." if bds_instance_id.nil?
+      raise "Missing the required parameter 'metastore_config_id' when calling update_bds_metastore_configuration." if metastore_config_id.nil?
+      raise "Missing the required parameter 'update_bds_metastore_configuration_details' when calling update_bds_metastore_configuration." if update_bds_metastore_configuration_details.nil?
+      raise "Parameter value for 'bds_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(bds_instance_id)
+      raise "Parameter value for 'metastore_config_id' must not be blank" if OCI::Internal::Util.blank_string?(metastore_config_id)
+
+      path = '/bdsInstances/{bdsInstanceId}/metastoreConfigs/{metastoreConfigId}'.sub('{bdsInstanceId}', bds_instance_id.to_s).sub('{metastoreConfigId}', metastore_config_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_bds_metastore_configuration_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#update_bds_metastore_configuration') do
         @api_client.call_api(
           :PUT,
           path,

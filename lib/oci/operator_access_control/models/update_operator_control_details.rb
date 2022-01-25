@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # Information about the new operator control.
   class OperatorAccessControl::Models::UpdateOperatorControlDetails
-    # Name of the operator control.
+    # **[Required]** Name of the operator control.
     # @return [String]
     attr_accessor :operator_control_name
 
@@ -19,7 +19,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :approvers_list
 
-    # List of user groups who can approve an access request associated with a target resource under the governance of this operator control.
+    # **[Required]** List of user groups who can approve an access request associated with a target resource under the governance of this operator control.
     # @return [Array<String>]
     attr_accessor :approver_groups_list
 
@@ -29,7 +29,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :pre_approved_op_action_list
 
-    # Whether all the operator actions have been pre-approved. If yes, all access requests associated with a resource governed by this operator control
+    # **[Required]** Whether all the operator actions have been pre-approved. If yes, all access requests associated with a resource governed by this operator control
     # will be auto-approved.
     #
     # @return [BOOLEAN]

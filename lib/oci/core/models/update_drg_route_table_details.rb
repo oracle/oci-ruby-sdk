@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,6 +6,8 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Details used in a request to update a DRG route table.
+  #
+  # You can't assign a table to a virtual circuit or IPSec tunnel attachment if there is a static route rule for an RPC attachment.
   #
   class Core::Models::UpdateDrgRouteTableDetails
     # Defined tags for this resource. Each key is predefined and scoped to a
@@ -18,8 +20,6 @@ module OCI
 
     # A user-friendly name. Does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
-    #
-    # You can't assign a table to a virtual circuit or IPSec connection attachment if there is a static route rule for an RPC attachment.
     #
     # @return [String]
     attr_accessor :display_name

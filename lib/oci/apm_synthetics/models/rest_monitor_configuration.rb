@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -67,6 +67,9 @@ module OCI
     # @return [Array<String>]
     attr_accessor :verify_response_codes
 
+    # @return [OCI::ApmSynthetics::Models::NetworkConfiguration]
+    attr_accessor :network_configuration
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -82,7 +85,8 @@ module OCI
         'request_query_params': :'requestQueryParams',
         'request_post_body': :'requestPostBody',
         'verify_response_content': :'verifyResponseContent',
-        'verify_response_codes': :'verifyResponseCodes'
+        'verify_response_codes': :'verifyResponseCodes',
+        'network_configuration': :'networkConfiguration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -102,7 +106,8 @@ module OCI
         'request_query_params': :'Array<OCI::ApmSynthetics::Models::RequestQueryParam>',
         'request_post_body': :'String',
         'verify_response_content': :'String',
-        'verify_response_codes': :'Array<String>'
+        'verify_response_codes': :'Array<String>',
+        'network_configuration': :'OCI::ApmSynthetics::Models::NetworkConfiguration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -124,6 +129,7 @@ module OCI
     # @option attributes [String] :request_post_body The value to assign to the {#request_post_body} property
     # @option attributes [String] :verify_response_content The value to assign to the {#verify_response_content} property
     # @option attributes [Array<String>] :verify_response_codes The value to assign to the {#verify_response_codes} property
+    # @option attributes [OCI::ApmSynthetics::Models::NetworkConfiguration] :network_configuration The value to assign to the {#network_configuration} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -201,6 +207,12 @@ module OCI
       raise 'You cannot provide both :verifyResponseCodes and :verify_response_codes' if attributes.key?(:'verifyResponseCodes') && attributes.key?(:'verify_response_codes')
 
       self.verify_response_codes = attributes[:'verify_response_codes'] if attributes[:'verify_response_codes']
+
+      self.network_configuration = attributes[:'networkConfiguration'] if attributes[:'networkConfiguration']
+
+      raise 'You cannot provide both :networkConfiguration and :network_configuration' if attributes.key?(:'networkConfiguration') && attributes.key?(:'network_configuration')
+
+      self.network_configuration = attributes[:'network_configuration'] if attributes[:'network_configuration']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -251,7 +263,8 @@ module OCI
         request_query_params == other.request_query_params &&
         request_post_body == other.request_post_body &&
         verify_response_content == other.verify_response_content &&
-        verify_response_codes == other.verify_response_codes
+        verify_response_codes == other.verify_response_codes &&
+        network_configuration == other.network_configuration
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -267,7 +280,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [config_type, is_failure_retried, is_redirection_enabled, is_certificate_validation_enabled, request_method, req_authentication_scheme, req_authentication_details, request_headers, request_query_params, request_post_body, verify_response_content, verify_response_codes].hash
+      [config_type, is_failure_retried, is_redirection_enabled, is_certificate_validation_enabled, request_method, req_authentication_scheme, req_authentication_details, request_headers, request_query_params, request_post_body, verify_response_content, verify_response_codes, network_configuration].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

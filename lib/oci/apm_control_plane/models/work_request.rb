@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of workrequest status
+  # A description of work request.
   class ApmControlPlane::Models::WorkRequest
     OPERATION_TYPE_ENUM = [
       OPERATION_TYPE_CREATE_APM_DOMAIN = 'CREATE_APM_DOMAIN'.freeze,
@@ -27,7 +27,7 @@ module OCI
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Type of the work request
+    # **[Required]** The type of the work request.
     # @return [String]
     attr_reader :operation_type
 
@@ -35,16 +35,16 @@ module OCI
     # @return [String]
     attr_reader :status
 
-    # **[Required]** The id of the work request.
+    # **[Required]** The ID of the work request.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The ocid of the compartment that contains the work request.
+    # **[Required]** The OCID of the compartment that contains the work request.
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The resources affected by this work request.
+    # **[Required]** The resources affected by the work request.
     # @return [Array<OCI::ApmControlPlane::Models::WorkRequestResource>]
     attr_accessor :resources
 

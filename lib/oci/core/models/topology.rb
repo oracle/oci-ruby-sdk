@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -10,7 +10,8 @@ module OCI
   class Core::Models::Topology
     TYPE_ENUM = [
       TYPE_NETWORKING = 'NETWORKING'.freeze,
-      TYPE_VCN = 'VCN'.freeze
+      TYPE_VCN = 'VCN'.freeze,
+      TYPE_SUBNET = 'SUBNET'.freeze
     ].freeze
 
     # **[Required]** Type of the topology object.
@@ -63,6 +64,7 @@ module OCI
 
       return 'OCI::Core::Models::VcnTopology' if type == 'VCN'
       return 'OCI::Core::Models::NetworkingTopology' if type == 'NETWORKING'
+      return 'OCI::Core::Models::SubnetTopology' if type == 'SUBNET'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::Core::Models::Topology'

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -16,6 +16,8 @@ require 'oci/blockchain/models/blockchain_platform'
 require 'oci/blockchain/models/blockchain_platform_by_hostname'
 require 'oci/blockchain/models/blockchain_platform_collection'
 require 'oci/blockchain/models/blockchain_platform_component_details'
+require 'oci/blockchain/models/blockchain_platform_patch_collection'
+require 'oci/blockchain/models/blockchain_platform_patch_summary'
 require 'oci/blockchain/models/blockchain_platform_summary'
 require 'oci/blockchain/models/change_blockchain_platform_compartment_details'
 require 'oci/blockchain/models/create_blockchain_platform_details'
@@ -40,6 +42,7 @@ require 'oci/blockchain/models/scaled_platform_metering_preview'
 require 'oci/blockchain/models/update_blockchain_platform_details'
 require 'oci/blockchain/models/update_osn_details'
 require 'oci/blockchain/models/update_peer_details'
+require 'oci/blockchain/models/upgrade_blockchain_platform_details'
 require 'oci/blockchain/models/work_request'
 require 'oci/blockchain/models/work_request_collection'
 require 'oci/blockchain/models/work_request_error'

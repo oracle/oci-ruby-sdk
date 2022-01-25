@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -7,6 +7,7 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Use the Data Catalog APIs to collect, organize, find, access, understand, enrich, and activate technical, business, and operational metadata.
+  # For more information, see [Data Catalog](https://docs.oracle.com/iaas/data-catalog/home.htm).
   class DataCatalog::DataCatalogClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -3476,7 +3477,7 @@ module OCI
     # @option opts [BOOLEAN] :is_include_object_relationships Indicates whether the list of objects and their relationships to this object will be provided in the response. (default to false)
     # @option opts [Array<String>] :fields Specifies the fields to return in an entity attribute response.
     #
-    #   Allowed values are: key, displayName, description, entityKey, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, externalDataType, externalKey, isIncrementalData, isNullable, length, position, precision, scale, timeExternal, uri, properties, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey
+    #   Allowed values are: key, displayName, description, entityKey, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, externalDataType, externalKey, isIncrementalData, isNullable, length, position, precision, scale, timeExternal, uri, properties, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey, typeKey
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::Attribute Attribute}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/get_attribute.rb.html) to see an example of how to use get_attribute API.
@@ -3489,11 +3490,11 @@ module OCI
       raise "Missing the required parameter 'attribute_key' when calling get_attribute." if attribute_key.nil?
 
 
-      fields_allowable_values = %w[key displayName description entityKey lifecycleState timeCreated timeUpdated createdById updatedById externalDataType externalKey isIncrementalData isNullable length position precision scale timeExternal uri properties path minCollectionCount maxCollectionCount datatypeEntityKey externalDatatypeEntityKey parentAttributeKey externalParentAttributeKey]
+      fields_allowable_values = %w[key displayName description entityKey lifecycleState timeCreated timeUpdated createdById updatedById externalDataType externalKey isIncrementalData isNullable length position precision scale timeExternal uri properties path minCollectionCount maxCollectionCount datatypeEntityKey externalDatatypeEntityKey parentAttributeKey externalParentAttributeKey typeKey]
       if opts[:fields] && !opts[:fields].empty?
         opts[:fields].each do |val_to_check|
           unless fields_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "fields", must be one of key, displayName, description, entityKey, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, externalDataType, externalKey, isIncrementalData, isNullable, length, position, precision, scale, timeExternal, uri, properties, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey.'
+            raise 'Invalid value for "fields", must be one of key, displayName, description, entityKey, lifecycleState, timeCreated, timeUpdated, createdById, updatedById, externalDataType, externalKey, isIncrementalData, isNullable, length, position, precision, scale, timeExternal, uri, properties, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey, typeKey.'
           end
         end
       end
@@ -5478,7 +5479,7 @@ module OCI
     #   Allowed values are: key, displayName, description, dataAssetKey, timeCreated, timeUpdated, createdById, updatedById, lifecycleState, externalKey, timeExternal, timeStatusUpdated, isLogical, isPartition, folderKey, folderName, typeKey, path, harvestStatus, lastJobKey, uri, properties
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
     #
@@ -5487,6 +5488,7 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [BOOLEAN] :is_include_properties Indicates whether the properties map will be provided in the response. (default to false)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::DataCatalog::Models::EntityCollection EntityCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datacatalog/list_aggregated_physical_entities.rb.html) to see an example of how to use list_aggregated_physical_entities API.
@@ -5530,6 +5532,7 @@ module OCI
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
+      query_params[:isIncludeProperties] = opts[:is_include_properties] if !opts[:is_include_properties].nil?
 
       # Header Params
       header_params = {}
@@ -5687,11 +5690,11 @@ module OCI
     # @option opts [String] :business_name A filter to return only resources that match the entire business name given. The match is not case sensitive.
     # @option opts [String] :display_or_business_name_contains A filter to return only resources that match display name or business name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayOrBusinessNameContains=Cu.*
-    #   The above would match all folders with display name or business name that starts with \"Cu\".
+    #   The above would match all folders with display name or business name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -5709,10 +5712,10 @@ module OCI
     # @option opts [Integer] :scale Scale of the attribute value usually applies to float data type.
     # @option opts [Array<String>] :fields Specifies the fields to return in an entity attribute summary response.
     #
-    #   Allowed values are: key, displayName, description, entityKey, lifecycleState, timeCreated, externalDataType, externalKey, length, precision, scale, isNullable, uri, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    #   Allowed values are: key, displayName, description, entityKey, lifecycleState, timeCreated, externalDataType, externalKey, length, precision, scale, isNullable, uri, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey, position, typeKey
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. Default order for POSITION is ascending. If no value is specified POSITION is default.
     #
-    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    #   Allowed values are: TIMECREATED, DISPLAYNAME, POSITION
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     #   Allowed values are: ASC, DESC
     # @option opts [Integer] :limit The maximum number of items to return.
@@ -5732,17 +5735,17 @@ module OCI
       end
 
 
-      fields_allowable_values = %w[key displayName description entityKey lifecycleState timeCreated externalDataType externalKey length precision scale isNullable uri path minCollectionCount maxCollectionCount datatypeEntityKey externalDatatypeEntityKey parentAttributeKey externalParentAttributeKey]
+      fields_allowable_values = %w[key displayName description entityKey lifecycleState timeCreated externalDataType externalKey length precision scale isNullable uri path minCollectionCount maxCollectionCount datatypeEntityKey externalDatatypeEntityKey parentAttributeKey externalParentAttributeKey position typeKey]
       if opts[:fields] && !opts[:fields].empty?
         opts[:fields].each do |val_to_check|
           unless fields_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "fields", must be one of key, displayName, description, entityKey, lifecycleState, timeCreated, externalDataType, externalKey, length, precision, scale, isNullable, uri, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey.'
+            raise 'Invalid value for "fields", must be one of key, displayName, description, entityKey, lifecycleState, timeCreated, externalDataType, externalKey, length, precision, scale, isNullable, uri, path, minCollectionCount, maxCollectionCount, datatypeEntityKey, externalDatatypeEntityKey, parentAttributeKey, externalParentAttributeKey, position, typeKey.'
           end
         end
       end
 
-      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME POSITION].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME, POSITION.'
       end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
@@ -5988,7 +5991,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -6105,13 +6108,13 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [Array<String>] :data_types Return the custom properties which has specified data types
     #
     #   Allowed values are: TEXT, RICH_TEXT, BOOLEAN, NUMBER, DATE
     # @option opts [Array<String>] :type_name A filter to return only resources that match the entire type name given. The match is not case sensitive
-    #   Allowed values are: DATA_ASSET, AUTONOMOUS_DATA_WAREHOUSE, HIVE, KAFKA, MYSQL, ORACLE_OBJECT_STORAGE, AUTONOMOUS_TRANSACTION_PROCESSING, ORACLE, POSTGRESQL, MICROSOFT_AZURE_SQL_DATABASE, MICROSOFT_SQL_SERVER, IBM_DB2, DATA_ENTITY, LOGICAL_ENTITY, TABLE, VIEW, ATTRIBUTE, FOLDER, ORACLE_ANALYTICS_SERVER, ORACLE_ANALYTICS_CLOUD, ORACLE_ANALYTICS_SUBJECT_AREA, ORACLE_ANALYTICS_DASHBOARD, ORACLE_ANALYTICS_BUSINESS_MODEL, ORACLE_ANALYTICS_PHYSICAL_DATABASE, ORACLE_ANALYTICS_PHYSICAL_SCHEMA, ORACLE_ANALYTICS_PRESENTATION_TABLE, ORACLE_ANALYTICS_LOGICAL_TABLE, ORACLE_ANALYTICS_PHYSICAL_TABLE, ORACLE_ANALYTICS_ANALYSIS, DATABASE_SCHEMA, TOPIC, CONNECTION, GLOSSARY, TERM, CATEGORY, FILE, BUCKET, MESSAGE, UNRECOGNIZED_FILE
+    #   Allowed values are: DATA_ASSET, AUTONOMOUS_DATA_WAREHOUSE, HIVE, KAFKA, MYSQL, ORACLE_OBJECT_STORAGE, AUTONOMOUS_TRANSACTION_PROCESSING, ORACLE, POSTGRESQL, MICROSOFT_AZURE_SQL_DATABASE, MICROSOFT_SQL_SERVER, IBM_DB2, DATA_ENTITY, LOGICAL_ENTITY, TABLE, VIEW, ATTRIBUTE, FOLDER, ORACLE_ANALYTICS_SUBJECT_AREA_COLUMN, ORACLE_ANALYTICS_LOGICAL_COLUMN, ORACLE_ANALYTICS_PHYSICAL_COLUMN, ORACLE_ANALYTICS_ANALYSIS_COLUMN, ORACLE_ANALYTICS_SERVER, ORACLE_ANALYTICS_CLOUD, ORACLE_ANALYTICS_SUBJECT_AREA, ORACLE_ANALYTICS_DASHBOARD, ORACLE_ANALYTICS_BUSINESS_MODEL, ORACLE_ANALYTICS_PHYSICAL_DATABASE, ORACLE_ANALYTICS_PHYSICAL_SCHEMA, ORACLE_ANALYTICS_PRESENTATION_TABLE, ORACLE_ANALYTICS_LOGICAL_TABLE, ORACLE_ANALYTICS_PHYSICAL_TABLE, ORACLE_ANALYTICS_ANALYSIS, DATABASE_SCHEMA, TOPIC, CONNECTION, GLOSSARY, TERM, CATEGORY, FILE, BUCKET, MESSAGE, UNRECOGNIZED_FILE
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
     # @option opts [DateTime] :time_updated Time that the resource was updated. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -6147,11 +6150,11 @@ module OCI
       end
 
 
-      type_name_allowable_values = %w[DATA_ASSET AUTONOMOUS_DATA_WAREHOUSE HIVE KAFKA MYSQL ORACLE_OBJECT_STORAGE AUTONOMOUS_TRANSACTION_PROCESSING ORACLE POSTGRESQL MICROSOFT_AZURE_SQL_DATABASE MICROSOFT_SQL_SERVER IBM_DB2 DATA_ENTITY LOGICAL_ENTITY TABLE VIEW ATTRIBUTE FOLDER ORACLE_ANALYTICS_SERVER ORACLE_ANALYTICS_CLOUD ORACLE_ANALYTICS_SUBJECT_AREA ORACLE_ANALYTICS_DASHBOARD ORACLE_ANALYTICS_BUSINESS_MODEL ORACLE_ANALYTICS_PHYSICAL_DATABASE ORACLE_ANALYTICS_PHYSICAL_SCHEMA ORACLE_ANALYTICS_PRESENTATION_TABLE ORACLE_ANALYTICS_LOGICAL_TABLE ORACLE_ANALYTICS_PHYSICAL_TABLE ORACLE_ANALYTICS_ANALYSIS DATABASE_SCHEMA TOPIC CONNECTION GLOSSARY TERM CATEGORY FILE BUCKET MESSAGE UNRECOGNIZED_FILE]
+      type_name_allowable_values = %w[DATA_ASSET AUTONOMOUS_DATA_WAREHOUSE HIVE KAFKA MYSQL ORACLE_OBJECT_STORAGE AUTONOMOUS_TRANSACTION_PROCESSING ORACLE POSTGRESQL MICROSOFT_AZURE_SQL_DATABASE MICROSOFT_SQL_SERVER IBM_DB2 DATA_ENTITY LOGICAL_ENTITY TABLE VIEW ATTRIBUTE FOLDER ORACLE_ANALYTICS_SUBJECT_AREA_COLUMN ORACLE_ANALYTICS_LOGICAL_COLUMN ORACLE_ANALYTICS_PHYSICAL_COLUMN ORACLE_ANALYTICS_ANALYSIS_COLUMN ORACLE_ANALYTICS_SERVER ORACLE_ANALYTICS_CLOUD ORACLE_ANALYTICS_SUBJECT_AREA ORACLE_ANALYTICS_DASHBOARD ORACLE_ANALYTICS_BUSINESS_MODEL ORACLE_ANALYTICS_PHYSICAL_DATABASE ORACLE_ANALYTICS_PHYSICAL_SCHEMA ORACLE_ANALYTICS_PRESENTATION_TABLE ORACLE_ANALYTICS_LOGICAL_TABLE ORACLE_ANALYTICS_PHYSICAL_TABLE ORACLE_ANALYTICS_ANALYSIS DATABASE_SCHEMA TOPIC CONNECTION GLOSSARY TERM CATEGORY FILE BUCKET MESSAGE UNRECOGNIZED_FILE]
       if opts[:type_name] && !opts[:type_name].empty?
         opts[:type_name].each do |val_to_check|
           unless type_name_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "type_name", must be one of DATA_ASSET, AUTONOMOUS_DATA_WAREHOUSE, HIVE, KAFKA, MYSQL, ORACLE_OBJECT_STORAGE, AUTONOMOUS_TRANSACTION_PROCESSING, ORACLE, POSTGRESQL, MICROSOFT_AZURE_SQL_DATABASE, MICROSOFT_SQL_SERVER, IBM_DB2, DATA_ENTITY, LOGICAL_ENTITY, TABLE, VIEW, ATTRIBUTE, FOLDER, ORACLE_ANALYTICS_SERVER, ORACLE_ANALYTICS_CLOUD, ORACLE_ANALYTICS_SUBJECT_AREA, ORACLE_ANALYTICS_DASHBOARD, ORACLE_ANALYTICS_BUSINESS_MODEL, ORACLE_ANALYTICS_PHYSICAL_DATABASE, ORACLE_ANALYTICS_PHYSICAL_SCHEMA, ORACLE_ANALYTICS_PRESENTATION_TABLE, ORACLE_ANALYTICS_LOGICAL_TABLE, ORACLE_ANALYTICS_PHYSICAL_TABLE, ORACLE_ANALYTICS_ANALYSIS, DATABASE_SCHEMA, TOPIC, CONNECTION, GLOSSARY, TERM, CATEGORY, FILE, BUCKET, MESSAGE, UNRECOGNIZED_FILE.'
+            raise 'Invalid value for "type_name", must be one of DATA_ASSET, AUTONOMOUS_DATA_WAREHOUSE, HIVE, KAFKA, MYSQL, ORACLE_OBJECT_STORAGE, AUTONOMOUS_TRANSACTION_PROCESSING, ORACLE, POSTGRESQL, MICROSOFT_AZURE_SQL_DATABASE, MICROSOFT_SQL_SERVER, IBM_DB2, DATA_ENTITY, LOGICAL_ENTITY, TABLE, VIEW, ATTRIBUTE, FOLDER, ORACLE_ANALYTICS_SUBJECT_AREA_COLUMN, ORACLE_ANALYTICS_LOGICAL_COLUMN, ORACLE_ANALYTICS_PHYSICAL_COLUMN, ORACLE_ANALYTICS_ANALYSIS_COLUMN, ORACLE_ANALYTICS_SERVER, ORACLE_ANALYTICS_CLOUD, ORACLE_ANALYTICS_SUBJECT_AREA, ORACLE_ANALYTICS_DASHBOARD, ORACLE_ANALYTICS_BUSINESS_MODEL, ORACLE_ANALYTICS_PHYSICAL_DATABASE, ORACLE_ANALYTICS_PHYSICAL_SCHEMA, ORACLE_ANALYTICS_PRESENTATION_TABLE, ORACLE_ANALYTICS_LOGICAL_TABLE, ORACLE_ANALYTICS_PHYSICAL_TABLE, ORACLE_ANALYTICS_ANALYSIS, DATABASE_SCHEMA, TOPIC, CONNECTION, GLOSSARY, TERM, CATEGORY, FILE, BUCKET, MESSAGE, UNRECOGNIZED_FILE.'
           end
         end
       end
@@ -6348,7 +6351,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -6460,7 +6463,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
     #
@@ -6558,12 +6561,12 @@ module OCI
     # @option opts [String] :business_name A filter to return only resources that match the entire business name given. The match is not case sensitive.
     # @option opts [String] :display_or_business_name_contains A filter to return only resources that match display name or business name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayOrBusinessNameContains=Cu.*
-    #   The above would match all folders with display name or business name that starts with \"Cu\".
+    #   The above would match all folders with display name or business name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :type_key The key of the object type.
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -6921,11 +6924,11 @@ module OCI
     # @option opts [String] :business_name A filter to return only resources that match the entire business name given. The match is not case sensitive.
     # @option opts [String] :display_or_business_name_contains A filter to return only resources that match display name or business name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayOrBusinessNameContains=Cu.*
-    #   The above would match all folders with display name or business name that starts with \"Cu\".
+    #   The above would match all folders with display name or business name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [String] :parent_folder_key Unique folder key.
@@ -7051,7 +7054,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -7159,7 +7162,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :job_execution_state Job execution state.
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
@@ -7534,7 +7537,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :category Category of this metric.
     # @option opts [String] :sub_category Sub category of this metric under the category. Used for aggregating values. May be null.
@@ -7654,7 +7657,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :lifecycle_state Job lifecycle state.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -7878,7 +7881,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -7986,7 +7989,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [DateTime] :time_created Time that the resource was created. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
@@ -8096,7 +8099,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :rule_type Rule type used to filter the response to a list rules call.
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
@@ -8222,7 +8225,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [Array<String>] :fields Specifies the fields to return in a term summary response.
@@ -8324,7 +8327,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [Array<String>] :fields Specifies the fields to return in a term relationship summary response.
@@ -8429,7 +8432,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
     # @option opts [String] :display_name_contains A filter to return only resources that match display name pattern given. The match is not case sensitive.
     #   For Example : /folders?displayNameContains=Cu.*
-    #   The above would match all folders with display name that starts with \"Cu\".
+    #   The above would match all folders with display name that starts with \"Cu\" or has the pattern \"Cu\" anywhere in between.
     #
     # @option opts [String] :lifecycle_state A filter to return only resources that match the specified lifecycle state. The value is case insensitive.
     # @option opts [String] :parent_term_key Unique key of the parent term.

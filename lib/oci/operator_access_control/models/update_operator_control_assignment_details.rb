@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -17,13 +17,33 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_assignment_to
 
-    # If true, then the target resource is always governed by the operator control. Otherwise governance is time-based as specified by timeAssignmentTo and timeAssignmentFrom.
+    # **[Required]** If true, then the target resource is always governed by the operator control. Otherwise governance is time-based as specified by timeAssignmentTo and timeAssignmentFrom.
     # @return [BOOLEAN]
     attr_accessor :is_enforced_always
 
     # Comment about the modification of the operator control assignment.
     # @return [String]
     attr_accessor :comment
+
+    # If set, then the audit logs will be forwarded to the relevant remote logging server
+    # @return [BOOLEAN]
+    attr_accessor :is_log_forwarded
+
+    # The address of the remote syslog server where the audit logs will be forwarded to. Address in host or IP format.
+    # @return [String]
+    attr_accessor :remote_syslog_server_address
+
+    # The listening port of the remote syslog server. The port range is 0 - 65535. Only TCP supported.
+    # @return [Integer]
+    attr_accessor :remote_syslog_server_port
+
+    # The CA certificate of the remote syslog server. Identity of the remote syslog server will be asserted based on this certificate.
+    # @return [String]
+    attr_accessor :remote_syslog_server_ca_cert
+
+    # The boolean if true would autoApprove during maintenance.
+    # @return [BOOLEAN]
+    attr_accessor :is_auto_approve_during_maintenance
 
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     #
@@ -43,6 +63,11 @@ module OCI
         'time_assignment_to': :'timeAssignmentTo',
         'is_enforced_always': :'isEnforcedAlways',
         'comment': :'comment',
+        'is_log_forwarded': :'isLogForwarded',
+        'remote_syslog_server_address': :'remoteSyslogServerAddress',
+        'remote_syslog_server_port': :'remoteSyslogServerPort',
+        'remote_syslog_server_ca_cert': :'remoteSyslogServerCACert',
+        'is_auto_approve_during_maintenance': :'isAutoApproveDuringMaintenance',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -57,6 +82,11 @@ module OCI
         'time_assignment_to': :'DateTime',
         'is_enforced_always': :'BOOLEAN',
         'comment': :'String',
+        'is_log_forwarded': :'BOOLEAN',
+        'remote_syslog_server_address': :'String',
+        'remote_syslog_server_port': :'Integer',
+        'remote_syslog_server_ca_cert': :'String',
+        'is_auto_approve_during_maintenance': :'BOOLEAN',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -73,6 +103,11 @@ module OCI
     # @option attributes [DateTime] :time_assignment_to The value to assign to the {#time_assignment_to} property
     # @option attributes [BOOLEAN] :is_enforced_always The value to assign to the {#is_enforced_always} property
     # @option attributes [String] :comment The value to assign to the {#comment} property
+    # @option attributes [BOOLEAN] :is_log_forwarded The value to assign to the {#is_log_forwarded} property
+    # @option attributes [String] :remote_syslog_server_address The value to assign to the {#remote_syslog_server_address} property
+    # @option attributes [Integer] :remote_syslog_server_port The value to assign to the {#remote_syslog_server_port} property
+    # @option attributes [String] :remote_syslog_server_ca_cert The value to assign to the {#remote_syslog_server_ca_cert} property
+    # @option attributes [BOOLEAN] :is_auto_approve_during_maintenance The value to assign to the {#is_auto_approve_during_maintenance} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -100,6 +135,36 @@ module OCI
       self.is_enforced_always = attributes[:'is_enforced_always'] unless attributes[:'is_enforced_always'].nil?
 
       self.comment = attributes[:'comment'] if attributes[:'comment']
+
+      self.is_log_forwarded = attributes[:'isLogForwarded'] unless attributes[:'isLogForwarded'].nil?
+
+      raise 'You cannot provide both :isLogForwarded and :is_log_forwarded' if attributes.key?(:'isLogForwarded') && attributes.key?(:'is_log_forwarded')
+
+      self.is_log_forwarded = attributes[:'is_log_forwarded'] unless attributes[:'is_log_forwarded'].nil?
+
+      self.remote_syslog_server_address = attributes[:'remoteSyslogServerAddress'] if attributes[:'remoteSyslogServerAddress']
+
+      raise 'You cannot provide both :remoteSyslogServerAddress and :remote_syslog_server_address' if attributes.key?(:'remoteSyslogServerAddress') && attributes.key?(:'remote_syslog_server_address')
+
+      self.remote_syslog_server_address = attributes[:'remote_syslog_server_address'] if attributes[:'remote_syslog_server_address']
+
+      self.remote_syslog_server_port = attributes[:'remoteSyslogServerPort'] if attributes[:'remoteSyslogServerPort']
+
+      raise 'You cannot provide both :remoteSyslogServerPort and :remote_syslog_server_port' if attributes.key?(:'remoteSyslogServerPort') && attributes.key?(:'remote_syslog_server_port')
+
+      self.remote_syslog_server_port = attributes[:'remote_syslog_server_port'] if attributes[:'remote_syslog_server_port']
+
+      self.remote_syslog_server_ca_cert = attributes[:'remoteSyslogServerCACert'] if attributes[:'remoteSyslogServerCACert']
+
+      raise 'You cannot provide both :remoteSyslogServerCACert and :remote_syslog_server_ca_cert' if attributes.key?(:'remoteSyslogServerCACert') && attributes.key?(:'remote_syslog_server_ca_cert')
+
+      self.remote_syslog_server_ca_cert = attributes[:'remote_syslog_server_ca_cert'] if attributes[:'remote_syslog_server_ca_cert']
+
+      self.is_auto_approve_during_maintenance = attributes[:'isAutoApproveDuringMaintenance'] unless attributes[:'isAutoApproveDuringMaintenance'].nil?
+
+      raise 'You cannot provide both :isAutoApproveDuringMaintenance and :is_auto_approve_during_maintenance' if attributes.key?(:'isAutoApproveDuringMaintenance') && attributes.key?(:'is_auto_approve_during_maintenance')
+
+      self.is_auto_approve_during_maintenance = attributes[:'is_auto_approve_during_maintenance'] unless attributes[:'is_auto_approve_during_maintenance'].nil?
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -129,6 +194,11 @@ module OCI
         time_assignment_to == other.time_assignment_to &&
         is_enforced_always == other.is_enforced_always &&
         comment == other.comment &&
+        is_log_forwarded == other.is_log_forwarded &&
+        remote_syslog_server_address == other.remote_syslog_server_address &&
+        remote_syslog_server_port == other.remote_syslog_server_port &&
+        remote_syslog_server_ca_cert == other.remote_syslog_server_ca_cert &&
+        is_auto_approve_during_maintenance == other.is_auto_approve_during_maintenance &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -146,7 +216,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [time_assignment_from, time_assignment_to, is_enforced_always, comment, freeform_tags, defined_tags].hash
+      [time_assignment_from, time_assignment_to, is_enforced_always, comment, is_log_forwarded, remote_syslog_server_address, remote_syslog_server_port, remote_syslog_server_ca_cert, is_auto_approve_during_maintenance, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

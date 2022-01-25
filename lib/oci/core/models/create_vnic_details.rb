@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -55,7 +55,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name for the VNIC. Does not have to be unique.
+    # A user-friendly name. Does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
     #
     # @return [String]
@@ -141,7 +141,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :skip_source_dest_check
 
-    # The OCID of the subnet to create the VNIC in. When launching an instance,
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subnet to create the VNIC in. When launching an instance,
     # use this `subnetId` instead of the deprecated `subnetId` in
     # {#launch_instance_details launch_instance_details}.
     # At least one of them is required; if you provide both, the values must match.
@@ -154,7 +154,7 @@ module OCI
     attr_accessor :subnet_id
 
     # Provide this attribute only if you are an Oracle Cloud VMware Solution
-    # customer and creating a secondary VNIC in a VLAN. The value is the OCID of the VLAN.
+    # customer and creating a secondary VNIC in a VLAN. The value is the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VLAN.
     # See {Vlan}.
     #
     # Provide a `vlanId` instead of a `subnetId`. If you provide both a

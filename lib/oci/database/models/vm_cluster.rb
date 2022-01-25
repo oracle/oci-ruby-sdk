@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -80,6 +80,10 @@ module OCI
     # @return [Integer]
     attr_accessor :cpus_enabled
 
+    # The number of enabled OCPU cores.
+    # @return [Float]
+    attr_accessor :ocpus_enabled
+
     # The memory allocated in GBs.
     # @return [Integer]
     attr_accessor :memory_size_in_gbs
@@ -91,6 +95,10 @@ module OCI
     # Size, in terabytes, of the DATA disk group.
     # @return [Float]
     attr_accessor :data_storage_size_in_tbs
+
+    # Size of the DATA disk group in GBs.
+    # @return [Float]
+    attr_accessor :data_storage_size_in_gbs
 
     # The shape of the Exadata infrastructure. The shape determines the amount of CPU, storage, and memory resources allocated to the instance.
     #
@@ -113,6 +121,10 @@ module OCI
     #
     # @return [String]
     attr_reader :license_model
+
+    # The list of Db server.
+    # @return [Array<String>]
+    attr_accessor :db_servers
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -145,14 +157,17 @@ module OCI
         'is_sparse_diskgroup_enabled': :'isSparseDiskgroupEnabled',
         'vm_cluster_network_id': :'vmClusterNetworkId',
         'cpus_enabled': :'cpusEnabled',
+        'ocpus_enabled': :'ocpusEnabled',
         'memory_size_in_gbs': :'memorySizeInGBs',
         'db_node_storage_size_in_gbs': :'dbNodeStorageSizeInGBs',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
+        'data_storage_size_in_gbs': :'dataStorageSizeInGBs',
         'shape': :'shape',
         'gi_version': :'giVersion',
         'system_version': :'systemVersion',
         'ssh_public_keys': :'sshPublicKeys',
         'license_model': :'licenseModel',
+        'db_servers': :'dbServers',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -176,14 +191,17 @@ module OCI
         'is_sparse_diskgroup_enabled': :'BOOLEAN',
         'vm_cluster_network_id': :'String',
         'cpus_enabled': :'Integer',
+        'ocpus_enabled': :'Float',
         'memory_size_in_gbs': :'Integer',
         'db_node_storage_size_in_gbs': :'Integer',
         'data_storage_size_in_tbs': :'Float',
+        'data_storage_size_in_gbs': :'Float',
         'shape': :'String',
         'gi_version': :'String',
         'system_version': :'String',
         'ssh_public_keys': :'Array<String>',
         'license_model': :'String',
+        'db_servers': :'Array<String>',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -209,14 +227,17 @@ module OCI
     # @option attributes [BOOLEAN] :is_sparse_diskgroup_enabled The value to assign to the {#is_sparse_diskgroup_enabled} property
     # @option attributes [String] :vm_cluster_network_id The value to assign to the {#vm_cluster_network_id} property
     # @option attributes [Integer] :cpus_enabled The value to assign to the {#cpus_enabled} property
+    # @option attributes [Float] :ocpus_enabled The value to assign to the {#ocpus_enabled} property
     # @option attributes [Integer] :memory_size_in_gbs The value to assign to the {#memory_size_in_gbs} property
     # @option attributes [Integer] :db_node_storage_size_in_gbs The value to assign to the {#db_node_storage_size_in_gbs} property
     # @option attributes [Float] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
+    # @option attributes [Float] :data_storage_size_in_gbs The value to assign to the {#data_storage_size_in_gbs} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [String] :gi_version The value to assign to the {#gi_version} property
     # @option attributes [String] :system_version The value to assign to the {#system_version} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
+    # @option attributes [Array<String>] :db_servers The value to assign to the {#db_servers} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -296,6 +317,12 @@ module OCI
 
       self.cpus_enabled = attributes[:'cpus_enabled'] if attributes[:'cpus_enabled']
 
+      self.ocpus_enabled = attributes[:'ocpusEnabled'] if attributes[:'ocpusEnabled']
+
+      raise 'You cannot provide both :ocpusEnabled and :ocpus_enabled' if attributes.key?(:'ocpusEnabled') && attributes.key?(:'ocpus_enabled')
+
+      self.ocpus_enabled = attributes[:'ocpus_enabled'] if attributes[:'ocpus_enabled']
+
       self.memory_size_in_gbs = attributes[:'memorySizeInGBs'] if attributes[:'memorySizeInGBs']
 
       raise 'You cannot provide both :memorySizeInGBs and :memory_size_in_gbs' if attributes.key?(:'memorySizeInGBs') && attributes.key?(:'memory_size_in_gbs')
@@ -313,6 +340,12 @@ module OCI
       raise 'You cannot provide both :dataStorageSizeInTBs and :data_storage_size_in_tbs' if attributes.key?(:'dataStorageSizeInTBs') && attributes.key?(:'data_storage_size_in_tbs')
 
       self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
+
+      self.data_storage_size_in_gbs = attributes[:'dataStorageSizeInGBs'] if attributes[:'dataStorageSizeInGBs']
+
+      raise 'You cannot provide both :dataStorageSizeInGBs and :data_storage_size_in_gbs' if attributes.key?(:'dataStorageSizeInGBs') && attributes.key?(:'data_storage_size_in_gbs')
+
+      self.data_storage_size_in_gbs = attributes[:'data_storage_size_in_gbs'] if attributes[:'data_storage_size_in_gbs']
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
 
@@ -339,6 +372,12 @@ module OCI
       raise 'You cannot provide both :licenseModel and :license_model' if attributes.key?(:'licenseModel') && attributes.key?(:'license_model')
 
       self.license_model = attributes[:'license_model'] if attributes[:'license_model']
+
+      self.db_servers = attributes[:'dbServers'] if attributes[:'dbServers']
+
+      raise 'You cannot provide both :dbServers and :db_servers' if attributes.key?(:'dbServers') && attributes.key?(:'db_servers')
+
+      self.db_servers = attributes[:'db_servers'] if attributes[:'db_servers']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -403,14 +442,17 @@ module OCI
         is_sparse_diskgroup_enabled == other.is_sparse_diskgroup_enabled &&
         vm_cluster_network_id == other.vm_cluster_network_id &&
         cpus_enabled == other.cpus_enabled &&
+        ocpus_enabled == other.ocpus_enabled &&
         memory_size_in_gbs == other.memory_size_in_gbs &&
         db_node_storage_size_in_gbs == other.db_node_storage_size_in_gbs &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
+        data_storage_size_in_gbs == other.data_storage_size_in_gbs &&
         shape == other.shape &&
         gi_version == other.gi_version &&
         system_version == other.system_version &&
         ssh_public_keys == other.ssh_public_keys &&
         license_model == other.license_model &&
+        db_servers == other.db_servers &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -428,7 +470,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, last_patch_history_entry_id, lifecycle_state, display_name, time_created, lifecycle_details, time_zone, is_local_backup_enabled, exadata_infrastructure_id, is_sparse_diskgroup_enabled, vm_cluster_network_id, cpus_enabled, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, shape, gi_version, system_version, ssh_public_keys, license_model, freeform_tags, defined_tags].hash
+      [id, compartment_id, last_patch_history_entry_id, lifecycle_state, display_name, time_created, lifecycle_details, time_zone, is_local_backup_enabled, exadata_infrastructure_id, is_sparse_diskgroup_enabled, vm_cluster_network_id, cpus_enabled, ocpus_enabled, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, data_storage_size_in_gbs, shape, gi_version, system_version, ssh_public_keys, license_model, db_servers, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

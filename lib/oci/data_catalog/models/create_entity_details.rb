@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -23,6 +23,10 @@ module OCI
     # Optional user friendly business name of the data entity. If set, this supplements the harvested display name of the object.
     # @return [String]
     attr_accessor :business_name
+
+    # The type of data entity object. Type key's can be found via the '/types' endpoint.
+    # @return [String]
+    attr_accessor :type_key
 
     # Detailed description of a data entity.
     # @return [String]
@@ -86,6 +90,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
         'business_name': :'businessName',
+        'type_key': :'typeKey',
         'description': :'description',
         'time_external': :'timeExternal',
         'is_logical': :'isLogical',
@@ -107,6 +112,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
         'business_name': :'String',
+        'type_key': :'String',
         'description': :'String',
         'time_external': :'DateTime',
         'is_logical': :'BOOLEAN',
@@ -130,6 +136,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :business_name The value to assign to the {#business_name} property
+    # @option attributes [String] :type_key The value to assign to the {#type_key} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [DateTime] :time_external The value to assign to the {#time_external} property
     # @option attributes [BOOLEAN] :is_logical The value to assign to the {#is_logical} property
@@ -158,6 +165,12 @@ module OCI
       raise 'You cannot provide both :businessName and :business_name' if attributes.key?(:'businessName') && attributes.key?(:'business_name')
 
       self.business_name = attributes[:'business_name'] if attributes[:'business_name']
+
+      self.type_key = attributes[:'typeKey'] if attributes[:'typeKey']
+
+      raise 'You cannot provide both :typeKey and :type_key' if attributes.key?(:'typeKey') && attributes.key?(:'type_key')
+
+      self.type_key = attributes[:'type_key'] if attributes[:'type_key']
 
       self.description = attributes[:'description'] if attributes[:'description']
 
@@ -243,6 +256,7 @@ module OCI
       self.class == other.class &&
         display_name == other.display_name &&
         business_name == other.business_name &&
+        type_key == other.type_key &&
         description == other.description &&
         time_external == other.time_external &&
         is_logical == other.is_logical &&
@@ -269,7 +283,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, business_name, description, time_external, is_logical, is_partition, folder_key, pattern_key, realized_expression, harvest_status, last_job_key, custom_property_members, properties].hash
+      [display_name, business_name, type_key, description, time_external, is_logical, is_partition, folder_key, pattern_key, realized_expression, harvest_status, last_job_key, custom_property_members, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

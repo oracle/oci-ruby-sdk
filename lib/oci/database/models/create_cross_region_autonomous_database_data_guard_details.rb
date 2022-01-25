@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,6 +7,43 @@ require_relative 'create_autonomous_database_base'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Details to create an Autonomous Data Guard association for an existing Autonomous Database where the standby is in a different (remote) region from the source primary database.
+  # The following parameters are required for the cross-region standby database and must contain the same values as the source Autonomous Database:
+  #   - dbName
+  #   - cpuCoreCount
+  #   - dataStorageSizeInTB
+  #   - dbVersion
+  # The following parameters are optional for the cross-region standby database. If included in the request, these parameters contain the same values as the source Autonomous Database:
+  #   - customerContacts
+  #   - scheduledOperations
+  #   - isAutoScalingForStorageEnabled
+  #   - definedTags
+  #   - freeformTags
+  #   - licenseModel
+  #   - whitelistedIps
+  #   - isMtlsConnectionRequired
+  # Example I - Creating a cross-region standby with required parameters only:
+  #     {
+  #       \"compartmentId\": \"ocid.compartment.oc1..<var>&lt;unique_ID&gt;</var>\",
+  #       \"cpuCoreCount\": 1,
+  #       \"dbName\": \"adatabasedb1\",
+  #       \"sourceId\": \"ocid1.autonomousdatabase.oc1.phx..<var>&lt;unique_ID&gt;</var>\",
+  #       \"dataStorageSizeInTBs\": 1,
+  #       \"source\": \"CROSS_REGION_DATAGUARD\",
+  #       \"adminPassword\" : \"<var>&lt;password&gt;</var>\",
+  #     }
+  #  Example II - Creating a cross-region standby that specifies optional parameters in addition to the required parameters:
+  #     {
+  #       \"compartmentId\": \"ocid.compartment.oc1..<var>&lt;unique_ID&gt;</var>\",
+  #       \"cpuCoreCount\": 1,
+  #       \"dbName\": \"adatabasedb1\",
+  #       \"sourceId\": \"ocid1.autonomousdatabase.oc1.phx..<var>&lt;unique_ID&gt;</var>\",
+  #       \"dataStorageSizeInTBs\": 1,
+  #       \"source\": \"CROSS_REGION_DATAGUARD\",
+  #   \"adminPassword\" : \"<var>&lt;password&gt;</var>\",
+  #       \"dbVersion\": \"19c\",
+  #       \"licenseModel\": \"LICENSE_INCLUDED\",
+  #       \"isAutoScalingForStorageEnabled\": \"true\"
+  #     }
   #
   class Database::Models::CreateCrossRegionAutonomousDatabaseDataGuardDetails < Database::Models::CreateAutonomousDatabaseBase
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the source Autonomous Database that will be used to create a new standby database for the Data Guard association.
@@ -47,7 +84,9 @@ module OCI
         'db_version': :'dbVersion',
         'source': :'source',
         'customer_contacts': :'customerContacts',
+        'is_mtls_connection_required': :'isMtlsConnectionRequired',
         'autonomous_maintenance_schedule_type': :'autonomousMaintenanceScheduleType',
+        'scheduled_operations': :'scheduledOperations',
         'source_id': :'sourceId'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -87,7 +126,9 @@ module OCI
         'db_version': :'String',
         'source': :'String',
         'customer_contacts': :'Array<OCI::Database::Models::CustomerContact>',
+        'is_mtls_connection_required': :'BOOLEAN',
         'autonomous_maintenance_schedule_type': :'String',
+        'scheduled_operations': :'Array<OCI::Database::Models::ScheduledOperationDetails>',
         'source_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -128,7 +169,9 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#defined_tags #defined_tags} proprety
     # @option attributes [String] :db_version The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#db_version #db_version} proprety
     # @option attributes [Array<OCI::Database::Models::CustomerContact>] :customer_contacts The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#customer_contacts #customer_contacts} proprety
+    # @option attributes [BOOLEAN] :is_mtls_connection_required The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_mtls_connection_required #is_mtls_connection_required} proprety
     # @option attributes [String] :autonomous_maintenance_schedule_type The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#autonomous_maintenance_schedule_type #autonomous_maintenance_schedule_type} proprety
+    # @option attributes [Array<OCI::Database::Models::ScheduledOperationDetails>] :scheduled_operations The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#scheduled_operations #scheduled_operations} proprety
     # @option attributes [String] :source_id The value to assign to the {#source_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -188,7 +231,9 @@ module OCI
         db_version == other.db_version &&
         source == other.source &&
         customer_contacts == other.customer_contacts &&
+        is_mtls_connection_required == other.is_mtls_connection_required &&
         autonomous_maintenance_schedule_type == other.autonomous_maintenance_schedule_type &&
+        scheduled_operations == other.scheduled_operations &&
         source_id == other.source_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -205,7 +250,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, ocpu_count, db_workload, data_storage_size_in_tbs, data_storage_size_in_gbs, is_free_tier, kms_key_id, vault_id, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, customer_contacts, autonomous_maintenance_schedule_type, source_id].hash
+      [compartment_id, db_name, cpu_core_count, ocpu_count, db_workload, data_storage_size_in_tbs, data_storage_size_in_gbs, is_free_tier, kms_key_id, vault_id, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, customer_contacts, is_mtls_connection_required, autonomous_maintenance_schedule_type, scheduled_operations, source_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

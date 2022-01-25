@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -14,6 +14,7 @@ module OCI
       NAME_COMMAND = 'COMMAND'.freeze,
       NAME_SEARCH = 'SEARCH'.freeze,
       NAME_STATS = 'STATS'.freeze,
+      NAME_GEO_STATS = 'GEO_STATS'.freeze,
       NAME_TIME_STATS = 'TIME_STATS'.freeze,
       NAME_SORT = 'SORT'.freeze,
       NAME_FIELDS = 'FIELDS'.freeze,
@@ -25,6 +26,8 @@ module OCI
       NAME_CLUSTER_SPLIT = 'CLUSTER_SPLIT'.freeze,
       NAME_EVAL = 'EVAL'.freeze,
       NAME_EXTRACT = 'EXTRACT'.freeze,
+      NAME_JSON_EXTRACT = 'JSON_EXTRACT'.freeze,
+      NAME_XML_EXTRACT = 'XML_EXTRACT'.freeze,
       NAME_EVENT_STATS = 'EVENT_STATS'.freeze,
       NAME_BUCKET = 'BUCKET'.freeze,
       NAME_CLASSIFY = 'CLASSIFY'.freeze,
@@ -134,6 +137,8 @@ module OCI
       return 'OCI::LogAnalytics::Models::LookupCommandDescriptor' if type == 'LOOKUP'
       return 'OCI::LogAnalytics::Models::DemoModeCommandDescriptor' if type == 'DEMO_MODE'
       return 'OCI::LogAnalytics::Models::FieldSummaryCommandDescriptor' if type == 'FIELD_SUMMARY'
+      return 'OCI::LogAnalytics::Models::GeoStatsCommandDescriptor' if type == 'GEO_STATS'
+      return 'OCI::LogAnalytics::Models::JsonExtractCommandDescriptor' if type == 'JSON_EXTRACT'
       return 'OCI::LogAnalytics::Models::MapCommandDescriptor' if type == 'MAP'
       return 'OCI::LogAnalytics::Models::EventStatsCommandDescriptor' if type == 'EVENT_STATS'
       return 'OCI::LogAnalytics::Models::HighlightGroupsCommandDescriptor' if type == 'HIGHLIGHT_GROUPS'
@@ -164,6 +169,7 @@ module OCI
       return 'OCI::LogAnalytics::Models::AddFieldsCommandDescriptor' if type == 'ADD_FIELDS'
       return 'OCI::LogAnalytics::Models::EvalCommandDescriptor' if type == 'EVAL'
       return 'OCI::LogAnalytics::Models::RenameCommandDescriptor' if type == 'RENAME'
+      return 'OCI::LogAnalytics::Models::XmlExtractCommandDescriptor' if type == 'XML_EXTRACT'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::LogAnalytics::Models::AbstractCommandDescriptor'

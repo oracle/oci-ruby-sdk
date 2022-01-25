@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -12,10 +12,13 @@ module OCI
     NAME_ENUM = [
       NAME_ODMS_VALIDATE_TGT = 'ODMS_VALIDATE_TGT'.freeze,
       NAME_ODMS_VALIDATE_SRC = 'ODMS_VALIDATE_SRC'.freeze,
+      NAME_ODMS_VALIDATE_PREMIGRATION_ADVISOR = 'ODMS_VALIDATE_PREMIGRATION_ADVISOR'.freeze,
       NAME_ODMS_VALIDATE_GG_HUB = 'ODMS_VALIDATE_GG_HUB'.freeze,
       NAME_ODMS_VALIDATE_DATAPUMP_SETTINGS = 'ODMS_VALIDATE_DATAPUMP_SETTINGS'.freeze,
       NAME_ODMS_VALIDATE_DATAPUMP_SETTINGS_SRC = 'ODMS_VALIDATE_DATAPUMP_SETTINGS_SRC'.freeze,
       NAME_ODMS_VALIDATE_DATAPUMP_SETTINGS_TGT = 'ODMS_VALIDATE_DATAPUMP_SETTINGS_TGT'.freeze,
+      NAME_ODMS_VALIDATE_DATAPUMP_SRC = 'ODMS_VALIDATE_DATAPUMP_SRC'.freeze,
+      NAME_ODMS_VALIDATE_DATAPUMP_ESTIMATE_SRC = 'ODMS_VALIDATE_DATAPUMP_ESTIMATE_SRC'.freeze,
       NAME_ODMS_VALIDATE = 'ODMS_VALIDATE'.freeze,
       NAME_ODMS_PREPARE = 'ODMS_PREPARE'.freeze,
       NAME_ODMS_INITIAL_LOAD_EXPORT = 'ODMS_INITIAL_LOAD_EXPORT'.freeze,
@@ -52,6 +55,19 @@ module OCI
     # @return [Integer]
     attr_accessor :duration_in_ms
 
+    # True if a Pre-Migration Advisor report is available for this phase. False or null if no report is available.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_advisor_report_available
+
+    # Summary of phase status results.
+    #
+    # @return [Array<OCI::DatabaseMigration::Models::PhaseExtractEntry>]
+    attr_accessor :extract
+
+    # @return [OCI::DatabaseMigration::Models::LogLocationBucketDetails]
+    attr_accessor :log_location
+
     # Percent progress of job phase.
     #
     # @return [Integer]
@@ -64,6 +80,9 @@ module OCI
         'name': :'name',
         'status': :'status',
         'duration_in_ms': :'durationInMs',
+        'is_advisor_report_available': :'isAdvisorReportAvailable',
+        'extract': :'extract',
+        'log_location': :'logLocation',
         'progress': :'progress'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -76,6 +95,9 @@ module OCI
         'name': :'String',
         'status': :'String',
         'duration_in_ms': :'Integer',
+        'is_advisor_report_available': :'BOOLEAN',
+        'extract': :'Array<OCI::DatabaseMigration::Models::PhaseExtractEntry>',
+        'log_location': :'OCI::DatabaseMigration::Models::LogLocationBucketDetails',
         'progress': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -90,6 +112,9 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :status The value to assign to the {#status} property
     # @option attributes [Integer] :duration_in_ms The value to assign to the {#duration_in_ms} property
+    # @option attributes [BOOLEAN] :is_advisor_report_available The value to assign to the {#is_advisor_report_available} property
+    # @option attributes [Array<OCI::DatabaseMigration::Models::PhaseExtractEntry>] :extract The value to assign to the {#extract} property
+    # @option attributes [OCI::DatabaseMigration::Models::LogLocationBucketDetails] :log_location The value to assign to the {#log_location} property
     # @option attributes [Integer] :progress The value to assign to the {#progress} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -106,6 +131,20 @@ module OCI
       raise 'You cannot provide both :durationInMs and :duration_in_ms' if attributes.key?(:'durationInMs') && attributes.key?(:'duration_in_ms')
 
       self.duration_in_ms = attributes[:'duration_in_ms'] if attributes[:'duration_in_ms']
+
+      self.is_advisor_report_available = attributes[:'isAdvisorReportAvailable'] unless attributes[:'isAdvisorReportAvailable'].nil?
+
+      raise 'You cannot provide both :isAdvisorReportAvailable and :is_advisor_report_available' if attributes.key?(:'isAdvisorReportAvailable') && attributes.key?(:'is_advisor_report_available')
+
+      self.is_advisor_report_available = attributes[:'is_advisor_report_available'] unless attributes[:'is_advisor_report_available'].nil?
+
+      self.extract = attributes[:'extract'] if attributes[:'extract']
+
+      self.log_location = attributes[:'logLocation'] if attributes[:'logLocation']
+
+      raise 'You cannot provide both :logLocation and :log_location' if attributes.key?(:'logLocation') && attributes.key?(:'log_location')
+
+      self.log_location = attributes[:'log_location'] if attributes[:'log_location']
 
       self.progress = attributes[:'progress'] if attributes[:'progress']
     end
@@ -150,6 +189,9 @@ module OCI
         name == other.name &&
         status == other.status &&
         duration_in_ms == other.duration_in_ms &&
+        is_advisor_report_available == other.is_advisor_report_available &&
+        extract == other.extract &&
+        log_location == other.log_location &&
         progress == other.progress
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -166,7 +208,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, status, duration_in_ms, progress].hash
+      [name, status, duration_in_ms, is_advisor_report_available, extract, log_location, progress].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

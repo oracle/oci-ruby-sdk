@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -11,6 +11,11 @@ module OCI
     # **[Required]** The id of the Autonomous Database [Vault](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm#concepts) service key management history entry.
     # @return [String]
     attr_accessor :id
+
+    # The OCID of the key container version that is used in database transparent data encryption (TDE) operations KMS Key can have multiple key versions. If none is specified, the current key version (latest) of the Key Id is used for the operation.
+    #
+    # @return [String]
+    attr_accessor :kms_key_version_id
 
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Oracle Cloud Infrastructure [vault](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm#concepts).
     # @return [String]
@@ -25,6 +30,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'id': :'id',
+        'kms_key_version_id': :'kmsKeyVersionId',
         'vault_id': :'vaultId',
         'time_activated': :'timeActivated'
         # rubocop:enable Style/SymbolLiteral
@@ -36,6 +42,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'id': :'String',
+        'kms_key_version_id': :'String',
         'vault_id': :'String',
         'time_activated': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
@@ -49,6 +56,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :kms_key_version_id The value to assign to the {#kms_key_version_id} property
     # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
     # @option attributes [DateTime] :time_activated The value to assign to the {#time_activated} property
     def initialize(attributes = {})
@@ -58,6 +66,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.id = attributes[:'id'] if attributes[:'id']
+
+      self.kms_key_version_id = attributes[:'kmsKeyVersionId'] if attributes[:'kmsKeyVersionId']
+
+      raise 'You cannot provide both :kmsKeyVersionId and :kms_key_version_id' if attributes.key?(:'kmsKeyVersionId') && attributes.key?(:'kms_key_version_id')
+
+      self.kms_key_version_id = attributes[:'kms_key_version_id'] if attributes[:'kms_key_version_id']
 
       self.vault_id = attributes[:'vaultId'] if attributes[:'vaultId']
 
@@ -84,6 +98,7 @@ module OCI
 
       self.class == other.class &&
         id == other.id &&
+        kms_key_version_id == other.kms_key_version_id &&
         vault_id == other.vault_id &&
         time_activated == other.time_activated
     end
@@ -101,7 +116,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, vault_id, time_activated].hash
+      [id, kms_key_version_id, vault_id, time_activated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -9,11 +9,15 @@ module OCI
   # Job details that are specific to plan operations.
   #
   class ResourceManager::Models::PlanJobOperationDetails < ResourceManager::Models::JobOperationDetails
+    # @return [OCI::ResourceManager::Models::TerraformAdvancedOptions]
+    attr_accessor :terraform_advanced_options
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'operation': :'operation'
+        'operation': :'operation',
+        'terraform_advanced_options': :'terraformAdvancedOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -22,7 +26,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'operation': :'String'
+        'operation': :'String',
+        'terraform_advanced_options': :'OCI::ResourceManager::Models::TerraformAdvancedOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -33,12 +38,22 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [OCI::ResourceManager::Models::TerraformAdvancedOptions] :terraform_advanced_options The value to assign to the {#terraform_advanced_options} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       attributes['operation'] = 'PLAN'
 
       super(attributes)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.terraform_advanced_options = attributes[:'terraformAdvancedOptions'] if attributes[:'terraformAdvancedOptions']
+
+      raise 'You cannot provide both :terraformAdvancedOptions and :terraform_advanced_options' if attributes.key?(:'terraformAdvancedOptions') && attributes.key?(:'terraform_advanced_options')
+
+      self.terraform_advanced_options = attributes[:'terraform_advanced_options'] if attributes[:'terraform_advanced_options']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -52,7 +67,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        operation == other.operation
+        operation == other.operation &&
+        terraform_advanced_options == other.terraform_advanced_options
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -68,7 +84,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [operation].hash
+      [operation, terraform_advanced_options].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

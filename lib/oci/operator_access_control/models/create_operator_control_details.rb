@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -12,6 +12,12 @@ module OCI
   # You must name your Operator Control appropriately so it reflects the resources that will be governed by the Operator Control. Neither the Operator Controls nor their assignments to resources are visible to the Oracle operators.
   #
   class OperatorAccessControl::Models::CreateOperatorControlDetails
+    RESOURCE_TYPE_ENUM = [
+      RESOURCE_TYPE_EXACC = 'EXACC'.freeze,
+      RESOURCE_TYPE_EXADATAINFRASTRUCTURE = 'EXADATAINFRASTRUCTURE'.freeze,
+      RESOURCE_TYPE_AUTONOMOUSVMCLUSTER = 'AUTONOMOUSVMCLUSTER'.freeze
+    ].freeze
+
     # **[Required]** Name of the operator control.
     # @return [String]
     attr_accessor :operator_control_name
@@ -24,7 +30,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :approvers_list
 
-    # List of user groups who can approve an access request associated with a resource governed by this operator control.
+    # **[Required]** List of user groups who can approve an access request associated with a resource governed by this operator control.
     # @return [Array<String>]
     attr_accessor :approver_groups_list
 
@@ -34,11 +40,15 @@ module OCI
     # @return [Array<String>]
     attr_accessor :pre_approved_op_action_list
 
-    # Whether all the operator actions have been pre-approved. If yes, all access requests associated with a resource governed by this operator control
+    # **[Required]** Whether all the operator actions have been pre-approved. If yes, all access requests associated with a resource governed by this operator control
     # will be auto-approved.
     #
     # @return [BOOLEAN]
     attr_accessor :is_fully_pre_approved
+
+    # **[Required]** resourceType for which the OperatorControl is applicable
+    # @return [String]
+    attr_reader :resource_type
 
     # List of emailId.
     #
@@ -73,6 +83,7 @@ module OCI
         'approver_groups_list': :'approverGroupsList',
         'pre_approved_op_action_list': :'preApprovedOpActionList',
         'is_fully_pre_approved': :'isFullyPreApproved',
+        'resource_type': :'resourceType',
         'email_id_list': :'emailIdList',
         'system_message': :'systemMessage',
         'compartment_id': :'compartmentId',
@@ -92,6 +103,7 @@ module OCI
         'approver_groups_list': :'Array<String>',
         'pre_approved_op_action_list': :'Array<String>',
         'is_fully_pre_approved': :'BOOLEAN',
+        'resource_type': :'String',
         'email_id_list': :'Array<String>',
         'system_message': :'String',
         'compartment_id': :'String',
@@ -113,6 +125,7 @@ module OCI
     # @option attributes [Array<String>] :approver_groups_list The value to assign to the {#approver_groups_list} property
     # @option attributes [Array<String>] :pre_approved_op_action_list The value to assign to the {#pre_approved_op_action_list} property
     # @option attributes [BOOLEAN] :is_fully_pre_approved The value to assign to the {#is_fully_pre_approved} property
+    # @option attributes [String] :resource_type The value to assign to the {#resource_type} property
     # @option attributes [Array<String>] :email_id_list The value to assign to the {#email_id_list} property
     # @option attributes [String] :system_message The value to assign to the {#system_message} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
@@ -156,6 +169,12 @@ module OCI
 
       self.is_fully_pre_approved = attributes[:'is_fully_pre_approved'] unless attributes[:'is_fully_pre_approved'].nil?
 
+      self.resource_type = attributes[:'resourceType'] if attributes[:'resourceType']
+
+      raise 'You cannot provide both :resourceType and :resource_type' if attributes.key?(:'resourceType') && attributes.key?(:'resource_type')
+
+      self.resource_type = attributes[:'resource_type'] if attributes[:'resource_type']
+
       self.email_id_list = attributes[:'emailIdList'] if attributes[:'emailIdList']
 
       raise 'You cannot provide both :emailIdList and :email_id_list' if attributes.key?(:'emailIdList') && attributes.key?(:'email_id_list')
@@ -189,6 +208,14 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] resource_type Object to be assigned
+    def resource_type=(resource_type)
+      raise "Invalid value for 'resource_type': this must be one of the values in RESOURCE_TYPE_ENUM." if resource_type && !RESOURCE_TYPE_ENUM.include?(resource_type)
+
+      @resource_type = resource_type
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -204,6 +231,7 @@ module OCI
         approver_groups_list == other.approver_groups_list &&
         pre_approved_op_action_list == other.pre_approved_op_action_list &&
         is_fully_pre_approved == other.is_fully_pre_approved &&
+        resource_type == other.resource_type &&
         email_id_list == other.email_id_list &&
         system_message == other.system_message &&
         compartment_id == other.compartment_id &&
@@ -224,7 +252,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [operator_control_name, description, approvers_list, approver_groups_list, pre_approved_op_action_list, is_fully_pre_approved, email_id_list, system_message, compartment_id, freeform_tags, defined_tags].hash
+      [operator_control_name, description, approvers_list, approver_groups_list, pre_approved_op_action_list, is_fully_pre_approved, resource_type, email_id_list, system_message, compartment_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

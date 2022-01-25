@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,6 +8,10 @@ require_relative 'data_asset'
 module OCI
   # Details for the Oracle Object storage data asset type.
   class DataIntegration::Models::DataAssetFromObjectStorageDetails < DataIntegration::Models::DataAsset
+    # The Oracle Object storage Region ie. us-ashburn-1
+    # @return [String]
+    attr_accessor :oci_region
+
     # The Oracle Object storage URL.
     # @return [String]
     attr_accessor :url
@@ -41,6 +45,7 @@ module OCI
         'parent_ref': :'parentRef',
         'metadata': :'metadata',
         'key_map': :'keyMap',
+        'oci_region': :'ociRegion',
         'url': :'url',
         'tenancy_id': :'tenancyId',
         'namespace': :'namespace',
@@ -67,6 +72,7 @@ module OCI
         'parent_ref': :'OCI::DataIntegration::Models::ParentReference',
         'metadata': :'OCI::DataIntegration::Models::ObjectMetadata',
         'key_map': :'Hash<String, String>',
+        'oci_region': :'String',
         'url': :'String',
         'tenancy_id': :'String',
         'namespace': :'String',
@@ -94,6 +100,7 @@ module OCI
     # @option attributes [OCI::DataIntegration::Models::ParentReference] :parent_ref The value to assign to the {OCI::DataIntegration::Models::DataAsset#parent_ref #parent_ref} proprety
     # @option attributes [OCI::DataIntegration::Models::ObjectMetadata] :metadata The value to assign to the {OCI::DataIntegration::Models::DataAsset#metadata #metadata} proprety
     # @option attributes [Hash<String, String>] :key_map The value to assign to the {OCI::DataIntegration::Models::DataAsset#key_map #key_map} proprety
+    # @option attributes [String] :oci_region The value to assign to the {#oci_region} property
     # @option attributes [String] :url The value to assign to the {#url} property
     # @option attributes [String] :tenancy_id The value to assign to the {#tenancy_id} property
     # @option attributes [String] :namespace The value to assign to the {#namespace} property
@@ -107,6 +114,12 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.oci_region = attributes[:'ociRegion'] if attributes[:'ociRegion']
+
+      raise 'You cannot provide both :ociRegion and :oci_region' if attributes.key?(:'ociRegion') && attributes.key?(:'oci_region')
+
+      self.oci_region = attributes[:'oci_region'] if attributes[:'oci_region']
 
       self.url = attributes[:'url'] if attributes[:'url']
 
@@ -150,6 +163,7 @@ module OCI
         parent_ref == other.parent_ref &&
         metadata == other.metadata &&
         key_map == other.key_map &&
+        oci_region == other.oci_region &&
         url == other.url &&
         tenancy_id == other.tenancy_id &&
         namespace == other.namespace &&
@@ -169,7 +183,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, name, description, object_status, identifier, external_key, asset_properties, native_type_system, object_version, parent_ref, metadata, key_map, url, tenancy_id, namespace, default_connection].hash
+      [model_type, key, model_version, name, description, object_status, identifier, external_key, asset_properties, native_type_system, object_version, parent_ref, metadata, key_map, oci_region, url, tenancy_id, namespace, default_connection].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

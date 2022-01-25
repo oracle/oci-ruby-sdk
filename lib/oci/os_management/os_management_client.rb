@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -1591,6 +1591,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :update_type The type of updates to be applied
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -1604,6 +1605,10 @@ module OCI
       logger.debug 'Calling operation OsManagementClient#install_all_package_updates_on_managed_instance.' if logger
 
       raise "Missing the required parameter 'managed_instance_id' when calling install_all_package_updates_on_managed_instance." if managed_instance_id.nil?
+
+      if opts[:update_type] && !OCI::OsManagement::Models::PACKAGE_UPDATE_TYPES_ENUM.include?(opts[:update_type])
+        raise 'Invalid value for "update_type", must be one of the values in OCI::OsManagement::Models::PACKAGE_UPDATE_TYPES_ENUM.'
+      end
       raise "Parameter value for 'managed_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_instance_id)
 
       path = '/managedInstances/{managedInstanceId}/actions/packages/updateAll'.sub('{managedInstanceId}', managed_instance_id.to_s)
@@ -1612,6 +1617,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:updateType] = opts[:update_type] if opts[:update_type]
 
       # Header Params
       header_params = {}
@@ -1647,12 +1653,81 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Install all of the available updates for the Managed Instance Group.
+    #
+    # @param [String] managed_instance_group_id OCID for the managed instance group
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :update_type The type of updates to be applied
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/install_all_updates_on_managed_instance_group.rb.html) to see an example of how to use install_all_updates_on_managed_instance_group API.
+    def install_all_updates_on_managed_instance_group(managed_instance_group_id, opts = {})
+      logger.debug 'Calling operation OsManagementClient#install_all_updates_on_managed_instance_group.' if logger
+
+      raise "Missing the required parameter 'managed_instance_group_id' when calling install_all_updates_on_managed_instance_group." if managed_instance_group_id.nil?
+
+      if opts[:update_type] && !OCI::OsManagement::Models::PACKAGE_UPDATE_TYPES_ENUM.include?(opts[:update_type])
+        raise 'Invalid value for "update_type", must be one of the values in OCI::OsManagement::Models::PACKAGE_UPDATE_TYPES_ENUM.'
+      end
+      raise "Parameter value for 'managed_instance_group_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_instance_group_id)
+
+      path = '/managedInstanceGroups/{managedInstanceGroupId}/actions/updates/installAll'.sub('{managedInstanceGroupId}', managed_instance_group_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:updateType] = opts[:update_type] if opts[:update_type]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#install_all_updates_on_managed_instance_group') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Install all of the available Windows updates for the managed instance.
     #
     # @param [String] managed_instance_id OCID for the managed instance
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :update_type The type of updates to be applied
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -1666,6 +1741,10 @@ module OCI
       logger.debug 'Calling operation OsManagementClient#install_all_windows_updates_on_managed_instance.' if logger
 
       raise "Missing the required parameter 'managed_instance_id' when calling install_all_windows_updates_on_managed_instance." if managed_instance_id.nil?
+
+      if opts[:update_type] && !OCI::OsManagement::Models::PACKAGE_UPDATE_TYPES_ENUM.include?(opts[:update_type])
+        raise 'Invalid value for "update_type", must be one of the values in OCI::OsManagement::Models::PACKAGE_UPDATE_TYPES_ENUM.'
+      end
       raise "Parameter value for 'managed_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_instance_id)
 
       path = '/managedInstances/{managedInstanceId}/actions/updates/installAll'.sub('{managedInstanceId}', managed_instance_id.to_s)
@@ -1674,6 +1753,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:updateType] = opts[:update_type] if opts[:update_type]
 
       # Header Params
       header_params = {}
@@ -2688,6 +2768,7 @@ module OCI
     # @option opts [String] :lifecycle_state The current lifecycle state for the object.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :os_family The OS family for which to list resources.
+    # @option opts [BOOLEAN] :is_restricted If true, will only filter out restricted Autonomous Linux Scheduled Job
     # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::ScheduledJobSummary ScheduledJobSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_scheduled_jobs.rb.html) to see an example of how to use list_scheduled_jobs API.
     def list_scheduled_jobs(compartment_id, opts = {})
@@ -2732,6 +2813,7 @@ module OCI
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:osFamily] = opts[:os_family] if opts[:os_family]
+      query_params[:isRestricted] = opts[:is_restricted] if !opts[:is_restricted].nil?
 
       # Header Params
       header_params = {}
@@ -3756,6 +3838,70 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates a specific Managed Instance.
+    #
+    # @param [String] managed_instance_id OCID for the managed instance
+    # @param [OCI::OsManagement::Models::UpdateManagedInstanceDetails] update_managed_instance_details Details about a Managed Instance to update
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::OsManagement::Models::ManagedInstance ManagedInstance}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/update_managed_instance.rb.html) to see an example of how to use update_managed_instance API.
+    def update_managed_instance(managed_instance_id, update_managed_instance_details, opts = {})
+      logger.debug 'Calling operation OsManagementClient#update_managed_instance.' if logger
+
+      raise "Missing the required parameter 'managed_instance_id' when calling update_managed_instance." if managed_instance_id.nil?
+      raise "Missing the required parameter 'update_managed_instance_details' when calling update_managed_instance." if update_managed_instance_details.nil?
+      raise "Parameter value for 'managed_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_instance_id)
+
+      path = '/managedInstances/{managedInstanceId}'.sub('{managedInstanceId}', managed_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_managed_instance_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#update_managed_instance') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::OsManagement::Models::ManagedInstance'
         )
       end
       # rubocop:enable Metrics/BlockLength

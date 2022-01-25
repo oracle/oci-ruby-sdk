@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,10 +6,10 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API for the Resource Manager service.
-  # Use this API to install, configure, and manage resources via the &quot;infrastructure-as-code&quot; model.
+  # Use the Resource Manager API to automate deployment and operations for all Oracle Cloud Infrastructure resources.
+  # Using the infrastructure-as-code (IaC) model, the service is based on Terraform, an open source industry standard that lets DevOps engineers develop and deploy their infrastructure anywhere.
   # For more information, see
-  # [Overview of Resource Manager](/iaas/Content/ResourceManager/Concepts/resourcemanager.htm).
+  # [the Resource Manager documentation](/iaas/Content/ResourceManager/home.htm).
   class ResourceManager::ResourceManagerClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -104,6 +104,9 @@ module OCI
     # Indicates the intention to cancel the specified job.
     # Cancellation of the job is not immediate, and may be delayed,
     # or may not happen at all.
+    # You can optionally choose forced cancellation by setting `isForced` to true.
+    # A forced cancellation can result in an incorrect state file.
+    # For example, the state file might not reflect the exact state of the provisioned resources.
     #
     # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
     # @param [Hash] opts the optional parameters
@@ -116,6 +119,10 @@ module OCI
     #   parameter to the value of the etag from a previous `GET` or `POST` response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
+    # @option opts [BOOLEAN] :is_forced Indicates whether a forced cancellation is requested for the job while it was running.
+    #   A forced cancellation can result in an incorrect state file.
+    #   For example, the state file might not reflect the exact state of the provisioned resources.
+    #    (default to false)
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/cancel_job.rb.html) to see an example of how to use cancel_job API.
     def cancel_job(job_id, opts = {})
@@ -130,6 +137,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:isForced] = opts[:is_forced] if !opts[:is_forced].nil?
 
       # Header Params
       header_params = {}
@@ -383,7 +391,7 @@ module OCI
 
     # Creates a configuration source provider in the specified compartment.
     # For more information, see
-    # [To create a configuration source provider](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingstacksandjobs.htm#CreateConfigurationSourceProvider).
+    # [To create a configuration source provider](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingconfigurationsourceproviders.htm#CreateConfigurationSourceProvider).
     #
     # @param [OCI::ResourceManager::Models::CreateConfigurationSourceProviderDetails] create_configuration_source_provider_details The properties for creating a ConfigurationSourceProvider.
     # @param [Hash] opts the optional parameters
@@ -516,7 +524,7 @@ module OCI
     # You can also create a stack from an existing compartment.
     # You can also upload the Terraform configuration from an Object Storage bucket.
     # For more information, see
-    # [To create a stack](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingstacksandjobs.htm#CreateStack).
+    # [To create a stack](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingstacksandjobs.htm#createstack-all).
     #
     # @param [OCI::ResourceManager::Models::CreateStackDetails] create_stack_details The properties for creating a stack.
     # @param [Hash] opts the optional parameters
@@ -580,7 +588,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a custom template in the specified compartment.
+    # Creates a private template in the specified compartment.
     #
     # @param [OCI::ResourceManager::Models::CreateTemplateDetails] create_template_details The configuration details for creating a template.
     # @param [Hash] opts the optional parameters
@@ -594,8 +602,6 @@ module OCI
     #   24 hours, but can be invalidated before then due to conflicting operations. For example,
     #   if a resource has been deleted and purged from the system, then a retry of the original
     #   creation request may be rejected.
-    #
-    # @option opts [String] :oci_splat_generated_ocids This is to enable limit/quota support through splat
     #
     # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::Template Template}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/create_template.rb.html) to see an example of how to use create_template API.
@@ -617,7 +623,6 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
-      header_params[:'oci-splat-generated-ocids'] = opts[:oci_splat_generated_ocids] if opts[:oci_splat_generated_ocids]
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
@@ -1010,7 +1015,64 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns log entries for the specified job in JSON format.
+    # Returns the Terraform detailed log content for the specified job in plain text. [Learn about Terraform detailed log.](https://www.terraform.io/docs/internals/debugging.html)
+    #
+    # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type String
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_job_detailed_log_content.rb.html) to see an example of how to use get_job_detailed_log_content API.
+    def get_job_detailed_log_content(job_id, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#get_job_detailed_log_content.' if logger
+
+      raise "Missing the required parameter 'job_id' when calling get_job_detailed_log_content." if job_id.nil?
+      raise "Parameter value for 'job_id' must not be blank" if OCI::Internal::Util.blank_string?(job_id)
+
+      path = '/jobs/{jobId}/detailedLogContent'.sub('{jobId}', job_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'text/plain; charset=utf-8'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#get_job_detailed_log_content') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'String'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns console log entries for the specified job in JSON format.
     #
     # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
     # @param [Hash] opts the optional parameters
@@ -1103,8 +1165,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns raw log file for the specified job in text format.
-    # Returns a maximum of 100,000 log entries.
+    # Returns a raw log file for the specified job. The raw log file contains console log entries in text format. The maximum number of entries in a file is 100,000.
     #
     # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
     # @param [Hash] opts the optional parameters
@@ -1963,7 +2024,10 @@ module OCI
     #
     # @option opts [String] :configuration_source_provider_id A filter to return only configuration source providers that match the provided [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #
-    # @option opts [String] :display_name A filter to return only resources that match the specified display name.
+    # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
+    #   Use this filter to list a resource by name.
+    #   Requires `sortBy` set to `DISPLAYNAME`.
+    #   Alternatively, when you know the resource OCID, use the related Get operation.
     #
     # @option opts [String] :sort_by The field to use when sorting returned resources.
     #   By default, `TIMECREATED` is ordered descending.
@@ -2072,7 +2136,10 @@ module OCI
     #   - CANCELING
     #   - CANCELED
     #
-    # @option opts [String] :display_name A filter to return only resources that match the specified display name.
+    # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
+    #   Use this filter to list a resource by name.
+    #   Requires `sortBy` set to `DISPLAYNAME`.
+    #   Alternatively, when you know the resource OCID, use the related Get operation.
     #
     # @option opts [String] :sort_by The field to use when sorting returned resources.
     #   By default, `TIMECREATED` is ordered descending.
@@ -2308,7 +2375,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter that returns only those resources that match the specified
     #   lifecycle state. The state value is case-insensitive.
     #   For more information about stack lifecycle states, see
-    #   [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#StackStates).
+    #   [Key Concepts](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Concepts/resourcemanager.htm#concepts__StackStates).
     #
     #   Allowable values:
     #   - CREATING
@@ -2317,7 +2384,10 @@ module OCI
     #   - DELETED
     #   - FAILED
     #
-    # @option opts [String] :display_name A filter to return only resources that match the specified display name.
+    # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
+    #   Use this filter to list a resource by name.
+    #   Requires `sortBy` set to `DISPLAYNAME`.
+    #   Alternatively, when you know the resource OCID, use the related Get operation.
     #
     # @option opts [String] :sort_by The field to use when sorting returned resources.
     #   By default, `TIMECREATED` is ordered descending.
@@ -2454,6 +2524,7 @@ module OCI
 
 
     # Lists templates according to the specified filter.
+    # The attributes `compartmentId` and `templateCategoryId` are required unless `templateId` is specified.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2464,8 +2535,13 @@ module OCI
     # @option opts [String] :compartment_id A filter to return only resources that exist in the compartment, identified by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #
     # @option opts [String] :template_category_id Unique identifier of the template category.
+    #   Possible values are `0` (Quick Starts), `1` (Service), `2` (Architecture), and `3` (Private).
+    #
     # @option opts [String] :template_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the template.
-    # @option opts [String] :display_name A filter to return only resources that match the specified display name.
+    # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
+    #   Use this filter to list a resource by name.
+    #   Requires `sortBy` set to `DISPLAYNAME`.
+    #   Alternatively, when you know the resource OCID, use the related Get operation.
     #
     # @option opts [String] :sort_by The field to use when sorting returned resources.
     #   By default, `TIMECREATED` is ordered descending.
@@ -2822,7 +2898,7 @@ module OCI
 
     # Updates the properties of the specified configuration source provider.
     # For more information, see
-    # [To update a configuration source provider](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingstacksandjobs.htm#UpdateConfigurationSourceProvider).
+    # [To edit a configuration source provider](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingconfigurationsourceproviders.htm#EditConfigurationSourceProvider).
     #
     # @param [String] configuration_source_provider_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the configuration source provider.
     #

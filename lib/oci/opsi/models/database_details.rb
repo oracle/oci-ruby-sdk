@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -15,6 +15,10 @@ module OCI
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the database.
     # @return [String]
     attr_accessor :database_id
+
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @return [String]
+    attr_accessor :compartment_id
 
     # **[Required]** The database name. The database name is unique within the tenancy.
     # @return [String]
@@ -36,17 +40,23 @@ module OCI
     # @return [Array<OCI::Opsi::Models::HostInstanceMap>]
     attr_accessor :instances
 
+    # Name of the CDB.Only applies to PDB.
+    # @return [String]
+    attr_accessor :cdb_name
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'id': :'id',
         'database_id': :'databaseId',
+        'compartment_id': :'compartmentId',
         'database_name': :'databaseName',
         'database_display_name': :'databaseDisplayName',
         'database_type': :'databaseType',
         'database_version': :'databaseVersion',
-        'instances': :'instances'
+        'instances': :'instances',
+        'cdb_name': :'cdbName'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,11 +67,13 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'id': :'String',
         'database_id': :'String',
+        'compartment_id': :'String',
         'database_name': :'String',
         'database_display_name': :'String',
         'database_type': :'String',
         'database_version': :'String',
-        'instances': :'Array<OCI::Opsi::Models::HostInstanceMap>'
+        'instances': :'Array<OCI::Opsi::Models::HostInstanceMap>',
+        'cdb_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -74,11 +86,13 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :database_id The value to assign to the {#database_id} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :database_name The value to assign to the {#database_name} property
     # @option attributes [String] :database_display_name The value to assign to the {#database_display_name} property
     # @option attributes [String] :database_type The value to assign to the {#database_type} property
     # @option attributes [String] :database_version The value to assign to the {#database_version} property
     # @option attributes [Array<OCI::Opsi::Models::HostInstanceMap>] :instances The value to assign to the {#instances} property
+    # @option attributes [String] :cdb_name The value to assign to the {#cdb_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -92,6 +106,12 @@ module OCI
       raise 'You cannot provide both :databaseId and :database_id' if attributes.key?(:'databaseId') && attributes.key?(:'database_id')
 
       self.database_id = attributes[:'database_id'] if attributes[:'database_id']
+
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
       self.database_name = attributes[:'databaseName'] if attributes[:'databaseName']
 
@@ -118,6 +138,12 @@ module OCI
       self.database_version = attributes[:'database_version'] if attributes[:'database_version']
 
       self.instances = attributes[:'instances'] if attributes[:'instances']
+
+      self.cdb_name = attributes[:'cdbName'] if attributes[:'cdbName']
+
+      raise 'You cannot provide both :cdbName and :cdb_name' if attributes.key?(:'cdbName') && attributes.key?(:'cdb_name')
+
+      self.cdb_name = attributes[:'cdb_name'] if attributes[:'cdb_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -133,11 +159,13 @@ module OCI
       self.class == other.class &&
         id == other.id &&
         database_id == other.database_id &&
+        compartment_id == other.compartment_id &&
         database_name == other.database_name &&
         database_display_name == other.database_display_name &&
         database_type == other.database_type &&
         database_version == other.database_version &&
-        instances == other.instances
+        instances == other.instances &&
+        cdb_name == other.cdb_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -153,7 +181,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, database_id, database_name, database_display_name, database_type, database_version, instances].hash
+      [id, database_id, compartment_id, database_name, database_display_name, database_type, database_version, instances, cdb_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -22,8 +22,10 @@ module OCI
       OPERATION_TYPE_GOLDENGATE_DEPLOYMENT_START = 'GOLDENGATE_DEPLOYMENT_START'.freeze,
       OPERATION_TYPE_GOLDENGATE_DEPLOYMENT_STOP = 'GOLDENGATE_DEPLOYMENT_STOP'.freeze,
       OPERATION_TYPE_GOLDENGATE_DEPLOYMENT_PATCH = 'GOLDENGATE_DEPLOYMENT_PATCH'.freeze,
+      OPERATION_TYPE_GOLDENGATE_DEPLOYMENT_UPGRADE = 'GOLDENGATE_DEPLOYMENT_UPGRADE'.freeze,
       OPERATION_TYPE_GOLDENGATE_DEPLOYMENT_BACKUP_CREATE = 'GOLDENGATE_DEPLOYMENT_BACKUP_CREATE'.freeze,
       OPERATION_TYPE_GOLDENGATE_DEPLOYMENT_BACKUP_DELETE = 'GOLDENGATE_DEPLOYMENT_BACKUP_DELETE'.freeze,
+      OPERATION_TYPE_GOLDENGATE_DEPLOYMENT_BACKUP_CANCEL = 'GOLDENGATE_DEPLOYMENT_BACKUP_CANCEL'.freeze,
       OPERATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -76,7 +78,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_started
 
-    # The date and time the object was finished. The format is defined by [RFC3339](https://tools.ietf.org/html/rfc3339), such as `2016-08-25T21:10:29.600Z`.
+    # The date and time the request was finished. The format is defined by [RFC3339](https://tools.ietf.org/html/rfc3339), such as `2016-08-25T21:10:29.600Z`.
     #
     # @return [DateTime]
     attr_accessor :time_finished

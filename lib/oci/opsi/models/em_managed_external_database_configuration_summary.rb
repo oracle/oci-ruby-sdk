@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -20,6 +20,10 @@ module OCI
     # @return [Array<OCI::Opsi::Models::HostInstanceMap>]
     attr_accessor :instances
 
+    # This attribute is required.
+    # @return [OCI::Opsi::Models::ExadataDetails]
+    attr_accessor :exadata_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -31,12 +35,14 @@ module OCI
         'database_display_name': :'databaseDisplayName',
         'database_type': :'databaseType',
         'database_version': :'databaseVersion',
+        'cdb_name': :'cdbName',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags',
         'processor_count': :'processorCount',
         'enterprise_manager_identifier': :'enterpriseManagerIdentifier',
         'enterprise_manager_bridge_id': :'enterpriseManagerBridgeId',
-        'instances': :'instances'
+        'instances': :'instances',
+        'exadata_details': :'exadataDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -52,12 +58,14 @@ module OCI
         'database_display_name': :'String',
         'database_type': :'String',
         'database_version': :'String',
+        'cdb_name': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>',
         'processor_count': :'Integer',
         'enterprise_manager_identifier': :'String',
         'enterprise_manager_bridge_id': :'String',
-        'instances': :'Array<OCI::Opsi::Models::HostInstanceMap>'
+        'instances': :'Array<OCI::Opsi::Models::HostInstanceMap>',
+        'exadata_details': :'OCI::Opsi::Models::ExadataDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -74,12 +82,14 @@ module OCI
     # @option attributes [String] :database_display_name The value to assign to the {OCI::Opsi::Models::DatabaseConfigurationSummary#database_display_name #database_display_name} proprety
     # @option attributes [String] :database_type The value to assign to the {OCI::Opsi::Models::DatabaseConfigurationSummary#database_type #database_type} proprety
     # @option attributes [String] :database_version The value to assign to the {OCI::Opsi::Models::DatabaseConfigurationSummary#database_version #database_version} proprety
+    # @option attributes [String] :cdb_name The value to assign to the {OCI::Opsi::Models::DatabaseConfigurationSummary#cdb_name #cdb_name} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Opsi::Models::DatabaseConfigurationSummary#defined_tags #defined_tags} proprety
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Opsi::Models::DatabaseConfigurationSummary#freeform_tags #freeform_tags} proprety
     # @option attributes [Integer] :processor_count The value to assign to the {OCI::Opsi::Models::DatabaseConfigurationSummary#processor_count #processor_count} proprety
     # @option attributes [String] :enterprise_manager_identifier The value to assign to the {#enterprise_manager_identifier} property
     # @option attributes [String] :enterprise_manager_bridge_id The value to assign to the {#enterprise_manager_bridge_id} property
     # @option attributes [Array<OCI::Opsi::Models::HostInstanceMap>] :instances The value to assign to the {#instances} property
+    # @option attributes [OCI::Opsi::Models::ExadataDetails] :exadata_details The value to assign to the {#exadata_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -103,6 +113,12 @@ module OCI
       self.enterprise_manager_bridge_id = attributes[:'enterprise_manager_bridge_id'] if attributes[:'enterprise_manager_bridge_id']
 
       self.instances = attributes[:'instances'] if attributes[:'instances']
+
+      self.exadata_details = attributes[:'exadataDetails'] if attributes[:'exadataDetails']
+
+      raise 'You cannot provide both :exadataDetails and :exadata_details' if attributes.key?(:'exadataDetails') && attributes.key?(:'exadata_details')
+
+      self.exadata_details = attributes[:'exadata_details'] if attributes[:'exadata_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -123,12 +139,14 @@ module OCI
         database_display_name == other.database_display_name &&
         database_type == other.database_type &&
         database_version == other.database_version &&
+        cdb_name == other.cdb_name &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags &&
         processor_count == other.processor_count &&
         enterprise_manager_identifier == other.enterprise_manager_identifier &&
         enterprise_manager_bridge_id == other.enterprise_manager_bridge_id &&
-        instances == other.instances
+        instances == other.instances &&
+        exadata_details == other.exadata_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -144,7 +162,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_insight_id, entity_source, compartment_id, database_name, database_display_name, database_type, database_version, defined_tags, freeform_tags, processor_count, enterprise_manager_identifier, enterprise_manager_bridge_id, instances].hash
+      [database_insight_id, entity_source, compartment_id, database_name, database_display_name, database_type, database_version, cdb_name, defined_tags, freeform_tags, processor_count, enterprise_manager_identifier, enterprise_manager_bridge_id, instances, exadata_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

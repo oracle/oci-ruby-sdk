@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -14,6 +14,7 @@ module OCI
       ACTION_TYPE_DELETED = 'DELETED'.freeze,
       ACTION_TYPE_IN_PROGRESS = 'IN_PROGRESS'.freeze,
       ACTION_TYPE_RELATED = 'RELATED'.freeze,
+      ACTION_TYPE_FAILED = 'FAILED'.freeze,
       ACTION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -37,6 +38,10 @@ module OCI
     # @return [String]
     attr_accessor :entity_uri
 
+    # Additional information that helps to explain the resource.
+    # @return [Hash<String, String>]
+    attr_accessor :metadata
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -44,7 +49,8 @@ module OCI
         'entity_type': :'entityType',
         'action_type': :'actionType',
         'identifier': :'identifier',
-        'entity_uri': :'entityUri'
+        'entity_uri': :'entityUri',
+        'metadata': :'metadata'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -56,7 +62,8 @@ module OCI
         'entity_type': :'String',
         'action_type': :'String',
         'identifier': :'String',
-        'entity_uri': :'String'
+        'entity_uri': :'String',
+        'metadata': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -71,6 +78,7 @@ module OCI
     # @option attributes [String] :action_type The value to assign to the {#action_type} property
     # @option attributes [String] :identifier The value to assign to the {#identifier} property
     # @option attributes [String] :entity_uri The value to assign to the {#entity_uri} property
+    # @option attributes [Hash<String, String>] :metadata The value to assign to the {#metadata} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -96,6 +104,8 @@ module OCI
       raise 'You cannot provide both :entityUri and :entity_uri' if attributes.key?(:'entityUri') && attributes.key?(:'entity_uri')
 
       self.entity_uri = attributes[:'entity_uri'] if attributes[:'entity_uri']
+
+      self.metadata = attributes[:'metadata'] if attributes[:'metadata']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -125,7 +135,8 @@ module OCI
         entity_type == other.entity_type &&
         action_type == other.action_type &&
         identifier == other.identifier &&
-        entity_uri == other.entity_uri
+        entity_uri == other.entity_uri &&
+        metadata == other.metadata
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -141,7 +152,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [entity_type, action_type, identifier, entity_uri].hash
+      [entity_type, action_type, identifier, entity_uri, metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

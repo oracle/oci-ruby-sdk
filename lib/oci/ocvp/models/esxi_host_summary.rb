@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -82,26 +82,49 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** Billing option selected during SDDC creation.
-    # Oracle Cloud Infrastructure VMware Solution supports the following billing interval SKUs:
-    # HOUR, MONTH, ONE_YEAR, and THREE_YEARS.
+    # **[Required]** The billing option currently used by the ESXi host.
     # {#list_supported_skus list_supported_skus}.
     #
     # @return [String]
     attr_reader :current_sku
 
-    # **[Required]** Billing option to switch to once existing billing cycle ends.
+    # **[Required]** The billing option to switch to after the current billing cycle ends.
+    # If `nextSku` is null or empty, `currentSku` continues to the next billing cycle.
     # {#list_supported_skus list_supported_skus}.
     #
     # @return [String]
     attr_reader :next_sku
 
-    # **[Required]** Current billing cycle end date. If nextSku is different from existing SKU, then we switch to newSKu
-    # after this contractEndDate
+    # **[Required]** Current billing cycle end date. If the value in `currentSku` and `nextSku` are different, the value specified in `nextSku`
+    # becomes the new `currentSKU` when the `contractEndDate` is reached.
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :billing_contract_end_date
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the esxi host that
+    # is failed.
+    #
+    # @return [String]
+    attr_accessor :failed_esxi_host_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the esxi host that
+    # is newly created to replace the failed node.
+    #
+    # @return [String]
+    attr_accessor :replacement_esxi_host_id
+
+    # The date and time when the new esxi host should start billing cycle.
+    # [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # Example: `2021-07-25T21:10:29.600Z`
+    #
+    # @return [DateTime]
+    attr_accessor :grace_period_end_date
+
+    # **[Required]** The availability domain of the ESXi host.
+    #
+    # @return [String]
+    attr_accessor :compute_availability_domain
 
     # **[Required]** Free-form tags for this resource. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -134,6 +157,10 @@ module OCI
         'current_sku': :'currentSku',
         'next_sku': :'nextSku',
         'billing_contract_end_date': :'billingContractEndDate',
+        'failed_esxi_host_id': :'failedEsxiHostId',
+        'replacement_esxi_host_id': :'replacementEsxiHostId',
+        'grace_period_end_date': :'gracePeriodEndDate',
+        'compute_availability_domain': :'computeAvailabilityDomain',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -155,6 +182,10 @@ module OCI
         'current_sku': :'String',
         'next_sku': :'String',
         'billing_contract_end_date': :'DateTime',
+        'failed_esxi_host_id': :'String',
+        'replacement_esxi_host_id': :'String',
+        'grace_period_end_date': :'DateTime',
+        'compute_availability_domain': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -178,6 +209,10 @@ module OCI
     # @option attributes [String] :current_sku The value to assign to the {#current_sku} property
     # @option attributes [String] :next_sku The value to assign to the {#next_sku} property
     # @option attributes [DateTime] :billing_contract_end_date The value to assign to the {#billing_contract_end_date} property
+    # @option attributes [String] :failed_esxi_host_id The value to assign to the {#failed_esxi_host_id} property
+    # @option attributes [String] :replacement_esxi_host_id The value to assign to the {#replacement_esxi_host_id} property
+    # @option attributes [DateTime] :grace_period_end_date The value to assign to the {#grace_period_end_date} property
+    # @option attributes [String] :compute_availability_domain The value to assign to the {#compute_availability_domain} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -249,6 +284,30 @@ module OCI
       raise 'You cannot provide both :billingContractEndDate and :billing_contract_end_date' if attributes.key?(:'billingContractEndDate') && attributes.key?(:'billing_contract_end_date')
 
       self.billing_contract_end_date = attributes[:'billing_contract_end_date'] if attributes[:'billing_contract_end_date']
+
+      self.failed_esxi_host_id = attributes[:'failedEsxiHostId'] if attributes[:'failedEsxiHostId']
+
+      raise 'You cannot provide both :failedEsxiHostId and :failed_esxi_host_id' if attributes.key?(:'failedEsxiHostId') && attributes.key?(:'failed_esxi_host_id')
+
+      self.failed_esxi_host_id = attributes[:'failed_esxi_host_id'] if attributes[:'failed_esxi_host_id']
+
+      self.replacement_esxi_host_id = attributes[:'replacementEsxiHostId'] if attributes[:'replacementEsxiHostId']
+
+      raise 'You cannot provide both :replacementEsxiHostId and :replacement_esxi_host_id' if attributes.key?(:'replacementEsxiHostId') && attributes.key?(:'replacement_esxi_host_id')
+
+      self.replacement_esxi_host_id = attributes[:'replacement_esxi_host_id'] if attributes[:'replacement_esxi_host_id']
+
+      self.grace_period_end_date = attributes[:'gracePeriodEndDate'] if attributes[:'gracePeriodEndDate']
+
+      raise 'You cannot provide both :gracePeriodEndDate and :grace_period_end_date' if attributes.key?(:'gracePeriodEndDate') && attributes.key?(:'grace_period_end_date')
+
+      self.grace_period_end_date = attributes[:'grace_period_end_date'] if attributes[:'grace_period_end_date']
+
+      self.compute_availability_domain = attributes[:'computeAvailabilityDomain'] if attributes[:'computeAvailabilityDomain']
+
+      raise 'You cannot provide both :computeAvailabilityDomain and :compute_availability_domain' if attributes.key?(:'computeAvailabilityDomain') && attributes.key?(:'compute_availability_domain')
+
+      self.compute_availability_domain = attributes[:'compute_availability_domain'] if attributes[:'compute_availability_domain']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -324,6 +383,10 @@ module OCI
         current_sku == other.current_sku &&
         next_sku == other.next_sku &&
         billing_contract_end_date == other.billing_contract_end_date &&
+        failed_esxi_host_id == other.failed_esxi_host_id &&
+        replacement_esxi_host_id == other.replacement_esxi_host_id &&
+        grace_period_end_date == other.grace_period_end_date &&
+        compute_availability_domain == other.compute_availability_domain &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -341,7 +404,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, sddc_id, compartment_id, compute_instance_id, time_created, time_updated, lifecycle_state, current_sku, next_sku, billing_contract_end_date, freeform_tags, defined_tags].hash
+      [id, display_name, sddc_id, compartment_id, compute_instance_id, time_created, time_updated, lifecycle_state, current_sku, next_sku, billing_contract_end_date, failed_esxi_host_id, replacement_esxi_host_id, grace_period_end_date, compute_availability_domain, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

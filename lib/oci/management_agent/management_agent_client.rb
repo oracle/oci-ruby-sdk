@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -401,6 +401,62 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Get the AutoUpgradable configuration for all agents in a tenancy.
+    # The supplied compartmentId must be a tenancy root.
+    #
+    # @param [String] compartment_id The OCID of the compartment to which a request will be scoped.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::ManagementAgent::Models::AutoUpgradableConfig AutoUpgradableConfig}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/get_auto_upgradable_config.rb.html) to see an example of how to use get_auto_upgradable_config API.
+    def get_auto_upgradable_config(compartment_id, opts = {})
+      logger.debug 'Calling operation ManagementAgentClient#get_auto_upgradable_config.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling get_auto_upgradable_config." if compartment_id.nil?
+
+      path = '/managementAgents/actions/getAutoUpgradableConfig'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ManagementAgentClient#get_auto_upgradable_config') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ManagementAgent::Models::AutoUpgradableConfig'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets complete details of the inventory of a given agent id
     # @param [String] management_agent_id Unique Management Agent identifier
     # @param [Hash] opts the optional parameters
@@ -682,7 +738,7 @@ module OCI
     #
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
-    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to DESC)
+    # @option opts [String] :sort_order The sort order to use, either 'ASC' or 'DESC'.
     #   Allowed values are: ASC, DESC
     # @option opts [String] :sort_by The field to sort by. Default order for timeAvailabilityStatusStarted is descending.
     #    (default to timeAvailabilityStatusStarted)
@@ -751,7 +807,7 @@ module OCI
 
     # Get supported agent image information
     #
-    # @param [String] compartment_id The ID of the compartment from which the Management Agents to be listed.
+    # @param [String] compartment_id The OCID of the compartment to which a request will be scoped.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -771,6 +827,7 @@ module OCI
     #   Allowed values are: platformType, version
     # @option opts [String] :name A filter to return only resources that match the entire platform name given.
     # @option opts [String] :lifecycle_state Filter to return only Management Agents in the particular lifecycle state.
+    # @option opts [String] :install_type A filter to return either agents or gateway types depending upon install type selected by user. By default both install type will be returned.
     # @return [Response] A Response object with data of type Array<{OCI::ManagementAgent::Models::ManagementAgentImageSummary ManagementAgentImageSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/list_management_agent_images.rb.html) to see an example of how to use list_management_agent_images API.
     def list_management_agent_images(compartment_id, opts = {})
@@ -790,6 +847,10 @@ module OCI
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::ManagementAgent::Models::LIFECYCLE_STATES_ENUM.'
       end
 
+      if opts[:install_type] && !OCI::ManagementAgent::Models::INSTALL_TYPES_ENUM.include?(opts[:install_type])
+        raise 'Invalid value for "install_type", must be one of the values in OCI::ManagementAgent::Models::INSTALL_TYPES_ENUM.'
+      end
+
       path = '/managementAgentImages'
       operation_signing_strategy = :standard
 
@@ -803,6 +864,7 @@ module OCI
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:name] = opts[:name] if opts[:name]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:installType] = opts[:install_type] if opts[:install_type]
 
       # Header Params
       header_params = {}
@@ -841,7 +903,7 @@ module OCI
 
     # Returns a list of Management Agent installed Keys.
     #
-    # @param [String] compartment_id The ID of the compartment from which the Management Agents to be listed.
+    # @param [String] compartment_id The OCID of the compartment to which a request will be scoped.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -925,7 +987,7 @@ module OCI
 
     # Returns a list of managementAgentPlugins.
     #
-    # @param [String] compartment_id The ID of the compartment from which the Management Agents to be listed.
+    # @param [String] compartment_id The OCID of the compartment to which a request will be scoped.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -939,6 +1001,8 @@ module OCI
     #   Allowed values are: displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :lifecycle_state Filter to return only Management Agents in the particular lifecycle state.
+    # @option opts [Array<String>] :platform_type Filter to return only results having the particular platform type.
+    #   Allowed values are: LINUX, WINDOWS, SOLARIS
     # @return [Response] A Response object with data of type Array<{OCI::ManagementAgent::Models::ManagementAgentPluginSummary ManagementAgentPluginSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/list_management_agent_plugins.rb.html) to see an example of how to use list_management_agent_plugins API.
     def list_management_agent_plugins(compartment_id, opts = {})
@@ -958,6 +1022,16 @@ module OCI
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::ManagementAgent::Models::LIFECYCLE_STATES_ENUM.'
       end
 
+
+      platform_type_allowable_values = %w[LINUX WINDOWS SOLARIS]
+      if opts[:platform_type] && !opts[:platform_type].empty?
+        opts[:platform_type].each do |val_to_check|
+          unless platform_type_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "platform_type", must be one of LINUX, WINDOWS, SOLARIS.'
+          end
+        end
+      end
+
       path = '/managementAgentPlugins'
       operation_signing_strategy = :standard
 
@@ -971,6 +1045,7 @@ module OCI
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:platformType] = OCI::ApiClient.build_collection_params(opts[:platform_type], :multi) if opts[:platform_type] && !opts[:platform_type].empty?
 
       # Header Params
       header_params = {}
@@ -1007,22 +1082,27 @@ module OCI
 
     # Returns a list of Management Agent.
     #
-    # @param [String] compartment_id The ID of the compartment from which the Management Agents to be listed.
+    # @param [String] compartment_id The OCID of the compartment to which a request will be scoped.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :plugin_name Filter to return only Management Agents having the particular Plugin installed.
-    # @option opts [String] :version Filter to return only Management Agents having the particular agent version.
+    # @option opts [Array<String>] :plugin_name Filter to return only Management Agents having the particular Plugin installed. A special pluginName of 'None' can be provided and this will return only Management Agents having no plugin installed.
+    # @option opts [Array<String>] :version Filter to return only Management Agents having the particular agent version.
     # @option opts [String] :display_name Filter to return only Management Agents having the particular display name.
     # @option opts [String] :lifecycle_state Filter to return only Management Agents in the particular lifecycle state.
-    # @option opts [String] :platform_type Filter to return only Management Agents having the particular platform type.
+    # @option opts [String] :availability_status Filter to return only Management Agents in the particular availability status.
+    # @option opts [String] :host_id Filter to return only Management Agents having the particular agent host id.
+    # @option opts [Array<String>] :platform_type Filter to return only results having the particular platform type.
+    #   Allowed values are: LINUX, WINDOWS, SOLARIS
+    # @option opts [BOOLEAN] :is_customer_deployed true, if the agent image is manually downloaded and installed. false, if the agent is deployed as a plugin in Oracle Cloud Agent.
+    # @option opts [String] :install_type A filter to return either agents or gateway types depending upon install type selected by user. By default both install type will be returned.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     #   Allowed values are: ASC, DESC
     # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
     #    (default to timeCreated)
-    #   Allowed values are: timeCreated, displayName
+    #   Allowed values are: timeCreated, displayName, host, availabilityStatus, platformType, pluginDisplayNames, version
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::ManagementAgent::Models::ManagementAgentSummary ManagementAgentSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/list_management_agents.rb.html) to see an example of how to use list_management_agents API.
@@ -1035,16 +1115,30 @@ module OCI
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::ManagementAgent::Models::LIFECYCLE_STATES_ENUM.'
       end
 
-      if opts[:platform_type] && !OCI::ManagementAgent::Models::PLATFORM_TYPES_ENUM.include?(opts[:platform_type])
-        raise 'Invalid value for "platform_type", must be one of the values in OCI::ManagementAgent::Models::PLATFORM_TYPES_ENUM.'
+      if opts[:availability_status] && !OCI::ManagementAgent::Models::AVAILABILITY_STATUS_ENUM.include?(opts[:availability_status])
+        raise 'Invalid value for "availability_status", must be one of the values in OCI::ManagementAgent::Models::AVAILABILITY_STATUS_ENUM.'
+      end
+
+
+      platform_type_allowable_values = %w[LINUX WINDOWS SOLARIS]
+      if opts[:platform_type] && !opts[:platform_type].empty?
+        opts[:platform_type].each do |val_to_check|
+          unless platform_type_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "platform_type", must be one of LINUX, WINDOWS, SOLARIS.'
+          end
+        end
+      end
+
+      if opts[:install_type] && !OCI::ManagementAgent::Models::INSTALL_TYPES_ENUM.include?(opts[:install_type])
+        raise 'Invalid value for "install_type", must be one of the values in OCI::ManagementAgent::Models::INSTALL_TYPES_ENUM.'
       end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
       end
 
-      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      if opts[:sort_by] && !%w[timeCreated displayName host availabilityStatus platformType pluginDisplayNames version].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName, host, availabilityStatus, platformType, pluginDisplayNames, version.'
       end
 
       path = '/managementAgents'
@@ -1054,11 +1148,15 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
-      query_params[:pluginName] = opts[:plugin_name] if opts[:plugin_name]
-      query_params[:version] = opts[:version] if opts[:version]
+      query_params[:pluginName] = OCI::ApiClient.build_collection_params(opts[:plugin_name], :multi) if opts[:plugin_name] && !opts[:plugin_name].empty?
+      query_params[:version] = OCI::ApiClient.build_collection_params(opts[:version], :multi) if opts[:version] && !opts[:version].empty?
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
-      query_params[:platformType] = opts[:platform_type] if opts[:platform_type]
+      query_params[:availabilityStatus] = opts[:availability_status] if opts[:availability_status]
+      query_params[:hostId] = opts[:host_id] if opts[:host_id]
+      query_params[:platformType] = OCI::ApiClient.build_collection_params(opts[:platform_type], :multi) if opts[:platform_type] && !opts[:platform_type].empty?
+      query_params[:isCustomerDeployed] = opts[:is_customer_deployed] if !opts[:is_customer_deployed].nil?
+      query_params[:installType] = opts[:install_type] if opts[:install_type]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
@@ -1247,7 +1345,7 @@ module OCI
 
     # Lists the work requests in a compartment.
     #
-    # @param [String] compartment_id The ID of the compartment from which the Management Agents to be listed.
+    # @param [String] compartment_id The OCID of the compartment to which a request will be scoped.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1319,6 +1417,211 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::ManagementAgent::Models::WorkRequestSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Sets the AutoUpgradable configuration for all agents in a tenancy.
+    # The supplied compartmentId must be a tenancy root.
+    #
+    # @param [OCI::ManagementAgent::Models::SetAutoUpgradableConfigDetails] set_auto_upgradable_config_details Details of the AutoUpgradable configuration for agents of the tenancy.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::ManagementAgent::Models::AutoUpgradableConfig AutoUpgradableConfig}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/set_auto_upgradable_config.rb.html) to see an example of how to use set_auto_upgradable_config API.
+    def set_auto_upgradable_config(set_auto_upgradable_config_details, opts = {})
+      logger.debug 'Calling operation ManagementAgentClient#set_auto_upgradable_config.' if logger
+
+      raise "Missing the required parameter 'set_auto_upgradable_config_details' when calling set_auto_upgradable_config." if set_auto_upgradable_config_details.nil?
+
+      path = '/managementAgents/actions/setAutoUpgradableConfig'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(set_auto_upgradable_config_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ManagementAgentClient#set_auto_upgradable_config') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ManagementAgent::Models::AutoUpgradableConfig'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets count of the inventory of agents for a given compartment id, group by, and isPluginDeployed parameters.
+    # Supported groupBy parameters: availabilityStatus, platformType, version
+    #
+    # @param [String] compartment_id The OCID of the compartment to which a request will be scoped.
+    # @param [Array<String>] group_by The field by which to group Management Agents. Currently, only one groupBy dimension is supported at a time.
+    #   Allowed values are: availabilityStatus, platformType, version
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :has_plugins When set to true then agents that have at least one plugin deployed will be returned. When set to false only agents that have no plugins deployed will be returned.
+    # @option opts [String] :install_type A filter to return either agents or gateway types depending upon install type selected by user. By default both install type will be returned.
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::ManagementAgent::Models::ManagementAgentAggregationCollection ManagementAgentAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/summarize_management_agent_counts.rb.html) to see an example of how to use summarize_management_agent_counts API.
+    def summarize_management_agent_counts(compartment_id, group_by, opts = {})
+      logger.debug 'Calling operation ManagementAgentClient#summarize_management_agent_counts.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling summarize_management_agent_counts." if compartment_id.nil?
+      raise "Missing the required parameter 'group_by' when calling summarize_management_agent_counts." if group_by.nil?
+
+      group_by_allowable_values = %w[availabilityStatus platformType version]
+      group_by.each do |val_to_check|
+        unless group_by_allowable_values.include?(val_to_check)
+          raise "Invalid value for 'group_by', must be one of availabilityStatus, platformType, version."
+        end
+      end
+
+      if opts[:install_type] && !OCI::ManagementAgent::Models::INSTALL_TYPES_ENUM.include?(opts[:install_type])
+        raise 'Invalid value for "install_type", must be one of the values in OCI::ManagementAgent::Models::INSTALL_TYPES_ENUM.'
+      end
+
+      path = '/managementAgentCounts'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:groupBy] = OCI::ApiClient.build_collection_params(group_by, :multi)
+      query_params[:hasPlugins] = opts[:has_plugins] if !opts[:has_plugins].nil?
+      query_params[:installType] = opts[:install_type] if opts[:install_type]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ManagementAgentClient#summarize_management_agent_counts') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ManagementAgent::Models::ManagementAgentAggregationCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets count of the inventory of management agent plugins for a given compartment id and group by parameter.
+    # Supported groupBy parameter: pluginName
+    #
+    # @param [String] compartment_id The OCID of the compartment to which a request will be scoped.
+    # @param [String] group_by The field by which to group Management Agent Plugins
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::ManagementAgent::Models::ManagementAgentPluginAggregationCollection ManagementAgentPluginAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementagent/summarize_management_agent_plugin_counts.rb.html) to see an example of how to use summarize_management_agent_plugin_counts API.
+    def summarize_management_agent_plugin_counts(compartment_id, group_by, opts = {})
+      logger.debug 'Calling operation ManagementAgentClient#summarize_management_agent_plugin_counts.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling summarize_management_agent_plugin_counts." if compartment_id.nil?
+      raise "Missing the required parameter 'group_by' when calling summarize_management_agent_plugin_counts." if group_by.nil?
+      unless OCI::ManagementAgent::Models::MANAGEMENT_AGENT_PLUGIN_GROUP_BY_ENUM.include?(group_by)
+        raise 'Invalid value for "group_by", must be one of the values in OCI::ManagementAgent::Models::MANAGEMENT_AGENT_PLUGIN_GROUP_BY_ENUM.'
+      end
+
+
+      path = '/managementAgentPluginCounts'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:groupBy] = group_by
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ManagementAgentClient#summarize_management_agent_plugin_counts') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ManagementAgent::Models::ManagementAgentPluginAggregationCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength

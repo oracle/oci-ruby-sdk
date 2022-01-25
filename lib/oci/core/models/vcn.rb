@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -35,20 +35,20 @@ module OCI
     # @return [Array<String>]
     attr_accessor :cidr_blocks
 
-    # **[Required]** The OCID of the compartment containing the VCN.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the VCN.
     # @return [String]
     attr_accessor :compartment_id
 
-    # The OCID for the VCN's default set of DHCP options.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the VCN's default set of DHCP options.
     #
     # @return [String]
     attr_accessor :default_dhcp_options_id
 
-    # The OCID for the VCN's default route table.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the VCN's default route table.
     # @return [String]
     attr_accessor :default_route_table_id
 
-    # The OCID for the VCN's default security list.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) for the VCN's default security list.
     # @return [String]
     attr_accessor :default_security_list_id
 
@@ -91,7 +91,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The VCN's Oracle ID (OCID).
+    # **[Required]** The VCN's Oracle ID ([OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)).
     # @return [String]
     attr_accessor :id
 

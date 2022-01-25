@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -56,10 +56,8 @@ module OCI
     # @return [String]
     attr_accessor :device
 
-    # A user-friendly name. Does not have to be unique, and it cannot be changed.
+    # A user-friendly name. Does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
-    #
-    # Example: `My volume attachment`
     #
     # @return [String]
     attr_accessor :display_name
@@ -100,14 +98,15 @@ module OCI
     attr_accessor :volume_id
 
     # Whether in-transit encryption for the data volume's paravirtualized attachment is enabled or not.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_pv_encryption_in_transit_enabled
 
-    # Whether the attachment is multipath or not.
+    # Whether the Iscsi or Paravirtualized attachment is multipath or not, it is not applicable to NVMe attachment.
     # @return [BOOLEAN]
     attr_accessor :is_multipath
 
-    # The iscsi login state of the volume attachment. For a multipath volume attachment,
+    # The iscsi login state of the volume attachment. For a Iscsi volume attachment,
     # all iscsi sessions need to be all logged-in or logged-out to be in logged-in or logged-out state.
     #
     # @return [String]

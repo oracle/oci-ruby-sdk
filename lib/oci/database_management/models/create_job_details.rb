@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -11,7 +11,9 @@ module OCI
     DATABASE_SUB_TYPE_ENUM = [
       DATABASE_SUB_TYPE_CDB = 'CDB'.freeze,
       DATABASE_SUB_TYPE_PDB = 'PDB'.freeze,
-      DATABASE_SUB_TYPE_NON_CDB = 'NON_CDB'.freeze
+      DATABASE_SUB_TYPE_NON_CDB = 'NON_CDB'.freeze,
+      DATABASE_SUB_TYPE_ACD = 'ACD'.freeze,
+      DATABASE_SUB_TYPE_ADB = 'ADB'.freeze
     ].freeze
 
     JOB_TYPE_ENUM = [
@@ -60,6 +62,9 @@ module OCI
     # @return [OCI::DatabaseManagement::Models::JobExecutionResultLocation]
     attr_accessor :result_location
 
+    # @return [OCI::DatabaseManagement::Models::JobScheduleDetails]
+    attr_accessor :schedule_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -73,7 +78,8 @@ module OCI
         'schedule_type': :'scheduleType',
         'job_type': :'jobType',
         'timeout': :'timeout',
-        'result_location': :'resultLocation'
+        'result_location': :'resultLocation',
+        'schedule_details': :'scheduleDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -91,7 +97,8 @@ module OCI
         'schedule_type': :'String',
         'job_type': :'String',
         'timeout': :'String',
-        'result_location': :'OCI::DatabaseManagement::Models::JobExecutionResultLocation'
+        'result_location': :'OCI::DatabaseManagement::Models::JobExecutionResultLocation',
+        'schedule_details': :'OCI::DatabaseManagement::Models::JobScheduleDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -127,6 +134,7 @@ module OCI
     # @option attributes [String] :job_type The value to assign to the {#job_type} property
     # @option attributes [String] :timeout The value to assign to the {#timeout} property
     # @option attributes [OCI::DatabaseManagement::Models::JobExecutionResultLocation] :result_location The value to assign to the {#result_location} property
+    # @option attributes [OCI::DatabaseManagement::Models::JobScheduleDetails] :schedule_details The value to assign to the {#schedule_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -180,6 +188,12 @@ module OCI
       raise 'You cannot provide both :resultLocation and :result_location' if attributes.key?(:'resultLocation') && attributes.key?(:'result_location')
 
       self.result_location = attributes[:'result_location'] if attributes[:'result_location']
+
+      self.schedule_details = attributes[:'scheduleDetails'] if attributes[:'scheduleDetails']
+
+      raise 'You cannot provide both :scheduleDetails and :schedule_details' if attributes.key?(:'scheduleDetails') && attributes.key?(:'schedule_details')
+
+      self.schedule_details = attributes[:'schedule_details'] if attributes[:'schedule_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -218,7 +232,8 @@ module OCI
         schedule_type == other.schedule_type &&
         job_type == other.job_type &&
         timeout == other.timeout &&
-        result_location == other.result_location
+        result_location == other.result_location &&
+        schedule_details == other.schedule_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -234,7 +249,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, description, compartment_id, managed_database_group_id, managed_database_id, database_sub_type, schedule_type, job_type, timeout, result_location].hash
+      [name, description, compartment_id, managed_database_group_id, managed_database_id, database_sub_type, schedule_type, job_type, timeout, result_location, schedule_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

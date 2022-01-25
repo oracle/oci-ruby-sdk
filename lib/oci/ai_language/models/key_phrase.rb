@@ -1,17 +1,19 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Key phrase and score for the given text.
+  # Key phrase for the given text.
   class AiLanguage::Models::KeyPhrase
-    # **[Required]** Key phrase of the the given text.
+    # **[Required]** Key phrase exreacted from given text.
     # @return [String]
     attr_accessor :text
 
-    # **[Required]** Score of the given key phrase.
+    # **[Required]** Score or confidence of the key phrase.
+    # Example: `0.9999856066867399`
+    #
     # @return [Float]
     attr_accessor :score
 

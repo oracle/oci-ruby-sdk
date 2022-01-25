@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -426,14 +426,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the results for a specific execution of a monitor identified by OCID. The results are in a HAR file, Screenshot, or Console Log.
+    # Gets the results for a specific execution of a monitor identified by OCID. The results are in a HAR file, Screenshot, Console Log or Network details.
     #
     # @param [String] apm_domain_id The APM domain ID the request is intended for.
     #
     # @param [String] monitor_id The OCID of the monitor.
     # @param [String] vantage_point The vantagePoint name.
     #
-    # @param [String] result_type The result type har or screenshot or log.
+    # @param [String] result_type The result type har, screenshot, log or network.
     #
     # @param [String] result_content_type The result content type zip or raw.
     #

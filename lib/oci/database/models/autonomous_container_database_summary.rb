@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -64,7 +64,8 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # The `DB_UNIQUE_NAME` of the Oracle Database being backed up.
+    # **Deprecated.** The `DB_UNIQUE_NAME` value is set by Oracle Cloud Infrastructure.  Do not specify a value for this parameter. Specifying a value for this field will cause Terraform operations to fail.
+    #
     # @return [String]
     attr_accessor :db_unique_name
 
@@ -84,6 +85,10 @@ module OCI
     # @return [String]
     attr_reader :infrastructure_type
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the cloud Autonomous Exadata VM Cluster.
+    # @return [String]
+    attr_accessor :cloud_autonomous_vm_cluster_id
+
     # The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
     # @return [String]
     attr_accessor :kms_key_id
@@ -91,6 +96,15 @@ module OCI
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Oracle Cloud Infrastructure [vault](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm#concepts).
     # @return [String]
     attr_accessor :vault_id
+
+    # The OCID of the key container version that is used in database transparent data encryption (TDE) operations KMS Key can have multiple key versions. If none is specified, the current key version (latest) of the Key Id is used for the operation.
+    #
+    # @return [String]
+    attr_accessor :kms_key_version_id
+
+    # Key History Entry.
+    # @return [Array<OCI::Database::Models::AutonomousDatabaseKeyHistoryEntry>]
+    attr_accessor :key_history_entry
 
     # **[Required]** The current state of the Autonomous Container Database.
     # @return [String]
@@ -178,8 +192,11 @@ module OCI
         'autonomous_exadata_infrastructure_id': :'autonomousExadataInfrastructureId',
         'autonomous_vm_cluster_id': :'autonomousVmClusterId',
         'infrastructure_type': :'infrastructureType',
+        'cloud_autonomous_vm_cluster_id': :'cloudAutonomousVmClusterId',
         'kms_key_id': :'kmsKeyId',
         'vault_id': :'vaultId',
+        'kms_key_version_id': :'kmsKeyVersionId',
+        'key_history_entry': :'keyHistoryEntry',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
         'time_created': :'timeCreated',
@@ -213,8 +230,11 @@ module OCI
         'autonomous_exadata_infrastructure_id': :'String',
         'autonomous_vm_cluster_id': :'String',
         'infrastructure_type': :'String',
+        'cloud_autonomous_vm_cluster_id': :'String',
         'kms_key_id': :'String',
         'vault_id': :'String',
+        'kms_key_version_id': :'String',
+        'key_history_entry': :'Array<OCI::Database::Models::AutonomousDatabaseKeyHistoryEntry>',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
         'time_created': :'DateTime',
@@ -250,8 +270,11 @@ module OCI
     # @option attributes [String] :autonomous_exadata_infrastructure_id The value to assign to the {#autonomous_exadata_infrastructure_id} property
     # @option attributes [String] :autonomous_vm_cluster_id The value to assign to the {#autonomous_vm_cluster_id} property
     # @option attributes [String] :infrastructure_type The value to assign to the {#infrastructure_type} property
+    # @option attributes [String] :cloud_autonomous_vm_cluster_id The value to assign to the {#cloud_autonomous_vm_cluster_id} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
+    # @option attributes [String] :kms_key_version_id The value to assign to the {#kms_key_version_id} property
+    # @option attributes [Array<OCI::Database::Models::AutonomousDatabaseKeyHistoryEntry>] :key_history_entry The value to assign to the {#key_history_entry} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -319,6 +342,12 @@ module OCI
 
       self.infrastructure_type = attributes[:'infrastructure_type'] if attributes[:'infrastructure_type']
 
+      self.cloud_autonomous_vm_cluster_id = attributes[:'cloudAutonomousVmClusterId'] if attributes[:'cloudAutonomousVmClusterId']
+
+      raise 'You cannot provide both :cloudAutonomousVmClusterId and :cloud_autonomous_vm_cluster_id' if attributes.key?(:'cloudAutonomousVmClusterId') && attributes.key?(:'cloud_autonomous_vm_cluster_id')
+
+      self.cloud_autonomous_vm_cluster_id = attributes[:'cloud_autonomous_vm_cluster_id'] if attributes[:'cloud_autonomous_vm_cluster_id']
+
       self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
 
       raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
@@ -330,6 +359,18 @@ module OCI
       raise 'You cannot provide both :vaultId and :vault_id' if attributes.key?(:'vaultId') && attributes.key?(:'vault_id')
 
       self.vault_id = attributes[:'vault_id'] if attributes[:'vault_id']
+
+      self.kms_key_version_id = attributes[:'kmsKeyVersionId'] if attributes[:'kmsKeyVersionId']
+
+      raise 'You cannot provide both :kmsKeyVersionId and :kms_key_version_id' if attributes.key?(:'kmsKeyVersionId') && attributes.key?(:'kms_key_version_id')
+
+      self.kms_key_version_id = attributes[:'kms_key_version_id'] if attributes[:'kms_key_version_id']
+
+      self.key_history_entry = attributes[:'keyHistoryEntry'] if attributes[:'keyHistoryEntry']
+
+      raise 'You cannot provide both :keyHistoryEntry and :key_history_entry' if attributes.key?(:'keyHistoryEntry') && attributes.key?(:'key_history_entry')
+
+      self.key_history_entry = attributes[:'key_history_entry'] if attributes[:'key_history_entry']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -514,8 +555,11 @@ module OCI
         autonomous_exadata_infrastructure_id == other.autonomous_exadata_infrastructure_id &&
         autonomous_vm_cluster_id == other.autonomous_vm_cluster_id &&
         infrastructure_type == other.infrastructure_type &&
+        cloud_autonomous_vm_cluster_id == other.cloud_autonomous_vm_cluster_id &&
         kms_key_id == other.kms_key_id &&
         vault_id == other.vault_id &&
+        kms_key_version_id == other.kms_key_version_id &&
+        key_history_entry == other.key_history_entry &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
         time_created == other.time_created &&
@@ -548,7 +592,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, db_unique_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, autonomous_vm_cluster_id, infrastructure_type, kms_key_id, vault_id, lifecycle_state, lifecycle_details, time_created, patch_model, patch_id, last_maintenance_run_id, next_maintenance_run_id, maintenance_window, standby_maintenance_buffer_in_days, freeform_tags, defined_tags, role, availability_domain, db_version, backup_config, key_store_id, key_store_wallet_name].hash
+      [id, compartment_id, display_name, db_unique_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, autonomous_vm_cluster_id, infrastructure_type, cloud_autonomous_vm_cluster_id, kms_key_id, vault_id, kms_key_version_id, key_history_entry, lifecycle_state, lifecycle_details, time_created, patch_model, patch_id, last_maintenance_run_id, next_maintenance_run_id, maintenance_window, standby_maintenance_buffer_in_days, freeform_tags, defined_tags, role, availability_domain, db_version, backup_config, key_store_id, key_store_wallet_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

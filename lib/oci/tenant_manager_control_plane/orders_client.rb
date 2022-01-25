@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -98,7 +98,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Triggers an order activation workflow on behalf of the tenant given by compartment id in the body.
+    # Triggers an order activation workflow on behalf of the tenant, given by compartment ID in the body.
     # @param [OCI::TenantManagerControlPlane::Models::ActivateOrderDetails] activate_order_details The information needed to activate an order in a tenancy.
     # @param [String] activation_token Activation Token containing an order id. JWT RFC 7519 formatted string.
     #

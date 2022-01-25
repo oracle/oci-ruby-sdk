@@ -1,13 +1,13 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Order Details for Console plugin display
+  # Order details.
   class TenantManagerControlPlane::Models::Order
-    # **[Required]** Immutable and unique order number holding customer subscription information
+    # **[Required]** Immutable and unique order number holding customer subscription information.
     # @return [String]
     attr_accessor :order_number
 
@@ -15,11 +15,11 @@ module OCI
     # @return [String]
     attr_accessor :data_center_region
 
-    # **[Required]** Admin e-mail owning subscription.
+    # **[Required]** Administrator email owning the subscription.
     # @return [String]
     attr_accessor :admin_email
 
-    # **[Required]** State of order.
+    # **[Required]** State of the order.
     # @return [String]
     attr_accessor :order_state
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -12,6 +12,8 @@ module OCI
   class OperatorAccessControl::Models::OperatorControlAssignment
     RESOURCE_TYPE_ENUM = [
       RESOURCE_TYPE_EXACC = 'EXACC'.freeze,
+      RESOURCE_TYPE_EXADATAINFRASTRUCTURE = 'EXADATAINFRASTRUCTURE'.freeze,
+      RESOURCE_TYPE_AUTONOMOUSVMCLUSTER = 'AUTONOMOUSVMCLUSTER'.freeze,
       RESOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -19,7 +21,10 @@ module OCI
       LIFECYCLE_STATE_CREATED = 'CREATED'.freeze,
       LIFECYCLE_STATE_APPLIED = 'APPLIED'.freeze,
       LIFECYCLE_STATE_APPLYFAILED = 'APPLYFAILED'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_DELETIONFAILED = 'DELETIONFAILED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -39,10 +44,6 @@ module OCI
     # @return [String]
     attr_accessor :resource_name
 
-    # Type of the target resource.
-    # @return [String]
-    attr_reader :resource_type
-
     # The OCID of the compartment that contains the target resource.
     # @return [String]
     attr_accessor :resource_compartment_id
@@ -50,6 +51,10 @@ module OCI
     # The OCID of the comparment that contains the operator control assignment.
     # @return [String]
     attr_accessor :compartment_id
+
+    # resourceType for which the OperatorControlAssignment is applicable
+    # @return [String]
+    attr_reader :resource_type
 
     # The time at which the target resource will be brought under the governance of the operator control expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.
     # Example: '2020-05-22T21:10:29.600Z'
@@ -97,6 +102,34 @@ module OCI
     # @return [String]
     attr_accessor :detachment_description
 
+    # If set indicates that the audit logs are being forwarded to the relevant remote logging server
+    # @return [BOOLEAN]
+    attr_accessor :is_log_forwarded
+
+    # The address of the remote syslog server where the audit logs are being forwarded to. Address in host or IP format.
+    # @return [String]
+    attr_accessor :remote_syslog_server_address
+
+    # The listening port of the remote syslog server. The port range is 0 - 65535. Only TCP supported.
+    # @return [Integer]
+    attr_accessor :remote_syslog_server_port
+
+    # The CA certificate of the remote syslog server.
+    # @return [String]
+    attr_accessor :remote_syslog_server_ca_cert
+
+    # The boolean if true would autoApprove during maintenance.
+    # @return [BOOLEAN]
+    attr_accessor :is_auto_approve_during_maintenance
+
+    # The code identifying the error occurred during Assignment operation.
+    # @return [Integer]
+    attr_accessor :error_code
+
+    # The message describing the error occurred during Assignment operation.
+    # @return [String]
+    attr_accessor :error_message
+
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     #
     # @return [Hash<String, String>]
@@ -115,9 +148,9 @@ module OCI
         'operator_control_id': :'operatorControlId',
         'resource_id': :'resourceId',
         'resource_name': :'resourceName',
-        'resource_type': :'resourceType',
         'resource_compartment_id': :'resourceCompartmentId',
         'compartment_id': :'compartmentId',
+        'resource_type': :'resourceType',
         'time_assignment_from': :'timeAssignmentFrom',
         'time_assignment_to': :'timeAssignmentTo',
         'is_enforced_always': :'isEnforcedAlways',
@@ -128,6 +161,13 @@ module OCI
         'unassigner_id': :'unassignerId',
         'time_of_deletion': :'timeOfDeletion',
         'detachment_description': :'detachmentDescription',
+        'is_log_forwarded': :'isLogForwarded',
+        'remote_syslog_server_address': :'remoteSyslogServerAddress',
+        'remote_syslog_server_port': :'remoteSyslogServerPort',
+        'remote_syslog_server_ca_cert': :'remoteSyslogServerCACert',
+        'is_auto_approve_during_maintenance': :'isAutoApproveDuringMaintenance',
+        'error_code': :'errorCode',
+        'error_message': :'errorMessage',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -142,9 +182,9 @@ module OCI
         'operator_control_id': :'String',
         'resource_id': :'String',
         'resource_name': :'String',
-        'resource_type': :'String',
         'resource_compartment_id': :'String',
         'compartment_id': :'String',
+        'resource_type': :'String',
         'time_assignment_from': :'DateTime',
         'time_assignment_to': :'DateTime',
         'is_enforced_always': :'BOOLEAN',
@@ -155,6 +195,13 @@ module OCI
         'unassigner_id': :'String',
         'time_of_deletion': :'DateTime',
         'detachment_description': :'String',
+        'is_log_forwarded': :'BOOLEAN',
+        'remote_syslog_server_address': :'String',
+        'remote_syslog_server_port': :'Integer',
+        'remote_syslog_server_ca_cert': :'String',
+        'is_auto_approve_during_maintenance': :'BOOLEAN',
+        'error_code': :'Integer',
+        'error_message': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -171,9 +218,9 @@ module OCI
     # @option attributes [String] :operator_control_id The value to assign to the {#operator_control_id} property
     # @option attributes [String] :resource_id The value to assign to the {#resource_id} property
     # @option attributes [String] :resource_name The value to assign to the {#resource_name} property
-    # @option attributes [String] :resource_type The value to assign to the {#resource_type} property
     # @option attributes [String] :resource_compartment_id The value to assign to the {#resource_compartment_id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :resource_type The value to assign to the {#resource_type} property
     # @option attributes [DateTime] :time_assignment_from The value to assign to the {#time_assignment_from} property
     # @option attributes [DateTime] :time_assignment_to The value to assign to the {#time_assignment_to} property
     # @option attributes [BOOLEAN] :is_enforced_always The value to assign to the {#is_enforced_always} property
@@ -184,6 +231,13 @@ module OCI
     # @option attributes [String] :unassigner_id The value to assign to the {#unassigner_id} property
     # @option attributes [DateTime] :time_of_deletion The value to assign to the {#time_of_deletion} property
     # @option attributes [String] :detachment_description The value to assign to the {#detachment_description} property
+    # @option attributes [BOOLEAN] :is_log_forwarded The value to assign to the {#is_log_forwarded} property
+    # @option attributes [String] :remote_syslog_server_address The value to assign to the {#remote_syslog_server_address} property
+    # @option attributes [Integer] :remote_syslog_server_port The value to assign to the {#remote_syslog_server_port} property
+    # @option attributes [String] :remote_syslog_server_ca_cert The value to assign to the {#remote_syslog_server_ca_cert} property
+    # @option attributes [BOOLEAN] :is_auto_approve_during_maintenance The value to assign to the {#is_auto_approve_during_maintenance} property
+    # @option attributes [Integer] :error_code The value to assign to the {#error_code} property
+    # @option attributes [String] :error_message The value to assign to the {#error_message} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -212,12 +266,6 @@ module OCI
 
       self.resource_name = attributes[:'resource_name'] if attributes[:'resource_name']
 
-      self.resource_type = attributes[:'resourceType'] if attributes[:'resourceType']
-
-      raise 'You cannot provide both :resourceType and :resource_type' if attributes.key?(:'resourceType') && attributes.key?(:'resource_type')
-
-      self.resource_type = attributes[:'resource_type'] if attributes[:'resource_type']
-
       self.resource_compartment_id = attributes[:'resourceCompartmentId'] if attributes[:'resourceCompartmentId']
 
       raise 'You cannot provide both :resourceCompartmentId and :resource_compartment_id' if attributes.key?(:'resourceCompartmentId') && attributes.key?(:'resource_compartment_id')
@@ -229,6 +277,12 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.resource_type = attributes[:'resourceType'] if attributes[:'resourceType']
+
+      raise 'You cannot provide both :resourceType and :resource_type' if attributes.key?(:'resourceType') && attributes.key?(:'resource_type')
+
+      self.resource_type = attributes[:'resource_type'] if attributes[:'resource_type']
 
       self.time_assignment_from = attributes[:'timeAssignmentFrom'] if attributes[:'timeAssignmentFrom']
 
@@ -286,6 +340,48 @@ module OCI
 
       self.detachment_description = attributes[:'detachment_description'] if attributes[:'detachment_description']
 
+      self.is_log_forwarded = attributes[:'isLogForwarded'] unless attributes[:'isLogForwarded'].nil?
+
+      raise 'You cannot provide both :isLogForwarded and :is_log_forwarded' if attributes.key?(:'isLogForwarded') && attributes.key?(:'is_log_forwarded')
+
+      self.is_log_forwarded = attributes[:'is_log_forwarded'] unless attributes[:'is_log_forwarded'].nil?
+
+      self.remote_syslog_server_address = attributes[:'remoteSyslogServerAddress'] if attributes[:'remoteSyslogServerAddress']
+
+      raise 'You cannot provide both :remoteSyslogServerAddress and :remote_syslog_server_address' if attributes.key?(:'remoteSyslogServerAddress') && attributes.key?(:'remote_syslog_server_address')
+
+      self.remote_syslog_server_address = attributes[:'remote_syslog_server_address'] if attributes[:'remote_syslog_server_address']
+
+      self.remote_syslog_server_port = attributes[:'remoteSyslogServerPort'] if attributes[:'remoteSyslogServerPort']
+
+      raise 'You cannot provide both :remoteSyslogServerPort and :remote_syslog_server_port' if attributes.key?(:'remoteSyslogServerPort') && attributes.key?(:'remote_syslog_server_port')
+
+      self.remote_syslog_server_port = attributes[:'remote_syslog_server_port'] if attributes[:'remote_syslog_server_port']
+
+      self.remote_syslog_server_ca_cert = attributes[:'remoteSyslogServerCACert'] if attributes[:'remoteSyslogServerCACert']
+
+      raise 'You cannot provide both :remoteSyslogServerCACert and :remote_syslog_server_ca_cert' if attributes.key?(:'remoteSyslogServerCACert') && attributes.key?(:'remote_syslog_server_ca_cert')
+
+      self.remote_syslog_server_ca_cert = attributes[:'remote_syslog_server_ca_cert'] if attributes[:'remote_syslog_server_ca_cert']
+
+      self.is_auto_approve_during_maintenance = attributes[:'isAutoApproveDuringMaintenance'] unless attributes[:'isAutoApproveDuringMaintenance'].nil?
+
+      raise 'You cannot provide both :isAutoApproveDuringMaintenance and :is_auto_approve_during_maintenance' if attributes.key?(:'isAutoApproveDuringMaintenance') && attributes.key?(:'is_auto_approve_during_maintenance')
+
+      self.is_auto_approve_during_maintenance = attributes[:'is_auto_approve_during_maintenance'] unless attributes[:'is_auto_approve_during_maintenance'].nil?
+
+      self.error_code = attributes[:'errorCode'] if attributes[:'errorCode']
+
+      raise 'You cannot provide both :errorCode and :error_code' if attributes.key?(:'errorCode') && attributes.key?(:'error_code')
+
+      self.error_code = attributes[:'error_code'] if attributes[:'error_code']
+
+      self.error_message = attributes[:'errorMessage'] if attributes[:'errorMessage']
+
+      raise 'You cannot provide both :errorMessage and :error_message' if attributes.key?(:'errorMessage') && attributes.key?(:'error_message')
+
+      self.error_message = attributes[:'error_message'] if attributes[:'error_message']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -340,9 +436,9 @@ module OCI
         operator_control_id == other.operator_control_id &&
         resource_id == other.resource_id &&
         resource_name == other.resource_name &&
-        resource_type == other.resource_type &&
         resource_compartment_id == other.resource_compartment_id &&
         compartment_id == other.compartment_id &&
+        resource_type == other.resource_type &&
         time_assignment_from == other.time_assignment_from &&
         time_assignment_to == other.time_assignment_to &&
         is_enforced_always == other.is_enforced_always &&
@@ -353,6 +449,13 @@ module OCI
         unassigner_id == other.unassigner_id &&
         time_of_deletion == other.time_of_deletion &&
         detachment_description == other.detachment_description &&
+        is_log_forwarded == other.is_log_forwarded &&
+        remote_syslog_server_address == other.remote_syslog_server_address &&
+        remote_syslog_server_port == other.remote_syslog_server_port &&
+        remote_syslog_server_ca_cert == other.remote_syslog_server_ca_cert &&
+        is_auto_approve_during_maintenance == other.is_auto_approve_during_maintenance &&
+        error_code == other.error_code &&
+        error_message == other.error_message &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -370,7 +473,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, operator_control_id, resource_id, resource_name, resource_type, resource_compartment_id, compartment_id, time_assignment_from, time_assignment_to, is_enforced_always, lifecycle_state, assigner_id, time_of_assignment, comment, unassigner_id, time_of_deletion, detachment_description, freeform_tags, defined_tags].hash
+      [id, operator_control_id, resource_id, resource_name, resource_compartment_id, compartment_id, resource_type, time_assignment_from, time_assignment_to, is_enforced_always, lifecycle_state, assigner_id, time_of_assignment, comment, unassigner_id, time_of_deletion, detachment_description, is_log_forwarded, remote_syslog_server_address, remote_syslog_server_port, remote_syslog_server_ca_cert, is_auto_approve_during_maintenance, error_code, error_message, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

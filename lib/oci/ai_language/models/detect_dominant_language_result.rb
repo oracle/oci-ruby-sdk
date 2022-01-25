@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,10 +7,7 @@ require 'date'
 module OCI
   # Result of language detect call.
   class AiLanguage::Models::DetectDominantLanguageResult
-    # **[Required]** Results are sorted in descending order of the scores. Most likely language is on top.
-    # languages: [{\"name\": \"Bosnian\",\"code\": \"bs\",\"score\": 0.6942308391868572},
-    #            {\"name\": \"Croatian\",\"code\": \"hr\",\"score\": 0.15768701487872652},
-    #            {\"name\": \"Serbo-Croatian\",\"code\": \"sh\",\"score\": 0.1480651612334694}]
+    # **[Required]** List of detected languages with results sorted in descending order of the scores. Most likely language is on top.
     #
     # @return [Array<OCI::AiLanguage::Models::DetectedLanguage>]
     attr_accessor :languages

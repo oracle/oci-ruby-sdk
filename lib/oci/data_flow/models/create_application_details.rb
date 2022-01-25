@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -13,6 +13,11 @@ module OCI
       LANGUAGE_JAVA = 'JAVA'.freeze,
       LANGUAGE_PYTHON = 'PYTHON'.freeze,
       LANGUAGE_SQL = 'SQL'.freeze
+    ].freeze
+
+    TYPE_ENUM = [
+      TYPE_BATCH = 'BATCH'.freeze,
+      TYPE_STREAMING = 'STREAMING'.freeze
     ].freeze
 
     # An Oracle Cloud Infrastructure URI of an archive.zip file containing custom dependencies that may be used to support the execution a Python, Java, or Scala application.
@@ -139,6 +144,11 @@ module OCI
     # @return [String]
     attr_accessor :spark_version
 
+    # The Spark application processing type.
+    #
+    # @return [String]
+    attr_reader :type
+
     # An Oracle Cloud Infrastructure URI of the bucket to be used as default warehouse directory
     # for BATCH SQL runs.
     # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
@@ -170,6 +180,7 @@ module OCI
         'parameters': :'parameters',
         'private_endpoint_id': :'privateEndpointId',
         'spark_version': :'sparkVersion',
+        'type': :'type',
         'warehouse_bucket_uri': :'warehouseBucketUri'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -199,6 +210,7 @@ module OCI
         'parameters': :'Array<OCI::DataFlow::Models::ApplicationParameter>',
         'private_endpoint_id': :'String',
         'spark_version': :'String',
+        'type': :'String',
         'warehouse_bucket_uri': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -230,6 +242,7 @@ module OCI
     # @option attributes [Array<OCI::DataFlow::Models::ApplicationParameter>] :parameters The value to assign to the {#parameters} property
     # @option attributes [String] :private_endpoint_id The value to assign to the {#private_endpoint_id} property
     # @option attributes [String] :spark_version The value to assign to the {#spark_version} property
+    # @option attributes [String] :type The value to assign to the {#type} property
     # @option attributes [String] :warehouse_bucket_uri The value to assign to the {#warehouse_bucket_uri} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -333,6 +346,9 @@ module OCI
 
       self.spark_version = attributes[:'spark_version'] if attributes[:'spark_version']
 
+      self.type = attributes[:'type'] if attributes[:'type']
+      self.type = "BATCH" if type.nil? && !attributes.key?(:'type') # rubocop:disable Style/StringLiterals
+
       self.warehouse_bucket_uri = attributes[:'warehouseBucketUri'] if attributes[:'warehouseBucketUri']
 
       raise 'You cannot provide both :warehouseBucketUri and :warehouse_bucket_uri' if attributes.key?(:'warehouseBucketUri') && attributes.key?(:'warehouse_bucket_uri')
@@ -348,6 +364,14 @@ module OCI
       raise "Invalid value for 'language': this must be one of the values in LANGUAGE_ENUM." if language && !LANGUAGE_ENUM.include?(language)
 
       @language = language
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] type Object to be assigned
+    def type=(type)
+      raise "Invalid value for 'type': this must be one of the values in TYPE_ENUM." if type && !TYPE_ENUM.include?(type)
+
+      @type = type
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -379,6 +403,7 @@ module OCI
         parameters == other.parameters &&
         private_endpoint_id == other.private_endpoint_id &&
         spark_version == other.spark_version &&
+        type == other.type &&
         warehouse_bucket_uri == other.warehouse_bucket_uri
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -395,7 +420,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [archive_uri, arguments, class_name, compartment_id, configuration, defined_tags, description, display_name, driver_shape, execute, executor_shape, file_uri, freeform_tags, language, logs_bucket_uri, metastore_id, num_executors, parameters, private_endpoint_id, spark_version, warehouse_bucket_uri].hash
+      [archive_uri, arguments, class_name, compartment_id, configuration, defined_tags, description, display_name, driver_shape, execute, executor_shape, file_uri, freeform_tags, language, logs_bucket_uri, metastore_id, num_executors, parameters, private_endpoint_id, spark_version, type, warehouse_bucket_uri].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

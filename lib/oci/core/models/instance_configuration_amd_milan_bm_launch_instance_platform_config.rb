@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -29,6 +29,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'type': :'type',
+        'is_secure_boot_enabled': :'isSecureBootEnabled',
+        'is_trusted_platform_module_enabled': :'isTrustedPlatformModuleEnabled',
+        'is_measured_boot_enabled': :'isMeasuredBootEnabled',
         'numa_nodes_per_socket': :'numaNodesPerSocket'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -39,6 +42,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'type': :'String',
+        'is_secure_boot_enabled': :'BOOLEAN',
+        'is_trusted_platform_module_enabled': :'BOOLEAN',
+        'is_measured_boot_enabled': :'BOOLEAN',
         'numa_nodes_per_socket': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -50,6 +56,9 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [BOOLEAN] :is_secure_boot_enabled The value to assign to the {OCI::Core::Models::InstanceConfigurationLaunchInstancePlatformConfig#is_secure_boot_enabled #is_secure_boot_enabled} proprety
+    # @option attributes [BOOLEAN] :is_trusted_platform_module_enabled The value to assign to the {OCI::Core::Models::InstanceConfigurationLaunchInstancePlatformConfig#is_trusted_platform_module_enabled #is_trusted_platform_module_enabled} proprety
+    # @option attributes [BOOLEAN] :is_measured_boot_enabled The value to assign to the {OCI::Core::Models::InstanceConfigurationLaunchInstancePlatformConfig#is_measured_boot_enabled #is_measured_boot_enabled} proprety
     # @option attributes [String] :numa_nodes_per_socket The value to assign to the {#numa_nodes_per_socket} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -95,6 +104,9 @@ module OCI
 
       self.class == other.class &&
         type == other.type &&
+        is_secure_boot_enabled == other.is_secure_boot_enabled &&
+        is_trusted_platform_module_enabled == other.is_trusted_platform_module_enabled &&
+        is_measured_boot_enabled == other.is_measured_boot_enabled &&
         numa_nodes_per_socket == other.numa_nodes_per_socket
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -111,7 +123,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, numa_nodes_per_socket].hash
+      [type, is_secure_boot_enabled, is_trusted_platform_module_enabled, is_measured_boot_enabled, numa_nodes_per_socket].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

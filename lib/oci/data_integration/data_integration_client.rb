@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Use the Data Integration Service APIs to perform common extract, load, and transform (ETL) tasks.
+  # Use the Data Integration API to organize your data integration projects, create data flows, pipelines and tasks, and then publish, schedule, and run tasks that extract, transform, and load data. For more information, see [Data Integration](https://docs.oracle.com/iaas/data-integration/home.htm).
   class DataIntegration::DataIntegrationClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -818,6 +818,71 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a function library in a project or in another function library, limited to two levels of function libraries. |
+    # FunctionLibraries are used to organize your design-time resources, such as tasks or data flows.
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [OCI::DataIntegration::Models::CreateFunctionLibraryDetails] create_function_library_details The details needed to create a function Library.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::FunctionLibrary FunctionLibrary}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_function_library.rb.html) to see an example of how to use create_function_library API.
+    def create_function_library(workspace_id, create_function_library_details, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#create_function_library.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling create_function_library." if workspace_id.nil?
+      raise "Missing the required parameter 'create_function_library_details' when calling create_function_library." if create_function_library_details.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+
+      path = '/workspaces/{workspaceId}/functionLibraries'.sub('{workspaceId}', workspace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_function_library_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#create_function_library') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::FunctionLibrary'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a patch in an application.
     # @param [String] workspace_id The workspace ID.
     # @param [String] application_key The application key.
@@ -1401,7 +1466,135 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new Data Integration workspace ready for performing data integration tasks.
+    # Creates a new UserDefinedFunction in a function library ready for performing data integrations.
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [OCI::DataIntegration::Models::CreateUserDefinedFunctionDetails] create_user_defined_function_details The details needed to create a new UserDefinedFunction.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::UserDefinedFunction UserDefinedFunction}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_user_defined_function.rb.html) to see an example of how to use create_user_defined_function API.
+    def create_user_defined_function(workspace_id, create_user_defined_function_details, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#create_user_defined_function.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling create_user_defined_function." if workspace_id.nil?
+      raise "Missing the required parameter 'create_user_defined_function_details' when calling create_user_defined_function." if create_user_defined_function_details.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+
+      path = '/workspaces/{workspaceId}/userDefinedFunctions'.sub('{workspaceId}', workspace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_user_defined_function_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#create_user_defined_function') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::UserDefinedFunction'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Accepts the UserDefinedFunction definition in the request payload and creates a UserDefinedFunction validation.
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [OCI::DataIntegration::Models::CreateUserDefinedFunctionValidationDetails] create_user_defined_function_validation_details The information needed to create the UserDefinedFunction validation for the UserDefinedFunction object.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::UserDefinedFunctionValidation UserDefinedFunctionValidation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_user_defined_function_validation.rb.html) to see an example of how to use create_user_defined_function_validation API.
+    def create_user_defined_function_validation(workspace_id, create_user_defined_function_validation_details, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#create_user_defined_function_validation.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling create_user_defined_function_validation." if workspace_id.nil?
+      raise "Missing the required parameter 'create_user_defined_function_validation_details' when calling create_user_defined_function_validation." if create_user_defined_function_validation_details.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+
+      path = '/workspaces/{workspaceId}/userDefinedFunctionValidations'.sub('{workspaceId}', workspace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_user_defined_function_validation_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#create_user_defined_function_validation') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::UserDefinedFunctionValidation'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new Data Integration workspace ready for performing data integration tasks. To retrieve the OCID for the new workspace, use the opc-work-request-id returned by this API and call the {#get_work_request get_work_request} API.
     #
     # @param [OCI::DataIntegration::Models::CreateWorkspaceDetails] create_workspace_details The information needed to create a new Data Integration workspace.
     # @param [Hash] opts the optional parameters
@@ -2044,6 +2237,70 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Removes a Function Library from a project using the specified identifier.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] function_library_key The functionLibrary key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the `etag` from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the `etag` you provide matches the resource's current `etag` value.
+    #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_function_library.rb.html) to see an example of how to use delete_function_library API.
+    def delete_function_library(workspace_id, function_library_key, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#delete_function_library.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling delete_function_library." if workspace_id.nil?
+      raise "Missing the required parameter 'function_library_key' when calling delete_function_library." if function_library_key.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'function_library_key' must not be blank" if OCI::Internal::Util.blank_string?(function_library_key)
+
+      path = '/workspaces/{workspaceId}/functionLibraries/{functionLibraryKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{functionLibraryKey}', function_library_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#delete_function_library') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Removes a patch using the specified identifier.
     # @param [String] workspace_id The workspace ID.
     # @param [String] application_key The application key.
@@ -2612,6 +2869,134 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#delete_task_validation') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Removes a UserDefinedFunction from a function library using the specified identifier.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] user_defined_function_key The user defined function key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the `etag` from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the `etag` you provide matches the resource's current `etag` value.
+    #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_user_defined_function.rb.html) to see an example of how to use delete_user_defined_function API.
+    def delete_user_defined_function(workspace_id, user_defined_function_key, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#delete_user_defined_function.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling delete_user_defined_function." if workspace_id.nil?
+      raise "Missing the required parameter 'user_defined_function_key' when calling delete_user_defined_function." if user_defined_function_key.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'user_defined_function_key' must not be blank" if OCI::Internal::Util.blank_string?(user_defined_function_key)
+
+      path = '/workspaces/{workspaceId}/userDefinedFunctions/{userDefinedFunctionKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{userDefinedFunctionKey}', user_defined_function_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#delete_user_defined_function') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Removes a UserDefinedFunction validation using the specified identifier.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] user_defined_function_validation_key The key of the userDefinedFunction validation.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the `etag` from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the `etag` you provide matches the resource's current `etag` value.
+    #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_user_defined_function_validation.rb.html) to see an example of how to use delete_user_defined_function_validation API.
+    def delete_user_defined_function_validation(workspace_id, user_defined_function_validation_key, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#delete_user_defined_function_validation.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling delete_user_defined_function_validation." if workspace_id.nil?
+      raise "Missing the required parameter 'user_defined_function_validation_key' when calling delete_user_defined_function_validation." if user_defined_function_validation_key.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'user_defined_function_validation_key' must not be blank" if OCI::Internal::Util.blank_string?(user_defined_function_validation_key)
+
+      path = '/workspaces/{workspaceId}/userDefinedFunctionValidations/{userDefinedFunctionValidationKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{userDefinedFunctionValidationKey}', user_defined_function_validation_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#delete_user_defined_function_validation') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -3450,6 +3835,79 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Retrieves a Function Library using the specified identifier.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] function_library_key The functionLibrary key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [Array<String>] :projection This parameter allows users to specify which view of the object to return. CHILD_COUNT_STATISTICS - This option is used to get statistics on immediate children of the object by their type. (default to [])
+    #   Allowed values are: CHILD_COUNT_STATISTICS
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::FunctionLibrary FunctionLibrary}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_function_library.rb.html) to see an example of how to use get_function_library API.
+    def get_function_library(workspace_id, function_library_key, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#get_function_library.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling get_function_library." if workspace_id.nil?
+      raise "Missing the required parameter 'function_library_key' when calling get_function_library." if function_library_key.nil?
+
+
+      projection_allowable_values = %w[CHILD_COUNT_STATISTICS]
+      if opts[:projection] && !opts[:projection].empty?
+        opts[:projection].each do |val_to_check|
+          unless projection_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "projection", must be one of CHILD_COUNT_STATISTICS.'
+          end
+        end
+      end
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'function_library_key' must not be blank" if OCI::Internal::Util.blank_string?(function_library_key)
+
+      path = '/workspaces/{workspaceId}/functionLibraries/{functionLibraryKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{functionLibraryKey}', function_library_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:projection] = OCI::ApiClient.build_collection_params(opts[:projection], :multi) if opts[:projection] && !opts[:projection].empty?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#get_function_library') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::FunctionLibrary'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Retrieves a patch in an application using the specified identifier.
     # @param [String] workspace_id The workspace ID.
     # @param [String] application_key The application key.
@@ -4211,6 +4669,126 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Retrieves a UserDefinedFunction using the specified identifier.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] user_defined_function_key The user defined function key.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::UserDefinedFunction UserDefinedFunction}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_user_defined_function.rb.html) to see an example of how to use get_user_defined_function API.
+    def get_user_defined_function(workspace_id, user_defined_function_key, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#get_user_defined_function.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling get_user_defined_function." if workspace_id.nil?
+      raise "Missing the required parameter 'user_defined_function_key' when calling get_user_defined_function." if user_defined_function_key.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'user_defined_function_key' must not be blank" if OCI::Internal::Util.blank_string?(user_defined_function_key)
+
+      path = '/workspaces/{workspaceId}/userDefinedFunctions/{userDefinedFunctionKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{userDefinedFunctionKey}', user_defined_function_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#get_user_defined_function') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::UserDefinedFunction'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves a UserDefinedFunction validation using the specified identifier.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] user_defined_function_validation_key The key of the userDefinedFunction validation.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::UserDefinedFunctionValidation UserDefinedFunctionValidation}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_user_defined_function_validation.rb.html) to see an example of how to use get_user_defined_function_validation API.
+    def get_user_defined_function_validation(workspace_id, user_defined_function_validation_key, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#get_user_defined_function_validation.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling get_user_defined_function_validation." if workspace_id.nil?
+      raise "Missing the required parameter 'user_defined_function_validation_key' when calling get_user_defined_function_validation." if user_defined_function_validation_key.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'user_defined_function_validation_key' must not be blank" if OCI::Internal::Util.blank_string?(user_defined_function_validation_key)
+
+      path = '/workspaces/{workspaceId}/userDefinedFunctionValidations/{userDefinedFunctionValidationKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{userDefinedFunctionValidationKey}', user_defined_function_validation_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#get_user_defined_function_validation') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::UserDefinedFunctionValidation'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Retrieves the status of the work request with the given ID.
     # @param [String] work_request_id The ID of the asynchronous work request to retrieve.
     # @param [Hash] opts the optional parameters
@@ -4331,6 +4909,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :name Used to filter by the name of the object.
+    # @option opts [String] :name_contains This parameter can be used to filter objects by the names that match partially or fully with the given value.
     # @option opts [Array<String>] :identifier Used to filter by the identifier of the published object.
     #    (default to [])
     # @option opts [Array<String>] :fields Specifies the fields to get for an object. (default to [])
@@ -4367,6 +4946,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:name] = opts[:name] if opts[:name]
+      query_params[:nameContains] = opts[:name_contains] if opts[:name_contains]
       query_params[:identifier] = OCI::ApiClient.build_collection_params(opts[:identifier], :multi) if opts[:identifier] && !opts[:identifier].empty?
       query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -4923,6 +5503,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Array<String>] :fields Specifies the fields to get for an object. (default to [])
     # @option opts [String] :name Used to filter by the name of the object.
+    # @option opts [String] :name_contains This parameter can be used to filter objects by the names that match partially or fully with the given value.
     # @option opts [Array<String>] :identifier Used to filter by the identifier of the published object.
     #    (default to [])
     # @option opts [Array<String>] :type Used to filter by the object type of the object.
@@ -4969,6 +5550,7 @@ module OCI
       query_params = {}
       query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
       query_params[:name] = opts[:name] if opts[:name]
+      query_params[:nameContains] = opts[:name_contains] if opts[:name_contains]
       query_params[:identifier] = OCI::ApiClient.build_collection_params(opts[:identifier], :multi) if opts[:identifier] && !opts[:identifier].empty?
       query_params[:type] = OCI::ApiClient.build_collection_params(opts[:type], :multi) if opts[:type] && !opts[:type].empty?
       query_params[:typeInSubtree] = opts[:type_in_subtree] if opts[:type_in_subtree]
@@ -5191,6 +5773,7 @@ module OCI
     #
     # @option opts [Array<String>] :fields Specifies the fields to get for an object. (default to [])
     # @option opts [String] :name Used to filter by the name of the object.
+    # @option opts [String] :name_contains This parameter can be used to filter objects by the names that match partially or fully with the given value.
     # @option opts [Array<String>] :identifier Used to filter by the identifier of the object. (default to [])
     # @option opts [String] :page For list pagination. The value for this parameter is the `opc-next-page` or the `opc-prev-page` response header from the previous `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [Integer] :limit Sets the maximum number of results per page, or items to return in a paginated `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine). (default to 100)
@@ -5223,6 +5806,7 @@ module OCI
       query_params[:aggregatorKey] = opts[:aggregator_key] if opts[:aggregator_key]
       query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
       query_params[:name] = opts[:name] if opts[:name]
+      query_params[:nameContains] = opts[:name_contains] if opts[:name_contains]
       query_params[:identifier] = OCI::ApiClient.build_collection_params(opts[:identifier], :multi) if opts[:identifier] && !opts[:identifier].empty?
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -5249,6 +5833,91 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataIntegration::Models::FolderSummaryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves a list of function libraries in a project and provides options to filter the list.
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :aggregator_key Used to filter by the project or the folder object.
+    #
+    # @option opts [Array<String>] :fields Specifies the fields to get for an object. (default to [])
+    # @option opts [String] :name Used to filter by the name of the object.
+    # @option opts [Array<String>] :identifier Used to filter by the identifier of the object. (default to [])
+    # @option opts [String] :page For list pagination. The value for this parameter is the `opc-next-page` or the `opc-prev-page` response header from the previous `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [Integer] :limit Sets the maximum number of results per page, or items to return in a paginated `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine). (default to 100)
+    # @option opts [String] :sort_order Specifies sort order to use, either `ASC` (ascending) or `DESC` (descending). (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
+    #   Allowed values are: TIME_CREATED, DISPLAY_NAME
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::FunctionLibrarySummaryCollection FunctionLibrarySummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_function_libraries.rb.html) to see an example of how to use list_function_libraries API.
+    def list_function_libraries(workspace_id, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#list_function_libraries.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling list_function_libraries." if workspace_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIME_CREATED DISPLAY_NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIME_CREATED, DISPLAY_NAME.'
+      end
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+
+      path = '/workspaces/{workspaceId}/functionLibraries'.sub('{workspaceId}', workspace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:aggregatorKey] = opts[:aggregator_key] if opts[:aggregator_key]
+      query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:identifier] = OCI::ApiClient.build_collection_params(opts[:identifier], :multi) if opts[:identifier] && !opts[:identifier].empty?
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#list_function_libraries') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::FunctionLibrarySummaryCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -5611,6 +6280,7 @@ module OCI
     #
     # @option opts [Array<String>] :fields Specifies the fields to get for an object. (default to [])
     # @option opts [String] :name Used to filter by the name of the object.
+    # @option opts [String] :name_contains This parameter can be used to filter objects by the names that match partially or fully with the given value.
     # @option opts [Array<String>] :identifier Used to filter by the identifier of the object. (default to [])
     # @option opts [String] :page For list pagination. The value for this parameter is the `opc-next-page` or the `opc-prev-page` response header from the previous `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [Integer] :limit Sets the maximum number of results per page, or items to return in a paginated `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine). (default to 100)
@@ -5642,6 +6312,7 @@ module OCI
       query_params = {}
       query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
       query_params[:name] = opts[:name] if opts[:name]
+      query_params[:nameContains] = opts[:name_contains] if opts[:name_contains]
       query_params[:identifier] = OCI::ApiClient.build_collection_params(opts[:identifier], :multi) if opts[:identifier] && !opts[:identifier].empty?
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -5689,6 +6360,8 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Array<String>] :fields Specifies the fields to get for an object. (default to [])
     # @option opts [String] :name Used to filter by the name of the object.
+    # @option opts [String] :name_starts_with This parameter can be used to filter objects by the names starting with the given value.
+    # @option opts [String] :name_contains This parameter can be used to filter objects by the names that match partially or fully with the given value.
     # @option opts [Array<String>] :identifier Used to filter by the identifier of the published object.
     #    (default to [])
     # @option opts [Array<String>] :type Used to filter by the object type of the object.
@@ -5735,6 +6408,8 @@ module OCI
       query_params = {}
       query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
       query_params[:name] = opts[:name] if opts[:name]
+      query_params[:nameStartsWith] = opts[:name_starts_with] if opts[:name_starts_with]
+      query_params[:nameContains] = opts[:name_contains] if opts[:name_contains]
       query_params[:identifier] = OCI::ApiClient.build_collection_params(opts[:identifier], :multi) if opts[:identifier] && !opts[:identifier].empty?
       query_params[:type] = OCI::ApiClient.build_collection_params(opts[:type], :multi) if opts[:type] && !opts[:type].empty?
       query_params[:typeInSubtree] = opts[:type_in_subtree] if opts[:type_in_subtree]
@@ -6134,6 +6809,7 @@ module OCI
     # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
     #   Allowed values are: TIME_CREATED, DISPLAY_NAME
     # @option opts [Array<String>] :filter This filter parameter can be used to filter by model specific queryable fields of the object <br><br><B>Examples:-</B><br> <ul> <li><B>?filter=status eq Failed</B> returns all objects that have a status field with value Failed</li> </ul> (default to [])
+    # @option opts [String] :name_starts_with This parameter can be used to filter objects by the names starting with the given value.
     # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::TaskRunSummaryCollection TaskRunSummaryCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_task_runs.rb.html) to see an example of how to use list_task_runs API.
     def list_task_runs(workspace_id, application_key, opts = {})
@@ -6168,6 +6844,7 @@ module OCI
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:filter] = OCI::ApiClient.build_collection_params(opts[:filter], :multi) if opts[:filter] && !opts[:filter].empty?
+      query_params[:nameStartsWith] = opts[:name_starts_with] if opts[:name_starts_with]
 
       # Header Params
       header_params = {}
@@ -6450,6 +7127,173 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataIntegration::Models::TaskSummaryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves a list of UserDefinedFunctionvalidations within the specified workspace.
+    # @param [String] workspace_id The workspace ID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :key Used to filter by the key of the object.
+    # @option opts [String] :name Used to filter by the name of the object.
+    # @option opts [String] :identifier Used to filter by the identifier of the object.
+    # @option opts [Array<String>] :fields Specifies the fields to get for an object. (default to [])
+    # @option opts [String] :page For list pagination. The value for this parameter is the `opc-next-page` or the `opc-prev-page` response header from the previous `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [Integer] :limit Sets the maximum number of results per page, or items to return in a paginated `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine). (default to 100)
+    # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
+    #   Allowed values are: TIME_CREATED, DISPLAY_NAME
+    # @option opts [String] :sort_order Specifies sort order to use, either `ASC` (ascending) or `DESC` (descending). (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::UserDefinedFunctionValidationSummaryCollection UserDefinedFunctionValidationSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_user_defined_function_validations.rb.html) to see an example of how to use list_user_defined_function_validations API.
+    def list_user_defined_function_validations(workspace_id, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#list_user_defined_function_validations.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling list_user_defined_function_validations." if workspace_id.nil?
+
+      if opts[:sort_by] && !%w[TIME_CREATED DISPLAY_NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIME_CREATED, DISPLAY_NAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+
+      path = '/workspaces/{workspaceId}/userDefinedFunctionValidations'.sub('{workspaceId}', workspace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:key] = opts[:key] if opts[:key]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:identifier] = opts[:identifier] if opts[:identifier]
+      query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#list_user_defined_function_validations') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::UserDefinedFunctionValidationSummaryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves a list of UserDefinedFunctions in a function library.
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :function_library_key Unique key of the FunctionLibrary.
+    # @option opts [Array<String>] :fields Specifies the fields to get for an object. (default to [])
+    # @option opts [String] :name Used to filter by the name of the object.
+    # @option opts [Array<String>] :identifier Used to filter by the identifier of the object. (default to [])
+    # @option opts [Integer] :limit Sets the maximum number of results per page, or items to return in a paginated `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine). (default to 100)
+    # @option opts [String] :page For list pagination. The value for this parameter is the `opc-next-page` or the `opc-prev-page` response header from the previous `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :sort_order Specifies sort order to use, either `ASC` (ascending) or `DESC` (descending). (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
+    #   Allowed values are: TIME_CREATED, DISPLAY_NAME
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::UserDefinedFunctionSummaryCollection UserDefinedFunctionSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_user_defined_functions.rb.html) to see an example of how to use list_user_defined_functions API.
+    def list_user_defined_functions(workspace_id, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#list_user_defined_functions.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling list_user_defined_functions." if workspace_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIME_CREATED DISPLAY_NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIME_CREATED, DISPLAY_NAME.'
+      end
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+
+      path = '/workspaces/{workspaceId}/userDefinedFunctions'.sub('{workspaceId}', workspace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:functionLibraryKey] = opts[:function_library_key] if opts[:function_library_key]
+      query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:identifier] = OCI::ApiClient.build_collection_params(opts[:identifier], :multi) if opts[:identifier] && !opts[:identifier].empty?
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#list_user_defined_functions') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::UserDefinedFunctionSummaryCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -7325,6 +8169,73 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Updates a specific Function Library.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] function_library_key The functionLibrary key.
+    # @param [OCI::DataIntegration::Models::UpdateFunctionLibraryDetails] update_function_library_details The details needed to update a FunctionL ibrary.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the `etag` from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the `etag` you provide matches the resource's current `etag` value.
+    #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::FunctionLibrary FunctionLibrary}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_function_library.rb.html) to see an example of how to use update_function_library API.
+    def update_function_library(workspace_id, function_library_key, update_function_library_details, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#update_function_library.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling update_function_library." if workspace_id.nil?
+      raise "Missing the required parameter 'function_library_key' when calling update_function_library." if function_library_key.nil?
+      raise "Missing the required parameter 'update_function_library_details' when calling update_function_library." if update_function_library_details.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'function_library_key' must not be blank" if OCI::Internal::Util.blank_string?(function_library_key)
+
+      path = '/workspaces/{workspaceId}/functionLibraries/{functionLibraryKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{functionLibraryKey}', function_library_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_function_library_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#update_function_library') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::FunctionLibrary'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates a specific pipeline.
     # @param [String] workspace_id The workspace ID.
     # @param [String] pipeline_key The pipeline key.
@@ -7797,6 +8708,73 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataIntegration::Models::TaskSchedule'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates a specific UserDefinedFunction.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] user_defined_function_key The user defined function key.
+    # @param [OCI::DataIntegration::Models::UpdateUserDefinedFunctionDetails] update_user_defined_function_details The details needed to updated a UserDefinedFunction.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the `etag` from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the `etag` you provide matches the resource's current `etag` value.
+    #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::UserDefinedFunction UserDefinedFunction}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_user_defined_function.rb.html) to see an example of how to use update_user_defined_function API.
+    def update_user_defined_function(workspace_id, user_defined_function_key, update_user_defined_function_details, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#update_user_defined_function.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling update_user_defined_function." if workspace_id.nil?
+      raise "Missing the required parameter 'user_defined_function_key' when calling update_user_defined_function." if user_defined_function_key.nil?
+      raise "Missing the required parameter 'update_user_defined_function_details' when calling update_user_defined_function." if update_user_defined_function_details.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'user_defined_function_key' must not be blank" if OCI::Internal::Util.blank_string?(user_defined_function_key)
+
+      path = '/workspaces/{workspaceId}/userDefinedFunctions/{userDefinedFunctionKey}'.sub('{workspaceId}', workspace_id.to_s).sub('{userDefinedFunctionKey}', user_defined_function_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_user_defined_function_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#update_user_defined_function') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::UserDefinedFunction'
         )
       end
       # rubocop:enable Metrics/BlockLength

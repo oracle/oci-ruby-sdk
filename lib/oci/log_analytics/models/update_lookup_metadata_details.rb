@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -23,6 +23,12 @@ module OCI
     # @return [Integer]
     attr_accessor :max_matches
 
+    # An array of categories to assign to the lookup. Specifying the name attribute for each category would suffice.
+    # Oracle-defined category assignments cannot be removed.
+    #
+    # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsCategory>]
+    attr_accessor :categories
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -30,7 +36,8 @@ module OCI
         'default_match_value': :'defaultMatchValue',
         'description': :'description',
         'fields': :'fields',
-        'max_matches': :'maxMatches'
+        'max_matches': :'maxMatches',
+        'categories': :'categories'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,7 +49,8 @@ module OCI
         'default_match_value': :'String',
         'description': :'String',
         'fields': :'Array<OCI::LogAnalytics::Models::LogAnalyticsLookupFields>',
-        'max_matches': :'Integer'
+        'max_matches': :'Integer',
+        'categories': :'Array<OCI::LogAnalytics::Models::LogAnalyticsCategory>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,6 +65,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [Array<OCI::LogAnalytics::Models::LogAnalyticsLookupFields>] :fields The value to assign to the {#fields} property
     # @option attributes [Integer] :max_matches The value to assign to the {#max_matches} property
+    # @option attributes [Array<OCI::LogAnalytics::Models::LogAnalyticsCategory>] :categories The value to assign to the {#categories} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -78,6 +87,8 @@ module OCI
       raise 'You cannot provide both :maxMatches and :max_matches' if attributes.key?(:'maxMatches') && attributes.key?(:'max_matches')
 
       self.max_matches = attributes[:'max_matches'] if attributes[:'max_matches']
+
+      self.categories = attributes[:'categories'] if attributes[:'categories']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -94,7 +105,8 @@ module OCI
         default_match_value == other.default_match_value &&
         description == other.description &&
         fields == other.fields &&
-        max_matches == other.max_matches
+        max_matches == other.max_matches &&
+        categories == other.categories
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -110,7 +122,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [default_match_value, description, fields, max_matches].hash
+      [default_match_value, description, fields, max_matches, categories].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

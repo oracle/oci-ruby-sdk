@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -14,6 +14,7 @@ module OCI
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_STATE_BACKUP_IN_PROGRESS = 'BACKUP_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_UPGRADING = 'UPGRADING'.freeze,
+      LIFECYCLE_STATE_CONVERTING = 'CONVERTING'.freeze,
       LIFECYCLE_STATE_TERMINATING = 'TERMINATING'.freeze,
       LIFECYCLE_STATE_TERMINATED = 'TERMINATED'.freeze,
       LIFECYCLE_STATE_RESTORE_FAILED = 'RESTORE_FAILED'.freeze,
@@ -115,6 +116,18 @@ module OCI
     # @return [String]
     attr_accessor :database_software_image_id
 
+    # True if the database is a container database.
+    # @return [BOOLEAN]
+    attr_accessor :is_cdb
+
+    # @return [OCI::Database::Models::CloudDatabaseManagementConfig]
+    attr_accessor :database_management_config
+
+    # Specifies a prefix for the `Oracle SID` of the database to be created.
+    #
+    # @return [String]
+    attr_accessor :sid_prefix
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -140,7 +153,10 @@ module OCI
         'connection_strings': :'connectionStrings',
         'kms_key_id': :'kmsKeyId',
         'source_database_point_in_time_recovery_timestamp': :'sourceDatabasePointInTimeRecoveryTimestamp',
-        'database_software_image_id': :'databaseSoftwareImageId'
+        'database_software_image_id': :'databaseSoftwareImageId',
+        'is_cdb': :'isCdb',
+        'database_management_config': :'databaseManagementConfig',
+        'sid_prefix': :'sidPrefix'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -170,7 +186,10 @@ module OCI
         'connection_strings': :'OCI::Database::Models::DatabaseConnectionStrings',
         'kms_key_id': :'String',
         'source_database_point_in_time_recovery_timestamp': :'DateTime',
-        'database_software_image_id': :'String'
+        'database_software_image_id': :'String',
+        'is_cdb': :'BOOLEAN',
+        'database_management_config': :'OCI::Database::Models::CloudDatabaseManagementConfig',
+        'sid_prefix': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -203,6 +222,9 @@ module OCI
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [DateTime] :source_database_point_in_time_recovery_timestamp The value to assign to the {#source_database_point_in_time_recovery_timestamp} property
     # @option attributes [String] :database_software_image_id The value to assign to the {#database_software_image_id} property
+    # @option attributes [BOOLEAN] :is_cdb The value to assign to the {#is_cdb} property
+    # @option attributes [OCI::Database::Models::CloudDatabaseManagementConfig] :database_management_config The value to assign to the {#database_management_config} property
+    # @option attributes [String] :sid_prefix The value to assign to the {#sid_prefix} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -333,6 +355,24 @@ module OCI
       raise 'You cannot provide both :databaseSoftwareImageId and :database_software_image_id' if attributes.key?(:'databaseSoftwareImageId') && attributes.key?(:'database_software_image_id')
 
       self.database_software_image_id = attributes[:'database_software_image_id'] if attributes[:'database_software_image_id']
+
+      self.is_cdb = attributes[:'isCdb'] unless attributes[:'isCdb'].nil?
+
+      raise 'You cannot provide both :isCdb and :is_cdb' if attributes.key?(:'isCdb') && attributes.key?(:'is_cdb')
+
+      self.is_cdb = attributes[:'is_cdb'] unless attributes[:'is_cdb'].nil?
+
+      self.database_management_config = attributes[:'databaseManagementConfig'] if attributes[:'databaseManagementConfig']
+
+      raise 'You cannot provide both :databaseManagementConfig and :database_management_config' if attributes.key?(:'databaseManagementConfig') && attributes.key?(:'database_management_config')
+
+      self.database_management_config = attributes[:'database_management_config'] if attributes[:'database_management_config']
+
+      self.sid_prefix = attributes[:'sidPrefix'] if attributes[:'sidPrefix']
+
+      raise 'You cannot provide both :sidPrefix and :sid_prefix' if attributes.key?(:'sidPrefix') && attributes.key?(:'sid_prefix')
+
+      self.sid_prefix = attributes[:'sid_prefix'] if attributes[:'sid_prefix']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -380,7 +420,10 @@ module OCI
         connection_strings == other.connection_strings &&
         kms_key_id == other.kms_key_id &&
         source_database_point_in_time_recovery_timestamp == other.source_database_point_in_time_recovery_timestamp &&
-        database_software_image_id == other.database_software_image_id
+        database_software_image_id == other.database_software_image_id &&
+        is_cdb == other.is_cdb &&
+        database_management_config == other.database_management_config &&
+        sid_prefix == other.sid_prefix
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -396,7 +439,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, character_set, ncharacter_set, db_home_id, db_system_id, vm_cluster_id, db_name, pdb_name, db_workload, db_unique_name, lifecycle_details, lifecycle_state, time_created, last_backup_timestamp, db_backup_config, freeform_tags, defined_tags, connection_strings, kms_key_id, source_database_point_in_time_recovery_timestamp, database_software_image_id].hash
+      [id, compartment_id, character_set, ncharacter_set, db_home_id, db_system_id, vm_cluster_id, db_name, pdb_name, db_workload, db_unique_name, lifecycle_details, lifecycle_state, time_created, last_backup_timestamp, db_backup_config, freeform_tags, defined_tags, connection_strings, kms_key_id, source_database_point_in_time_recovery_timestamp, database_software_image_id, is_cdb, database_management_config, sid_prefix].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

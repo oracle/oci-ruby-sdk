@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -64,6 +64,10 @@ module OCI
     # Whether the email address has been validated.
     # @return [BOOLEAN]
     attr_accessor :email_verified
+
+    # DB username of the DB credential. Has to be unique across the tenancy.
+    # @return [String]
+    attr_accessor :db_user_name
 
     # The OCID of the `IdentityProvider` this user belongs to.
     # @return [String]
@@ -158,6 +162,7 @@ module OCI
         'description': :'description',
         'email': :'email',
         'email_verified': :'emailVerified',
+        'db_user_name': :'dbUserName',
         'identity_provider_id': :'identityProviderId',
         'external_identifier': :'externalIdentifier',
         'time_created': :'timeCreated',
@@ -183,6 +188,7 @@ module OCI
         'description': :'String',
         'email': :'String',
         'email_verified': :'BOOLEAN',
+        'db_user_name': :'String',
         'identity_provider_id': :'String',
         'external_identifier': :'String',
         'time_created': :'DateTime',
@@ -210,6 +216,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :email The value to assign to the {#email} property
     # @option attributes [BOOLEAN] :email_verified The value to assign to the {#email_verified} property
+    # @option attributes [String] :db_user_name The value to assign to the {#db_user_name} property
     # @option attributes [String] :identity_provider_id The value to assign to the {#identity_provider_id} property
     # @option attributes [String] :external_identifier The value to assign to the {#external_identifier} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -246,6 +253,12 @@ module OCI
       raise 'You cannot provide both :emailVerified and :email_verified' if attributes.key?(:'emailVerified') && attributes.key?(:'email_verified')
 
       self.email_verified = attributes[:'email_verified'] unless attributes[:'email_verified'].nil?
+
+      self.db_user_name = attributes[:'dbUserName'] if attributes[:'dbUserName']
+
+      raise 'You cannot provide both :dbUserName and :db_user_name' if attributes.key?(:'dbUserName') && attributes.key?(:'db_user_name')
+
+      self.db_user_name = attributes[:'db_user_name'] if attributes[:'db_user_name']
 
       self.identity_provider_id = attributes[:'identityProviderId'] if attributes[:'identityProviderId']
 
@@ -340,6 +353,7 @@ module OCI
         description == other.description &&
         email == other.email &&
         email_verified == other.email_verified &&
+        db_user_name == other.db_user_name &&
         identity_provider_id == other.identity_provider_id &&
         external_identifier == other.external_identifier &&
         time_created == other.time_created &&
@@ -366,7 +380,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, email, email_verified, identity_provider_id, external_identifier, time_created, lifecycle_state, inactive_status, freeform_tags, defined_tags, capabilities, is_mfa_activated, last_successful_login_time, previous_successful_login_time].hash
+      [id, compartment_id, name, description, email, email_verified, db_user_name, identity_provider_id, external_identifier, time_created, lifecycle_state, inactive_status, freeform_tags, defined_tags, capabilities, is_mfa_activated, last_successful_login_time, previous_successful_login_time].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

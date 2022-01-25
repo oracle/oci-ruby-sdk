@@ -1,21 +1,21 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about new APM Domain.
+  # The information about the new APM domain.
   class ApmControlPlane::Models::CreateApmDomainDetails
-    # **[Required]** Display name of the APM Domain
+    # **[Required]** Display name of the APM domain.
     # @return [String]
     attr_accessor :display_name
 
-    # Description of the APM Domain
+    # Description of the APM domain.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** The OCID of the compartment corresponding to the APM Domain.
+    # **[Required]** The OCID of the compartment corresponding to the APM domain.
     # @return [String]
     attr_accessor :compartment_id
 

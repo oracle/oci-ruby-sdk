@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -14,7 +14,7 @@ module OCI
       INITIAL_SKU_THREE_YEARS = 'THREE_YEARS'.freeze
     ].freeze
 
-    # **[Required]** The availability domain to create the SDDC's ESXi hosts in.
+    # **[Required]** The availability domain to create the SDDC's ESXi hosts in. For multi-AD SDDC deployment, set to `multi-AD`.
     #
     # @return [String]
     attr_accessor :compute_availability_domain
@@ -51,16 +51,14 @@ module OCI
     # (see {#create_esxi_host create_esxi_host}).
     #
     # **Note:** If you later delete EXSi hosts from the SDDC to total less than 3,
-    # you are still billed for the 3 minimum recommended EXSi hosts. Also,
+    # you are still billed for the 3 minimum recommended ESXi hosts. Also,
     # you cannot add more VMware workloads to the SDDC until it again has at least
     # 3 ESXi hosts.
     #
     # @return [Integer]
     attr_accessor :esxi_hosts_count
 
-    # Billing option selected during SDDC creation.
-    # Oracle Cloud Infrastructure VMware Solution supports the following billing interval SKUs:
-    # HOUR, MONTH, ONE_YEAR, and THREE_YEARS.
+    # The billing option selected during SDDC creation.
     # {#list_supported_skus list_supported_skus}.
     #
     # @return [String]

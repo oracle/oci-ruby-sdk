@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
@@ -177,7 +177,7 @@ module OCI
     # Calls {OCI::Ocvp::SddcClient#downgrade_hcx} and then waits for the {OCI::Ocvp::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::Ocvp::Models::DowngradeHcxDetails] downgrade_hcx_details The HCX on-premise license keys to be reserved when downgrade from HCX Enterprise to HCX Advanced.
+    # @param [OCI::Ocvp::Models::DowngradeHcxDetails] downgrade_hcx_details The HCX on-premise license keys to be reserved when downgrading from HCX Enterprise to HCX Advanced.
     # @param [String] sddc_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the SDDC.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Ocvp::Models::WorkRequest#status}

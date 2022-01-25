@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -23,6 +23,10 @@ module OCI
     # @return [String]
     attr_accessor :plugin_version
 
+    # flag indicating whether the plugin is in enabled mode or disabled mode.
+    # @return [BOOLEAN]
+    attr_accessor :is_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -30,7 +34,8 @@ module OCI
         'plugin_id': :'pluginId',
         'plugin_name': :'pluginName',
         'plugin_display_name': :'pluginDisplayName',
-        'plugin_version': :'pluginVersion'
+        'plugin_version': :'pluginVersion',
+        'is_enabled': :'isEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,7 +47,8 @@ module OCI
         'plugin_id': :'String',
         'plugin_name': :'String',
         'plugin_display_name': :'String',
-        'plugin_version': :'String'
+        'plugin_version': :'String',
+        'is_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,6 +63,7 @@ module OCI
     # @option attributes [String] :plugin_name The value to assign to the {#plugin_name} property
     # @option attributes [String] :plugin_display_name The value to assign to the {#plugin_display_name} property
     # @option attributes [String] :plugin_version The value to assign to the {#plugin_version} property
+    # @option attributes [BOOLEAN] :is_enabled The value to assign to the {#is_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -86,6 +93,12 @@ module OCI
       raise 'You cannot provide both :pluginVersion and :plugin_version' if attributes.key?(:'pluginVersion') && attributes.key?(:'plugin_version')
 
       self.plugin_version = attributes[:'plugin_version'] if attributes[:'plugin_version']
+
+      self.is_enabled = attributes[:'isEnabled'] unless attributes[:'isEnabled'].nil?
+
+      raise 'You cannot provide both :isEnabled and :is_enabled' if attributes.key?(:'isEnabled') && attributes.key?(:'is_enabled')
+
+      self.is_enabled = attributes[:'is_enabled'] unless attributes[:'is_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -102,7 +115,8 @@ module OCI
         plugin_id == other.plugin_id &&
         plugin_name == other.plugin_name &&
         plugin_display_name == other.plugin_display_name &&
-        plugin_version == other.plugin_version
+        plugin_version == other.plugin_version &&
+        is_enabled == other.is_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -118,7 +132,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [plugin_id, plugin_name, plugin_display_name, plugin_version].hash
+      [plugin_id, plugin_name, plugin_display_name, plugin_version, is_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

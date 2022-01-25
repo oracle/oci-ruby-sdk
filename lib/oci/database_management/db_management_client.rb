@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -243,6 +243,76 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves the Database Management private endpoint and its dependent resources to the specified compartment.
+    # @param [String] db_management_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Management private endpoint.
+    # @param [OCI::DatabaseManagement::Models::ChangeDbManagementPrivateEndpointCompartmentDetails] change_db_management_private_endpoint_compartment_details The details used to move the Database Management private endpoint to another compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/change_db_management_private_endpoint_compartment.rb.html) to see an example of how to use change_db_management_private_endpoint_compartment API.
+    def change_db_management_private_endpoint_compartment(db_management_private_endpoint_id, change_db_management_private_endpoint_compartment_details, opts = {})
+      logger.debug 'Calling operation DbManagementClient#change_db_management_private_endpoint_compartment.' if logger
+
+      raise "Missing the required parameter 'db_management_private_endpoint_id' when calling change_db_management_private_endpoint_compartment." if db_management_private_endpoint_id.nil?
+      raise "Missing the required parameter 'change_db_management_private_endpoint_compartment_details' when calling change_db_management_private_endpoint_compartment." if change_db_management_private_endpoint_compartment_details.nil?
+      raise "Parameter value for 'db_management_private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(db_management_private_endpoint_id)
+
+      path = '/dbManagementPrivateEndpoints/{dbManagementPrivateEndpointId}/actions/changeCompartment'.sub('{dbManagementPrivateEndpointId}', db_management_private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_db_management_private_endpoint_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#change_db_management_private_endpoint_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves a job.
     #
     # @param [String] job_id The identifier of the job.
@@ -387,6 +457,68 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a new Database Management private endpoint.
+    #
+    # @param [OCI::DatabaseManagement::Models::CreateDbManagementPrivateEndpointDetails] create_db_management_private_endpoint_details Details used to create a new Database Management private endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::DbManagementPrivateEndpoint DbManagementPrivateEndpoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/create_db_management_private_endpoint.rb.html) to see an example of how to use create_db_management_private_endpoint API.
+    def create_db_management_private_endpoint(create_db_management_private_endpoint_details, opts = {})
+      logger.debug 'Calling operation DbManagementClient#create_db_management_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'create_db_management_private_endpoint_details' when calling create_db_management_private_endpoint." if create_db_management_private_endpoint_details.nil?
+
+      path = '/dbManagementPrivateEndpoints'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_db_management_private_endpoint_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#create_db_management_private_endpoint') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::DbManagementPrivateEndpoint'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a job to be executed on a Managed Database or Managed Database Group. Only one
     # of the parameters, managedDatabaseId or managedDatabaseGroupId should be provided as
     # input in CreateJobDetails resource in request body.
@@ -501,6 +633,66 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DatabaseManagement::Models::ManagedDatabaseGroup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a specific Database Management private endpoint.
+    # @param [String] db_management_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Management private endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/delete_db_management_private_endpoint.rb.html) to see an example of how to use delete_db_management_private_endpoint API.
+    def delete_db_management_private_endpoint(db_management_private_endpoint_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#delete_db_management_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'db_management_private_endpoint_id' when calling delete_db_management_private_endpoint." if db_management_private_endpoint_id.nil?
+      raise "Parameter value for 'db_management_private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(db_management_private_endpoint_id)
+
+      path = '/dbManagementPrivateEndpoints/{dbManagementPrivateEndpointId}'.sub('{dbManagementPrivateEndpointId}', db_management_private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#delete_db_management_private_endpoint') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -636,12 +828,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the AWR report for the specified Managed Database.
+    # Gets the AWR report for the specific database.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] awr_db_id The parameter to filter the database by internal ID.
     #   Note that the internal ID of the database can be retrieved from the following endpoint:
-    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -734,12 +926,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get a AWR SQL report for one SQL.
+    # Gets the SQL health check report for one SQL of the specific database.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] awr_db_id The parameter to filter the database by internal ID.
     #   Note that the internal ID of the database can be retrieved from the following endpoint:
-    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs
     #
     # @param [String] sql_id The parameter to filter SQL by ID. Note that the SQL ID is generated internally by Oracle for each SQL statement and can be retrieved from AWR Report API (/managedDatabases/{managedDatabaseId}/awrDbs/{awrDbId}/awrDbReport) or Performance Hub API (/internal/managedDatabases/{managedDatabaseId}/actions/retrievePerformanceData)
     #
@@ -834,10 +1026,10 @@ module OCI
     # by managedDatabaseId.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
-    # @param [String] start_time The start time for the time range to retrieve the health metrics of a Managed Database
+    # @param [String] start_time The start time of the time range to retrieve the health metrics of a Managed Database
     #   in UTC in ISO-8601 format, which is \"yyyy-MM-dd'T'hh:mm:ss.sss'Z'\".
     #
-    # @param [String] end_time The end time for the time range to retrieve the health metrics of a Managed Database
+    # @param [String] end_time The end time of the time range to retrieve the health metrics of a Managed Database
     #   in UTC in ISO-8601 format, which is \"yyyy-MM-dd'T'hh:mm:ss.sss'Z'\".
     #
     # @param [Hash] opts the optional parameters
@@ -911,6 +1103,8 @@ module OCI
     # @option opts [String] :filter_by_metric_names The filter used to retrieve a specific set of metrics by passing the desired metric names with a comma separator. Note that, by default, the service returns all supported metrics.
     # @option opts [String] :filter_by_database_type The filter used to filter the databases in the fleet by a specific Oracle Database type.
     # @option opts [String] :filter_by_database_sub_type The filter used to filter the databases in the fleet by a specific Oracle Database subtype.
+    # @option opts [String] :filter_by_database_deployment_type The filter used to filter the databases in the fleet by a specific Oracle Database deployment type.
+    # @option opts [String] :filter_by_database_version The filter used to filter the databases in the fleet by a specific Oracle Database version.
     # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::DatabaseFleetHealthMetrics DatabaseFleetHealthMetrics}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/get_database_fleet_health_metrics.rb.html) to see an example of how to use get_database_fleet_health_metrics API.
     def get_database_fleet_health_metrics(compare_baseline_time, compare_target_time, opts = {})
@@ -937,6 +1131,8 @@ module OCI
       query_params[:filterByMetricNames] = opts[:filter_by_metric_names] if opts[:filter_by_metric_names]
       query_params[:filterByDatabaseType] = opts[:filter_by_database_type] if opts[:filter_by_database_type]
       query_params[:filterByDatabaseSubType] = opts[:filter_by_database_sub_type] if opts[:filter_by_database_sub_type]
+      query_params[:filterByDatabaseDeploymentType] = opts[:filter_by_database_deployment_type] if opts[:filter_by_database_deployment_type]
+      query_params[:filterByDatabaseVersion] = opts[:filter_by_database_version] if opts[:filter_by_database_version]
 
       # Header Params
       header_params = {}
@@ -973,10 +1169,10 @@ module OCI
 
     # Gets a summary of the activity and resource usage metrics like DB Time, CPU, User I/O, Wait, Storage, and Memory for a Managed Database.
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
-    # @param [String] start_time The start time for the time range to retrieve the health metrics of a Managed Database
+    # @param [String] start_time The start time of the time range to retrieve the health metrics of a Managed Database
     #   in UTC in ISO-8601 format, which is \"yyyy-MM-dd'T'hh:mm:ss.sss'Z'\".
     #
-    # @param [String] end_time The end time for the time range to retrieve the health metrics of a Managed Database
+    # @param [String] end_time The end time of the time range to retrieve the health metrics of a Managed Database
     #   in UTC in ISO-8601 format, which is \"yyyy-MM-dd'T'hh:mm:ss.sss'Z'\".
     #
     # @param [Hash] opts the optional parameters
@@ -1022,6 +1218,60 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DatabaseManagement::Models::DatabaseHomeMetrics'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the details of a specific Database Management private endpoint.
+    # @param [String] db_management_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Management private endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::DbManagementPrivateEndpoint DbManagementPrivateEndpoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/get_db_management_private_endpoint.rb.html) to see an example of how to use get_db_management_private_endpoint API.
+    def get_db_management_private_endpoint(db_management_private_endpoint_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#get_db_management_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'db_management_private_endpoint_id' when calling get_db_management_private_endpoint." if db_management_private_endpoint_id.nil?
+      raise "Parameter value for 'db_management_private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(db_management_private_endpoint_id)
+
+      path = '/dbManagementPrivateEndpoints/{dbManagementPrivateEndpointId}'.sub('{dbManagementPrivateEndpointId}', db_management_private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#get_db_management_private_endpoint') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::DbManagementPrivateEndpoint'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1310,12 +1560,279 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets a summary of the resource usage metrics such as CPU, User I/O, and Storage for each
+    # PDB within a specific CDB. If comparmentId is specified, then the metrics for
+    # each PDB (within the CDB) in the specified compartment are retrieved.
+    # If compartmentId is not specified, then the metrics for all the PDBs within the CDB are retrieved.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] start_time The start time of the time range to retrieve the health metrics of a Managed Database
+    #   in UTC in ISO-8601 format, which is \"yyyy-MM-dd'T'hh:mm:ss.sss'Z'\".
+    #
+    # @param [String] end_time The end time of the time range to retrieve the health metrics of a Managed Database
+    #   in UTC in ISO-8601 format, which is \"yyyy-MM-dd'T'hh:mm:ss.sss'Z'\".
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @option opts [String] :compare_type The time window used for metrics comparison.
+    # @option opts [String] :filter_by_metric_names The filter used to retrieve a specific set of metrics by passing the desired metric names with a comma separator. Note that, by default, the service returns all supported metrics.
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::PdbMetrics PdbMetrics}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/get_pdb_metrics.rb.html) to see an example of how to use get_pdb_metrics API.
+    def get_pdb_metrics(managed_database_id, start_time, end_time, opts = {})
+      logger.debug 'Calling operation DbManagementClient#get_pdb_metrics.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling get_pdb_metrics." if managed_database_id.nil?
+      raise "Missing the required parameter 'start_time' when calling get_pdb_metrics." if start_time.nil?
+      raise "Missing the required parameter 'end_time' when calling get_pdb_metrics." if end_time.nil?
+
+      if opts[:compare_type] && !OCI::DatabaseManagement::Models::COMPARE_TYPE_ENUM.include?(opts[:compare_type])
+        raise 'Invalid value for "compare_type", must be one of the values in OCI::DatabaseManagement::Models::COMPARE_TYPE_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/pdbMetrics'.sub('{managedDatabaseId}', managed_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:startTime] = start_time
+      query_params[:endTime] = end_time
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:compareType] = opts[:compare_type] if opts[:compare_type]
+      query_params[:filterByMetricNames] = opts[:filter_by_metric_names] if opts[:filter_by_metric_names]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#get_pdb_metrics') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::PdbMetrics'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the details of a specific user for the specified managedDatabaseId and userName.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] user_name The name of the user whose details are to be viewed.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::User User}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/get_user.rb.html) to see an example of how to use get_user API.
+    def get_user(managed_database_id, user_name, opts = {})
+      logger.debug 'Calling operation DbManagementClient#get_user.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling get_user." if managed_database_id.nil?
+      raise "Missing the required parameter 'user_name' when calling get_user." if user_name.nil?
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'user_name' must not be blank" if OCI::Internal::Util.blank_string?(user_name)
+
+      path = '/managedDatabases/{managedDatabaseId}/users/{userName}'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{userName}', user_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#get_user') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::User'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the status of the work request with the given Work Request ID
+    # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the asynchronous work request.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/get_work_request.rb.html) to see an example of how to use get_work_request API.
+    def get_work_request(work_request_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#get_work_request.' if logger
+
+      raise "Missing the required parameter 'work_request_id' when calling get_work_request." if work_request_id.nil?
+      raise "Parameter value for 'work_request_id' must not be blank" if OCI::Internal::Util.blank_string?(work_request_id)
+
+      path = '/workRequests/{workRequestId}'.sub('{workRequestId}', work_request_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#get_work_request') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::WorkRequest'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the list of databases using a specific Database Management private endpoint.
+    # @param [String] db_management_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Management private endpoint.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @option opts [String] :sort_by The option to sort databases using a specific Database Management private endpoint.
+    #    (default to timeRegistered)
+    #   Allowed values are: timeRegistered
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::AssociatedDatabaseCollection AssociatedDatabaseCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_associated_databases.rb.html) to see an example of how to use list_associated_databases API.
+    def list_associated_databases(db_management_private_endpoint_id, compartment_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#list_associated_databases.' if logger
+
+      raise "Missing the required parameter 'db_management_private_endpoint_id' when calling list_associated_databases." if db_management_private_endpoint_id.nil?
+      raise "Missing the required parameter 'compartment_id' when calling list_associated_databases." if compartment_id.nil?
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeRegistered].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeRegistered.'
+      end
+      raise "Parameter value for 'db_management_private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(db_management_private_endpoint_id)
+
+      path = '/dbManagementPrivateEndpoints/{dbManagementPrivateEndpointId}/associatedDatabases'.sub('{dbManagementPrivateEndpointId}', db_management_private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#list_associated_databases') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::AssociatedDatabaseCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists AWR snapshots for the specified database in the AWR.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] awr_db_id The parameter to filter the database by internal ID.
     #   Note that the internal ID of the database can be retrieved from the following endpoint:
-    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1329,13 +1846,13 @@ module OCI
     #   Note that the database container ID can be retrieved from the following endpoint:
     #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
     #
-    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
-    # @option opts [Integer] :limit The maximum number of records returned in paginated response. (default to 10)
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
     # @option opts [String] :sort_by The option to sort the AWR snapshot summary data. (default to TIME_BEGIN)
     #   Allowed values are: TIME_BEGIN, SNAPSHOT_ID
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the default order. (default to DESC)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -1422,13 +1939,13 @@ module OCI
     # @option opts [String] :name The optional single value query parameter to filter the entity name.
     # @option opts [DateTime] :time_greater_than_or_equal_to The optional greater than or equal to query parameter to filter the timestamp.
     # @option opts [DateTime] :time_less_than_or_equal_to The optional less than or equal to query parameter to filter the timestamp.
-    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
-    # @option opts [Integer] :limit The maximum number of records returned in paginated response. (default to 10)
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
     # @option opts [String] :sort_by The option to sort the AWR summary data. (default to END_INTERVAL_TIME)
     #   Allowed values are: END_INTERVAL_TIME, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the default order. (default to DESC)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -1501,6 +2018,166 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets the list of Consumer Group Privileges granted for the specified user.
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] user_name The name of the user whose details are to be viewed.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :name A filter to return only resources that match the entire name.
+    # @option opts [String] :sort_by The field to sort information by. Only one sortOrder can be used. The default sort order
+    #   for \u2018NAME\u2019 is ascending. The \u2018NAME\u2019 sort order is case-sensitive.
+    #    (default to NAME)
+    #   Allowed values are: NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::ConsumerGroupPrivilegeCollection ConsumerGroupPrivilegeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_consumer_group_privileges.rb.html) to see an example of how to use list_consumer_group_privileges API.
+    def list_consumer_group_privileges(managed_database_id, user_name, opts = {})
+      logger.debug 'Calling operation DbManagementClient#list_consumer_group_privileges.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling list_consumer_group_privileges." if managed_database_id.nil?
+      raise "Missing the required parameter 'user_name' when calling list_consumer_group_privileges." if user_name.nil?
+
+      if opts[:sort_by] && !%w[NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'user_name' must not be blank" if OCI::Internal::Util.blank_string?(user_name)
+
+      path = '/managedDatabases/{managedDatabaseId}/users/{userName}/consumerGroupPrivileges'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{userName}', user_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#list_consumer_group_privileges') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::ConsumerGroupPrivilegeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the list of Containers if it does not apply to all containers for the specified user.
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] user_name The name of the user whose details are to be viewed.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :name A filter to return only resources that match the entire name.
+    # @option opts [String] :sort_by The field to sort information by. Only one sortOrder can be used. The default sort order
+    #   for \u2018NAME\u2019 is ascending. The \u2018NAME\u2019 sort order is case-sensitive.
+    #    (default to NAME)
+    #   Allowed values are: NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::DataAccessContainerCollection DataAccessContainerCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_data_access_containers.rb.html) to see an example of how to use list_data_access_containers API.
+    def list_data_access_containers(managed_database_id, user_name, opts = {})
+      logger.debug 'Calling operation DbManagementClient#list_data_access_containers.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling list_data_access_containers." if managed_database_id.nil?
+      raise "Missing the required parameter 'user_name' when calling list_data_access_containers." if user_name.nil?
+
+      if opts[:sort_by] && !%w[NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'user_name' must not be blank" if OCI::Internal::Util.blank_string?(user_name)
+
+      path = '/managedDatabases/{managedDatabaseId}/users/{userName}/dataAccessContainers'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{userName}', user_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#list_data_access_containers') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::DataAccessContainerCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the list of database parameters for the specified Managed Database. The parameters are listed in alphabetical order, along with their current values.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
@@ -1522,7 +2199,7 @@ module OCI
     #   default sort order for `NAME` is ascending and it is case-sensitive.
     #    (default to NAME)
     #   Allowed values are: NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the the default order. (default to ASC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
     # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::DatabaseParametersCollection DatabaseParametersCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_database_parameters.rb.html) to see an example of how to use list_database_parameters API.
     def list_database_parameters(managed_database_id, opts = {})
@@ -1588,8 +2265,98 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the job execution for a specific ID or the list of job executions for a job, Managed Database or Managed Database Group
-    # in a specific compartment. Only one of the parameters, ID, jobId, managedDatabaseId or managedDatabaseGroupId should be provided.
+    # Gets a list of Database Management private endpoints.
+    #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :name A filter to return only resources that match the entire name.
+    # @option opts [String] :vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
+    # @option opts [BOOLEAN] :is_cluster The option to filter Database Management private endpoints that can used for Oracle Databases in a cluster. This should be used along with the vcnId query parameter.
+    #    (default to false)
+    # @option opts [String] :lifecycle_state The lifecycle state of a resource.
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @option opts [String] :sort_by The field to sort information by. Only one sortOrder can be used. The default sort order
+    #   for \u2018TIMECREATED\u2019 is descending and the default sort order for \u2018NAME\u2019 is ascending.
+    #   The \u2018NAME\u2019 sort order is case-sensitive.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, NAME
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::DbManagementPrivateEndpointCollection DbManagementPrivateEndpointCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_db_management_private_endpoints.rb.html) to see an example of how to use list_db_management_private_endpoints API.
+    def list_db_management_private_endpoints(compartment_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#list_db_management_private_endpoints.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_db_management_private_endpoints." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::DatabaseManagement::Models::LIFECYCLE_STATES_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DatabaseManagement::Models::LIFECYCLE_STATES_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, NAME.'
+      end
+
+      path = '/dbManagementPrivateEndpoints'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:vcnId] = opts[:vcn_id] if opts[:vcn_id]
+      query_params[:isCluster] = opts[:is_cluster] if !opts[:is_cluster].nil?
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#list_db_management_private_endpoints') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::DbManagementPrivateEndpointCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the job execution for a specific ID or the list of job executions for a job, job run, Managed Database or Managed Database Group
+    # in a specific compartment. Only one of the parameters, ID, jobId, jobRunId, managedDatabaseId or managedDatabaseGroupId should be provided.
     # If none of these parameters is provided, all the job executions in the compartment are listed. Job executions can also be filtered
     # based on the name and status parameters.
     #
@@ -1604,8 +2371,8 @@ module OCI
     # @option opts [String] :managed_database_group_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database Group.
     # @option opts [String] :status The status of the job execution.
     # @option opts [String] :name A filter to return only resources that match the entire name.
-    # @option opts [Integer] :limit The maximum number of records returned in paginated response. (default to 10)
-    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
     # @option opts [String] :sort_by The field to sort information by. Only one sortOrder can be used. The default sort order
@@ -1613,7 +2380,8 @@ module OCI
     #   The \u2018NAME\u2019 sort order is case-sensitive.
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the the default order. (default to ASC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @option opts [String] :job_run_id The identifier of the job run.
     # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::JobExecutionCollection JobExecutionCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_job_executions.rb.html) to see an example of how to use list_job_executions API.
     def list_job_executions(compartment_id, opts = {})
@@ -1646,6 +2414,7 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:jobRunId] = opts[:job_run_id] if opts[:job_run_id]
 
       # Header Params
       header_params = {}
@@ -1696,8 +2465,8 @@ module OCI
     # @option opts [String] :managed_database_group_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database Group.
     # @option opts [String] :run_status The status of the job run.
     # @option opts [String] :name A filter to return only resources that match the entire name.
-    # @option opts [Integer] :limit The maximum number of records returned in paginated response. (default to 10)
-    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
     # @option opts [String] :sort_by The field to sort information by. Only one sortOrder can be used. The default sort order
@@ -1705,7 +2474,7 @@ module OCI
     #   The \u2018NAME\u2019 sort order is case-sensitive.
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the the default order. (default to ASC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
     # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::JobRunCollection JobRunCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_job_runs.rb.html) to see an example of how to use list_job_runs API.
     def list_job_runs(compartment_id, opts = {})
@@ -1787,8 +2556,8 @@ module OCI
     # @option opts [String] :managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @option opts [String] :name A filter to return only resources that match the entire name.
     # @option opts [String] :lifecycle_state The lifecycle state of the job.
-    # @option opts [Integer] :limit The maximum number of records returned in paginated response. (default to 10)
-    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
     # @option opts [String] :sort_by The field to sort information by. Only one sortOrder can be used. The default sort order
@@ -1796,7 +2565,7 @@ module OCI
     #   The \u2018NAME\u2019 sort order is case-sensitive.
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the the default order. (default to ASC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
     # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::JobCollection JobCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_jobs.rb.html) to see an example of how to use list_jobs API.
     def list_jobs(compartment_id, opts = {})
@@ -1879,16 +2648,16 @@ module OCI
     # @option opts [String] :id The identifier of the resource.
     # @option opts [String] :name A filter to return only resources that match the entire name.
     # @option opts [String] :lifecycle_state The lifecycle state of a resource.
-    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
-    # @option opts [Integer] :limit The maximum number of records returned in paginated response. (default to 10)
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
     # @option opts [String] :sort_by The field to sort information by. Only one sortOrder can be used. The default sort order
     #   for \u2018TIMECREATED\u2019 is descending and the default sort order for \u2018NAME\u2019 is ascending.
     #   The \u2018NAME\u2019 sort order is case-sensitive.
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the the default order. (default to ASC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
     # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::ManagedDatabaseGroupCollection ManagedDatabaseGroupCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_managed_database_groups.rb.html) to see an example of how to use list_managed_database_groups API.
     def list_managed_database_groups(compartment_id, opts = {})
@@ -1957,8 +2726,11 @@ module OCI
 
 
     # Gets the Managed Database for a specific ID or the list of Managed Databases in a specific compartment.
-    # Managed Databases can also be filtered based on the name parameter. Only one of the parameters, ID or name
-    # should be provided. If none of these parameters is provided, all the Managed Databases in the compartment are listed.
+    # Managed Databases can be filtered based on the name parameter. Only one of the parameters, ID or name
+    # should be provided. If neither of these parameters is provided, all the Managed Databases in the compartment
+    # are listed. Managed Databases can also be filtered based on the deployment type and management option.
+    # If the deployment type is not specified or if it is `ONPREMISE`, then the management option is not
+    # considered and Managed Databases with `ADVANCED` management option are listed.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
@@ -1967,22 +2739,32 @@ module OCI
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :id The identifier of the resource.
     # @option opts [String] :name A filter to return only resources that match the entire name.
-    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    # @option opts [String] :management_option A filter to return Managed Databases with the specified management option.
+    # @option opts [String] :deployment_type A filter to return Managed Databases of the specified deployment type.
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
-    # @option opts [Integer] :limit The maximum number of records returned in paginated response. (default to 10)
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
     # @option opts [String] :sort_by The field to sort information by. Only one sortOrder can be used. The default sort order
     #   for \u2018TIMECREATED\u2019 is descending and the default sort order for \u2018NAME\u2019 is ascending.
     #   The \u2018NAME\u2019 sort order is case-sensitive.
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the the default order. (default to ASC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
     # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::ManagedDatabaseCollection ManagedDatabaseCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_managed_databases.rb.html) to see an example of how to use list_managed_databases API.
     def list_managed_databases(compartment_id, opts = {})
       logger.debug 'Calling operation DbManagementClient#list_managed_databases.' if logger
 
       raise "Missing the required parameter 'compartment_id' when calling list_managed_databases." if compartment_id.nil?
+
+      if opts[:management_option] && !OCI::DatabaseManagement::Models::MANAGEMENT_OPTION_ENUM.include?(opts[:management_option])
+        raise 'Invalid value for "management_option", must be one of the values in OCI::DatabaseManagement::Models::MANAGEMENT_OPTION_ENUM.'
+      end
+
+      if opts[:deployment_type] && !OCI::DatabaseManagement::Models::DEPLOYMENT_TYPE_ENUM.include?(opts[:deployment_type])
+        raise 'Invalid value for "deployment_type", must be one of the values in OCI::DatabaseManagement::Models::DEPLOYMENT_TYPE_ENUM.'
+      end
 
       if opts[:sort_by] && !%w[TIMECREATED NAME].include?(opts[:sort_by])
         raise 'Invalid value for "sort_by", must be one of TIMECREATED, NAME.'
@@ -2001,6 +2783,8 @@ module OCI
       query_params[:compartmentId] = compartment_id
       query_params[:id] = opts[:id] if opts[:id]
       query_params[:name] = opts[:name] if opts[:name]
+      query_params[:managementOption] = opts[:management_option] if opts[:management_option]
+      query_params[:deploymentType] = opts[:deployment_type] if opts[:deployment_type]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
@@ -2039,6 +2823,406 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets the list of Object Privileges granted for the specified user.
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] user_name The name of the user whose details are to be viewed.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :name A filter to return only resources that match the entire name.
+    # @option opts [String] :sort_by The field to sort information by. Only one sortOrder can be used. The default sort order
+    #   for \u2018NAME\u2019 is ascending. The \u2018NAME\u2019 sort order is case-sensitive.
+    #    (default to NAME)
+    #   Allowed values are: NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::ObjectPrivilegeCollection ObjectPrivilegeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_object_privileges.rb.html) to see an example of how to use list_object_privileges API.
+    def list_object_privileges(managed_database_id, user_name, opts = {})
+      logger.debug 'Calling operation DbManagementClient#list_object_privileges.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling list_object_privileges." if managed_database_id.nil?
+      raise "Missing the required parameter 'user_name' when calling list_object_privileges." if user_name.nil?
+
+      if opts[:sort_by] && !%w[NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'user_name' must not be blank" if OCI::Internal::Util.blank_string?(user_name)
+
+      path = '/managedDatabases/{managedDatabaseId}/users/{userName}/objectPrivileges'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{userName}', user_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#list_object_privileges') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::ObjectPrivilegeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the list of Users for which the current user acts as proxy.
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] user_name The name of the user whose details are to be viewed.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :name A filter to return only resources that match the entire name.
+    # @option opts [String] :sort_by The field to sort information by. Only one sortOrder can be used. The default sort order
+    #   for \u2018NAME\u2019 is ascending. The \u2018NAME\u2019 sort order is case-sensitive.
+    #    (default to NAME)
+    #   Allowed values are: NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::ProxiedForUserCollection ProxiedForUserCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_proxied_for_users.rb.html) to see an example of how to use list_proxied_for_users API.
+    def list_proxied_for_users(managed_database_id, user_name, opts = {})
+      logger.debug 'Calling operation DbManagementClient#list_proxied_for_users.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling list_proxied_for_users." if managed_database_id.nil?
+      raise "Missing the required parameter 'user_name' when calling list_proxied_for_users." if user_name.nil?
+
+      if opts[:sort_by] && !%w[NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'user_name' must not be blank" if OCI::Internal::Util.blank_string?(user_name)
+
+      path = '/managedDatabases/{managedDatabaseId}/users/{userName}/proxiedForUsers'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{userName}', user_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#list_proxied_for_users') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::ProxiedForUserCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the list of proxy users for the current User.
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] user_name The name of the user whose details are to be viewed.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :name A filter to return only resources that match the entire name.
+    # @option opts [String] :sort_by The field to sort information by. Only one sortOrder can be used. The default sort order
+    #   for \u2018NAME\u2019 is ascending. The \u2018NAME\u2019 sort order is case-sensitive.
+    #    (default to NAME)
+    #   Allowed values are: NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::ProxyUserCollection ProxyUserCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_proxy_users.rb.html) to see an example of how to use list_proxy_users API.
+    def list_proxy_users(managed_database_id, user_name, opts = {})
+      logger.debug 'Calling operation DbManagementClient#list_proxy_users.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling list_proxy_users." if managed_database_id.nil?
+      raise "Missing the required parameter 'user_name' when calling list_proxy_users." if user_name.nil?
+
+      if opts[:sort_by] && !%w[NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'user_name' must not be blank" if OCI::Internal::Util.blank_string?(user_name)
+
+      path = '/managedDatabases/{managedDatabaseId}/users/{userName}/proxyUsers'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{userName}', user_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#list_proxy_users') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::ProxyUserCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the list of roles granted for the specified user.
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] user_name The name of the user whose details are to be viewed.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :name A filter to return only resources that match the entire name.
+    # @option opts [String] :sort_by The field to sort information by. Only one sortOrder can be used. The default sort order
+    #   for \u2018NAME\u2019 is ascending. The \u2018NAME\u2019 sort order is case-sensitive.
+    #    (default to NAME)
+    #   Allowed values are: NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::RoleCollection RoleCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_roles.rb.html) to see an example of how to use list_roles API.
+    def list_roles(managed_database_id, user_name, opts = {})
+      logger.debug 'Calling operation DbManagementClient#list_roles.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling list_roles." if managed_database_id.nil?
+      raise "Missing the required parameter 'user_name' when calling list_roles." if user_name.nil?
+
+      if opts[:sort_by] && !%w[NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'user_name' must not be blank" if OCI::Internal::Util.blank_string?(user_name)
+
+      path = '/managedDatabases/{managedDatabaseId}/users/{userName}/roles'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{userName}', user_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#list_roles') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::RoleCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the list of System Privileges granted for the specified user.
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] user_name The name of the user whose details are to be viewed.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :name A filter to return only resources that match the entire name.
+    # @option opts [String] :sort_by The field to sort information by. Only one sortOrder can be used. The default sort order
+    #   for \u2018NAME\u2019 is ascending. The \u2018NAME\u2019 sort order is case-sensitive.
+    #    (default to NAME)
+    #   Allowed values are: NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::SystemPrivilegeCollection SystemPrivilegeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_system_privileges.rb.html) to see an example of how to use list_system_privileges API.
+    def list_system_privileges(managed_database_id, user_name, opts = {})
+      logger.debug 'Calling operation DbManagementClient#list_system_privileges.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling list_system_privileges." if managed_database_id.nil?
+      raise "Missing the required parameter 'user_name' when calling list_system_privileges." if user_name.nil?
+
+      if opts[:sort_by] && !%w[NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'user_name' must not be blank" if OCI::Internal::Util.blank_string?(user_name)
+
+      path = '/managedDatabases/{managedDatabaseId}/users/{userName}/systemPrivileges'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{userName}', user_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#list_system_privileges') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::SystemPrivilegeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the list of tablespaces for the specified managedDatabaseId.
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [Hash] opts the optional parameters
@@ -2051,11 +3235,11 @@ module OCI
     #   The \u2018NAME\u2019 sort order is case-sensitive.
     #    (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the the default order. (default to ASC)
-    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
-    # @option opts [Integer] :limit The maximum number of records returned in paginated response. (default to 10)
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
     # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::TablespaceCollection TablespaceCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_tablespaces.rb.html) to see an example of how to use list_tablespaces API.
     def list_tablespaces(managed_database_id, opts = {})
@@ -2104,6 +3288,319 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DatabaseManagement::Models::TablespaceCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the list of users for the specified managedDatabaseId.
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :name A filter to return only resources that match the entire name.
+    # @option opts [String] :sort_by The field to sort information by. Only one sortOrder can be used. The default sort order
+    #   for \u2018TIMECREATED\u2019 is descending and the default sort order for \u2018NAME\u2019 is ascending.
+    #   The \u2018NAME\u2019 sort order is case-sensitive.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::UserCollection UserCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_users.rb.html) to see an example of how to use list_users API.
+    def list_users(managed_database_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#list_users.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling list_users." if managed_database_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/users'.sub('{managedDatabaseId}', managed_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#list_users') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::UserCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a paginated list of errors for a given work request.
+    #
+    # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the asynchronous work request.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided and the default order for timeAccepted is descending.
+    #    (default to timeAccepted)
+    #   Allowed values are: timeAccepted
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::WorkRequestErrorCollection WorkRequestErrorCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
+    def list_work_request_errors(work_request_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#list_work_request_errors.' if logger
+
+      raise "Missing the required parameter 'work_request_id' when calling list_work_request_errors." if work_request_id.nil?
+
+      if opts[:sort_by] && !%w[timeAccepted].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeAccepted.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'work_request_id' must not be blank" if OCI::Internal::Util.blank_string?(work_request_id)
+
+      path = '/workRequests/{workRequestId}/errors'.sub('{workRequestId}', work_request_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#list_work_request_errors') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::WorkRequestErrorCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a paginated list of logs for a given work request.
+    #
+    # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the asynchronous work request.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided and the default order for timeAccepted is descending.
+    #    (default to timeAccepted)
+    #   Allowed values are: timeAccepted
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::WorkRequestLogEntryCollection WorkRequestLogEntryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
+    def list_work_request_logs(work_request_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#list_work_request_logs.' if logger
+
+      raise "Missing the required parameter 'work_request_id' when calling list_work_request_logs." if work_request_id.nil?
+
+      if opts[:sort_by] && !%w[timeAccepted].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeAccepted.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'work_request_id' must not be blank" if OCI::Internal::Util.blank_string?(work_request_id)
+
+      path = '/workRequests/{workRequestId}/logs'.sub('{workRequestId}', work_request_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#list_work_request_logs') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::WorkRequestLogEntryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # The list of work requests in a specific compartment was retrieved successfully.
+    #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :resource_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the resource affected by the work request.
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :work_request_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the asynchronous work request.
+    # @option opts [String] :status A filter that returns the resources whose status matches the given WorkRequestStatus.
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided and the default order for timeAccepted is descending.
+    #    (default to timeAccepted)
+    #   Allowed values are: timeAccepted
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::WorkRequestCollection WorkRequestCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
+    def list_work_requests(compartment_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#list_work_requests.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_work_requests." if compartment_id.nil?
+
+      if opts[:status] && !OCI::DatabaseManagement::Models::WORK_REQUEST_STATUS_ENUM.include?(opts[:status])
+        raise 'Invalid value for "status", must be one of the values in OCI::DatabaseManagement::Models::WORK_REQUEST_STATUS_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeAccepted].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeAccepted.'
+      end
+
+      path = '/workRequests'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:resourceId] = opts[:resource_id] if opts[:resource_id]
+      query_params[:workRequestId] = opts[:work_request_id] if opts[:work_request_id]
+      query_params[:status] = opts[:status] if opts[:status]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#list_work_requests') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::WorkRequestCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2254,7 +3751,7 @@ module OCI
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] awr_db_id The parameter to filter the database by internal ID.
     #   Note that the internal ID of the database can be retrieved from the following endpoint:
-    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2270,13 +3767,13 @@ module OCI
     #   Note that the database container ID can be retrieved from the following endpoint:
     #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
     #
-    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
     # @option opts [Integer] :limit The maximum number of records returned in large paginated response. (default to 1000)
     # @option opts [String] :sort_by The option to sort the AWR CPU usage summary data. (default to TIME_SAMPLED)
     #   Allowed values are: TIME_SAMPLED, AVG_VALUE
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the default order. (default to DESC)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -2364,7 +3861,7 @@ module OCI
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] awr_db_id The parameter to filter the database by internal ID.
     #   Note that the internal ID of the database can be retrieved from the following endpoint:
-    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs
     #
     # @param [Array<String>] name The required multiple value query parameter to filter the entity name.
     # @param [Hash] opts the optional parameters
@@ -2379,13 +3876,13 @@ module OCI
     #   Note that the database container ID can be retrieved from the following endpoint:
     #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
     #
-    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
     # @option opts [Integer] :limit The maximum number of records returned in large paginated response. (default to 1000)
     # @option opts [String] :sort_by The option to sort the AWR time series summary data. (default to TIMESTAMP)
     #   Allowed values are: TIMESTAMP, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the default order. (default to DESC)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -2465,7 +3962,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Summarizes the AWR database parameter change history for one database parameter of the specified Managed Database. One change history record contains
+    # Summarizes the database parameter change history for one database parameter of the specified database in AWR. One change history record contains
     # the previous value, the changed value, and the corresponding time range. If the database parameter value was changed multiple times within the time range, then multiple change history records are created for the same parameter.
     # Note that this API only returns information on change history details for one database parameter.
     # To get a list of all the database parameters whose values were changed during a specified time range, use the following API endpoint:
@@ -2474,7 +3971,7 @@ module OCI
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] awr_db_id The parameter to filter the database by internal ID.
     #   Note that the internal ID of the database can be retrieved from the following endpoint:
-    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs
     #
     # @param [String] name The required single value query parameter to filter the entity name.
     # @param [Hash] opts the optional parameters
@@ -2489,13 +3986,13 @@ module OCI
     #   Note that the database container ID can be retrieved from the following endpoint:
     #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
     #
-    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
     # @option opts [Integer] :limit The maximum number of records returned in large paginated response. (default to 1000)
     # @option opts [String] :sort_by The option to sort the AWR database parameter change history data. (default to IS_CHANGED)
     #   Allowed values are: IS_CHANGED, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the default order. (default to DESC)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -2575,20 +4072,22 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Summarizes the AWR database parameter history for the specified Managed Database. This includes the list of database
+    # Summarizes the database parameter history for the specified database in AWR. This includes the list of database
     # parameters, with information on whether the parameter values were modified within the query time range. Note that
-    # each database parameter is only listed once. The returned summary gets all the database parameters, which include:
-    #  -Each parameter whose value was changed during the time range: AwrDbParameterValueOptionalQueryParam (valueChanged =\"Y\")
-    #  -Each parameter whose value was unchanged during the time range: AwrDbParameterValueOptionalQueryParam (valueChanged =\"N\")
-    #  -Each parameter whose value was changed at the system level during the time range: (valueChanged =\"Y\"  and valueModified = \"SYSTEM_MOD\").
-    #  -Each parameter whose value was unchanged during the time range, however, the value is not the default value: (valueChanged =\"N\" and  valueDefault = \"FALSE\")
+    # each database parameter is only listed once. Depending on the optional query parameters, the returned summary gets all the database parameters, which include:
+    #
+    # - Each parameter whose value was changed during the time range:  (valueChanged =\"Y\")
+    # - Each parameter whose value was unchanged during the time range:  (valueChanged =\"N\")
+    # - Each parameter whose value was changed at the system level during the time range: (valueChanged =\"Y\"  and valueModified = \"SYSTEM_MOD\")
+    # - Each parameter whose value was unchanged during the time range, however, the value is not the default value: (valueChanged =\"N\" and  valueDefault = \"FALSE\")
+    #
     # Note that this API does not return information on the number of times each database parameter has been changed within the time range. To get the database parameter value change history for a specific parameter, use the following API endpoint:
     # /managedDatabases/{managedDatabaseId}/awrDbs/{awrDbId}/awrDbParameterChanges
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] awr_db_id The parameter to filter the database by internal ID.
     #   Note that the internal ID of the database can be retrieved from the following endpoint:
-    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2610,13 +4109,13 @@ module OCI
     #   Allowed values are: TRUE, FALSE
     # @option opts [String] :value_modified The optional query parameter to filter the database parameters that had a modified value in the last snapshot.
     #   Allowed values are: MODIFIED, SYSTEM_MOD, FALSE
-    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
     # @option opts [Integer] :limit The maximum number of records returned in large paginated response. (default to 1000)
     # @option opts [String] :sort_by The option to sort the AWR database parameter change history data. (default to IS_CHANGED)
     #   Allowed values are: IS_CHANGED, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the default order. (default to DESC)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -2720,13 +4219,13 @@ module OCI
     # @option opts [String] :name The optional single value query parameter to filter the entity name.
     # @option opts [DateTime] :time_greater_than_or_equal_to The optional greater than or equal to query parameter to filter the timestamp.
     # @option opts [DateTime] :time_less_than_or_equal_to The optional less than or equal to query parameter to filter the timestamp.
-    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
-    # @option opts [Integer] :limit The maximum number of records returned in paginated response. (default to 10)
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
     # @option opts [String] :sort_by The option to sort the AWR summary data. (default to END_INTERVAL_TIME)
     #   Allowed values are: END_INTERVAL_TIME, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the default order. (default to DESC)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -2804,7 +4303,7 @@ module OCI
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] awr_db_id The parameter to filter the database by internal ID.
     #   Note that the internal ID of the database can be retrieved from the following endpoint:
-    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs
     #
     # @param [Array<String>] name The required multiple value query parameter to filter the entity name.
     # @param [Hash] opts the optional parameters
@@ -2819,13 +4318,13 @@ module OCI
     #   Note that the database container ID can be retrieved from the following endpoint:
     #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
     #
-    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
     # @option opts [Integer] :limit The maximum number of records returned in large paginated response. (default to 1000)
     # @option opts [String] :sort_by The option to sort the data within a time period. (default to TIME_BEGIN)
     #   Allowed values are: TIME_BEGIN, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the default order. (default to DESC)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -2910,7 +4409,7 @@ module OCI
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] awr_db_id The parameter to filter the database by internal ID.
     #   Note that the internal ID of the database can be retrieved from the following endpoint:
-    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2929,7 +4428,7 @@ module OCI
     # @option opts [Integer] :top_n The optional query parameter to filter the number of top categories to be returned. (default to 10)
     # @option opts [String] :sort_by The option to sort the AWR top event summary data. (default to WAITS_PERSEC)
     #   Allowed values are: WAITS_PERSEC, AVG_WAIT_TIME_PERSEC
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the default order. (default to DESC)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -3016,7 +4515,7 @@ module OCI
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] awr_db_id The parameter to filter the database by internal ID.
     #   Note that the internal ID of the database can be retrieved from the following endpoint:
-    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs
     #
     # @param [String] name The required single value query parameter to filter the entity name.
     # @param [Hash] opts the optional parameters
@@ -3034,13 +4533,13 @@ module OCI
     #   Note that the database container ID can be retrieved from the following endpoint:
     #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
     #
-    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
     # @option opts [Integer] :limit The maximum number of records returned in large paginated response. (default to 1000)
     # @option opts [String] :sort_by The option to sort distribution data. (default to CATEGORY)
     #   Allowed values are: CATEGORY, PERCENTAGE
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the the default order. (default to ASC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -3128,7 +4627,7 @@ module OCI
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] awr_db_id The parameter to filter the database by internal ID.
     #   Note that the internal ID of the database can be retrieved from the following endpoint:
-    #   /managedDatabases/{managedDatabaseId}/awrDbs:
+    #   /managedDatabases/{managedDatabaseId}/awrDbs
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3145,13 +4644,13 @@ module OCI
     #   Note that the database container ID can be retrieved from the following endpoint:
     #   /managedDatabases/{managedDatabaseId}/awrDbSnapshotRanges
     #
-    # @option opts [String] :page The page token representing the page, from where the next set of paginated results
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
     #   are retrieved. This is usually retrieved from a previous list call.
     #
     # @option opts [Integer] :limit The maximum number of records returned in large paginated response. (default to 1000)
     # @option opts [String] :sort_by The option to sort the data within a time period. (default to TIME_BEGIN)
     #   Allowed values are: TIME_BEGIN, NAME
-    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the the default order. (default to DESC)
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the default order. (default to DESC)
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
@@ -3222,6 +4721,221 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DatabaseManagement::Models::AwrDbWaitEventCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the number of job executions grouped by status for a job, Managed Database, or Database Group in a specific compartment. Only one of the parameters, jobId, managedDatabaseId, or managedDatabaseGroupId should be provided.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] start_time The start time of the time range to retrieve the status summary of job executions
+    #   in UTC in ISO-8601 format, which is \"yyyy-MM-dd'T'hh:mm:ss.sss'Z'\".
+    #
+    # @param [String] end_time The end time of the time range to retrieve the status summary of job executions
+    #   in UTC in ISO-8601 format, which is \"yyyy-MM-dd'T'hh:mm:ss.sss'Z'\".
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :id The identifier of the resource.
+    # @option opts [String] :managed_database_group_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database Group.
+    # @option opts [String] :managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @option opts [String] :name A filter to return only resources that match the entire name.
+    # @option opts [String] :sort_by The field to sort information by. Only one sortOrder can be used. The default sort order
+    #   for \u2018TIMECREATED\u2019 is descending and the default sort order for \u2018NAME\u2019 is ascending.
+    #   The \u2018NAME\u2019 sort order is case-sensitive.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::JobExecutionsStatusSummaryCollection JobExecutionsStatusSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/summarize_job_executions_statuses.rb.html) to see an example of how to use summarize_job_executions_statuses API.
+    def summarize_job_executions_statuses(compartment_id, start_time, end_time, opts = {})
+      logger.debug 'Calling operation DbManagementClient#summarize_job_executions_statuses.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling summarize_job_executions_statuses." if compartment_id.nil?
+      raise "Missing the required parameter 'start_time' when calling summarize_job_executions_statuses." if start_time.nil?
+      raise "Missing the required parameter 'end_time' when calling summarize_job_executions_statuses." if end_time.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+
+      path = '/jobExecutionsStatus'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:startTime] = start_time
+      query_params[:endTime] = end_time
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:managedDatabaseGroupId] = opts[:managed_database_group_id] if opts[:managed_database_group_id]
+      query_params[:managedDatabaseId] = opts[:managed_database_id] if opts[:managed_database_id]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#summarize_job_executions_statuses') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::JobExecutionsStatusSummaryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates one or more attributes of a specific Database Management private endpoint.
+    # @param [String] db_management_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Management private endpoint.
+    # @param [OCI::DatabaseManagement::Models::UpdateDbManagementPrivateEndpointDetails] update_db_management_private_endpoint_details The details used to update a Database Management private endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::DbManagementPrivateEndpoint DbManagementPrivateEndpoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/update_db_management_private_endpoint.rb.html) to see an example of how to use update_db_management_private_endpoint API.
+    def update_db_management_private_endpoint(db_management_private_endpoint_id, update_db_management_private_endpoint_details, opts = {})
+      logger.debug 'Calling operation DbManagementClient#update_db_management_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'db_management_private_endpoint_id' when calling update_db_management_private_endpoint." if db_management_private_endpoint_id.nil?
+      raise "Missing the required parameter 'update_db_management_private_endpoint_details' when calling update_db_management_private_endpoint." if update_db_management_private_endpoint_details.nil?
+      raise "Parameter value for 'db_management_private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(db_management_private_endpoint_id)
+
+      path = '/dbManagementPrivateEndpoints/{dbManagementPrivateEndpointId}'.sub('{dbManagementPrivateEndpointId}', db_management_private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_db_management_private_endpoint_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#update_db_management_private_endpoint') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::DbManagementPrivateEndpoint'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the details for the recurring scheduled job specified by jobId. Note that non-recurring (one time) jobs cannot be updated.
+    #
+    # @param [String] job_id The identifier of the job.
+    # @param [OCI::DatabaseManagement::Models::UpdateJobDetails] update_job_details The details required to update a job.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::Job Job}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/update_job.rb.html) to see an example of how to use update_job API.
+    def update_job(job_id, update_job_details, opts = {})
+      logger.debug 'Calling operation DbManagementClient#update_job.' if logger
+
+      raise "Missing the required parameter 'job_id' when calling update_job." if job_id.nil?
+      raise "Missing the required parameter 'update_job_details' when calling update_job." if update_job_details.nil?
+      raise "Parameter value for 'job_id' must not be blank" if OCI::Internal::Util.blank_string?(job_id)
+
+      path = '/jobs/{jobId}'.sub('{jobId}', job_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_job_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#update_job') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::Job'
         )
       end
       # rubocop:enable Metrics/BlockLength

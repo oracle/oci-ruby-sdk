@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -24,7 +24,7 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # This terms parent term key. Will be null if the term has no parent term.
+    # The parent key of the term. In the case of a root-level category only, the term would have no parent and this should be left unset.
     # @return [String]
     attr_accessor :parent_term_key
 

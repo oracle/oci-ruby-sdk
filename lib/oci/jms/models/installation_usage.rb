@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -21,17 +21,20 @@ module OCI
     # @return [String]
     attr_accessor :jre_version
 
-    # **[Required]** The file system path of the installation.
+    # **[Required]** The file system path of the Java installation.
     # @return [String]
     attr_accessor :path
 
-    # **[Required]** The Operating System for the installation.
+    # **[Required]** The Operating System for the installation. Deprecated, use `operatingSystem` instead.
     # @return [String]
     attr_accessor :os
 
-    # **[Required]** The architecture of the operating system for the installation.
+    # **[Required]** The architecture of the operating system for the installation. Deprecated, use `operatingSystem` instead.
     # @return [String]
     attr_accessor :architecture
+
+    # @return [OCI::Jms::Models::OperatingSystem]
+    attr_accessor :operating_system
 
     # The approximate count of applications running on this installation
     # @return [Integer]
@@ -41,11 +44,11 @@ module OCI
     # @return [Integer]
     attr_accessor :approximate_managed_instance_count
 
-    # Lower bound of the specified time period filter.
+    # Lower bound of the specified time period filter. JMS provides a view of the data that is _per day_. The query uses only the date element of the parameter.
     # @return [DateTime]
     attr_accessor :time_start
 
-    # Upper bound of the specified time period filter.
+    # Upper bound of the specified time period filter. JMS provides a view of the data that is _per day_. The query uses only the date element of the parameter.
     # @return [DateTime]
     attr_accessor :time_end
 
@@ -75,6 +78,7 @@ module OCI
         'path': :'path',
         'os': :'os',
         'architecture': :'architecture',
+        'operating_system': :'operatingSystem',
         'approximate_application_count': :'approximateApplicationCount',
         'approximate_managed_instance_count': :'approximateManagedInstanceCount',
         'time_start': :'timeStart',
@@ -95,6 +99,7 @@ module OCI
         'path': :'String',
         'os': :'String',
         'architecture': :'String',
+        'operating_system': :'OCI::Jms::Models::OperatingSystem',
         'approximate_application_count': :'Integer',
         'approximate_managed_instance_count': :'Integer',
         'time_start': :'DateTime',
@@ -117,6 +122,7 @@ module OCI
     # @option attributes [String] :path The value to assign to the {#path} property
     # @option attributes [String] :os The value to assign to the {#os} property
     # @option attributes [String] :architecture The value to assign to the {#architecture} property
+    # @option attributes [OCI::Jms::Models::OperatingSystem] :operating_system The value to assign to the {#operating_system} property
     # @option attributes [Integer] :approximate_application_count The value to assign to the {#approximate_application_count} property
     # @option attributes [Integer] :approximate_managed_instance_count The value to assign to the {#approximate_managed_instance_count} property
     # @option attributes [DateTime] :time_start The value to assign to the {#time_start} property
@@ -152,6 +158,12 @@ module OCI
       self.os = attributes[:'os'] if attributes[:'os']
 
       self.architecture = attributes[:'architecture'] if attributes[:'architecture']
+
+      self.operating_system = attributes[:'operatingSystem'] if attributes[:'operatingSystem']
+
+      raise 'You cannot provide both :operatingSystem and :operating_system' if attributes.key?(:'operatingSystem') && attributes.key?(:'operating_system')
+
+      self.operating_system = attributes[:'operating_system'] if attributes[:'operating_system']
 
       self.approximate_application_count = attributes[:'approximateApplicationCount'] if attributes[:'approximateApplicationCount']
 
@@ -207,6 +219,7 @@ module OCI
         path == other.path &&
         os == other.os &&
         architecture == other.architecture &&
+        operating_system == other.operating_system &&
         approximate_application_count == other.approximate_application_count &&
         approximate_managed_instance_count == other.approximate_managed_instance_count &&
         time_start == other.time_start &&
@@ -228,7 +241,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [jre_vendor, jre_distribution, jre_version, path, os, architecture, approximate_application_count, approximate_managed_instance_count, time_start, time_end, time_first_seen, time_last_seen].hash
+      [jre_vendor, jre_distribution, jre_version, path, os, architecture, operating_system, approximate_application_count, approximate_managed_instance_count, time_start, time_end, time_first_seen, time_last_seen].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

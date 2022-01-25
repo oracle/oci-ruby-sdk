@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -93,6 +93,10 @@ module OCI
     # Property that identifies if this attribute can be assigned null values.
     # @return [BOOLEAN]
     attr_accessor :is_nullable
+
+    # The type of the attribute. Type keys can be found via the '/types' endpoint.
+    # @return [String]
+    attr_accessor :type_key
 
     # The minimum count for the number of instances of a given type stored in this collection type attribute,applicable if this attribute is a complex type.
     # @return [Integer]
@@ -196,6 +200,7 @@ module OCI
         'external_key': :'externalKey',
         'is_incremental_data': :'isIncrementalData',
         'is_nullable': :'isNullable',
+        'type_key': :'typeKey',
         'min_collection_count': :'minCollectionCount',
         'max_collection_count': :'maxCollectionCount',
         'datatype_entity_key': :'datatypeEntityKey',
@@ -237,6 +242,7 @@ module OCI
         'external_key': :'String',
         'is_incremental_data': :'BOOLEAN',
         'is_nullable': :'BOOLEAN',
+        'type_key': :'String',
         'min_collection_count': :'Integer',
         'max_collection_count': :'Integer',
         'datatype_entity_key': :'String',
@@ -280,6 +286,7 @@ module OCI
     # @option attributes [String] :external_key The value to assign to the {#external_key} property
     # @option attributes [BOOLEAN] :is_incremental_data The value to assign to the {#is_incremental_data} property
     # @option attributes [BOOLEAN] :is_nullable The value to assign to the {#is_nullable} property
+    # @option attributes [String] :type_key The value to assign to the {#type_key} property
     # @option attributes [Integer] :min_collection_count The value to assign to the {#min_collection_count} property
     # @option attributes [Integer] :max_collection_count The value to assign to the {#max_collection_count} property
     # @option attributes [String] :datatype_entity_key The value to assign to the {#datatype_entity_key} property
@@ -380,6 +387,12 @@ module OCI
       raise 'You cannot provide both :isNullable and :is_nullable' if attributes.key?(:'isNullable') && attributes.key?(:'is_nullable')
 
       self.is_nullable = attributes[:'is_nullable'] unless attributes[:'is_nullable'].nil?
+
+      self.type_key = attributes[:'typeKey'] if attributes[:'typeKey']
+
+      raise 'You cannot provide both :typeKey and :type_key' if attributes.key?(:'typeKey') && attributes.key?(:'type_key')
+
+      self.type_key = attributes[:'type_key'] if attributes[:'type_key']
 
       self.min_collection_count = attributes[:'minCollectionCount'] if attributes[:'minCollectionCount']
 
@@ -526,6 +539,7 @@ module OCI
         external_key == other.external_key &&
         is_incremental_data == other.is_incremental_data &&
         is_nullable == other.is_nullable &&
+        type_key == other.type_key &&
         min_collection_count == other.min_collection_count &&
         max_collection_count == other.max_collection_count &&
         datatype_entity_key == other.datatype_entity_key &&
@@ -560,7 +574,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, business_name, description, entity_key, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, external_data_type, external_key, is_incremental_data, is_nullable, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, length, position, precision, scale, time_external, time_harvested, object_relationships, is_derived_attribute, uri, path, custom_property_members, properties, associated_rule_types].hash
+      [key, display_name, business_name, description, entity_key, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, external_data_type, external_key, is_incremental_data, is_nullable, type_key, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, length, position, precision, scale, time_external, time_harvested, object_relationships, is_derived_attribute, uri, path, custom_property_members, properties, associated_rule_types].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

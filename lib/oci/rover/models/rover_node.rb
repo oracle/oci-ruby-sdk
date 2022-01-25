@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -139,6 +139,22 @@ module OCI
     # @return [String]
     attr_accessor :return_shipping_label_uri
 
+    # The flag indicating that customer requests data to be imported to OCI upon Rover node return.
+    # @return [BOOLEAN]
+    attr_accessor :is_import_requested
+
+    # An OCID of a compartment where data will be imported to upon Rover node return.
+    # @return [String]
+    attr_accessor :import_compartment_id
+
+    # Name of a bucket where files from NFS share will be imported to upon Rover node return.
+    # @return [String]
+    attr_accessor :import_file_bucket
+
+    # Validation code returned by data validation tool. Required for return shipping label generation if data import was requested.
+    # @return [String]
+    attr_accessor :data_validation_code
+
     # The public key of the resource principal
     # @return [String]
     attr_accessor :public_key
@@ -146,6 +162,11 @@ module OCI
     # The link to pre-authenticated request for a bucket where image workloads are moved.
     # @return [String]
     attr_accessor :image_export_par
+
+    # The tags associated with tagSlug.
+    #
+    # @return [String]
+    attr_accessor :tags
 
     # The freeform tags associated with this resource, if any. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
@@ -198,8 +219,13 @@ module OCI
         'oracle_shipping_tracking_url': :'oracleShippingTrackingUrl',
         'time_return_window_ends': :'timeReturnWindowEnds',
         'return_shipping_label_uri': :'returnShippingLabelUri',
+        'is_import_requested': :'isImportRequested',
+        'import_compartment_id': :'importCompartmentId',
+        'import_file_bucket': :'importFileBucket',
+        'data_validation_code': :'dataValidationCode',
         'public_key': :'publicKey',
         'image_export_par': :'imageExportPar',
+        'tags': :'tags',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'system_tags': :'systemTags'
@@ -237,8 +263,13 @@ module OCI
         'oracle_shipping_tracking_url': :'String',
         'time_return_window_ends': :'DateTime',
         'return_shipping_label_uri': :'String',
+        'is_import_requested': :'BOOLEAN',
+        'import_compartment_id': :'String',
+        'import_file_bucket': :'String',
+        'data_validation_code': :'String',
         'public_key': :'String',
         'image_export_par': :'String',
+        'tags': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'system_tags': :'Hash<String, Hash<String, Object>>'
@@ -278,8 +309,13 @@ module OCI
     # @option attributes [String] :oracle_shipping_tracking_url The value to assign to the {#oracle_shipping_tracking_url} property
     # @option attributes [DateTime] :time_return_window_ends The value to assign to the {#time_return_window_ends} property
     # @option attributes [String] :return_shipping_label_uri The value to assign to the {#return_shipping_label_uri} property
+    # @option attributes [BOOLEAN] :is_import_requested The value to assign to the {#is_import_requested} property
+    # @option attributes [String] :import_compartment_id The value to assign to the {#import_compartment_id} property
+    # @option attributes [String] :import_file_bucket The value to assign to the {#import_file_bucket} property
+    # @option attributes [String] :data_validation_code The value to assign to the {#data_validation_code} property
     # @option attributes [String] :public_key The value to assign to the {#public_key} property
     # @option attributes [String] :image_export_par The value to assign to the {#image_export_par} property
+    # @option attributes [String] :tags The value to assign to the {#tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
@@ -443,6 +479,30 @@ module OCI
 
       self.return_shipping_label_uri = attributes[:'return_shipping_label_uri'] if attributes[:'return_shipping_label_uri']
 
+      self.is_import_requested = attributes[:'isImportRequested'] unless attributes[:'isImportRequested'].nil?
+
+      raise 'You cannot provide both :isImportRequested and :is_import_requested' if attributes.key?(:'isImportRequested') && attributes.key?(:'is_import_requested')
+
+      self.is_import_requested = attributes[:'is_import_requested'] unless attributes[:'is_import_requested'].nil?
+
+      self.import_compartment_id = attributes[:'importCompartmentId'] if attributes[:'importCompartmentId']
+
+      raise 'You cannot provide both :importCompartmentId and :import_compartment_id' if attributes.key?(:'importCompartmentId') && attributes.key?(:'import_compartment_id')
+
+      self.import_compartment_id = attributes[:'import_compartment_id'] if attributes[:'import_compartment_id']
+
+      self.import_file_bucket = attributes[:'importFileBucket'] if attributes[:'importFileBucket']
+
+      raise 'You cannot provide both :importFileBucket and :import_file_bucket' if attributes.key?(:'importFileBucket') && attributes.key?(:'import_file_bucket')
+
+      self.import_file_bucket = attributes[:'import_file_bucket'] if attributes[:'import_file_bucket']
+
+      self.data_validation_code = attributes[:'dataValidationCode'] if attributes[:'dataValidationCode']
+
+      raise 'You cannot provide both :dataValidationCode and :data_validation_code' if attributes.key?(:'dataValidationCode') && attributes.key?(:'data_validation_code')
+
+      self.data_validation_code = attributes[:'data_validation_code'] if attributes[:'data_validation_code']
+
       self.public_key = attributes[:'publicKey'] if attributes[:'publicKey']
 
       raise 'You cannot provide both :publicKey and :public_key' if attributes.key?(:'publicKey') && attributes.key?(:'public_key')
@@ -454,6 +514,8 @@ module OCI
       raise 'You cannot provide both :imageExportPar and :image_export_par' if attributes.key?(:'imageExportPar') && attributes.key?(:'image_export_par')
 
       self.image_export_par = attributes[:'image_export_par'] if attributes[:'image_export_par']
+
+      self.tags = attributes[:'tags'] if attributes[:'tags']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -563,8 +625,13 @@ module OCI
         oracle_shipping_tracking_url == other.oracle_shipping_tracking_url &&
         time_return_window_ends == other.time_return_window_ends &&
         return_shipping_label_uri == other.return_shipping_label_uri &&
+        is_import_requested == other.is_import_requested &&
+        import_compartment_id == other.import_compartment_id &&
+        import_file_bucket == other.import_file_bucket &&
+        data_validation_code == other.data_validation_code &&
         public_key == other.public_key &&
         image_export_par == other.image_export_par &&
+        tags == other.tags &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         system_tags == other.system_tags
@@ -583,7 +650,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, cluster_id, compartment_id, node_type, enclosure_type, serial_number, display_name, time_created, lifecycle_state, lifecycle_state_details, customer_shipping_address, node_workloads, time_customer_receieved, time_customer_returned, delivery_tracking_info, super_user_password, unlock_passphrase, point_of_contact, point_of_contact_phone_number, shipping_preference, shipping_vendor, time_pickup_expected, time_return_window_starts, oracle_shipping_tracking_url, time_return_window_ends, return_shipping_label_uri, public_key, image_export_par, freeform_tags, defined_tags, system_tags].hash
+      [id, cluster_id, compartment_id, node_type, enclosure_type, serial_number, display_name, time_created, lifecycle_state, lifecycle_state_details, customer_shipping_address, node_workloads, time_customer_receieved, time_customer_returned, delivery_tracking_info, super_user_password, unlock_passphrase, point_of_contact, point_of_contact_phone_number, shipping_preference, shipping_vendor, time_pickup_expected, time_return_window_starts, oracle_shipping_tracking_url, time_return_window_ends, return_shipping_label_uri, is_import_requested, import_compartment_id, import_file_bucket, data_validation_code, public_key, image_export_par, tags, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

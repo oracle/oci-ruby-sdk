@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -75,6 +75,10 @@ module OCI
     # The time the Platform Instance was updated. An RFC3339 formatted datetime string
     # @return [DateTime]
     attr_accessor :time_updated
+
+    # Platform Version
+    # @return [String]
+    attr_accessor :platform_version
 
     # The version of the Platform Instance.
     # @return [String]
@@ -157,6 +161,7 @@ module OCI
         'is_byol': :'isByol',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
+        'platform_version': :'platformVersion',
         'service_version': :'serviceVersion',
         'platform_role': :'platformRole',
         'compute_shape': :'computeShape',
@@ -189,6 +194,7 @@ module OCI
         'is_byol': :'BOOLEAN',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
+        'platform_version': :'String',
         'service_version': :'String',
         'platform_role': :'String',
         'compute_shape': :'String',
@@ -223,6 +229,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_byol The value to assign to the {#is_byol} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [String] :platform_version The value to assign to the {#platform_version} property
     # @option attributes [String] :service_version The value to assign to the {#service_version} property
     # @option attributes [String] :platform_role The value to assign to the {#platform_role} property
     # @option attributes [String] :compute_shape The value to assign to the {#compute_shape} property
@@ -279,6 +286,12 @@ module OCI
       raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
 
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.platform_version = attributes[:'platformVersion'] if attributes[:'platformVersion']
+
+      raise 'You cannot provide both :platformVersion and :platform_version' if attributes.key?(:'platformVersion') && attributes.key?(:'platform_version')
+
+      self.platform_version = attributes[:'platform_version'] if attributes[:'platform_version']
 
       self.service_version = attributes[:'serviceVersion'] if attributes[:'serviceVersion']
 
@@ -462,6 +475,7 @@ module OCI
         is_byol == other.is_byol &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
+        platform_version == other.platform_version &&
         service_version == other.service_version &&
         platform_role == other.platform_role &&
         compute_shape == other.compute_shape &&
@@ -494,7 +508,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, description, is_byol, time_created, time_updated, service_version, platform_role, compute_shape, platform_shape_type, load_balancer_shape, service_endpoint, lifecycle_state, lifecycle_details, storage_size_in_tbs, storage_used_in_tbs, is_multi_ad, total_ocpu_capacity, component_details, replicas, host_ocpu_utilization_info, freeform_tags, defined_tags].hash
+      [id, display_name, compartment_id, description, is_byol, time_created, time_updated, platform_version, service_version, platform_role, compute_shape, platform_shape_type, load_balancer_shape, service_endpoint, lifecycle_state, lifecycle_details, storage_size_in_tbs, storage_used_in_tbs, is_multi_ad, total_ocpu_capacity, component_details, replicas, host_ocpu_utilization_info, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

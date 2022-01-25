@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -18,13 +18,19 @@ module OCI
     # @return [String]
     attr_accessor :container_database_id
 
-    # **[Required]** A strong password for PDB Admin. The password must be at least nine characters and contain at least two uppercase, two lowercase, two numbers, and two special characters. The special characters must be _, \\#, or -.
+    # A strong password for PDB Admin. The password must be at least nine characters and contain at least two uppercase, two lowercase, two numbers, and two special characters. The special characters must be _, \\#, or -.
     # @return [String]
     attr_accessor :pdb_admin_password
 
-    # **[Required]** The existing TDE wallet password of the CDB.
+    # The existing TDE wallet password of the CDB.
     # @return [String]
     attr_accessor :tde_wallet_password
+
+    # The locked mode of the pluggable database admin account. If false, the user needs to provide the PDB Admin Password to connect to it.
+    # If true, the pluggable database will be locked and user cannot login to it.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :should_pdb_admin_account_be_locked
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -48,6 +54,7 @@ module OCI
         'container_database_id': :'containerDatabaseId',
         'pdb_admin_password': :'pdbAdminPassword',
         'tde_wallet_password': :'tdeWalletPassword',
+        'should_pdb_admin_account_be_locked': :'shouldPdbAdminAccountBeLocked',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -62,6 +69,7 @@ module OCI
         'container_database_id': :'String',
         'pdb_admin_password': :'String',
         'tde_wallet_password': :'String',
+        'should_pdb_admin_account_be_locked': :'BOOLEAN',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -78,6 +86,7 @@ module OCI
     # @option attributes [String] :container_database_id The value to assign to the {#container_database_id} property
     # @option attributes [String] :pdb_admin_password The value to assign to the {#pdb_admin_password} property
     # @option attributes [String] :tde_wallet_password The value to assign to the {#tde_wallet_password} property
+    # @option attributes [BOOLEAN] :should_pdb_admin_account_be_locked The value to assign to the {#should_pdb_admin_account_be_locked} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -110,6 +119,14 @@ module OCI
 
       self.tde_wallet_password = attributes[:'tde_wallet_password'] if attributes[:'tde_wallet_password']
 
+      self.should_pdb_admin_account_be_locked = attributes[:'shouldPdbAdminAccountBeLocked'] unless attributes[:'shouldPdbAdminAccountBeLocked'].nil?
+      self.should_pdb_admin_account_be_locked = false if should_pdb_admin_account_be_locked.nil? && !attributes.key?(:'shouldPdbAdminAccountBeLocked') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :shouldPdbAdminAccountBeLocked and :should_pdb_admin_account_be_locked' if attributes.key?(:'shouldPdbAdminAccountBeLocked') && attributes.key?(:'should_pdb_admin_account_be_locked')
+
+      self.should_pdb_admin_account_be_locked = attributes[:'should_pdb_admin_account_be_locked'] unless attributes[:'should_pdb_admin_account_be_locked'].nil?
+      self.should_pdb_admin_account_be_locked = false if should_pdb_admin_account_be_locked.nil? && !attributes.key?(:'shouldPdbAdminAccountBeLocked') && !attributes.key?(:'should_pdb_admin_account_be_locked') # rubocop:disable Style/StringLiterals
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -138,6 +155,7 @@ module OCI
         container_database_id == other.container_database_id &&
         pdb_admin_password == other.pdb_admin_password &&
         tde_wallet_password == other.tde_wallet_password &&
+        should_pdb_admin_account_be_locked == other.should_pdb_admin_account_be_locked &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -155,7 +173,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [pdb_name, container_database_id, pdb_admin_password, tde_wallet_password, freeform_tags, defined_tags].hash
+      [pdb_name, container_database_id, pdb_admin_password, tde_wallet_password, should_pdb_admin_account_be_locked, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

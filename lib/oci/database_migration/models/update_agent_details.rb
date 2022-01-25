@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,11 +8,6 @@ module OCI
   # ODMS Agent Details
   #
   class DatabaseMigration::Models::UpdateAgentDetails
-    # The OCID of the compartment.
-    #
-    # @return [String]
-    attr_accessor :compartment_id
-
     # ODMS Agent name
     #
     # @return [String]
@@ -49,7 +44,6 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'compartment_id': :'compartmentId',
         'display_name': :'displayName',
         'stream_id': :'streamId',
         'public_key': :'publicKey',
@@ -64,7 +58,6 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'compartment_id': :'String',
         'display_name': :'String',
         'stream_id': :'String',
         'public_key': :'String',
@@ -81,7 +74,6 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :stream_id The value to assign to the {#stream_id} property
     # @option attributes [String] :public_key The value to assign to the {#public_key} property
@@ -93,12 +85,6 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
-
-      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
-
-      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
-
-      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -144,7 +130,6 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        compartment_id == other.compartment_id &&
         display_name == other.display_name &&
         stream_id == other.stream_id &&
         public_key == other.public_key &&
@@ -166,7 +151,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, stream_id, public_key, version, freeform_tags, defined_tags].hash
+      [display_name, stream_id, public_key, version, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

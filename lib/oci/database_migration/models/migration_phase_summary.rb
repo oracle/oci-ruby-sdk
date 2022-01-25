@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -12,10 +12,13 @@ module OCI
     NAME_ENUM = [
       NAME_ODMS_VALIDATE_TGT = 'ODMS_VALIDATE_TGT'.freeze,
       NAME_ODMS_VALIDATE_SRC = 'ODMS_VALIDATE_SRC'.freeze,
+      NAME_ODMS_VALIDATE_PREMIGRATION_ADVISOR = 'ODMS_VALIDATE_PREMIGRATION_ADVISOR'.freeze,
       NAME_ODMS_VALIDATE_GG_HUB = 'ODMS_VALIDATE_GG_HUB'.freeze,
       NAME_ODMS_VALIDATE_DATAPUMP_SETTINGS = 'ODMS_VALIDATE_DATAPUMP_SETTINGS'.freeze,
       NAME_ODMS_VALIDATE_DATAPUMP_SETTINGS_SRC = 'ODMS_VALIDATE_DATAPUMP_SETTINGS_SRC'.freeze,
       NAME_ODMS_VALIDATE_DATAPUMP_SETTINGS_TGT = 'ODMS_VALIDATE_DATAPUMP_SETTINGS_TGT'.freeze,
+      NAME_ODMS_VALIDATE_DATAPUMP_SRC = 'ODMS_VALIDATE_DATAPUMP_SRC'.freeze,
+      NAME_ODMS_VALIDATE_DATAPUMP_ESTIMATE_SRC = 'ODMS_VALIDATE_DATAPUMP_ESTIMATE_SRC'.freeze,
       NAME_ODMS_VALIDATE = 'ODMS_VALIDATE'.freeze,
       NAME_ODMS_PREPARE = 'ODMS_PREPARE'.freeze,
       NAME_ODMS_INITIAL_LOAD_EXPORT = 'ODMS_INITIAL_LOAD_EXPORT'.freeze,

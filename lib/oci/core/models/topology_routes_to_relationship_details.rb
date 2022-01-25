@@ -1,12 +1,19 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Defines route rule details for a `routesTo` relationship.
   class Core::Models::TopologyRoutesToRelationshipDetails
+    ROUTE_TYPE_ENUM = [
+      ROUTE_TYPE_STATIC = 'STATIC'.freeze,
+      ROUTE_TYPE_DYNAMIC = 'DYNAMIC'.freeze,
+      ROUTE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The destinationType can be set to one of two values:
     #
     # * Use `CIDR_BLOCK` if the rule's `destination` is an IP address range in CIDR notation.
@@ -24,13 +31,19 @@ module OCI
     # @return [String]
     attr_accessor :route_table_id
 
+    # A route rule can be `STATIC` if manually added to the route table or `DYNAMIC` if imported from another route table.
+    #
+    # @return [String]
+    attr_reader :route_type
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'destination_type': :'destinationType',
         'destination': :'destination',
-        'route_table_id': :'routeTableId'
+        'route_table_id': :'routeTableId',
+        'route_type': :'routeType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -41,7 +54,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'destination_type': :'String',
         'destination': :'String',
-        'route_table_id': :'String'
+        'route_table_id': :'String',
+        'route_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -55,6 +69,7 @@ module OCI
     # @option attributes [String] :destination_type The value to assign to the {#destination_type} property
     # @option attributes [String] :destination The value to assign to the {#destination} property
     # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
+    # @option attributes [String] :route_type The value to assign to the {#route_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -74,9 +89,28 @@ module OCI
       raise 'You cannot provide both :routeTableId and :route_table_id' if attributes.key?(:'routeTableId') && attributes.key?(:'route_table_id')
 
       self.route_table_id = attributes[:'route_table_id'] if attributes[:'route_table_id']
+
+      self.route_type = attributes[:'routeType'] if attributes[:'routeType']
+
+      raise 'You cannot provide both :routeType and :route_type' if attributes.key?(:'routeType') && attributes.key?(:'route_type')
+
+      self.route_type = attributes[:'route_type'] if attributes[:'route_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] route_type Object to be assigned
+    def route_type=(route_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if route_type && !ROUTE_TYPE_ENUM.include?(route_type)
+        OCI.logger.debug("Unknown value for 'route_type' [" + route_type + "]. Mapping to 'ROUTE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @route_type = ROUTE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @route_type = route_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -89,7 +123,8 @@ module OCI
       self.class == other.class &&
         destination_type == other.destination_type &&
         destination == other.destination &&
-        route_table_id == other.route_table_id
+        route_table_id == other.route_table_id &&
+        route_type == other.route_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -105,7 +140,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [destination_type, destination, route_table_id].hash
+      [destination_type, destination, route_table_id, route_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

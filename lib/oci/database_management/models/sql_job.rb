@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -67,6 +67,7 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'timeout': :'timeout',
         'result_location': :'resultLocation',
+        'schedule_details': :'scheduleDetails',
         'submission_error_message': :'submissionErrorMessage',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
@@ -96,6 +97,7 @@ module OCI
         'lifecycle_state': :'String',
         'timeout': :'String',
         'result_location': :'OCI::DatabaseManagement::Models::JobExecutionResultLocation',
+        'schedule_details': :'OCI::DatabaseManagement::Models::JobScheduleDetails',
         'submission_error_message': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
@@ -126,6 +128,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {OCI::DatabaseManagement::Models::Job#lifecycle_state #lifecycle_state} proprety
     # @option attributes [String] :timeout The value to assign to the {OCI::DatabaseManagement::Models::Job#timeout #timeout} proprety
     # @option attributes [OCI::DatabaseManagement::Models::JobExecutionResultLocation] :result_location The value to assign to the {OCI::DatabaseManagement::Models::Job#result_location #result_location} proprety
+    # @option attributes [OCI::DatabaseManagement::Models::JobScheduleDetails] :schedule_details The value to assign to the {OCI::DatabaseManagement::Models::Job#schedule_details #schedule_details} proprety
     # @option attributes [String] :submission_error_message The value to assign to the {OCI::DatabaseManagement::Models::Job#submission_error_message #submission_error_message} proprety
     # @option attributes [DateTime] :time_created The value to assign to the {OCI::DatabaseManagement::Models::Job#time_created #time_created} proprety
     # @option attributes [DateTime] :time_updated The value to assign to the {OCI::DatabaseManagement::Models::Job#time_updated #time_updated} proprety
@@ -234,6 +237,7 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         timeout == other.timeout &&
         result_location == other.result_location &&
+        schedule_details == other.schedule_details &&
         submission_error_message == other.submission_error_message &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
@@ -257,7 +261,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, managed_database_group_id, managed_database_id, managed_databases_details, database_sub_type, schedule_type, job_type, lifecycle_state, timeout, result_location, submission_error_message, time_created, time_updated, sql_type, sql_text, operation_type, user_name, role].hash
+      [id, compartment_id, name, description, managed_database_group_id, managed_database_id, managed_databases_details, database_sub_type, schedule_type, job_type, lifecycle_state, timeout, result_location, schedule_details, submission_error_message, time_created, time_updated, sql_type, sql_text, operation_type, user_name, role].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

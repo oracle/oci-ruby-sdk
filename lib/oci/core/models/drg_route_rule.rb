@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -93,6 +93,11 @@ module OCI
     # @return [String]
     attr_reader :route_provenance
 
+    # Additional properties for the route, computed by the service.
+    #
+    # @return [Object]
+    attr_accessor :attributes
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -104,7 +109,8 @@ module OCI
         'is_conflict': :'isConflict',
         'is_blackhole': :'isBlackhole',
         'id': :'id',
-        'route_provenance': :'routeProvenance'
+        'route_provenance': :'routeProvenance',
+        'attributes': :'attributes'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -120,7 +126,8 @@ module OCI
         'is_conflict': :'BOOLEAN',
         'is_blackhole': :'BOOLEAN',
         'id': :'String',
-        'route_provenance': :'String'
+        'route_provenance': :'String',
+        'attributes': :'Object'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -139,6 +146,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_blackhole The value to assign to the {#is_blackhole} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :route_provenance The value to assign to the {#route_provenance} property
+    # @option attributes [Object] :attributes The value to assign to the {#attributes} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -188,6 +196,8 @@ module OCI
       raise 'You cannot provide both :routeProvenance and :route_provenance' if attributes.key?(:'routeProvenance') && attributes.key?(:'route_provenance')
 
       self.route_provenance = attributes[:'route_provenance'] if attributes[:'route_provenance']
+
+      self.attributes = attributes[:'attributes'] if attributes[:'attributes']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -247,7 +257,8 @@ module OCI
         is_conflict == other.is_conflict &&
         is_blackhole == other.is_blackhole &&
         id == other.id &&
-        route_provenance == other.route_provenance
+        route_provenance == other.route_provenance &&
+        attributes == other.attributes
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -263,7 +274,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [destination, destination_type, next_hop_drg_attachment_id, route_type, is_conflict, is_blackhole, id, route_provenance].hash
+      [destination, destination_type, next_hop_drg_attachment_id, route_type, is_conflict, is_blackhole, id, route_provenance, attributes].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

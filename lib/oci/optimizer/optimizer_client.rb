@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,7 +6,9 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # APIs for managing Cloud Advisor. Cloud Advisor provides recommendations that help you maximize cost savings and improve the security posture of your tenancy.
+  # Use the Cloud Advisor API to find potential inefficiencies in your tenancy and address them.
+  # Cloud Advisor can help you save money, improve performance, strengthen system resilience, and improve security.
+  # For more information, see [Cloud Advisor](/Content/CloudAdvisor/Concepts/cloudadvisoroverview.htm).
   class Optimizer::OptimizerClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -278,6 +280,79 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Queries the Cloud Advisor resource actions that are supported by the specified recommendation.
+    #
+    # @param [String] compartment_id The OCID of the compartment.
+    # @param [BOOLEAN] compartment_id_in_subtree When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned depending on the the setting of `accessLevel`.
+    #
+    #   Can only be set to true when performing ListCompartments on the tenancy (root compartment).
+    #
+    # @param [String] recommendation_id The unique OCID associated with the recommendation.
+    # @param [OCI::Optimizer::Models::QueryDetails] query_details The request parameters that describe the query criteria.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call. (default to 10)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Optimizer::Models::ResourceActionCollection ResourceActionCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/filter_resource_actions.rb.html) to see an example of how to use filter_resource_actions API.
+    def filter_resource_actions(compartment_id, compartment_id_in_subtree, recommendation_id, query_details, opts = {})
+      logger.debug 'Calling operation OptimizerClient#filter_resource_actions.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling filter_resource_actions." if compartment_id.nil?
+      raise "Missing the required parameter 'compartment_id_in_subtree' when calling filter_resource_actions." if compartment_id_in_subtree.nil?
+      raise "Missing the required parameter 'recommendation_id' when calling filter_resource_actions." if recommendation_id.nil?
+      raise "Missing the required parameter 'query_details' when calling filter_resource_actions." if query_details.nil?
+
+      path = '/actions/filterResourceActions'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentIdInSubtree] = compartment_id_in_subtree
+      query_params[:recommendationId] = recommendation_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(query_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OptimizerClient#filter_resource_actions') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Optimizer::Models::ResourceActionCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -918,6 +993,92 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the existing profile levels.
+    #
+    # @param [String] compartment_id The OCID of the compartment.
+    # @param [BOOLEAN] compartment_id_in_subtree When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned depending on the the setting of `accessLevel`.
+    #
+    #   Can only be set to true when performing ListCompartments on the tenancy (root compartment).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :name Optional. A filter that returns results that match the name specified.
+    # @option opts [String] :recommendation_name Optional. A filter that returns results that match the recommendation name specified.
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call. (default to 10)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for TIMECREATED is descending. Default order for NAME is ascending. The NAME sort order is case sensitive.
+    #
+    #   Allowed values are: NAME, TIMECREATED
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Optimizer::Models::ProfileLevelCollection ProfileLevelCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/list_profile_levels.rb.html) to see an example of how to use list_profile_levels API.
+    def list_profile_levels(compartment_id, compartment_id_in_subtree, opts = {})
+      logger.debug 'Calling operation OptimizerClient#list_profile_levels.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_profile_levels." if compartment_id.nil?
+      raise "Missing the required parameter 'compartment_id_in_subtree' when calling list_profile_levels." if compartment_id_in_subtree.nil?
+
+      if opts[:sort_order] && !OCI::Optimizer::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Optimizer::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[NAME TIMECREATED].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of NAME, TIMECREATED.'
+      end
+
+      path = '/profileLevels'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentIdInSubtree] = compartment_id_in_subtree
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:recommendationName] = opts[:recommendation_name] if opts[:recommendation_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OptimizerClient#list_profile_levels') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Optimizer::Models::ProfileLevelCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the existing profiles.
     #
     # @param [String] compartment_id The OCID of the compartment.
@@ -1177,6 +1338,74 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Optimizer::Models::RecommendationCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the fields that are indexed for querying and their associated value types.
+    #
+    # @param [String] compartment_id The OCID of the compartment.
+    # @param [BOOLEAN] compartment_id_in_subtree When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned depending on the the setting of `accessLevel`.
+    #
+    #   Can only be set to true when performing ListCompartments on the tenancy (root compartment).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call. (default to 10)
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Optimizer::Models::QueryableFieldCollection QueryableFieldCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/optimizer/list_resource_action_queryable_fields.rb.html) to see an example of how to use list_resource_action_queryable_fields API.
+    def list_resource_action_queryable_fields(compartment_id, compartment_id_in_subtree, opts = {})
+      logger.debug 'Calling operation OptimizerClient#list_resource_action_queryable_fields.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_resource_action_queryable_fields." if compartment_id.nil?
+      raise "Missing the required parameter 'compartment_id_in_subtree' when calling list_resource_action_queryable_fields." if compartment_id_in_subtree.nil?
+
+      path = '/resourceActions/actions/getQueryableFields'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentIdInSubtree] = compartment_id_in_subtree
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OptimizerClient#list_resource_action_queryable_fields') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Optimizer::Models::QueryableFieldCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,6 +6,7 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # In lieu of a network database link, OCI Object Storage bucket will be used to store Data Pump dump files for the migration.
+  # Additionally, it can be specified alongside a database link data transfer medium.
   #
   class DatabaseMigration::Models::ObjectStoreBucket
     # **[Required]** Namespace name of the object store bucket.

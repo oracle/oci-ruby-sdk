@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -11,7 +11,7 @@ module OCI
     # @return [String]
     attr_accessor :backup_id
 
-    # **[Required]** The password to open the TDE wallet.
+    # The password to open the TDE wallet.
     # @return [String]
     attr_accessor :backup_tde_password
 
@@ -27,6 +27,11 @@ module OCI
     # @return [String]
     attr_accessor :db_name
 
+    # Specifies a prefix for the `Oracle SID` of the database to be created.
+    #
+    # @return [String]
+    attr_accessor :sid_prefix
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -35,7 +40,8 @@ module OCI
         'backup_tde_password': :'backupTDEPassword',
         'admin_password': :'adminPassword',
         'db_unique_name': :'dbUniqueName',
-        'db_name': :'dbName'
+        'db_name': :'dbName',
+        'sid_prefix': :'sidPrefix'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,7 +54,8 @@ module OCI
         'backup_tde_password': :'String',
         'admin_password': :'String',
         'db_unique_name': :'String',
-        'db_name': :'String'
+        'db_name': :'String',
+        'sid_prefix': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -64,6 +71,7 @@ module OCI
     # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     # @option attributes [String] :db_unique_name The value to assign to the {#db_unique_name} property
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
+    # @option attributes [String] :sid_prefix The value to assign to the {#sid_prefix} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -99,6 +107,12 @@ module OCI
       raise 'You cannot provide both :dbName and :db_name' if attributes.key?(:'dbName') && attributes.key?(:'db_name')
 
       self.db_name = attributes[:'db_name'] if attributes[:'db_name']
+
+      self.sid_prefix = attributes[:'sidPrefix'] if attributes[:'sidPrefix']
+
+      raise 'You cannot provide both :sidPrefix and :sid_prefix' if attributes.key?(:'sidPrefix') && attributes.key?(:'sid_prefix')
+
+      self.sid_prefix = attributes[:'sid_prefix'] if attributes[:'sid_prefix']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -116,7 +130,8 @@ module OCI
         backup_tde_password == other.backup_tde_password &&
         admin_password == other.admin_password &&
         db_unique_name == other.db_unique_name &&
-        db_name == other.db_name
+        db_name == other.db_name &&
+        sid_prefix == other.sid_prefix
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -132,7 +147,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [backup_id, backup_tde_password, admin_password, db_unique_name, db_name].hash
+      [backup_id, backup_tde_password, admin_password, db_unique_name, db_name, sid_prefix].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

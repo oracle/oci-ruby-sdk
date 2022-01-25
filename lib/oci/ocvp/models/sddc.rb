@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -40,9 +40,9 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The availability domain the ESXi hosts are running in.
+    # **[Required]** The availability domain the ESXi hosts are running in. For Multi-AD SDDC, it is `multi-AD`.
     #
-    # Example: `Uocm:PHX-AD-1`
+    # Example: `Uocm:PHX-AD-1`, `multi-AD`
     #
     # @return [String]
     attr_accessor :compute_availability_domain
@@ -91,9 +91,7 @@ module OCI
     # @return [Integer]
     attr_accessor :esxi_hosts_count
 
-    # Billing option selected during SDDC creation.
-    # Oracle Cloud Infrastructure VMware Solution supports the following billing interval SKUs:
-    # HOUR, MONTH, ONE_YEAR, and THREE_YEARS.
+    # The billing option selected during SDDC creation.
     # {#list_supported_skus list_supported_skus}.
     #
     # @return [String]
@@ -366,8 +364,9 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_hcx_enabled
 
-    # The activation key to use on the on-premises HCX Enterprise appliance you site pair with HCX Manager in your VMware Solution.
-    # Your implementation might need more than one activation key. To obtain additional keys, contact Oracle Support.
+    # The activation keys to use on the on-premises HCX Enterprise appliances you site pair with HCX Manager in your VMware Solution.
+    # The number of keys provided depends on the HCX license type. HCX Advanced provides 3 activation keys.
+    # HCX Enterprise provides 10 activation keys.
     #
     # @return [String]
     attr_accessor :hcx_on_prem_key

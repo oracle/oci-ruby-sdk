@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -119,13 +119,13 @@ module OCI
 
     # The Oracle license model that applies to the Oracle Autonomous Database. Bring your own license (BYOL) allows you to apply your current on-premises Oracle software licenses to equivalent, highly automated Oracle PaaS and IaaS services in the cloud.
     # License Included allows you to subscribe to new Oracle Database software licenses and the Database service.
-    # Note that when provisioning an Autonomous Database on [dedicated Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm), this attribute must be null because the attribute is already set at the
-    # Autonomous Exadata Infrastructure level. When using [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI), if a value is not specified, the system will supply the value of `BRING_YOUR_OWN_LICENSE`.
+    # Note that when provisioning an Autonomous Database on [dedicated Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html), this attribute must be null because the attribute is already set at the
+    # Autonomous Exadata Infrastructure level. When using [shared Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html), if a value is not specified, the system will supply the value of `BRING_YOUR_OWN_LICENSE`.
     #
     # @return [String]
     attr_reader :license_model
 
-    # If set to `TRUE`, indicates that an Autonomous Database preview version is being provisioned, and that the preview version's terms of service have been accepted. Note that preview version software is only available for databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI).
+    # If set to `TRUE`, indicates that an Autonomous Database preview version is being provisioned, and that the preview version's terms of service have been accepted. Note that preview version software is only available for databases on [shared Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html).
     #
     # @return [BOOLEAN]
     attr_accessor :is_preview_version_with_service_terms_accepted
@@ -135,7 +135,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_auto_scaling_enabled
 
-    # True if the database is on [dedicated Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm).
+    # True if the database is on [dedicated Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html).
     #
     # @return [BOOLEAN]
     attr_accessor :is_dedicated
@@ -155,7 +155,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_access_control_enabled
 
-    # The client IP access control list (ACL). This feature is available for autonomous databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) and on Exadata Cloud@Customer.
+    # The client IP access control list (ACL). This feature is available for autonomous databases on [shared Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html) and on Exadata Cloud@Customer.
     # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance.
     #
     # For shared Exadata infrastructure, this is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet or VCN OCID.
@@ -176,7 +176,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :are_primary_whitelisted_ips_used
 
-    # The client IP access control list (ACL). This feature is available for autonomous databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) and on Exadata Cloud@Customer.
+    # The client IP access control list (ACL). This feature is available for autonomous databases on [shared Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html) and on Exadata Cloud@Customer.
     # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance.
     #
     # For shared Exadata infrastructure, this is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet or VCN OCID.
@@ -190,7 +190,9 @@ module OCI
     # @return [Array<String>]
     attr_accessor :standby_whitelisted_ips
 
-    # Indicates whether the Autonomous Database has Data Guard enabled.
+    # Indicates whether the Autonomous Database has local (in-region) Data Guard enabled. Not applicable to cross-region Autonomous Data Guard associations, or to
+    # Autonomous Databases using dedicated Exadata infrastructure or Exadata Cloud@Customer infrastructure.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_data_guard_enabled
 
@@ -237,9 +239,9 @@ module OCI
     # @return [String]
     attr_accessor :db_version
 
-    # The source of the database: Use `NONE` for creating a new Autonomous Database. Use `DATABASE` for creating a new Autonomous Database by cloning an existing Autonomous Database.
+    # The source of the database: Use `NONE` for creating a new Autonomous Database. Use `DATABASE` for creating a new Autonomous Database by cloning an existing Autonomous Database. Use `CROSS_REGION_DATAGUARD` to create a standby Data Guard database in another region.
     #
-    # For Autonomous Databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI), the following cloning options are available: Use `BACKUP_FROM_ID` for creating a new Autonomous Database from a specified backup. Use `BACKUP_FROM_TIMESTAMP` for creating a point-in-time Autonomous Database clone using backups. For more information, see [Cloning an Autonomous Database](https://docs.cloud.oracle.com/Content/Database/Tasks/adbcloning.htm).
+    # For Autonomous Databases on [shared Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html), the following cloning options are available: Use `BACKUP_FROM_ID` for creating a new Autonomous Database from a specified backup. Use `BACKUP_FROM_TIMESTAMP` for creating a point-in-time Autonomous Database clone using backups. For more information, see [Cloning and Moving an Autonomous Database](https://docs.oracle.com/en/cloud/paas/autonomous-database/adbsa/clone-autonomous-database.html#GUID-D771796F-5081-4CFB-A7FF-0F893EABD7BC).
     #
     # @return [String]
     attr_reader :source
@@ -248,11 +250,19 @@ module OCI
     # @return [Array<OCI::Database::Models::CustomerContact>]
     attr_accessor :customer_contacts
 
+    # Indicates whether the Autonomous Database requires mTLS connections.
+    # @return [BOOLEAN]
+    attr_accessor :is_mtls_connection_required
+
     # The maintenance schedule type of the Autonomous Database on shared Exadata infrastructure. The EARLY maintenance schedule of this Autonomous Database
     # follows a schedule that applies patches prior to the REGULAR schedule.The REGULAR maintenance schedule of this Autonomous Database follows the normal cycle.
     #
     # @return [String]
     attr_reader :autonomous_maintenance_schedule_type
+
+    # list of scheduled operations
+    # @return [Array<OCI::Database::Models::ScheduledOperationDetails>]
+    attr_accessor :scheduled_operations
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -288,7 +298,9 @@ module OCI
         'db_version': :'dbVersion',
         'source': :'source',
         'customer_contacts': :'customerContacts',
-        'autonomous_maintenance_schedule_type': :'autonomousMaintenanceScheduleType'
+        'is_mtls_connection_required': :'isMtlsConnectionRequired',
+        'autonomous_maintenance_schedule_type': :'autonomousMaintenanceScheduleType',
+        'scheduled_operations': :'scheduledOperations'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -327,7 +339,9 @@ module OCI
         'db_version': :'String',
         'source': :'String',
         'customer_contacts': :'Array<OCI::Database::Models::CustomerContact>',
-        'autonomous_maintenance_schedule_type': :'String'
+        'is_mtls_connection_required': :'BOOLEAN',
+        'autonomous_maintenance_schedule_type': :'String',
+        'scheduled_operations': :'Array<OCI::Database::Models::ScheduledOperationDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -388,7 +402,9 @@ module OCI
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
     # @option attributes [String] :source The value to assign to the {#source} property
     # @option attributes [Array<OCI::Database::Models::CustomerContact>] :customer_contacts The value to assign to the {#customer_contacts} property
+    # @option attributes [BOOLEAN] :is_mtls_connection_required The value to assign to the {#is_mtls_connection_required} property
     # @option attributes [String] :autonomous_maintenance_schedule_type The value to assign to the {#autonomous_maintenance_schedule_type} property
+    # @option attributes [Array<OCI::Database::Models::ScheduledOperationDetails>] :scheduled_operations The value to assign to the {#scheduled_operations} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -578,11 +594,25 @@ module OCI
 
       self.customer_contacts = attributes[:'customer_contacts'] if attributes[:'customer_contacts']
 
+      self.is_mtls_connection_required = attributes[:'isMtlsConnectionRequired'] unless attributes[:'isMtlsConnectionRequired'].nil?
+      self.is_mtls_connection_required = true if is_mtls_connection_required.nil? && !attributes.key?(:'isMtlsConnectionRequired') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isMtlsConnectionRequired and :is_mtls_connection_required' if attributes.key?(:'isMtlsConnectionRequired') && attributes.key?(:'is_mtls_connection_required')
+
+      self.is_mtls_connection_required = attributes[:'is_mtls_connection_required'] unless attributes[:'is_mtls_connection_required'].nil?
+      self.is_mtls_connection_required = true if is_mtls_connection_required.nil? && !attributes.key?(:'isMtlsConnectionRequired') && !attributes.key?(:'is_mtls_connection_required') # rubocop:disable Style/StringLiterals
+
       self.autonomous_maintenance_schedule_type = attributes[:'autonomousMaintenanceScheduleType'] if attributes[:'autonomousMaintenanceScheduleType']
 
       raise 'You cannot provide both :autonomousMaintenanceScheduleType and :autonomous_maintenance_schedule_type' if attributes.key?(:'autonomousMaintenanceScheduleType') && attributes.key?(:'autonomous_maintenance_schedule_type')
 
       self.autonomous_maintenance_schedule_type = attributes[:'autonomous_maintenance_schedule_type'] if attributes[:'autonomous_maintenance_schedule_type']
+
+      self.scheduled_operations = attributes[:'scheduledOperations'] if attributes[:'scheduledOperations']
+
+      raise 'You cannot provide both :scheduledOperations and :scheduled_operations' if attributes.key?(:'scheduledOperations') && attributes.key?(:'scheduled_operations')
+
+      self.scheduled_operations = attributes[:'scheduled_operations'] if attributes[:'scheduled_operations']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -658,7 +688,9 @@ module OCI
         db_version == other.db_version &&
         source == other.source &&
         customer_contacts == other.customer_contacts &&
-        autonomous_maintenance_schedule_type == other.autonomous_maintenance_schedule_type
+        is_mtls_connection_required == other.is_mtls_connection_required &&
+        autonomous_maintenance_schedule_type == other.autonomous_maintenance_schedule_type &&
+        scheduled_operations == other.scheduled_operations
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -674,7 +706,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, ocpu_count, db_workload, data_storage_size_in_tbs, data_storage_size_in_gbs, is_free_tier, kms_key_id, vault_id, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, customer_contacts, autonomous_maintenance_schedule_type].hash
+      [compartment_id, db_name, cpu_core_count, ocpu_count, db_workload, data_storage_size_in_tbs, data_storage_size_in_gbs, is_free_tier, kms_key_id, vault_id, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, customer_contacts, is_mtls_connection_required, autonomous_maintenance_schedule_type, scheduled_operations].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

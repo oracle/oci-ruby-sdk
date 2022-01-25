@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,7 +8,7 @@ require 'logger'
 module OCI
   # A connection between a DRG and CPE. This connection consists of multiple IPSec
   # tunnels. Creating this connection is one of the steps required when setting up
-  # an IPSec VPN.
+  # a Site-to-Site VPN.
   #
   # **Important:**  Each tunnel in an IPSec connection can use either static routing or BGP dynamic
   # routing (see the {IPSecConnectionTunnel} object's
@@ -22,7 +22,7 @@ module OCI
   # if that tunnel's `routing` attribute = `STATIC`. Otherwise the static routes are ignored.
   #
   # For more information about the workflow for setting up an IPSec connection, see
-  # [IPSec VPN](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/managingIPsec.htm).
+  # [Site-to-Site VPN Overview](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/overviewIPsec.htm).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
@@ -43,11 +43,11 @@ module OCI
       CPE_LOCAL_IDENTIFIER_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the compartment containing the IPSec connection.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the IPSec connection.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The OCID of the {Cpe} object.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the {Cpe} object.
     # @return [String]
     attr_accessor :cpe_id
 

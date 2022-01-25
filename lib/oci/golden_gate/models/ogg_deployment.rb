@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -18,6 +18,11 @@ module OCI
     # @return [String]
     attr_accessor :admin_username
 
+    # Version of OGG
+    #
+    # @return [String]
+    attr_accessor :ogg_version
+
     # A PEM-encoded SSL certificate.
     #
     # @return [String]
@@ -29,6 +34,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'deployment_name': :'deploymentName',
         'admin_username': :'adminUsername',
+        'ogg_version': :'oggVersion',
         'certificate': :'certificate'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -40,6 +46,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'deployment_name': :'String',
         'admin_username': :'String',
+        'ogg_version': :'String',
         'certificate': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -53,6 +60,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :deployment_name The value to assign to the {#deployment_name} property
     # @option attributes [String] :admin_username The value to assign to the {#admin_username} property
+    # @option attributes [String] :ogg_version The value to assign to the {#ogg_version} property
     # @option attributes [String] :certificate The value to assign to the {#certificate} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -72,6 +80,12 @@ module OCI
 
       self.admin_username = attributes[:'admin_username'] if attributes[:'admin_username']
 
+      self.ogg_version = attributes[:'oggVersion'] if attributes[:'oggVersion']
+
+      raise 'You cannot provide both :oggVersion and :ogg_version' if attributes.key?(:'oggVersion') && attributes.key?(:'ogg_version')
+
+      self.ogg_version = attributes[:'ogg_version'] if attributes[:'ogg_version']
+
       self.certificate = attributes[:'certificate'] if attributes[:'certificate']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -88,6 +102,7 @@ module OCI
       self.class == other.class &&
         deployment_name == other.deployment_name &&
         admin_username == other.admin_username &&
+        ogg_version == other.ogg_version &&
         certificate == other.certificate
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -104,7 +119,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [deployment_name, admin_username, certificate].hash
+      [deployment_name, admin_username, ogg_version, certificate].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

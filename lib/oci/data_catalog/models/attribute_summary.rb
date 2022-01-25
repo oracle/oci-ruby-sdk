@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -57,6 +57,10 @@ module OCI
     # @return [Integer]
     attr_accessor :length
 
+    # Position of the attribute in the record definition.
+    # @return [Integer]
+    attr_accessor :position
+
     # Precision of the attribute value usually applies to float data type.
     # @return [Integer]
     attr_accessor :precision
@@ -86,6 +90,10 @@ module OCI
     # Data type of the attribute as defined in the external source system.
     # @return [String]
     attr_accessor :external_data_type
+
+    # The type of the attribute. Type keys can be found via the '/types' endpoint.
+    # @return [String]
+    attr_accessor :type_key
 
     # The minimum count for the number of instances of a given type stored in this collection type attribute,applicable if this attribute is a complex type.
     # @return [Integer]
@@ -135,6 +143,15 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_updated
 
+    # A map of maps that contains the properties which are specific to the attribute type. Each attribute type
+    # definition defines it's set of required and optional properties. The map keys are category names and the
+    # values are maps of property name to property value. Every property is contained inside of a category. Most
+    # attributes have required properties within the \"default\" category.
+    # Example: `{\"properties\": { \"default\": { \"key1\": \"value1\"}}}`
+    #
+    # @return [Hash<String, Hash<String, String>>]
+    attr_accessor :properties
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -146,6 +163,7 @@ module OCI
         'entity_key': :'entityKey',
         'external_key': :'externalKey',
         'length': :'length',
+        'position': :'position',
         'precision': :'precision',
         'scale': :'scale',
         'is_nullable': :'isNullable',
@@ -153,6 +171,7 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'external_data_type': :'externalDataType',
+        'type_key': :'typeKey',
         'min_collection_count': :'minCollectionCount',
         'max_collection_count': :'maxCollectionCount',
         'datatype_entity_key': :'datatypeEntityKey',
@@ -163,7 +182,8 @@ module OCI
         'custom_property_members': :'customPropertyMembers',
         'associated_rule_types': :'associatedRuleTypes',
         'is_derived_attribute': :'isDerivedAttribute',
-        'time_updated': :'timeUpdated'
+        'time_updated': :'timeUpdated',
+        'properties': :'properties'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -179,6 +199,7 @@ module OCI
         'entity_key': :'String',
         'external_key': :'String',
         'length': :'Integer',
+        'position': :'Integer',
         'precision': :'Integer',
         'scale': :'Integer',
         'is_nullable': :'BOOLEAN',
@@ -186,6 +207,7 @@ module OCI
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'external_data_type': :'String',
+        'type_key': :'String',
         'min_collection_count': :'Integer',
         'max_collection_count': :'Integer',
         'datatype_entity_key': :'String',
@@ -196,7 +218,8 @@ module OCI
         'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>',
         'associated_rule_types': :'Array<String>',
         'is_derived_attribute': :'BOOLEAN',
-        'time_updated': :'DateTime'
+        'time_updated': :'DateTime',
+        'properties': :'Hash<String, Hash<String, String>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -214,6 +237,7 @@ module OCI
     # @option attributes [String] :entity_key The value to assign to the {#entity_key} property
     # @option attributes [String] :external_key The value to assign to the {#external_key} property
     # @option attributes [Integer] :length The value to assign to the {#length} property
+    # @option attributes [Integer] :position The value to assign to the {#position} property
     # @option attributes [Integer] :precision The value to assign to the {#precision} property
     # @option attributes [Integer] :scale The value to assign to the {#scale} property
     # @option attributes [BOOLEAN] :is_nullable The value to assign to the {#is_nullable} property
@@ -221,6 +245,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :external_data_type The value to assign to the {#external_data_type} property
+    # @option attributes [String] :type_key The value to assign to the {#type_key} property
     # @option attributes [Integer] :min_collection_count The value to assign to the {#min_collection_count} property
     # @option attributes [Integer] :max_collection_count The value to assign to the {#max_collection_count} property
     # @option attributes [String] :datatype_entity_key The value to assign to the {#datatype_entity_key} property
@@ -232,6 +257,7 @@ module OCI
     # @option attributes [Array<String>] :associated_rule_types The value to assign to the {#associated_rule_types} property
     # @option attributes [BOOLEAN] :is_derived_attribute The value to assign to the {#is_derived_attribute} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -268,6 +294,8 @@ module OCI
 
       self.length = attributes[:'length'] if attributes[:'length']
 
+      self.position = attributes[:'position'] if attributes[:'position']
+
       self.precision = attributes[:'precision'] if attributes[:'precision']
 
       self.scale = attributes[:'scale'] if attributes[:'scale']
@@ -297,6 +325,12 @@ module OCI
       raise 'You cannot provide both :externalDataType and :external_data_type' if attributes.key?(:'externalDataType') && attributes.key?(:'external_data_type')
 
       self.external_data_type = attributes[:'external_data_type'] if attributes[:'external_data_type']
+
+      self.type_key = attributes[:'typeKey'] if attributes[:'typeKey']
+
+      raise 'You cannot provide both :typeKey and :type_key' if attributes.key?(:'typeKey') && attributes.key?(:'type_key')
+
+      self.type_key = attributes[:'type_key'] if attributes[:'type_key']
 
       self.min_collection_count = attributes[:'minCollectionCount'] if attributes[:'minCollectionCount']
 
@@ -359,6 +393,8 @@ module OCI
       raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
 
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.properties = attributes[:'properties'] if attributes[:'properties']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -412,6 +448,7 @@ module OCI
         entity_key == other.entity_key &&
         external_key == other.external_key &&
         length == other.length &&
+        position == other.position &&
         precision == other.precision &&
         scale == other.scale &&
         is_nullable == other.is_nullable &&
@@ -419,6 +456,7 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         external_data_type == other.external_data_type &&
+        type_key == other.type_key &&
         min_collection_count == other.min_collection_count &&
         max_collection_count == other.max_collection_count &&
         datatype_entity_key == other.datatype_entity_key &&
@@ -429,7 +467,8 @@ module OCI
         custom_property_members == other.custom_property_members &&
         associated_rule_types == other.associated_rule_types &&
         is_derived_attribute == other.is_derived_attribute &&
-        time_updated == other.time_updated
+        time_updated == other.time_updated &&
+        properties == other.properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -445,7 +484,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, business_name, description, entity_key, external_key, length, precision, scale, is_nullable, uri, lifecycle_state, time_created, external_data_type, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, path, custom_property_members, associated_rule_types, is_derived_attribute, time_updated].hash
+      [key, display_name, business_name, description, entity_key, external_key, length, position, precision, scale, is_nullable, uri, lifecycle_state, time_created, external_data_type, type_key, min_collection_count, max_collection_count, datatype_entity_key, external_datatype_entity_key, parent_attribute_key, external_parent_attribute_key, path, custom_property_members, associated_rule_types, is_derived_attribute, time_updated, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

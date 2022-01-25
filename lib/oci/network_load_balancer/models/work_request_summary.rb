@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -24,6 +24,8 @@ module OCI
       OPERATION_TYPE_UPDATE_NSGS = 'UPDATE_NSGS'.freeze,
       OPERATION_TYPE_UPDATE_HEALTH_CHECKER = 'UPDATE_HEALTH_CHECKER'.freeze,
       OPERATION_TYPE_CHANGE_COMPARTMENT = 'CHANGE_COMPARTMENT'.freeze,
+      OPERATION_TYPE_ATTACH_NLB_TO_POD = 'ATTACH_NLB_TO_POD'.freeze,
+      OPERATION_TYPE_DETACH_NLB_FROM_POD = 'DETACH_NLB_FROM_POD'.freeze,
       OPERATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 

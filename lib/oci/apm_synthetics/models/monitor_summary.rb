@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -63,6 +63,10 @@ module OCI
     # @return [Integer]
     attr_accessor :repeat_interval_in_seconds
 
+    # **[Required]** If runOnce is enabled, then the monitor will run once.
+    # @return [BOOLEAN]
+    attr_accessor :is_run_once
+
     # **[Required]** Timeout in seconds. Timeout cannot be more than 30% of repeatIntervalInSeconds time for monitors.
     # Also, timeoutInSeconds should be a multiple of 60.
     # Monitor will be allowed to run only for timeoutInSeconds time. It would be terminated after that.
@@ -117,6 +121,7 @@ module OCI
         'script_name': :'scriptName',
         'status': :'status',
         'repeat_interval_in_seconds': :'repeatIntervalInSeconds',
+        'is_run_once': :'isRunOnce',
         'timeout_in_seconds': :'timeoutInSeconds',
         'target': :'target',
         'time_created': :'timeCreated',
@@ -140,6 +145,7 @@ module OCI
         'script_name': :'String',
         'status': :'String',
         'repeat_interval_in_seconds': :'Integer',
+        'is_run_once': :'BOOLEAN',
         'timeout_in_seconds': :'Integer',
         'target': :'String',
         'time_created': :'DateTime',
@@ -165,6 +171,7 @@ module OCI
     # @option attributes [String] :script_name The value to assign to the {#script_name} property
     # @option attributes [String] :status The value to assign to the {#status} property
     # @option attributes [Integer] :repeat_interval_in_seconds The value to assign to the {#repeat_interval_in_seconds} property
+    # @option attributes [BOOLEAN] :is_run_once The value to assign to the {#is_run_once} property
     # @option attributes [Integer] :timeout_in_seconds The value to assign to the {#timeout_in_seconds} property
     # @option attributes [String] :target The value to assign to the {#target} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -222,6 +229,14 @@ module OCI
       raise 'You cannot provide both :repeatIntervalInSeconds and :repeat_interval_in_seconds' if attributes.key?(:'repeatIntervalInSeconds') && attributes.key?(:'repeat_interval_in_seconds')
 
       self.repeat_interval_in_seconds = attributes[:'repeat_interval_in_seconds'] if attributes[:'repeat_interval_in_seconds']
+
+      self.is_run_once = attributes[:'isRunOnce'] unless attributes[:'isRunOnce'].nil?
+      self.is_run_once = false if is_run_once.nil? && !attributes.key?(:'isRunOnce') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isRunOnce and :is_run_once' if attributes.key?(:'isRunOnce') && attributes.key?(:'is_run_once')
+
+      self.is_run_once = attributes[:'is_run_once'] unless attributes[:'is_run_once'].nil?
+      self.is_run_once = false if is_run_once.nil? && !attributes.key?(:'isRunOnce') && !attributes.key?(:'is_run_once') # rubocop:disable Style/StringLiterals
 
       self.timeout_in_seconds = attributes[:'timeoutInSeconds'] if attributes[:'timeoutInSeconds']
 
@@ -302,6 +317,7 @@ module OCI
         script_name == other.script_name &&
         status == other.status &&
         repeat_interval_in_seconds == other.repeat_interval_in_seconds &&
+        is_run_once == other.is_run_once &&
         timeout_in_seconds == other.timeout_in_seconds &&
         target == other.target &&
         time_created == other.time_created &&
@@ -323,7 +339,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, monitor_type, vantage_points, vantage_point_count, script_id, script_name, status, repeat_interval_in_seconds, timeout_in_seconds, target, time_created, time_updated, freeform_tags, defined_tags].hash
+      [id, display_name, monitor_type, vantage_points, vantage_point_count, script_id, script_name, status, repeat_interval_in_seconds, is_run_once, timeout_in_seconds, target, time_created, time_updated, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

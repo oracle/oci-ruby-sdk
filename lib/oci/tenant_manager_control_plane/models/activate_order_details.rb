@@ -1,13 +1,13 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The parameters for activating an order subscription in a tenancy
+  # The parameters for activating an order subscription in a tenancy.
   class TenantManagerControlPlane::Models::ActivateOrderDetails
-    # **[Required]** Tenant Id to activate the Order.
+    # **[Required]** Tenant ID to activate the order.
     # @return [String]
     attr_accessor :compartment_id
 

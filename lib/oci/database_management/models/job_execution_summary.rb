@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,6 +8,43 @@ require 'logger'
 module OCI
   # A summary of a job execution on a Managed Database.
   class DatabaseManagement::Models::JobExecutionSummary
+    DATABASE_TYPE_ENUM = [
+      DATABASE_TYPE_EXTERNAL_SIDB = 'EXTERNAL_SIDB'.freeze,
+      DATABASE_TYPE_EXTERNAL_RAC = 'EXTERNAL_RAC'.freeze,
+      DATABASE_TYPE_CLOUD_SIDB = 'CLOUD_SIDB'.freeze,
+      DATABASE_TYPE_CLOUD_RAC = 'CLOUD_RAC'.freeze,
+      DATABASE_TYPE_SHARED = 'SHARED'.freeze,
+      DATABASE_TYPE_DEDICATED = 'DEDICATED'.freeze,
+      DATABASE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    DATABASE_SUB_TYPE_ENUM = [
+      DATABASE_SUB_TYPE_CDB = 'CDB'.freeze,
+      DATABASE_SUB_TYPE_PDB = 'PDB'.freeze,
+      DATABASE_SUB_TYPE_NON_CDB = 'NON_CDB'.freeze,
+      DATABASE_SUB_TYPE_ACD = 'ACD'.freeze,
+      DATABASE_SUB_TYPE_ADB = 'ADB'.freeze,
+      DATABASE_SUB_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    DEPLOYMENT_TYPE_ENUM = [
+      DEPLOYMENT_TYPE_ONPREMISE = 'ONPREMISE'.freeze,
+      DEPLOYMENT_TYPE_BM = 'BM'.freeze,
+      DEPLOYMENT_TYPE_VM = 'VM'.freeze,
+      DEPLOYMENT_TYPE_EXADATA = 'EXADATA'.freeze,
+      DEPLOYMENT_TYPE_EXADATA_CC = 'EXADATA_CC'.freeze,
+      DEPLOYMENT_TYPE_AUTONOMOUS = 'AUTONOMOUS'.freeze,
+      DEPLOYMENT_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    WORKLOAD_TYPE_ENUM = [
+      WORKLOAD_TYPE_OLTP = 'OLTP'.freeze,
+      WORKLOAD_TYPE_DW = 'DW'.freeze,
+      WORKLOAD_TYPE_AJD = 'AJD'.freeze,
+      WORKLOAD_TYPE_APEX = 'APEX'.freeze,
+      WORKLOAD_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The identifier of the job execution.
     # @return [String]
     attr_accessor :id
@@ -31,6 +68,26 @@ module OCI
     # **[Required]** The name of the Managed Database associated with the job execution.
     # @return [String]
     attr_accessor :managed_database_name
+
+    # The type of Oracle Database installation.
+    # @return [String]
+    attr_reader :database_type
+
+    # The subtype of the Oracle Database. Indicates whether the database is a Container Database, Pluggable Database, or a Non-container Database.
+    # @return [String]
+    attr_reader :database_sub_type
+
+    # A list of the supported infrastructure that can be used to deploy the database.
+    # @return [String]
+    attr_reader :deployment_type
+
+    # Indicates whether the Oracle Database is part of a cluster.
+    # @return [BOOLEAN]
+    attr_accessor :is_cluster
+
+    # The workload type of the Autonomous Database.
+    # @return [String]
+    attr_reader :workload_type
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the parent job.
     # @return [String]
@@ -62,6 +119,11 @@ module OCI
         'managed_database_group_id': :'managedDatabaseGroupId',
         'managed_database_id': :'managedDatabaseId',
         'managed_database_name': :'managedDatabaseName',
+        'database_type': :'databaseType',
+        'database_sub_type': :'databaseSubType',
+        'deployment_type': :'deploymentType',
+        'is_cluster': :'isCluster',
+        'workload_type': :'workloadType',
         'job_id': :'jobId',
         'job_name': :'jobName',
         'status': :'status',
@@ -81,6 +143,11 @@ module OCI
         'managed_database_group_id': :'String',
         'managed_database_id': :'String',
         'managed_database_name': :'String',
+        'database_type': :'String',
+        'database_sub_type': :'String',
+        'deployment_type': :'String',
+        'is_cluster': :'BOOLEAN',
+        'workload_type': :'String',
         'job_id': :'String',
         'job_name': :'String',
         'status': :'String',
@@ -102,6 +169,11 @@ module OCI
     # @option attributes [String] :managed_database_group_id The value to assign to the {#managed_database_group_id} property
     # @option attributes [String] :managed_database_id The value to assign to the {#managed_database_id} property
     # @option attributes [String] :managed_database_name The value to assign to the {#managed_database_name} property
+    # @option attributes [String] :database_type The value to assign to the {#database_type} property
+    # @option attributes [String] :database_sub_type The value to assign to the {#database_sub_type} property
+    # @option attributes [String] :deployment_type The value to assign to the {#deployment_type} property
+    # @option attributes [BOOLEAN] :is_cluster The value to assign to the {#is_cluster} property
+    # @option attributes [String] :workload_type The value to assign to the {#workload_type} property
     # @option attributes [String] :job_id The value to assign to the {#job_id} property
     # @option attributes [String] :job_name The value to assign to the {#job_name} property
     # @option attributes [String] :status The value to assign to the {#status} property
@@ -141,6 +213,36 @@ module OCI
 
       self.managed_database_name = attributes[:'managed_database_name'] if attributes[:'managed_database_name']
 
+      self.database_type = attributes[:'databaseType'] if attributes[:'databaseType']
+
+      raise 'You cannot provide both :databaseType and :database_type' if attributes.key?(:'databaseType') && attributes.key?(:'database_type')
+
+      self.database_type = attributes[:'database_type'] if attributes[:'database_type']
+
+      self.database_sub_type = attributes[:'databaseSubType'] if attributes[:'databaseSubType']
+
+      raise 'You cannot provide both :databaseSubType and :database_sub_type' if attributes.key?(:'databaseSubType') && attributes.key?(:'database_sub_type')
+
+      self.database_sub_type = attributes[:'database_sub_type'] if attributes[:'database_sub_type']
+
+      self.deployment_type = attributes[:'deploymentType'] if attributes[:'deploymentType']
+
+      raise 'You cannot provide both :deploymentType and :deployment_type' if attributes.key?(:'deploymentType') && attributes.key?(:'deployment_type')
+
+      self.deployment_type = attributes[:'deployment_type'] if attributes[:'deployment_type']
+
+      self.is_cluster = attributes[:'isCluster'] unless attributes[:'isCluster'].nil?
+
+      raise 'You cannot provide both :isCluster and :is_cluster' if attributes.key?(:'isCluster') && attributes.key?(:'is_cluster')
+
+      self.is_cluster = attributes[:'is_cluster'] unless attributes[:'is_cluster'].nil?
+
+      self.workload_type = attributes[:'workloadType'] if attributes[:'workloadType']
+
+      raise 'You cannot provide both :workloadType and :workload_type' if attributes.key?(:'workloadType') && attributes.key?(:'workload_type')
+
+      self.workload_type = attributes[:'workload_type'] if attributes[:'workload_type']
+
       self.job_id = attributes[:'jobId'] if attributes[:'jobId']
 
       raise 'You cannot provide both :jobId and :job_id' if attributes.key?(:'jobId') && attributes.key?(:'job_id')
@@ -170,6 +272,58 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] database_type Object to be assigned
+    def database_type=(database_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if database_type && !DATABASE_TYPE_ENUM.include?(database_type)
+        OCI.logger.debug("Unknown value for 'database_type' [" + database_type + "]. Mapping to 'DATABASE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @database_type = DATABASE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @database_type = database_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] database_sub_type Object to be assigned
+    def database_sub_type=(database_sub_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if database_sub_type && !DATABASE_SUB_TYPE_ENUM.include?(database_sub_type)
+        OCI.logger.debug("Unknown value for 'database_sub_type' [" + database_sub_type + "]. Mapping to 'DATABASE_SUB_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @database_sub_type = DATABASE_SUB_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @database_sub_type = database_sub_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] deployment_type Object to be assigned
+    def deployment_type=(deployment_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if deployment_type && !DEPLOYMENT_TYPE_ENUM.include?(deployment_type)
+        OCI.logger.debug("Unknown value for 'deployment_type' [" + deployment_type + "]. Mapping to 'DEPLOYMENT_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @deployment_type = DEPLOYMENT_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @deployment_type = deployment_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] workload_type Object to be assigned
+    def workload_type=(workload_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if workload_type && !WORKLOAD_TYPE_ENUM.include?(workload_type)
+        OCI.logger.debug("Unknown value for 'workload_type' [" + workload_type + "]. Mapping to 'WORKLOAD_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @workload_type = WORKLOAD_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @workload_type = workload_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -185,6 +339,11 @@ module OCI
         managed_database_group_id == other.managed_database_group_id &&
         managed_database_id == other.managed_database_id &&
         managed_database_name == other.managed_database_name &&
+        database_type == other.database_type &&
+        database_sub_type == other.database_sub_type &&
+        deployment_type == other.deployment_type &&
+        is_cluster == other.is_cluster &&
+        workload_type == other.workload_type &&
         job_id == other.job_id &&
         job_name == other.job_name &&
         status == other.status &&
@@ -205,7 +364,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, compartment_id, managed_database_group_id, managed_database_id, managed_database_name, job_id, job_name, status, time_created, time_completed].hash
+      [id, name, compartment_id, managed_database_group_id, managed_database_id, managed_database_name, database_type, database_sub_type, deployment_type, is_cluster, workload_type, job_id, job_name, status, time_created, time_completed].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

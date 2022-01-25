@@ -1,12 +1,11 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Results of a patterns listing.  A Pattern is defined using an expression and can be used as data selectors or filters
-  # to provide a singular view of an entity across multiple physical data artifacts.
+  # Results of a pattern listing. Patterns are used in entity harvesting.
   #
   class DataCatalog::Models::PatternCollection
     # Total number of items returned.

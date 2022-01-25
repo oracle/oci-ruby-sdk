@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -14,6 +14,10 @@ module OCI
     # The type of the field.
     # @return [String]
     attr_accessor :type
+
+    # Specifies whether to use inferred expression output type as output type of the derived field. Default value of this flag is false.
+    # @return [BOOLEAN]
+    attr_accessor :is_use_inferred_type
 
     # Labels are keywords or labels that you can add to data assets, dataflows and so on. You can define your own labels and use them to categorize content.
     # @return [Array<String>]
@@ -33,6 +37,7 @@ module OCI
         'description': :'description',
         'expr': :'expr',
         'type': :'type',
+        'is_use_inferred_type': :'isUseInferredType',
         'labels': :'labels'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -52,6 +57,7 @@ module OCI
         'description': :'String',
         'expr': :'OCI::DataIntegration::Models::Expression',
         'type': :'String',
+        'is_use_inferred_type': :'BOOLEAN',
         'labels': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -72,6 +78,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {OCI::DataIntegration::Models::TypedObject#description #description} proprety
     # @option attributes [OCI::DataIntegration::Models::Expression] :expr The value to assign to the {#expr} property
     # @option attributes [String] :type The value to assign to the {#type} property
+    # @option attributes [BOOLEAN] :is_use_inferred_type The value to assign to the {#is_use_inferred_type} property
     # @option attributes [Array<String>] :labels The value to assign to the {#labels} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -86,6 +93,14 @@ module OCI
       self.expr = attributes[:'expr'] if attributes[:'expr']
 
       self.type = attributes[:'type'] if attributes[:'type']
+
+      self.is_use_inferred_type = attributes[:'isUseInferredType'] unless attributes[:'isUseInferredType'].nil?
+      self.is_use_inferred_type = false if is_use_inferred_type.nil? && !attributes.key?(:'isUseInferredType') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isUseInferredType and :is_use_inferred_type' if attributes.key?(:'isUseInferredType') && attributes.key?(:'is_use_inferred_type')
+
+      self.is_use_inferred_type = attributes[:'is_use_inferred_type'] unless attributes[:'is_use_inferred_type'].nil?
+      self.is_use_inferred_type = false if is_use_inferred_type.nil? && !attributes.key?(:'isUseInferredType') && !attributes.key?(:'is_use_inferred_type') # rubocop:disable Style/StringLiterals
 
       self.labels = attributes[:'labels'] if attributes[:'labels']
     end
@@ -111,6 +126,7 @@ module OCI
         description == other.description &&
         expr == other.expr &&
         type == other.type &&
+        is_use_inferred_type == other.is_use_inferred_type &&
         labels == other.labels
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -127,7 +143,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, parent_ref, config_values, object_status, name, description, expr, type, labels].hash
+      [model_type, key, model_version, parent_ref, config_values, object_status, name, description, expr, type, is_use_inferred_type, labels].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

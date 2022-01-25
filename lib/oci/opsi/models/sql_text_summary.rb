@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -21,6 +21,10 @@ module OCI
     # @return [String]
     attr_accessor :database_id
 
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @return [String]
+    attr_accessor :compartment_id
+
     # **[Required]** SQL Text
     # @return [String]
     attr_accessor :sql_text
@@ -32,6 +36,7 @@ module OCI
         'sql_identifier': :'sqlIdentifier',
         'id': :'id',
         'database_id': :'databaseId',
+        'compartment_id': :'compartmentId',
         'sql_text': :'sqlText'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -44,6 +49,7 @@ module OCI
         'sql_identifier': :'String',
         'id': :'String',
         'database_id': :'String',
+        'compartment_id': :'String',
         'sql_text': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -58,6 +64,7 @@ module OCI
     # @option attributes [String] :sql_identifier The value to assign to the {#sql_identifier} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :database_id The value to assign to the {#database_id} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :sql_text The value to assign to the {#sql_text} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -78,6 +85,12 @@ module OCI
       raise 'You cannot provide both :databaseId and :database_id' if attributes.key?(:'databaseId') && attributes.key?(:'database_id')
 
       self.database_id = attributes[:'database_id'] if attributes[:'database_id']
+
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
       self.sql_text = attributes[:'sqlText'] if attributes[:'sqlText']
 
@@ -100,6 +113,7 @@ module OCI
         sql_identifier == other.sql_identifier &&
         id == other.id &&
         database_id == other.database_id &&
+        compartment_id == other.compartment_id &&
         sql_text == other.sql_text
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -116,7 +130,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [sql_identifier, id, database_id, sql_text].hash
+      [sql_identifier, id, database_id, compartment_id, sql_text].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,7 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Use this API to manage your [Oracle Cloud VMware Solution](/iaas/Content/VMware/Concepts/ocvsoverview.htm).
+  # Use the Oracle Cloud VMware API to create SDDCs and manage ESXi hosts and software.
+  # For more information, see [Oracle Cloud VMware Solution](/iaas/Content/VMware/Concepts/ocvsoverview.htm).
   class Ocvp::SddcClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -98,7 +99,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Cancel the pending SDDC downgrade from HCX Enterprise to HCX Advanced
+    # Cancel the pending SDDC downgrade from HCX Enterprise to HCX Advanced.
     #
     # @param [String] sddc_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the SDDC.
     #
@@ -383,9 +384,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Downgrade the specified SDDC from HCX Enterprise to HCX Advanced
+    # Downgrade the specified SDDC from HCX Enterprise to HCX Advanced.
+    # Downgrading from HCX Enterprise to HCX Advanced reduces the number of provided license keys from 10 to 3.
+    # Downgrade remains in a `PENDING` state until the end of the current billing cycle. You can use {#cancel_downgrade_hcx cancel_downgrade_hcx}
+    # to cancel the downgrade while it's still in a `PENDING` state.
     #
-    # @param [OCI::Ocvp::Models::DowngradeHcxDetails] downgrade_hcx_details The HCX on-premise license keys to be reserved when downgrade from HCX Enterprise to HCX Advanced.
+    # @param [OCI::Ocvp::Models::DowngradeHcxDetails] downgrade_hcx_details The HCX on-premise license keys to be reserved when downgrading from HCX Enterprise to HCX Advanced.
     # @param [String] sddc_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the SDDC.
     #
     # @param [Hash] opts the optional parameters
@@ -618,8 +622,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists supported SKUs. Oracle Cloud Infrastructure VMware Solution supports the following billing interval SKUs:
-    # HOUR, MONTH, ONE_YEAR, and THREE_YEARS.
+    # Lists supported SKUs.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -25,6 +25,7 @@ require 'oci/jms/models/fleet_summary'
 require 'oci/jms/models/installation_sort_by'
 require 'oci/jms/models/installation_usage'
 require 'oci/jms/models/installation_usage_collection'
+require 'oci/jms/models/jre_security_status'
 require 'oci/jms/models/jre_sort_by'
 require 'oci/jms/models/jre_usage'
 require 'oci/jms/models/jre_usage_collection'
@@ -33,12 +34,11 @@ require 'oci/jms/models/managed_instance_sort_by'
 require 'oci/jms/models/managed_instance_type'
 require 'oci/jms/models/managed_instance_usage'
 require 'oci/jms/models/managed_instance_usage_collection'
+require 'oci/jms/models/operating_system'
 require 'oci/jms/models/operation_status'
 require 'oci/jms/models/operation_type'
-require 'oci/jms/models/request_summarized_application_usage_details'
-require 'oci/jms/models/request_summarized_installation_usage_details'
-require 'oci/jms/models/request_summarized_jre_usage_details'
-require 'oci/jms/models/request_summarized_managed_instance_usage_details'
+require 'oci/jms/models/os_family'
+require 'oci/jms/models/resource_inventory'
 require 'oci/jms/models/sort_by'
 require 'oci/jms/models/sort_order'
 require 'oci/jms/models/summarize_application_usage_fields'

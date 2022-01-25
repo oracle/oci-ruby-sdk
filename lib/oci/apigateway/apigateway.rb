@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -31,9 +31,12 @@ require 'oci/apigateway/models/api_validations'
 require 'oci/apigateway/models/authentication_only_route_authorization_policy'
 require 'oci/apigateway/models/authentication_policy'
 require 'oci/apigateway/models/body_validation_request_policy'
+require 'oci/apigateway/models/ca_bundle'
 require 'oci/apigateway/models/certificate'
 require 'oci/apigateway/models/certificate_collection'
 require 'oci/apigateway/models/certificate_summary'
+require 'oci/apigateway/models/certificates_ca_bundle'
+require 'oci/apigateway/models/certificates_certificate_authority'
 require 'oci/apigateway/models/change_api_compartment_details'
 require 'oci/apigateway/models/change_certificate_compartment_details'
 require 'oci/apigateway/models/change_deployment_compartment_details'
@@ -68,6 +71,7 @@ require 'oci/apigateway/models/ip_address'
 require 'oci/apigateway/models/json_web_key'
 require 'oci/apigateway/models/json_web_token_claim'
 require 'oci/apigateway/models/jwt_authentication_policy'
+require 'oci/apigateway/models/mutual_tls_details'
 require 'oci/apigateway/models/no_cache'
 require 'oci/apigateway/models/no_content_validation'
 require 'oci/apigateway/models/oracle_function_backend'

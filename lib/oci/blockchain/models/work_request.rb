@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -11,6 +11,7 @@ module OCI
     OPERATION_TYPE_ENUM = [
       OPERATION_TYPE_CREATE_PLATFORM = 'CREATE_PLATFORM'.freeze,
       OPERATION_TYPE_UPDATE_PLATFORM = 'UPDATE_PLATFORM'.freeze,
+      OPERATION_TYPE_UPGRADE_PLATFORM = 'UPGRADE_PLATFORM'.freeze,
       OPERATION_TYPE_DELETE_PLATFORM = 'DELETE_PLATFORM'.freeze,
       OPERATION_TYPE_SCALE_PLATFORM = 'SCALE_PLATFORM'.freeze,
       OPERATION_TYPE_START_PLATFORM = 'START_PLATFORM'.freeze,

@@ -1,17 +1,18 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Basic details for an APM Domain.
+  # Details for an APM domain.
   class ApmControlPlane::Models::BaseDomainDetails
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze
     ].freeze
 
@@ -19,19 +20,19 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** APM Domain display name, can be updated.
+    # **[Required]** Display name of the APM domain, which can be updated.
     # @return [String]
     attr_accessor :display_name
 
-    # Description of the APM Domain.
+    # Description of the APM domain.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** The OCID of the compartment corresponding to the APM Domain.
+    # **[Required]** The OCID of the compartment corresponding to the APM domain.
     # @return [String]
     attr_accessor :compartment_id
 
-    # The current lifecycle state of the APM Domain.
+    # The current lifecycle state of the APM domain.
     # @return [String]
     attr_reader :lifecycle_state
 
@@ -39,11 +40,11 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_free_tier
 
-    # The time the the APM Domain was created. An RFC3339 formatted datetime string
+    # The time the APM domain was created, expressed in RFC 3339 timestamp format.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The time the APM Domain was updated. An RFC3339 formatted datetime string
+    # The time the APM domain was updated, expressed in RFC 3339 timestamp format.
     # @return [DateTime]
     attr_accessor :time_updated
 

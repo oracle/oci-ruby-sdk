@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -124,6 +124,11 @@ module OCI
     # @return [String]
     attr_reader :type
 
+    # A flag indicating whether the XML parser should consider the namespace(s) while processing the log data.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_namespace_aware
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -153,7 +158,8 @@ module OCI
         'should_tokenize_original_text': :'shouldTokenizeOriginalText',
         'field_delimiter': :'fieldDelimiter',
         'field_qualifier': :'fieldQualifier',
-        'type': :'type'
+        'type': :'type',
+        'is_namespace_aware': :'isNamespaceAware'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -187,7 +193,8 @@ module OCI
         'should_tokenize_original_text': :'BOOLEAN',
         'field_delimiter': :'String',
         'field_qualifier': :'String',
-        'type': :'String'
+        'type': :'String',
+        'is_namespace_aware': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -224,6 +231,7 @@ module OCI
     # @option attributes [String] :field_delimiter The value to assign to the {#field_delimiter} property
     # @option attributes [String] :field_qualifier The value to assign to the {#field_qualifier} property
     # @option attributes [String] :type The value to assign to the {#type} property
+    # @option attributes [BOOLEAN] :is_namespace_aware The value to assign to the {#is_namespace_aware} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -358,6 +366,12 @@ module OCI
 
       self.type = attributes[:'type'] if attributes[:'type']
       self.type = "REGEX" if type.nil? && !attributes.key?(:'type') # rubocop:disable Style/StringLiterals
+
+      self.is_namespace_aware = attributes[:'isNamespaceAware'] unless attributes[:'isNamespaceAware'].nil?
+
+      raise 'You cannot provide both :isNamespaceAware and :is_namespace_aware' if attributes.key?(:'isNamespaceAware') && attributes.key?(:'is_namespace_aware')
+
+      self.is_namespace_aware = attributes[:'is_namespace_aware'] unless attributes[:'is_namespace_aware'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -404,7 +418,8 @@ module OCI
         should_tokenize_original_text == other.should_tokenize_original_text &&
         field_delimiter == other.field_delimiter &&
         field_qualifier == other.field_qualifier &&
-        type == other.type
+        type == other.type &&
+        is_namespace_aware == other.is_namespace_aware
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -420,7 +435,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [content, description, display_name, encoding, example_content, field_maps, footer_content, header_content, name, is_default, is_single_line_content, is_system, language, time_updated, log_type_test_request_version, metadata, parser_ignoreline_characters, is_hidden, parser_sequence, parser_timezone, is_parser_written_once, parser_functions, should_tokenize_original_text, field_delimiter, field_qualifier, type].hash
+      [content, description, display_name, encoding, example_content, field_maps, footer_content, header_content, name, is_default, is_single_line_content, is_system, language, time_updated, log_type_test_request_version, metadata, parser_ignoreline_characters, is_hidden, parser_sequence, parser_timezone, is_parser_written_once, parser_functions, should_tokenize_original_text, field_delimiter, field_qualifier, type, is_namespace_aware].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

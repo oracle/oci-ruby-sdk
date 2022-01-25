@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # LoganParserDetails
+  # LogAnalyticsParser
   class LogAnalytics::Models::LogAnalyticsParser
     TYPE_ENUM = [
       TYPE_XML = 'XML'.freeze,
@@ -147,6 +147,17 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_user_deleted
 
+    # A flag indicating whether the XML parser should consider the namespace(s) while processing the log data.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_namespace_aware
+
+    # An array of categories assigned to this parser.
+    # The isSystem flag denotes if each category assignment is user-created or Oracle-defined.
+    #
+    # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsCategory>]
+    attr_accessor :categories
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -181,7 +192,9 @@ module OCI
         'field_delimiter': :'fieldDelimiter',
         'field_qualifier': :'fieldQualifier',
         'type': :'type',
-        'is_user_deleted': :'isUserDeleted'
+        'is_user_deleted': :'isUserDeleted',
+        'is_namespace_aware': :'isNamespaceAware',
+        'categories': :'categories'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -220,7 +233,9 @@ module OCI
         'field_delimiter': :'String',
         'field_qualifier': :'String',
         'type': :'String',
-        'is_user_deleted': :'BOOLEAN'
+        'is_user_deleted': :'BOOLEAN',
+        'is_namespace_aware': :'BOOLEAN',
+        'categories': :'Array<OCI::LogAnalytics::Models::LogAnalyticsCategory>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -262,6 +277,8 @@ module OCI
     # @option attributes [String] :field_qualifier The value to assign to the {#field_qualifier} property
     # @option attributes [String] :type The value to assign to the {#type} property
     # @option attributes [BOOLEAN] :is_user_deleted The value to assign to the {#is_user_deleted} property
+    # @option attributes [BOOLEAN] :is_namespace_aware The value to assign to the {#is_namespace_aware} property
+    # @option attributes [Array<OCI::LogAnalytics::Models::LogAnalyticsCategory>] :categories The value to assign to the {#categories} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -426,6 +443,14 @@ module OCI
       raise 'You cannot provide both :isUserDeleted and :is_user_deleted' if attributes.key?(:'isUserDeleted') && attributes.key?(:'is_user_deleted')
 
       self.is_user_deleted = attributes[:'is_user_deleted'] unless attributes[:'is_user_deleted'].nil?
+
+      self.is_namespace_aware = attributes[:'isNamespaceAware'] unless attributes[:'isNamespaceAware'].nil?
+
+      raise 'You cannot provide both :isNamespaceAware and :is_namespace_aware' if attributes.key?(:'isNamespaceAware') && attributes.key?(:'is_namespace_aware')
+
+      self.is_namespace_aware = attributes[:'is_namespace_aware'] unless attributes[:'is_namespace_aware'].nil?
+
+      self.categories = attributes[:'categories'] if attributes[:'categories']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -482,7 +507,9 @@ module OCI
         field_delimiter == other.field_delimiter &&
         field_qualifier == other.field_qualifier &&
         type == other.type &&
-        is_user_deleted == other.is_user_deleted
+        is_user_deleted == other.is_user_deleted &&
+        is_namespace_aware == other.is_namespace_aware &&
+        categories == other.categories
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -498,7 +525,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [content, description, display_name, edit_version, encoding, example_content, field_maps, footer_content, header_content, name, is_default, is_single_line_content, is_system, language, time_updated, log_type_test_request_version, mapped_parsers, parser_ignoreline_characters, is_hidden, parser_sequence, parser_timezone, parser_filter, is_parser_written_once, parser_functions, sources_count, sources, should_tokenize_original_text, field_delimiter, field_qualifier, type, is_user_deleted].hash
+      [content, description, display_name, edit_version, encoding, example_content, field_maps, footer_content, header_content, name, is_default, is_single_line_content, is_system, language, time_updated, log_type_test_request_version, mapped_parsers, parser_ignoreline_characters, is_hidden, parser_sequence, parser_timezone, parser_filter, is_parser_written_once, parser_functions, sources_count, sources, should_tokenize_original_text, field_delimiter, field_qualifier, type, is_user_deleted, is_namespace_aware, categories].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
