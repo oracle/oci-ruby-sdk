@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -15,12 +15,17 @@ module OCI
     # @return [Array<String>]
     attr_accessor :xml_paths
 
+    # The log header values.
+    # @return [Array<String>]
+    attr_accessor :header_paths
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'json_paths': :'jsonPaths',
-        'xml_paths': :'xmlPaths'
+        'xml_paths': :'xmlPaths',
+        'header_paths': :'headerPaths'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -30,7 +35,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'json_paths': :'Array<OCI::LogAnalytics::Models::ExtractLogHeaderDetails>',
-        'xml_paths': :'Array<String>'
+        'xml_paths': :'Array<String>',
+        'header_paths': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -43,6 +49,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Array<OCI::LogAnalytics::Models::ExtractLogHeaderDetails>] :json_paths The value to assign to the {#json_paths} property
     # @option attributes [Array<String>] :xml_paths The value to assign to the {#xml_paths} property
+    # @option attributes [Array<String>] :header_paths The value to assign to the {#header_paths} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -60,6 +67,12 @@ module OCI
       raise 'You cannot provide both :xmlPaths and :xml_paths' if attributes.key?(:'xmlPaths') && attributes.key?(:'xml_paths')
 
       self.xml_paths = attributes[:'xml_paths'] if attributes[:'xml_paths']
+
+      self.header_paths = attributes[:'headerPaths'] if attributes[:'headerPaths']
+
+      raise 'You cannot provide both :headerPaths and :header_paths' if attributes.key?(:'headerPaths') && attributes.key?(:'header_paths')
+
+      self.header_paths = attributes[:'header_paths'] if attributes[:'header_paths']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -74,7 +87,8 @@ module OCI
 
       self.class == other.class &&
         json_paths == other.json_paths &&
-        xml_paths == other.xml_paths
+        xml_paths == other.xml_paths &&
+        header_paths == other.header_paths
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -90,7 +104,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [json_paths, xml_paths].hash
+      [json_paths, xml_paths, header_paths].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

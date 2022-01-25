@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -117,14 +117,17 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_event_enabled
 
-    # Type or scope of the custom property belongs to. This will be an array of type id it will be belongs to
-    #
+    # The set of object types to which the custom property applies.
     # @return [Array<OCI::DataCatalog::Models::CustomPropertyTypeUsage>]
     attr_accessor :scope
 
     # Allowed values for the custom property if any
     # @return [Array<String>]
     attr_accessor :allowed_values
+
+    # Event configuration for this custom property, against the desired subset of object types to which the property applies.
+    # @return [Array<OCI::DataCatalog::Models::EventConfig>]
+    attr_accessor :events
 
     # A map of maps that contains the properties which are specific to the asset type. Each data asset type
     # definition defines it's set of required and optional properties. The map keys are category names and the
@@ -162,6 +165,7 @@ module OCI
         'is_event_enabled': :'isEventEnabled',
         'scope': :'scope',
         'allowed_values': :'allowedValues',
+        'events': :'events',
         'properties': :'properties'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -194,6 +198,7 @@ module OCI
         'is_event_enabled': :'BOOLEAN',
         'scope': :'Array<OCI::DataCatalog::Models::CustomPropertyTypeUsage>',
         'allowed_values': :'Array<String>',
+        'events': :'Array<OCI::DataCatalog::Models::EventConfig>',
         'properties': :'Hash<String, Hash<String, String>>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -228,6 +233,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_event_enabled The value to assign to the {#is_event_enabled} property
     # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertyTypeUsage>] :scope The value to assign to the {#scope} property
     # @option attributes [Array<String>] :allowed_values The value to assign to the {#allowed_values} property
+    # @option attributes [Array<OCI::DataCatalog::Models::EventConfig>] :events The value to assign to the {#events} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -381,6 +387,8 @@ module OCI
 
       self.allowed_values = attributes[:'allowed_values'] if attributes[:'allowed_values']
 
+      self.events = attributes[:'events'] if attributes[:'events']
+
       self.properties = attributes[:'properties'] if attributes[:'properties']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -444,6 +452,7 @@ module OCI
         is_event_enabled == other.is_event_enabled &&
         scope == other.scope &&
         allowed_values == other.allowed_values &&
+        events == other.events &&
         properties == other.properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -460,7 +469,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, data_type, description, namespace_name, is_list_type, is_sortable, is_filterable, is_multi_valued, is_hidden, is_editable, is_shown_in_list, is_service_defined, is_hidden_in_search, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, usage_count, is_event_enabled, scope, allowed_values, properties].hash
+      [key, display_name, data_type, description, namespace_name, is_list_type, is_sortable, is_filterable, is_multi_valued, is_hidden, is_editable, is_shown_in_list, is_service_defined, is_hidden_in_search, lifecycle_state, time_created, time_updated, created_by_id, updated_by_id, usage_count, is_event_enabled, scope, allowed_values, events, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

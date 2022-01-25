@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -37,6 +37,10 @@ module OCI
     # The source unique identifier as a string.
     # @return [String]
     attr_accessor :source_reference
+
+    # Features of the source function to use for enrichment.
+    # @return [Array<String>]
+    attr_accessor :features
 
     # The source function unique identifier.
     # @return [Integer]
@@ -86,6 +90,7 @@ module OCI
         'function_name': :'functionName',
         'function_reference': :'functionReference',
         'source_reference': :'sourceReference',
+        'features': :'features',
         'function_id': :'functionId',
         'order': :'order',
         'is_system': :'isSystem',
@@ -109,6 +114,7 @@ module OCI
         'function_name': :'String',
         'function_reference': :'String',
         'source_reference': :'String',
+        'features': :'Array<String>',
         'function_id': :'Integer',
         'order': :'Integer',
         'is_system': :'BOOLEAN',
@@ -134,6 +140,7 @@ module OCI
     # @option attributes [String] :function_name The value to assign to the {#function_name} property
     # @option attributes [String] :function_reference The value to assign to the {#function_reference} property
     # @option attributes [String] :source_reference The value to assign to the {#source_reference} property
+    # @option attributes [Array<String>] :features The value to assign to the {#features} property
     # @option attributes [Integer] :function_id The value to assign to the {#function_id} property
     # @option attributes [Integer] :order The value to assign to the {#order} property
     # @option attributes [BOOLEAN] :is_system The value to assign to the {#is_system} property
@@ -178,6 +185,8 @@ module OCI
       raise 'You cannot provide both :sourceReference and :source_reference' if attributes.key?(:'sourceReference') && attributes.key?(:'source_reference')
 
       self.source_reference = attributes[:'source_reference'] if attributes[:'source_reference']
+
+      self.features = attributes[:'features'] if attributes[:'features']
 
       self.function_id = attributes[:'functionId'] if attributes[:'functionId']
 
@@ -260,6 +269,7 @@ module OCI
         function_name == other.function_name &&
         function_reference == other.function_reference &&
         source_reference == other.source_reference &&
+        features == other.features &&
         function_id == other.function_id &&
         order == other.order &&
         is_system == other.is_system &&
@@ -284,7 +294,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [arguments, is_enabled, function, function_name, function_reference, source_reference, function_id, order, is_system, lookup_column, lookup_column_position, lookup_display_name, lookup_mode, lookup_table, source_id].hash
+      [arguments, is_enabled, function, function_name, function_reference, source_reference, features, function_id, order, is_system, lookup_column, lookup_column_position, lookup_display_name, lookup_mode, lookup_table, source_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

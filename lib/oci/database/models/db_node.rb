@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -107,6 +107,22 @@ module OCI
     # @return [String]
     attr_accessor :additional_details
 
+    # The number of CPU cores enabled on the Db node.
+    # @return [Integer]
+    attr_accessor :cpu_core_count
+
+    # The allocated memory in GBs on the Db node.
+    # @return [Integer]
+    attr_accessor :memory_size_in_gbs
+
+    # The allocated local node storage in GBs on the Db node.
+    # @return [Integer]
+    attr_accessor :db_node_storage_size_in_gbs
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Exacc Db server associated with the database node.
+    # @return [String]
+    attr_accessor :db_server_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -127,7 +143,11 @@ module OCI
         'maintenance_type': :'maintenanceType',
         'time_maintenance_window_start': :'timeMaintenanceWindowStart',
         'time_maintenance_window_end': :'timeMaintenanceWindowEnd',
-        'additional_details': :'additionalDetails'
+        'additional_details': :'additionalDetails',
+        'cpu_core_count': :'cpuCoreCount',
+        'memory_size_in_gbs': :'memorySizeInGBs',
+        'db_node_storage_size_in_gbs': :'dbNodeStorageSizeInGBs',
+        'db_server_id': :'dbServerId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -152,7 +172,11 @@ module OCI
         'maintenance_type': :'String',
         'time_maintenance_window_start': :'DateTime',
         'time_maintenance_window_end': :'DateTime',
-        'additional_details': :'String'
+        'additional_details': :'String',
+        'cpu_core_count': :'Integer',
+        'memory_size_in_gbs': :'Integer',
+        'db_node_storage_size_in_gbs': :'Integer',
+        'db_server_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -180,6 +204,10 @@ module OCI
     # @option attributes [DateTime] :time_maintenance_window_start The value to assign to the {#time_maintenance_window_start} property
     # @option attributes [DateTime] :time_maintenance_window_end The value to assign to the {#time_maintenance_window_end} property
     # @option attributes [String] :additional_details The value to assign to the {#additional_details} property
+    # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
+    # @option attributes [Integer] :memory_size_in_gbs The value to assign to the {#memory_size_in_gbs} property
+    # @option attributes [Integer] :db_node_storage_size_in_gbs The value to assign to the {#db_node_storage_size_in_gbs} property
+    # @option attributes [String] :db_server_id The value to assign to the {#db_server_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -276,6 +304,30 @@ module OCI
       raise 'You cannot provide both :additionalDetails and :additional_details' if attributes.key?(:'additionalDetails') && attributes.key?(:'additional_details')
 
       self.additional_details = attributes[:'additional_details'] if attributes[:'additional_details']
+
+      self.cpu_core_count = attributes[:'cpuCoreCount'] if attributes[:'cpuCoreCount']
+
+      raise 'You cannot provide both :cpuCoreCount and :cpu_core_count' if attributes.key?(:'cpuCoreCount') && attributes.key?(:'cpu_core_count')
+
+      self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
+
+      self.memory_size_in_gbs = attributes[:'memorySizeInGBs'] if attributes[:'memorySizeInGBs']
+
+      raise 'You cannot provide both :memorySizeInGBs and :memory_size_in_gbs' if attributes.key?(:'memorySizeInGBs') && attributes.key?(:'memory_size_in_gbs')
+
+      self.memory_size_in_gbs = attributes[:'memory_size_in_gbs'] if attributes[:'memory_size_in_gbs']
+
+      self.db_node_storage_size_in_gbs = attributes[:'dbNodeStorageSizeInGBs'] if attributes[:'dbNodeStorageSizeInGBs']
+
+      raise 'You cannot provide both :dbNodeStorageSizeInGBs and :db_node_storage_size_in_gbs' if attributes.key?(:'dbNodeStorageSizeInGBs') && attributes.key?(:'db_node_storage_size_in_gbs')
+
+      self.db_node_storage_size_in_gbs = attributes[:'db_node_storage_size_in_gbs'] if attributes[:'db_node_storage_size_in_gbs']
+
+      self.db_server_id = attributes[:'dbServerId'] if attributes[:'dbServerId']
+
+      raise 'You cannot provide both :dbServerId and :db_server_id' if attributes.key?(:'dbServerId') && attributes.key?(:'db_server_id')
+
+      self.db_server_id = attributes[:'db_server_id'] if attributes[:'db_server_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -331,7 +383,11 @@ module OCI
         maintenance_type == other.maintenance_type &&
         time_maintenance_window_start == other.time_maintenance_window_start &&
         time_maintenance_window_end == other.time_maintenance_window_end &&
-        additional_details == other.additional_details
+        additional_details == other.additional_details &&
+        cpu_core_count == other.cpu_core_count &&
+        memory_size_in_gbs == other.memory_size_in_gbs &&
+        db_node_storage_size_in_gbs == other.db_node_storage_size_in_gbs &&
+        db_server_id == other.db_server_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -347,7 +403,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, db_system_id, vnic_id, backup_vnic_id, host_ip_id, backup_ip_id, vnic2_id, backup_vnic2_id, lifecycle_state, hostname, fault_domain, time_created, software_storage_size_in_gb, maintenance_type, time_maintenance_window_start, time_maintenance_window_end, additional_details].hash
+      [id, db_system_id, vnic_id, backup_vnic_id, host_ip_id, backup_ip_id, vnic2_id, backup_vnic2_id, lifecycle_state, hostname, fault_domain, time_created, software_storage_size_in_gb, maintenance_type, time_maintenance_window_start, time_maintenance_window_end, additional_details, cpu_core_count, memory_size_in_gbs, db_node_storage_size_in_gbs, db_server_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

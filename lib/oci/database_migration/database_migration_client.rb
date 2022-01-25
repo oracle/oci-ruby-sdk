@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -66,7 +66,7 @@ module OCI
       @retry_config = retry_config
 
       if endpoint
-        @endpoint = endpoint + '/20200720'
+        @endpoint = endpoint + '/20210929'
       else
         region ||= config.region
         region ||= signer.region if signer.respond_to?(:region)
@@ -84,7 +84,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://odms.{region}.oci.{secondLevelDomain}') + '/20200720'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://odms.{region}.oci.{secondLevelDomain}') + '/20210929'
       logger.info "DatabaseMigrationClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -934,6 +934,64 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Get the Pre-Migration Advisor report details
+    #
+    # @param [String] job_id The OCID of the job
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseMigration::Models::AdvisorReport AdvisorReport}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemigration/get_advisor_report.rb.html) to see an example of how to use get_advisor_report API.
+    def get_advisor_report(job_id, opts = {})
+      logger.debug 'Calling operation DatabaseMigrationClient#get_advisor_report.' if logger
+
+      raise "Missing the required parameter 'job_id' when calling get_advisor_report." if job_id.nil?
+      raise "Parameter value for 'job_id' must not be blank" if OCI::Internal::Util.blank_string?(job_id)
+
+      path = '/jobs/{jobId}/advisorReport'.sub('{jobId}', job_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseMigrationClient#get_advisor_report') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseMigration::Models::AdvisorReport'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Display the ODMS Agent configuration.
     #
     # @param [String] agent_id The OCID of the agent
@@ -1737,6 +1795,82 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Display sample object types to exclude or include for a Migration.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided.
+    #   Default order for name is custom based on it's usage frequency. If no value is specified name is default.
+    #    (default to name)
+    #   Allowed values are: name
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    #    (default to ASC)
+    # @option opts [Integer] :limit The maximum number of items to return.
+    #    (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    #    (default to 1)
+    # @return [Response] A Response object with data of type {OCI::DatabaseMigration::Models::MigrationObjectTypeSummaryCollection MigrationObjectTypeSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemigration/list_migration_object_types.rb.html) to see an example of how to use list_migration_object_types API.
+    def list_migration_object_types(opts = {})
+      logger.debug 'Calling operation DatabaseMigrationClient#list_migration_object_types.' if logger
+
+
+      if opts[:sort_by] && !%w[name].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of name.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseMigration::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseMigration::Models::SORT_ORDERS_ENUM.'
+      end
+
+      path = '/migrationObjectTypes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseMigrationClient#list_migration_object_types') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseMigration::Models::MigrationObjectTypeSummaryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # List all Migrations.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
@@ -1759,7 +1893,7 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     #    (default to ASC)
-    # @option opts [String] :lifecycle_state The current state of the Database Migration Deployment.
+    # @option opts [String] :lifecycle_state The lifecycle state of the Migration.
     #
     # @option opts [String] :lifecycle_details The lifecycle detailed status of the Migration.
     #
@@ -1778,8 +1912,8 @@ module OCI
         raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseMigration::Models::SORT_ORDERS_ENUM.'
       end
 
-      if opts[:lifecycle_state] && !OCI::DatabaseMigration::Models::LIFECYCLE_STATES_ENUM.include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DatabaseMigration::Models::LIFECYCLE_STATES_ENUM.'
+      if opts[:lifecycle_state] && !OCI::DatabaseMigration::Models::MIGRATION_LIFECYCLE_STATES_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DatabaseMigration::Models::MIGRATION_LIFECYCLE_STATES_ENUM.'
       end
 
       if opts[:lifecycle_details] && !OCI::DatabaseMigration::Models::MIGRATION_STATUS_ENUM.include?(opts[:lifecycle_details])
@@ -1845,14 +1979,11 @@ module OCI
     #    (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     #    (default to 1)
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending.
-    #   Default order for displayName is ascending. If no value is specified timeCreated is default.
-    #    (default to timeCreated)
-    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timestamp is descending.
+    #    (default to timestamp)
+    #   Allowed values are: timestamp
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     #    (default to ASC)
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
-    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
     #
@@ -1863,8 +1994,8 @@ module OCI
 
       raise "Missing the required parameter 'work_request_id' when calling list_work_request_errors." if work_request_id.nil?
 
-      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      if opts[:sort_by] && !%w[timestamp].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timestamp.'
       end
 
       if opts[:sort_order] && !OCI::DatabaseMigration::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
@@ -1882,7 +2013,6 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
-      query_params[:displayName] = opts[:display_name] if opts[:display_name]
 
       # Header Params
       header_params = {}
@@ -1928,14 +2058,11 @@ module OCI
     #    (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     #    (default to 1)
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending.
-    #   Default order for displayName is ascending. If no value is specified timeCreated is default.
-    #    (default to timeCreated)
-    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timestamp is descending.
+    #    (default to timestamp)
+    #   Allowed values are: timestamp
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     #    (default to ASC)
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
-    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
     #
@@ -1946,8 +2073,8 @@ module OCI
 
       raise "Missing the required parameter 'work_request_id' when calling list_work_request_logs." if work_request_id.nil?
 
-      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      if opts[:sort_by] && !%w[timestamp].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timestamp.'
       end
 
       if opts[:sort_order] && !OCI::DatabaseMigration::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
@@ -1965,7 +2092,6 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
-      query_params[:displayName] = opts[:display_name] if opts[:display_name]
 
       # Header Params
       header_params = {}
@@ -2009,18 +2135,17 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :resource_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the resource.
     #    (default to resourceId)
+    # @option opts [String] :status A filter to return only resources their lifecycleState matches the given OperationStatus.
+    #
     # @option opts [Integer] :limit The maximum number of items to return.
     #    (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     #    (default to 1)
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending.
-    #   Default order for displayName is ascending. If no value is specified timeCreated is default.
-    #    (default to timeCreated)
-    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeAccepted is descending.
+    #    (default to timeAccepted)
+    #   Allowed values are: timeAccepted
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     #    (default to ASC)
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
-    #
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
     #
@@ -2031,8 +2156,12 @@ module OCI
 
       raise "Missing the required parameter 'compartment_id' when calling list_work_requests." if compartment_id.nil?
 
-      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      if opts[:status] && !OCI::DatabaseMigration::Models::OPERATION_STATUS_ENUM.include?(opts[:status])
+        raise 'Invalid value for "status", must be one of the values in OCI::DatabaseMigration::Models::OPERATION_STATUS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeAccepted].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeAccepted.'
       end
 
       if opts[:sort_order] && !OCI::DatabaseMigration::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
@@ -2047,11 +2176,11 @@ module OCI
       query_params = {}
       query_params[:compartmentId] = compartment_id
       query_params[:resourceId] = opts[:resource_id] if opts[:resource_id]
+      query_params[:status] = opts[:status] if opts[:status]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
-      query_params[:displayName] = opts[:display_name] if opts[:display_name]
 
       # Header Params
       header_params = {}

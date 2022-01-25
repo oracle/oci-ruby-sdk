@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -27,7 +27,8 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # The `DB_UNIQUE_NAME` of the Oracle Database being backed up.
+    # **Deprecated.** The `DB_UNIQUE_NAME` value is set by Oracle Cloud Infrastructure.  Do not specify a value for this parameter. Specifying a value for this field will cause Terraform operations to fail.
+    #
     # @return [String]
     attr_accessor :db_unique_name
 
@@ -54,6 +55,15 @@ module OCI
     # @return [String]
     attr_reader :protection_mode
 
+    # Indicates whether Automatic Failover is enabled for Autonomous Container Database Dataguard Association
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_automatic_failover_enabled
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the peer cloud Autonomous Exadata VM Cluster.
+    # @return [String]
+    attr_accessor :peer_cloud_autonomous_vm_cluster_id
+
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the peer Autonomous VM cluster for Autonomous Data Guard. Required to enable Data Guard.
     #
     # @return [String]
@@ -68,13 +78,18 @@ module OCI
     # @return [OCI::Database::Models::PeerAutonomousContainerDatabaseBackupConfig]
     attr_accessor :peer_autonomous_container_database_backup_config
 
-    # The `DB_UNIQUE_NAME` of the peer Autonomous Container Database in a Data Guard association.
+    # **Deprecated.** The `DB_UNIQUE_NAME` of the peer Autonomous Container Database in a Data Guard association is set by Oracle Cloud Infrastructure.  Do not specify a value for this parameter. Specifying a value for this field will cause Terraform operations to fail.
+    #
     # @return [String]
     attr_accessor :peer_db_unique_name
 
     # The OCID of the Autonomous VM Cluster.
     # @return [String]
     attr_accessor :autonomous_vm_cluster_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the cloud Autonomous Exadata VM Cluster.
+    # @return [String]
+    attr_accessor :cloud_autonomous_vm_cluster_id
 
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the Autonomous Container Database.
     # @return [String]
@@ -138,11 +153,14 @@ module OCI
         'peer_autonomous_exadata_infrastructure_id': :'peerAutonomousExadataInfrastructureId',
         'peer_autonomous_container_database_display_name': :'peerAutonomousContainerDatabaseDisplayName',
         'protection_mode': :'protectionMode',
+        'is_automatic_failover_enabled': :'isAutomaticFailoverEnabled',
+        'peer_cloud_autonomous_vm_cluster_id': :'peerCloudAutonomousVmClusterId',
         'peer_autonomous_vm_cluster_id': :'peerAutonomousVmClusterId',
         'peer_autonomous_container_database_compartment_id': :'peerAutonomousContainerDatabaseCompartmentId',
         'peer_autonomous_container_database_backup_config': :'peerAutonomousContainerDatabaseBackupConfig',
         'peer_db_unique_name': :'peerDbUniqueName',
         'autonomous_vm_cluster_id': :'autonomousVmClusterId',
+        'cloud_autonomous_vm_cluster_id': :'cloudAutonomousVmClusterId',
         'compartment_id': :'compartmentId',
         'patch_model': :'patchModel',
         'maintenance_window_details': :'maintenanceWindowDetails',
@@ -169,11 +187,14 @@ module OCI
         'peer_autonomous_exadata_infrastructure_id': :'String',
         'peer_autonomous_container_database_display_name': :'String',
         'protection_mode': :'String',
+        'is_automatic_failover_enabled': :'BOOLEAN',
+        'peer_cloud_autonomous_vm_cluster_id': :'String',
         'peer_autonomous_vm_cluster_id': :'String',
         'peer_autonomous_container_database_compartment_id': :'String',
         'peer_autonomous_container_database_backup_config': :'OCI::Database::Models::PeerAutonomousContainerDatabaseBackupConfig',
         'peer_db_unique_name': :'String',
         'autonomous_vm_cluster_id': :'String',
+        'cloud_autonomous_vm_cluster_id': :'String',
         'compartment_id': :'String',
         'patch_model': :'String',
         'maintenance_window_details': :'OCI::Database::Models::MaintenanceWindow',
@@ -202,11 +223,14 @@ module OCI
     # @option attributes [String] :peer_autonomous_exadata_infrastructure_id The value to assign to the {#peer_autonomous_exadata_infrastructure_id} property
     # @option attributes [String] :peer_autonomous_container_database_display_name The value to assign to the {#peer_autonomous_container_database_display_name} property
     # @option attributes [String] :protection_mode The value to assign to the {#protection_mode} property
+    # @option attributes [BOOLEAN] :is_automatic_failover_enabled The value to assign to the {#is_automatic_failover_enabled} property
+    # @option attributes [String] :peer_cloud_autonomous_vm_cluster_id The value to assign to the {#peer_cloud_autonomous_vm_cluster_id} property
     # @option attributes [String] :peer_autonomous_vm_cluster_id The value to assign to the {#peer_autonomous_vm_cluster_id} property
     # @option attributes [String] :peer_autonomous_container_database_compartment_id The value to assign to the {#peer_autonomous_container_database_compartment_id} property
     # @option attributes [OCI::Database::Models::PeerAutonomousContainerDatabaseBackupConfig] :peer_autonomous_container_database_backup_config The value to assign to the {#peer_autonomous_container_database_backup_config} property
     # @option attributes [String] :peer_db_unique_name The value to assign to the {#peer_db_unique_name} property
     # @option attributes [String] :autonomous_vm_cluster_id The value to assign to the {#autonomous_vm_cluster_id} property
+    # @option attributes [String] :cloud_autonomous_vm_cluster_id The value to assign to the {#cloud_autonomous_vm_cluster_id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :patch_model The value to assign to the {#patch_model} property
     # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window_details The value to assign to the {#maintenance_window_details} property
@@ -266,6 +290,18 @@ module OCI
 
       self.protection_mode = attributes[:'protection_mode'] if attributes[:'protection_mode']
 
+      self.is_automatic_failover_enabled = attributes[:'isAutomaticFailoverEnabled'] unless attributes[:'isAutomaticFailoverEnabled'].nil?
+
+      raise 'You cannot provide both :isAutomaticFailoverEnabled and :is_automatic_failover_enabled' if attributes.key?(:'isAutomaticFailoverEnabled') && attributes.key?(:'is_automatic_failover_enabled')
+
+      self.is_automatic_failover_enabled = attributes[:'is_automatic_failover_enabled'] unless attributes[:'is_automatic_failover_enabled'].nil?
+
+      self.peer_cloud_autonomous_vm_cluster_id = attributes[:'peerCloudAutonomousVmClusterId'] if attributes[:'peerCloudAutonomousVmClusterId']
+
+      raise 'You cannot provide both :peerCloudAutonomousVmClusterId and :peer_cloud_autonomous_vm_cluster_id' if attributes.key?(:'peerCloudAutonomousVmClusterId') && attributes.key?(:'peer_cloud_autonomous_vm_cluster_id')
+
+      self.peer_cloud_autonomous_vm_cluster_id = attributes[:'peer_cloud_autonomous_vm_cluster_id'] if attributes[:'peer_cloud_autonomous_vm_cluster_id']
+
       self.peer_autonomous_vm_cluster_id = attributes[:'peerAutonomousVmClusterId'] if attributes[:'peerAutonomousVmClusterId']
 
       raise 'You cannot provide both :peerAutonomousVmClusterId and :peer_autonomous_vm_cluster_id' if attributes.key?(:'peerAutonomousVmClusterId') && attributes.key?(:'peer_autonomous_vm_cluster_id')
@@ -295,6 +331,12 @@ module OCI
       raise 'You cannot provide both :autonomousVmClusterId and :autonomous_vm_cluster_id' if attributes.key?(:'autonomousVmClusterId') && attributes.key?(:'autonomous_vm_cluster_id')
 
       self.autonomous_vm_cluster_id = attributes[:'autonomous_vm_cluster_id'] if attributes[:'autonomous_vm_cluster_id']
+
+      self.cloud_autonomous_vm_cluster_id = attributes[:'cloudAutonomousVmClusterId'] if attributes[:'cloudAutonomousVmClusterId']
+
+      raise 'You cannot provide both :cloudAutonomousVmClusterId and :cloud_autonomous_vm_cluster_id' if attributes.key?(:'cloudAutonomousVmClusterId') && attributes.key?(:'cloud_autonomous_vm_cluster_id')
+
+      self.cloud_autonomous_vm_cluster_id = attributes[:'cloud_autonomous_vm_cluster_id'] if attributes[:'cloud_autonomous_vm_cluster_id']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -405,11 +447,14 @@ module OCI
         peer_autonomous_exadata_infrastructure_id == other.peer_autonomous_exadata_infrastructure_id &&
         peer_autonomous_container_database_display_name == other.peer_autonomous_container_database_display_name &&
         protection_mode == other.protection_mode &&
+        is_automatic_failover_enabled == other.is_automatic_failover_enabled &&
+        peer_cloud_autonomous_vm_cluster_id == other.peer_cloud_autonomous_vm_cluster_id &&
         peer_autonomous_vm_cluster_id == other.peer_autonomous_vm_cluster_id &&
         peer_autonomous_container_database_compartment_id == other.peer_autonomous_container_database_compartment_id &&
         peer_autonomous_container_database_backup_config == other.peer_autonomous_container_database_backup_config &&
         peer_db_unique_name == other.peer_db_unique_name &&
         autonomous_vm_cluster_id == other.autonomous_vm_cluster_id &&
+        cloud_autonomous_vm_cluster_id == other.cloud_autonomous_vm_cluster_id &&
         compartment_id == other.compartment_id &&
         patch_model == other.patch_model &&
         maintenance_window_details == other.maintenance_window_details &&
@@ -436,7 +481,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, db_unique_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, peer_autonomous_exadata_infrastructure_id, peer_autonomous_container_database_display_name, protection_mode, peer_autonomous_vm_cluster_id, peer_autonomous_container_database_compartment_id, peer_autonomous_container_database_backup_config, peer_db_unique_name, autonomous_vm_cluster_id, compartment_id, patch_model, maintenance_window_details, standby_maintenance_buffer_in_days, freeform_tags, defined_tags, backup_config, kms_key_id, kms_key_version_id, vault_id, key_store_id].hash
+      [display_name, db_unique_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, peer_autonomous_exadata_infrastructure_id, peer_autonomous_container_database_display_name, protection_mode, is_automatic_failover_enabled, peer_cloud_autonomous_vm_cluster_id, peer_autonomous_vm_cluster_id, peer_autonomous_container_database_compartment_id, peer_autonomous_container_database_backup_config, peer_db_unique_name, autonomous_vm_cluster_id, cloud_autonomous_vm_cluster_id, compartment_id, patch_model, maintenance_window_details, standby_maintenance_buffer_in_days, freeform_tags, defined_tags, backup_config, kms_key_id, kms_key_version_id, vault_id, key_store_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

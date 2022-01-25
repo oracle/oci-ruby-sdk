@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -30,6 +30,10 @@ module OCI
     # @return [Integer]
     attr_accessor :cpu_core_count
 
+    # The number of OCPU cores to enable for the VM cluster. Only one decimal place is allowed for the fractional part.
+    # @return [Float]
+    attr_accessor :ocpu_count
+
     # The memory to be allocated in GBs.
     # @return [Integer]
     attr_accessor :memory_size_in_gbs
@@ -41,6 +45,10 @@ module OCI
     # The data disk group size to be allocated in TBs.
     # @return [Float]
     attr_accessor :data_storage_size_in_tbs
+
+    # The data disk group size to be allocated in GBs.
+    # @return [Float]
+    attr_accessor :data_storage_size_in_gbs
 
     # **[Required]** The public key portion of one or more key pairs used for SSH access to the VM cluster.
     # @return [Array<String>]
@@ -73,6 +81,10 @@ module OCI
     # @return [String]
     attr_accessor :gi_version
 
+    # The list of Db server.
+    # @return [Array<String>]
+    attr_accessor :db_servers
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -95,9 +107,11 @@ module OCI
         'display_name': :'displayName',
         'exadata_infrastructure_id': :'exadataInfrastructureId',
         'cpu_core_count': :'cpuCoreCount',
+        'ocpu_count': :'ocpuCount',
         'memory_size_in_gbs': :'memorySizeInGBs',
         'db_node_storage_size_in_gbs': :'dbNodeStorageSizeInGBs',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
+        'data_storage_size_in_gbs': :'dataStorageSizeInGBs',
         'ssh_public_keys': :'sshPublicKeys',
         'vm_cluster_network_id': :'vmClusterNetworkId',
         'license_model': :'licenseModel',
@@ -105,6 +119,7 @@ module OCI
         'is_local_backup_enabled': :'isLocalBackupEnabled',
         'time_zone': :'timeZone',
         'gi_version': :'giVersion',
+        'db_servers': :'dbServers',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -119,9 +134,11 @@ module OCI
         'display_name': :'String',
         'exadata_infrastructure_id': :'String',
         'cpu_core_count': :'Integer',
+        'ocpu_count': :'Float',
         'memory_size_in_gbs': :'Integer',
         'db_node_storage_size_in_gbs': :'Integer',
         'data_storage_size_in_tbs': :'Float',
+        'data_storage_size_in_gbs': :'Float',
         'ssh_public_keys': :'Array<String>',
         'vm_cluster_network_id': :'String',
         'license_model': :'String',
@@ -129,6 +146,7 @@ module OCI
         'is_local_backup_enabled': :'BOOLEAN',
         'time_zone': :'String',
         'gi_version': :'String',
+        'db_servers': :'Array<String>',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -145,9 +163,11 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :exadata_infrastructure_id The value to assign to the {#exadata_infrastructure_id} property
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
+    # @option attributes [Float] :ocpu_count The value to assign to the {#ocpu_count} property
     # @option attributes [Integer] :memory_size_in_gbs The value to assign to the {#memory_size_in_gbs} property
     # @option attributes [Integer] :db_node_storage_size_in_gbs The value to assign to the {#db_node_storage_size_in_gbs} property
     # @option attributes [Float] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
+    # @option attributes [Float] :data_storage_size_in_gbs The value to assign to the {#data_storage_size_in_gbs} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
     # @option attributes [String] :vm_cluster_network_id The value to assign to the {#vm_cluster_network_id} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
@@ -155,6 +175,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_local_backup_enabled The value to assign to the {#is_local_backup_enabled} property
     # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
     # @option attributes [String] :gi_version The value to assign to the {#gi_version} property
+    # @option attributes [Array<String>] :db_servers The value to assign to the {#db_servers} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -187,6 +208,12 @@ module OCI
 
       self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
 
+      self.ocpu_count = attributes[:'ocpuCount'] if attributes[:'ocpuCount']
+
+      raise 'You cannot provide both :ocpuCount and :ocpu_count' if attributes.key?(:'ocpuCount') && attributes.key?(:'ocpu_count')
+
+      self.ocpu_count = attributes[:'ocpu_count'] if attributes[:'ocpu_count']
+
       self.memory_size_in_gbs = attributes[:'memorySizeInGBs'] if attributes[:'memorySizeInGBs']
 
       raise 'You cannot provide both :memorySizeInGBs and :memory_size_in_gbs' if attributes.key?(:'memorySizeInGBs') && attributes.key?(:'memory_size_in_gbs')
@@ -204,6 +231,12 @@ module OCI
       raise 'You cannot provide both :dataStorageSizeInTBs and :data_storage_size_in_tbs' if attributes.key?(:'dataStorageSizeInTBs') && attributes.key?(:'data_storage_size_in_tbs')
 
       self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
+
+      self.data_storage_size_in_gbs = attributes[:'dataStorageSizeInGBs'] if attributes[:'dataStorageSizeInGBs']
+
+      raise 'You cannot provide both :dataStorageSizeInGBs and :data_storage_size_in_gbs' if attributes.key?(:'dataStorageSizeInGBs') && attributes.key?(:'data_storage_size_in_gbs')
+
+      self.data_storage_size_in_gbs = attributes[:'data_storage_size_in_gbs'] if attributes[:'data_storage_size_in_gbs']
 
       self.ssh_public_keys = attributes[:'sshPublicKeys'] if attributes[:'sshPublicKeys']
 
@@ -247,6 +280,12 @@ module OCI
 
       self.gi_version = attributes[:'gi_version'] if attributes[:'gi_version']
 
+      self.db_servers = attributes[:'dbServers'] if attributes[:'dbServers']
+
+      raise 'You cannot provide both :dbServers and :db_servers' if attributes.key?(:'dbServers') && attributes.key?(:'db_servers')
+
+      self.db_servers = attributes[:'db_servers'] if attributes[:'db_servers']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -283,9 +322,11 @@ module OCI
         display_name == other.display_name &&
         exadata_infrastructure_id == other.exadata_infrastructure_id &&
         cpu_core_count == other.cpu_core_count &&
+        ocpu_count == other.ocpu_count &&
         memory_size_in_gbs == other.memory_size_in_gbs &&
         db_node_storage_size_in_gbs == other.db_node_storage_size_in_gbs &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
+        data_storage_size_in_gbs == other.data_storage_size_in_gbs &&
         ssh_public_keys == other.ssh_public_keys &&
         vm_cluster_network_id == other.vm_cluster_network_id &&
         license_model == other.license_model &&
@@ -293,6 +334,7 @@ module OCI
         is_local_backup_enabled == other.is_local_backup_enabled &&
         time_zone == other.time_zone &&
         gi_version == other.gi_version &&
+        db_servers == other.db_servers &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -310,7 +352,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, exadata_infrastructure_id, cpu_core_count, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, ssh_public_keys, vm_cluster_network_id, license_model, is_sparse_diskgroup_enabled, is_local_backup_enabled, time_zone, gi_version, freeform_tags, defined_tags].hash
+      [compartment_id, display_name, exadata_infrastructure_id, cpu_core_count, ocpu_count, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, data_storage_size_in_gbs, ssh_public_keys, vm_cluster_network_id, license_model, is_sparse_diskgroup_enabled, is_local_backup_enabled, time_zone, gi_version, db_servers, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,13 +1,13 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An object you create when setting up an IPSec VPN between your on-premises network
+  # An object you create when setting up a Site-to-Site VPN between your on-premises network
   # and VCN. The `Cpe` is a virtual representation of your customer-premises equipment,
-  # which is the actual router on-premises at your site at your end of the IPSec VPN connection.
+  # which is the actual router on-premises at your site at your end of the Site-to-Site VPN IPSec connection.
   # For more information,
   # see [Overview of the Networking Service](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/overview.htm).
   #
@@ -16,7 +16,7 @@ module OCI
   # [Getting Started with Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
   #
   class Core::Models::Cpe
-    # **[Required]** The OCID of the compartment containing the CPE.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the CPE.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -53,7 +53,7 @@ module OCI
     # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the CPE's device type.
     # The Networking service maintains a general list of CPE device types (for example,
     # Cisco ASA). For each type, Oracle provides CPE configuration content that can help
-    # a network engineer configure the CPE. The OCID uniquely identifies the type of
+    # a network engineer configure the CPE. The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) uniquely identifies the type of
     # device. To get the OCIDs for the device types on the list, see
     # {#list_cpe_device_shapes list_cpe_device_shapes}.
     #

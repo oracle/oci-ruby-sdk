@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -11,6 +11,10 @@ module OCI
     DATABASE_TYPE_ENUM = [
       DATABASE_TYPE_EXTERNAL_SIDB = 'EXTERNAL_SIDB'.freeze,
       DATABASE_TYPE_EXTERNAL_RAC = 'EXTERNAL_RAC'.freeze,
+      DATABASE_TYPE_CLOUD_SIDB = 'CLOUD_SIDB'.freeze,
+      DATABASE_TYPE_CLOUD_RAC = 'CLOUD_RAC'.freeze,
+      DATABASE_TYPE_SHARED = 'SHARED'.freeze,
+      DATABASE_TYPE_DEDICATED = 'DEDICATED'.freeze,
       DATABASE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -18,16 +22,34 @@ module OCI
       DATABASE_SUB_TYPE_CDB = 'CDB'.freeze,
       DATABASE_SUB_TYPE_PDB = 'PDB'.freeze,
       DATABASE_SUB_TYPE_NON_CDB = 'NON_CDB'.freeze,
+      DATABASE_SUB_TYPE_ACD = 'ACD'.freeze,
+      DATABASE_SUB_TYPE_ADB = 'ADB'.freeze,
       DATABASE_SUB_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    DEPLOYMENT_TYPE_ENUM = [
+      DEPLOYMENT_TYPE_ONPREMISE = 'ONPREMISE'.freeze,
+      DEPLOYMENT_TYPE_BM = 'BM'.freeze,
+      DEPLOYMENT_TYPE_VM = 'VM'.freeze,
+      DEPLOYMENT_TYPE_EXADATA = 'EXADATA'.freeze,
+      DEPLOYMENT_TYPE_EXADATA_CC = 'EXADATA_CC'.freeze,
+      DEPLOYMENT_TYPE_AUTONOMOUS = 'AUTONOMOUS'.freeze,
+      DEPLOYMENT_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # The type of Oracle Database installation.
     # @return [String]
     attr_reader :database_type
 
-    # The subtype of the Oracle Database. Indicates whether the database is a Container Database, Pluggable Database, or a Non-container Database.
+    # The subtype of the Oracle Database. Indicates whether the database is a Container Database,
+    # Pluggable Database, Non-container Database, Autonomous Database, or Autonomous Container Database.
+    #
     # @return [String]
     attr_reader :database_sub_type
+
+    # The infrastructure used to deploy the Oracle Database.
+    # @return [String]
+    attr_reader :deployment_type
 
     # The number of databases in the fleet.
     # @return [Integer]
@@ -39,6 +61,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'database_type': :'databaseType',
         'database_sub_type': :'databaseSubType',
+        'deployment_type': :'deploymentType',
         'inventory_count': :'inventoryCount'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -50,6 +73,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'database_type': :'String',
         'database_sub_type': :'String',
+        'deployment_type': :'String',
         'inventory_count': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -63,6 +87,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :database_type The value to assign to the {#database_type} property
     # @option attributes [String] :database_sub_type The value to assign to the {#database_sub_type} property
+    # @option attributes [String] :deployment_type The value to assign to the {#deployment_type} property
     # @option attributes [Integer] :inventory_count The value to assign to the {#inventory_count} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -81,6 +106,12 @@ module OCI
       raise 'You cannot provide both :databaseSubType and :database_sub_type' if attributes.key?(:'databaseSubType') && attributes.key?(:'database_sub_type')
 
       self.database_sub_type = attributes[:'database_sub_type'] if attributes[:'database_sub_type']
+
+      self.deployment_type = attributes[:'deploymentType'] if attributes[:'deploymentType']
+
+      raise 'You cannot provide both :deploymentType and :deployment_type' if attributes.key?(:'deploymentType') && attributes.key?(:'deployment_type')
+
+      self.deployment_type = attributes[:'deployment_type'] if attributes[:'deployment_type']
 
       self.inventory_count = attributes[:'inventoryCount'] if attributes[:'inventoryCount']
 
@@ -117,6 +148,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] deployment_type Object to be assigned
+    def deployment_type=(deployment_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if deployment_type && !DEPLOYMENT_TYPE_ENUM.include?(deployment_type)
+        OCI.logger.debug("Unknown value for 'deployment_type' [" + deployment_type + "]. Mapping to 'DEPLOYMENT_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @deployment_type = DEPLOYMENT_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @deployment_type = deployment_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -128,6 +172,7 @@ module OCI
       self.class == other.class &&
         database_type == other.database_type &&
         database_sub_type == other.database_sub_type &&
+        deployment_type == other.deployment_type &&
         inventory_count == other.inventory_count
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -144,7 +189,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_type, database_sub_type, inventory_count].hash
+      [database_type, database_sub_type, deployment_type, inventory_count].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

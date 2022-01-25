@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -84,7 +84,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint(@region, :IdentityClient) + '/20160918'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://identity.{region}.oci.{secondLevelDomain}') + '/20160918'
       logger.info "IdentityClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -92,6 +92,91 @@ module OCI
     def logger
       @api_client.config.logger
     end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # If the domain's {@code lifecycleState} is INACTIVE,
+    # 1. Set the {@code lifecycleDetails} to ACTIVATING and asynchronously starts enabling
+    #    the domain and return 202 ACCEPTED.
+    #     1.1 Sets the domain status to ENABLED and set specified domain's
+    #         {@code lifecycleState} to ACTIVE and set the {@code lifecycleDetails} to null.
+    #
+    # To track progress, HTTP GET on /iamWorkRequests/{iamWorkRequestsId} endpoint will provide
+    # the async operation's status. Deactivate a domain can be done using HTTP POST
+    # /domains/{domainId}/actions/deactivate.
+    #
+    # - If the domain's {@code lifecycleState} is ACTIVE, returns 202 ACCEPTED with no action
+    #   taken on service side.
+    # - If domain is of {@code type} DEFAULT or DEFAULT_LIGHTWEIGHT or domain's {@code lifecycleState} is not INACTIVE,
+    #   returns 400 BAD REQUEST.
+    # - If the domain doesn't exists, returns 404 NOT FOUND.
+    # - If the authenticated user is part of the domain to be activated, returns 400 BAD REQUEST
+    # - If error occurs while activating domain, returns 500 INTERNAL SERVER ERROR.
+    #
+    # @param [String] domain_id The OCID of the domain
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/activate_domain.rb.html) to see an example of how to use activate_domain API.
+    def activate_domain(domain_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#activate_domain.' if logger
+
+      raise "Missing the required parameter 'domain_id' when calling activate_domain." if domain_id.nil?
+      raise "Parameter value for 'domain_id' must not be blank" if OCI::Internal::Util.blank_string?(domain_id)
+
+      path = '/domains/{domainId}/actions/activate'.sub('{domainId}', domain_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#activate_domain') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -682,6 +767,173 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Change the containing compartment for a domain.
+    #
+    # This is an asynchronous call where the Domain's compartment is changed and is updated with the new compartment information.
+    # To track progress, HTTP GET on /iamWorkRequests/{iamWorkRequestsId} endpoint will provide
+    # the async operation's status.
+    #
+    # The compartment change is complete when accessed via domain URL and
+    # also returns new compartment OCID.
+    # - If the domain doesn't exists, returns 404 NOT FOUND.
+    # - If Domain {@code type} is DEFAULT or DEFAULT_LIGHTWEIGHT, return 400 BAD Request
+    # - If Domain is not active or being updated, returns 400 BAD REQUEST.
+    # - If error occurs while changing compartment for domain, return 500 INTERNAL SERVER ERROR.
+    #
+    # @param [String] domain_id The OCID of the domain
+    # @param [OCI::Identity::Models::ChangeDomainCompartmentDetails] change_domain_compartment_details the request object for moving compartment of a domain
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/change_domain_compartment.rb.html) to see an example of how to use change_domain_compartment API.
+    def change_domain_compartment(domain_id, change_domain_compartment_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#change_domain_compartment.' if logger
+
+      raise "Missing the required parameter 'domain_id' when calling change_domain_compartment." if domain_id.nil?
+      raise "Missing the required parameter 'change_domain_compartment_details' when calling change_domain_compartment." if change_domain_compartment_details.nil?
+      raise "Parameter value for 'domain_id' must not be blank" if OCI::Internal::Util.blank_string?(domain_id)
+
+      path = '/domains/{domainId}/actions/changeCompartment'.sub('{domainId}', domain_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_domain_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#change_domain_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # If the domain's {@code lifecycleState} is ACTIVE, validates the requested {@code licenseType} update
+    # is allowed and
+    # 1. Set the {@code lifecycleDetails} to UPDATING
+    # 2. Asynchronously starts updating the domain and return 202 ACCEPTED.
+    #     2.1 Successfully updates specified domain's {@code licenseType}.
+    # 3. On completion set the {@code lifecycleDetails} to null.
+    # To track progress, HTTP GET on /iamWorkRequests/{iamWorkRequestsId} endpoint will provide
+    # the async operation's status.
+    #
+    # - If license type update is successful, return 202 ACCEPTED
+    # - If requested {@code licenseType} validation fails, returns 400 Bad request.
+    # - If Domain is not active or being updated, returns 400 BAD REQUEST.
+    # - If Domain {@code type} is DEFAULT or DEFAULT_LIGHTWEIGHT, return 400 BAD Request
+    # - If the domain doesn't exists, returns 404 NOT FOUND
+    # - If any internal error occurs, returns 500 INTERNAL SERVER ERROR.
+    #
+    # @param [String] domain_id The OCID of the domain
+    # @param [OCI::Identity::Models::ChangeDomainLicenseTypeDetails] change_domain_license_type_details the request object for domain license type update
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/change_domain_license_type.rb.html) to see an example of how to use change_domain_license_type API.
+    def change_domain_license_type(domain_id, change_domain_license_type_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#change_domain_license_type.' if logger
+
+      raise "Missing the required parameter 'domain_id' when calling change_domain_license_type." if domain_id.nil?
+      raise "Missing the required parameter 'change_domain_license_type_details' when calling change_domain_license_type." if change_domain_license_type_details.nil?
+      raise "Parameter value for 'domain_id' must not be blank" if OCI::Internal::Util.blank_string?(domain_id)
+
+      path = '/domains/{domainId}/actions/changeLicenseType'.sub('{domainId}', domain_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_domain_license_type_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#change_domain_license_type') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves the specified tag namespace to the specified compartment within the same tenancy.
     #
     # To move the tag namespace, you must have the manage tag-namespaces permission on both compartments.
@@ -973,6 +1225,151 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a new DB credential for the specified user.
+    #
+    # @param [OCI::Identity::Models::CreateDbCredentialDetails] create_db_credential_details Request object for creating a new DB credential with the user.
+    # @param [String] user_id The OCID of the user.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::DbCredential DbCredential}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_db_credential.rb.html) to see an example of how to use create_db_credential API.
+    def create_db_credential(create_db_credential_details, user_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#create_db_credential.' if logger
+
+      raise "Missing the required parameter 'create_db_credential_details' when calling create_db_credential." if create_db_credential_details.nil?
+      raise "Missing the required parameter 'user_id' when calling create_db_credential." if user_id.nil?
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+
+      path = '/users/{userId}/dbCredentials/'.sub('{userId}', user_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_db_credential_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#create_db_credential') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::DbCredential'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new domain in the tenancy with domain home in {@code homeRegion}. This is an asynchronous call - where, at start,
+    # {@code lifecycleState} of this domain is set to CREATING and {@code lifecycleDetails} to UPDATING. On domain creation completion
+    # this Domain's {@code lifecycleState} will be set to ACTIVE and {@code lifecycleDetails} to null.
+    #
+    # To track progress, HTTP GET on /iamWorkRequests/{iamWorkRequestsId} endpoint will provide
+    # the async operation's status.
+    #
+    # After creating a `Domain`, make sure its `lifecycleState` changes from CREATING to ACTIVE
+    # before using it.
+    # If the domain's {@code displayName} already exists, returns 400 BAD REQUEST.
+    # If any one of admin related fields are provided and one of the following 3 fields
+    # - {@code adminEmail}, {@code adminLastName} and {@code adminUserName} - is not provided,
+    # returns 400 BAD REQUEST.
+    # - If {@code isNotificationBypassed} is NOT provided when admin information is provided,
+    # returns 400 BAD REQUEST.
+    # - If any internal error occurs, return 500 INTERNAL SERVER ERROR.
+    #
+    # @param [OCI::Identity::Models::CreateDomainDetails] create_domain_details The request object for creating a new domain
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_domain.rb.html) to see an example of how to use create_domain API.
+    def create_domain(create_domain_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#create_domain.' if logger
+
+      raise "Missing the required parameter 'create_domain_details' when calling create_domain." if create_domain_details.nil?
+
+      path = '/domains/'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_domain_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#create_domain') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new dynamic group in your tenancy.
     #
     # You must specify your tenancy's OCID as the compartment ID in the request object (remember that the tenancy
@@ -1130,6 +1527,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # **Deprecated.** For more information, see [Deprecated IAM Service APIs](https://docs.cloud.oracle.com/Content/Identity/Reference/deprecatediamapis.htm).
+    #
     # Creates a new identity provider in your tenancy. For more information, see
     # [Identity Providers and Federation](https://docs.cloud.oracle.com/Content/Identity/Concepts/federation.htm).
     #
@@ -1207,6 +1606,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # **Deprecated.** For more information, see [Deprecated IAM Service APIs](https://docs.cloud.oracle.com/Content/Identity/Reference/deprecatediamapis.htm).
+    #
     # Creates a single mapping between an IdP group and an IAM Service
     # {Group}.
     #
@@ -2148,6 +2549,92 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # If the domain's {@code lifecycleState} is ACTIVE and no active Apps are present in domain,
+    # 1. Set the {@code lifecycleDetails} to DEACTIVATING and asynchronously starts disabling
+    #    the domain and return 202 ACCEPTED.
+    #     1.1 Sets the domain status to DISABLED and set specified domain's
+    #         {@code lifecycleState} to INACTIVE and set the {@code lifecycleDetails} to null.
+    #
+    # To track progress, HTTP GET on /iamWorkRequests/{iamWorkRequestsId} endpoint will provide
+    # the async operation's status. Activate a domain can be done using HTTP POST
+    # /domains/{domainId}/actions/activate.
+    #
+    # - If the domain's {@code lifecycleState} is INACTIVE, returns 202 ACCEPTED with no action
+    #   taken on service side.
+    # - If domain is of {@code type} DEFAULT or DEFAULT_LIGHTWEIGHT or domain's {@code lifecycleState}
+    #   is not ACTIVE, returns 400 BAD REQUEST.
+    # - If the domain doesn't exists, returns 404 NOT FOUND.
+    # - If any active Apps in domain, returns 400 BAD REQUEST.
+    # - If the authenticated user is part of the domain to be activated, returns 400 BAD REQUEST
+    # - If error occurs while deactivating domain, returns 500 INTERNAL SERVER ERROR.
+    #
+    # @param [String] domain_id The OCID of the domain
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/deactivate_domain.rb.html) to see an example of how to use deactivate_domain API.
+    def deactivate_domain(domain_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#deactivate_domain.' if logger
+
+      raise "Missing the required parameter 'domain_id' when calling deactivate_domain." if domain_id.nil?
+      raise "Parameter value for 'domain_id' must not be blank" if OCI::Internal::Util.blank_string?(domain_id)
+
+      path = '/domains/{domainId}/actions/deactivate'.sub('{domainId}', domain_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#deactivate_domain') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes the specified API signing key for the specified user.
     #
     # Every user has permission to use this operation to delete a key for *their own user ID*. An
@@ -2390,6 +2877,147 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes the specified DB credential for the specified user.
+    #
+    # @param [String] user_id The OCID of the user.
+    # @param [String] db_credential_id The OCID of the DB credential.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_db_credential.rb.html) to see an example of how to use delete_db_credential API.
+    def delete_db_credential(user_id, db_credential_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#delete_db_credential.' if logger
+
+      raise "Missing the required parameter 'user_id' when calling delete_db_credential." if user_id.nil?
+      raise "Missing the required parameter 'db_credential_id' when calling delete_db_credential." if db_credential_id.nil?
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+      raise "Parameter value for 'db_credential_id' must not be blank" if OCI::Internal::Util.blank_string?(db_credential_id)
+
+      path = '/users/{userId}/dbCredentials/{dbCredentialId}'.sub('{userId}', user_id.to_s).sub('{dbCredentialId}', db_credential_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#delete_db_credential') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Soft Deletes a domain.
+    #
+    # This is an asynchronous API, where, if the domain's {@code lifecycleState} is INACTIVE and
+    # no active Apps are present in underlying stripe,
+    #   1. Sets the specified domain's {@code lifecycleState} to DELETING.
+    #   2. Domains marked as DELETING will be cleaned up by a periodic task unless customer request it to be undo via ticket.
+    #   3. Work request is created and returned as opc-work-request-id along with 202 ACCEPTED.
+    # To track progress, HTTP GET on /iamWorkRequests/{iamWorkRequestsId} endpoint will provide
+    # the async operation's status.
+    #
+    # - If the domain's {@code lifecycleState} is DELETING, returns 202 Accepted as a deletion
+    #   is already in progress for this domain.
+    # - If the domain doesn't exists, returns 404 NOT FOUND.
+    # - If domain is of {@code type} DEFAULT or DEFAULT_LIGHTWEIGHT, returns 400 BAD REQUEST.
+    # - If any active Apps in domain, returns 400 BAD REQUEST.
+    # - If the authenticated user is part of the domain to be deleted, returns 400 BAD REQUEST.
+    # - If any internal error occurs, return 500 INTERNAL SERVER ERROR.
+    #
+    # @param [String] domain_id The OCID of the domain
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_domain.rb.html) to see an example of how to use delete_domain API.
+    def delete_domain(domain_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#delete_domain.' if logger
+
+      raise "Missing the required parameter 'domain_id' when calling delete_domain." if domain_id.nil?
+      raise "Parameter value for 'domain_id' must not be blank" if OCI::Internal::Util.blank_string?(domain_id)
+
+      path = '/domains/{domainId}'.sub('{domainId}', domain_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#delete_domain') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes the specified dynamic group.
     #
     # @param [String] dynamic_group_id The OCID of the dynamic group.
@@ -2504,6 +3132,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # **Deprecated.** For more information, see [Deprecated IAM Service APIs](https://docs.cloud.oracle.com/Content/Identity/Reference/deprecatediamapis.htm).
+    #
     # Deletes the specified identity provider. The identity provider must not have
     # any group mappings (see {IdpGroupMapping}).
     #
@@ -2562,7 +3192,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # **Deprecated.** For more information, see [Deprecated IAM Service APIs](https://docs.cloud.oracle.com/Content/Identity/Reference/deprecatediamapis.htm).
+    #
     # Deletes the specified group mapping.
+    #
     # @param [String] identity_provider_id The OCID of the identity provider.
     # @param [String] mapping_id The OCID of the group mapping.
     # @param [Hash] opts the optional parameters
@@ -3243,6 +3876,89 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Replicate domain to a new region. This is an asynchronous call - where, at start,
+    # {@code state} of this domain in replica region is set to ENABLING_REPLICATION.
+    # On domain replication completion the {@code state} will be set to REPLICATION_ENABLED.
+    #
+    # To track progress, HTTP GET on /iamWorkRequests/{iamWorkRequestsId} endpoint will provide
+    # the async operation's status.
+    #
+    # If the replica region's {@code state} is already ENABLING_REPLICATION or REPLICATION_ENABLED,
+    # returns 409 CONFLICT.
+    # - If the domain doesn't exists, returns 404 NOT FOUND.
+    # - If home region is same as replication region, return 400 BAD REQUEST.
+    # - If Domain is not active or being updated, returns 400 BAD REQUEST.
+    # - If any internal error occurs, return 500 INTERNAL SERVER ERROR.
+    #
+    # @param [String] domain_id The OCID of the domain
+    # @param [OCI::Identity::Models::EnableReplicationToRegionDetails] enable_replication_to_region_details the request object for region we are replicating domain region
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/enable_replication_to_region.rb.html) to see an example of how to use enable_replication_to_region API.
+    def enable_replication_to_region(domain_id, enable_replication_to_region_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#enable_replication_to_region.' if logger
+
+      raise "Missing the required parameter 'domain_id' when calling enable_replication_to_region." if domain_id.nil?
+      raise "Missing the required parameter 'enable_replication_to_region_details' when calling enable_replication_to_region." if enable_replication_to_region_details.nil?
+      raise "Parameter value for 'domain_id' must not be blank" if OCI::Internal::Util.blank_string?(domain_id)
+
+      path = '/domains/{domainId}/actions/enableReplicationToRegion'.sub('{domainId}', domain_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(enable_replication_to_region_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#enable_replication_to_region') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Generate seed for the MFA TOTP device.
     #
     # @param [String] user_id The OCID of the user.
@@ -3420,6 +4136,66 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Get the specified domain's information.
+    #
+    # - If the domain doesn't exists, returns 404 NOT FOUND.
+    # - If any internal error occurs, returns 500 INTERNAL SERVER ERROR.
+    #
+    # @param [String] domain_id The OCID of the domain
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::Domain Domain}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_domain.rb.html) to see an example of how to use get_domain API.
+    def get_domain(domain_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#get_domain.' if logger
+
+      raise "Missing the required parameter 'domain_id' when calling get_domain." if domain_id.nil?
+      raise "Parameter value for 'domain_id' must not be blank" if OCI::Internal::Util.blank_string?(domain_id)
+
+      path = '/domains/{domainId}'.sub('{domainId}', domain_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#get_domain') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::Domain'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:disable Lint/UnusedMethodArgument
 
 
@@ -3534,10 +4310,74 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets details on a specified IAM work request. For asynchronous operations in Identity and Access Management service, opc-work-request-id header values contains
+    # iam work request id that can be provided in this API to track the current status of the operation.
+    #
+    # - If workrequest exists, returns 202 ACCEPTED
+    # - If workrequest does not exist, returns 404 NOT FOUND
+    #
+    # @param [String] iam_work_request_id The OCID of the IAM work request.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::IamWorkRequest IamWorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_iam_work_request.rb.html) to see an example of how to use get_iam_work_request API.
+    def get_iam_work_request(iam_work_request_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#get_iam_work_request.' if logger
+
+      raise "Missing the required parameter 'iam_work_request_id' when calling get_iam_work_request." if iam_work_request_id.nil?
+      raise "Parameter value for 'iam_work_request_id' must not be blank" if OCI::Internal::Util.blank_string?(iam_work_request_id)
+
+      path = '/iamWorkRequests/{iamWorkRequestId}'.sub('{iamWorkRequestId}', iam_work_request_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#get_iam_work_request') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::IamWorkRequest'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:disable Lint/UnusedMethodArgument
 
 
+    # **Deprecated.** For more information, see [Deprecated IAM Service APIs](https://docs.cloud.oracle.com/Content/Identity/Reference/deprecatediamapis.htm).
+    #
     # Gets the specified identity provider's information.
+    #
     # @param [String] identity_provider_id The OCID of the identity provider.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -3591,7 +4431,10 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
+    # **Deprecated.** For more information, see [Deprecated IAM Service APIs](https://docs.cloud.oracle.com/Content/Identity/Reference/deprecatediamapis.htm).
+    #
     # Gets the specified group mapping.
+    #
     # @param [String] identity_provider_id The OCID of the identity provider.
     # @param [String] mapping_id The OCID of the group mapping.
     # @param [Hash] opts the optional parameters
@@ -3815,6 +4658,66 @@ module OCI
     # rubocop:disable Lint/UnusedMethodArgument
 
 
+    # Retrieve the standard tag namespace template given the standard tag namespace name.
+    #
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    #
+    # @param [String] standard_tag_namespace_name The name of the standard tag namespace tempate that is requested
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::StandardTagNamespaceTemplate StandardTagNamespaceTemplate}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/get_standard_tag_template.rb.html) to see an example of how to use get_standard_tag_template API.
+    def get_standard_tag_template(compartment_id, standard_tag_namespace_name, opts = {})
+      logger.debug 'Calling operation IdentityClient#get_standard_tag_template.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling get_standard_tag_template." if compartment_id.nil?
+      raise "Missing the required parameter 'standard_tag_namespace_name' when calling get_standard_tag_template." if standard_tag_namespace_name.nil?
+      raise "Parameter value for 'standard_tag_namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(standard_tag_namespace_name)
+
+      path = '/tags/standardTagNamespaceTemplates/{standardTagNamespaceName}'.sub('{standardTagNamespaceName}', standard_tag_namespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#get_standard_tag_template') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::StandardTagNamespaceTemplate'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+    # rubocop:disable Lint/UnusedMethodArgument
+
+
     # Gets the specified tag's information.
     # @param [String] tag_namespace_id The OCID of the tag namespace.
     #
@@ -3986,7 +4889,7 @@ module OCI
 
 
     # Gets details on a specified work request. The workRequestID is returned in the opc-workrequest-id header
-    # for any asynchronous operation in the Identity and Access Management service.
+    # for any asynchronous operation in tagging service.
     #
     # @param [String] work_request_id The OCID of the work request.
     # @param [Hash] opts the optional parameters
@@ -4260,7 +5163,7 @@ module OCI
 
 
     # Gets details on a specified work request. The workRequestID is returned in the opc-workrequest-id header
-    # for any asynchronous operation in the Identity and Access Management service.
+    # for any asynchronous operation in the compartment service.
     #
     # @param [String] work_request_id The OCID of the work request.
     # @param [Hash] opts the optional parameters
@@ -4308,6 +5211,131 @@ module OCI
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:enable Lint/UnusedMethodArgument
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # OCI will release Tag Namespaces that our customers can import.
+    # These Tag Namespaces will provide Tags for our customers and Partners to provide consistency and enable data reporting.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [OCI::Identity::Models::ImportStandardTagsDetails] :import_standard_tags_details The request object for creating or updating standard tag namespace.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/import_standard_tags.rb.html) to see an example of how to use import_standard_tags API.
+    def import_standard_tags(opts = {})
+      logger.debug 'Calling operation IdentityClient#import_standard_tags.' if logger
+
+
+      path = '/tags/actions/importStandardTags'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(opts[:import_standard_tags_details])
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#import_standard_tags') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List the allowed domain license types supported by OCI
+    # If {@code currentLicenseTypeName} provided, returns allowed license types a domain with the specified license type name can migrate to.
+    # If {@code name} is provided, it filters and returns resources that match the given license type name.
+    # Otherwise, returns all valid license types that are currently supported.
+    #
+    # - If license type details are retrieved sucessfully, return 202 ACCEPTED.
+    # - If any internal error occurs, return 500 INTERNAL SERVER ERROR.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :current_license_type_name The domain license type
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::AllowedDomainLicenseTypeSummary AllowedDomainLicenseTypeSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_allowed_domain_license_types.rb.html) to see an example of how to use list_allowed_domain_license_types API.
+    def list_allowed_domain_license_types(opts = {})
+      logger.debug 'Calling operation IdentityClient#list_allowed_domain_license_types.' if logger
+
+
+      path = '/allowedDomainLicenseTypes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:currentLicenseTypeName] = opts[:current_license_type_name] if opts[:current_license_type_name]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_allowed_domain_license_types') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::AllowedDomainLicenseTypeSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -4505,7 +5533,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::BulkActionResourceTypeCollection BulkActionResourceTypeCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_bulk_action_resource_types.rb.html) to see an example of how to use list_bulk_action_resource_types API.
     def list_bulk_action_resource_types(bulk_action_type, opts = {})
@@ -4566,7 +5594,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @return [Response] A Response object with data of type {OCI::Identity::Models::BulkEditTagsResourceTypeCollection BulkEditTagsResourceTypeCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_bulk_edit_tags_resource_types.rb.html) to see an example of how to use list_bulk_edit_tags_resource_types API.
     def list_bulk_edit_tags_resource_types(opts = {})
@@ -4641,7 +5669,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @option opts [String] :access_level Valid values are `ANY` and `ACCESSIBLE`. Default is `ANY`.
     #   Setting this to `ACCESSIBLE` returns only those compartments for which the
     #   user has INSPECT permissions directly or indirectly (permissions can be on a
@@ -4757,7 +5785,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::Tag Tag}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_cost_tracking_tags.rb.html) to see an example of how to use list_cost_tracking_tags API.
     def list_cost_tracking_tags(compartment_id, opts = {})
@@ -4863,6 +5891,214 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the DB credentials for the specified user. The returned object contains the credential's OCID
+    #
+    # @param [String] user_id The OCID of the user.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @option opts [String] :name A filter to only return resources that match the given name exactly.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for NAME is ascending. The NAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by Availability Domain if the scope of the resource type is within a
+    #   single Availability Domain. If you call one of these \"List\" operations without specifying
+    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, NAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The NAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::DbCredentialSummary DbCredentialSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_db_credentials.rb.html) to see an example of how to use list_db_credentials API.
+    def list_db_credentials(user_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_db_credentials.' if logger
+
+      raise "Missing the required parameter 'user_id' when calling list_db_credentials." if user_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, NAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Identity::Models::DbCredential::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Identity::Models::DbCredential::LIFECYCLE_STATE_ENUM.'
+      end
+      raise "Parameter value for 'user_id' must not be blank" if OCI::Internal::Util.blank_string?(user_id)
+
+      path = '/users/{userId}/dbCredentials/'.sub('{userId}', user_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_db_credentials') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::DbCredentialSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List all domains that are homed or have a replica region in current region.
+    # - If any internal error occurs, return 500 INTERNAL SERVER ERROR.
+    #
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :display_name The mutable display name of the domain
+    # @option opts [String] :url The region agnostic domain URL
+    # @option opts [String] :home_region_url The region specific domain URL
+    # @option opts [String] :type The domain type
+    # @option opts [String] :license_type The domain license type
+    # @option opts [BOOLEAN] :is_hidden_on_login Indicate if the domain is visible at login screen or not
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @option opts [String] :name A filter to only return resources that match the given name exactly.
+    #
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
+    #   TIMECREATED is descending. Default order for NAME is ascending. The NAME
+    #   sort order is case sensitive.
+    #
+    #   **Note:** In general, some \"List\" operations (for example, `ListInstances`) let you
+    #   optionally filter by Availability Domain if the scope of the resource type is within a
+    #   single Availability Domain. If you call one of these \"List\" operations without specifying
+    #   an Availability Domain, the resources are grouped by Availability Domain, then sorted.
+    #
+    #   Allowed values are: TIMECREATED, NAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The NAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::DomainSummary DomainSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_domains.rb.html) to see an example of how to use list_domains API.
+    def list_domains(compartment_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_domains.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_domains." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, NAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Identity::Models::Domain::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Identity::Models::Domain::LIFECYCLE_STATE_ENUM.'
+      end
+
+      path = '/domains/'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:url] = opts[:url] if opts[:url]
+      query_params[:homeRegionUrl] = opts[:home_region_url] if opts[:home_region_url]
+      query_params[:type] = opts[:type] if opts[:type]
+      query_params[:licenseType] = opts[:license_type] if opts[:license_type]
+      query_params[:isHiddenOnLogin] = opts[:is_hidden_on_login] if !opts[:is_hidden_on_login].nil?
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_domains') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::DomainSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the dynamic groups in your tenancy. You must specify your tenancy's OCID as the value for
     # the compartment ID (remember that the tenancy is simply the root compartment).
     # See [Where to Get the Tenancy's OCID and User's OCID](https://docs.cloud.oracle.com/Content/API/Concepts/apisigningkey.htm#five).
@@ -4875,7 +6111,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @option opts [String] :name A filter to only return resources that match the given name exactly.
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
@@ -5033,7 +6269,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @option opts [String] :name A filter to only return resources that match the given name exactly.
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
@@ -5117,7 +6353,231 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets error details for a specified IAM work request. For asynchronous operations in Identity and Access Management service, opc-work-request-id header values contains
+    # iam work request id that can be provided in this API to track the current status of the operation.
+    #
+    # - If workrequest exists, returns 202 ACCEPTED
+    # - If workrequest does not exist, returns 404 NOT FOUND
+    #
+    # @param [String] iam_work_request_id The OCID of the IAM work request.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The NAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::IamWorkRequestErrorSummary IamWorkRequestErrorSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_iam_work_request_errors.rb.html) to see an example of how to use list_iam_work_request_errors API.
+    def list_iam_work_request_errors(iam_work_request_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_iam_work_request_errors.' if logger
+
+      raise "Missing the required parameter 'iam_work_request_id' when calling list_iam_work_request_errors." if iam_work_request_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'iam_work_request_id' must not be blank" if OCI::Internal::Util.blank_string?(iam_work_request_id)
+
+      path = '/iamWorkRequests/{iamWorkRequestId}/errors'.sub('{iamWorkRequestId}', iam_work_request_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_iam_work_request_errors') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::IamWorkRequestErrorSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets logs for a specified IAM work request. For asynchronous operations in Identity and Access Management service, opc-work-request-id header values contains
+    # iam work request id that can be provided in this API to track the current status of the operation.
+    #
+    # - If workrequest exists, returns 202 ACCEPTED
+    # - If workrequest does not exist, returns 404 NOT FOUND
+    #
+    # @param [String] iam_work_request_id The OCID of the IAM work request.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The NAME sort order
+    #   is case sensitive.
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::IamWorkRequestLogSummary IamWorkRequestLogSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_iam_work_request_logs.rb.html) to see an example of how to use list_iam_work_request_logs API.
+    def list_iam_work_request_logs(iam_work_request_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_iam_work_request_logs.' if logger
+
+      raise "Missing the required parameter 'iam_work_request_id' when calling list_iam_work_request_logs." if iam_work_request_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+      raise "Parameter value for 'iam_work_request_id' must not be blank" if OCI::Internal::Util.blank_string?(iam_work_request_id)
+
+      path = '/iamWorkRequests/{iamWorkRequestId}/logs'.sub('{iamWorkRequestId}', iam_work_request_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_iam_work_request_logs') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::IamWorkRequestLogSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List the IAM work requests in compartment
+    #
+    # - If IAM workrequest  details are retrieved sucessfully, return 202 ACCEPTED.
+    # - If any internal error occurs, return 500 INTERNAL SERVER ERROR.
+    #
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @option opts [String] :resource_identifier The identifier of the resource the work request affects.
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::IamWorkRequestSummary IamWorkRequestSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_iam_work_requests.rb.html) to see an example of how to use list_iam_work_requests API.
+    def list_iam_work_requests(compartment_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_iam_work_requests.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_iam_work_requests." if compartment_id.nil?
+
+      path = '/iamWorkRequests'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:resourceIdentifier] = opts[:resource_identifier] if opts[:resource_identifier]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_iam_work_requests') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::IamWorkRequestSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # **Deprecated.** For more information, see [Deprecated IAM Service APIs](https://docs.cloud.oracle.com/Content/Identity/Reference/deprecatediamapis.htm).
+    #
     # Lists the identity provider groups.
+    #
     # @param [String] identity_provider_id The OCID of the identity provider.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -5125,7 +6585,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @option opts [String] :name A filter to only return resources that match the given name exactly.
     #
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
@@ -5185,6 +6645,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # **Deprecated.** For more information, see [Deprecated IAM Service APIs](https://docs.cloud.oracle.com/Content/Identity/Reference/deprecatediamapis.htm).
+    #
     # Lists all the identity providers in your tenancy. You must specify the identity provider type (e.g., `SAML2` for
     # identity providers using the SAML2.0 protocol). You must specify your tenancy's OCID as the value for the
     # compartment ID (remember that the tenancy is simply the root compartment).
@@ -5200,7 +6662,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @option opts [String] :name A filter to only return resources that match the given name exactly.
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
@@ -5289,6 +6751,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # **Deprecated.** For more information, see [Deprecated IAM Service APIs](https://docs.cloud.oracle.com/Content/Identity/Reference/deprecatediamapis.htm).
+    #
     # Lists the group mappings for the specified identity provider.
     #
     # @param [String] identity_provider_id The OCID of the identity provider.
@@ -5298,7 +6762,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::IdpGroupMapping IdpGroupMapping}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_idp_group_mappings.rb.html) to see an example of how to use list_idp_group_mappings API.
     def list_idp_group_mappings(identity_provider_id, opts = {})
@@ -5358,7 +6822,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
     #   TIMECREATED is descending. Default order for NAME is ascending. The NAME
     #   sort order is case sensitive.
@@ -5444,7 +6908,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @option opts [String] :name A filter to only return resources that match the given name exactly.
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
@@ -5537,7 +7001,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::OAuth2ClientCredentialSummary OAuth2ClientCredentialSummary}>
@@ -5608,7 +7072,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @option opts [String] :name A filter to only return resources that match the given name exactly.
     #
     # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`). Default order for
@@ -5851,6 +7315,66 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists available standard tag namespaces that users can create.
+    #
+    # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::StandardTagNamespaceTemplateSummary StandardTagNamespaceTemplateSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_standard_tag_namespaces.rb.html) to see an example of how to use list_standard_tag_namespaces API.
+    def list_standard_tag_namespaces(compartment_id, opts = {})
+      logger.debug 'Calling operation IdentityClient#list_standard_tag_namespaces.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_standard_tag_namespaces." if compartment_id.nil?
+
+      path = '/tags/standardTagNamespaceTemplates'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#list_standard_tag_namespaces') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Identity::Models::StandardTagNamespaceTemplateSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:disable Lint/UnusedMethodArgument
 
 
@@ -5919,7 +7443,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @option opts [String] :id A filter to only return resources that match the specified OCID exactly.
     #
     # @option opts [String] :compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
@@ -5993,7 +7517,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @option opts [BOOLEAN] :include_subcompartments An optional boolean parameter indicating whether to retrieve all tag namespaces in subcompartments. If this
     #   parameter is not specified, only the tag namespaces defined in the specified compartment are retrieved.
     #
@@ -6063,7 +7587,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TaggingWorkRequestErrorSummary TaggingWorkRequestErrorSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_tagging_work_request_errors.rb.html) to see an example of how to use list_tagging_work_request_errors API.
     def list_tagging_work_request_errors(work_request_id, opts = {})
@@ -6122,7 +7646,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TaggingWorkRequestLogSummary TaggingWorkRequestLogSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_tagging_work_request_logs.rb.html) to see an example of how to use list_tagging_work_request_logs API.
     def list_tagging_work_request_logs(work_request_id, opts = {})
@@ -6182,7 +7706,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @option opts [String] :resource_identifier The identifier of the resource the work request affects.
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TaggingWorkRequestSummary TaggingWorkRequestSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_tagging_work_requests.rb.html) to see an example of how to use list_tagging_work_requests API.
@@ -6244,7 +7768,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::TagSummary TagSummary}>
@@ -6322,7 +7846,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::UserGroupMembership UserGroupMembership}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_user_group_memberships.rb.html) to see an example of how to use list_user_group_memberships API.
     def list_user_group_memberships(compartment_id, opts = {})
@@ -6386,7 +7910,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @option opts [String] :identity_provider_id The id of the identity provider.
     #
     # @option opts [String] :external_identifier The id of a user in the identity provider.
@@ -6486,7 +8010,7 @@ module OCI
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
-    #    (default to 20)
+    #
     # @option opts [String] :resource_identifier The identifier of the resource the work request affects.
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::WorkRequestSummary WorkRequestSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
@@ -7034,6 +8558,80 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Updates domain information and associated stripe. This is an asynchronous call where
+    # the associated stripe and domain are updated.
+    #
+    # To track progress, HTTP GET on /iamWorkRequests/{iamWorkRequestsId} endpoint will provide
+    # the async operation's status.
+    #
+    # - If the {@code displayName} is not unique within the tenancy, returns 400 BAD REQUEST.
+    # - If any field other than {@code description} is requested to be updated for DEFAULT domain,
+    # returns 400 BAD REQUEST.
+    # - If Domain is not active or being updated, returns 400 BAD REQUEST.
+    # - If Domain {@code type} is DEFAULT or DEFAULT_LIGHTWEIGHT, return 400 BAD Request
+    # - If the domain doesn't exists, returns 404 NOT FOUND.
+    #
+    # @param [String] domain_id The OCID of the domain
+    # @param [OCI::Identity::Models::UpdateDomainDetails] update_domain_details Request object for updating the Domain.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_domain.rb.html) to see an example of how to use update_domain API.
+    def update_domain(domain_id, update_domain_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#update_domain.' if logger
+
+      raise "Missing the required parameter 'domain_id' when calling update_domain." if domain_id.nil?
+      raise "Missing the required parameter 'update_domain_details' when calling update_domain." if update_domain_details.nil?
+      raise "Parameter value for 'domain_id' must not be blank" if OCI::Internal::Util.blank_string?(domain_id)
+
+      path = '/domains/{domainId}'.sub('{domainId}', domain_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_domain_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#update_domain') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates the specified dynamic group.
     # @param [String] dynamic_group_id The OCID of the dynamic group.
     # @param [OCI::Identity::Models::UpdateDynamicGroupDetails] update_dynamic_group_details Request object for updating an dynamic group.
@@ -7152,7 +8750,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # **Deprecated.** For more information, see [Deprecated IAM Service APIs](https://docs.cloud.oracle.com/Content/Identity/Reference/deprecatediamapis.htm).
+    #
     # Updates the specified identity provider.
+    #
     # @param [String] identity_provider_id The OCID of the identity provider.
     # @param [OCI::Identity::Models::UpdateIdentityProviderDetails] update_identity_provider_details Request object for updating a identity provider.
     # @param [Hash] opts the optional parameters
@@ -7211,7 +8812,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # **Deprecated.** For more information, see [Deprecated IAM Service APIs](https://docs.cloud.oracle.com/Content/Identity/Reference/deprecatediamapis.htm).
+    #
     # Updates the specified group mapping.
+    #
     # @param [String] identity_provider_id The OCID of the identity provider.
     # @param [String] mapping_id The OCID of the group mapping.
     # @param [OCI::Identity::Models::UpdateIdpGroupMappingDetails] update_idp_group_mapping_details Request object for updating an identity provider group mapping

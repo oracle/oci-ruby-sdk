@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -15,6 +15,9 @@ module OCI
       EXECUTION_PLAN_STRATEGY_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    # @return [OCI::ResourceManager::Models::TerraformAdvancedOptions]
+    attr_accessor :terraform_advanced_options
+
     # **[Required]** Specifies the source of the execution plan to apply.
     # Currently, only `AUTO_APPROVED` is allowed, which indicates that the job
     # will be run without an execution plan.
@@ -27,6 +30,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'operation': :'operation',
+        'terraform_advanced_options': :'terraformAdvancedOptions',
         'execution_plan_strategy': :'executionPlanStrategy'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -37,6 +41,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'operation': :'String',
+        'terraform_advanced_options': :'OCI::ResourceManager::Models::TerraformAdvancedOptions',
         'execution_plan_strategy': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -48,6 +53,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [OCI::ResourceManager::Models::TerraformAdvancedOptions] :terraform_advanced_options The value to assign to the {#terraform_advanced_options} property
     # @option attributes [String] :execution_plan_strategy The value to assign to the {#execution_plan_strategy} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -58,6 +64,12 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.terraform_advanced_options = attributes[:'terraformAdvancedOptions'] if attributes[:'terraformAdvancedOptions']
+
+      raise 'You cannot provide both :terraformAdvancedOptions and :terraform_advanced_options' if attributes.key?(:'terraformAdvancedOptions') && attributes.key?(:'terraform_advanced_options')
+
+      self.terraform_advanced_options = attributes[:'terraform_advanced_options'] if attributes[:'terraform_advanced_options']
 
       self.execution_plan_strategy = attributes[:'executionPlanStrategy'] if attributes[:'executionPlanStrategy']
 
@@ -91,6 +103,7 @@ module OCI
 
       self.class == other.class &&
         operation == other.operation &&
+        terraform_advanced_options == other.terraform_advanced_options &&
         execution_plan_strategy == other.execution_plan_strategy
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -107,7 +120,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [operation, execution_plan_strategy].hash
+      [operation, terraform_advanced_options, execution_plan_strategy].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

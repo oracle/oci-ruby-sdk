@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -16,6 +16,14 @@ module OCI
     # @return [Integer]
     attr_accessor :port
 
+    # The SCAN TCPIP port. Default is 1521.
+    # @return [Integer]
+    attr_accessor :scan_listener_port_tcp
+
+    # The SCAN TCPIP SSL port. Default is 2484.
+    # @return [Integer]
+    attr_accessor :scan_listener_port_tcp_ssl
+
     # **[Required]** The list of SCAN IP addresses. Three addresses should be provided.
     # @return [Array<String>]
     attr_accessor :ips
@@ -26,6 +34,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'hostname': :'hostname',
         'port': :'port',
+        'scan_listener_port_tcp': :'scanListenerPortTcp',
+        'scan_listener_port_tcp_ssl': :'scanListenerPortTcpSsl',
         'ips': :'ips'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -37,6 +47,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'hostname': :'String',
         'port': :'Integer',
+        'scan_listener_port_tcp': :'Integer',
+        'scan_listener_port_tcp_ssl': :'Integer',
         'ips': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -50,6 +62,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
     # @option attributes [Integer] :port The value to assign to the {#port} property
+    # @option attributes [Integer] :scan_listener_port_tcp The value to assign to the {#scan_listener_port_tcp} property
+    # @option attributes [Integer] :scan_listener_port_tcp_ssl The value to assign to the {#scan_listener_port_tcp_ssl} property
     # @option attributes [Array<String>] :ips The value to assign to the {#ips} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -60,6 +74,18 @@ module OCI
       self.hostname = attributes[:'hostname'] if attributes[:'hostname']
 
       self.port = attributes[:'port'] if attributes[:'port']
+
+      self.scan_listener_port_tcp = attributes[:'scanListenerPortTcp'] if attributes[:'scanListenerPortTcp']
+
+      raise 'You cannot provide both :scanListenerPortTcp and :scan_listener_port_tcp' if attributes.key?(:'scanListenerPortTcp') && attributes.key?(:'scan_listener_port_tcp')
+
+      self.scan_listener_port_tcp = attributes[:'scan_listener_port_tcp'] if attributes[:'scan_listener_port_tcp']
+
+      self.scan_listener_port_tcp_ssl = attributes[:'scanListenerPortTcpSsl'] if attributes[:'scanListenerPortTcpSsl']
+
+      raise 'You cannot provide both :scanListenerPortTcpSsl and :scan_listener_port_tcp_ssl' if attributes.key?(:'scanListenerPortTcpSsl') && attributes.key?(:'scan_listener_port_tcp_ssl')
+
+      self.scan_listener_port_tcp_ssl = attributes[:'scan_listener_port_tcp_ssl'] if attributes[:'scan_listener_port_tcp_ssl']
 
       self.ips = attributes[:'ips'] if attributes[:'ips']
     end
@@ -77,6 +103,8 @@ module OCI
       self.class == other.class &&
         hostname == other.hostname &&
         port == other.port &&
+        scan_listener_port_tcp == other.scan_listener_port_tcp &&
+        scan_listener_port_tcp_ssl == other.scan_listener_port_tcp_ssl &&
         ips == other.ips
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -93,7 +121,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [hostname, port, ips].hash
+      [hostname, port, scan_listener_port_tcp, scan_listener_port_tcp_ssl, ips].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

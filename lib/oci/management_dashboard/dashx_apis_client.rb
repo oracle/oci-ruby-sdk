@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -119,7 +119,7 @@ module OCI
     #   might be rejected.
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
-    # @return [Response] A Response object with data of type nil
+    # @return [Response] A Response object with data of type {OCI::ManagementDashboard::Models::ManagementDashboard ManagementDashboard}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementdashboard/change_management_dashboards_compartment.rb.html) to see an example of how to use change_management_dashboards_compartment API.
     def change_management_dashboards_compartment(management_dashboard_id, change_management_dashboards_compartment_details, opts = {})
       logger.debug 'Calling operation DashxApisClient#change_management_dashboards_compartment.' if logger
@@ -156,7 +156,8 @@ module OCI
           header_params: header_params,
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
-          body: post_body
+          body: post_body,
+          return_type: 'OCI::ManagementDashboard::Models::ManagementDashboard'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -190,7 +191,7 @@ module OCI
     #   might be rejected.
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
-    # @return [Response] A Response object with data of type nil
+    # @return [Response] A Response object with data of type {OCI::ManagementDashboard::Models::ManagementSavedSearch ManagementSavedSearch}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/managementdashboard/change_management_saved_searches_compartment.rb.html) to see an example of how to use change_management_saved_searches_compartment API.
     def change_management_saved_searches_compartment(management_saved_search_id, change_management_saved_searches_compartment_details, opts = {})
       logger.debug 'Calling operation DashxApisClient#change_management_saved_searches_compartment.' if logger
@@ -227,7 +228,8 @@ module OCI
           header_params: header_params,
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
-          body: post_body
+          body: post_body,
+          return_type: 'OCI::ManagementDashboard::Models::ManagementSavedSearch'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -241,11 +243,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new dashboard.  Limit for number of saved searches in a dashboard is 20. To get an example of what needs to be passed to CREATE, one can use GET API.
-    # oci management-dashboard dashboard get --management-dashboard-id  \"ocid1.managementdashboard.oc1..dashboardId1\" --query data > Create.json
-    #
-    # Modify the Create.json by removing \"id\" attribute and other desired changes, then do
-    # oci management-dashboard dashboard create  --from-json file://Create.json
+    # Creates a new dashboard.  Limit for number of saved searches in a dashboard is 20. Here's an example of how you can use CLI to create a dashboard. For information on the details that must be passed to CREATE, you can use the GET API to obtain the Create.json file:
+    # oci management-dashboard dashboard get --management-dashboard-id  \"ocid1.managementdashboard.oc1..dashboardId1\" --query data > Create.json.
+    # You can then modify the Create.json file by removing the\"id\" attribute and making other required changes, and use the oci management-dashboard dashboard create command.
     #
     # @param [OCI::ManagementDashboard::Models::CreateManagementDashboardDetails] create_management_dashboard_details JSON metadata for creating a new dashboard.
     # @param [Hash] opts the optional parameters
@@ -307,11 +307,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new saved search. To get an example of what needs to be passed to CREATE, one can use GET API.
-    # oci management-dashboard saved-search get --management-saved-search-id ocid1.managementsavedsearch.oc1..savedsearchId1 --query data > Create.json
+    # Creates a new saved search. Here's an example of how you can use CLI to create a saved search. For information on the details that must be passed to CREATE, you can use the GET API to obtain the Create.json file:
     #
-    # Modify the Create.json by removing \"id\" attribute and other desired changes, then do
-    # oci management-dashboard saved-search create  --from-json file://Create.json
+    # oci management-dashboard saved-search get --management-saved-search-id ocid1.managementsavedsearch.oc1..savedsearchId1 --query data > Create.json.
+    # You can then modify the Create.json file by removing the \"id\" attribute and making other required changes, and use the oci management-dashboard saved-search create command.
     #
     # @param [OCI::ManagementDashboard::Models::CreateManagementSavedSearchDetails] create_management_saved_search_details JSON metadata for the saved search.
     # @param [Hash] opts the optional parameters
@@ -493,8 +492,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Exports an array of dashboards and their saved searches. Export is designed to work with importDashboard. An example using OCI CLI is $oci management-dashboard dashboard export --query data --export-dashboard-id \"{\\\"dashboardIds\\\":[\\\"ocid1.managementdashboard.oc1..dashboardId1\\\"]}\"  > dashboards.json $oci management-dashboard dashboard import --from-json file://dashboards.json
-    # @param [String] export_dashboard_id List of dashboardIds in plain text. The syntaxt is '{\"dashboardIds\":[\"dashboardId1\", \"dashboardId2\", ...]}'. Escaping is needed when using in OCI CLI. For example, \"{\\\"dashboardIds\\\":[\\\"ocid1.managementdashboard.oc1..dashboardId1\\\"]}\" .
+    # Exports an array of dashboards and their saved searches. Export is designed to work with importDashboard. Here's an example of how you can use CLI to export a dashboard. $oci management-dashboard dashboard export --query data --export-dashboard-id \"{\\\"dashboardIds\\\":[\\\"ocid1.managementdashboard.oc1..dashboardId1\\\"]}\"  > dashboards.json
+    # @param [String] export_dashboard_id List of dashboardIds in plain text. The syntax is '{\"dashboardIds\":[\"dashboardId1\", \"dashboardId2\", ...]}'. Escaping is needed when using in OCI CLI. For example, \"{\\\"dashboardIds\\\":[\\\"ocid1.managementdashboard.oc1..dashboardId1\\\"]}\" .
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -679,9 +678,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Imports an array of dashboards and their saved searches. Import is designed to work with exportDashboard. An example using OCI CLI is
-    #     $oci management-dashboard dashboard export --query data --export-dashboard-id \"{\\\"dashboardIds\\\":[\\\"ocid1.managementdashboard.oc1..dashboardId1\\\"]}\"  > dashboards.json
-    #     $oci management-dashboard dashboard import --from-json file://dashboards.json
+    # Imports an array of dashboards and their saved searches. Here's an example of how you can use CLI to import a dashboard. For information on the details that must be passed to IMPORT, you can use the EXPORT API to obtain the Import.json file:
+    # oci management-dashboard dashboard export --query data --export-dashboard-id \"{\\\"dashboardIds\\\":[\\\"ocid1.managementdashboard.oc1..dashboardId1\\\"]}\"  > Import.json.
+    # Note that import API updates the resource if it already exist, and creates a new resource if it does not exist. To import to a different compartment, edit and change the compartmentId to the desired compartment OCID.
+    # Here is an example of how you can use CLI to do import:
+    #
+    # oci management-dashboard dashboard import --from-json file://Import.json
     #
     # @param [OCI::ManagementDashboard::Models::ManagementDashboardImportDetails] management_dashboard_import_details JSON metadata for importing dashboards and their saved searches.
     # @param [Hash] opts the optional parameters

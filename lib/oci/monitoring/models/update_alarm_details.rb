@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,9 +7,13 @@ require 'date'
 module OCI
   # The configuration details for updating an alarm.
   #
-  # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
-  #
   class Monitoring::Models::UpdateAlarmDetails
+    MESSAGE_FORMAT_ENUM = [
+      MESSAGE_FORMAT_RAW = 'RAW'.freeze,
+      MESSAGE_FORMAT_PRETTY_JSON = 'PRETTY_JSON'.freeze,
+      MESSAGE_FORMAT_ONS_OPTIMIZED = 'ONS_OPTIMIZED'.freeze
+    ].freeze
+
     # A user-friendly name for the alarm. It does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
     #
@@ -49,7 +53,7 @@ module OCI
     # @return [String]
     attr_accessor :namespace
 
-    # Resource group that you want to use as a filter. The alarm retrieves metric data associated with the specified resource group only. Only one resource group can be applied per metric.
+    # Resource group that you want to match. A null value returns only metric data that has no resource groups. The alarm retrieves metric data associated with the specified resource group only. Only one resource group can be applied per metric.
     # A valid resourceGroup value starts with an alphabetical character and includes only alphanumeric characters, periods (.), underscores (_), hyphens (-), and dollar signs ($).
     # Avoid entering confidential information.
     #
@@ -62,7 +66,8 @@ module OCI
     # the Monitoring service interprets results for each returned time series as Boolean values,
     # where zero represents false and a non-zero value represents true. A true value means that the trigger
     # rule condition has been met. The query must specify a metric, statistic, interval, and trigger
-    # rule (threshold or absence). Supported values for interval: `1m`-`60m` (also `1h`). You can optionally
+    # rule (threshold or absence). Supported values for interval depend on the specified time range. More
+    # interval values are supported for smaller time ranges. You can optionally
     # specify dimensions and grouping functions. Supported grouping functions: `grouping()`, `groupBy()`.
     # For details about Monitoring Query Language (MQL), see [Monitoring Query Language (MQL) Reference](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Reference/mql.htm).
     # For available dimensions, review the metric definition for the supported service.
@@ -127,6 +132,14 @@ module OCI
     # @return [String]
     attr_accessor :body
 
+    # The format to use for notification messages sent from this alarm. The formats are:
+    # * `RAW` - Raw JSON blob. Default value.
+    # * `PRETTY_JSON`: JSON with new lines and indents.
+    # * `ONS_OPTIMIZED`: Simplified, user-friendly layout. Applies only to messages sent through the Notifications service to the following subscription types: Email.
+    #
+    # @return [String]
+    attr_reader :message_format
+
     # A list of destinations to which the notifications for this alarm will be delivered.
     # Each destination is represented by an [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) related to the supported destination service.
     # For example, a destination using the Notifications service is represented by a topic OCID.
@@ -185,6 +198,7 @@ module OCI
         'pending_duration': :'pendingDuration',
         'severity': :'severity',
         'body': :'body',
+        'message_format': :'messageFormat',
         'destinations': :'destinations',
         'repeat_notification_duration': :'repeatNotificationDuration',
         'suppression': :'suppression',
@@ -210,6 +224,7 @@ module OCI
         'pending_duration': :'String',
         'severity': :'String',
         'body': :'String',
+        'message_format': :'String',
         'destinations': :'Array<String>',
         'repeat_notification_duration': :'String',
         'suppression': :'OCI::Monitoring::Models::Suppression',
@@ -237,6 +252,7 @@ module OCI
     # @option attributes [String] :pending_duration The value to assign to the {#pending_duration} property
     # @option attributes [String] :severity The value to assign to the {#severity} property
     # @option attributes [String] :body The value to assign to the {#body} property
+    # @option attributes [String] :message_format The value to assign to the {#message_format} property
     # @option attributes [Array<String>] :destinations The value to assign to the {#destinations} property
     # @option attributes [String] :repeat_notification_duration The value to assign to the {#repeat_notification_duration} property
     # @option attributes [OCI::Monitoring::Models::Suppression] :suppression The value to assign to the {#suppression} property
@@ -295,6 +311,12 @@ module OCI
 
       self.body = attributes[:'body'] if attributes[:'body']
 
+      self.message_format = attributes[:'messageFormat'] if attributes[:'messageFormat']
+
+      raise 'You cannot provide both :messageFormat and :message_format' if attributes.key?(:'messageFormat') && attributes.key?(:'message_format')
+
+      self.message_format = attributes[:'message_format'] if attributes[:'message_format']
+
       self.destinations = attributes[:'destinations'] if attributes[:'destinations']
 
       self.repeat_notification_duration = attributes[:'repeatNotificationDuration'] if attributes[:'repeatNotificationDuration']
@@ -326,6 +348,14 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] message_format Object to be assigned
+    def message_format=(message_format)
+      raise "Invalid value for 'message_format': this must be one of the values in MESSAGE_FORMAT_ENUM." if message_format && !MESSAGE_FORMAT_ENUM.include?(message_format)
+
+      @message_format = message_format
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -346,6 +376,7 @@ module OCI
         pending_duration == other.pending_duration &&
         severity == other.severity &&
         body == other.body &&
+        message_format == other.message_format &&
         destinations == other.destinations &&
         repeat_notification_duration == other.repeat_notification_duration &&
         suppression == other.suppression &&
@@ -367,7 +398,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, compartment_id, metric_compartment_id, metric_compartment_id_in_subtree, namespace, resource_group, query, resolution, pending_duration, severity, body, destinations, repeat_notification_duration, suppression, is_enabled, freeform_tags, defined_tags].hash
+      [display_name, compartment_id, metric_compartment_id, metric_compartment_id_in_subtree, namespace, resource_group, query, resolution, pending_duration, severity, body, message_format, destinations, repeat_notification_duration, suppression, is_enabled, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

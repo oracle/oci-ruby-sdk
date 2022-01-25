@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,6 +8,11 @@ module OCI
   # The information to update for a DatabaseRegistration.
   #
   class GoldenGate::Models::UpdateDatabaseRegistrationDetails
+    SESSION_MODE_ENUM = [
+      SESSION_MODE_DIRECT = 'DIRECT'.freeze,
+      SESSION_MODE_REDIRECT = 'REDIRECT'.freeze
+    ].freeze
+
     # An object's Display Name.
     #
     # @return [String]
@@ -50,6 +55,11 @@ module OCI
     # @return [String]
     attr_accessor :connection_string
 
+    # The mode of the database connection session to be established by the data client. REDIRECT - for a RAC database, DIRECT - for a non-RAC database. Connection to a RAC database involves a redirection received from the SCAN listeners to the database node to connect to. By default the mode would be DIRECT.
+    #
+    # @return [String]
+    attr_reader :session_mode
+
     # The wallet contents Oracle GoldenGate uses to make connections to a database.  This attribute is expected to be base64 encoded.
     #
     # @return [String]
@@ -72,6 +82,7 @@ module OCI
         'username': :'username',
         'password': :'password',
         'connection_string': :'connectionString',
+        'session_mode': :'sessionMode',
         'wallet': :'wallet',
         'alias_name': :'aliasName'
         # rubocop:enable Style/SymbolLiteral
@@ -90,6 +101,7 @@ module OCI
         'username': :'String',
         'password': :'String',
         'connection_string': :'String',
+        'session_mode': :'String',
         'wallet': :'String',
         'alias_name': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -110,6 +122,7 @@ module OCI
     # @option attributes [String] :username The value to assign to the {#username} property
     # @option attributes [String] :password The value to assign to the {#password} property
     # @option attributes [String] :connection_string The value to assign to the {#connection_string} property
+    # @option attributes [String] :session_mode The value to assign to the {#session_mode} property
     # @option attributes [String] :wallet The value to assign to the {#wallet} property
     # @option attributes [String] :alias_name The value to assign to the {#alias_name} property
     def initialize(attributes = {})
@@ -150,6 +163,14 @@ module OCI
 
       self.connection_string = attributes[:'connection_string'] if attributes[:'connection_string']
 
+      self.session_mode = attributes[:'sessionMode'] if attributes[:'sessionMode']
+      self.session_mode = "DIRECT" if session_mode.nil? && !attributes.key?(:'sessionMode') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :sessionMode and :session_mode' if attributes.key?(:'sessionMode') && attributes.key?(:'session_mode')
+
+      self.session_mode = attributes[:'session_mode'] if attributes[:'session_mode']
+      self.session_mode = "DIRECT" if session_mode.nil? && !attributes.key?(:'sessionMode') && !attributes.key?(:'session_mode') # rubocop:disable Style/StringLiterals
+
       self.wallet = attributes[:'wallet'] if attributes[:'wallet']
 
       self.alias_name = attributes[:'aliasName'] if attributes[:'aliasName']
@@ -160,6 +181,14 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] session_mode Object to be assigned
+    def session_mode=(session_mode)
+      raise "Invalid value for 'session_mode': this must be one of the values in SESSION_MODE_ENUM." if session_mode && !SESSION_MODE_ENUM.include?(session_mode)
+
+      @session_mode = session_mode
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -178,6 +207,7 @@ module OCI
         username == other.username &&
         password == other.password &&
         connection_string == other.connection_string &&
+        session_mode == other.session_mode &&
         wallet == other.wallet &&
         alias_name == other.alias_name
     end
@@ -195,7 +225,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, freeform_tags, defined_tags, fqdn, username, password, connection_string, wallet, alias_name].hash
+      [display_name, description, freeform_tags, defined_tags, fqdn, username, password, connection_string, session_mode, wallet, alias_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

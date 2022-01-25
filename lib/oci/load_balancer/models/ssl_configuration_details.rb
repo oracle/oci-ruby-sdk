@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -28,6 +28,20 @@ module OCI
     #
     # @return [BOOLEAN]
     attr_accessor :verify_peer_certificate
+
+    # Ids for OCI certificates service CA or CA bundles for the load balancer to trust.
+    #
+    # Example: `[ocid1.cabundle.oc1.us-ashburn-1.amaaaaaaav3bgsaagl4zzyqdop5i2vuwoqewdvauuw34llqa74otq2jdsfyq]`
+    #
+    # @return [Array<String>]
+    attr_accessor :trusted_certificate_authority_ids
+
+    # Ids for OCI certificates service certificates. Currently only a single Id may be passed.
+    #
+    # Example: `[ocid1.certificate.oc1.us-ashburn-1.amaaaaaaav3bgsaa5o2q7rh5nfmkkukfkogasqhk6af2opufhjlqg7m6jqzq]`
+    #
+    # @return [Array<String>]
+    attr_accessor :certificate_ids
 
     # A friendly name for the certificate bundle. It must be unique and it cannot be changed.
     # Valid certificate bundle names include only alphanumeric characters, dashes, and underscores.
@@ -110,6 +124,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'verify_depth': :'verifyDepth',
         'verify_peer_certificate': :'verifyPeerCertificate',
+        'trusted_certificate_authority_ids': :'trustedCertificateAuthorityIds',
+        'certificate_ids': :'certificateIds',
         'certificate_name': :'certificateName',
         'protocols': :'protocols',
         'cipher_suite_name': :'cipherSuiteName',
@@ -124,6 +140,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'verify_depth': :'Integer',
         'verify_peer_certificate': :'BOOLEAN',
+        'trusted_certificate_authority_ids': :'Array<String>',
+        'certificate_ids': :'Array<String>',
         'certificate_name': :'String',
         'protocols': :'Array<String>',
         'cipher_suite_name': :'String',
@@ -140,6 +158,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Integer] :verify_depth The value to assign to the {#verify_depth} property
     # @option attributes [BOOLEAN] :verify_peer_certificate The value to assign to the {#verify_peer_certificate} property
+    # @option attributes [Array<String>] :trusted_certificate_authority_ids The value to assign to the {#trusted_certificate_authority_ids} property
+    # @option attributes [Array<String>] :certificate_ids The value to assign to the {#certificate_ids} property
     # @option attributes [String] :certificate_name The value to assign to the {#certificate_name} property
     # @option attributes [Array<String>] :protocols The value to assign to the {#protocols} property
     # @option attributes [String] :cipher_suite_name The value to assign to the {#cipher_suite_name} property
@@ -163,6 +183,18 @@ module OCI
 
       self.verify_peer_certificate = attributes[:'verify_peer_certificate'] unless attributes[:'verify_peer_certificate'].nil?
       self.verify_peer_certificate = false if verify_peer_certificate.nil? && !attributes.key?(:'verifyPeerCertificate') && !attributes.key?(:'verify_peer_certificate') # rubocop:disable Style/StringLiterals
+
+      self.trusted_certificate_authority_ids = attributes[:'trustedCertificateAuthorityIds'] if attributes[:'trustedCertificateAuthorityIds']
+
+      raise 'You cannot provide both :trustedCertificateAuthorityIds and :trusted_certificate_authority_ids' if attributes.key?(:'trustedCertificateAuthorityIds') && attributes.key?(:'trusted_certificate_authority_ids')
+
+      self.trusted_certificate_authority_ids = attributes[:'trusted_certificate_authority_ids'] if attributes[:'trusted_certificate_authority_ids']
+
+      self.certificate_ids = attributes[:'certificateIds'] if attributes[:'certificateIds']
+
+      raise 'You cannot provide both :certificateIds and :certificate_ids' if attributes.key?(:'certificateIds') && attributes.key?(:'certificate_ids')
+
+      self.certificate_ids = attributes[:'certificate_ids'] if attributes[:'certificate_ids']
 
       self.certificate_name = attributes[:'certificateName'] if attributes[:'certificateName']
 
@@ -210,6 +242,8 @@ module OCI
       self.class == other.class &&
         verify_depth == other.verify_depth &&
         verify_peer_certificate == other.verify_peer_certificate &&
+        trusted_certificate_authority_ids == other.trusted_certificate_authority_ids &&
+        certificate_ids == other.certificate_ids &&
         certificate_name == other.certificate_name &&
         protocols == other.protocols &&
         cipher_suite_name == other.cipher_suite_name &&
@@ -229,7 +263,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [verify_depth, verify_peer_certificate, certificate_name, protocols, cipher_suite_name, server_order_preference].hash
+      [verify_depth, verify_peer_certificate, trusted_certificate_authority_ids, certificate_ids, certificate_name, protocols, cipher_suite_name, server_order_preference].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

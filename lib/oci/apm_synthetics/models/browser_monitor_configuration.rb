@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -18,6 +18,9 @@ module OCI
     # @return [Array<OCI::ApmSynthetics::Models::VerifyText>]
     attr_accessor :verify_texts
 
+    # @return [OCI::ApmSynthetics::Models::NetworkConfiguration]
+    attr_accessor :network_configuration
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -25,7 +28,8 @@ module OCI
         'config_type': :'configType',
         'is_failure_retried': :'isFailureRetried',
         'is_certificate_validation_enabled': :'isCertificateValidationEnabled',
-        'verify_texts': :'verifyTexts'
+        'verify_texts': :'verifyTexts',
+        'network_configuration': :'networkConfiguration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,7 +41,8 @@ module OCI
         'config_type': :'String',
         'is_failure_retried': :'BOOLEAN',
         'is_certificate_validation_enabled': :'BOOLEAN',
-        'verify_texts': :'Array<OCI::ApmSynthetics::Models::VerifyText>'
+        'verify_texts': :'Array<OCI::ApmSynthetics::Models::VerifyText>',
+        'network_configuration': :'OCI::ApmSynthetics::Models::NetworkConfiguration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -51,6 +56,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_failure_retried The value to assign to the {OCI::ApmSynthetics::Models::MonitorConfiguration#is_failure_retried #is_failure_retried} proprety
     # @option attributes [BOOLEAN] :is_certificate_validation_enabled The value to assign to the {#is_certificate_validation_enabled} property
     # @option attributes [Array<OCI::ApmSynthetics::Models::VerifyText>] :verify_texts The value to assign to the {#verify_texts} property
+    # @option attributes [OCI::ApmSynthetics::Models::NetworkConfiguration] :network_configuration The value to assign to the {#network_configuration} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -74,6 +80,12 @@ module OCI
       raise 'You cannot provide both :verifyTexts and :verify_texts' if attributes.key?(:'verifyTexts') && attributes.key?(:'verify_texts')
 
       self.verify_texts = attributes[:'verify_texts'] if attributes[:'verify_texts']
+
+      self.network_configuration = attributes[:'networkConfiguration'] if attributes[:'networkConfiguration']
+
+      raise 'You cannot provide both :networkConfiguration and :network_configuration' if attributes.key?(:'networkConfiguration') && attributes.key?(:'network_configuration')
+
+      self.network_configuration = attributes[:'network_configuration'] if attributes[:'network_configuration']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -90,7 +102,8 @@ module OCI
         config_type == other.config_type &&
         is_failure_retried == other.is_failure_retried &&
         is_certificate_validation_enabled == other.is_certificate_validation_enabled &&
-        verify_texts == other.verify_texts
+        verify_texts == other.verify_texts &&
+        network_configuration == other.network_configuration
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -106,7 +119,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [config_type, is_failure_retried, is_certificate_validation_enabled, verify_texts].hash
+      [config_type, is_failure_retried, is_certificate_validation_enabled, verify_texts, network_configuration].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

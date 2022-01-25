@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -22,6 +22,14 @@ module OCI
     # **[Required]** Compartment Id where the resource is created
     # @return [String]
     attr_accessor :compartment_id
+
+    # Identifier for the sighting type
+    # @return [String]
+    attr_accessor :sighting_type
+
+    # Name of the sighting type
+    # @return [String]
+    attr_accessor :sighting_type_display_name
 
     # **[Required]** Name of the Impacted Resource
     # @return [String]
@@ -47,6 +55,8 @@ module OCI
         'resource_id': :'resourceId',
         'problem_id': :'problemId',
         'compartment_id': :'compartmentId',
+        'sighting_type': :'sightingType',
+        'sighting_type_display_name': :'sightingTypeDisplayName',
         'resource_name': :'resourceName',
         'resource_type': :'resourceType',
         'region': :'region',
@@ -63,6 +73,8 @@ module OCI
         'resource_id': :'String',
         'problem_id': :'String',
         'compartment_id': :'String',
+        'sighting_type': :'String',
+        'sighting_type_display_name': :'String',
         'resource_name': :'String',
         'resource_type': :'String',
         'region': :'String',
@@ -81,6 +93,8 @@ module OCI
     # @option attributes [String] :resource_id The value to assign to the {#resource_id} property
     # @option attributes [String] :problem_id The value to assign to the {#problem_id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :sighting_type The value to assign to the {#sighting_type} property
+    # @option attributes [String] :sighting_type_display_name The value to assign to the {#sighting_type_display_name} property
     # @option attributes [String] :resource_name The value to assign to the {#resource_name} property
     # @option attributes [String] :resource_type The value to assign to the {#resource_type} property
     # @option attributes [String] :region The value to assign to the {#region} property
@@ -110,6 +124,18 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.sighting_type = attributes[:'sightingType'] if attributes[:'sightingType']
+
+      raise 'You cannot provide both :sightingType and :sighting_type' if attributes.key?(:'sightingType') && attributes.key?(:'sighting_type')
+
+      self.sighting_type = attributes[:'sighting_type'] if attributes[:'sighting_type']
+
+      self.sighting_type_display_name = attributes[:'sightingTypeDisplayName'] if attributes[:'sightingTypeDisplayName']
+
+      raise 'You cannot provide both :sightingTypeDisplayName and :sighting_type_display_name' if attributes.key?(:'sightingTypeDisplayName') && attributes.key?(:'sighting_type_display_name')
+
+      self.sighting_type_display_name = attributes[:'sighting_type_display_name'] if attributes[:'sighting_type_display_name']
 
       self.resource_name = attributes[:'resourceName'] if attributes[:'resourceName']
 
@@ -147,6 +173,8 @@ module OCI
         resource_id == other.resource_id &&
         problem_id == other.problem_id &&
         compartment_id == other.compartment_id &&
+        sighting_type == other.sighting_type &&
+        sighting_type_display_name == other.sighting_type_display_name &&
         resource_name == other.resource_name &&
         resource_type == other.resource_type &&
         region == other.region &&
@@ -166,7 +194,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, resource_id, problem_id, compartment_id, resource_name, resource_type, region, time_identified].hash
+      [id, resource_id, problem_id, compartment_id, sighting_type, sighting_type_display_name, resource_name, resource_type, region, time_identified].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

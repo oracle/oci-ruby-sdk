@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -28,6 +28,12 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    NLB_IP_VERSION_ENUM = [
+      NLB_IP_VERSION_IPV4 = 'IPV4'.freeze,
+      NLB_IP_VERSION_IPV4_AND_IPV6 = 'IPV4_AND_IPV6'.freeze,
+      NLB_IP_VERSION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network load balancer.
     # @return [String]
     attr_accessor :id
@@ -52,6 +58,10 @@ module OCI
     #
     # @return [String]
     attr_accessor :lifecycle_details
+
+    # IP version associated with the NLB.
+    # @return [String]
+    attr_reader :nlb_ip_version
 
     # **[Required]** The date and time the network load balancer was created, in the format defined by RFC3339.
     #
@@ -155,6 +165,7 @@ module OCI
         'display_name': :'displayName',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
+        'nlb_ip_version': :'nlbIpVersion',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'ip_addresses': :'ipAddresses',
@@ -180,6 +191,7 @@ module OCI
         'display_name': :'String',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
+        'nlb_ip_version': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'ip_addresses': :'Array<OCI::NetworkLoadBalancer::Models::IpAddress>',
@@ -207,6 +219,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
+    # @option attributes [String] :nlb_ip_version The value to assign to the {#nlb_ip_version} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [Array<OCI::NetworkLoadBalancer::Models::IpAddress>] :ip_addresses The value to assign to the {#ip_addresses} property
@@ -250,6 +263,14 @@ module OCI
       raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
 
       self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
+
+      self.nlb_ip_version = attributes[:'nlbIpVersion'] if attributes[:'nlbIpVersion']
+      self.nlb_ip_version = "IPV4" if nlb_ip_version.nil? && !attributes.key?(:'nlbIpVersion') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :nlbIpVersion and :nlb_ip_version' if attributes.key?(:'nlbIpVersion') && attributes.key?(:'nlb_ip_version')
+
+      self.nlb_ip_version = attributes[:'nlb_ip_version'] if attributes[:'nlb_ip_version']
+      self.nlb_ip_version = "IPV4" if nlb_ip_version.nil? && !attributes.key?(:'nlbIpVersion') && !attributes.key?(:'nlb_ip_version') # rubocop:disable Style/StringLiterals
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -339,6 +360,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] nlb_ip_version Object to be assigned
+    def nlb_ip_version=(nlb_ip_version)
+      # rubocop:disable Style/ConditionalAssignment
+      if nlb_ip_version && !NLB_IP_VERSION_ENUM.include?(nlb_ip_version)
+        OCI.logger.debug("Unknown value for 'nlb_ip_version' [" + nlb_ip_version + "]. Mapping to 'NLB_IP_VERSION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @nlb_ip_version = NLB_IP_VERSION_UNKNOWN_ENUM_VALUE
+      else
+        @nlb_ip_version = nlb_ip_version
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -353,6 +387,7 @@ module OCI
         display_name == other.display_name &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
+        nlb_ip_version == other.nlb_ip_version &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         ip_addresses == other.ip_addresses &&
@@ -380,7 +415,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, lifecycle_state, lifecycle_details, time_created, time_updated, ip_addresses, is_private, is_preserve_source_destination, subnet_id, network_security_group_ids, listeners, backend_sets, freeform_tags, defined_tags, system_tags].hash
+      [id, compartment_id, display_name, lifecycle_state, lifecycle_details, nlb_ip_version, time_created, time_updated, ip_addresses, is_private, is_preserve_source_destination, subnet_id, network_security_group_ids, listeners, backend_sets, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

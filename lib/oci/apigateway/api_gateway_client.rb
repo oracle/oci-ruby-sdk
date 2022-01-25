@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -671,6 +671,10 @@ module OCI
     #   The resource will be updated or deleted only if the etag you
     #   provide matches the resource's current etag value.
     #    (default to null)
+    # @option opts [String] :range The Range HTTP request header indicates the part of a document that the
+    #   server should return. [RFC 7233](https://tools.ietf.org/html/rfc7233#section-3.1).
+    #   Note that only a single range of bytes is supported.
+    #    (default to null)
     # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
     # @option [Block] &block Streaming http body to the block
     # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
@@ -696,6 +700,7 @@ module OCI
       header_params[:'content-type'] = 'application/json'
       header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:range] = opts[:range] if opts[:range]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil

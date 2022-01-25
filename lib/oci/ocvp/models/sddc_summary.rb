@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -24,7 +24,7 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The availability domain that the SDDC's ESXi hosts are running in.
+    # **[Required]** The availability domain that the SDDC's ESXi hosts are running in. For Multi-AD SDDC, it is `multi-AD`.
     #
     # @return [String]
     attr_accessor :compute_availability_domain
@@ -68,7 +68,7 @@ module OCI
     # @return [String]
     attr_accessor :hcx_fqdn
 
-    # HCX enabled or not
+    # Indicates whether HCX is enabled.
     # @return [BOOLEAN]
     attr_accessor :is_hcx_enabled
 

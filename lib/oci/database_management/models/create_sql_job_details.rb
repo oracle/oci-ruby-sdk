@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -30,6 +30,10 @@ module OCI
     # @return [String]
     attr_accessor :password
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the secret containing the user password.
+    # @return [String]
+    attr_accessor :secret_id
+
     # The role of the database user. Indicates whether the database user is a normal user or sysdba.
     # @return [String]
     attr_accessor :role
@@ -48,11 +52,13 @@ module OCI
         'job_type': :'jobType',
         'timeout': :'timeout',
         'result_location': :'resultLocation',
+        'schedule_details': :'scheduleDetails',
         'sql_text': :'sqlText',
         'sql_type': :'sqlType',
         'operation_type': :'operationType',
         'user_name': :'userName',
         'password': :'password',
+        'secret_id': :'secretId',
         'role': :'role'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -72,11 +78,13 @@ module OCI
         'job_type': :'String',
         'timeout': :'String',
         'result_location': :'OCI::DatabaseManagement::Models::JobExecutionResultLocation',
+        'schedule_details': :'OCI::DatabaseManagement::Models::JobScheduleDetails',
         'sql_text': :'String',
         'sql_type': :'String',
         'operation_type': :'String',
         'user_name': :'String',
         'password': :'String',
+        'secret_id': :'String',
         'role': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -97,11 +105,13 @@ module OCI
     # @option attributes [String] :schedule_type The value to assign to the {OCI::DatabaseManagement::Models::CreateJobDetails#schedule_type #schedule_type} proprety
     # @option attributes [String] :timeout The value to assign to the {OCI::DatabaseManagement::Models::CreateJobDetails#timeout #timeout} proprety
     # @option attributes [OCI::DatabaseManagement::Models::JobExecutionResultLocation] :result_location The value to assign to the {OCI::DatabaseManagement::Models::CreateJobDetails#result_location #result_location} proprety
+    # @option attributes [OCI::DatabaseManagement::Models::JobScheduleDetails] :schedule_details The value to assign to the {OCI::DatabaseManagement::Models::CreateJobDetails#schedule_details #schedule_details} proprety
     # @option attributes [String] :sql_text The value to assign to the {#sql_text} property
     # @option attributes [String] :sql_type The value to assign to the {#sql_type} property
     # @option attributes [String] :operation_type The value to assign to the {#operation_type} property
     # @option attributes [String] :user_name The value to assign to the {#user_name} property
     # @option attributes [String] :password The value to assign to the {#password} property
+    # @option attributes [String] :secret_id The value to assign to the {#secret_id} property
     # @option attributes [String] :role The value to assign to the {#role} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -139,6 +149,12 @@ module OCI
 
       self.password = attributes[:'password'] if attributes[:'password']
 
+      self.secret_id = attributes[:'secretId'] if attributes[:'secretId']
+
+      raise 'You cannot provide both :secretId and :secret_id' if attributes.key?(:'secretId') && attributes.key?(:'secret_id')
+
+      self.secret_id = attributes[:'secret_id'] if attributes[:'secret_id']
+
       self.role = attributes[:'role'] if attributes[:'role']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -163,11 +179,13 @@ module OCI
         job_type == other.job_type &&
         timeout == other.timeout &&
         result_location == other.result_location &&
+        schedule_details == other.schedule_details &&
         sql_text == other.sql_text &&
         sql_type == other.sql_type &&
         operation_type == other.operation_type &&
         user_name == other.user_name &&
         password == other.password &&
+        secret_id == other.secret_id &&
         role == other.role
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -184,7 +202,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, description, compartment_id, managed_database_group_id, managed_database_id, database_sub_type, schedule_type, job_type, timeout, result_location, sql_text, sql_type, operation_type, user_name, password, role].hash
+      [name, description, compartment_id, managed_database_group_id, managed_database_id, database_sub_type, schedule_type, job_type, timeout, result_location, schedule_details, sql_text, sql_type, operation_type, user_name, password, secret_id, role].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

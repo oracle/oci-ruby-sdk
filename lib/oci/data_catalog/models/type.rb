@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -93,6 +93,14 @@ module OCI
     # @return [Array<OCI::DataCatalog::Models::CustomPropertySummary>]
     attr_accessor :custom_properties
 
+    # Unique key of the parent type.
+    # @return [String]
+    attr_accessor :parent_type_key
+
+    # Name of the parent type.
+    # @return [String]
+    attr_accessor :parent_type_name
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -109,7 +117,9 @@ module OCI
         'type_category': :'typeCategory',
         'external_type_name': :'externalTypeName',
         'uri': :'uri',
-        'custom_properties': :'customProperties'
+        'custom_properties': :'customProperties',
+        'parent_type_key': :'parentTypeKey',
+        'parent_type_name': :'parentTypeName'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -130,7 +140,9 @@ module OCI
         'type_category': :'String',
         'external_type_name': :'String',
         'uri': :'String',
-        'custom_properties': :'Array<OCI::DataCatalog::Models::CustomPropertySummary>'
+        'custom_properties': :'Array<OCI::DataCatalog::Models::CustomPropertySummary>',
+        'parent_type_key': :'String',
+        'parent_type_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -154,6 +166,8 @@ module OCI
     # @option attributes [String] :external_type_name The value to assign to the {#external_type_name} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
     # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertySummary>] :custom_properties The value to assign to the {#custom_properties} property
+    # @option attributes [String] :parent_type_key The value to assign to the {#parent_type_key} property
+    # @option attributes [String] :parent_type_name The value to assign to the {#parent_type_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -217,6 +231,18 @@ module OCI
       raise 'You cannot provide both :customProperties and :custom_properties' if attributes.key?(:'customProperties') && attributes.key?(:'custom_properties')
 
       self.custom_properties = attributes[:'custom_properties'] if attributes[:'custom_properties']
+
+      self.parent_type_key = attributes[:'parentTypeKey'] if attributes[:'parentTypeKey']
+
+      raise 'You cannot provide both :parentTypeKey and :parent_type_key' if attributes.key?(:'parentTypeKey') && attributes.key?(:'parent_type_key')
+
+      self.parent_type_key = attributes[:'parent_type_key'] if attributes[:'parent_type_key']
+
+      self.parent_type_name = attributes[:'parentTypeName'] if attributes[:'parentTypeName']
+
+      raise 'You cannot provide both :parentTypeName and :parent_type_name' if attributes.key?(:'parentTypeName') && attributes.key?(:'parent_type_name')
+
+      self.parent_type_name = attributes[:'parent_type_name'] if attributes[:'parent_type_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -255,7 +281,9 @@ module OCI
         type_category == other.type_category &&
         external_type_name == other.external_type_name &&
         uri == other.uri &&
-        custom_properties == other.custom_properties
+        custom_properties == other.custom_properties &&
+        parent_type_key == other.parent_type_key &&
+        parent_type_name == other.parent_type_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -271,7 +299,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, name, description, catalog_id, properties, lifecycle_state, is_internal, is_tag, is_approved, type_category, external_type_name, uri, custom_properties].hash
+      [key, name, description, catalog_id, properties, lifecycle_state, is_internal, is_tag, is_approved, type_category, external_type_name, uri, custom_properties, parent_type_key, parent_type_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

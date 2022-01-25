@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,11 +7,11 @@ require 'date'
 module OCI
   # CreateCrossConnectDetails model.
   class Core::Models::CreateCrossConnectDetails
-    # **[Required]** The OCID of the compartment to contain the cross-connect.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment to contain the cross-connect.
     # @return [String]
     attr_accessor :compartment_id
 
-    # The OCID of the cross-connect group to put this cross-connect in.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the cross-connect group to put this cross-connect in.
     #
     # @return [String]
     attr_accessor :cross_connect_group_id
@@ -32,7 +32,7 @@ module OCI
 
     # If you already have an existing cross-connect or cross-connect group at this FastConnect
     # location, and you want this new cross-connect to be on a different router (for the
-    # purposes of redundancy), provide the OCID of that existing cross-connect or
+    # purposes of redundancy), provide the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of that existing cross-connect or
     # cross-connect group.
     #
     # @return [String]
@@ -57,7 +57,7 @@ module OCI
 
     # If you already have an existing cross-connect or cross-connect group at this FastConnect
     # location, and you want this new cross-connect to be on the same router, provide the
-    # OCID of that existing cross-connect or cross-connect group.
+    # [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of that existing cross-connect or cross-connect group.
     #
     # @return [String]
     attr_accessor :near_cross_connect_or_cross_connect_group_id
@@ -76,6 +76,9 @@ module OCI
     # @return [String]
     attr_accessor :customer_reference_name
 
+    # @return [OCI::Core::Models::CreateMacsecProperties]
+    attr_accessor :macsec_properties
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -89,7 +92,8 @@ module OCI
         'location_name': :'locationName',
         'near_cross_connect_or_cross_connect_group_id': :'nearCrossConnectOrCrossConnectGroupId',
         'port_speed_shape_name': :'portSpeedShapeName',
-        'customer_reference_name': :'customerReferenceName'
+        'customer_reference_name': :'customerReferenceName',
+        'macsec_properties': :'macsecProperties'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -107,7 +111,8 @@ module OCI
         'location_name': :'String',
         'near_cross_connect_or_cross_connect_group_id': :'String',
         'port_speed_shape_name': :'String',
-        'customer_reference_name': :'String'
+        'customer_reference_name': :'String',
+        'macsec_properties': :'OCI::Core::Models::CreateMacsecProperties'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -128,6 +133,7 @@ module OCI
     # @option attributes [String] :near_cross_connect_or_cross_connect_group_id The value to assign to the {#near_cross_connect_or_cross_connect_group_id} property
     # @option attributes [String] :port_speed_shape_name The value to assign to the {#port_speed_shape_name} property
     # @option attributes [String] :customer_reference_name The value to assign to the {#customer_reference_name} property
+    # @option attributes [OCI::Core::Models::CreateMacsecProperties] :macsec_properties The value to assign to the {#macsec_properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -193,6 +199,12 @@ module OCI
       raise 'You cannot provide both :customerReferenceName and :customer_reference_name' if attributes.key?(:'customerReferenceName') && attributes.key?(:'customer_reference_name')
 
       self.customer_reference_name = attributes[:'customer_reference_name'] if attributes[:'customer_reference_name']
+
+      self.macsec_properties = attributes[:'macsecProperties'] if attributes[:'macsecProperties']
+
+      raise 'You cannot provide both :macsecProperties and :macsec_properties' if attributes.key?(:'macsecProperties') && attributes.key?(:'macsec_properties')
+
+      self.macsec_properties = attributes[:'macsec_properties'] if attributes[:'macsec_properties']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -215,7 +227,8 @@ module OCI
         location_name == other.location_name &&
         near_cross_connect_or_cross_connect_group_id == other.near_cross_connect_or_cross_connect_group_id &&
         port_speed_shape_name == other.port_speed_shape_name &&
-        customer_reference_name == other.customer_reference_name
+        customer_reference_name == other.customer_reference_name &&
+        macsec_properties == other.macsec_properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -231,7 +244,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, cross_connect_group_id, defined_tags, display_name, far_cross_connect_or_cross_connect_group_id, freeform_tags, location_name, near_cross_connect_or_cross_connect_group_id, port_speed_shape_name, customer_reference_name].hash
+      [compartment_id, cross_connect_group_id, defined_tags, display_name, far_cross_connect_or_cross_connect_group_id, freeform_tags, location_name, near_cross_connect_or_cross_connect_group_id, port_speed_shape_name, customer_reference_name, macsec_properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -34,6 +34,8 @@ module OCI
       UPDATE_TYPE_SECURITY = 'SECURITY'.freeze,
       UPDATE_TYPE_BUGFIX = 'BUGFIX'.freeze,
       UPDATE_TYPE_ENHANCEMENT = 'ENHANCEMENT'.freeze,
+      UPDATE_TYPE_OTHER = 'OTHER'.freeze,
+      UPDATE_TYPE_KSPLICE = 'KSPLICE'.freeze,
       UPDATE_TYPE_ALL = 'ALL'.freeze,
       UPDATE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
@@ -141,6 +143,10 @@ module OCI
     # @return [String]
     attr_reader :os_family
 
+    # true, if the schedule job has its update capabilities restricted. (Used to track Autonomous Scheduled Job)
+    # @return [BOOLEAN]
+    attr_accessor :is_restricted
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -164,7 +170,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'update_names': :'updateNames',
-        'os_family': :'osFamily'
+        'os_family': :'osFamily',
+        'is_restricted': :'isRestricted'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -192,7 +199,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'update_names': :'Array<String>',
-        'os_family': :'String'
+        'os_family': :'String',
+        'is_restricted': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -223,6 +231,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Array<String>] :update_names The value to assign to the {#update_names} property
     # @option attributes [String] :os_family The value to assign to the {#os_family} property
+    # @option attributes [BOOLEAN] :is_restricted The value to assign to the {#is_restricted} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -340,6 +349,12 @@ module OCI
       raise 'You cannot provide both :osFamily and :os_family' if attributes.key?(:'osFamily') && attributes.key?(:'os_family')
 
       self.os_family = attributes[:'os_family'] if attributes[:'os_family']
+
+      self.is_restricted = attributes[:'isRestricted'] unless attributes[:'isRestricted'].nil?
+
+      raise 'You cannot provide both :isRestricted and :is_restricted' if attributes.key?(:'isRestricted') && attributes.key?(:'is_restricted')
+
+      self.is_restricted = attributes[:'is_restricted'] unless attributes[:'is_restricted'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -450,7 +465,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         update_names == other.update_names &&
-        os_family == other.os_family
+        os_family == other.os_family &&
+        is_restricted == other.is_restricted
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -466,7 +482,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, description, schedule_type, time_next_execution, time_last_execution, interval_type, interval_value, managed_instances, managed_instance_groups, operation_type, update_type, package_names, work_requests, lifecycle_state, freeform_tags, defined_tags, update_names, os_family].hash
+      [id, compartment_id, display_name, description, schedule_type, time_next_execution, time_last_execution, interval_type, interval_value, managed_instances, managed_instance_groups, operation_type, update_type, package_names, work_requests, lifecycle_state, freeform_tags, defined_tags, update_names, os_family, is_restricted].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

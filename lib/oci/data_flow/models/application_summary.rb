@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -22,6 +22,12 @@ module OCI
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    TYPE_ENUM = [
+      TYPE_BATCH = 'BATCH'.freeze,
+      TYPE_STREAMING = 'STREAMING'.freeze,
+      TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The OCID of a compartment.
@@ -90,6 +96,11 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_updated
 
+    # The Spark application processing type.
+    #
+    # @return [String]
+    attr_reader :type
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -105,7 +116,8 @@ module OCI
         'owner_user_name': :'ownerUserName',
         'spark_version': :'sparkVersion',
         'time_created': :'timeCreated',
-        'time_updated': :'timeUpdated'
+        'time_updated': :'timeUpdated',
+        'type': :'type'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -125,7 +137,8 @@ module OCI
         'owner_user_name': :'String',
         'spark_version': :'String',
         'time_created': :'DateTime',
-        'time_updated': :'DateTime'
+        'time_updated': :'DateTime',
+        'type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -148,6 +161,7 @@ module OCI
     # @option attributes [String] :spark_version The value to assign to the {#spark_version} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [String] :type The value to assign to the {#type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -217,6 +231,9 @@ module OCI
       raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
 
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.type = attributes[:'type'] if attributes[:'type']
+      self.type = "BATCH" if type.nil? && !attributes.key?(:'type') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -247,6 +264,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] type Object to be assigned
+    def type=(type)
+      # rubocop:disable Style/ConditionalAssignment
+      if type && !TYPE_ENUM.include?(type)
+        OCI.logger.debug("Unknown value for 'type' [" + type + "]. Mapping to 'TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @type = TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @type = type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -267,7 +297,8 @@ module OCI
         owner_user_name == other.owner_user_name &&
         spark_version == other.spark_version &&
         time_created == other.time_created &&
-        time_updated == other.time_updated
+        time_updated == other.time_updated &&
+        type == other.type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -283,7 +314,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, id, language, lifecycle_state, owner_principal_id, owner_user_name, spark_version, time_created, time_updated].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, id, language, lifecycle_state, owner_principal_id, owner_user_name, spark_version, time_created, time_updated, type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

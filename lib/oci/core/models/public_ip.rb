@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -47,7 +47,7 @@ module OCI
       SCOPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The OCID of the entity the public IP is assigned to, or in the process of
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the entity the public IP is assigned to, or in the process of
     # being assigned to.
     #
     # @return [String]
@@ -68,7 +68,7 @@ module OCI
     # @return [String]
     attr_accessor :availability_domain
 
-    # The OCID of the compartment containing the public IP. For an ephemeral public IP, this is
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the public IP. For an ephemeral public IP, this is
     # the compartment of its assigned entity (which can be a private IP or a regional entity such
     # as a NAT gateway). For a reserved public IP that is currently assigned,
     # its compartment can be different from the assigned private IP's.
@@ -84,8 +84,8 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid
-    # entering confidential information.
+    # A user-friendly name. Does not have to be unique, and it's changeable.
+    # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
@@ -98,7 +98,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # The public IP's Oracle ID (OCID).
+    # The public IP's Oracle ID ([OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)).
     # @return [String]
     attr_accessor :id
 
@@ -133,7 +133,7 @@ module OCI
 
     # Deprecated. Use `assignedEntityId` instead.
     #
-    # The OCID of the private IP that the public IP is currently assigned to, or in the
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the private IP that the public IP is currently assigned to, or in the
     # process of being assigned to.
     #
     # **Note:** This is `null` if the public IP is not assigned to a private IP, or is

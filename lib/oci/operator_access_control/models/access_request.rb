@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -17,6 +17,13 @@ module OCI
   # An operator can also request for an extension. The approval for such an extension is processed the same way the original access request was processed.
   #
   class OperatorAccessControl::Models::AccessRequest
+    RESOURCE_TYPE_ENUM = [
+      RESOURCE_TYPE_EXACC = 'EXACC'.freeze,
+      RESOURCE_TYPE_EXADATAINFRASTRUCTURE = 'EXADATAINFRASTRUCTURE'.freeze,
+      RESOURCE_TYPE_AUTONOMOUSVMCLUSTER = 'AUTONOMOUSVMCLUSTER'.freeze,
+      RESOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     SEVERITY_ENUM = [
       SEVERITY_S1 = 'S1'.freeze,
       SEVERITY_S2 = 'S2'.freeze,
@@ -46,6 +53,8 @@ module OCI
       LIFECYCLE_STATE_COMPLETING = 'COMPLETING'.freeze,
       LIFECYCLE_STATE_COMPLETED = 'COMPLETED'.freeze,
       LIFECYCLE_STATE_EXPIRED = 'EXPIRED'.freeze,
+      LIFECYCLE_STATE_APPROVEDFORFUTURE = 'APPROVEDFORFUTURE'.freeze,
+      LIFECYCLE_STATE_INREVIEW = 'INREVIEW'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -80,6 +89,10 @@ module OCI
     # The OCID of the compartment that contains the access request.
     # @return [String]
     attr_accessor :compartment_id
+
+    # resourceType for which the AccessRequest is applicable
+    # @return [String]
+    attr_reader :resource_type
 
     # List of operator actions for which approval is sought by the operator user.
     # @return [Array<String>]
@@ -124,6 +137,11 @@ module OCI
     #
     # @return [DateTime]
     attr_accessor :time_of_modification
+
+    # The time when access request is scheduled to be approved in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.Example: '2020-05-22T21:10:29.600Z'
+    #
+    # @return [DateTime]
+    attr_accessor :time_of_user_creation
 
     # The OCID of the user that last modified the access request.
     # @return [String]
@@ -181,6 +199,7 @@ module OCI
         'resource_id': :'resourceId',
         'resource_name': :'resourceName',
         'compartment_id': :'compartmentId',
+        'resource_type': :'resourceType',
         'action_requests_list': :'actionRequestsList',
         'reason': :'reason',
         'severity': :'severity',
@@ -191,6 +210,7 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'time_of_creation': :'timeOfCreation',
         'time_of_modification': :'timeOfModification',
+        'time_of_user_creation': :'timeOfUserCreation',
         'user_id': :'userId',
         'approver_comment': :'approverComment',
         'closure_comment': :'closureComment',
@@ -216,6 +236,7 @@ module OCI
         'resource_id': :'String',
         'resource_name': :'String',
         'compartment_id': :'String',
+        'resource_type': :'String',
         'action_requests_list': :'Array<String>',
         'reason': :'String',
         'severity': :'String',
@@ -226,6 +247,7 @@ module OCI
         'lifecycle_state': :'String',
         'time_of_creation': :'DateTime',
         'time_of_modification': :'DateTime',
+        'time_of_user_creation': :'DateTime',
         'user_id': :'String',
         'approver_comment': :'String',
         'closure_comment': :'String',
@@ -253,6 +275,7 @@ module OCI
     # @option attributes [String] :resource_id The value to assign to the {#resource_id} property
     # @option attributes [String] :resource_name The value to assign to the {#resource_name} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :resource_type The value to assign to the {#resource_type} property
     # @option attributes [Array<String>] :action_requests_list The value to assign to the {#action_requests_list} property
     # @option attributes [String] :reason The value to assign to the {#reason} property
     # @option attributes [String] :severity The value to assign to the {#severity} property
@@ -263,6 +286,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_of_creation The value to assign to the {#time_of_creation} property
     # @option attributes [DateTime] :time_of_modification The value to assign to the {#time_of_modification} property
+    # @option attributes [DateTime] :time_of_user_creation The value to assign to the {#time_of_user_creation} property
     # @option attributes [String] :user_id The value to assign to the {#user_id} property
     # @option attributes [String] :approver_comment The value to assign to the {#approver_comment} property
     # @option attributes [String] :closure_comment The value to assign to the {#closure_comment} property
@@ -317,6 +341,12 @@ module OCI
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
+      self.resource_type = attributes[:'resourceType'] if attributes[:'resourceType']
+
+      raise 'You cannot provide both :resourceType and :resource_type' if attributes.key?(:'resourceType') && attributes.key?(:'resource_type')
+
+      self.resource_type = attributes[:'resource_type'] if attributes[:'resource_type']
+
       self.action_requests_list = attributes[:'actionRequestsList'] if attributes[:'actionRequestsList']
 
       raise 'You cannot provide both :actionRequestsList and :action_requests_list' if attributes.key?(:'actionRequestsList') && attributes.key?(:'action_requests_list')
@@ -364,6 +394,12 @@ module OCI
       raise 'You cannot provide both :timeOfModification and :time_of_modification' if attributes.key?(:'timeOfModification') && attributes.key?(:'time_of_modification')
 
       self.time_of_modification = attributes[:'time_of_modification'] if attributes[:'time_of_modification']
+
+      self.time_of_user_creation = attributes[:'timeOfUserCreation'] if attributes[:'timeOfUserCreation']
+
+      raise 'You cannot provide both :timeOfUserCreation and :time_of_user_creation' if attributes.key?(:'timeOfUserCreation') && attributes.key?(:'time_of_user_creation')
+
+      self.time_of_user_creation = attributes[:'time_of_user_creation'] if attributes[:'time_of_user_creation']
 
       self.user_id = attributes[:'userId'] if attributes[:'userId']
 
@@ -429,6 +465,19 @@ module OCI
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] resource_type Object to be assigned
+    def resource_type=(resource_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if resource_type && !RESOURCE_TYPE_ENUM.include?(resource_type)
+        OCI.logger.debug("Unknown value for 'resource_type' [" + resource_type + "]. Mapping to 'RESOURCE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @resource_type = RESOURCE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @resource_type = resource_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] severity Object to be assigned
     def severity=(severity)
       # rubocop:disable Style/ConditionalAssignment
@@ -470,6 +519,7 @@ module OCI
         resource_id == other.resource_id &&
         resource_name == other.resource_name &&
         compartment_id == other.compartment_id &&
+        resource_type == other.resource_type &&
         action_requests_list == other.action_requests_list &&
         reason == other.reason &&
         severity == other.severity &&
@@ -480,6 +530,7 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         time_of_creation == other.time_of_creation &&
         time_of_modification == other.time_of_modification &&
+        time_of_user_creation == other.time_of_user_creation &&
         user_id == other.user_id &&
         approver_comment == other.approver_comment &&
         closure_comment == other.closure_comment &&
@@ -505,7 +556,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, request_id, access_reason_summary, operator_id, resource_id, resource_name, compartment_id, action_requests_list, reason, severity, duration, extend_duration, workflow_id, is_auto_approved, lifecycle_state, time_of_creation, time_of_modification, user_id, approver_comment, closure_comment, opctl_id, opctl_name, system_message, opctl_additional_message, audit_type, freeform_tags, defined_tags].hash
+      [id, request_id, access_reason_summary, operator_id, resource_id, resource_name, compartment_id, resource_type, action_requests_list, reason, severity, duration, extend_duration, workflow_id, is_auto_approved, lifecycle_state, time_of_creation, time_of_modification, time_of_user_creation, user_id, approver_comment, closure_comment, opctl_id, opctl_name, system_message, opctl_additional_message, audit_type, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

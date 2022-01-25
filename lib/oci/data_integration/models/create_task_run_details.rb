@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,6 +7,12 @@ require 'date'
 module OCI
   # The properties used in task run create operations.
   class DataIntegration::Models::CreateTaskRunDetails
+    RE_RUN_TYPE_ENUM = [
+      RE_RUN_TYPE_BEGINNING = 'BEGINNING'.freeze,
+      RE_RUN_TYPE_FAILED = 'FAILED'.freeze,
+      RE_RUN_TYPE_STEP = 'STEP'.freeze
+    ].freeze
+
     # The key of the object.
     # @return [String]
     attr_accessor :key
@@ -38,6 +44,18 @@ module OCI
     # @return [String]
     attr_accessor :task_schedule_key
 
+    # Reference Task Run Id to be used for re-run
+    # @return [String]
+    attr_accessor :ref_task_run_id
+
+    # Supported re-run types
+    # @return [String]
+    attr_reader :re_run_type
+
+    # Step Id for running from a certain step.
+    # @return [String]
+    attr_accessor :step_id
+
     # @return [OCI::DataIntegration::Models::RegistryMetadata]
     attr_accessor :registry_metadata
 
@@ -53,6 +71,9 @@ module OCI
         'config_provider': :'configProvider',
         'identifier': :'identifier',
         'task_schedule_key': :'taskScheduleKey',
+        'ref_task_run_id': :'refTaskRunId',
+        're_run_type': :'reRunType',
+        'step_id': :'stepId',
         'registry_metadata': :'registryMetadata'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -70,6 +91,9 @@ module OCI
         'config_provider': :'OCI::DataIntegration::Models::CreateConfigProvider',
         'identifier': :'String',
         'task_schedule_key': :'String',
+        'ref_task_run_id': :'String',
+        're_run_type': :'String',
+        'step_id': :'String',
         'registry_metadata': :'OCI::DataIntegration::Models::RegistryMetadata'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -89,6 +113,9 @@ module OCI
     # @option attributes [OCI::DataIntegration::Models::CreateConfigProvider] :config_provider The value to assign to the {#config_provider} property
     # @option attributes [String] :identifier The value to assign to the {#identifier} property
     # @option attributes [String] :task_schedule_key The value to assign to the {#task_schedule_key} property
+    # @option attributes [String] :ref_task_run_id The value to assign to the {#ref_task_run_id} property
+    # @option attributes [String] :re_run_type The value to assign to the {#re_run_type} property
+    # @option attributes [String] :step_id The value to assign to the {#step_id} property
     # @option attributes [OCI::DataIntegration::Models::RegistryMetadata] :registry_metadata The value to assign to the {#registry_metadata} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -128,6 +155,24 @@ module OCI
 
       self.task_schedule_key = attributes[:'task_schedule_key'] if attributes[:'task_schedule_key']
 
+      self.ref_task_run_id = attributes[:'refTaskRunId'] if attributes[:'refTaskRunId']
+
+      raise 'You cannot provide both :refTaskRunId and :ref_task_run_id' if attributes.key?(:'refTaskRunId') && attributes.key?(:'ref_task_run_id')
+
+      self.ref_task_run_id = attributes[:'ref_task_run_id'] if attributes[:'ref_task_run_id']
+
+      self.re_run_type = attributes[:'reRunType'] if attributes[:'reRunType']
+
+      raise 'You cannot provide both :reRunType and :re_run_type' if attributes.key?(:'reRunType') && attributes.key?(:'re_run_type')
+
+      self.re_run_type = attributes[:'re_run_type'] if attributes[:'re_run_type']
+
+      self.step_id = attributes[:'stepId'] if attributes[:'stepId']
+
+      raise 'You cannot provide both :stepId and :step_id' if attributes.key?(:'stepId') && attributes.key?(:'step_id')
+
+      self.step_id = attributes[:'step_id'] if attributes[:'step_id']
+
       self.registry_metadata = attributes[:'registryMetadata'] if attributes[:'registryMetadata']
 
       raise 'You cannot provide both :registryMetadata and :registry_metadata' if attributes.key?(:'registryMetadata') && attributes.key?(:'registry_metadata')
@@ -136,6 +181,14 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] re_run_type Object to be assigned
+    def re_run_type=(re_run_type)
+      raise "Invalid value for 're_run_type': this must be one of the values in RE_RUN_TYPE_ENUM." if re_run_type && !RE_RUN_TYPE_ENUM.include?(re_run_type)
+
+      @re_run_type = re_run_type
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -154,6 +207,9 @@ module OCI
         config_provider == other.config_provider &&
         identifier == other.identifier &&
         task_schedule_key == other.task_schedule_key &&
+        ref_task_run_id == other.ref_task_run_id &&
+        re_run_type == other.re_run_type &&
+        step_id == other.step_id &&
         registry_metadata == other.registry_metadata
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -170,7 +226,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, model_type, model_version, name, description, config_provider, identifier, task_schedule_key, registry_metadata].hash
+      [key, model_type, model_version, name, description, config_provider, identifier, task_schedule_key, ref_task_run_id, re_run_type, step_id, registry_metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -32,6 +32,10 @@ module OCI
     # @return [String]
     attr_accessor :enterprise_manager_bridge_id
 
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the Exadata insight.
+    # @return [String]
+    attr_accessor :exadata_insight_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -55,7 +59,8 @@ module OCI
         'enterprise_manager_entity_type': :'enterpriseManagerEntityType',
         'enterprise_manager_entity_identifier': :'enterpriseManagerEntityIdentifier',
         'enterprise_manager_entity_display_name': :'enterpriseManagerEntityDisplayName',
-        'enterprise_manager_bridge_id': :'enterpriseManagerBridgeId'
+        'enterprise_manager_bridge_id': :'enterpriseManagerBridgeId',
+        'exadata_insight_id': :'exadataInsightId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -83,7 +88,8 @@ module OCI
         'enterprise_manager_entity_type': :'String',
         'enterprise_manager_entity_identifier': :'String',
         'enterprise_manager_entity_display_name': :'String',
-        'enterprise_manager_bridge_id': :'String'
+        'enterprise_manager_bridge_id': :'String',
+        'exadata_insight_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -113,6 +119,7 @@ module OCI
     # @option attributes [String] :enterprise_manager_entity_identifier The value to assign to the {#enterprise_manager_entity_identifier} property
     # @option attributes [String] :enterprise_manager_entity_display_name The value to assign to the {#enterprise_manager_entity_display_name} property
     # @option attributes [String] :enterprise_manager_bridge_id The value to assign to the {#enterprise_manager_bridge_id} property
+    # @option attributes [String] :exadata_insight_id The value to assign to the {#exadata_insight_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -158,6 +165,12 @@ module OCI
       raise 'You cannot provide both :enterpriseManagerBridgeId and :enterprise_manager_bridge_id' if attributes.key?(:'enterpriseManagerBridgeId') && attributes.key?(:'enterprise_manager_bridge_id')
 
       self.enterprise_manager_bridge_id = attributes[:'enterprise_manager_bridge_id'] if attributes[:'enterprise_manager_bridge_id']
+
+      self.exadata_insight_id = attributes[:'exadataInsightId'] if attributes[:'exadataInsightId']
+
+      raise 'You cannot provide both :exadataInsightId and :exadata_insight_id' if attributes.key?(:'exadataInsightId') && attributes.key?(:'exadata_insight_id')
+
+      self.exadata_insight_id = attributes[:'exadata_insight_id'] if attributes[:'exadata_insight_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -190,7 +203,8 @@ module OCI
         enterprise_manager_entity_type == other.enterprise_manager_entity_type &&
         enterprise_manager_entity_identifier == other.enterprise_manager_entity_identifier &&
         enterprise_manager_entity_display_name == other.enterprise_manager_entity_display_name &&
-        enterprise_manager_bridge_id == other.enterprise_manager_bridge_id
+        enterprise_manager_bridge_id == other.enterprise_manager_bridge_id &&
+        exadata_insight_id == other.exadata_insight_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -206,7 +220,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [entity_source, id, compartment_id, status, database_type, database_version, processor_count, freeform_tags, defined_tags, system_tags, time_created, time_updated, lifecycle_state, lifecycle_details, enterprise_manager_identifier, enterprise_manager_entity_name, enterprise_manager_entity_type, enterprise_manager_entity_identifier, enterprise_manager_entity_display_name, enterprise_manager_bridge_id].hash
+      [entity_source, id, compartment_id, status, database_type, database_version, processor_count, freeform_tags, defined_tags, system_tags, time_created, time_updated, lifecycle_state, lifecycle_details, enterprise_manager_identifier, enterprise_manager_entity_name, enterprise_manager_entity_type, enterprise_manager_entity_identifier, enterprise_manager_entity_display_name, enterprise_manager_bridge_id, exadata_insight_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

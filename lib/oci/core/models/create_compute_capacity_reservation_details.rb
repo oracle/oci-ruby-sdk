@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -21,8 +21,8 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name for the compute capacity reservation. Does not have to be unique, and it's
-    # changeable. Avoid entering confidential information.
+    # A user-friendly name. Does not have to be unique, and it's changeable.
+    # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
@@ -48,7 +48,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_default_reservation
 
-    # The reservation configurations for the capacity reservation.
+    # The capacity configurations for the capacity reservation.
     #
     # To use the reservation for the desired shape, specify the shape, count, and
     # optionally the fault domain where you want this configuration.

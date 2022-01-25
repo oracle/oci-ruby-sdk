@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -22,13 +22,19 @@ module OCI
     # @return [String]
     attr_accessor :additional_message
 
+    # The time when access request is scheduled to be approved in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format.Example: '2020-05-22T21:10:29.600Z'
+    #
+    # @return [DateTime]
+    attr_accessor :time_of_user_creation
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'approver_comment': :'approverComment',
         'audit_type': :'auditType',
-        'additional_message': :'additionalMessage'
+        'additional_message': :'additionalMessage',
+        'time_of_user_creation': :'timeOfUserCreation'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -39,7 +45,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'approver_comment': :'String',
         'audit_type': :'Array<String>',
-        'additional_message': :'String'
+        'additional_message': :'String',
+        'time_of_user_creation': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -53,6 +60,7 @@ module OCI
     # @option attributes [String] :approver_comment The value to assign to the {#approver_comment} property
     # @option attributes [Array<String>] :audit_type The value to assign to the {#audit_type} property
     # @option attributes [String] :additional_message The value to assign to the {#additional_message} property
+    # @option attributes [DateTime] :time_of_user_creation The value to assign to the {#time_of_user_creation} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -76,6 +84,12 @@ module OCI
       raise 'You cannot provide both :additionalMessage and :additional_message' if attributes.key?(:'additionalMessage') && attributes.key?(:'additional_message')
 
       self.additional_message = attributes[:'additional_message'] if attributes[:'additional_message']
+
+      self.time_of_user_creation = attributes[:'timeOfUserCreation'] if attributes[:'timeOfUserCreation']
+
+      raise 'You cannot provide both :timeOfUserCreation and :time_of_user_creation' if attributes.key?(:'timeOfUserCreation') && attributes.key?(:'time_of_user_creation')
+
+      self.time_of_user_creation = attributes[:'time_of_user_creation'] if attributes[:'time_of_user_creation']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -91,7 +105,8 @@ module OCI
       self.class == other.class &&
         approver_comment == other.approver_comment &&
         audit_type == other.audit_type &&
-        additional_message == other.additional_message
+        additional_message == other.additional_message &&
+        time_of_user_creation == other.time_of_user_creation
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -107,7 +122,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [approver_comment, audit_type, additional_message].hash
+      [approver_comment, audit_type, additional_message, time_of_user_creation].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

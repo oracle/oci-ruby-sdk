@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
@@ -28,7 +28,7 @@ module OCI
     # Calls {OCI::ApmControlPlane::ApmDomainClient#change_apm_domain_compartment} and then waits for the {OCI::ApmControlPlane::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] apm_domain_id OCID of the APM Domain
+    # @param [String] apm_domain_id The OCID of the APM domain
     # @param [OCI::ApmControlPlane::Models::ChangeApmDomainCompartmentDetails] change_apm_domain_compartment_details The information to be used in changing compartment.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ApmControlPlane::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ApmControlPlane::ApmDomainClient#change_apm_domain_compartment}
@@ -78,7 +78,7 @@ module OCI
     # Calls {OCI::ApmControlPlane::ApmDomainClient#create_apm_domain} and then waits for the {OCI::ApmControlPlane::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::ApmControlPlane::Models::CreateApmDomainDetails] create_apm_domain_details Details for the new APM Domain.
+    # @param [OCI::ApmControlPlane::Models::CreateApmDomainDetails] create_apm_domain_details Details for the new APM domain.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ApmControlPlane::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ApmControlPlane::ApmDomainClient#create_apm_domain}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -127,7 +127,7 @@ module OCI
     # Calls {OCI::ApmControlPlane::ApmDomainClient#delete_apm_domain} and then waits for the {OCI::ApmControlPlane::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] apm_domain_id OCID of the APM Domain
+    # @param [String] apm_domain_id The OCID of the APM domain
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ApmControlPlane::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ApmControlPlane::ApmDomainClient#delete_apm_domain}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -177,7 +177,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [Array<OCI::ApmControlPlane::Models::OCI::ApmControlPlane::Models::GenerateDataKeyDetails>] generate_data_keys_list_details List of new Data Keys to be generated.
-    # @param [String] apm_domain_id OCID of the APM Domain
+    # @param [String] apm_domain_id The OCID of the APM domain
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ApmControlPlane::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ApmControlPlane::ApmDomainClient#generate_data_keys}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -226,7 +226,7 @@ module OCI
     # Calls {OCI::ApmControlPlane::ApmDomainClient#remove_data_keys} and then waits for the {OCI::ApmControlPlane::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] apm_domain_id OCID of the APM Domain
+    # @param [String] apm_domain_id The OCID of the APM domain
     # @param [Array<OCI::ApmControlPlane::Models::OCI::ApmControlPlane::Models::RemoveDataKeyDetails>] remove_data_keys_list_details List of Data Keys to be removed.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ApmControlPlane::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ApmControlPlane::ApmDomainClient#remove_data_keys}
@@ -276,8 +276,8 @@ module OCI
     # Calls {OCI::ApmControlPlane::ApmDomainClient#update_apm_domain} and then waits for the {OCI::ApmControlPlane::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] apm_domain_id OCID of the APM Domain
-    # @param [OCI::ApmControlPlane::Models::UpdateApmDomainDetails] update_apm_domain_details The information to be updated for the APM Domain.
+    # @param [String] apm_domain_id The OCID of the APM domain
+    # @param [OCI::ApmControlPlane::Models::UpdateApmDomainDetails] update_apm_domain_details The information to be updated for the APM domain.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ApmControlPlane::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ApmControlPlane::ApmDomainClient#update_apm_domain}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

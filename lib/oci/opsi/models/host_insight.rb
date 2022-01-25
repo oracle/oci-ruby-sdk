@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -11,6 +11,7 @@ module OCI
   class Opsi::Models::HostInsight
     ENTITY_SOURCE_ENUM = [
       ENTITY_SOURCE_MACS_MANAGED_EXTERNAL_HOST = 'MACS_MANAGED_EXTERNAL_HOST'.freeze,
+      ENTITY_SOURCE_EM_MANAGED_EXTERNAL_HOST = 'EM_MANAGED_EXTERNAL_HOST'.freeze,
       ENTITY_SOURCE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -152,6 +153,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'entitySource'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::Opsi::Models::EmManagedExternalHostInsight' if type == 'EM_MANAGED_EXTERNAL_HOST'
       return 'OCI::Opsi::Models::MacsManagedExternalHostInsight' if type == 'MACS_MANAGED_EXTERNAL_HOST'
 
       # TODO: Log a warning when the subtype is not found.

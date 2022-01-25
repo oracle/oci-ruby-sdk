@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -114,6 +114,11 @@ module OCI
     # @return [String]
     attr_accessor :apply_rate
 
+    # Indicates whether Automatic Failover is enabled for Autonomous Container Database Dataguard Association
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_automatic_failover_enabled
+
     # The approximate number of seconds of redo data not yet available on the standby Autonomous Container Database,
     # as computed by the reporting database.
     #
@@ -150,6 +155,7 @@ module OCI
         'protection_mode': :'protectionMode',
         'apply_lag': :'applyLag',
         'apply_rate': :'applyRate',
+        'is_automatic_failover_enabled': :'isAutomaticFailoverEnabled',
         'transport_lag': :'transportLag',
         'time_last_synced': :'timeLastSynced',
         'time_created': :'timeCreated',
@@ -174,6 +180,7 @@ module OCI
         'protection_mode': :'String',
         'apply_lag': :'String',
         'apply_rate': :'String',
+        'is_automatic_failover_enabled': :'BOOLEAN',
         'transport_lag': :'String',
         'time_last_synced': :'DateTime',
         'time_created': :'DateTime',
@@ -200,6 +207,7 @@ module OCI
     # @option attributes [String] :protection_mode The value to assign to the {#protection_mode} property
     # @option attributes [String] :apply_lag The value to assign to the {#apply_lag} property
     # @option attributes [String] :apply_rate The value to assign to the {#apply_rate} property
+    # @option attributes [BOOLEAN] :is_automatic_failover_enabled The value to assign to the {#is_automatic_failover_enabled} property
     # @option attributes [String] :transport_lag The value to assign to the {#transport_lag} property
     # @option attributes [DateTime] :time_last_synced The value to assign to the {#time_last_synced} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -273,6 +281,12 @@ module OCI
       raise 'You cannot provide both :applyRate and :apply_rate' if attributes.key?(:'applyRate') && attributes.key?(:'apply_rate')
 
       self.apply_rate = attributes[:'apply_rate'] if attributes[:'apply_rate']
+
+      self.is_automatic_failover_enabled = attributes[:'isAutomaticFailoverEnabled'] unless attributes[:'isAutomaticFailoverEnabled'].nil?
+
+      raise 'You cannot provide both :isAutomaticFailoverEnabled and :is_automatic_failover_enabled' if attributes.key?(:'isAutomaticFailoverEnabled') && attributes.key?(:'is_automatic_failover_enabled')
+
+      self.is_automatic_failover_enabled = attributes[:'is_automatic_failover_enabled'] unless attributes[:'is_automatic_failover_enabled'].nil?
 
       self.transport_lag = attributes[:'transportLag'] if attributes[:'transportLag']
 
@@ -387,6 +401,7 @@ module OCI
         protection_mode == other.protection_mode &&
         apply_lag == other.apply_lag &&
         apply_rate == other.apply_rate &&
+        is_automatic_failover_enabled == other.is_automatic_failover_enabled &&
         transport_lag == other.transport_lag &&
         time_last_synced == other.time_last_synced &&
         time_created == other.time_created &&
@@ -406,7 +421,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, autonomous_container_database_id, role, lifecycle_state, lifecycle_details, peer_autonomous_container_database_dataguard_association_id, peer_autonomous_container_database_id, peer_role, peer_lifecycle_state, protection_mode, apply_lag, apply_rate, transport_lag, time_last_synced, time_created, time_last_role_changed].hash
+      [id, autonomous_container_database_id, role, lifecycle_state, lifecycle_details, peer_autonomous_container_database_dataguard_association_id, peer_autonomous_container_database_id, peer_role, peer_lifecycle_state, protection_mode, apply_lag, apply_rate, is_automatic_failover_enabled, transport_lag, time_last_synced, time_created, time_last_role_changed].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

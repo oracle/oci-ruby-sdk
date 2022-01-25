@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -40,6 +40,16 @@ module OCI
     # Detailed description of a data entity.
     # @return [String]
     attr_accessor :description
+
+    # Property that identifies if the object is a physical object (materialized) or virtual/logical object
+    # defined on other objects.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_logical
+
+    # Property that identifies if an object is a sub object of a physical or materialized parent object.
+    # @return [BOOLEAN]
+    attr_accessor :is_partition
 
     # Unique key of the parent data asset.
     # @return [String]
@@ -96,6 +106,15 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # A map of maps that contains the properties which are specific to the entity type. Each entity type
+    # definition defines it's set of required and optional properties. The map keys are category names and the
+    # values are maps of property name to property value. Every property is contained inside of a category. Most
+    # data entities have required properties within the \"default\" category.
+    # Example: `{\"properties\": { \"default\": { \"key1\": \"value1\"}}}`
+    #
+    # @return [Hash<String, Hash<String, String>>]
+    attr_accessor :properties
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -104,6 +123,8 @@ module OCI
         'display_name': :'displayName',
         'business_name': :'businessName',
         'description': :'description',
+        'is_logical': :'isLogical',
+        'is_partition': :'isPartition',
         'data_asset_key': :'dataAssetKey',
         'folder_key': :'folderKey',
         'folder_name': :'folderName',
@@ -116,7 +137,8 @@ module OCI
         'time_updated': :'timeUpdated',
         'updated_by_id': :'updatedById',
         'uri': :'uri',
-        'lifecycle_state': :'lifecycleState'
+        'lifecycle_state': :'lifecycleState',
+        'properties': :'properties'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -129,6 +151,8 @@ module OCI
         'display_name': :'String',
         'business_name': :'String',
         'description': :'String',
+        'is_logical': :'BOOLEAN',
+        'is_partition': :'BOOLEAN',
         'data_asset_key': :'String',
         'folder_key': :'String',
         'folder_name': :'String',
@@ -141,7 +165,8 @@ module OCI
         'time_updated': :'DateTime',
         'updated_by_id': :'String',
         'uri': :'String',
-        'lifecycle_state': :'String'
+        'lifecycle_state': :'String',
+        'properties': :'Hash<String, Hash<String, String>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -156,6 +181,8 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :business_name The value to assign to the {#business_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [BOOLEAN] :is_logical The value to assign to the {#is_logical} property
+    # @option attributes [BOOLEAN] :is_partition The value to assign to the {#is_partition} property
     # @option attributes [String] :data_asset_key The value to assign to the {#data_asset_key} property
     # @option attributes [String] :folder_key The value to assign to the {#folder_key} property
     # @option attributes [String] :folder_name The value to assign to the {#folder_name} property
@@ -169,6 +196,7 @@ module OCI
     # @option attributes [String] :updated_by_id The value to assign to the {#updated_by_id} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -190,6 +218,18 @@ module OCI
       self.business_name = attributes[:'business_name'] if attributes[:'business_name']
 
       self.description = attributes[:'description'] if attributes[:'description']
+
+      self.is_logical = attributes[:'isLogical'] unless attributes[:'isLogical'].nil?
+
+      raise 'You cannot provide both :isLogical and :is_logical' if attributes.key?(:'isLogical') && attributes.key?(:'is_logical')
+
+      self.is_logical = attributes[:'is_logical'] unless attributes[:'is_logical'].nil?
+
+      self.is_partition = attributes[:'isPartition'] unless attributes[:'isPartition'].nil?
+
+      raise 'You cannot provide both :isPartition and :is_partition' if attributes.key?(:'isPartition') && attributes.key?(:'is_partition')
+
+      self.is_partition = attributes[:'is_partition'] unless attributes[:'is_partition'].nil?
 
       self.data_asset_key = attributes[:'dataAssetKey'] if attributes[:'dataAssetKey']
 
@@ -260,6 +300,8 @@ module OCI
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.properties = attributes[:'properties'] if attributes[:'properties']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -290,6 +332,8 @@ module OCI
         display_name == other.display_name &&
         business_name == other.business_name &&
         description == other.description &&
+        is_logical == other.is_logical &&
+        is_partition == other.is_partition &&
         data_asset_key == other.data_asset_key &&
         folder_key == other.folder_key &&
         folder_name == other.folder_name &&
@@ -302,7 +346,8 @@ module OCI
         time_updated == other.time_updated &&
         updated_by_id == other.updated_by_id &&
         uri == other.uri &&
-        lifecycle_state == other.lifecycle_state
+        lifecycle_state == other.lifecycle_state &&
+        properties == other.properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -318,7 +363,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, business_name, description, data_asset_key, folder_key, folder_name, external_key, pattern_key, type_key, realized_expression, path, time_created, time_updated, updated_by_id, uri, lifecycle_state].hash
+      [key, display_name, business_name, description, is_logical, is_partition, data_asset_key, folder_key, folder_name, external_key, pattern_key, type_key, realized_expression, path, time_created, time_updated, updated_by_id, uri, lifecycle_state, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

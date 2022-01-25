@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -13,6 +13,10 @@ module OCI
     # The user-provided name of the Database Home.
     # @return [String]
     attr_accessor :display_name
+
+    # The database software image [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the image to be used to restore a database.
+    # @return [String]
+    attr_accessor :database_software_image_id
 
     # This attribute is required.
     # @return [OCI::Database::Models::CreateDatabaseFromBackupDetails]
@@ -37,6 +41,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
+        'database_software_image_id': :'databaseSoftwareImageId',
         'database': :'database',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
@@ -49,6 +54,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
+        'database_software_image_id': :'String',
         'database': :'OCI::Database::Models::CreateDatabaseFromBackupDetails',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
@@ -63,6 +69,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :database_software_image_id The value to assign to the {#database_software_image_id} property
     # @option attributes [OCI::Database::Models::CreateDatabaseFromBackupDetails] :database The value to assign to the {#database} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -77,6 +84,12 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.database_software_image_id = attributes[:'databaseSoftwareImageId'] if attributes[:'databaseSoftwareImageId']
+
+      raise 'You cannot provide both :databaseSoftwareImageId and :database_software_image_id' if attributes.key?(:'databaseSoftwareImageId') && attributes.key?(:'database_software_image_id')
+
+      self.database_software_image_id = attributes[:'database_software_image_id'] if attributes[:'database_software_image_id']
 
       self.database = attributes[:'database'] if attributes[:'database']
 
@@ -105,6 +118,7 @@ module OCI
 
       self.class == other.class &&
         display_name == other.display_name &&
+        database_software_image_id == other.database_software_image_id &&
         database == other.database &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
@@ -123,7 +137,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, database, freeform_tags, defined_tags].hash
+      [display_name, database_software_image_id, database, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

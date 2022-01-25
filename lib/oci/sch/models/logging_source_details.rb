@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,10 +6,12 @@ require_relative 'source_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The logging source.
+  # The Logging source.
+  # For configuration instructions, see
+  # [To create a service connector](https://docs.cloud.oracle.com/iaas/Content/service-connector-hub/managingconnectors.htm#create).
   #
   class Sch::Models::LoggingSourceDetails < Sch::Models::SourceDetails
-    # **[Required]** The resources affected by this work request.
+    # **[Required]** The logs for this Logging source.
     #
     # @return [Array<OCI::Sch::Models::LogSource>]
     attr_accessor :log_sources

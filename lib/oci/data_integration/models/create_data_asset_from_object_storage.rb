@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,6 +8,10 @@ require_relative 'create_data_asset_details'
 module OCI
   # Details for the Oracle Object storage data asset type.
   class DataIntegration::Models::CreateDataAssetFromObjectStorage < DataIntegration::Models::CreateDataAssetDetails
+    # The Oracle Object storage Region ie. us-ashburn-1
+    # @return [String]
+    attr_accessor :oci_region
+
     # The Oracle Object storage URL.
     # @return [String]
     attr_accessor :url
@@ -37,6 +41,7 @@ module OCI
         'external_key': :'externalKey',
         'asset_properties': :'assetProperties',
         'registry_metadata': :'registryMetadata',
+        'oci_region': :'ociRegion',
         'url': :'url',
         'tenancy_id': :'tenancyId',
         'namespace': :'namespace',
@@ -59,6 +64,7 @@ module OCI
         'external_key': :'String',
         'asset_properties': :'Hash<String, String>',
         'registry_metadata': :'OCI::DataIntegration::Models::RegistryMetadata',
+        'oci_region': :'String',
         'url': :'String',
         'tenancy_id': :'String',
         'namespace': :'String',
@@ -82,6 +88,7 @@ module OCI
     # @option attributes [String] :external_key The value to assign to the {OCI::DataIntegration::Models::CreateDataAssetDetails#external_key #external_key} proprety
     # @option attributes [Hash<String, String>] :asset_properties The value to assign to the {OCI::DataIntegration::Models::CreateDataAssetDetails#asset_properties #asset_properties} proprety
     # @option attributes [OCI::DataIntegration::Models::RegistryMetadata] :registry_metadata The value to assign to the {OCI::DataIntegration::Models::CreateDataAssetDetails#registry_metadata #registry_metadata} proprety
+    # @option attributes [String] :oci_region The value to assign to the {#oci_region} property
     # @option attributes [String] :url The value to assign to the {#url} property
     # @option attributes [String] :tenancy_id The value to assign to the {#tenancy_id} property
     # @option attributes [String] :namespace The value to assign to the {#namespace} property
@@ -95,6 +102,12 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.oci_region = attributes[:'ociRegion'] if attributes[:'ociRegion']
+
+      raise 'You cannot provide both :ociRegion and :oci_region' if attributes.key?(:'ociRegion') && attributes.key?(:'oci_region')
+
+      self.oci_region = attributes[:'oci_region'] if attributes[:'oci_region']
 
       self.url = attributes[:'url'] if attributes[:'url']
 
@@ -134,6 +147,7 @@ module OCI
         external_key == other.external_key &&
         asset_properties == other.asset_properties &&
         registry_metadata == other.registry_metadata &&
+        oci_region == other.oci_region &&
         url == other.url &&
         tenancy_id == other.tenancy_id &&
         namespace == other.namespace &&
@@ -153,7 +167,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, name, description, object_status, identifier, external_key, asset_properties, registry_metadata, url, tenancy_id, namespace, default_connection].hash
+      [model_type, key, model_version, name, description, object_status, identifier, external_key, asset_properties, registry_metadata, oci_region, url, tenancy_id, namespace, default_connection].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

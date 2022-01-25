@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -92,6 +92,11 @@ module OCI
     # @return [String]
     attr_accessor :vault_id
 
+    # The OCID of the key container version that is used in database transparent data encryption (TDE) operations KMS Key can have multiple key versions. If none is specified, the current key version (latest) of the Key Id is used for the operation.
+    #
+    # @return [String]
+    attr_accessor :kms_key_version_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -111,7 +116,8 @@ module OCI
         'key_store_id': :'keyStoreId',
         'key_store_wallet_name': :'keyStoreWalletName',
         'kms_key_id': :'kmsKeyId',
-        'vault_id': :'vaultId'
+        'vault_id': :'vaultId',
+        'kms_key_version_id': :'kmsKeyVersionId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -135,7 +141,8 @@ module OCI
         'key_store_id': :'String',
         'key_store_wallet_name': :'String',
         'kms_key_id': :'String',
-        'vault_id': :'String'
+        'vault_id': :'String',
+        'kms_key_version_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -162,6 +169,7 @@ module OCI
     # @option attributes [String] :key_store_wallet_name The value to assign to the {#key_store_wallet_name} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
+    # @option attributes [String] :kms_key_version_id The value to assign to the {#kms_key_version_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -257,6 +265,12 @@ module OCI
       raise 'You cannot provide both :vaultId and :vault_id' if attributes.key?(:'vaultId') && attributes.key?(:'vault_id')
 
       self.vault_id = attributes[:'vault_id'] if attributes[:'vault_id']
+
+      self.kms_key_version_id = attributes[:'kmsKeyVersionId'] if attributes[:'kmsKeyVersionId']
+
+      raise 'You cannot provide both :kmsKeyVersionId and :kms_key_version_id' if attributes.key?(:'kmsKeyVersionId') && attributes.key?(:'kms_key_version_id')
+
+      self.kms_key_version_id = attributes[:'kms_key_version_id'] if attributes[:'kms_key_version_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -311,7 +325,8 @@ module OCI
         key_store_id == other.key_store_id &&
         key_store_wallet_name == other.key_store_wallet_name &&
         kms_key_id == other.kms_key_id &&
-        vault_id == other.vault_id
+        vault_id == other.vault_id &&
+        kms_key_version_id == other.kms_key_version_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -327,7 +342,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, autonomous_database_id, display_name, type, is_automatic, time_started, time_ended, lifecycle_details, database_size_in_tbs, lifecycle_state, is_restorable, key_store_id, key_store_wallet_name, kms_key_id, vault_id].hash
+      [id, compartment_id, autonomous_database_id, display_name, type, is_automatic, time_started, time_ended, lifecycle_details, database_size_in_tbs, lifecycle_state, is_restorable, key_store_id, key_store_wallet_name, kms_key_id, vault_id, kms_key_version_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

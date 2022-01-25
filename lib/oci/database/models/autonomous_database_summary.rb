@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -74,6 +74,16 @@ module OCI
       OPERATIONS_INSIGHTS_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    DATABASE_MANAGEMENT_STATUS_ENUM = [
+      DATABASE_MANAGEMENT_STATUS_ENABLING = 'ENABLING'.freeze,
+      DATABASE_MANAGEMENT_STATUS_ENABLED = 'ENABLED'.freeze,
+      DATABASE_MANAGEMENT_STATUS_DISABLING = 'DISABLING'.freeze,
+      DATABASE_MANAGEMENT_STATUS_NOT_ENABLED = 'NOT_ENABLED'.freeze,
+      DATABASE_MANAGEMENT_STATUS_FAILED_ENABLING = 'FAILED_ENABLING'.freeze,
+      DATABASE_MANAGEMENT_STATUS_FAILED_DISABLING = 'FAILED_DISABLING'.freeze,
+      DATABASE_MANAGEMENT_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     OPEN_MODE_ENUM = [
       OPEN_MODE_READ_ONLY = 'READ_ONLY'.freeze,
       OPEN_MODE_READ_WRITE = 'READ_WRITE'.freeze,
@@ -145,6 +155,11 @@ module OCI
     # @return [String]
     attr_accessor :kms_key_lifecycle_details
 
+    # The OCID of the key container version that is used in database transparent data encryption (TDE) operations KMS Key can have multiple key versions. If none is specified, the current key version (latest) of the Key Id is used for the operation.
+    #
+    # @return [String]
+    attr_accessor :kms_key_version_id
+
     # **[Required]** The database name.
     # @return [String]
     attr_accessor :db_name
@@ -209,7 +224,7 @@ module OCI
     # @return [String]
     attr_reader :infrastructure_type
 
-    # True if the database uses [dedicated Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm).
+    # True if the database uses [dedicated Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html).
     #
     # @return [BOOLEAN]
     attr_accessor :is_dedicated
@@ -239,8 +254,8 @@ module OCI
 
     # The Oracle license model that applies to the Oracle Autonomous Database. Bring your own license (BYOL) allows you to apply your current on-premises Oracle software licenses to equivalent, highly automated Oracle PaaS and IaaS services in the cloud.
     # License Included allows you to subscribe to new Oracle Database software licenses and the Database service.
-    # Note that when provisioning an Autonomous Database on [dedicated Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adbddoverview.htm), this attribute must be null because the attribute is already set at the
-    # Autonomous Exadata Infrastructure level. When using [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI), if a value is not specified, the system will supply the value of `BRING_YOUR_OWN_LICENSE`.
+    # Note that when provisioning an Autonomous Database on [dedicated Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html), this attribute must be null because the attribute is already set at the
+    # Autonomous Exadata Infrastructure level. When using [shared Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html), if a value is not specified, the system will supply the value of `BRING_YOUR_OWN_LICENSE`.
     #
     # @return [String]
     attr_reader :license_model
@@ -325,7 +340,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_access_control_enabled
 
-    # The client IP access control list (ACL). This feature is available for autonomous databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) and on Exadata Cloud@Customer.
+    # The client IP access control list (ACL). This feature is available for autonomous databases on [shared Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html) and on Exadata Cloud@Customer.
     # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance.
     #
     # For shared Exadata infrastructure, this is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet or VCN OCID.
@@ -346,7 +361,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :are_primary_whitelisted_ips_used
 
-    # The client IP access control list (ACL). This feature is available for autonomous databases on [shared Exadata infrastructure](https://docs.cloud.oracle.com/Content/Database/Concepts/adboverview.htm#AEI) and on Exadata Cloud@Customer.
+    # The client IP access control list (ACL). This feature is available for autonomous databases on [shared Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html) and on Exadata Cloud@Customer.
     # Only clients connecting from an IP address included in the ACL may access the Autonomous Database instance.
     #
     # For shared Exadata infrastructure, this is an array of CIDR (Classless Inter-Domain Routing) notations for a subnet or VCN OCID.
@@ -376,6 +391,10 @@ module OCI
     # Status of Operations Insights for this Autonomous Database.
     # @return [String]
     attr_reader :operations_insights_status
+
+    # Status of Database Management for this Autonomous Database.
+    # @return [String]
+    attr_reader :database_management_status
 
     # The date and time when maintenance will begin.
     # @return [DateTime]
@@ -429,7 +448,9 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_of_last_failover
 
-    # Indicates whether the Autonomous Database has Data Guard enabled.
+    # Indicates whether the Autonomous Database has local (in-region) Data Guard enabled. Not applicable to cross-region Autonomous Data Guard associations, or to
+    # Autonomous Databases using dedicated Exadata infrastructure or Exadata Cloud@Customer infrastructure.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_data_guard_enabled
 
@@ -469,7 +490,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_local_data_guard_enabled
 
-    # The Autonomous Data Guard region type of the Autonomous Database. For Autonomous Databases on shared Exadata infrastructure, Data Guard associations have designated primary and standby regions, and these region types do not change when the database changes roles. The standby regions in Data Guard associations can be the same region designated as the primary region, or they can be remote regions. Certain database administrative operations may be available only in the primary region of the Data Guard association, and cannot be performed when the database using the \"primary\" role is operating in a remote Data Guard standby region.```
+    # The Autonomous Data Guard region type of the Autonomous Database. For Autonomous Databases on shared Exadata infrastructure, Data Guard associations have designated primary and standby regions, and these region types do not change when the database changes roles. The standby regions in Data Guard associations can be the same region designated as the primary region, or they can be remote regions. Certain database administrative operations may be available only in the primary region of the Data Guard association, and cannot be performed when the database using the \"primary\" role is operating in a remote Data Guard standby region.
     # @return [String]
     attr_reader :dataguard_region_type
 
@@ -481,11 +502,27 @@ module OCI
     # @return [Array<String>]
     attr_accessor :peer_db_ids
 
+    # Indicates whether the Autonomous Database requires mTLS connections.
+    # @return [BOOLEAN]
+    attr_accessor :is_mtls_connection_required
+
+    # Indicates if the refreshable clone can be reconnected to its source database.
+    # @return [BOOLEAN]
+    attr_accessor :is_reconnect_clone_enabled
+
+    # The time and date as an RFC3339 formatted string, e.g., 2022-01-01T12:00:00.000Z, to set the limit for a refreshable clone to be reconnected to its source database.
+    # @return [DateTime]
+    attr_accessor :time_until_reconnect_clone_enabled
+
     # The maintenance schedule type of the Autonomous Database on shared Exadata infrastructure. The EARLY maintenance schedule of this Autonomous Database
     # follows a schedule that applies patches prior to the REGULAR schedule.The REGULAR maintenance schedule of this Autonomous Database follows the normal cycle.
     #
     # @return [String]
     attr_reader :autonomous_maintenance_schedule_type
+
+    # list of scheduled operations
+    # @return [Array<OCI::Database::Models::ScheduledOperationDetails>]
+    attr_accessor :scheduled_operations
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -498,6 +535,7 @@ module OCI
         'kms_key_id': :'kmsKeyId',
         'vault_id': :'vaultId',
         'kms_key_lifecycle_details': :'kmsKeyLifecycleDetails',
+        'kms_key_version_id': :'kmsKeyVersionId',
         'db_name': :'dbName',
         'is_free_tier': :'isFreeTier',
         'system_tags': :'systemTags',
@@ -537,6 +575,7 @@ module OCI
         'is_auto_scaling_enabled': :'isAutoScalingEnabled',
         'data_safe_status': :'dataSafeStatus',
         'operations_insights_status': :'operationsInsightsStatus',
+        'database_management_status': :'databaseManagementStatus',
         'time_maintenance_begin': :'timeMaintenanceBegin',
         'time_maintenance_end': :'timeMaintenanceEnd',
         'is_refreshable_clone': :'isRefreshableClone',
@@ -563,7 +602,11 @@ module OCI
         'dataguard_region_type': :'dataguardRegionType',
         'time_data_guard_role_changed': :'timeDataGuardRoleChanged',
         'peer_db_ids': :'peerDbIds',
-        'autonomous_maintenance_schedule_type': :'autonomousMaintenanceScheduleType'
+        'is_mtls_connection_required': :'isMtlsConnectionRequired',
+        'is_reconnect_clone_enabled': :'isReconnectCloneEnabled',
+        'time_until_reconnect_clone_enabled': :'timeUntilReconnectCloneEnabled',
+        'autonomous_maintenance_schedule_type': :'autonomousMaintenanceScheduleType',
+        'scheduled_operations': :'scheduledOperations'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -579,6 +622,7 @@ module OCI
         'kms_key_id': :'String',
         'vault_id': :'String',
         'kms_key_lifecycle_details': :'String',
+        'kms_key_version_id': :'String',
         'db_name': :'String',
         'is_free_tier': :'BOOLEAN',
         'system_tags': :'Hash<String, Hash<String, Object>>',
@@ -618,6 +662,7 @@ module OCI
         'is_auto_scaling_enabled': :'BOOLEAN',
         'data_safe_status': :'String',
         'operations_insights_status': :'String',
+        'database_management_status': :'String',
         'time_maintenance_begin': :'DateTime',
         'time_maintenance_end': :'DateTime',
         'is_refreshable_clone': :'BOOLEAN',
@@ -644,7 +689,11 @@ module OCI
         'dataguard_region_type': :'String',
         'time_data_guard_role_changed': :'DateTime',
         'peer_db_ids': :'Array<String>',
-        'autonomous_maintenance_schedule_type': :'String'
+        'is_mtls_connection_required': :'BOOLEAN',
+        'is_reconnect_clone_enabled': :'BOOLEAN',
+        'time_until_reconnect_clone_enabled': :'DateTime',
+        'autonomous_maintenance_schedule_type': :'String',
+        'scheduled_operations': :'Array<OCI::Database::Models::ScheduledOperationDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -662,6 +711,7 @@ module OCI
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
     # @option attributes [String] :kms_key_lifecycle_details The value to assign to the {#kms_key_lifecycle_details} property
+    # @option attributes [String] :kms_key_version_id The value to assign to the {#kms_key_version_id} property
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [BOOLEAN] :is_free_tier The value to assign to the {#is_free_tier} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
@@ -701,6 +751,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_auto_scaling_enabled The value to assign to the {#is_auto_scaling_enabled} property
     # @option attributes [String] :data_safe_status The value to assign to the {#data_safe_status} property
     # @option attributes [String] :operations_insights_status The value to assign to the {#operations_insights_status} property
+    # @option attributes [String] :database_management_status The value to assign to the {#database_management_status} property
     # @option attributes [DateTime] :time_maintenance_begin The value to assign to the {#time_maintenance_begin} property
     # @option attributes [DateTime] :time_maintenance_end The value to assign to the {#time_maintenance_end} property
     # @option attributes [BOOLEAN] :is_refreshable_clone The value to assign to the {#is_refreshable_clone} property
@@ -727,7 +778,11 @@ module OCI
     # @option attributes [String] :dataguard_region_type The value to assign to the {#dataguard_region_type} property
     # @option attributes [DateTime] :time_data_guard_role_changed The value to assign to the {#time_data_guard_role_changed} property
     # @option attributes [Array<String>] :peer_db_ids The value to assign to the {#peer_db_ids} property
+    # @option attributes [BOOLEAN] :is_mtls_connection_required The value to assign to the {#is_mtls_connection_required} property
+    # @option attributes [BOOLEAN] :is_reconnect_clone_enabled The value to assign to the {#is_reconnect_clone_enabled} property
+    # @option attributes [DateTime] :time_until_reconnect_clone_enabled The value to assign to the {#time_until_reconnect_clone_enabled} property
     # @option attributes [String] :autonomous_maintenance_schedule_type The value to assign to the {#autonomous_maintenance_schedule_type} property
+    # @option attributes [Array<OCI::Database::Models::ScheduledOperationDetails>] :scheduled_operations The value to assign to the {#scheduled_operations} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -771,6 +826,12 @@ module OCI
       raise 'You cannot provide both :kmsKeyLifecycleDetails and :kms_key_lifecycle_details' if attributes.key?(:'kmsKeyLifecycleDetails') && attributes.key?(:'kms_key_lifecycle_details')
 
       self.kms_key_lifecycle_details = attributes[:'kms_key_lifecycle_details'] if attributes[:'kms_key_lifecycle_details']
+
+      self.kms_key_version_id = attributes[:'kmsKeyVersionId'] if attributes[:'kmsKeyVersionId']
+
+      raise 'You cannot provide both :kmsKeyVersionId and :kms_key_version_id' if attributes.key?(:'kmsKeyVersionId') && attributes.key?(:'kms_key_version_id')
+
+      self.kms_key_version_id = attributes[:'kms_key_version_id'] if attributes[:'kms_key_version_id']
 
       self.db_name = attributes[:'dbName'] if attributes[:'dbName']
 
@@ -1008,6 +1069,12 @@ module OCI
 
       self.operations_insights_status = attributes[:'operations_insights_status'] if attributes[:'operations_insights_status']
 
+      self.database_management_status = attributes[:'databaseManagementStatus'] if attributes[:'databaseManagementStatus']
+
+      raise 'You cannot provide both :databaseManagementStatus and :database_management_status' if attributes.key?(:'databaseManagementStatus') && attributes.key?(:'database_management_status')
+
+      self.database_management_status = attributes[:'database_management_status'] if attributes[:'database_management_status']
+
       self.time_maintenance_begin = attributes[:'timeMaintenanceBegin'] if attributes[:'timeMaintenanceBegin']
 
       raise 'You cannot provide both :timeMaintenanceBegin and :time_maintenance_begin' if attributes.key?(:'timeMaintenanceBegin') && attributes.key?(:'time_maintenance_begin')
@@ -1160,11 +1227,37 @@ module OCI
 
       self.peer_db_ids = attributes[:'peer_db_ids'] if attributes[:'peer_db_ids']
 
+      self.is_mtls_connection_required = attributes[:'isMtlsConnectionRequired'] unless attributes[:'isMtlsConnectionRequired'].nil?
+      self.is_mtls_connection_required = true if is_mtls_connection_required.nil? && !attributes.key?(:'isMtlsConnectionRequired') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isMtlsConnectionRequired and :is_mtls_connection_required' if attributes.key?(:'isMtlsConnectionRequired') && attributes.key?(:'is_mtls_connection_required')
+
+      self.is_mtls_connection_required = attributes[:'is_mtls_connection_required'] unless attributes[:'is_mtls_connection_required'].nil?
+      self.is_mtls_connection_required = true if is_mtls_connection_required.nil? && !attributes.key?(:'isMtlsConnectionRequired') && !attributes.key?(:'is_mtls_connection_required') # rubocop:disable Style/StringLiterals
+
+      self.is_reconnect_clone_enabled = attributes[:'isReconnectCloneEnabled'] unless attributes[:'isReconnectCloneEnabled'].nil?
+
+      raise 'You cannot provide both :isReconnectCloneEnabled and :is_reconnect_clone_enabled' if attributes.key?(:'isReconnectCloneEnabled') && attributes.key?(:'is_reconnect_clone_enabled')
+
+      self.is_reconnect_clone_enabled = attributes[:'is_reconnect_clone_enabled'] unless attributes[:'is_reconnect_clone_enabled'].nil?
+
+      self.time_until_reconnect_clone_enabled = attributes[:'timeUntilReconnectCloneEnabled'] if attributes[:'timeUntilReconnectCloneEnabled']
+
+      raise 'You cannot provide both :timeUntilReconnectCloneEnabled and :time_until_reconnect_clone_enabled' if attributes.key?(:'timeUntilReconnectCloneEnabled') && attributes.key?(:'time_until_reconnect_clone_enabled')
+
+      self.time_until_reconnect_clone_enabled = attributes[:'time_until_reconnect_clone_enabled'] if attributes[:'time_until_reconnect_clone_enabled']
+
       self.autonomous_maintenance_schedule_type = attributes[:'autonomousMaintenanceScheduleType'] if attributes[:'autonomousMaintenanceScheduleType']
 
       raise 'You cannot provide both :autonomousMaintenanceScheduleType and :autonomous_maintenance_schedule_type' if attributes.key?(:'autonomousMaintenanceScheduleType') && attributes.key?(:'autonomous_maintenance_schedule_type')
 
       self.autonomous_maintenance_schedule_type = attributes[:'autonomous_maintenance_schedule_type'] if attributes[:'autonomous_maintenance_schedule_type']
+
+      self.scheduled_operations = attributes[:'scheduledOperations'] if attributes[:'scheduledOperations']
+
+      raise 'You cannot provide both :scheduledOperations and :scheduled_operations' if attributes.key?(:'scheduledOperations') && attributes.key?(:'scheduled_operations')
+
+      self.scheduled_operations = attributes[:'scheduled_operations'] if attributes[:'scheduled_operations']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -1243,6 +1336,19 @@ module OCI
         @operations_insights_status = OPERATIONS_INSIGHTS_STATUS_UNKNOWN_ENUM_VALUE
       else
         @operations_insights_status = operations_insights_status
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] database_management_status Object to be assigned
+    def database_management_status=(database_management_status)
+      # rubocop:disable Style/ConditionalAssignment
+      if database_management_status && !DATABASE_MANAGEMENT_STATUS_ENUM.include?(database_management_status)
+        OCI.logger.debug("Unknown value for 'database_management_status' [" + database_management_status + "]. Mapping to 'DATABASE_MANAGEMENT_STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @database_management_status = DATABASE_MANAGEMENT_STATUS_UNKNOWN_ENUM_VALUE
+      else
+        @database_management_status = database_management_status
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -1354,6 +1460,7 @@ module OCI
         kms_key_id == other.kms_key_id &&
         vault_id == other.vault_id &&
         kms_key_lifecycle_details == other.kms_key_lifecycle_details &&
+        kms_key_version_id == other.kms_key_version_id &&
         db_name == other.db_name &&
         is_free_tier == other.is_free_tier &&
         system_tags == other.system_tags &&
@@ -1393,6 +1500,7 @@ module OCI
         is_auto_scaling_enabled == other.is_auto_scaling_enabled &&
         data_safe_status == other.data_safe_status &&
         operations_insights_status == other.operations_insights_status &&
+        database_management_status == other.database_management_status &&
         time_maintenance_begin == other.time_maintenance_begin &&
         time_maintenance_end == other.time_maintenance_end &&
         is_refreshable_clone == other.is_refreshable_clone &&
@@ -1419,7 +1527,11 @@ module OCI
         dataguard_region_type == other.dataguard_region_type &&
         time_data_guard_role_changed == other.time_data_guard_role_changed &&
         peer_db_ids == other.peer_db_ids &&
-        autonomous_maintenance_schedule_type == other.autonomous_maintenance_schedule_type
+        is_mtls_connection_required == other.is_mtls_connection_required &&
+        is_reconnect_clone_enabled == other.is_reconnect_clone_enabled &&
+        time_until_reconnect_clone_enabled == other.time_until_reconnect_clone_enabled &&
+        autonomous_maintenance_schedule_type == other.autonomous_maintenance_schedule_type &&
+        scheduled_operations == other.scheduled_operations
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -1435,7 +1547,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, lifecycle_details, kms_key_id, vault_id, kms_key_lifecycle_details, db_name, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, backup_config, key_history_entry, cpu_core_count, ocpu_count, data_storage_size_in_tbs, data_storage_size_in_gbs, infrastructure_type, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, subnet_id, nsg_ids, private_endpoint, private_endpoint_label, private_endpoint_ip, db_version, is_preview, db_workload, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, apex_details, is_auto_scaling_enabled, data_safe_status, operations_insights_status, time_maintenance_begin, time_maintenance_end, is_refreshable_clone, time_of_last_refresh, time_of_last_refresh_point, time_of_next_refresh, open_mode, refreshable_status, refreshable_mode, source_id, permission_level, time_of_last_switchover, time_of_last_failover, is_data_guard_enabled, failed_data_recovery_in_seconds, standby_db, role, available_upgrade_versions, key_store_id, key_store_wallet_name, supported_regions_to_clone_to, customer_contacts, time_local_data_guard_enabled, dataguard_region_type, time_data_guard_role_changed, peer_db_ids, autonomous_maintenance_schedule_type].hash
+      [id, compartment_id, lifecycle_state, lifecycle_details, kms_key_id, vault_id, kms_key_lifecycle_details, kms_key_version_id, db_name, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, backup_config, key_history_entry, cpu_core_count, ocpu_count, data_storage_size_in_tbs, data_storage_size_in_gbs, infrastructure_type, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, subnet_id, nsg_ids, private_endpoint, private_endpoint_label, private_endpoint_ip, db_version, is_preview, db_workload, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, apex_details, is_auto_scaling_enabled, data_safe_status, operations_insights_status, database_management_status, time_maintenance_begin, time_maintenance_end, is_refreshable_clone, time_of_last_refresh, time_of_last_refresh_point, time_of_next_refresh, open_mode, refreshable_status, refreshable_mode, source_id, permission_level, time_of_last_switchover, time_of_last_failover, is_data_guard_enabled, failed_data_recovery_in_seconds, standby_db, role, available_upgrade_versions, key_store_id, key_store_wallet_name, supported_regions_to_clone_to, customer_contacts, time_local_data_guard_enabled, dataguard_region_type, time_data_guard_role_changed, peer_db_ids, is_mtls_connection_required, is_reconnect_clone_enabled, time_until_reconnect_clone_enabled, autonomous_maintenance_schedule_type, scheduled_operations].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

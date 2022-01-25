@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -8,8 +8,8 @@ require 'logger'
 module OCI
   # An error encountered while executing a work request.
   class ApmControlPlane::Models::WorkRequestError
-    # **[Required]** A machine-usable code for the error that occured. Error codes are listed on
-    # (https://docs.cloud.oracle.com/Content/API/References/apierrors.htm)
+    # **[Required]** A machine-usable code for the error that occured. Error codes are listed at
+    # [API Errors](https://docs.cloud.oracle.com/iaas/Content/API/References/apierrors.htm)
     #
     # @return [String]
     attr_accessor :code
@@ -18,7 +18,7 @@ module OCI
     # @return [String]
     attr_accessor :message
 
-    # **[Required]** The time the error occured. An RFC3339 formatted datetime string.
+    # **[Required]** The time the error occurred, expressed in [RFC 3339](https://tools.ietf.org/rfc/rfc3339) timestamp format.
     # @return [DateTime]
     attr_accessor :timestamp
 

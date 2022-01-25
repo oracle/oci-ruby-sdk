@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -17,6 +17,14 @@ module OCI
     # @return [Array<String>]
     attr_accessor :nsg_ids
 
+    # The OCID of the Key Management Service key assigned to the boot volume.
+    # @return [String]
+    attr_accessor :kms_key_id
+
+    # Whether to enable in-transit encryption for the data volume's paravirtualized attachment. This field applies to both block volumes and boot volumes. The default value is false.
+    # @return [BOOLEAN]
+    attr_accessor :is_pv_encryption_in_transit_enabled
+
     # The placement configurations for the node pool. Provide one placement
     # configuration for each availability domain in which you intend to launch a node.
     #
@@ -33,6 +41,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'size': :'size',
         'nsg_ids': :'nsgIds',
+        'kms_key_id': :'kmsKeyId',
+        'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled',
         'placement_configs': :'placementConfigs'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -44,6 +54,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'size': :'Integer',
         'nsg_ids': :'Array<String>',
+        'kms_key_id': :'String',
+        'is_pv_encryption_in_transit_enabled': :'BOOLEAN',
         'placement_configs': :'Array<OCI::ContainerEngine::Models::NodePoolPlacementConfigDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -57,6 +69,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Integer] :size The value to assign to the {#size} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
+    # @option attributes [BOOLEAN] :is_pv_encryption_in_transit_enabled The value to assign to the {#is_pv_encryption_in_transit_enabled} property
     # @option attributes [Array<OCI::ContainerEngine::Models::NodePoolPlacementConfigDetails>] :placement_configs The value to assign to the {#placement_configs} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -71,6 +85,20 @@ module OCI
       raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
 
       self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
+
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
+      self.is_pv_encryption_in_transit_enabled = attributes[:'isPvEncryptionInTransitEnabled'] unless attributes[:'isPvEncryptionInTransitEnabled'].nil?
+      self.is_pv_encryption_in_transit_enabled = false if is_pv_encryption_in_transit_enabled.nil? && !attributes.key?(:'isPvEncryptionInTransitEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isPvEncryptionInTransitEnabled and :is_pv_encryption_in_transit_enabled' if attributes.key?(:'isPvEncryptionInTransitEnabled') && attributes.key?(:'is_pv_encryption_in_transit_enabled')
+
+      self.is_pv_encryption_in_transit_enabled = attributes[:'is_pv_encryption_in_transit_enabled'] unless attributes[:'is_pv_encryption_in_transit_enabled'].nil?
+      self.is_pv_encryption_in_transit_enabled = false if is_pv_encryption_in_transit_enabled.nil? && !attributes.key?(:'isPvEncryptionInTransitEnabled') && !attributes.key?(:'is_pv_encryption_in_transit_enabled') # rubocop:disable Style/StringLiterals
 
       self.placement_configs = attributes[:'placementConfigs'] if attributes[:'placementConfigs']
 
@@ -92,6 +120,8 @@ module OCI
       self.class == other.class &&
         size == other.size &&
         nsg_ids == other.nsg_ids &&
+        kms_key_id == other.kms_key_id &&
+        is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled &&
         placement_configs == other.placement_configs
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -108,7 +138,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [size, nsg_ids, placement_configs].hash
+      [size, nsg_ids, kms_key_id, is_pv_encryption_in_transit_enabled, placement_configs].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

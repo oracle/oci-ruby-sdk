@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -67,6 +67,11 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_multi_valued
 
+    # A flag indicating whether or not the field is a case sensitive field.  Only applies to string fields.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_case_sensitive
+
     # Identifies if this column can be used as a grouping field in any grouping command.
     #
     # @return [BOOLEAN]
@@ -102,6 +107,7 @@ module OCI
         'values': :'values',
         'is_list_of_values': :'isListOfValues',
         'is_multi_valued': :'isMultiValued',
+        'is_case_sensitive': :'isCaseSensitive',
         'is_groupable': :'isGroupable',
         'is_evaluable': :'isEvaluable',
         'value_type': :'valueType',
@@ -121,6 +127,7 @@ module OCI
         'values': :'Array<OCI::LogAnalytics::Models::FieldValue>',
         'is_list_of_values': :'BOOLEAN',
         'is_multi_valued': :'BOOLEAN',
+        'is_case_sensitive': :'BOOLEAN',
         'is_groupable': :'BOOLEAN',
         'is_evaluable': :'BOOLEAN',
         'value_type': :'String',
@@ -162,6 +169,7 @@ module OCI
     # @option attributes [Array<OCI::LogAnalytics::Models::FieldValue>] :values The value to assign to the {#values} property
     # @option attributes [BOOLEAN] :is_list_of_values The value to assign to the {#is_list_of_values} property
     # @option attributes [BOOLEAN] :is_multi_valued The value to assign to the {#is_multi_valued} property
+    # @option attributes [BOOLEAN] :is_case_sensitive The value to assign to the {#is_case_sensitive} property
     # @option attributes [BOOLEAN] :is_groupable The value to assign to the {#is_groupable} property
     # @option attributes [BOOLEAN] :is_evaluable The value to assign to the {#is_evaluable} property
     # @option attributes [String] :value_type The value to assign to the {#value_type} property
@@ -200,6 +208,14 @@ module OCI
       raise 'You cannot provide both :isMultiValued and :is_multi_valued' if attributes.key?(:'isMultiValued') && attributes.key?(:'is_multi_valued')
 
       self.is_multi_valued = attributes[:'is_multi_valued'] unless attributes[:'is_multi_valued'].nil?
+
+      self.is_case_sensitive = attributes[:'isCaseSensitive'] unless attributes[:'isCaseSensitive'].nil?
+      self.is_case_sensitive = false if is_case_sensitive.nil? && !attributes.key?(:'isCaseSensitive') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isCaseSensitive and :is_case_sensitive' if attributes.key?(:'isCaseSensitive') && attributes.key?(:'is_case_sensitive')
+
+      self.is_case_sensitive = attributes[:'is_case_sensitive'] unless attributes[:'is_case_sensitive'].nil?
+      self.is_case_sensitive = false if is_case_sensitive.nil? && !attributes.key?(:'isCaseSensitive') && !attributes.key?(:'is_case_sensitive') # rubocop:disable Style/StringLiterals
 
       self.is_groupable = attributes[:'isGroupable'] unless attributes[:'isGroupable'].nil?
 
@@ -288,6 +304,7 @@ module OCI
         values == other.values &&
         is_list_of_values == other.is_list_of_values &&
         is_multi_valued == other.is_multi_valued &&
+        is_case_sensitive == other.is_case_sensitive &&
         is_groupable == other.is_groupable &&
         is_evaluable == other.is_evaluable &&
         value_type == other.value_type &&
@@ -308,7 +325,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, display_name, sub_system, values, is_list_of_values, is_multi_valued, is_groupable, is_evaluable, value_type, original_display_name, internal_name].hash
+      [type, display_name, sub_system, values, is_list_of_values, is_multi_valued, is_case_sensitive, is_groupable, is_evaluable, value_type, original_display_name, internal_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

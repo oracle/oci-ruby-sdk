@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -184,7 +184,7 @@ module OCI
     #   might be rejected.
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
-    # @return [Response] A Response object with data of type nil
+    # @return [Response] A Response object with data of type {OCI::OperatorAccessControl::Models::OperatorControlAssignment OperatorControlAssignment}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/operatoraccesscontrol/create_operator_control_assignment.rb.html) to see an example of how to use create_operator_control_assignment API.
     def create_operator_control_assignment(create_operator_control_assignment_details, opts = {})
       logger.debug 'Calling operation OperatorControlAssignmentClient#create_operator_control_assignment.' if logger
@@ -218,7 +218,8 @@ module OCI
           header_params: header_params,
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
-          body: post_body
+          body: post_body,
+          return_type: 'OCI::OperatorAccessControl::Models::OperatorControlAssignment'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -355,6 +356,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :operator_control_name A filter to return OperatorControl that match the given operatorControlName.
     # @option opts [String] :resource_name A filter to return only resources that match the given ResourceName.
+    # @option opts [String] :resource_type A filter to return only lists of resources that match the entire given service type.
     # @option opts [String] :lifecycle_state A filter to return only resources whose lifecycleState matches the given OperatorControlAssignment lifecycleState.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
@@ -391,6 +393,7 @@ module OCI
       query_params[:compartmentId] = compartment_id
       query_params[:operatorControlName] = opts[:operator_control_name] if opts[:operator_control_name]
       query_params[:resourceName] = opts[:resource_name] if opts[:resource_name]
+      query_params[:resourceType] = opts[:resource_type] if opts[:resource_type]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]

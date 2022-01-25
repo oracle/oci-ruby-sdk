@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -40,20 +40,33 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # Billing option selected during SDDC creation.
-    # Oracle Cloud Infrastructure VMware Solution supports the following billing interval SKUs:
-    # HOUR, MONTH, ONE_YEAR, and THREE_YEARS.
+    # The billing option currently used by the ESXi host.
     # {#list_supported_skus list_supported_skus}.
     #
     # @return [String]
     attr_reader :current_sku
 
-    # Billing option to switch to once existing billing cycle ends.
-    # If nextSku is null or empty, currentSku will be used to continue with next billing term.
+    # The billing option to switch to after the existing billing cycle ends.
+    # If `nextSku` is null or empty, `currentSku` continues to the next billing cycle.
     # {#list_supported_skus list_supported_skus}.
     #
     # @return [String]
     attr_reader :next_sku
+
+    # The availability domain to create the ESXi host in.
+    # If keep empty, for AD-specific SDDC, new ESXi host will be created in the same availability domain;
+    # for multi-AD SDDC, new ESXi host will be auto assigned to the next availability domain following evenly distribution strategy.
+    #
+    # @return [String]
+    attr_accessor :compute_availability_domain
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the esxi host that
+    # is failed. It is an optional param, when user supplies this param, new Esxi
+    # Host will be created to replace the failed one, and failedEsxiHostId field
+    # will be udpated in the newly created EsxiHost.
+    #
+    # @return [String]
+    attr_accessor :failed_esxi_host_id
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -79,6 +92,8 @@ module OCI
         'display_name': :'displayName',
         'current_sku': :'currentSku',
         'next_sku': :'nextSku',
+        'compute_availability_domain': :'computeAvailabilityDomain',
+        'failed_esxi_host_id': :'failedEsxiHostId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -93,6 +108,8 @@ module OCI
         'display_name': :'String',
         'current_sku': :'String',
         'next_sku': :'String',
+        'compute_availability_domain': :'String',
+        'failed_esxi_host_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -109,6 +126,8 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :current_sku The value to assign to the {#current_sku} property
     # @option attributes [String] :next_sku The value to assign to the {#next_sku} property
+    # @option attributes [String] :compute_availability_domain The value to assign to the {#compute_availability_domain} property
+    # @option attributes [String] :failed_esxi_host_id The value to assign to the {#failed_esxi_host_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -142,6 +161,18 @@ module OCI
       raise 'You cannot provide both :nextSku and :next_sku' if attributes.key?(:'nextSku') && attributes.key?(:'next_sku')
 
       self.next_sku = attributes[:'next_sku'] if attributes[:'next_sku']
+
+      self.compute_availability_domain = attributes[:'computeAvailabilityDomain'] if attributes[:'computeAvailabilityDomain']
+
+      raise 'You cannot provide both :computeAvailabilityDomain and :compute_availability_domain' if attributes.key?(:'computeAvailabilityDomain') && attributes.key?(:'compute_availability_domain')
+
+      self.compute_availability_domain = attributes[:'compute_availability_domain'] if attributes[:'compute_availability_domain']
+
+      self.failed_esxi_host_id = attributes[:'failedEsxiHostId'] if attributes[:'failedEsxiHostId']
+
+      raise 'You cannot provide both :failedEsxiHostId and :failed_esxi_host_id' if attributes.key?(:'failedEsxiHostId') && attributes.key?(:'failed_esxi_host_id')
+
+      self.failed_esxi_host_id = attributes[:'failed_esxi_host_id'] if attributes[:'failed_esxi_host_id']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -187,6 +218,8 @@ module OCI
         display_name == other.display_name &&
         current_sku == other.current_sku &&
         next_sku == other.next_sku &&
+        compute_availability_domain == other.compute_availability_domain &&
+        failed_esxi_host_id == other.failed_esxi_host_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -204,7 +237,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [sddc_id, display_name, current_sku, next_sku, freeform_tags, defined_tags].hash
+      [sddc_id, display_name, current_sku, next_sku, compute_availability_domain, failed_esxi_host_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

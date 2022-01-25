@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -24,6 +24,10 @@ module OCI
     # @return [String]
     attr_accessor :description
 
+    # whether the template will work for free tier tenancy.
+    # @return [BOOLEAN]
+    attr_accessor :is_free_tier
+
     # The date and time at which the template was created.
     # Format is defined by RFC3339.
     # Example: `2020-11-25T21:10:29.600Z`
@@ -46,6 +50,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'display_name': :'displayName',
         'description': :'description',
+        'is_free_tier': :'isFreeTier',
         'time_created': :'timeCreated',
         'lifecycle_state': :'lifecycleState'
         # rubocop:enable Style/SymbolLiteral
@@ -60,6 +65,7 @@ module OCI
         'compartment_id': :'String',
         'display_name': :'String',
         'description': :'String',
+        'is_free_tier': :'BOOLEAN',
         'time_created': :'DateTime',
         'lifecycle_state': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -76,6 +82,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [BOOLEAN] :is_free_tier The value to assign to the {#is_free_tier} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     def initialize(attributes = {})
@@ -99,6 +106,12 @@ module OCI
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
       self.description = attributes[:'description'] if attributes[:'description']
+
+      self.is_free_tier = attributes[:'isFreeTier'] unless attributes[:'isFreeTier'].nil?
+
+      raise 'You cannot provide both :isFreeTier and :is_free_tier' if attributes.key?(:'isFreeTier') && attributes.key?(:'is_free_tier')
+
+      self.is_free_tier = attributes[:'is_free_tier'] unless attributes[:'is_free_tier'].nil?
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -128,6 +141,7 @@ module OCI
         compartment_id == other.compartment_id &&
         display_name == other.display_name &&
         description == other.description &&
+        is_free_tier == other.is_free_tier &&
         time_created == other.time_created &&
         lifecycle_state == other.lifecycle_state
     end
@@ -145,7 +159,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, description, time_created, lifecycle_state].hash
+      [id, compartment_id, display_name, description, is_free_tier, time_created, lifecycle_state].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

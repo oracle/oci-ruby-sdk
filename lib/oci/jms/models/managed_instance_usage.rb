@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -30,6 +30,14 @@ module OCI
     # @return [String]
     attr_accessor :hostname
 
+    # The host [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the related managed instance.
+    #
+    # @return [String]
+    attr_accessor :host_id
+
+    # @return [OCI::Jms::Models::OperatingSystem]
+    attr_accessor :operating_system
+
     # The approximate count of applications reported by this managed instance.
     # @return [Integer]
     attr_accessor :approximate_application_count
@@ -42,11 +50,11 @@ module OCI
     # @return [Integer]
     attr_accessor :approximate_jre_count
 
-    # Lower bound of the specified time period filter.
+    # Lower bound of the specified time period filter. JMS provides a view of the data that is _per day_. The query uses only the date element of the parameter.
     # @return [DateTime]
     attr_accessor :time_start
 
-    # Upper bound of the specified time period filter.
+    # Upper bound of the specified time period filter. JMS provides a view of the data that is _per day_. The query uses only the date element of the parameter.
     # @return [DateTime]
     attr_accessor :time_end
 
@@ -73,6 +81,8 @@ module OCI
         'managed_instance_id': :'managedInstanceId',
         'managed_instance_type': :'managedInstanceType',
         'hostname': :'hostname',
+        'host_id': :'hostId',
+        'operating_system': :'operatingSystem',
         'approximate_application_count': :'approximateApplicationCount',
         'approximate_installation_count': :'approximateInstallationCount',
         'approximate_jre_count': :'approximateJreCount',
@@ -91,6 +101,8 @@ module OCI
         'managed_instance_id': :'String',
         'managed_instance_type': :'String',
         'hostname': :'String',
+        'host_id': :'String',
+        'operating_system': :'OCI::Jms::Models::OperatingSystem',
         'approximate_application_count': :'Integer',
         'approximate_installation_count': :'Integer',
         'approximate_jre_count': :'Integer',
@@ -111,6 +123,8 @@ module OCI
     # @option attributes [String] :managed_instance_id The value to assign to the {#managed_instance_id} property
     # @option attributes [String] :managed_instance_type The value to assign to the {#managed_instance_type} property
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
+    # @option attributes [String] :host_id The value to assign to the {#host_id} property
+    # @option attributes [OCI::Jms::Models::OperatingSystem] :operating_system The value to assign to the {#operating_system} property
     # @option attributes [Integer] :approximate_application_count The value to assign to the {#approximate_application_count} property
     # @option attributes [Integer] :approximate_installation_count The value to assign to the {#approximate_installation_count} property
     # @option attributes [Integer] :approximate_jre_count The value to assign to the {#approximate_jre_count} property
@@ -137,6 +151,18 @@ module OCI
       self.managed_instance_type = attributes[:'managed_instance_type'] if attributes[:'managed_instance_type']
 
       self.hostname = attributes[:'hostname'] if attributes[:'hostname']
+
+      self.host_id = attributes[:'hostId'] if attributes[:'hostId']
+
+      raise 'You cannot provide both :hostId and :host_id' if attributes.key?(:'hostId') && attributes.key?(:'host_id')
+
+      self.host_id = attributes[:'host_id'] if attributes[:'host_id']
+
+      self.operating_system = attributes[:'operatingSystem'] if attributes[:'operatingSystem']
+
+      raise 'You cannot provide both :operatingSystem and :operating_system' if attributes.key?(:'operatingSystem') && attributes.key?(:'operating_system')
+
+      self.operating_system = attributes[:'operating_system'] if attributes[:'operating_system']
 
       self.approximate_application_count = attributes[:'approximateApplicationCount'] if attributes[:'approximateApplicationCount']
 
@@ -208,6 +234,8 @@ module OCI
         managed_instance_id == other.managed_instance_id &&
         managed_instance_type == other.managed_instance_type &&
         hostname == other.hostname &&
+        host_id == other.host_id &&
+        operating_system == other.operating_system &&
         approximate_application_count == other.approximate_application_count &&
         approximate_installation_count == other.approximate_installation_count &&
         approximate_jre_count == other.approximate_jre_count &&
@@ -230,7 +258,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [managed_instance_id, managed_instance_type, hostname, approximate_application_count, approximate_installation_count, approximate_jre_count, time_start, time_end, time_first_seen, time_last_seen].hash
+      [managed_instance_id, managed_instance_type, hostname, host_id, operating_system, approximate_application_count, approximate_installation_count, approximate_jre_count, time_start, time_end, time_first_seen, time_last_seen].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,29 +1,29 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A single subscription's details
+  # A single subscription's details.
   class TenantManagerControlPlane::Models::SubscriptionInfo
-    # **[Required]** Subscription id.
+    # **[Required]** Subscription ID.
     # @return [String]
     attr_accessor :spm_subscription_id
 
-    # **[Required]** Service name for subscription
+    # **[Required]** Service name for subscription.
     # @return [String]
     attr_accessor :service
 
-    # **[Required]** Subscription start date. An RFC3339 formatted datetime string
+    # **[Required]** Subscription start date. An RFC 3339-formatted date and time string.
     # @return [DateTime]
     attr_accessor :start_date
 
-    # **[Required]** Subscription end date. An RFC3339 formatted datetime string
+    # **[Required]** Subscription end date. An RFC 3339-formatted date and time string.
     # @return [DateTime]
     attr_accessor :end_date
 
-    # **[Required]** List of SKUs the subscription contains
+    # **[Required]** List of SKUs the subscription contains.
     # @return [Array<OCI::TenantManagerControlPlane::Models::Sku>]
     attr_accessor :skus
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -76,6 +76,12 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_updated
 
+    # An array of categories assigned to this lookup.
+    # The isSystem flag denotes if each category assignment is user-created or Oracle-defined.
+    #
+    # @return [Array<OCI::LogAnalytics::Models::LogAnalyticsCategory>]
+    attr_accessor :categories
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -94,7 +100,8 @@ module OCI
         'lookup_display_name': :'lookupDisplayName',
         'referring_sources': :'referringSources',
         'status_summary': :'statusSummary',
-        'time_updated': :'timeUpdated'
+        'time_updated': :'timeUpdated',
+        'categories': :'categories'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -117,7 +124,8 @@ module OCI
         'lookup_display_name': :'String',
         'referring_sources': :'OCI::LogAnalytics::Models::AutoLookups',
         'status_summary': :'OCI::LogAnalytics::Models::StatusSummary',
-        'time_updated': :'DateTime'
+        'time_updated': :'DateTime',
+        'categories': :'Array<OCI::LogAnalytics::Models::LogAnalyticsCategory>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -143,6 +151,7 @@ module OCI
     # @option attributes [OCI::LogAnalytics::Models::AutoLookups] :referring_sources The value to assign to the {#referring_sources} property
     # @option attributes [OCI::LogAnalytics::Models::StatusSummary] :status_summary The value to assign to the {#status_summary} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [Array<OCI::LogAnalytics::Models::LogAnalyticsCategory>] :categories The value to assign to the {#categories} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -223,6 +232,8 @@ module OCI
       raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
 
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.categories = attributes[:'categories'] if attributes[:'categories']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -263,7 +274,8 @@ module OCI
         lookup_display_name == other.lookup_display_name &&
         referring_sources == other.referring_sources &&
         status_summary == other.status_summary &&
-        time_updated == other.time_updated
+        time_updated == other.time_updated &&
+        categories == other.categories
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -279,7 +291,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [active_edit_version, canonical_link, description, edit_version, fields, lookup_reference, lookup_reference_string, type, name, is_built_in, is_hidden, lookup_display_name, referring_sources, status_summary, time_updated].hash
+      [active_edit_version, canonical_link, description, edit_version, fields, lookup_reference, lookup_reference_string, type, name, is_built_in, is_hidden, lookup_display_name, referring_sources, status_summary, time_updated, categories].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

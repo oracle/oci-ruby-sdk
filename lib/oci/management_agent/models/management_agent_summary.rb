@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -11,6 +11,7 @@ module OCI
     PLATFORM_TYPE_ENUM = [
       PLATFORM_TYPE_LINUX = 'LINUX'.freeze,
       PLATFORM_TYPE_WINDOWS = 'WINDOWS'.freeze,
+      PLATFORM_TYPE_SOLARIS = 'SOLARIS'.freeze,
       PLATFORM_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -31,6 +32,12 @@ module OCI
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    INSTALL_TYPE_ENUM = [
+      INSTALL_TYPE_AGENT = 'AGENT'.freeze,
+      INSTALL_TYPE_GATEWAY = 'GATEWAY'.freeze,
+      INSTALL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** agent identifier
@@ -61,7 +68,16 @@ module OCI
     # @return [String]
     attr_accessor :version
 
-    # true if the agent can be upgraded automatically; false if it must be upgraded manually. true is currently unsupported.
+    # Version of the deployment artifact instantiated by this Management Agent.
+    # The format for Standalone resourceMode is YYMMDD.HHMM, and the format for other modes
+    # (whose artifacts are based upon Standalone but can advance independently)
+    # is YYMMDD.HHMM.VVVVVVVVVVVV.
+    # VVVVVVVVVVVV is always a numeric value between 000000000000 and 999999999999
+    #
+    # @return [String]
+    attr_accessor :resource_artifact_version
+
+    # true if the agent can be upgraded automatically; false if it must be upgraded manually. This flag is derived from the tenancy level auto upgrade preference.
     # @return [BOOLEAN]
     attr_accessor :is_agent_auto_upgradable
 
@@ -69,9 +85,17 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # The time the Management Agent was last updated. An RFC3339 formatted datetime string
+    # @return [DateTime]
+    attr_accessor :time_updated
+
     # Management Agent host machine name
     # @return [String]
     attr_accessor :host
+
+    # Host resource ocid
+    # @return [String]
+    attr_accessor :host_id
 
     # list of managementAgentPlugins associated with the agent
     # @return [Array<OCI::ManagementAgent::Models::ManagementAgentPluginDetails>]
@@ -97,6 +121,14 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_details
 
+    # true, if the agent image is manually downloaded and installed. false, if the agent is deployed as a plugin in Oracle Cloud Agent.
+    # @return [BOOLEAN]
+    attr_accessor :is_customer_deployed
+
+    # The install type, either AGENT or GATEWAY
+    # @return [String]
+    attr_reader :install_type
+
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
     #
@@ -120,15 +152,20 @@ module OCI
         'platform_name': :'platformName',
         'platform_version': :'platformVersion',
         'version': :'version',
+        'resource_artifact_version': :'resourceArtifactVersion',
         'is_agent_auto_upgradable': :'isAgentAutoUpgradable',
         'time_created': :'timeCreated',
+        'time_updated': :'timeUpdated',
         'host': :'host',
+        'host_id': :'hostId',
         'plugin_list': :'pluginList',
         'compartment_id': :'compartmentId',
         'time_last_heartbeat': :'timeLastHeartbeat',
         'availability_status': :'availabilityStatus',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
+        'is_customer_deployed': :'isCustomerDeployed',
+        'install_type': :'installType',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -146,15 +183,20 @@ module OCI
         'platform_name': :'String',
         'platform_version': :'String',
         'version': :'String',
+        'resource_artifact_version': :'String',
         'is_agent_auto_upgradable': :'BOOLEAN',
         'time_created': :'DateTime',
+        'time_updated': :'DateTime',
         'host': :'String',
+        'host_id': :'String',
         'plugin_list': :'Array<OCI::ManagementAgent::Models::ManagementAgentPluginDetails>',
         'compartment_id': :'String',
         'time_last_heartbeat': :'DateTime',
         'availability_status': :'String',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
+        'is_customer_deployed': :'BOOLEAN',
+        'install_type': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -174,15 +216,20 @@ module OCI
     # @option attributes [String] :platform_name The value to assign to the {#platform_name} property
     # @option attributes [String] :platform_version The value to assign to the {#platform_version} property
     # @option attributes [String] :version The value to assign to the {#version} property
+    # @option attributes [String] :resource_artifact_version The value to assign to the {#resource_artifact_version} property
     # @option attributes [BOOLEAN] :is_agent_auto_upgradable The value to assign to the {#is_agent_auto_upgradable} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :host The value to assign to the {#host} property
+    # @option attributes [String] :host_id The value to assign to the {#host_id} property
     # @option attributes [Array<OCI::ManagementAgent::Models::ManagementAgentPluginDetails>] :plugin_list The value to assign to the {#plugin_list} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [DateTime] :time_last_heartbeat The value to assign to the {#time_last_heartbeat} property
     # @option attributes [String] :availability_status The value to assign to the {#availability_status} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
+    # @option attributes [BOOLEAN] :is_customer_deployed The value to assign to the {#is_customer_deployed} property
+    # @option attributes [String] :install_type The value to assign to the {#install_type} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -225,6 +272,12 @@ module OCI
 
       self.version = attributes[:'version'] if attributes[:'version']
 
+      self.resource_artifact_version = attributes[:'resourceArtifactVersion'] if attributes[:'resourceArtifactVersion']
+
+      raise 'You cannot provide both :resourceArtifactVersion and :resource_artifact_version' if attributes.key?(:'resourceArtifactVersion') && attributes.key?(:'resource_artifact_version')
+
+      self.resource_artifact_version = attributes[:'resource_artifact_version'] if attributes[:'resource_artifact_version']
+
       self.is_agent_auto_upgradable = attributes[:'isAgentAutoUpgradable'] unless attributes[:'isAgentAutoUpgradable'].nil?
 
       raise 'You cannot provide both :isAgentAutoUpgradable and :is_agent_auto_upgradable' if attributes.key?(:'isAgentAutoUpgradable') && attributes.key?(:'is_agent_auto_upgradable')
@@ -237,7 +290,19 @@ module OCI
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
+      self.time_updated = attributes[:'timeUpdated'] if attributes[:'timeUpdated']
+
+      raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
+
+      self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
       self.host = attributes[:'host'] if attributes[:'host']
+
+      self.host_id = attributes[:'hostId'] if attributes[:'hostId']
+
+      raise 'You cannot provide both :hostId and :host_id' if attributes.key?(:'hostId') && attributes.key?(:'host_id')
+
+      self.host_id = attributes[:'host_id'] if attributes[:'host_id']
 
       self.plugin_list = attributes[:'pluginList'] if attributes[:'pluginList']
 
@@ -274,6 +339,18 @@ module OCI
       raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
 
       self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
+
+      self.is_customer_deployed = attributes[:'isCustomerDeployed'] unless attributes[:'isCustomerDeployed'].nil?
+
+      raise 'You cannot provide both :isCustomerDeployed and :is_customer_deployed' if attributes.key?(:'isCustomerDeployed') && attributes.key?(:'is_customer_deployed')
+
+      self.is_customer_deployed = attributes[:'is_customer_deployed'] unless attributes[:'is_customer_deployed'].nil?
+
+      self.install_type = attributes[:'installType'] if attributes[:'installType']
+
+      raise 'You cannot provide both :installType and :install_type' if attributes.key?(:'installType') && attributes.key?(:'install_type')
+
+      self.install_type = attributes[:'install_type'] if attributes[:'install_type']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -329,6 +406,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] install_type Object to be assigned
+    def install_type=(install_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if install_type && !INSTALL_TYPE_ENUM.include?(install_type)
+        OCI.logger.debug("Unknown value for 'install_type' [" + install_type + "]. Mapping to 'INSTALL_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @install_type = INSTALL_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @install_type = install_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -345,15 +435,20 @@ module OCI
         platform_name == other.platform_name &&
         platform_version == other.platform_version &&
         version == other.version &&
+        resource_artifact_version == other.resource_artifact_version &&
         is_agent_auto_upgradable == other.is_agent_auto_upgradable &&
         time_created == other.time_created &&
+        time_updated == other.time_updated &&
         host == other.host &&
+        host_id == other.host_id &&
         plugin_list == other.plugin_list &&
         compartment_id == other.compartment_id &&
         time_last_heartbeat == other.time_last_heartbeat &&
         availability_status == other.availability_status &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
+        is_customer_deployed == other.is_customer_deployed &&
+        install_type == other.install_type &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -371,7 +466,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, install_key_id, display_name, platform_type, platform_name, platform_version, version, is_agent_auto_upgradable, time_created, host, plugin_list, compartment_id, time_last_heartbeat, availability_status, lifecycle_state, lifecycle_details, freeform_tags, defined_tags].hash
+      [id, install_key_id, display_name, platform_type, platform_name, platform_version, version, resource_artifact_version, is_agent_auto_upgradable, time_created, time_updated, host, host_id, plugin_list, compartment_id, time_last_heartbeat, availability_status, lifecycle_state, lifecycle_details, is_customer_deployed, install_type, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

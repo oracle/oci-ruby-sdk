@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -92,6 +92,71 @@ module OCI
     def logger
       @api_client.config.logger
     end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Cancels a Deployment Backup creation process.
+    # @param [String] deployment_backup_id A unique DeploymentBackup identifier.
+    #
+    # @param [OCI::GoldenGate::Models::CancelDeploymentBackupDetails] cancel_deployment_backup_details A placeholder for any additional metadata to describe the deployment backup cancel.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the etag from a previous GET or POST response for that resource.  The resource is updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried, in case of a timeout or server error, without risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations. For example, if a resource has been deleted and purged from the system, then a retry of the original creation request is rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/goldengate/cancel_deployment_backup.rb.html) to see an example of how to use cancel_deployment_backup API.
+    def cancel_deployment_backup(deployment_backup_id, cancel_deployment_backup_details, opts = {})
+      logger.debug 'Calling operation GoldenGateClient#cancel_deployment_backup.' if logger
+
+      raise "Missing the required parameter 'deployment_backup_id' when calling cancel_deployment_backup." if deployment_backup_id.nil?
+      raise "Missing the required parameter 'cancel_deployment_backup_details' when calling cancel_deployment_backup." if cancel_deployment_backup_details.nil?
+      raise "Parameter value for 'deployment_backup_id' must not be blank" if OCI::Internal::Util.blank_string?(deployment_backup_id)
+
+      path = '/deploymentBackups/{deploymentBackupId}/actions/cancel'.sub('{deploymentBackupId}', deployment_backup_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(cancel_deployment_backup_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'GoldenGateClient#cancel_deployment_backup') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -821,6 +886,63 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Retrieves a deployment upgrade.
+    #
+    # @param [String] deployment_upgrade_id A unique Deployment Upgrade identifier.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    #
+    # @return [Response] A Response object with data of type {OCI::GoldenGate::Models::DeploymentUpgrade DeploymentUpgrade}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/goldengate/get_deployment_upgrade.rb.html) to see an example of how to use get_deployment_upgrade API.
+    def get_deployment_upgrade(deployment_upgrade_id, opts = {})
+      logger.debug 'Calling operation GoldenGateClient#get_deployment_upgrade.' if logger
+
+      raise "Missing the required parameter 'deployment_upgrade_id' when calling get_deployment_upgrade." if deployment_upgrade_id.nil?
+      raise "Parameter value for 'deployment_upgrade_id' must not be blank" if OCI::Internal::Util.blank_string?(deployment_upgrade_id)
+
+      path = '/deploymentUpgrades/{deploymentUpgradeId}'.sub('{deploymentUpgradeId}', deployment_upgrade_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'GoldenGateClient#get_deployment_upgrade') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::GoldenGate::Models::DeploymentUpgrade'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Retrieve the WorkRequest identified by the given OCID.
     #
     # @param [String] work_request_id The ID of the asynchronous request.
@@ -1057,6 +1179,97 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the Deployment Upgrades in a compartment.
+    #
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :deployment_id The ID of the deployment in which to list resources.
+    #
+    # @option opts [String] :lifecycle_state A filter to return only the resources that match the 'lifecycleState' given.
+    #
+    # @option opts [String] :display_name A filter to return only the resources that match the entire 'displayName' given.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return.
+    #    (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    #
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    #    (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order can be provided. Default order for 'timeCreated' is descending.  Default order for 'displayName' is ascending. If no value is specified timeCreated is the default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    #
+    # @return [Response] A Response object with data of type {OCI::GoldenGate::Models::DeploymentUpgradeCollection DeploymentUpgradeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/goldengate/list_deployment_upgrades.rb.html) to see an example of how to use list_deployment_upgrades API.
+    def list_deployment_upgrades(compartment_id, opts = {})
+      logger.debug 'Calling operation GoldenGateClient#list_deployment_upgrades.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_deployment_upgrades." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::GoldenGate::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::GoldenGate::Models::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::GoldenGate::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::GoldenGate::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      path = '/deploymentUpgrades'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:deploymentId] = opts[:deployment_id] if opts[:deployment_id]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'GoldenGateClient#list_deployment_upgrades') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::GoldenGate::Models::DeploymentUpgradeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the Deployments in a compartment.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
@@ -1066,7 +1279,11 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :lifecycle_state A filter to return only the resources that match the 'lifecycleState' given.
     #
+    # @option opts [String] :lifecycle_sub_state A filter to return only the resources that match the 'lifecycleSubState' given.
+    #
     # @option opts [String] :display_name A filter to return only the resources that match the entire 'displayName' given.
+    #
+    # @option opts [String] :fqdn A filter to return only the resources that match the 'fqdn' given.
     #
     # @option opts [Integer] :limit The maximum number of items to return.
     #    (default to 10)
@@ -1090,6 +1307,10 @@ module OCI
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::GoldenGate::Models::LIFECYCLE_STATE_ENUM.'
       end
 
+      if opts[:lifecycle_sub_state] && !OCI::GoldenGate::Models::LIFECYCLE_SUB_STATE_ENUM.include?(opts[:lifecycle_sub_state])
+        raise 'Invalid value for "lifecycle_sub_state", must be one of the values in OCI::GoldenGate::Models::LIFECYCLE_SUB_STATE_ENUM.'
+      end
+
       if opts[:sort_order] && !OCI::GoldenGate::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of the values in OCI::GoldenGate::Models::SORT_ORDER_ENUM.'
       end
@@ -1106,7 +1327,9 @@ module OCI
       query_params = {}
       query_params[:compartmentId] = compartment_id
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:lifecycleSubState] = opts[:lifecycle_sub_state] if opts[:lifecycle_sub_state]
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:fqdn] = opts[:fqdn] if opts[:fqdn]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
@@ -1278,6 +1501,8 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :resource_id The ID of the resource in which to list resources.
+    #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     #
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
@@ -1298,6 +1523,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
+      query_params[:resourceId] = opts[:resource_id] if opts[:resource_id]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
 

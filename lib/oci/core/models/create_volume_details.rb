@@ -1,11 +1,13 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # CreateVolumeDetails model.
+  # The details of the volume to create. For CreateVolume operation, this field is required in the request,
+  # see {#create_volume create_volume}.
+  #
   class Core::Models::CreateVolumeDetails
     # The availability domain of the volume. Omissible for cloning a volume. The new volume will be created in the availability domain of the source volume.
     #

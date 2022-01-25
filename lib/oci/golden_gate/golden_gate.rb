@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -12,6 +12,8 @@ end
 
 # Require models
 require 'oci/golden_gate/models/action_type'
+require 'oci/golden_gate/models/cancel_deployment_backup_details'
+require 'oci/golden_gate/models/cancel_deployment_backup_type'
 require 'oci/golden_gate/models/change_database_registration_compartment_details'
 require 'oci/golden_gate/models/change_deployment_backup_compartment_details'
 require 'oci/golden_gate/models/change_deployment_compartment_details'
@@ -22,6 +24,7 @@ require 'oci/golden_gate/models/create_ogg_deployment_details'
 require 'oci/golden_gate/models/database_registration'
 require 'oci/golden_gate/models/database_registration_collection'
 require 'oci/golden_gate/models/database_registration_summary'
+require 'oci/golden_gate/models/default_cancel_deployment_backup_details'
 require 'oci/golden_gate/models/default_restore_deployment_details'
 require 'oci/golden_gate/models/default_start_deployment_details'
 require 'oci/golden_gate/models/default_stop_deployment_details'
@@ -33,8 +36,14 @@ require 'oci/golden_gate/models/deployment_backup_type'
 require 'oci/golden_gate/models/deployment_collection'
 require 'oci/golden_gate/models/deployment_summary'
 require 'oci/golden_gate/models/deployment_type'
+require 'oci/golden_gate/models/deployment_upgrade'
+require 'oci/golden_gate/models/deployment_upgrade_collection'
+require 'oci/golden_gate/models/deployment_upgrade_lifecycle_state'
+require 'oci/golden_gate/models/deployment_upgrade_summary'
+require 'oci/golden_gate/models/deployment_upgrade_type'
 require 'oci/golden_gate/models/license_model'
 require 'oci/golden_gate/models/lifecycle_state'
+require 'oci/golden_gate/models/lifecycle_sub_state'
 require 'oci/golden_gate/models/ogg_deployment'
 require 'oci/golden_gate/models/operation_status'
 require 'oci/golden_gate/models/operation_type'

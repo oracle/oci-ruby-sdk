@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -17,7 +17,23 @@ module OCI
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_NEEDS_ATTENTION = 'NEEDS_ATTENTION'.freeze,
+      LIFECYCLE_STATE_IN_PROGRESS = 'IN_PROGRESS'.freeze,
+      LIFECYCLE_STATE_CANCELING = 'CANCELING'.freeze,
+      LIFECYCLE_STATE_CANCELED = 'CANCELED'.freeze,
+      LIFECYCLE_STATE_SUCCEEDED = 'SUCCEEDED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    LIFECYCLE_SUB_STATE_ENUM = [
+      LIFECYCLE_SUB_STATE_RECOVERING = 'RECOVERING'.freeze,
+      LIFECYCLE_SUB_STATE_STARTING = 'STARTING'.freeze,
+      LIFECYCLE_SUB_STATE_STOPPING = 'STOPPING'.freeze,
+      LIFECYCLE_SUB_STATE_MOVING = 'MOVING'.freeze,
+      LIFECYCLE_SUB_STATE_UPGRADING = 'UPGRADING'.freeze,
+      LIFECYCLE_SUB_STATE_RESTORING = 'RESTORING'.freeze,
+      LIFECYCLE_SUB_STATE_BACKUP_IN_PROGRESS = 'BACKUP_IN_PROGRESS'.freeze,
+      LIFECYCLE_SUB_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     LICENSE_MODEL_ENUM = [
@@ -70,6 +86,11 @@ module OCI
     #
     # @return [String]
     attr_reader :lifecycle_state
+
+    # Possible GGS lifecycle sub-states.
+    #
+    # @return [String]
+    attr_reader :lifecycle_sub_state
 
     # Describes the object's current state in detail. For example, it can be used to provide actionable information for a resource in a Failed state.
     #
@@ -154,7 +175,13 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_latest_version
 
-    # **[Required]** The deployment type.
+    # The date the existing version in use will no longer be considered as usable and an upgrade will be required.  This date is typically 6 months after the version was released for use by GGS.  The format is defined by [RFC3339](https://tools.ietf.org/html/rfc3339), such as `2016-08-25T21:10:29.600Z`.
+    #
+    # @return [DateTime]
+    attr_accessor :time_upgrade_required
+
+    # **[Required]** The type of deployment, the value determines the exact 'type' of service executed in the Deployment. NOTE: Use of the value OGG is maintained for backward compatibility purposes.  Its use is discouraged
+    #       in favor of the equivalent DATABASE_ORACLE value.
     #
     # @return [String]
     attr_reader :deployment_type
@@ -174,6 +201,7 @@ module OCI
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
+        'lifecycle_sub_state': :'lifecycleSubState',
         'lifecycle_details': :'lifecycleDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
@@ -190,6 +218,7 @@ module OCI
         'deployment_url': :'deploymentUrl',
         'system_tags': :'systemTags',
         'is_latest_version': :'isLatestVersion',
+        'time_upgrade_required': :'timeUpgradeRequired',
         'deployment_type': :'deploymentType',
         'ogg_data': :'oggData'
         # rubocop:enable Style/SymbolLiteral
@@ -208,6 +237,7 @@ module OCI
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
+        'lifecycle_sub_state': :'String',
         'lifecycle_details': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -224,6 +254,7 @@ module OCI
         'deployment_url': :'String',
         'system_tags': :'Hash<String, Hash<String, Object>>',
         'is_latest_version': :'BOOLEAN',
+        'time_upgrade_required': :'DateTime',
         'deployment_type': :'String',
         'ogg_data': :'OCI::GoldenGate::Models::OggDeployment'
         # rubocop:enable Style/SymbolLiteral
@@ -244,6 +275,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :lifecycle_sub_state The value to assign to the {#lifecycle_sub_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -260,6 +292,7 @@ module OCI
     # @option attributes [String] :deployment_url The value to assign to the {#deployment_url} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     # @option attributes [BOOLEAN] :is_latest_version The value to assign to the {#is_latest_version} property
+    # @option attributes [DateTime] :time_upgrade_required The value to assign to the {#time_upgrade_required} property
     # @option attributes [String] :deployment_type The value to assign to the {#deployment_type} property
     # @option attributes [OCI::GoldenGate::Models::OggDeployment] :ogg_data The value to assign to the {#ogg_data} property
     def initialize(attributes = {})
@@ -307,6 +340,12 @@ module OCI
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.lifecycle_sub_state = attributes[:'lifecycleSubState'] if attributes[:'lifecycleSubState']
+
+      raise 'You cannot provide both :lifecycleSubState and :lifecycle_sub_state' if attributes.key?(:'lifecycleSubState') && attributes.key?(:'lifecycle_sub_state')
+
+      self.lifecycle_sub_state = attributes[:'lifecycle_sub_state'] if attributes[:'lifecycle_sub_state']
 
       self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
 
@@ -400,6 +439,12 @@ module OCI
 
       self.is_latest_version = attributes[:'is_latest_version'] unless attributes[:'is_latest_version'].nil?
 
+      self.time_upgrade_required = attributes[:'timeUpgradeRequired'] if attributes[:'timeUpgradeRequired']
+
+      raise 'You cannot provide both :timeUpgradeRequired and :time_upgrade_required' if attributes.key?(:'timeUpgradeRequired') && attributes.key?(:'time_upgrade_required')
+
+      self.time_upgrade_required = attributes[:'time_upgrade_required'] if attributes[:'time_upgrade_required']
+
       self.deployment_type = attributes[:'deploymentType'] if attributes[:'deploymentType']
 
       raise 'You cannot provide both :deploymentType and :deployment_type' if attributes.key?(:'deploymentType') && attributes.key?(:'deployment_type')
@@ -424,6 +469,19 @@ module OCI
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_sub_state Object to be assigned
+    def lifecycle_sub_state=(lifecycle_sub_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_sub_state && !LIFECYCLE_SUB_STATE_ENUM.include?(lifecycle_sub_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_sub_state' [" + lifecycle_sub_state + "]. Mapping to 'LIFECYCLE_SUB_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_sub_state = LIFECYCLE_SUB_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_sub_state = lifecycle_sub_state
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -471,6 +529,7 @@ module OCI
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
+        lifecycle_sub_state == other.lifecycle_sub_state &&
         lifecycle_details == other.lifecycle_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
@@ -487,6 +546,7 @@ module OCI
         deployment_url == other.deployment_url &&
         system_tags == other.system_tags &&
         is_latest_version == other.is_latest_version &&
+        time_upgrade_required == other.time_upgrade_required &&
         deployment_type == other.deployment_type &&
         ogg_data == other.ogg_data
     end
@@ -504,7 +564,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, description, compartment_id, deployment_backup_id, time_created, time_updated, lifecycle_state, lifecycle_details, freeform_tags, defined_tags, is_healthy, subnet_id, fqdn, license_model, cpu_core_count, is_auto_scaling_enabled, nsg_ids, is_public, public_ip_address, private_ip_address, deployment_url, system_tags, is_latest_version, deployment_type, ogg_data].hash
+      [id, display_name, description, compartment_id, deployment_backup_id, time_created, time_updated, lifecycle_state, lifecycle_sub_state, lifecycle_details, freeform_tags, defined_tags, is_healthy, subnet_id, fqdn, license_model, cpu_core_count, is_auto_scaling_enabled, nsg_ids, is_public, public_ip_address, private_ip_address, deployment_url, system_tags, is_latest_version, time_upgrade_required, deployment_type, ogg_data].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -14,6 +14,7 @@ end
 require 'oci/resource_manager/models/apply_job_operation_details'
 require 'oci/resource_manager/models/apply_job_operation_details_summary'
 require 'oci/resource_manager/models/apply_job_plan_resolution'
+require 'oci/resource_manager/models/cancellation_details'
 require 'oci/resource_manager/models/change_configuration_source_provider_compartment_details'
 require 'oci/resource_manager/models/change_stack_compartment_details'
 require 'oci/resource_manager/models/change_template_compartment_details'
@@ -76,6 +77,7 @@ require 'oci/resource_manager/models/template_config_source'
 require 'oci/resource_manager/models/template_summary'
 require 'oci/resource_manager/models/template_summary_collection'
 require 'oci/resource_manager/models/template_zip_upload_config_source'
+require 'oci/resource_manager/models/terraform_advanced_options'
 require 'oci/resource_manager/models/terraform_version_collection'
 require 'oci/resource_manager/models/terraform_version_summary'
 require 'oci/resource_manager/models/update_config_source_details'

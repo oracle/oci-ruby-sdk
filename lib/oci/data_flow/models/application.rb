@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -22,6 +22,12 @@ module OCI
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    TYPE_ENUM = [
+      TYPE_BATCH = 'BATCH'.freeze,
+      TYPE_STREAMING = 'STREAMING'.freeze,
+      TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # An Oracle Cloud Infrastructure URI of an archive.zip file containing custom dependencies that may be used to support the execution a Python, Java, or Scala application.
@@ -181,6 +187,11 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_updated
 
+    # The Spark application processing type.
+    #
+    # @return [String]
+    attr_reader :type
+
     # An Oracle Cloud Infrastructure URI of the bucket to be used as default warehouse directory
     # for BATCH SQL runs.
     # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
@@ -218,6 +229,7 @@ module OCI
         'spark_version': :'sparkVersion',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
+        'type': :'type',
         'warehouse_bucket_uri': :'warehouseBucketUri'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -253,6 +265,7 @@ module OCI
         'spark_version': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
+        'type': :'String',
         'warehouse_bucket_uri': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -290,6 +303,7 @@ module OCI
     # @option attributes [String] :spark_version The value to assign to the {#spark_version} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [String] :type The value to assign to the {#type} property
     # @option attributes [String] :warehouse_bucket_uri The value to assign to the {#warehouse_bucket_uri} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -425,6 +439,9 @@ module OCI
 
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
 
+      self.type = attributes[:'type'] if attributes[:'type']
+      self.type = "BATCH" if type.nil? && !attributes.key?(:'type') # rubocop:disable Style/StringLiterals
+
       self.warehouse_bucket_uri = attributes[:'warehouseBucketUri'] if attributes[:'warehouseBucketUri']
 
       raise 'You cannot provide both :warehouseBucketUri and :warehouse_bucket_uri' if attributes.key?(:'warehouseBucketUri') && attributes.key?(:'warehouse_bucket_uri')
@@ -456,6 +473,19 @@ module OCI
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] type Object to be assigned
+    def type=(type)
+      # rubocop:disable Style/ConditionalAssignment
+      if type && !TYPE_ENUM.include?(type)
+        OCI.logger.debug("Unknown value for 'type' [" + type + "]. Mapping to 'TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @type = TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @type = type
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -495,6 +525,7 @@ module OCI
         spark_version == other.spark_version &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
+        type == other.type &&
         warehouse_bucket_uri == other.warehouse_bucket_uri
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -511,7 +542,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [archive_uri, arguments, class_name, configuration, compartment_id, defined_tags, description, display_name, driver_shape, execute, executor_shape, file_uri, freeform_tags, id, language, lifecycle_state, logs_bucket_uri, metastore_id, num_executors, owner_principal_id, owner_user_name, parameters, private_endpoint_id, spark_version, time_created, time_updated, warehouse_bucket_uri].hash
+      [archive_uri, arguments, class_name, configuration, compartment_id, defined_tags, description, display_name, driver_shape, execute, executor_shape, file_uri, freeform_tags, id, language, lifecycle_state, logs_bucket_uri, metastore_id, num_executors, owner_principal_id, owner_user_name, parameters, private_endpoint_id, spark_version, time_created, time_updated, type, warehouse_bucket_uri].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

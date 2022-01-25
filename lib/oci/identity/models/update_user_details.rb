@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -14,6 +14,10 @@ module OCI
     # The email address you assign to the user. Has to be unique across the tenancy.
     # @return [String]
     attr_accessor :email
+
+    # DB username of the DB credential. Has to be unique across the tenancy.
+    # @return [String]
+    attr_accessor :db_user_name
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -35,6 +39,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'description': :'description',
         'email': :'email',
+        'db_user_name': :'dbUserName',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -47,6 +52,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'description': :'String',
         'email': :'String',
+        'db_user_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -61,6 +67,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :email The value to assign to the {#email} property
+    # @option attributes [String] :db_user_name The value to assign to the {#db_user_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -72,6 +79,12 @@ module OCI
       self.description = attributes[:'description'] if attributes[:'description']
 
       self.email = attributes[:'email'] if attributes[:'email']
+
+      self.db_user_name = attributes[:'dbUserName'] if attributes[:'dbUserName']
+
+      raise 'You cannot provide both :dbUserName and :db_user_name' if attributes.key?(:'dbUserName') && attributes.key?(:'db_user_name')
+
+      self.db_user_name = attributes[:'db_user_name'] if attributes[:'db_user_name']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -99,6 +112,7 @@ module OCI
       self.class == other.class &&
         description == other.description &&
         email == other.email &&
+        db_user_name == other.db_user_name &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -116,7 +130,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [description, email, freeform_tags, defined_tags].hash
+      [description, email, db_user_name, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

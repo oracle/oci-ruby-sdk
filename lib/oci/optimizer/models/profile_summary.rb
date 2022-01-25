@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -37,6 +37,10 @@ module OCI
     # **[Required]** Text describing the profile.
     # @return [String]
     attr_accessor :description
+
+    # The time period over which to collect data for the recommendations, measured in number of days.
+    # @return [Integer]
+    attr_accessor :aggregation_interval_in_days
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -83,6 +87,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'name': :'name',
         'description': :'description',
+        'aggregation_interval_in_days': :'aggregationIntervalInDays',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags',
         'lifecycle_state': :'lifecycleState',
@@ -103,6 +108,7 @@ module OCI
         'compartment_id': :'String',
         'name': :'String',
         'description': :'String',
+        'aggregation_interval_in_days': :'Integer',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>',
         'lifecycle_state': :'String',
@@ -125,6 +131,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [Integer] :aggregation_interval_in_days The value to assign to the {#aggregation_interval_in_days} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -150,6 +157,12 @@ module OCI
       self.name = attributes[:'name'] if attributes[:'name']
 
       self.description = attributes[:'description'] if attributes[:'description']
+
+      self.aggregation_interval_in_days = attributes[:'aggregationIntervalInDays'] if attributes[:'aggregationIntervalInDays']
+
+      raise 'You cannot provide both :aggregationIntervalInDays and :aggregation_interval_in_days' if attributes.key?(:'aggregationIntervalInDays') && attributes.key?(:'aggregation_interval_in_days')
+
+      self.aggregation_interval_in_days = attributes[:'aggregation_interval_in_days'] if attributes[:'aggregation_interval_in_days']
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -228,6 +241,7 @@ module OCI
         compartment_id == other.compartment_id &&
         name == other.name &&
         description == other.description &&
+        aggregation_interval_in_days == other.aggregation_interval_in_days &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags &&
         lifecycle_state == other.lifecycle_state &&
@@ -251,7 +265,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, defined_tags, freeform_tags, lifecycle_state, levels_configuration, target_compartments, target_tags, time_created, time_updated].hash
+      [id, compartment_id, name, description, aggregation_interval_in_days, defined_tags, freeform_tags, lifecycle_state, levels_configuration, target_compartments, target_tags, time_created, time_updated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

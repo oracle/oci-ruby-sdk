@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -38,6 +38,18 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_updated
 
+    # Full path of the object.
+    # @return [String]
+    attr_accessor :path
+
+    # Key of the parent object for the resource.
+    # @return [String]
+    attr_accessor :parent_key
+
+    # Full path of the parent object.
+    # @return [String]
+    attr_accessor :parent_path
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -48,7 +60,10 @@ module OCI
         'type_name': :'typeName',
         'type_key': :'typeKey',
         'time_created': :'timeCreated',
-        'time_updated': :'timeUpdated'
+        'time_updated': :'timeUpdated',
+        'path': :'path',
+        'parent_key': :'parentKey',
+        'parent_path': :'parentPath'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -63,7 +78,10 @@ module OCI
         'type_name': :'String',
         'type_key': :'String',
         'time_created': :'DateTime',
-        'time_updated': :'DateTime'
+        'time_updated': :'DateTime',
+        'path': :'String',
+        'parent_key': :'String',
+        'parent_path': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -81,6 +99,9 @@ module OCI
     # @option attributes [String] :type_key The value to assign to the {#type_key} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [String] :path The value to assign to the {#path} property
+    # @option attributes [String] :parent_key The value to assign to the {#parent_key} property
+    # @option attributes [String] :parent_path The value to assign to the {#parent_path} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -120,6 +141,20 @@ module OCI
       raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
 
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.path = attributes[:'path'] if attributes[:'path']
+
+      self.parent_key = attributes[:'parentKey'] if attributes[:'parentKey']
+
+      raise 'You cannot provide both :parentKey and :parent_key' if attributes.key?(:'parentKey') && attributes.key?(:'parent_key')
+
+      self.parent_key = attributes[:'parent_key'] if attributes[:'parent_key']
+
+      self.parent_path = attributes[:'parentPath'] if attributes[:'parentPath']
+
+      raise 'You cannot provide both :parentPath and :parent_path' if attributes.key?(:'parentPath') && attributes.key?(:'parent_path')
+
+      self.parent_path = attributes[:'parent_path'] if attributes[:'parent_path']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -139,7 +174,10 @@ module OCI
         type_name == other.type_name &&
         type_key == other.type_key &&
         time_created == other.time_created &&
-        time_updated == other.time_updated
+        time_updated == other.time_updated &&
+        path == other.path &&
+        parent_key == other.parent_key &&
+        parent_path == other.parent_path
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -155,7 +193,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [relationship_type, key, name, type_name, type_key, time_created, time_updated].hash
+      [relationship_type, key, name, type_name, type_key, time_created, time_updated, path, parent_key, parent_path].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

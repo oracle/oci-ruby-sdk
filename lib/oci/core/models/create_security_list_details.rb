@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # CreateSecurityListDetails model.
   class Core::Models::CreateSecurityListDetails
-    # **[Required]** The OCID of the compartment to contain the security list.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment to contain the security list.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -41,7 +41,7 @@ module OCI
     # @return [Array<OCI::Core::Models::IngressSecurityRule>]
     attr_accessor :ingress_security_rules
 
-    # **[Required]** The OCID of the VCN the security list belongs to.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN the security list belongs to.
     # @return [String]
     attr_accessor :vcn_id
 

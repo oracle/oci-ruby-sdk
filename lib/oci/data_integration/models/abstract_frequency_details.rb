@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -13,6 +13,9 @@ module OCI
       MODEL_TYPE_HOURLY = 'HOURLY'.freeze,
       MODEL_TYPE_DAILY = 'DAILY'.freeze,
       MODEL_TYPE_MONTHLY = 'MONTHLY'.freeze,
+      MODEL_TYPE_WEEKLY = 'WEEKLY'.freeze,
+      MODEL_TYPE_MONTHLY_RULE = 'MONTHLY_RULE'.freeze,
+      MODEL_TYPE_CUSTOM = 'CUSTOM'.freeze,
       MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -20,6 +23,8 @@ module OCI
       FREQUENCY_HOURLY = 'HOURLY'.freeze,
       FREQUENCY_DAILY = 'DAILY'.freeze,
       FREQUENCY_MONTHLY = 'MONTHLY'.freeze,
+      FREQUENCY_WEEKLY = 'WEEKLY'.freeze,
+      FREQUENCY_CUSTOM = 'CUSTOM'.freeze,
       FREQUENCY_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -60,7 +65,10 @@ module OCI
       type = object_hash[:'modelType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::DataIntegration::Models::MonthlyFrequencyDetails' if type == 'MONTHLY'
+      return 'OCI::DataIntegration::Models::CustomFrequencyDetails' if type == 'CUSTOM'
       return 'OCI::DataIntegration::Models::DailyFrequencyDetails' if type == 'DAILY'
+      return 'OCI::DataIntegration::Models::WeeklyFrequencyDetails' if type == 'WEEKLY'
+      return 'OCI::DataIntegration::Models::MonthlyRuleFrequencyDetails' if type == 'MONTHLY_RULE'
       return 'OCI::DataIntegration::Models::HourlyFrequencyDetails' if type == 'HOURLY'
 
       # TODO: Log a warning when the subtype is not found.

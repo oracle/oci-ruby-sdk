@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -108,6 +108,9 @@ module OCI
     # @return [OCI::Core::Models::ShapeMaxVnicAttachmentOptions]
     attr_accessor :max_vnic_attachment_options
 
+    # @return [OCI::Core::Models::ShapePlatformConfigOptions]
+    attr_accessor :platform_config_options
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -129,7 +132,8 @@ module OCI
         'ocpu_options': :'ocpuOptions',
         'memory_options': :'memoryOptions',
         'networking_bandwidth_options': :'networkingBandwidthOptions',
-        'max_vnic_attachment_options': :'maxVnicAttachmentOptions'
+        'max_vnic_attachment_options': :'maxVnicAttachmentOptions',
+        'platform_config_options': :'platformConfigOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -155,7 +159,8 @@ module OCI
         'ocpu_options': :'OCI::Core::Models::ShapeOcpuOptions',
         'memory_options': :'OCI::Core::Models::ShapeMemoryOptions',
         'networking_bandwidth_options': :'OCI::Core::Models::ShapeNetworkingBandwidthOptions',
-        'max_vnic_attachment_options': :'OCI::Core::Models::ShapeMaxVnicAttachmentOptions'
+        'max_vnic_attachment_options': :'OCI::Core::Models::ShapeMaxVnicAttachmentOptions',
+        'platform_config_options': :'OCI::Core::Models::ShapePlatformConfigOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -184,6 +189,7 @@ module OCI
     # @option attributes [OCI::Core::Models::ShapeMemoryOptions] :memory_options The value to assign to the {#memory_options} property
     # @option attributes [OCI::Core::Models::ShapeNetworkingBandwidthOptions] :networking_bandwidth_options The value to assign to the {#networking_bandwidth_options} property
     # @option attributes [OCI::Core::Models::ShapeMaxVnicAttachmentOptions] :max_vnic_attachment_options The value to assign to the {#max_vnic_attachment_options} property
+    # @option attributes [OCI::Core::Models::ShapePlatformConfigOptions] :platform_config_options The value to assign to the {#platform_config_options} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -285,6 +291,12 @@ module OCI
       raise 'You cannot provide both :maxVnicAttachmentOptions and :max_vnic_attachment_options' if attributes.key?(:'maxVnicAttachmentOptions') && attributes.key?(:'max_vnic_attachment_options')
 
       self.max_vnic_attachment_options = attributes[:'max_vnic_attachment_options'] if attributes[:'max_vnic_attachment_options']
+
+      self.platform_config_options = attributes[:'platformConfigOptions'] if attributes[:'platformConfigOptions']
+
+      raise 'You cannot provide both :platformConfigOptions and :platform_config_options' if attributes.key?(:'platformConfigOptions') && attributes.key?(:'platform_config_options')
+
+      self.platform_config_options = attributes[:'platform_config_options'] if attributes[:'platform_config_options']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -335,7 +347,8 @@ module OCI
         ocpu_options == other.ocpu_options &&
         memory_options == other.memory_options &&
         networking_bandwidth_options == other.networking_bandwidth_options &&
-        max_vnic_attachment_options == other.max_vnic_attachment_options
+        max_vnic_attachment_options == other.max_vnic_attachment_options &&
+        platform_config_options == other.platform_config_options
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -351,7 +364,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [baseline_ocpu_utilizations, min_total_baseline_ocpus_required, shape, processor_description, ocpus, memory_in_gbs, networking_bandwidth_in_gbps, max_vnic_attachments, gpus, gpu_description, local_disks, local_disks_total_size_in_gbs, local_disk_description, is_live_migration_supported, ocpu_options, memory_options, networking_bandwidth_options, max_vnic_attachment_options].hash
+      [baseline_ocpu_utilizations, min_total_baseline_ocpus_required, shape, processor_description, ocpus, memory_in_gbs, networking_bandwidth_in_gbps, max_vnic_attachments, gpus, gpu_description, local_disks, local_disks_total_size_in_gbs, local_disk_description, is_live_migration_supported, ocpu_options, memory_options, networking_bandwidth_options, max_vnic_attachment_options, platform_config_options].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

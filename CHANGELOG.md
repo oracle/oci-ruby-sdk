@@ -3,6 +3,153 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.16.0 - 2022-01-25
+### Added
+- Support for getting management agent hosts which are eligible to create Operations Insights host resources on, in the Operations Insights service
+- Support for getting summarized agent counts and summarized plugin counts in the Management Agent Cloud service
+- Support for generating recommended VM cluster networks in the Database service
+- Support for creating VM cluster networks with a specified listener port in the Database service
+- Support for Oracle Analytics Cloud and OCI Vault integration on connections in the Data Catalog service
+- Support for critical event monitoring in the OS Management service
+- Support for terraform advanced options (detailed log level, refresh, and parallelism) on jobs in the Resource Manager service
+- Support for forced cancellation when cancelling jobs in the Resource Manager service
+- Support for getting the detailed log content of a job in the Resource Manager service
+- Support for provider information in the responses of list operations in the Management Dashboard service
+- Support for scheduled jobs in Database Management service
+- Support for monitoring and management of OCI virtual machine, bare metal, and ExaCS databases in the Database Management service
+- Support for a unified way of managing both external and cloud databases in the Database Management service
+- Support for metrics and Performance Hub on virtual machine, bare metal, and ExaCS databases in the Database Management service
+- Support for serviceHostKeyFingerprint property for InstanceConsoleConnection in Core service
+- Support for Shielded Instances in Core service
+- Support for ML Jobs in the Data Science service
+- Support for autonomous databases and clones on shared infrastructure not requiring mTLS in the Database service
+- Support for server-side encryption using object-specific KMS keys in the Object Storage service
+- Support for Windows in the Java Management service
+- Support for using network security groups in the API Gateway service
+- Support for network security groups in the Functions service
+- Support for signed container images in the Functions service
+- Support for setting message format when creating and updating alarms in the Monitoring service
+- Support for user and security assessment features in the Data Safe service
+- Support for configuring Binlog variables in the MySQL Database service.
+- Support new response value "OPERATOR" for backup creationType in list and get MDS backup API in the MySQL Database service.
+- Support for SetAutoUpgradableConfig and GetAutoUpgradableConfig operations in Management Agent Cloud service.
+- Support for additional installType filter for List Management Agents, Images and Count API operations in Management Agent Cloud service.
+- Support for list and read DeploymentUpgrade, cancel and restore DeploymentBackup in the Golden Gate service.
+- Support for non-autonomous databases targets, executing Pre-Migration advisor, uploading Datapump logs into Object Storage bucket, and filtering Database Objects in the Database Migration service.
+- Support for calling Oracle Cloud Infrastructure services in the ap-ibaraki-1 region.
+- Support for the Data Labeling service
+- Support for querying and setting Application Performance Monitoring configurations in the Application Performance Monitoring service
+- Support for the run-once monitor feature and network data collection in the Application Performance Monitoring service
+- Support for Oracle Enterprise Manager bridges, source auto-association, source event types mapping, and partitioning and searching data by LogSet in the Logging Analytics service
+- Support for Log events APIs used by plugins like fluentd, fluentbit, etc. to upload data in the Logging Analytics service
+- Support for a new ActionType: FAILED in work requests in the VMware Provisioning service
+- Support for calling Oracle Cloud Infrastructure services in the il-jerusalem-1 region
+- Support for creating database systems from backups with database software images in the Database service
+- Support for optionally providing a SID prefix during Exadata database creation in the Database service
+- Support for node subsetting on VM clusters in the Database service
+- Support for non-CDB to PDB conversion in the Database service
+- Support for default homepages, unprocessed data buckets, and parsing geostats in the Logging Analytics service
+- Support for the Source Code Management service
+- Support for the Build service
+- Support for the Certificates service
+- Support to create child tenancies in an organization and manage subscriptions in the Organizations service
+- Support for Certificates service integration in the Load Balancing service
+- Support for creating hosts in specific availability domains in the VMWare Solution service
+- Support for user-defined functions and libraries, as well as scheduling and orchestration, in the Data Integration service
+- Support for EM-managed Exadatas and EM-managed hosts in the Operations Insights service
+- Support for the Database Tools service
+- Support for scan listener port TCP and TCP SSL on cloud VM clusters in the Database service
+- Support for domains in the Identity service
+- Support for redeemable users and support rewards in the Usage service
+- Support for calling Oracle Cloud Infrastructure services in the ap-singapore-1 and eu-marseille-1 regions
+- Support for drill down metadata in the Management Dashboard service
+- Support for operator access control on dedicated autonomous databases in the Operator Access Control service
+- Support for getting subnet topology in the Networking service
+- Support for encrypted FastConnect resources in the Networking service
+- Support for performance and high availability, as well as recommendation metrics, in the Optimizer service
+- Support for optional TDE wallet passwords in the Database service
+- Support for Object Storage service integration in the Big Data service
+- Support for circuit breakers enabled by default in all services except Streaming and Compute
+- Support for retries enabled by default in all operations of the Functions and Roving Edge services, and in some operations of the Streaming service.
+- Support for SQL Tuning Advisor in the Database Management service
+- Support for listing users and getting user details in the Database Management service
+- Support for autonomous databases in the Database Management service
+- Support for enabling and disabling Database Management features on autonomous databases in the Database service
+- Support for the Solaris platform in the Management Agent Cloud service
+- Support for cross-compartment operations in the Operations Insights service
+- Support for listing deployment backups in the GoldenGate service
+- Support for standard tags in the Identity service
+- Support for viewing problems for deleted targets in the Cloud Guard service
+- Support for choosing a platform version while creating a platform instance in the Blockchain Platform service
+- Support for custom IPSec connection tunnel internet key exchange phase 1 and phase 2 encryption algorithms in the Networking service
+- Support for pagination when listing work requests corresponding to an APM domain in the Application Performance Monitoring service
+- Support for the "deleted" lifecycle state on APM domains in the Application Performance Monitoring service
+- Support for calling Oracle Cloud Infrastructure services in the eu-milan-1 and me-abudhabi-1 regions
+- Support for the Application Management service
+- Support for getting the inventory of JMS resources and listing Java runtime usage in a specified host in the Java Management service
+- Support for categories, entity topology, and verifying scheduled tasks in the Logging Analytics service
+- Support for RAC databases in the GoldenGate service
+- Support for querying additional fields of a resource using return clauses in the Search service
+- Support for key versions and key version OCIDs in the Key Management service
+- Support for node replacement in the VMWare Solution service
+- Support for ingestion of SQL stats metrics in the Operations Insights service
+- Support for AWR hub integration in the Operations Insights service
+- Support for automatically generating logical entities from filename patterns and relationships between business terms across glossaries in the Data Catalog service
+- Support for automatic start/stop at scheduled times in the Database service
+- Support for cloud VM cluster resources on autonomous dedicated databases in the Database service
+- Support for external Hive metastores in the Big Data service
+- Support for batch detection/inference in the AI Language service
+- Support for dimensions on monitoring targets in the Service Connector Hub service
+- Support for invoice operations in the Account Management service
+- Support for custom CA trust stores in the API Gateway service
+- Support for generating scoped database tokens in the Identity service
+- Support for database passwords for users, for logging into database accounts, in the Identity service
+- Support for calling Oracle Cloud Infrastructure services in the af-johannesburg-1 and eu-stockholm-1 regions
+- Note: Python SDK already had eu-stockholm-1 so need to change above for Python SDK
+- Support for multiple protocols on the same listener in the Network Load Balancing service
+- IPv6 support in the Network Load Balancing service
+- Support for creating Enterprise Manager-based Solaris and SunOS host targets in the Operations Insights service
+- Support for choosing Data Guard type (Active Data Guard or regular) on databases in the Database service
+- Support for calling Oracle Cloud Infrastructure services in the me-dcc-muscat-1 region
+- Support for the Visual Builder service
+- Support for cross-region replication of volume groups in the Block Storage service
+- Support for boot volume encryption in the Container Engine for Kubernetes service
+- Support for adding metadata to records when creating and updating records in the Data Labeling service
+- Support for global export formats in snapshot datasets in the Data Labeling service
+- Support for adding labeling instructions to datasets in the Data Labeling service
+- Support for updating autonomous dataguard associations for autonomous container databases in the Database service
+- Support for setting up automatic failover when creating autonomous container databases in the Database service
+- Support for setting the RECO storage size when updating a database system in the Database service
+- Support for reconnecting refreshable clones to source for autonomous databases on shared infrastructure in the Database service
+- Support for checking if an autonomous database on shared infrastructure can be reconnected to source, in the Database service
+
+
+### Changed
+- Endpoint for Identity service changed to include ".oci" subdomain
+- Optimized import in OCI Auth module
+
+### Breaking
+- Model `WorkSubmissionKey` was removed from Management Agent Cloud service
+- Type for parameter `plugin_name` changed to `list[str]` from `str` in operation `list_management_agent_plugins` in the Management Agent Cloud Service
+- Type for parameter `version` changed to `list[str]` from `str` in operation `list_management_agent_plugins` in the Management Agent Cloud Service
+- Type for parameter `platform_type` changed to `list[str]` from `str` in operation `list_management_agent_plugins` in the Management Agent Cloud Service
+- Param `oci_splat_generated_ocids` is removed from operation `create_template` in the Resource Manager service
+- Operations `request_summarized_application_usage`, `request_summarized_installation_usage`, `request_summarized_jre_usage`, `request_summarized_managed_instance_usage` were removed from the Java Management Service Client
+- Models `RequestSummarizedApplicationUsageDetails`, `RequestSummarizedInstallationUsageDetails`, `RequestSummarizedJreUsageDetails` and `RequestSummarizedManagedInstanceUsageDetails` were removed from Java Management Service
+- Param `is_agent_auto_upgradable` is removed from model `UpdateManagementAgentDetails` in the Management Agent Cloud Service
+- Param `display_name` is removed from operations `list_work_requests`, `list_work_request_logs` and `list_work_request_errors` in the Database Migration Service Client
+- Allowed values for param `sort_order` from operation `list_work_requests` changed to `timeAccepted` in the Database Migration Service Client
+- Allowed values for param `sort_order` from operations `list_work_request_errors` and `list_work_request_logs` changed to `timestamp` in the Database Migration Service Client
+- Param `time_stamp` renamed to `timestamp` in models `WorkRequestLogEntry`, `WorkRequestError` for the Database Migration Service
+- Param `compartment_id` is removed from model `UpdateAgentDetails` for the Database Migration Service
+- Models `ComputeInstanceGroupBlueGreenDeployStageExecutionProgress`, `ComputeInstanceGroupBlueGreenTrafficShiftDeployStageExecutionProgress`, `ComputeInstanceGroupCanaryApprovalDeployStageExecutionProgress`, `ComputeInstanceGroupCanaryDeployStageExecutionProgress`, `ComputeInstanceGroupCanaryTrafficShiftDeployStageExecutionProgress`, `RunPipelineDeployStageExecutionProgress`and `RunValidationTestOnComputeInstanceDeployStageExecutionProgress` were removed from the DevOps service.
+- Property `resource_type` and `is_enforced_always` from model `CreateOperatorControlAssignmentDetails` changed from optional to required in the Operator Access Control service
+- Property `operator_control_name`, `approver_groups_list` and `is_fully_pre_approved` from model `UpdateOperatorControlDetails` changed from optional to required in the Operator Access Control service
+- Property `is_enforced_always` from model `UpdateOperatorControlAssignmentDetails` changed from optional to required in the Operator Access Control service
+- Property `approver_groups_list` and `is_fully_pre_approved` from model `CreateOperatorControlDetails` changed from optional to required in the Operator Access Control service
+- Data type for response of operation `create_operator_control_assignment` changed to `oci.operator_access_control.models.OperatorControlAssignment` in the Operator Access Control service
+
+
 ## 2.15.0 - 2021-08-03
 ### Added
 - Support for the Generic Artifacts service

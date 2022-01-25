@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,11 +7,11 @@ require 'date'
 module OCI
   # The properties that define the network configuration for Kubernetes.
   class ContainerEngine::Models::KubernetesNetworkConfig
-    # The CIDR block for Kubernetes pods.
+    # The CIDR block for Kubernetes pods. Optional, defaults to 10.244.0.0/16.
     # @return [String]
     attr_accessor :pods_cidr
 
-    # The CIDR block for Kubernetes services.
+    # The CIDR block for Kubernetes services. Optional, defaults to 10.96.0.0/16.
     # @return [String]
     attr_accessor :services_cidr
 
@@ -50,16 +50,20 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.pods_cidr = attributes[:'podsCidr'] if attributes[:'podsCidr']
+      self.pods_cidr = "10.244.0.0/16" if pods_cidr.nil? && !attributes.key?(:'podsCidr') # rubocop:disable Style/StringLiterals
 
       raise 'You cannot provide both :podsCidr and :pods_cidr' if attributes.key?(:'podsCidr') && attributes.key?(:'pods_cidr')
 
       self.pods_cidr = attributes[:'pods_cidr'] if attributes[:'pods_cidr']
+      self.pods_cidr = "10.244.0.0/16" if pods_cidr.nil? && !attributes.key?(:'podsCidr') && !attributes.key?(:'pods_cidr') # rubocop:disable Style/StringLiterals
 
       self.services_cidr = attributes[:'servicesCidr'] if attributes[:'servicesCidr']
+      self.services_cidr = "10.96.0.0/16" if services_cidr.nil? && !attributes.key?(:'servicesCidr') # rubocop:disable Style/StringLiterals
 
       raise 'You cannot provide both :servicesCidr and :services_cidr' if attributes.key?(:'servicesCidr') && attributes.key?(:'services_cidr')
 
       self.services_cidr = attributes[:'services_cidr'] if attributes[:'services_cidr']
+      self.services_cidr = "10.96.0.0/16" if services_cidr.nil? && !attributes.key?(:'servicesCidr') && !attributes.key?(:'services_cidr') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral

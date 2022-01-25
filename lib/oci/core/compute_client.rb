@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,11 +6,11 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API covering the [Networking](/iaas/Content/Network/Concepts/overview.htm),
+  # Use the Core Services API to manage resources such as virtual cloud networks (VCNs),
+  # compute instances, and block storage volumes. For more information, see the console
+  # documentation for the [Networking](/iaas/Content/Network/Concepts/overview.htm),
   # [Compute](/iaas/Content/Compute/Concepts/computeoverview.htm), and
-  # [Block Volume](/iaas/Content/Block/Concepts/overview.htm) services. Use this API
-  # to manage resources such as virtual cloud networks (VCNs), compute instances, and
-  # block storage volumes.
+  # [Block Volume](/iaas/Content/Block/Concepts/overview.htm) services.
   class Core::ComputeClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -96,6 +96,74 @@ module OCI
     def logger
       @api_client.config.logger
     end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Accept the changes to the PCR values in the measured boot report.
+    # @param [String] instance_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/accept_shielded_integrity_policy.rb.html) to see an example of how to use accept_shielded_integrity_policy API.
+    def accept_shielded_integrity_policy(instance_id, opts = {})
+      logger.debug 'Calling operation ComputeClient#accept_shielded_integrity_policy.' if logger
+
+      raise "Missing the required parameter 'instance_id' when calling accept_shielded_integrity_policy." if instance_id.nil?
+      raise "Parameter value for 'instance_id' must not be blank" if OCI::Internal::Util.blank_string?(instance_id)
+
+      path = '/instances/{instanceId}/actions/acceptShieldedIntegrityPolicy'.sub('{instanceId}', instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#accept_shielded_integrity_policy') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -2688,6 +2756,62 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the measured boot report for this shielded instance.
+    # @param [String] instance_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::MeasuredBootReport MeasuredBootReport}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_measured_boot_report.rb.html) to see an example of how to use get_measured_boot_report API.
+    def get_measured_boot_report(instance_id, opts = {})
+      logger.debug 'Calling operation ComputeClient#get_measured_boot_report.' if logger
+
+      raise "Missing the required parameter 'instance_id' when calling get_measured_boot_report." if instance_id.nil?
+      raise "Parameter value for 'instance_id' must not be blank" if OCI::Internal::Util.blank_string?(instance_id)
+
+      path = '/instances/{instanceId}/measuredBootReport'.sub('{instanceId}', instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#get_measured_boot_report') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::MeasuredBootReport'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
     # rubocop:disable Lint/UnusedMethodArgument
 
 
@@ -2879,6 +3003,8 @@ module OCI
     # crash dump file when it crashes. The crash dump captures information about the state of the OS at the time of
     # the crash. After the OS restarts, you can analyze the crash dump to diagnose the issue. For more information, see
     # [Sending a Diagnostic Interrupt](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/sendingdiagnosticinterrupt.htm).
+    #
+    #
     #
     #
     # For more information about managing instance lifecycle states, see
@@ -4507,14 +4633,17 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Lists the available images in the specified compartment, including
+    # Lists a subset of images available in the specified compartment, including
     # [platform images](https://docs.cloud.oracle.com/iaas/Content/Compute/References/images.htm) and
-    # [custom images](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/managingcustomimages.htm) that have
-    # been created.
+    # [custom images](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/managingcustomimages.htm).
+    # The list of platform images includes the three most recently published versions
+    # of each major distribution.
     #
-    # The list of images that's returned is ordered to first show all
-    # platform images, then all custom images. The order of images might
-    # change when new images are released.
+    # The list of images returned is ordered to first show the recent platform images,
+    # then all of the custom images.
+    #
+    # **Caution:** Platform images are refreshed regularly. When new images are released, older versions are replaced.
+    # The image OCIDs remain available, but when the platform image is replaced, the image OCIDs are no longer returned as part of the platform image list.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @param [Hash] opts the optional parameters
@@ -5203,7 +5332,7 @@ module OCI
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
     # @option opts [BOOLEAN] :preserve_boot_volume Specifies whether to delete or preserve the boot volume when terminating an instance.
-    #   The default value is false.
+    #   When set to `true`, the boot volume is preserved. The default value is `false`.
     #
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/terminate_instance.rb.html) to see an example of how to use terminate_instance API.
@@ -5253,10 +5382,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the display name, defined tag, and freeform tag fields for the specified compute capacity reservation.
-    # Fields that are not provided in the request will not be updated. Avoid entering confidential information.
-    #
-    # The update also modifies the reservation configurations of the specified compute capacity reservation.
+    # Updates the specified capacity reservation and its associated capacity configurations.
+    # Fields that are not provided in the request will not be updated. Capacity configurations that are not included will be deleted.
+    # Avoid entering confidential information.
     #
     # @param [String] capacity_reservation_id The OCID of the compute capacity reservation.
     # @param [OCI::Core::Models::UpdateComputeCapacityReservationDetails] update_compute_capacity_reservation_details Update compute capacity reservation details.

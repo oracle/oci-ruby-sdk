@@ -1,12 +1,45 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Java Runtime usage during a specified time period. A Java Runtime is identified by its vendor and version.
   class Jms::Models::JreUsage
+    SECURITY_STATUS_ENUM = [
+      SECURITY_STATUS_UNKNOWN = 'UNKNOWN'.freeze,
+      SECURITY_STATUS_UP_TO_DATE = 'UP_TO_DATE'.freeze,
+      SECURITY_STATUS_UPDATE_REQUIRED = 'UPDATE_REQUIRED'.freeze,
+      SECURITY_STATUS_UPGRADE_REQUIRED = 'UPGRADE_REQUIRED'.freeze,
+      SECURITY_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # The internal identifier of the Java Runtime.
+    # @return [String]
+    attr_accessor :id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the related fleet.  This property value is present only for /actions/listJreUsage.
+    # @return [String]
+    attr_accessor :fleet_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the related managed instance. This property value is present only for /actions/listJreUsage.
+    # @return [String]
+    attr_accessor :managed_instance_id
+
+    # The security status of the Java Runtime.
+    # @return [String]
+    attr_reader :security_status
+
+    # The release date of the Java Runtime (formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)).
+    # @return [DateTime]
+    attr_accessor :release_date
+
+    # The End of Support Life (EOSL) date of the Java Runtime (formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)).
+    # @return [DateTime]
+    attr_accessor :end_of_support_life_date
+
     # **[Required]** The vendor of the Java Runtime.
     # @return [String]
     attr_accessor :vendor
@@ -18,6 +51,10 @@ module OCI
     # **[Required]** The version of the Java Runtime.
     # @return [String]
     attr_accessor :version
+
+    # The operating systems that have this Java Runtime installed.
+    # @return [Array<OCI::Jms::Models::OperatingSystem>]
+    attr_accessor :operating_systems
 
     # The approximate count of installations that are installations of this Java Runtime.
     # @return [Integer]
@@ -31,11 +68,11 @@ module OCI
     # @return [Integer]
     attr_accessor :approximate_managed_instance_count
 
-    # Lower bound of the specified time period filter.
+    # Lower bound of the specified time period filter. JMS provides a view of the data that is _per day_. The query uses only the date element of the parameter.
     # @return [DateTime]
     attr_accessor :time_start
 
-    # Upper bound of the specified time period filter.
+    # Upper bound of the specified time period filter. JMS provides a view of the data that is _per day_. The query uses only the date element of the parameter.
     # @return [DateTime]
     attr_accessor :time_end
 
@@ -59,9 +96,16 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'id': :'id',
+        'fleet_id': :'fleetId',
+        'managed_instance_id': :'managedInstanceId',
+        'security_status': :'securityStatus',
+        'release_date': :'releaseDate',
+        'end_of_support_life_date': :'endOfSupportLifeDate',
         'vendor': :'vendor',
         'distribution': :'distribution',
         'version': :'version',
+        'operating_systems': :'operatingSystems',
         'approximate_installation_count': :'approximateInstallationCount',
         'approximate_application_count': :'approximateApplicationCount',
         'approximate_managed_instance_count': :'approximateManagedInstanceCount',
@@ -77,9 +121,16 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'id': :'String',
+        'fleet_id': :'String',
+        'managed_instance_id': :'String',
+        'security_status': :'String',
+        'release_date': :'DateTime',
+        'end_of_support_life_date': :'DateTime',
         'vendor': :'String',
         'distribution': :'String',
         'version': :'String',
+        'operating_systems': :'Array<OCI::Jms::Models::OperatingSystem>',
         'approximate_installation_count': :'Integer',
         'approximate_application_count': :'Integer',
         'approximate_managed_instance_count': :'Integer',
@@ -97,9 +148,16 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :fleet_id The value to assign to the {#fleet_id} property
+    # @option attributes [String] :managed_instance_id The value to assign to the {#managed_instance_id} property
+    # @option attributes [String] :security_status The value to assign to the {#security_status} property
+    # @option attributes [DateTime] :release_date The value to assign to the {#release_date} property
+    # @option attributes [DateTime] :end_of_support_life_date The value to assign to the {#end_of_support_life_date} property
     # @option attributes [String] :vendor The value to assign to the {#vendor} property
     # @option attributes [String] :distribution The value to assign to the {#distribution} property
     # @option attributes [String] :version The value to assign to the {#version} property
+    # @option attributes [Array<OCI::Jms::Models::OperatingSystem>] :operating_systems The value to assign to the {#operating_systems} property
     # @option attributes [Integer] :approximate_installation_count The value to assign to the {#approximate_installation_count} property
     # @option attributes [Integer] :approximate_application_count The value to assign to the {#approximate_application_count} property
     # @option attributes [Integer] :approximate_managed_instance_count The value to assign to the {#approximate_managed_instance_count} property
@@ -113,11 +171,49 @@ module OCI
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
+      self.id = attributes[:'id'] if attributes[:'id']
+
+      self.fleet_id = attributes[:'fleetId'] if attributes[:'fleetId']
+
+      raise 'You cannot provide both :fleetId and :fleet_id' if attributes.key?(:'fleetId') && attributes.key?(:'fleet_id')
+
+      self.fleet_id = attributes[:'fleet_id'] if attributes[:'fleet_id']
+
+      self.managed_instance_id = attributes[:'managedInstanceId'] if attributes[:'managedInstanceId']
+
+      raise 'You cannot provide both :managedInstanceId and :managed_instance_id' if attributes.key?(:'managedInstanceId') && attributes.key?(:'managed_instance_id')
+
+      self.managed_instance_id = attributes[:'managed_instance_id'] if attributes[:'managed_instance_id']
+
+      self.security_status = attributes[:'securityStatus'] if attributes[:'securityStatus']
+
+      raise 'You cannot provide both :securityStatus and :security_status' if attributes.key?(:'securityStatus') && attributes.key?(:'security_status')
+
+      self.security_status = attributes[:'security_status'] if attributes[:'security_status']
+
+      self.release_date = attributes[:'releaseDate'] if attributes[:'releaseDate']
+
+      raise 'You cannot provide both :releaseDate and :release_date' if attributes.key?(:'releaseDate') && attributes.key?(:'release_date')
+
+      self.release_date = attributes[:'release_date'] if attributes[:'release_date']
+
+      self.end_of_support_life_date = attributes[:'endOfSupportLifeDate'] if attributes[:'endOfSupportLifeDate']
+
+      raise 'You cannot provide both :endOfSupportLifeDate and :end_of_support_life_date' if attributes.key?(:'endOfSupportLifeDate') && attributes.key?(:'end_of_support_life_date')
+
+      self.end_of_support_life_date = attributes[:'end_of_support_life_date'] if attributes[:'end_of_support_life_date']
+
       self.vendor = attributes[:'vendor'] if attributes[:'vendor']
 
       self.distribution = attributes[:'distribution'] if attributes[:'distribution']
 
       self.version = attributes[:'version'] if attributes[:'version']
+
+      self.operating_systems = attributes[:'operatingSystems'] if attributes[:'operatingSystems']
+
+      raise 'You cannot provide both :operatingSystems and :operating_systems' if attributes.key?(:'operatingSystems') && attributes.key?(:'operating_systems')
+
+      self.operating_systems = attributes[:'operating_systems'] if attributes[:'operating_systems']
 
       self.approximate_installation_count = attributes[:'approximateInstallationCount'] if attributes[:'approximateInstallationCount']
 
@@ -164,6 +260,19 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] security_status Object to be assigned
+    def security_status=(security_status)
+      # rubocop:disable Style/ConditionalAssignment
+      if security_status && !SECURITY_STATUS_ENUM.include?(security_status)
+        OCI.logger.debug("Unknown value for 'security_status' [" + security_status + "]. Mapping to 'SECURITY_STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @security_status = SECURITY_STATUS_UNKNOWN_ENUM_VALUE
+      else
+        @security_status = security_status
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -173,9 +282,16 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        id == other.id &&
+        fleet_id == other.fleet_id &&
+        managed_instance_id == other.managed_instance_id &&
+        security_status == other.security_status &&
+        release_date == other.release_date &&
+        end_of_support_life_date == other.end_of_support_life_date &&
         vendor == other.vendor &&
         distribution == other.distribution &&
         version == other.version &&
+        operating_systems == other.operating_systems &&
         approximate_installation_count == other.approximate_installation_count &&
         approximate_application_count == other.approximate_application_count &&
         approximate_managed_instance_count == other.approximate_managed_instance_count &&
@@ -198,7 +314,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [vendor, distribution, version, approximate_installation_count, approximate_application_count, approximate_managed_instance_count, time_start, time_end, time_first_seen, time_last_seen].hash
+      [id, fleet_id, managed_instance_id, security_status, release_date, end_of_support_life_date, vendor, distribution, version, operating_systems, approximate_installation_count, approximate_application_count, approximate_managed_instance_count, time_start, time_end, time_first_seen, time_last_seen].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

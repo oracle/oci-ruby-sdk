@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -34,7 +34,7 @@ module OCI
       PEERING_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the compartment that contains the RPC.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment that contains the RPC.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -52,7 +52,7 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The OCID of the DRG that this RPC belongs to.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the DRG that this RPC belongs to.
     # @return [String]
     attr_accessor :drg_id
 
@@ -64,7 +64,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The OCID of the RPC.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the RPC.
     # @return [String]
     attr_accessor :id
 
@@ -79,7 +79,7 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # If this RPC is peered, this value is the OCID of the other RPC.
+    # If this RPC is peered, this value is the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the other RPC.
     #
     # @return [String]
     attr_accessor :peer_id
@@ -91,7 +91,7 @@ module OCI
     # @return [String]
     attr_accessor :peer_region_name
 
-    # If this RPC is peered, this value is the OCID of the other RPC's tenancy.
+    # If this RPC is peered, this value is the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the other RPC's tenancy.
     #
     # @return [String]
     attr_accessor :peer_tenancy_id

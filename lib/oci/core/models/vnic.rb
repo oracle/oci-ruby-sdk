@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -44,7 +44,7 @@ module OCI
     # @return [String]
     attr_accessor :availability_domain
 
-    # **[Required]** The OCID of the compartment containing the VNIC.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the VNIC.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -56,7 +56,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name. Does not have to be unique.
+    # A user-friendly name. Does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
     #
     # @return [String]
@@ -85,7 +85,7 @@ module OCI
     # @return [String]
     attr_accessor :hostname_label
 
-    # **[Required]** The OCID of the VNIC.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VNIC.
     # @return [String]
     attr_accessor :id
 
@@ -123,7 +123,7 @@ module OCI
     attr_accessor :nsg_ids
 
     # If the VNIC belongs to a VLAN as part of the Oracle Cloud VMware Solution (instead of
-    # belonging to a subnet), the `vlanId` is the OCID of the VLAN the VNIC is in. See
+    # belonging to a subnet), the `vlanId` is the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VLAN the VNIC is in. See
     # {Vlan}. If the VNIC is instead in a subnet, `subnetId` has a value.
     #
     # @return [String]
@@ -157,7 +157,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :skip_source_dest_check
 
-    # The OCID of the subnet the VNIC is in.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the subnet the VNIC is in.
     # @return [String]
     attr_accessor :subnet_id
 

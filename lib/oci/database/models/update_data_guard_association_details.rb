@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -58,13 +58,18 @@ module OCI
     # @return [String]
     attr_reader :transport_type
 
+    # True if active Data Guard is enabled. Update this parameter to change the Data Guard setting.
+    # @return [BOOLEAN]
+    attr_accessor :is_active_data_guard_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'database_admin_password': :'databaseAdminPassword',
         'protection_mode': :'protectionMode',
-        'transport_type': :'transportType'
+        'transport_type': :'transportType',
+        'is_active_data_guard_enabled': :'isActiveDataGuardEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -75,7 +80,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'database_admin_password': :'String',
         'protection_mode': :'String',
-        'transport_type': :'String'
+        'transport_type': :'String',
+        'is_active_data_guard_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -89,6 +95,7 @@ module OCI
     # @option attributes [String] :database_admin_password The value to assign to the {#database_admin_password} property
     # @option attributes [String] :protection_mode The value to assign to the {#protection_mode} property
     # @option attributes [String] :transport_type The value to assign to the {#transport_type} property
+    # @option attributes [BOOLEAN] :is_active_data_guard_enabled The value to assign to the {#is_active_data_guard_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -112,6 +119,12 @@ module OCI
       raise 'You cannot provide both :transportType and :transport_type' if attributes.key?(:'transportType') && attributes.key?(:'transport_type')
 
       self.transport_type = attributes[:'transport_type'] if attributes[:'transport_type']
+
+      self.is_active_data_guard_enabled = attributes[:'isActiveDataGuardEnabled'] unless attributes[:'isActiveDataGuardEnabled'].nil?
+
+      raise 'You cannot provide both :isActiveDataGuardEnabled and :is_active_data_guard_enabled' if attributes.key?(:'isActiveDataGuardEnabled') && attributes.key?(:'is_active_data_guard_enabled')
+
+      self.is_active_data_guard_enabled = attributes[:'is_active_data_guard_enabled'] unless attributes[:'is_active_data_guard_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -143,7 +156,8 @@ module OCI
       self.class == other.class &&
         database_admin_password == other.database_admin_password &&
         protection_mode == other.protection_mode &&
-        transport_type == other.transport_type
+        transport_type == other.transport_type &&
+        is_active_data_guard_enabled == other.is_active_data_guard_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -159,7 +173,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_admin_password, protection_mode, transport_type].hash
+      [database_admin_password, protection_mode, transport_type, is_active_data_guard_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

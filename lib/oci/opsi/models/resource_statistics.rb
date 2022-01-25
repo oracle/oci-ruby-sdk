@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -34,6 +34,10 @@ module OCI
     # @return [Float]
     attr_accessor :usage_change_percent
 
+    # Array of instance metrics
+    # @return [Array<OCI::Opsi::Models::InstanceMetrics>]
+    attr_accessor :instance_metrics
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -43,7 +47,8 @@ module OCI
         'base_capacity': :'baseCapacity',
         'is_auto_scaling_enabled': :'isAutoScalingEnabled',
         'utilization_percent': :'utilizationPercent',
-        'usage_change_percent': :'usageChangePercent'
+        'usage_change_percent': :'usageChangePercent',
+        'instance_metrics': :'instanceMetrics'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,7 +62,8 @@ module OCI
         'base_capacity': :'Float',
         'is_auto_scaling_enabled': :'BOOLEAN',
         'utilization_percent': :'Float',
-        'usage_change_percent': :'Float'
+        'usage_change_percent': :'Float',
+        'instance_metrics': :'Array<OCI::Opsi::Models::InstanceMetrics>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -74,6 +80,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_auto_scaling_enabled The value to assign to the {#is_auto_scaling_enabled} property
     # @option attributes [Float] :utilization_percent The value to assign to the {#utilization_percent} property
     # @option attributes [Float] :usage_change_percent The value to assign to the {#usage_change_percent} property
+    # @option attributes [Array<OCI::Opsi::Models::InstanceMetrics>] :instance_metrics The value to assign to the {#instance_metrics} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -107,6 +114,12 @@ module OCI
       raise 'You cannot provide both :usageChangePercent and :usage_change_percent' if attributes.key?(:'usageChangePercent') && attributes.key?(:'usage_change_percent')
 
       self.usage_change_percent = attributes[:'usage_change_percent'] if attributes[:'usage_change_percent']
+
+      self.instance_metrics = attributes[:'instanceMetrics'] if attributes[:'instanceMetrics']
+
+      raise 'You cannot provide both :instanceMetrics and :instance_metrics' if attributes.key?(:'instanceMetrics') && attributes.key?(:'instance_metrics')
+
+      self.instance_metrics = attributes[:'instance_metrics'] if attributes[:'instance_metrics']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -125,7 +138,8 @@ module OCI
         base_capacity == other.base_capacity &&
         is_auto_scaling_enabled == other.is_auto_scaling_enabled &&
         utilization_percent == other.utilization_percent &&
-        usage_change_percent == other.usage_change_percent
+        usage_change_percent == other.usage_change_percent &&
+        instance_metrics == other.instance_metrics
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -141,7 +155,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [usage, capacity, base_capacity, is_auto_scaling_enabled, utilization_percent, usage_change_percent].hash
+      [usage, capacity, base_capacity, is_auto_scaling_enabled, utilization_percent, usage_change_percent, instance_metrics].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

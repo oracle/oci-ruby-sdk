@@ -1,15 +1,18 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An attribute within a key.
+  # An attribute within a key, the attribute property is being deprecated.
   class DataIntegration::Models::KeyAttribute
     # The position of the attribute.
     # @return [Integer]
     attr_accessor :position
+
+    # @return [OCI::DataIntegration::Models::ShapeField]
+    attr_accessor :shape_field
 
     # @return [OCI::DataIntegration::Models::ShapeField]
     attr_accessor :attribute
@@ -19,6 +22,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'position': :'position',
+        'shape_field': :'shapeField',
         'attribute': :'attribute'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -29,6 +33,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'position': :'Integer',
+        'shape_field': :'OCI::DataIntegration::Models::ShapeField',
         'attribute': :'OCI::DataIntegration::Models::ShapeField'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -41,6 +46,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Integer] :position The value to assign to the {#position} property
+    # @option attributes [OCI::DataIntegration::Models::ShapeField] :shape_field The value to assign to the {#shape_field} property
     # @option attributes [OCI::DataIntegration::Models::ShapeField] :attribute The value to assign to the {#attribute} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -49,6 +55,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.position = attributes[:'position'] if attributes[:'position']
+
+      self.shape_field = attributes[:'shapeField'] if attributes[:'shapeField']
+
+      raise 'You cannot provide both :shapeField and :shape_field' if attributes.key?(:'shapeField') && attributes.key?(:'shape_field')
+
+      self.shape_field = attributes[:'shape_field'] if attributes[:'shape_field']
 
       self.attribute = attributes[:'attribute'] if attributes[:'attribute']
     end
@@ -65,6 +77,7 @@ module OCI
 
       self.class == other.class &&
         position == other.position &&
+        shape_field == other.shape_field &&
         attribute == other.attribute
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -81,7 +94,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [position, attribute].hash
+      [position, shape_field, attribute].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

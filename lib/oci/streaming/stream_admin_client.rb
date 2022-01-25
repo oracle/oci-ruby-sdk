@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The API for the Streaming Service.
+  # Use the Streaming API to produce and consume messages, create streams and stream pools, and manage related items. For more information, see [Streaming](/Content/Streaming/Concepts/streamingoverview.htm).
   class Streaming::StreamAdminClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -828,7 +828,7 @@ module OCI
     #
     # @option opts [String] :name A filter to return only resources that match the given name exactly.
     #
-    # @option opts [Integer] :limit The maximum number of items to return. The value must be between 1 and 50. The default is 10. (default to 5)
+    # @option opts [Integer] :limit The maximum number of items to return. The value must be between 1 and 50. The default is 10. (default to 10)
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [String] :sort_by The field to sort by. You can provide no more than one sort order. By default, `TIMECREATED` sorts results in descending order and `NAME` sorts results in ascending order.
     #
@@ -917,7 +917,7 @@ module OCI
     #
     # @option opts [String] :name A filter to return only resources that match the given name exactly.
     #
-    # @option opts [Integer] :limit The maximum number of items to return. The value must be between 1 and 50. The default is 10. (default to 5)
+    # @option opts [Integer] :limit The maximum number of items to return. The value must be between 1 and 50. The default is 10. (default to 10)
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [String] :sort_by The field to sort by. You can provide no more than one sort order. By default, `TIMECREATED` sorts results in descending order and `NAME` sorts results in ascending order.
     #
@@ -1011,7 +1011,7 @@ module OCI
     #
     # @option opts [String] :name A filter to return only resources that match the given name exactly.
     #
-    # @option opts [Integer] :limit The maximum number of items to return. The value must be between 1 and 50. The default is 10. (default to 5)
+    # @option opts [Integer] :limit The maximum number of items to return. The value must be between 1 and 50. The default is 10. (default to 10)
     # @option opts [String] :page The page at which to start retrieving results.
     # @option opts [String] :sort_by The field to sort by. You can provide no more than one sort order. By default, `TIMECREATED` sorts results in descending order and `NAME` sorts results in ascending order.
     #

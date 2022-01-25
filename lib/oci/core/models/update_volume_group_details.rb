@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -15,7 +15,8 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name for the volume group. Avoid entering confidential information.
+    # A user-friendly name. Does not have to be unique, and it's changeable.
+    # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
@@ -32,6 +33,12 @@ module OCI
     # @return [Array<String>]
     attr_accessor :volume_ids
 
+    # The list of volume group replicas that this volume group will be updated to have
+    # in the specified destination availability domains.
+    #
+    # @return [Array<OCI::Core::Models::VolumeGroupReplicaDetails>]
+    attr_accessor :volume_group_replicas
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -39,7 +46,8 @@ module OCI
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
-        'volume_ids': :'volumeIds'
+        'volume_ids': :'volumeIds',
+        'volume_group_replicas': :'volumeGroupReplicas'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -51,7 +59,8 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'volume_ids': :'Array<String>'
+        'volume_ids': :'Array<String>',
+        'volume_group_replicas': :'Array<OCI::Core::Models::VolumeGroupReplicaDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -66,6 +75,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Array<String>] :volume_ids The value to assign to the {#volume_ids} property
+    # @option attributes [Array<OCI::Core::Models::VolumeGroupReplicaDetails>] :volume_group_replicas The value to assign to the {#volume_group_replicas} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -95,6 +105,12 @@ module OCI
       raise 'You cannot provide both :volumeIds and :volume_ids' if attributes.key?(:'volumeIds') && attributes.key?(:'volume_ids')
 
       self.volume_ids = attributes[:'volume_ids'] if attributes[:'volume_ids']
+
+      self.volume_group_replicas = attributes[:'volumeGroupReplicas'] if attributes[:'volumeGroupReplicas']
+
+      raise 'You cannot provide both :volumeGroupReplicas and :volume_group_replicas' if attributes.key?(:'volumeGroupReplicas') && attributes.key?(:'volume_group_replicas')
+
+      self.volume_group_replicas = attributes[:'volume_group_replicas'] if attributes[:'volume_group_replicas']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -111,7 +127,8 @@ module OCI
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
-        volume_ids == other.volume_ids
+        volume_ids == other.volume_ids &&
+        volume_group_replicas == other.volume_group_replicas
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -127,7 +144,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, volume_ids].hash
+      [defined_tags, display_name, freeform_tags, volume_ids, volume_group_replicas].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

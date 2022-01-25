@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -151,6 +151,14 @@ module OCI
     # @return [Array<OCI::DataCatalog::Models::FacetedSearchCustomProperty>]
     attr_accessor :custom_properties
 
+    # A map of maps that contains the properties which are specific to the element type in the search result.
+    # The map keys are category names and the values are maps of property name to property value. Every property
+    # is contained inside of a category. Most element types have required properties within the \"default\" category.
+    # Example: `{\"properties\": { \"default\": { \"key1\": \"value1\"}}}`
+    #
+    # @return [Hash<String, Hash<String, String>>]
+    attr_accessor :properties
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -185,7 +193,8 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'attribute_type': :'attributeType',
         'expression': :'expression',
-        'custom_properties': :'customProperties'
+        'custom_properties': :'customProperties',
+        'properties': :'properties'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -224,7 +233,8 @@ module OCI
         'lifecycle_state': :'String',
         'attribute_type': :'String',
         'expression': :'String',
-        'custom_properties': :'Array<OCI::DataCatalog::Models::FacetedSearchCustomProperty>'
+        'custom_properties': :'Array<OCI::DataCatalog::Models::FacetedSearchCustomProperty>',
+        'properties': :'Hash<String, Hash<String, String>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -266,6 +276,7 @@ module OCI
     # @option attributes [String] :attribute_type The value to assign to the {#attribute_type} property
     # @option attributes [String] :expression The value to assign to the {#expression} property
     # @option attributes [Array<OCI::DataCatalog::Models::FacetedSearchCustomProperty>] :custom_properties The value to assign to the {#custom_properties} property
+    # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -433,6 +444,8 @@ module OCI
       raise 'You cannot provide both :customProperties and :custom_properties' if attributes.key?(:'customProperties') && attributes.key?(:'custom_properties')
 
       self.custom_properties = attributes[:'custom_properties'] if attributes[:'custom_properties']
+
+      self.properties = attributes[:'properties'] if attributes[:'properties']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -489,7 +502,8 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         attribute_type == other.attribute_type &&
         expression == other.expression &&
-        custom_properties == other.custom_properties
+        custom_properties == other.custom_properties &&
+        properties == other.properties
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -505,7 +519,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, name, description, time_created, time_updated, tag_summary, term_summary, type_name, external_type_name, external_data_type, data_asset_key, data_asset_type, data_asset_name, folder_key, folder_type, folder_name, entitykey, entity_type, entity_name, glossary_key, glossary_name, parent_term_key, parent_term_name, created_by_id, updated_by_id, path, business_name, lifecycle_state, attribute_type, expression, custom_properties].hash
+      [key, name, description, time_created, time_updated, tag_summary, term_summary, type_name, external_type_name, external_data_type, data_asset_key, data_asset_type, data_asset_name, folder_key, folder_type, folder_name, entitykey, entity_type, entity_name, glossary_key, glossary_name, parent_term_key, parent_term_name, created_by_id, updated_by_id, path, business_name, lifecycle_state, attribute_type, expression, custom_properties, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

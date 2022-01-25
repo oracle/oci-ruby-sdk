@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -14,8 +14,11 @@ end
 require 'oci/sch/models/action_type'
 require 'oci/sch/models/change_service_connector_compartment_details'
 require 'oci/sch/models/create_service_connector_details'
+require 'oci/sch/models/dimension_details'
+require 'oci/sch/models/dimension_value_details'
 require 'oci/sch/models/function_task_details'
 require 'oci/sch/models/functions_target_details'
+require 'oci/sch/models/jmes_path_dimension_value'
 require 'oci/sch/models/latest_streaming_cursor'
 require 'oci/sch/models/lifecycle_state'
 require 'oci/sch/models/log_rule_task_details'
@@ -32,6 +35,7 @@ require 'oci/sch/models/service_connector_collection'
 require 'oci/sch/models/service_connector_summary'
 require 'oci/sch/models/sort_order'
 require 'oci/sch/models/source_details'
+require 'oci/sch/models/static_dimension_value'
 require 'oci/sch/models/streaming_cursor_details'
 require 'oci/sch/models/streaming_source_details'
 require 'oci/sch/models/streaming_target_details'

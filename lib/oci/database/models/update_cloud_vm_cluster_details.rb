@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -21,6 +21,10 @@ module OCI
     # The number of CPU cores to enable for the cloud VM cluster.
     # @return [Integer]
     attr_accessor :cpu_core_count
+
+    # The number of OCPU cores to enable for a cloud VM cluster. Only 1 decimal place is allowed for the fractional part.
+    # @return [Float]
+    attr_accessor :ocpu_count
 
     # The Oracle license model that applies to the cloud VM cluster. The default is BRING_YOUR_OWN_LICENSE. Applies to Exadata Cloud Service instances only.
     #
@@ -74,6 +78,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
         'cpu_core_count': :'cpuCoreCount',
+        'ocpu_count': :'ocpuCount',
         'license_model': :'licenseModel',
         'ssh_public_keys': :'sshPublicKeys',
         'update_details': :'updateDetails',
@@ -93,6 +98,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
         'cpu_core_count': :'Integer',
+        'ocpu_count': :'Float',
         'license_model': :'String',
         'ssh_public_keys': :'Array<String>',
         'update_details': :'OCI::Database::Models::UpdateDetails',
@@ -114,6 +120,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
+    # @option attributes [Float] :ocpu_count The value to assign to the {#ocpu_count} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
     # @option attributes [OCI::Database::Models::UpdateDetails] :update_details The value to assign to the {#update_details} property
@@ -140,6 +147,12 @@ module OCI
       raise 'You cannot provide both :cpuCoreCount and :cpu_core_count' if attributes.key?(:'cpuCoreCount') && attributes.key?(:'cpu_core_count')
 
       self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
+
+      self.ocpu_count = attributes[:'ocpuCount'] if attributes[:'ocpuCount']
+
+      raise 'You cannot provide both :ocpuCount and :ocpu_count' if attributes.key?(:'ocpuCount') && attributes.key?(:'ocpu_count')
+
+      self.ocpu_count = attributes[:'ocpu_count'] if attributes[:'ocpu_count']
 
       self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
 
@@ -217,6 +230,7 @@ module OCI
       self.class == other.class &&
         display_name == other.display_name &&
         cpu_core_count == other.cpu_core_count &&
+        ocpu_count == other.ocpu_count &&
         license_model == other.license_model &&
         ssh_public_keys == other.ssh_public_keys &&
         update_details == other.update_details &&
@@ -241,7 +255,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, cpu_core_count, license_model, ssh_public_keys, update_details, nsg_ids, backup_network_nsg_ids, compute_nodes, storage_size_in_gbs, freeform_tags, defined_tags].hash
+      [display_name, cpu_core_count, ocpu_count, license_model, ssh_public_keys, update_details, nsg_ids, backup_network_nsg_ids, compute_nodes, storage_size_in_gbs, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

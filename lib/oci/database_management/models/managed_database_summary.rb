@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -11,6 +11,10 @@ module OCI
     DATABASE_TYPE_ENUM = [
       DATABASE_TYPE_EXTERNAL_SIDB = 'EXTERNAL_SIDB'.freeze,
       DATABASE_TYPE_EXTERNAL_RAC = 'EXTERNAL_RAC'.freeze,
+      DATABASE_TYPE_CLOUD_SIDB = 'CLOUD_SIDB'.freeze,
+      DATABASE_TYPE_CLOUD_RAC = 'CLOUD_RAC'.freeze,
+      DATABASE_TYPE_SHARED = 'SHARED'.freeze,
+      DATABASE_TYPE_DEDICATED = 'DEDICATED'.freeze,
       DATABASE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -18,7 +22,33 @@ module OCI
       DATABASE_SUB_TYPE_CDB = 'CDB'.freeze,
       DATABASE_SUB_TYPE_PDB = 'PDB'.freeze,
       DATABASE_SUB_TYPE_NON_CDB = 'NON_CDB'.freeze,
+      DATABASE_SUB_TYPE_ACD = 'ACD'.freeze,
+      DATABASE_SUB_TYPE_ADB = 'ADB'.freeze,
       DATABASE_SUB_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    DEPLOYMENT_TYPE_ENUM = [
+      DEPLOYMENT_TYPE_ONPREMISE = 'ONPREMISE'.freeze,
+      DEPLOYMENT_TYPE_BM = 'BM'.freeze,
+      DEPLOYMENT_TYPE_VM = 'VM'.freeze,
+      DEPLOYMENT_TYPE_EXADATA = 'EXADATA'.freeze,
+      DEPLOYMENT_TYPE_EXADATA_CC = 'EXADATA_CC'.freeze,
+      DEPLOYMENT_TYPE_AUTONOMOUS = 'AUTONOMOUS'.freeze,
+      DEPLOYMENT_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    MANAGEMENT_OPTION_ENUM = [
+      MANAGEMENT_OPTION_BASIC = 'BASIC'.freeze,
+      MANAGEMENT_OPTION_ADVANCED = 'ADVANCED'.freeze,
+      MANAGEMENT_OPTION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    WORKLOAD_TYPE_ENUM = [
+      WORKLOAD_TYPE_OLTP = 'OLTP'.freeze,
+      WORKLOAD_TYPE_DW = 'DW'.freeze,
+      WORKLOAD_TYPE_AJD = 'AJD'.freeze,
+      WORKLOAD_TYPE_APEX = 'APEX'.freeze,
+      WORKLOAD_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
@@ -37,9 +67,23 @@ module OCI
     # @return [String]
     attr_reader :database_type
 
-    # **[Required]** The subtype of the Oracle Database. Indicates whether the database is a Container Database, Pluggable Database, or a Non-container Database.
+    # **[Required]** The subtype of the Oracle Database. Indicates whether the database is a Container Database,
+    # Pluggable Database, Non-container Database, Autonomous Database, or Autonomous Container Database.
+    #
     # @return [String]
     attr_reader :database_sub_type
+
+    # The infrastructure used to deploy the Oracle Database.
+    # @return [String]
+    attr_reader :deployment_type
+
+    # The management option used when enabling Database Management.
+    # @return [String]
+    attr_reader :management_option
+
+    # The workload type of the Autonomous Database.
+    # @return [String]
+    attr_reader :workload_type
 
     # **[Required]** Indicates whether the Oracle Database is part of a cluster.
     # @return [BOOLEAN]
@@ -64,6 +108,9 @@ module OCI
         'name': :'name',
         'database_type': :'databaseType',
         'database_sub_type': :'databaseSubType',
+        'deployment_type': :'deploymentType',
+        'management_option': :'managementOption',
+        'workload_type': :'workloadType',
         'is_cluster': :'isCluster',
         'parent_container_id': :'parentContainerId',
         'time_created': :'timeCreated'
@@ -80,6 +127,9 @@ module OCI
         'name': :'String',
         'database_type': :'String',
         'database_sub_type': :'String',
+        'deployment_type': :'String',
+        'management_option': :'String',
+        'workload_type': :'String',
         'is_cluster': :'BOOLEAN',
         'parent_container_id': :'String',
         'time_created': :'DateTime'
@@ -98,6 +148,9 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :database_type The value to assign to the {#database_type} property
     # @option attributes [String] :database_sub_type The value to assign to the {#database_sub_type} property
+    # @option attributes [String] :deployment_type The value to assign to the {#deployment_type} property
+    # @option attributes [String] :management_option The value to assign to the {#management_option} property
+    # @option attributes [String] :workload_type The value to assign to the {#workload_type} property
     # @option attributes [BOOLEAN] :is_cluster The value to assign to the {#is_cluster} property
     # @option attributes [String] :parent_container_id The value to assign to the {#parent_container_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -128,6 +181,24 @@ module OCI
       raise 'You cannot provide both :databaseSubType and :database_sub_type' if attributes.key?(:'databaseSubType') && attributes.key?(:'database_sub_type')
 
       self.database_sub_type = attributes[:'database_sub_type'] if attributes[:'database_sub_type']
+
+      self.deployment_type = attributes[:'deploymentType'] if attributes[:'deploymentType']
+
+      raise 'You cannot provide both :deploymentType and :deployment_type' if attributes.key?(:'deploymentType') && attributes.key?(:'deployment_type')
+
+      self.deployment_type = attributes[:'deployment_type'] if attributes[:'deployment_type']
+
+      self.management_option = attributes[:'managementOption'] if attributes[:'managementOption']
+
+      raise 'You cannot provide both :managementOption and :management_option' if attributes.key?(:'managementOption') && attributes.key?(:'management_option')
+
+      self.management_option = attributes[:'management_option'] if attributes[:'management_option']
+
+      self.workload_type = attributes[:'workloadType'] if attributes[:'workloadType']
+
+      raise 'You cannot provide both :workloadType and :workload_type' if attributes.key?(:'workloadType') && attributes.key?(:'workload_type')
+
+      self.workload_type = attributes[:'workload_type'] if attributes[:'workload_type']
 
       self.is_cluster = attributes[:'isCluster'] unless attributes[:'isCluster'].nil?
 
@@ -176,6 +247,45 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] deployment_type Object to be assigned
+    def deployment_type=(deployment_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if deployment_type && !DEPLOYMENT_TYPE_ENUM.include?(deployment_type)
+        OCI.logger.debug("Unknown value for 'deployment_type' [" + deployment_type + "]. Mapping to 'DEPLOYMENT_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @deployment_type = DEPLOYMENT_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @deployment_type = deployment_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] management_option Object to be assigned
+    def management_option=(management_option)
+      # rubocop:disable Style/ConditionalAssignment
+      if management_option && !MANAGEMENT_OPTION_ENUM.include?(management_option)
+        OCI.logger.debug("Unknown value for 'management_option' [" + management_option + "]. Mapping to 'MANAGEMENT_OPTION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @management_option = MANAGEMENT_OPTION_UNKNOWN_ENUM_VALUE
+      else
+        @management_option = management_option
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] workload_type Object to be assigned
+    def workload_type=(workload_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if workload_type && !WORKLOAD_TYPE_ENUM.include?(workload_type)
+        OCI.logger.debug("Unknown value for 'workload_type' [" + workload_type + "]. Mapping to 'WORKLOAD_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @workload_type = WORKLOAD_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @workload_type = workload_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -190,6 +300,9 @@ module OCI
         name == other.name &&
         database_type == other.database_type &&
         database_sub_type == other.database_sub_type &&
+        deployment_type == other.deployment_type &&
+        management_option == other.management_option &&
+        workload_type == other.workload_type &&
         is_cluster == other.is_cluster &&
         parent_container_id == other.parent_container_id &&
         time_created == other.time_created
@@ -208,7 +321,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, database_type, database_sub_type, is_cluster, parent_container_id, time_created].hash
+      [id, compartment_id, name, database_type, database_sub_type, deployment_type, management_option, workload_type, is_cluster, parent_container_id, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -73,6 +73,11 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # Specifies a prefix for the `Oracle SID` of the database to be created.
+    #
+    # @return [String]
+    attr_accessor :sid_prefix
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -88,7 +93,8 @@ module OCI
         'db_workload': :'dbWorkload',
         'db_backup_config': :'dbBackupConfig',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'sid_prefix': :'sidPrefix'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -108,7 +114,8 @@ module OCI
         'db_workload': :'String',
         'db_backup_config': :'OCI::Database::Models::DbBackupConfig',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'sid_prefix': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -131,6 +138,7 @@ module OCI
     # @option attributes [OCI::Database::Models::DbBackupConfig] :db_backup_config The value to assign to the {#db_backup_config} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :sid_prefix The value to assign to the {#sid_prefix} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -208,6 +216,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.sid_prefix = attributes[:'sidPrefix'] if attributes[:'sidPrefix']
+
+      raise 'You cannot provide both :sidPrefix and :sid_prefix' if attributes.key?(:'sidPrefix') && attributes.key?(:'sid_prefix')
+
+      self.sid_prefix = attributes[:'sid_prefix'] if attributes[:'sid_prefix']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -240,7 +254,8 @@ module OCI
         db_workload == other.db_workload &&
         db_backup_config == other.db_backup_config &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        sid_prefix == other.sid_prefix
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -256,7 +271,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [db_name, db_unique_name, database_software_image_id, pdb_name, admin_password, tde_wallet_password, character_set, ncharacter_set, db_workload, db_backup_config, freeform_tags, defined_tags].hash
+      [db_name, db_unique_name, database_software_image_id, pdb_name, admin_password, tde_wallet_password, character_set, ncharacter_set, db_workload, db_backup_config, freeform_tags, defined_tags, sid_prefix].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

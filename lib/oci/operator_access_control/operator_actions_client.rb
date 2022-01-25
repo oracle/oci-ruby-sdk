@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'uri'
@@ -162,6 +162,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :resource_type A filter to return only lists of resources that match the entire given service type.
     # @option opts [String] :lifecycle_state A filter to return only resources whose lifecycleState matches the given OperatorAction lifecycleState.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
@@ -197,6 +198,7 @@ module OCI
       query_params = {}
       query_params[:compartmentId] = compartment_id
       query_params[:name] = opts[:name] if opts[:name]
+      query_params[:resourceType] = opts[:resource_type] if opts[:resource_type]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]

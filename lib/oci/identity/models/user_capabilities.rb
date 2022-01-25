@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -23,6 +23,11 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :can_use_smtp_credentials
 
+    # Indicates if the user can use DB passwords.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :can_use_db_credentials
+
     # Indicates if the user can use SigV4 symmetric keys.
     # @return [BOOLEAN]
     attr_accessor :can_use_customer_secret_keys
@@ -40,6 +45,7 @@ module OCI
         'can_use_api_keys': :'canUseApiKeys',
         'can_use_auth_tokens': :'canUseAuthTokens',
         'can_use_smtp_credentials': :'canUseSmtpCredentials',
+        'can_use_db_credentials': :'canUseDbCredentials',
         'can_use_customer_secret_keys': :'canUseCustomerSecretKeys',
         'can_use_o_auth2_client_credentials': :'canUseOAuth2ClientCredentials'
         # rubocop:enable Style/SymbolLiteral
@@ -54,6 +60,7 @@ module OCI
         'can_use_api_keys': :'BOOLEAN',
         'can_use_auth_tokens': :'BOOLEAN',
         'can_use_smtp_credentials': :'BOOLEAN',
+        'can_use_db_credentials': :'BOOLEAN',
         'can_use_customer_secret_keys': :'BOOLEAN',
         'can_use_o_auth2_client_credentials': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
@@ -70,6 +77,7 @@ module OCI
     # @option attributes [BOOLEAN] :can_use_api_keys The value to assign to the {#can_use_api_keys} property
     # @option attributes [BOOLEAN] :can_use_auth_tokens The value to assign to the {#can_use_auth_tokens} property
     # @option attributes [BOOLEAN] :can_use_smtp_credentials The value to assign to the {#can_use_smtp_credentials} property
+    # @option attributes [BOOLEAN] :can_use_db_credentials The value to assign to the {#can_use_db_credentials} property
     # @option attributes [BOOLEAN] :can_use_customer_secret_keys The value to assign to the {#can_use_customer_secret_keys} property
     # @option attributes [BOOLEAN] :can_use_o_auth2_client_credentials The value to assign to the {#can_use_o_auth2_client_credentials} property
     def initialize(attributes = {})
@@ -102,6 +110,12 @@ module OCI
 
       self.can_use_smtp_credentials = attributes[:'can_use_smtp_credentials'] unless attributes[:'can_use_smtp_credentials'].nil?
 
+      self.can_use_db_credentials = attributes[:'canUseDbCredentials'] unless attributes[:'canUseDbCredentials'].nil?
+
+      raise 'You cannot provide both :canUseDbCredentials and :can_use_db_credentials' if attributes.key?(:'canUseDbCredentials') && attributes.key?(:'can_use_db_credentials')
+
+      self.can_use_db_credentials = attributes[:'can_use_db_credentials'] unless attributes[:'can_use_db_credentials'].nil?
+
       self.can_use_customer_secret_keys = attributes[:'canUseCustomerSecretKeys'] unless attributes[:'canUseCustomerSecretKeys'].nil?
 
       raise 'You cannot provide both :canUseCustomerSecretKeys and :can_use_customer_secret_keys' if attributes.key?(:'canUseCustomerSecretKeys') && attributes.key?(:'can_use_customer_secret_keys')
@@ -130,6 +144,7 @@ module OCI
         can_use_api_keys == other.can_use_api_keys &&
         can_use_auth_tokens == other.can_use_auth_tokens &&
         can_use_smtp_credentials == other.can_use_smtp_credentials &&
+        can_use_db_credentials == other.can_use_db_credentials &&
         can_use_customer_secret_keys == other.can_use_customer_secret_keys &&
         can_use_o_auth2_client_credentials == other.can_use_o_auth2_client_credentials
     end
@@ -147,7 +162,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [can_use_console_password, can_use_api_keys, can_use_auth_tokens, can_use_smtp_credentials, can_use_customer_secret_keys, can_use_o_auth2_client_credentials].hash
+      [can_use_console_password, can_use_api_keys, can_use_auth_tokens, can_use_smtp_credentials, can_use_db_credentials, can_use_customer_secret_keys, can_use_o_auth2_client_credentials].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

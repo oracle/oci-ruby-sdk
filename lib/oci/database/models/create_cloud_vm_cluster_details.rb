@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -39,6 +39,10 @@ module OCI
     #
     # @return [Integer]
     attr_accessor :cpu_core_count
+
+    # The number of OCPU cores to enable for a cloud VM cluster. Only 1 decimal place is allowed for the fractional part.
+    # @return [Float]
+    attr_accessor :ocpu_count
 
     # The cluster name for cloud VM cluster. The cluster name must begin with an alphabetic character, and may contain hyphens (-). Underscores (_) are not permitted. The cluster name can be no longer than 11 characters and is not case sensitive.
     #
@@ -102,6 +106,14 @@ module OCI
     # @return [String]
     attr_accessor :time_zone
 
+    # The TCP Single Client Access Name (SCAN) port. The default port is 1521.
+    # @return [Integer]
+    attr_accessor :scan_listener_port_tcp
+
+    # The TCPS Single Client Access Name (SCAN) port. The default port is 2484.
+    # @return [Integer]
+    attr_accessor :scan_listener_port_tcp_ssl
+
     # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
     # **NsgIds restrictions:**
     # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
@@ -140,6 +152,7 @@ module OCI
         'subnet_id': :'subnetId',
         'backup_subnet_id': :'backupSubnetId',
         'cpu_core_count': :'cpuCoreCount',
+        'ocpu_count': :'ocpuCount',
         'cluster_name': :'clusterName',
         'data_storage_percentage': :'dataStoragePercentage',
         'display_name': :'displayName',
@@ -151,6 +164,8 @@ module OCI
         'is_sparse_diskgroup_enabled': :'isSparseDiskgroupEnabled',
         'is_local_backup_enabled': :'isLocalBackupEnabled',
         'time_zone': :'timeZone',
+        'scan_listener_port_tcp': :'scanListenerPortTcp',
+        'scan_listener_port_tcp_ssl': :'scanListenerPortTcpSsl',
         'nsg_ids': :'nsgIds',
         'backup_network_nsg_ids': :'backupNetworkNsgIds',
         'gi_version': :'giVersion',
@@ -168,6 +183,7 @@ module OCI
         'subnet_id': :'String',
         'backup_subnet_id': :'String',
         'cpu_core_count': :'Integer',
+        'ocpu_count': :'Float',
         'cluster_name': :'String',
         'data_storage_percentage': :'Integer',
         'display_name': :'String',
@@ -179,6 +195,8 @@ module OCI
         'is_sparse_diskgroup_enabled': :'BOOLEAN',
         'is_local_backup_enabled': :'BOOLEAN',
         'time_zone': :'String',
+        'scan_listener_port_tcp': :'Integer',
+        'scan_listener_port_tcp_ssl': :'Integer',
         'nsg_ids': :'Array<String>',
         'backup_network_nsg_ids': :'Array<String>',
         'gi_version': :'String',
@@ -198,6 +216,7 @@ module OCI
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [String] :backup_subnet_id The value to assign to the {#backup_subnet_id} property
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
+    # @option attributes [Float] :ocpu_count The value to assign to the {#ocpu_count} property
     # @option attributes [String] :cluster_name The value to assign to the {#cluster_name} property
     # @option attributes [Integer] :data_storage_percentage The value to assign to the {#data_storage_percentage} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
@@ -209,6 +228,8 @@ module OCI
     # @option attributes [BOOLEAN] :is_sparse_diskgroup_enabled The value to assign to the {#is_sparse_diskgroup_enabled} property
     # @option attributes [BOOLEAN] :is_local_backup_enabled The value to assign to the {#is_local_backup_enabled} property
     # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
+    # @option attributes [Integer] :scan_listener_port_tcp The value to assign to the {#scan_listener_port_tcp} property
+    # @option attributes [Integer] :scan_listener_port_tcp_ssl The value to assign to the {#scan_listener_port_tcp_ssl} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [Array<String>] :backup_network_nsg_ids The value to assign to the {#backup_network_nsg_ids} property
     # @option attributes [String] :gi_version The value to assign to the {#gi_version} property
@@ -243,6 +264,12 @@ module OCI
       raise 'You cannot provide both :cpuCoreCount and :cpu_core_count' if attributes.key?(:'cpuCoreCount') && attributes.key?(:'cpu_core_count')
 
       self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
+
+      self.ocpu_count = attributes[:'ocpuCount'] if attributes[:'ocpuCount']
+
+      raise 'You cannot provide both :ocpuCount and :ocpu_count' if attributes.key?(:'ocpuCount') && attributes.key?(:'ocpu_count')
+
+      self.ocpu_count = attributes[:'ocpu_count'] if attributes[:'ocpu_count']
 
       self.cluster_name = attributes[:'clusterName'] if attributes[:'clusterName']
 
@@ -302,6 +329,18 @@ module OCI
 
       self.time_zone = attributes[:'time_zone'] if attributes[:'time_zone']
 
+      self.scan_listener_port_tcp = attributes[:'scanListenerPortTcp'] if attributes[:'scanListenerPortTcp']
+
+      raise 'You cannot provide both :scanListenerPortTcp and :scan_listener_port_tcp' if attributes.key?(:'scanListenerPortTcp') && attributes.key?(:'scan_listener_port_tcp')
+
+      self.scan_listener_port_tcp = attributes[:'scan_listener_port_tcp'] if attributes[:'scan_listener_port_tcp']
+
+      self.scan_listener_port_tcp_ssl = attributes[:'scanListenerPortTcpSsl'] if attributes[:'scanListenerPortTcpSsl']
+
+      raise 'You cannot provide both :scanListenerPortTcpSsl and :scan_listener_port_tcp_ssl' if attributes.key?(:'scanListenerPortTcpSsl') && attributes.key?(:'scan_listener_port_tcp_ssl')
+
+      self.scan_listener_port_tcp_ssl = attributes[:'scan_listener_port_tcp_ssl'] if attributes[:'scan_listener_port_tcp_ssl']
+
       self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
 
       raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
@@ -356,6 +395,7 @@ module OCI
         subnet_id == other.subnet_id &&
         backup_subnet_id == other.backup_subnet_id &&
         cpu_core_count == other.cpu_core_count &&
+        ocpu_count == other.ocpu_count &&
         cluster_name == other.cluster_name &&
         data_storage_percentage == other.data_storage_percentage &&
         display_name == other.display_name &&
@@ -367,6 +407,8 @@ module OCI
         is_sparse_diskgroup_enabled == other.is_sparse_diskgroup_enabled &&
         is_local_backup_enabled == other.is_local_backup_enabled &&
         time_zone == other.time_zone &&
+        scan_listener_port_tcp == other.scan_listener_port_tcp &&
+        scan_listener_port_tcp_ssl == other.scan_listener_port_tcp_ssl &&
         nsg_ids == other.nsg_ids &&
         backup_network_nsg_ids == other.backup_network_nsg_ids &&
         gi_version == other.gi_version &&
@@ -387,7 +429,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, subnet_id, backup_subnet_id, cpu_core_count, cluster_name, data_storage_percentage, display_name, cloud_exadata_infrastructure_id, hostname, domain, ssh_public_keys, license_model, is_sparse_diskgroup_enabled, is_local_backup_enabled, time_zone, nsg_ids, backup_network_nsg_ids, gi_version, freeform_tags, defined_tags].hash
+      [compartment_id, subnet_id, backup_subnet_id, cpu_core_count, ocpu_count, cluster_name, data_storage_percentage, display_name, cloud_exadata_infrastructure_id, hostname, domain, ssh_public_keys, license_model, is_sparse_diskgroup_enabled, is_local_backup_enabled, time_zone, scan_listener_port_tcp, scan_listener_port_tcp_ssl, nsg_ids, backup_network_nsg_ids, gi_version, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

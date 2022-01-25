@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -13,11 +13,14 @@ module OCI
       DATABASE_SUB_TYPE_CDB = 'CDB'.freeze,
       DATABASE_SUB_TYPE_PDB = 'PDB'.freeze,
       DATABASE_SUB_TYPE_NON_CDB = 'NON_CDB'.freeze,
+      DATABASE_SUB_TYPE_ACD = 'ACD'.freeze,
+      DATABASE_SUB_TYPE_ADB = 'ADB'.freeze,
       DATABASE_SUB_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     SCHEDULE_TYPE_ENUM = [
       SCHEDULE_TYPE_IMMEDIATE = 'IMMEDIATE'.freeze,
+      SCHEDULE_TYPE_LATER = 'LATER'.freeze,
       SCHEDULE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -83,6 +86,9 @@ module OCI
     # @return [OCI::DatabaseManagement::Models::JobExecutionResultLocation]
     attr_accessor :result_location
 
+    # @return [OCI::DatabaseManagement::Models::JobScheduleDetails]
+    attr_accessor :schedule_details
+
     # The error message that is returned if the job submission fails. Null is returned in all other scenarios.
     # @return [String]
     attr_accessor :submission_error_message
@@ -112,6 +118,7 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'timeout': :'timeout',
         'result_location': :'resultLocation',
+        'schedule_details': :'scheduleDetails',
         'submission_error_message': :'submissionErrorMessage',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated'
@@ -136,6 +143,7 @@ module OCI
         'lifecycle_state': :'String',
         'timeout': :'String',
         'result_location': :'OCI::DatabaseManagement::Models::JobExecutionResultLocation',
+        'schedule_details': :'OCI::DatabaseManagement::Models::JobScheduleDetails',
         'submission_error_message': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime'
@@ -177,6 +185,7 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :timeout The value to assign to the {#timeout} property
     # @option attributes [OCI::DatabaseManagement::Models::JobExecutionResultLocation] :result_location The value to assign to the {#result_location} property
+    # @option attributes [OCI::DatabaseManagement::Models::JobScheduleDetails] :schedule_details The value to assign to the {#schedule_details} property
     # @option attributes [String] :submission_error_message The value to assign to the {#submission_error_message} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
@@ -247,6 +256,12 @@ module OCI
       raise 'You cannot provide both :resultLocation and :result_location' if attributes.key?(:'resultLocation') && attributes.key?(:'result_location')
 
       self.result_location = attributes[:'result_location'] if attributes[:'result_location']
+
+      self.schedule_details = attributes[:'scheduleDetails'] if attributes[:'scheduleDetails']
+
+      raise 'You cannot provide both :scheduleDetails and :schedule_details' if attributes.key?(:'scheduleDetails') && attributes.key?(:'schedule_details')
+
+      self.schedule_details = attributes[:'schedule_details'] if attributes[:'schedule_details']
 
       self.submission_error_message = attributes[:'submissionErrorMessage'] if attributes[:'submissionErrorMessage']
 
@@ -343,6 +358,7 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         timeout == other.timeout &&
         result_location == other.result_location &&
+        schedule_details == other.schedule_details &&
         submission_error_message == other.submission_error_message &&
         time_created == other.time_created &&
         time_updated == other.time_updated
@@ -361,7 +377,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, managed_database_group_id, managed_database_id, managed_databases_details, database_sub_type, schedule_type, job_type, lifecycle_state, timeout, result_location, submission_error_message, time_created, time_updated].hash
+      [id, compartment_id, name, description, managed_database_group_id, managed_database_id, managed_databases_details, database_sub_type, schedule_type, job_type, lifecycle_state, timeout, result_location, schedule_details, submission_error_message, time_created, time_updated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

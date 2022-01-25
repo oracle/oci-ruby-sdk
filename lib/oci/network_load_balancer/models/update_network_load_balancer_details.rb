@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -10,6 +10,11 @@ module OCI
   # **Caution:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class NetworkLoadBalancer::Models::UpdateNetworkLoadBalancerDetails
+    NLB_IP_VERSION_ENUM = [
+      NLB_IP_VERSION_IPV4 = 'IPV4'.freeze,
+      NLB_IP_VERSION_IPV4_AND_IPV6 = 'IPV4_AND_IPV6'.freeze
+    ].freeze
+
     # The user-friendly display name for the network load balancer, which does not have to be unique and can be changed.
     # Avoid entering confidential information.
     #
@@ -23,6 +28,10 @@ module OCI
     #
     # @return [BOOLEAN]
     attr_accessor :is_preserve_source_destination
+
+    # IP version associated with the NLB.
+    # @return [String]
+    attr_reader :nlb_ip_version
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -46,6 +55,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
         'is_preserve_source_destination': :'isPreserveSourceDestination',
+        'nlb_ip_version': :'nlbIpVersion',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -58,6 +68,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
         'is_preserve_source_destination': :'BOOLEAN',
+        'nlb_ip_version': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -72,6 +83,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [BOOLEAN] :is_preserve_source_destination The value to assign to the {#is_preserve_source_destination} property
+    # @option attributes [String] :nlb_ip_version The value to assign to the {#nlb_ip_version} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -94,6 +106,14 @@ module OCI
       self.is_preserve_source_destination = attributes[:'is_preserve_source_destination'] unless attributes[:'is_preserve_source_destination'].nil?
       self.is_preserve_source_destination = false if is_preserve_source_destination.nil? && !attributes.key?(:'isPreserveSourceDestination') && !attributes.key?(:'is_preserve_source_destination') # rubocop:disable Style/StringLiterals
 
+      self.nlb_ip_version = attributes[:'nlbIpVersion'] if attributes[:'nlbIpVersion']
+      self.nlb_ip_version = "IPV4" if nlb_ip_version.nil? && !attributes.key?(:'nlbIpVersion') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :nlbIpVersion and :nlb_ip_version' if attributes.key?(:'nlbIpVersion') && attributes.key?(:'nlb_ip_version')
+
+      self.nlb_ip_version = attributes[:'nlb_ip_version'] if attributes[:'nlb_ip_version']
+      self.nlb_ip_version = "IPV4" if nlb_ip_version.nil? && !attributes.key?(:'nlbIpVersion') && !attributes.key?(:'nlb_ip_version') # rubocop:disable Style/StringLiterals
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -109,6 +129,14 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] nlb_ip_version Object to be assigned
+    def nlb_ip_version=(nlb_ip_version)
+      raise "Invalid value for 'nlb_ip_version': this must be one of the values in NLB_IP_VERSION_ENUM." if nlb_ip_version && !NLB_IP_VERSION_ENUM.include?(nlb_ip_version)
+
+      @nlb_ip_version = nlb_ip_version
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -120,6 +148,7 @@ module OCI
       self.class == other.class &&
         display_name == other.display_name &&
         is_preserve_source_destination == other.is_preserve_source_destination &&
+        nlb_ip_version == other.nlb_ip_version &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -137,7 +166,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, is_preserve_source_destination, freeform_tags, defined_tags].hash
+      [display_name, is_preserve_source_destination, nlb_ip_version, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

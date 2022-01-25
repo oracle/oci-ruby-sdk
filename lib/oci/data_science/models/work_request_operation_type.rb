@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -14,7 +14,8 @@ module OCI
       WORK_REQUEST_OPERATION_TYPE_MODEL_DEPLOYMENT_DEACTIVATE = 'MODEL_DEPLOYMENT_DEACTIVATE'.freeze,
       WORK_REQUEST_OPERATION_TYPE_MODEL_DEPLOYMENT_UPDATE = 'MODEL_DEPLOYMENT_UPDATE'.freeze,
       WORK_REQUEST_OPERATION_TYPE_PROJECT_DELETE = 'PROJECT_DELETE'.freeze,
-      WORK_REQUEST_OPERATION_TYPE_WORKREQUEST_CANCEL = 'WORKREQUEST_CANCEL'.freeze
+      WORK_REQUEST_OPERATION_TYPE_WORKREQUEST_CANCEL = 'WORKREQUEST_CANCEL'.freeze,
+      WORK_REQUEST_OPERATION_TYPE_JOB_DELETE = 'JOB_DELETE'.freeze
     ].freeze
   end
 end

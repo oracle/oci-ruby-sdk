@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -6,9 +6,9 @@ require_relative 'create_data_asset_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details for the MYSQL data asset type.
+  # Details for the FUSION_APP data asset type.
   class DataIntegration::Models::CreateDataAssetFromFusionApp < DataIntegration::Models::CreateDataAssetDetails
-    # The service url of the Bi Server.
+    # The generic JDBC host name.
     # @return [String]
     attr_accessor :service_url
 

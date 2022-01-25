@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -37,7 +37,10 @@ module OCI
     # @return [String]
     attr_accessor :capacity_reservation_id
 
-    # The OCID of the compartment.
+    # The OCID of the compartment containing the instance.
+    # Instances created from instance configurations are placed in the same compartment
+    # as the instance that was used to create the instance configuration.
+    #
     # @return [String]
     attr_accessor :compartment_id
 
@@ -54,8 +57,6 @@ module OCI
 
     # A user-friendly name. Does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
-    #
-    # Example: `My bare metal instance`
     #
     # @return [String]
     attr_accessor :display_name

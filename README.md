@@ -10,11 +10,13 @@ This topic describes how to install, configure, and use the Oracle Cloud Infrast
 
 The Ruby SDK supports the following services:
 
+* Account Management
 * Analytics Cloud 
 * Announcements
 * AI Anomaly Detection service
 * AI Language service
 * API Gateway
+* Application Management service
 * Application Migration
 * Application Performance Monitoring
 * Audit
@@ -23,6 +25,8 @@ The Ruby SDK supports the following services:
 * Big Data
 * Blockchain Platform
 * Budgets
+* Build service
+* Certificates service
 * Cloud Guard
 * Compute Instance Agent
 * Compute Autoscaling
@@ -31,7 +35,9 @@ The Ruby SDK supports the following services:
 * Core Services (which includes Networking, Compute, and Block Volume)
 * Data Catalog
 * Data Flow
+* Data Labeling service
 * Database Migration
+* Database Tools service
 * Data Integration
 * Data Science
 * Data Safe
@@ -80,9 +86,11 @@ The Ruby SDK supports the following services:
 * Service Catalog service
 * Secret Management (for the Vault service)
 * Service Connector Hub
+* Source Code Management service
 * Streaming
 * Support Management
 * Usage
+* Visual Builder
 * VMWare Solution
 * Vulnerability Scanning
 * Web Application Acceleration and Security
@@ -218,6 +226,16 @@ If you see "Unable to resolve dependencies”, you can install the dependencies 
 The top level module name for the Ruby SDK is `OCI`, however using `OracleBMC` as the top level namespace is also supported. For example, you can reference the configuration object as both `OCI::Config` and `OracleBMC::Config`.
 
 Using `OCI` as the top level module name is preferred and it is also used in the SDK API Reference. Additionally, if you inspect the type of an SDK object it will always be reported as being under the `OCI::` module.
+
+You can start from importing oci module, this will allow you to access the whole OCI Ruby SDK.
+
+	require 'oci'
+
+However, in some cases, if you're only using limited number of OCI services, importing the whole OCI module is not necessary and would possibly increase the loading time of your application. Instead importing the `oci` module, you can manually import sub modules based on your requirement:
+
+	require 'oci/auth/auth' # This module is commonly required to authenticate api calls
+    require 'oci/core/core' # Replace this with your target service
+
 
 ## Configuring the SDK
 

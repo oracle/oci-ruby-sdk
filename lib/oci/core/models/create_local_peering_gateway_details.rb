@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # CreateLocalPeeringGatewayDetails model.
   class Core::Models::CreateLocalPeeringGatewayDetails
-    # **[Required]** The OCID of the compartment containing the local peering gateway (LPG).
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the local peering gateway (LPG).
     #
     # @return [String]
     attr_accessor :compartment_id
@@ -20,8 +20,8 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # A user-friendly name. Does not have to be unique, and it's changeable. Avoid
-    # entering confidential information.
+    # A user-friendly name. Does not have to be unique, and it's changeable.
+    # Avoid entering confidential information.
     #
     # @return [String]
     attr_accessor :display_name
@@ -34,7 +34,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # The OCID of the route table the LPG will use.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the route table the LPG will use.
     #
     # If you don't specify a route table here, the LPG is created without an associated route
     # table. The Networking service does NOT automatically associate the attached VCN's default route table
@@ -46,7 +46,7 @@ module OCI
     # @return [String]
     attr_accessor :route_table_id
 
-    # **[Required]** The OCID of the VCN the LPG belongs to.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN the LPG belongs to.
     # @return [String]
     attr_accessor :vcn_id
 

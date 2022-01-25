@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -32,7 +32,6 @@ module OCI
     attr_accessor :id
 
     # **[Required]** A user-friendly name for the alarm. It does not have to be unique, and it's changeable.
-    # Avoid entering confidential information.
     #
     # This name is sent as the title for notifications related to this alarm.
     #
@@ -63,8 +62,8 @@ module OCI
     # the Monitoring service interprets results for each returned time series as Boolean values,
     # where zero represents false and a non-zero value represents true. A true value means that the trigger
     # rule condition has been met. The query must specify a metric, statistic, interval, and trigger
-    # rule (threshold or absence). Supported values for interval: `1m`-`60m` (also `1h`). You can optionally
-    # specify dimensions and grouping functions. Supported grouping functions: `grouping()`, `groupBy()`.
+    # rule (threshold or absence). Supported values for interval depend on the specified time range. More
+    # interval values are supported for smaller time ranges. Supported grouping functions: `grouping()`, `groupBy()`.
     # For details about Monitoring Query Language (MQL), see [Monitoring Query Language (MQL) Reference](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Reference/mql.htm).
     # For available dimensions, review the metric definition for the supported service.
     # See [Supported Services](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#SupportedServices).

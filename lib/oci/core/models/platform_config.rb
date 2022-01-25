@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -12,20 +12,41 @@ module OCI
   class Core::Models::PlatformConfig
     TYPE_ENUM = [
       TYPE_AMD_MILAN_BM = 'AMD_MILAN_BM'.freeze,
+      TYPE_AMD_ROME_BM = 'AMD_ROME_BM'.freeze,
+      TYPE_INTEL_SKYLAKE_BM = 'INTEL_SKYLAKE_BM'.freeze,
+      TYPE_AMD_VM = 'AMD_VM'.freeze,
+      TYPE_INTEL_VM = 'INTEL_VM'.freeze,
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The type of platform being configured. The only supported
-    # `type` is `AMD_MILAN_BM`.
+    # **[Required]** The type of platform being configured.
     #
     # @return [String]
     attr_reader :type
+
+    # Whether Secure Boot is enabled on the instance.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_secure_boot_enabled
+
+    # Whether the Trusted Platform Module (TPM) is enabled on the instance.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_trusted_platform_module_enabled
+
+    # Whether the Measured Boot feature is enabled on the instance.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_measured_boot_enabled
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'type': :'type'
+        'type': :'type',
+        'is_secure_boot_enabled': :'isSecureBootEnabled',
+        'is_trusted_platform_module_enabled': :'isTrustedPlatformModuleEnabled',
+        'is_measured_boot_enabled': :'isMeasuredBootEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -34,7 +55,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'type': :'String'
+        'type': :'String',
+        'is_secure_boot_enabled': :'BOOLEAN',
+        'is_trusted_platform_module_enabled': :'BOOLEAN',
+        'is_measured_boot_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,6 +72,10 @@ module OCI
       type = object_hash[:'type'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Core::Models::AmdMilanBmPlatformConfig' if type == 'AMD_MILAN_BM'
+      return 'OCI::Core::Models::AmdRomeBmPlatformConfig' if type == 'AMD_ROME_BM'
+      return 'OCI::Core::Models::IntelSkylakeBmPlatformConfig' if type == 'INTEL_SKYLAKE_BM'
+      return 'OCI::Core::Models::AmdVmPlatformConfig' if type == 'AMD_VM'
+      return 'OCI::Core::Models::IntelVmPlatformConfig' if type == 'INTEL_VM'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::Core::Models::PlatformConfig'
@@ -61,6 +89,9 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :type The value to assign to the {#type} property
+    # @option attributes [BOOLEAN] :is_secure_boot_enabled The value to assign to the {#is_secure_boot_enabled} property
+    # @option attributes [BOOLEAN] :is_trusted_platform_module_enabled The value to assign to the {#is_trusted_platform_module_enabled} property
+    # @option attributes [BOOLEAN] :is_measured_boot_enabled The value to assign to the {#is_measured_boot_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -68,6 +99,30 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.type = attributes[:'type'] if attributes[:'type']
+
+      self.is_secure_boot_enabled = attributes[:'isSecureBootEnabled'] unless attributes[:'isSecureBootEnabled'].nil?
+      self.is_secure_boot_enabled = false if is_secure_boot_enabled.nil? && !attributes.key?(:'isSecureBootEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isSecureBootEnabled and :is_secure_boot_enabled' if attributes.key?(:'isSecureBootEnabled') && attributes.key?(:'is_secure_boot_enabled')
+
+      self.is_secure_boot_enabled = attributes[:'is_secure_boot_enabled'] unless attributes[:'is_secure_boot_enabled'].nil?
+      self.is_secure_boot_enabled = false if is_secure_boot_enabled.nil? && !attributes.key?(:'isSecureBootEnabled') && !attributes.key?(:'is_secure_boot_enabled') # rubocop:disable Style/StringLiterals
+
+      self.is_trusted_platform_module_enabled = attributes[:'isTrustedPlatformModuleEnabled'] unless attributes[:'isTrustedPlatformModuleEnabled'].nil?
+      self.is_trusted_platform_module_enabled = false if is_trusted_platform_module_enabled.nil? && !attributes.key?(:'isTrustedPlatformModuleEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isTrustedPlatformModuleEnabled and :is_trusted_platform_module_enabled' if attributes.key?(:'isTrustedPlatformModuleEnabled') && attributes.key?(:'is_trusted_platform_module_enabled')
+
+      self.is_trusted_platform_module_enabled = attributes[:'is_trusted_platform_module_enabled'] unless attributes[:'is_trusted_platform_module_enabled'].nil?
+      self.is_trusted_platform_module_enabled = false if is_trusted_platform_module_enabled.nil? && !attributes.key?(:'isTrustedPlatformModuleEnabled') && !attributes.key?(:'is_trusted_platform_module_enabled') # rubocop:disable Style/StringLiterals
+
+      self.is_measured_boot_enabled = attributes[:'isMeasuredBootEnabled'] unless attributes[:'isMeasuredBootEnabled'].nil?
+      self.is_measured_boot_enabled = false if is_measured_boot_enabled.nil? && !attributes.key?(:'isMeasuredBootEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isMeasuredBootEnabled and :is_measured_boot_enabled' if attributes.key?(:'isMeasuredBootEnabled') && attributes.key?(:'is_measured_boot_enabled')
+
+      self.is_measured_boot_enabled = attributes[:'is_measured_boot_enabled'] unless attributes[:'is_measured_boot_enabled'].nil?
+      self.is_measured_boot_enabled = false if is_measured_boot_enabled.nil? && !attributes.key?(:'isMeasuredBootEnabled') && !attributes.key?(:'is_measured_boot_enabled') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -94,7 +149,10 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        type == other.type
+        type == other.type &&
+        is_secure_boot_enabled == other.is_secure_boot_enabled &&
+        is_trusted_platform_module_enabled == other.is_trusted_platform_module_enabled &&
+        is_measured_boot_enabled == other.is_measured_boot_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -110,7 +168,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type].hash
+      [type, is_secure_boot_enabled, is_trusted_platform_module_enabled, is_measured_boot_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -89,6 +89,22 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_reboot_required
 
+    # OCID of the ONS topic used to send notification to users
+    # @return [String]
+    attr_accessor :notification_topic_id
+
+    # The ksplice effective kernel version
+    # @return [String]
+    attr_accessor :ksplice_effective_kernel_version
+
+    # True if user allow data collection for this instance
+    # @return [BOOLEAN]
+    attr_accessor :is_data_collection_authorized
+
+    # if present, indicates the Managed Instance is an autonomous instance. Holds all the Autonomous specific information
+    # @return [OCI::OsManagement::Models::AutonomousSettings]
+    attr_accessor :autonomous
+
     # Number of security type updates available to be installed
     # @return [Integer]
     attr_accessor :security_updates_available
@@ -133,6 +149,10 @@ module OCI
         'managed_instance_groups': :'managedInstanceGroups',
         'os_family': :'osFamily',
         'is_reboot_required': :'isRebootRequired',
+        'notification_topic_id': :'notificationTopicId',
+        'ksplice_effective_kernel_version': :'kspliceEffectiveKernelVersion',
+        'is_data_collection_authorized': :'isDataCollectionAuthorized',
+        'autonomous': :'autonomous',
         'security_updates_available': :'securityUpdatesAvailable',
         'bug_updates_available': :'bugUpdatesAvailable',
         'enhancement_updates_available': :'enhancementUpdatesAvailable',
@@ -163,6 +183,10 @@ module OCI
         'managed_instance_groups': :'Array<OCI::OsManagement::Models::Id>',
         'os_family': :'String',
         'is_reboot_required': :'BOOLEAN',
+        'notification_topic_id': :'String',
+        'ksplice_effective_kernel_version': :'String',
+        'is_data_collection_authorized': :'BOOLEAN',
+        'autonomous': :'OCI::OsManagement::Models::AutonomousSettings',
         'security_updates_available': :'Integer',
         'bug_updates_available': :'Integer',
         'enhancement_updates_available': :'Integer',
@@ -195,6 +219,10 @@ module OCI
     # @option attributes [Array<OCI::OsManagement::Models::Id>] :managed_instance_groups The value to assign to the {#managed_instance_groups} property
     # @option attributes [String] :os_family The value to assign to the {#os_family} property
     # @option attributes [BOOLEAN] :is_reboot_required The value to assign to the {#is_reboot_required} property
+    # @option attributes [String] :notification_topic_id The value to assign to the {#notification_topic_id} property
+    # @option attributes [String] :ksplice_effective_kernel_version The value to assign to the {#ksplice_effective_kernel_version} property
+    # @option attributes [BOOLEAN] :is_data_collection_authorized The value to assign to the {#is_data_collection_authorized} property
+    # @option attributes [OCI::OsManagement::Models::AutonomousSettings] :autonomous The value to assign to the {#autonomous} property
     # @option attributes [Integer] :security_updates_available The value to assign to the {#security_updates_available} property
     # @option attributes [Integer] :bug_updates_available The value to assign to the {#bug_updates_available} property
     # @option attributes [Integer] :enhancement_updates_available The value to assign to the {#enhancement_updates_available} property
@@ -291,6 +319,26 @@ module OCI
 
       self.is_reboot_required = attributes[:'is_reboot_required'] unless attributes[:'is_reboot_required'].nil?
 
+      self.notification_topic_id = attributes[:'notificationTopicId'] if attributes[:'notificationTopicId']
+
+      raise 'You cannot provide both :notificationTopicId and :notification_topic_id' if attributes.key?(:'notificationTopicId') && attributes.key?(:'notification_topic_id')
+
+      self.notification_topic_id = attributes[:'notification_topic_id'] if attributes[:'notification_topic_id']
+
+      self.ksplice_effective_kernel_version = attributes[:'kspliceEffectiveKernelVersion'] if attributes[:'kspliceEffectiveKernelVersion']
+
+      raise 'You cannot provide both :kspliceEffectiveKernelVersion and :ksplice_effective_kernel_version' if attributes.key?(:'kspliceEffectiveKernelVersion') && attributes.key?(:'ksplice_effective_kernel_version')
+
+      self.ksplice_effective_kernel_version = attributes[:'ksplice_effective_kernel_version'] if attributes[:'ksplice_effective_kernel_version']
+
+      self.is_data_collection_authorized = attributes[:'isDataCollectionAuthorized'] unless attributes[:'isDataCollectionAuthorized'].nil?
+
+      raise 'You cannot provide both :isDataCollectionAuthorized and :is_data_collection_authorized' if attributes.key?(:'isDataCollectionAuthorized') && attributes.key?(:'is_data_collection_authorized')
+
+      self.is_data_collection_authorized = attributes[:'is_data_collection_authorized'] unless attributes[:'is_data_collection_authorized'].nil?
+
+      self.autonomous = attributes[:'autonomous'] if attributes[:'autonomous']
+
       self.security_updates_available = attributes[:'securityUpdatesAvailable'] if attributes[:'securityUpdatesAvailable']
 
       raise 'You cannot provide both :securityUpdatesAvailable and :security_updates_available' if attributes.key?(:'securityUpdatesAvailable') && attributes.key?(:'security_updates_available')
@@ -381,6 +429,10 @@ module OCI
         managed_instance_groups == other.managed_instance_groups &&
         os_family == other.os_family &&
         is_reboot_required == other.is_reboot_required &&
+        notification_topic_id == other.notification_topic_id &&
+        ksplice_effective_kernel_version == other.ksplice_effective_kernel_version &&
+        is_data_collection_authorized == other.is_data_collection_authorized &&
+        autonomous == other.autonomous &&
         security_updates_available == other.security_updates_available &&
         bug_updates_available == other.bug_updates_available &&
         enhancement_updates_available == other.enhancement_updates_available &&
@@ -402,7 +454,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, id, description, last_checkin, last_boot, updates_available, os_name, os_version, os_kernel_version, compartment_id, status, parent_software_source, child_software_sources, managed_instance_groups, os_family, is_reboot_required, security_updates_available, bug_updates_available, enhancement_updates_available, other_updates_available, scheduled_job_count, work_request_count].hash
+      [display_name, id, description, last_checkin, last_boot, updates_available, os_name, os_version, os_kernel_version, compartment_id, status, parent_software_source, child_software_sources, managed_instance_groups, os_family, is_reboot_required, notification_topic_id, ksplice_effective_kernel_version, is_data_collection_authorized, autonomous, security_updates_available, bug_updates_available, enhancement_updates_available, other_updates_available, scheduled_job_count, work_request_count].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

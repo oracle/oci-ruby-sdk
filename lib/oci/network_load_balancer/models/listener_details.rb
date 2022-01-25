@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -10,10 +10,16 @@ module OCI
   # [Managing Load Balancer Listeners](https://docs.cloud.oracle.com/Content/Balance/Tasks/managinglisteners.htm).
   #
   class NetworkLoadBalancer::Models::ListenerDetails
+    IP_VERSION_ENUM = [
+      IP_VERSION_IPV4 = 'IPV4'.freeze,
+      IP_VERSION_IPV6 = 'IPV6'.freeze
+    ].freeze
+
     PROTOCOL_ENUM = [
       PROTOCOL_ANY = 'ANY'.freeze,
       PROTOCOL_TCP = 'TCP'.freeze,
-      PROTOCOL_UDP = 'UDP'.freeze
+      PROTOCOL_UDP = 'UDP'.freeze,
+      PROTOCOL_TCP_AND_UDP = 'TCP_AND_UDP'.freeze
     ].freeze
 
     # **[Required]** A friendly name for the listener. It must be unique and it cannot be changed.
@@ -29,6 +35,10 @@ module OCI
     #
     # @return [String]
     attr_accessor :default_backend_set_name
+
+    # IP version associated with the listener.
+    # @return [String]
+    attr_reader :ip_version
 
     # **[Required]** The communication port for the listener.
     #
@@ -54,6 +64,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
         'default_backend_set_name': :'defaultBackendSetName',
+        'ip_version': :'ipVersion',
         'port': :'port',
         'protocol': :'protocol'
         # rubocop:enable Style/SymbolLiteral
@@ -66,6 +77,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
         'default_backend_set_name': :'String',
+        'ip_version': :'String',
         'port': :'Integer',
         'protocol': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -80,6 +92,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :default_backend_set_name The value to assign to the {#default_backend_set_name} property
+    # @option attributes [String] :ip_version The value to assign to the {#ip_version} property
     # @option attributes [Integer] :port The value to assign to the {#port} property
     # @option attributes [String] :protocol The value to assign to the {#protocol} property
     def initialize(attributes = {})
@@ -96,12 +109,28 @@ module OCI
 
       self.default_backend_set_name = attributes[:'default_backend_set_name'] if attributes[:'default_backend_set_name']
 
+      self.ip_version = attributes[:'ipVersion'] if attributes[:'ipVersion']
+      self.ip_version = "IPV4" if ip_version.nil? && !attributes.key?(:'ipVersion') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :ipVersion and :ip_version' if attributes.key?(:'ipVersion') && attributes.key?(:'ip_version')
+
+      self.ip_version = attributes[:'ip_version'] if attributes[:'ip_version']
+      self.ip_version = "IPV4" if ip_version.nil? && !attributes.key?(:'ipVersion') && !attributes.key?(:'ip_version') # rubocop:disable Style/StringLiterals
+
       self.port = attributes[:'port'] if attributes[:'port']
 
       self.protocol = attributes[:'protocol'] if attributes[:'protocol']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] ip_version Object to be assigned
+    def ip_version=(ip_version)
+      raise "Invalid value for 'ip_version': this must be one of the values in IP_VERSION_ENUM." if ip_version && !IP_VERSION_ENUM.include?(ip_version)
+
+      @ip_version = ip_version
+    end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] protocol Object to be assigned
@@ -122,6 +151,7 @@ module OCI
       self.class == other.class &&
         name == other.name &&
         default_backend_set_name == other.default_backend_set_name &&
+        ip_version == other.ip_version &&
         port == other.port &&
         protocol == other.protocol
     end
@@ -139,7 +169,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, default_backend_set_name, port, protocol].hash
+      [name, default_backend_set_name, ip_version, port, protocol].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

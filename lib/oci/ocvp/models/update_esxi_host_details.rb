@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -22,9 +22,8 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # Billing option to switch to after the existing billing cycle ends.
-    # Oracle Cloud Infrastructure VMware Solution supports the following billing interval SKUs:
-    # HOUR, MONTH, ONE_YEAR, and THREE_YEARS.
+    # The billing option to switch to after the existing billing cycle ends.
+    # If `nextSku` is null or empty, `currentSku` continues to the next billing cycle.
     # {#list_supported_skus list_supported_skus}.
     #
     # @return [String]

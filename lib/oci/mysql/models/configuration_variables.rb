@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -38,6 +38,12 @@ module OCI
       GROUP_REPLICATION_CONSISTENCY_AFTER = 'AFTER'.freeze,
       GROUP_REPLICATION_CONSISTENCY_BEFORE_AND_AFTER = 'BEFORE_AND_AFTER'.freeze,
       GROUP_REPLICATION_CONSISTENCY_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    BINLOG_ROW_METADATA_ENUM = [
+      BINLOG_ROW_METADATA_FULL = 'FULL'.freeze,
+      BINLOG_ROW_METADATA_MINIMAL = 'MINIMAL'.freeze,
+      BINLOG_ROW_METADATA_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # (\"completion_type\")
@@ -125,9 +131,29 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :sql_warnings
 
-    # (\"binlog_expire_logs_seconds\") DEPRECATED -- variable should not be settable and will be ignored
+    # Sets the binary log expiration period in seconds.
+    # binlogExpireLogsSeconds corresponds to the MySQL binary logging system variable [binlog_expire_logs_seconds](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_binlog_expire_logs_seconds).
+    #
     # @return [Integer]
     attr_accessor :binlog_expire_logs_seconds
+
+    # Configures the amount of table metadata added to the binary log when using row-based logging.
+    # binlogRowMetadata corresponds to the MySQL binary logging system variable [binlog_row_metadata](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_binlog_row_metadata).
+    #
+    # @return [String]
+    attr_reader :binlog_row_metadata
+
+    # When set to PARTIAL_JSON, this enables use of a space-efficient binary log format for updates that modify only a small portion of a JSON document.
+    # binlogRowValueOptions corresponds to the MySQL binary logging system variable [binlog_row_value_options](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_binlog_row_value_options).
+    #
+    # @return [String]
+    attr_accessor :binlog_row_value_options
+
+    # Enables compression for transactions that are written to binary log files on this server.
+    # binlogTransactionCompression corresponds to the MySQL binary logging system variable [binlog_transaction_compression](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_binlog_transaction_compression).
+    #
+    # @return [BOOLEAN]
+    attr_accessor :binlog_transaction_compression
 
     # (\"innodb_buffer_pool_size\")
     # @return [Integer]
@@ -292,6 +318,9 @@ module OCI
         'sql_require_primary_key': :'sqlRequirePrimaryKey',
         'sql_warnings': :'sqlWarnings',
         'binlog_expire_logs_seconds': :'binlogExpireLogsSeconds',
+        'binlog_row_metadata': :'binlogRowMetadata',
+        'binlog_row_value_options': :'binlogRowValueOptions',
+        'binlog_transaction_compression': :'binlogTransactionCompression',
         'innodb_buffer_pool_size': :'innodbBufferPoolSize',
         'innodb_ft_result_cache_limit': :'innodbFtResultCacheLimit',
         'max_connections': :'maxConnections',
@@ -351,6 +380,9 @@ module OCI
         'sql_require_primary_key': :'BOOLEAN',
         'sql_warnings': :'BOOLEAN',
         'binlog_expire_logs_seconds': :'Integer',
+        'binlog_row_metadata': :'String',
+        'binlog_row_value_options': :'String',
+        'binlog_transaction_compression': :'BOOLEAN',
         'innodb_buffer_pool_size': :'Integer',
         'innodb_ft_result_cache_limit': :'Integer',
         'max_connections': :'Integer',
@@ -412,6 +444,9 @@ module OCI
     # @option attributes [BOOLEAN] :sql_require_primary_key The value to assign to the {#sql_require_primary_key} property
     # @option attributes [BOOLEAN] :sql_warnings The value to assign to the {#sql_warnings} property
     # @option attributes [Integer] :binlog_expire_logs_seconds The value to assign to the {#binlog_expire_logs_seconds} property
+    # @option attributes [String] :binlog_row_metadata The value to assign to the {#binlog_row_metadata} property
+    # @option attributes [String] :binlog_row_value_options The value to assign to the {#binlog_row_value_options} property
+    # @option attributes [BOOLEAN] :binlog_transaction_compression The value to assign to the {#binlog_transaction_compression} property
     # @option attributes [Integer] :innodb_buffer_pool_size The value to assign to the {#innodb_buffer_pool_size} property
     # @option attributes [Integer] :innodb_ft_result_cache_limit The value to assign to the {#innodb_ft_result_cache_limit} property
     # @option attributes [Integer] :max_connections The value to assign to the {#max_connections} property
@@ -566,6 +601,30 @@ module OCI
       raise 'You cannot provide both :binlogExpireLogsSeconds and :binlog_expire_logs_seconds' if attributes.key?(:'binlogExpireLogsSeconds') && attributes.key?(:'binlog_expire_logs_seconds')
 
       self.binlog_expire_logs_seconds = attributes[:'binlog_expire_logs_seconds'] if attributes[:'binlog_expire_logs_seconds']
+
+      self.binlog_row_metadata = attributes[:'binlogRowMetadata'] if attributes[:'binlogRowMetadata']
+      self.binlog_row_metadata = "MINIMAL" if binlog_row_metadata.nil? && !attributes.key?(:'binlogRowMetadata') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :binlogRowMetadata and :binlog_row_metadata' if attributes.key?(:'binlogRowMetadata') && attributes.key?(:'binlog_row_metadata')
+
+      self.binlog_row_metadata = attributes[:'binlog_row_metadata'] if attributes[:'binlog_row_metadata']
+      self.binlog_row_metadata = "MINIMAL" if binlog_row_metadata.nil? && !attributes.key?(:'binlogRowMetadata') && !attributes.key?(:'binlog_row_metadata') # rubocop:disable Style/StringLiterals
+
+      self.binlog_row_value_options = attributes[:'binlogRowValueOptions'] if attributes[:'binlogRowValueOptions']
+      self.binlog_row_value_options = "PARTIAL_JSON" if binlog_row_value_options.nil? && !attributes.key?(:'binlogRowValueOptions') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :binlogRowValueOptions and :binlog_row_value_options' if attributes.key?(:'binlogRowValueOptions') && attributes.key?(:'binlog_row_value_options')
+
+      self.binlog_row_value_options = attributes[:'binlog_row_value_options'] if attributes[:'binlog_row_value_options']
+      self.binlog_row_value_options = "PARTIAL_JSON" if binlog_row_value_options.nil? && !attributes.key?(:'binlogRowValueOptions') && !attributes.key?(:'binlog_row_value_options') # rubocop:disable Style/StringLiterals
+
+      self.binlog_transaction_compression = attributes[:'binlogTransactionCompression'] unless attributes[:'binlogTransactionCompression'].nil?
+      self.binlog_transaction_compression = true if binlog_transaction_compression.nil? && !attributes.key?(:'binlogTransactionCompression') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :binlogTransactionCompression and :binlog_transaction_compression' if attributes.key?(:'binlogTransactionCompression') && attributes.key?(:'binlog_transaction_compression')
+
+      self.binlog_transaction_compression = attributes[:'binlog_transaction_compression'] unless attributes[:'binlog_transaction_compression'].nil?
+      self.binlog_transaction_compression = true if binlog_transaction_compression.nil? && !attributes.key?(:'binlogTransactionCompression') && !attributes.key?(:'binlog_transaction_compression') # rubocop:disable Style/StringLiterals
 
       self.innodb_buffer_pool_size = attributes[:'innodbBufferPoolSize'] if attributes[:'innodbBufferPoolSize']
       self.innodb_buffer_pool_size = 134217728 if innodb_buffer_pool_size.nil? && !attributes.key?(:'innodbBufferPoolSize') # rubocop:disable Style/StringLiterals
@@ -842,6 +901,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] binlog_row_metadata Object to be assigned
+    def binlog_row_metadata=(binlog_row_metadata)
+      # rubocop:disable Style/ConditionalAssignment
+      if binlog_row_metadata && !BINLOG_ROW_METADATA_ENUM.include?(binlog_row_metadata)
+        OCI.logger.debug("Unknown value for 'binlog_row_metadata' [" + binlog_row_metadata + "]. Mapping to 'BINLOG_ROW_METADATA_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @binlog_row_metadata = BINLOG_ROW_METADATA_UNKNOWN_ENUM_VALUE
+      else
+        @binlog_row_metadata = binlog_row_metadata
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -866,6 +938,9 @@ module OCI
         sql_require_primary_key == other.sql_require_primary_key &&
         sql_warnings == other.sql_warnings &&
         binlog_expire_logs_seconds == other.binlog_expire_logs_seconds &&
+        binlog_row_metadata == other.binlog_row_metadata &&
+        binlog_row_value_options == other.binlog_row_value_options &&
+        binlog_transaction_compression == other.binlog_transaction_compression &&
         innodb_buffer_pool_size == other.innodb_buffer_pool_size &&
         innodb_ft_result_cache_limit == other.innodb_ft_result_cache_limit &&
         max_connections == other.max_connections &&
@@ -917,7 +992,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [completion_type, default_authentication_plugin, transaction_isolation, innodb_ft_server_stopword_table, mandatory_roles, autocommit, foreign_key_checks, group_replication_consistency, innodb_ft_enable_stopword, local_infile, mysql_firewall_mode, mysqlx_enable_hello_notice, sql_require_primary_key, sql_warnings, binlog_expire_logs_seconds, innodb_buffer_pool_size, innodb_ft_result_cache_limit, max_connections, max_prepared_stmt_count, connect_timeout, cte_max_recursion_depth, generated_random_password_length, information_schema_stats_expiry, innodb_buffer_pool_instances, innodb_ft_max_token_size, innodb_ft_min_token_size, innodb_ft_num_word_optimize, innodb_lock_wait_timeout, innodb_max_purge_lag, innodb_max_purge_lag_delay, max_execution_time, mysqlx_connect_timeout, mysqlx_document_id_unique_prefix, mysqlx_idle_worker_thread_timeout, mysqlx_interactive_timeout, mysqlx_max_allowed_packet, mysqlx_min_worker_threads, mysqlx_read_timeout, mysqlx_wait_timeout, mysqlx_write_timeout, parser_max_mem_size, query_alloc_block_size, query_prealloc_size, sql_mode, mysqlx_deflate_default_compression_level, mysqlx_deflate_max_client_compression_level, mysqlx_lz4_max_client_compression_level, mysqlx_lz4_default_compression_level, mysqlx_zstd_max_client_compression_level, mysqlx_zstd_default_compression_level, mysql_zstd_default_compression_level].hash
+      [completion_type, default_authentication_plugin, transaction_isolation, innodb_ft_server_stopword_table, mandatory_roles, autocommit, foreign_key_checks, group_replication_consistency, innodb_ft_enable_stopword, local_infile, mysql_firewall_mode, mysqlx_enable_hello_notice, sql_require_primary_key, sql_warnings, binlog_expire_logs_seconds, binlog_row_metadata, binlog_row_value_options, binlog_transaction_compression, innodb_buffer_pool_size, innodb_ft_result_cache_limit, max_connections, max_prepared_stmt_count, connect_timeout, cte_max_recursion_depth, generated_random_password_length, information_schema_stats_expiry, innodb_buffer_pool_instances, innodb_ft_max_token_size, innodb_ft_min_token_size, innodb_ft_num_word_optimize, innodb_lock_wait_timeout, innodb_max_purge_lag, innodb_max_purge_lag_delay, max_execution_time, mysqlx_connect_timeout, mysqlx_document_id_unique_prefix, mysqlx_idle_worker_thread_timeout, mysqlx_interactive_timeout, mysqlx_max_allowed_packet, mysqlx_min_worker_threads, mysqlx_read_timeout, mysqlx_wait_timeout, mysqlx_write_timeout, parser_max_mem_size, query_alloc_block_size, query_prealloc_size, sql_mode, mysqlx_deflate_default_compression_level, mysqlx_deflate_max_client_compression_level, mysqlx_lz4_max_client_compression_level, mysqlx_lz4_default_compression_level, mysqlx_zstd_max_client_compression_level, mysqlx_zstd_default_compression_level, mysql_zstd_default_compression_level].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

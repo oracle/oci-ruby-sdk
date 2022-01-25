@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -40,6 +40,7 @@ require 'oci/operator_access_control/models/operator_control_lifecycle_states'
 require 'oci/operator_access_control/models/operator_control_summary'
 require 'oci/operator_access_control/models/reject_access_request_details'
 require 'oci/operator_access_control/models/resource_types'
+require 'oci/operator_access_control/models/review_access_request_details'
 require 'oci/operator_access_control/models/revoke_access_request_details'
 require 'oci/operator_access_control/models/sort_orders'
 require 'oci/operator_access_control/models/update_operator_control_assignment_details'
@@ -47,6 +48,7 @@ require 'oci/operator_access_control/models/update_operator_control_details'
 
 # Require generated clients
 require 'oci/operator_access_control/access_requests_client'
+require 'oci/operator_access_control/access_requests_client_composite_operations'
 require 'oci/operator_access_control/operator_actions_client'
 require 'oci/operator_access_control/operator_control_client'
 require 'oci/operator_access_control/operator_control_client_composite_operations'

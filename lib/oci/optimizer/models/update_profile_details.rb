@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -11,6 +11,10 @@ module OCI
     # Text describing the profile. Avoid entering confidential information.
     # @return [String]
     attr_accessor :description
+
+    # The time period over which to collect data for the recommendations, measured in number of days.
+    # @return [Integer]
+    attr_accessor :aggregation_interval_in_days
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -46,6 +50,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'description': :'description',
+        'aggregation_interval_in_days': :'aggregationIntervalInDays',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags',
         'levels_configuration': :'levelsConfiguration',
@@ -61,6 +66,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'description': :'String',
+        'aggregation_interval_in_days': :'Integer',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>',
         'levels_configuration': :'OCI::Optimizer::Models::LevelsConfiguration',
@@ -78,6 +84,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [Integer] :aggregation_interval_in_days The value to assign to the {#aggregation_interval_in_days} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [OCI::Optimizer::Models::LevelsConfiguration] :levels_configuration The value to assign to the {#levels_configuration} property
@@ -91,6 +98,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.description = attributes[:'description'] if attributes[:'description']
+
+      self.aggregation_interval_in_days = attributes[:'aggregationIntervalInDays'] if attributes[:'aggregationIntervalInDays']
+
+      raise 'You cannot provide both :aggregationIntervalInDays and :aggregation_interval_in_days' if attributes.key?(:'aggregationIntervalInDays') && attributes.key?(:'aggregation_interval_in_days')
+
+      self.aggregation_interval_in_days = attributes[:'aggregation_interval_in_days'] if attributes[:'aggregation_interval_in_days']
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -137,6 +150,7 @@ module OCI
 
       self.class == other.class &&
         description == other.description &&
+        aggregation_interval_in_days == other.aggregation_interval_in_days &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags &&
         levels_configuration == other.levels_configuration &&
@@ -158,7 +172,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [description, defined_tags, freeform_tags, levels_configuration, target_compartments, target_tags, name].hash
+      [description, aggregation_interval_in_days, defined_tags, freeform_tags, levels_configuration, target_compartments, target_tags, name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

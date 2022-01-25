@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -7,6 +7,8 @@ require_relative 'target_details'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The metric and metric namespace used for the Monitoring target.
+  # For configuration instructions, see
+  # [To create a service connector](https://docs.cloud.oracle.com/iaas/Content/service-connector-hub/managingconnectors.htm#create).
   #
   class Sch::Models::MonitoringTargetDetails < Sch::Models::TargetDetails
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the metric.
@@ -28,6 +30,11 @@ module OCI
     # @return [String]
     attr_accessor :metric
 
+    # List of dimension names and values.
+    #
+    # @return [Array<OCI::Sch::Models::DimensionDetails>]
+    attr_accessor :dimensions
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -35,7 +42,8 @@ module OCI
         'kind': :'kind',
         'compartment_id': :'compartmentId',
         'metric_namespace': :'metricNamespace',
-        'metric': :'metric'
+        'metric': :'metric',
+        'dimensions': :'dimensions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -47,7 +55,8 @@ module OCI
         'kind': :'String',
         'compartment_id': :'String',
         'metric_namespace': :'String',
-        'metric': :'String'
+        'metric': :'String',
+        'dimensions': :'Array<OCI::Sch::Models::DimensionDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -61,6 +70,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :metric_namespace The value to assign to the {#metric_namespace} property
     # @option attributes [String] :metric The value to assign to the {#metric} property
+    # @option attributes [Array<OCI::Sch::Models::DimensionDetails>] :dimensions The value to assign to the {#dimensions} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -84,6 +94,8 @@ module OCI
       self.metric_namespace = attributes[:'metric_namespace'] if attributes[:'metric_namespace']
 
       self.metric = attributes[:'metric'] if attributes[:'metric']
+
+      self.dimensions = attributes[:'dimensions'] if attributes[:'dimensions']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -100,7 +112,8 @@ module OCI
         kind == other.kind &&
         compartment_id == other.compartment_id &&
         metric_namespace == other.metric_namespace &&
-        metric == other.metric
+        metric == other.metric &&
+        dimensions == other.dimensions
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -116,7 +129,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [kind, compartment_id, metric_namespace, metric].hash
+      [kind, compartment_id, metric_namespace, metric, dimensions].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

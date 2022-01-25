@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -37,7 +37,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
-    # The SSH public key fingerprint for the console connection.
+    # The SSH public key's fingerprint for client authentication to the console connection.
     # @return [String]
     attr_accessor :fingerprint
 
@@ -61,6 +61,10 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # The SSH public key's fingerprint for the console connection service host.
+    # @return [String]
+    attr_accessor :service_host_key_fingerprint
+
     # The SSH connection string for the SSH tunnel used to
     # connect to the console connection over VNC.
     #
@@ -79,6 +83,7 @@ module OCI
         'id': :'id',
         'instance_id': :'instanceId',
         'lifecycle_state': :'lifecycleState',
+        'service_host_key_fingerprint': :'serviceHostKeyFingerprint',
         'vnc_connection_string': :'vncConnectionString'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -96,6 +101,7 @@ module OCI
         'id': :'String',
         'instance_id': :'String',
         'lifecycle_state': :'String',
+        'service_host_key_fingerprint': :'String',
         'vnc_connection_string': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -115,6 +121,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :instance_id The value to assign to the {#instance_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :service_host_key_fingerprint The value to assign to the {#service_host_key_fingerprint} property
     # @option attributes [String] :vnc_connection_string The value to assign to the {#vnc_connection_string} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -162,6 +169,12 @@ module OCI
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
+      self.service_host_key_fingerprint = attributes[:'serviceHostKeyFingerprint'] if attributes[:'serviceHostKeyFingerprint']
+
+      raise 'You cannot provide both :serviceHostKeyFingerprint and :service_host_key_fingerprint' if attributes.key?(:'serviceHostKeyFingerprint') && attributes.key?(:'service_host_key_fingerprint')
+
+      self.service_host_key_fingerprint = attributes[:'service_host_key_fingerprint'] if attributes[:'service_host_key_fingerprint']
+
       self.vnc_connection_string = attributes[:'vncConnectionString'] if attributes[:'vncConnectionString']
 
       raise 'You cannot provide both :vncConnectionString and :vnc_connection_string' if attributes.key?(:'vncConnectionString') && attributes.key?(:'vnc_connection_string')
@@ -201,6 +214,7 @@ module OCI
         id == other.id &&
         instance_id == other.instance_id &&
         lifecycle_state == other.lifecycle_state &&
+        service_host_key_fingerprint == other.service_host_key_fingerprint &&
         vnc_connection_string == other.vnc_connection_string
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -217,7 +231,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, connection_string, defined_tags, fingerprint, freeform_tags, id, instance_id, lifecycle_state, vnc_connection_string].hash
+      [compartment_id, connection_string, defined_tags, fingerprint, freeform_tags, id, instance_id, lifecycle_state, service_host_key_fingerprint, vnc_connection_string].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

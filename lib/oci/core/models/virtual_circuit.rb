@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -85,6 +85,12 @@ module OCI
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    IP_MTU_ENUM = [
+      IP_MTU_MTU_1500 = 'MTU_1500'.freeze,
+      IP_MTU_MTU_9000 = 'MTU_9000'.freeze,
+      IP_MTU_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # The provisioned data rate of the connection. To get a list of the
     # available bandwidth levels (that is, shapes), see
     # {#list_fast_connect_provider_virtual_circuit_bandwidth_shapes list_fast_connect_provider_virtual_circuit_bandwidth_shapes}.
@@ -108,7 +114,7 @@ module OCI
     # @return [String]
     attr_reader :bgp_ipv6_session_state
 
-    # The OCID of the compartment containing the virtual circuit.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment containing the virtual circuit.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -165,13 +171,13 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # The OCID of the customer's {Drg}
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the customer's {Drg}
     # that this virtual circuit uses. Applicable only to private virtual circuits.
     #
     # @return [String]
     attr_accessor :gateway_id
 
-    # The virtual circuit's Oracle ID (OCID).
+    # The virtual circuit's Oracle ID ([OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)).
     # @return [String]
     attr_accessor :id
 
@@ -191,7 +197,7 @@ module OCI
     # @return [String]
     attr_accessor :provider_name
 
-    # The OCID of the service offered by the provider (if the customer is connecting via a provider).
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the service offered by the provider (if the customer is connecting via a provider).
     #
     # @return [String]
     attr_accessor :provider_service_id
@@ -252,6 +258,10 @@ module OCI
     # @return [String]
     attr_reader :type
 
+    # The layer 3 IP MTU to use on this virtual circuit.
+    # @return [String]
+    attr_reader :ip_mtu
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -282,7 +292,8 @@ module OCI
         'region': :'region',
         'service_type': :'serviceType',
         'time_created': :'timeCreated',
-        'type': :'type'
+        'type': :'type',
+        'ip_mtu': :'ipMtu'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -317,7 +328,8 @@ module OCI
         'region': :'String',
         'service_type': :'String',
         'time_created': :'DateTime',
-        'type': :'String'
+        'type': :'String',
+        'ip_mtu': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -355,6 +367,7 @@ module OCI
     # @option attributes [String] :service_type The value to assign to the {#service_type} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :type The value to assign to the {#type} property
+    # @option attributes [String] :ip_mtu The value to assign to the {#ip_mtu} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -510,6 +523,12 @@ module OCI
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
       self.type = attributes[:'type'] if attributes[:'type']
+
+      self.ip_mtu = attributes[:'ipMtu'] if attributes[:'ipMtu']
+
+      raise 'You cannot provide both :ipMtu and :ip_mtu' if attributes.key?(:'ipMtu') && attributes.key?(:'ip_mtu')
+
+      self.ip_mtu = attributes[:'ip_mtu'] if attributes[:'ip_mtu']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -625,6 +644,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] ip_mtu Object to be assigned
+    def ip_mtu=(ip_mtu)
+      # rubocop:disable Style/ConditionalAssignment
+      if ip_mtu && !IP_MTU_ENUM.include?(ip_mtu)
+        OCI.logger.debug("Unknown value for 'ip_mtu' [" + ip_mtu + "]. Mapping to 'IP_MTU_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @ip_mtu = IP_MTU_UNKNOWN_ENUM_VALUE
+      else
+        @ip_mtu = ip_mtu
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -660,7 +692,8 @@ module OCI
         region == other.region &&
         service_type == other.service_type &&
         time_created == other.time_created &&
-        type == other.type
+        type == other.type &&
+        ip_mtu == other.ip_mtu
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -676,7 +709,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bandwidth_shape_name, bgp_management, bgp_session_state, bgp_ipv6_session_state, compartment_id, cross_connect_mappings, routing_policy, customer_bgp_asn, customer_asn, defined_tags, display_name, freeform_tags, gateway_id, id, lifecycle_state, oracle_bgp_asn, provider_name, provider_service_id, provider_service_key_name, provider_service_name, provider_state, public_prefixes, reference_comment, region, service_type, time_created, type].hash
+      [bandwidth_shape_name, bgp_management, bgp_session_state, bgp_ipv6_session_state, compartment_id, cross_connect_mappings, routing_policy, customer_bgp_asn, customer_asn, defined_tags, display_name, freeform_tags, gateway_id, id, lifecycle_state, oracle_bgp_asn, provider_name, provider_service_id, provider_service_key_name, provider_service_name, provider_state, public_prefixes, reference_comment, region, service_type, time_created, type, ip_mtu].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

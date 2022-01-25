@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -16,10 +16,8 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # A user-friendly name for the capacity reservation. Does not have to be unique, and it's changeable.
+    # A user-friendly name. Does not have to be unique, and it's changeable.
     # Avoid entering confidential information.
-    #
-    # Example: `My Reservation`
     #
     # @return [String]
     attr_accessor :display_name
@@ -50,7 +48,7 @@ module OCI
 
     # The number of instances for which capacity will be held in this
     # compute capacity reservation. This number is the sum of the values of the `reservedCount` fields
-    # for all of the instance reservation configurations under this reservation.
+    # for all of the instance capacity configurations under this reservation.
     # The purpose of this field is to calculate the percentage usage of the reservation.
     #
     # @return [Integer]
@@ -58,7 +56,7 @@ module OCI
 
     # The total number of instances currently consuming space in
     # this compute capacity reservation. This number is the sum of the values of the `usedCount` fields
-    # for all of the instance reservation configurations under this reservation.
+    # for all of the instance capacity configurations under this reservation.
     # The purpose of this field is to calculate the percentage usage of the reservation.
     #
     # @return [Integer]

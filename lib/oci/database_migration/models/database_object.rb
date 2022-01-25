@@ -1,11 +1,11 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Database objects to exclude from migration
+  # Database objects to include or exclude from migration
   #
   class DatabaseMigration::Models::DatabaseObject
     # **[Required]** Owner of the object (regular expression is allowed)
@@ -18,12 +18,19 @@ module OCI
     # @return [String]
     attr_accessor :object_name
 
+    # Type of object to exclude.
+    # If not specified, matching owners and object names of type TABLE would be excluded.
+    #
+    # @return [String]
+    attr_accessor :type
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'owner': :'owner',
-        'object_name': :'objectName'
+        'object_name': :'objectName',
+        'type': :'type'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -33,7 +40,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'owner': :'String',
-        'object_name': :'String'
+        'object_name': :'String',
+        'type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -46,6 +54,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :owner The value to assign to the {#owner} property
     # @option attributes [String] :object_name The value to assign to the {#object_name} property
+    # @option attributes [String] :type The value to assign to the {#type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -59,6 +68,8 @@ module OCI
       raise 'You cannot provide both :objectName and :object_name' if attributes.key?(:'objectName') && attributes.key?(:'object_name')
 
       self.object_name = attributes[:'object_name'] if attributes[:'object_name']
+
+      self.type = attributes[:'type'] if attributes[:'type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -73,7 +84,8 @@ module OCI
 
       self.class == other.class &&
         owner == other.owner &&
-        object_name == other.object_name
+        object_name == other.object_name &&
+        type == other.type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -89,7 +101,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [owner, object_name].hash
+      [owner, object_name, type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

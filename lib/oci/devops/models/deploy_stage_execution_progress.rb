@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -93,20 +93,13 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'deployStageType'] # rubocop:disable Style/SymbolLiteral
 
-      return 'OCI::Devops::Models::ComputeInstanceGroupBlueGreenTrafficShiftDeployStageExecutionProgress' if type == 'COMPUTE_INSTANCE_GROUP_BLUE_GREEN_TRAFFIC_SHIFT'
-      return 'OCI::Devops::Models::ComputeInstanceGroupCanaryDeployStageExecutionProgress' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_DEPLOYMENT'
-      return 'OCI::Devops::Models::ComputeInstanceGroupDeployStageExecutionProgress' if type == 'COMPUTE_INSTANCE_GROUP_ROLLING_DEPLOYMENT'
-      return 'OCI::Devops::Models::LoadBalancerTrafficShiftDeployStageExecutionProgress' if type == 'LOAD_BALANCER_TRAFFIC_SHIFT'
-      return 'OCI::Devops::Models::WaitDeployStageExecutionProgress' if type == 'WAIT'
-      return 'OCI::Devops::Models::ComputeInstanceGroupCanaryTrafficShiftDeployStageExecutionProgress' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_TRAFFIC_SHIFT'
-      return 'OCI::Devops::Models::RunValidationTestOnComputeInstanceDeployStageExecutionProgress' if type == 'RUN_VALIDATION_TEST_ON_COMPUTE_INSTANCE'
       return 'OCI::Devops::Models::ManualApprovalDeployStageExecutionProgress' if type == 'MANUAL_APPROVAL'
-      return 'OCI::Devops::Models::RunPipelineDeployStageExecutionProgress' if type == 'RUN_DEPLOYMENT_PIPELINE'
+      return 'OCI::Devops::Models::ComputeInstanceGroupDeployStageExecutionProgress' if type == 'COMPUTE_INSTANCE_GROUP_ROLLING_DEPLOYMENT'
       return 'OCI::Devops::Models::OkeDeployStageExecutionProgress' if type == 'OKE_DEPLOYMENT'
+      return 'OCI::Devops::Models::LoadBalancerTrafficShiftDeployStageExecutionProgress' if type == 'LOAD_BALANCER_TRAFFIC_SHIFT'
       return 'OCI::Devops::Models::FunctionDeployStageExecutionProgress' if type == 'DEPLOY_FUNCTION'
       return 'OCI::Devops::Models::InvokeFunctionDeployStageExecutionProgress' if type == 'INVOKE_FUNCTION'
-      return 'OCI::Devops::Models::ComputeInstanceGroupCanaryApprovalDeployStageExecutionProgress' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_APPROVAL'
-      return 'OCI::Devops::Models::ComputeInstanceGroupBlueGreenDeployStageExecutionProgress' if type == 'COMPUTE_INSTANCE_GROUP_BLUE_GREEN_DEPLOYMENT'
+      return 'OCI::Devops::Models::WaitDeployStageExecutionProgress' if type == 'WAIT'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::Devops::Models::DeployStageExecutionProgress'

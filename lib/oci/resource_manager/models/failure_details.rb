@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -17,6 +17,9 @@ module OCI
       CODE_TERRAFORM_CONFIG_VIRUS_FOUND = 'TERRAFORM_CONFIG_VIRUS_FOUND'.freeze,
       CODE_TERRAFORM_GIT_CLONE_FAILURE = 'TERRAFORM_GIT_CLONE_FAILURE'.freeze,
       CODE_TERRAFORM_GIT_CHECKOUT_FAILURE = 'TERRAFORM_GIT_CHECKOUT_FAILURE'.freeze,
+      CODE_TERRAFORM_OBJECT_STORAGE_CONFIG_SOURCE_EMPTY_BUCKET = 'TERRAFORM_OBJECT_STORAGE_CONFIG_SOURCE_EMPTY_BUCKET'.freeze,
+      CODE_TERRAFORM_OBJECT_STORAGE_CONFIG_SOURCE_NO_TF_FILE_PRESENT = 'TERRAFORM_OBJECT_STORAGE_CONFIG_SOURCE_NO_TF_FILE_PRESENT'.freeze,
+      CODE_TERRAFORM_OBJECT_STORAGE_CONFIG_SOURCE_UNSUPPORTED_OBJECT_SIZE = 'TERRAFORM_OBJECT_STORAGE_CONFIG_SOURCE_UNSUPPORTED_OBJECT_SIZE'.freeze,
       CODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 

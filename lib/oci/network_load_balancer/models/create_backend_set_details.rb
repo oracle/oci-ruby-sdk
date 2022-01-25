@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
@@ -16,6 +16,11 @@ module OCI
       POLICY_TWO_TUPLE = 'TWO_TUPLE'.freeze,
       POLICY_THREE_TUPLE = 'THREE_TUPLE'.freeze,
       POLICY_FIVE_TUPLE = 'FIVE_TUPLE'.freeze
+    ].freeze
+
+    IP_VERSION_ENUM = [
+      IP_VERSION_IPV4 = 'IPV4'.freeze,
+      IP_VERSION_IPV6 = 'IPV6'.freeze
     ].freeze
 
     # **[Required]** A user-friendly name for the backend set that must be unique and cannot be changed.
@@ -42,6 +47,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_preserve_source
 
+    # IP version associated with the backend set.
+    # @return [String]
+    attr_reader :ip_version
+
     # An array of backends to be associated with the backend set.
     # @return [Array<OCI::NetworkLoadBalancer::Models::BackendDetails>]
     attr_accessor :backends
@@ -57,6 +66,7 @@ module OCI
         'name': :'name',
         'policy': :'policy',
         'is_preserve_source': :'isPreserveSource',
+        'ip_version': :'ipVersion',
         'backends': :'backends',
         'health_checker': :'healthChecker'
         # rubocop:enable Style/SymbolLiteral
@@ -70,6 +80,7 @@ module OCI
         'name': :'String',
         'policy': :'String',
         'is_preserve_source': :'BOOLEAN',
+        'ip_version': :'String',
         'backends': :'Array<OCI::NetworkLoadBalancer::Models::BackendDetails>',
         'health_checker': :'OCI::NetworkLoadBalancer::Models::HealthCheckerDetails'
         # rubocop:enable Style/SymbolLiteral
@@ -85,6 +96,7 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :policy The value to assign to the {#policy} property
     # @option attributes [BOOLEAN] :is_preserve_source The value to assign to the {#is_preserve_source} property
+    # @option attributes [String] :ip_version The value to assign to the {#ip_version} property
     # @option attributes [Array<OCI::NetworkLoadBalancer::Models::BackendDetails>] :backends The value to assign to the {#backends} property
     # @option attributes [OCI::NetworkLoadBalancer::Models::HealthCheckerDetails] :health_checker The value to assign to the {#health_checker} property
     def initialize(attributes = {})
@@ -106,6 +118,14 @@ module OCI
       self.is_preserve_source = attributes[:'is_preserve_source'] unless attributes[:'is_preserve_source'].nil?
       self.is_preserve_source = true if is_preserve_source.nil? && !attributes.key?(:'isPreserveSource') && !attributes.key?(:'is_preserve_source') # rubocop:disable Style/StringLiterals
 
+      self.ip_version = attributes[:'ipVersion'] if attributes[:'ipVersion']
+      self.ip_version = "IPV4" if ip_version.nil? && !attributes.key?(:'ipVersion') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :ipVersion and :ip_version' if attributes.key?(:'ipVersion') && attributes.key?(:'ip_version')
+
+      self.ip_version = attributes[:'ip_version'] if attributes[:'ip_version']
+      self.ip_version = "IPV4" if ip_version.nil? && !attributes.key?(:'ipVersion') && !attributes.key?(:'ip_version') # rubocop:disable Style/StringLiterals
+
       self.backends = attributes[:'backends'] if attributes[:'backends']
 
       self.health_checker = attributes[:'healthChecker'] if attributes[:'healthChecker']
@@ -125,6 +145,14 @@ module OCI
       @policy = policy
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] ip_version Object to be assigned
+    def ip_version=(ip_version)
+      raise "Invalid value for 'ip_version': this must be one of the values in IP_VERSION_ENUM." if ip_version && !IP_VERSION_ENUM.include?(ip_version)
+
+      @ip_version = ip_version
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -137,6 +165,7 @@ module OCI
         name == other.name &&
         policy == other.policy &&
         is_preserve_source == other.is_preserve_source &&
+        ip_version == other.ip_version &&
         backends == other.backends &&
         health_checker == other.health_checker
     end
@@ -154,7 +183,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, policy, is_preserve_source, backends, health_checker].hash
+      [name, policy, is_preserve_source, ip_version, backends, health_checker].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
