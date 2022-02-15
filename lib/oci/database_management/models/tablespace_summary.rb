@@ -135,6 +135,7 @@ module OCI
     INDEX_COMPRESS_FOR_ENUM = [
       INDEX_COMPRESS_FOR_ADVANCED_LOW = 'ADVANCED_LOW'.freeze,
       INDEX_COMPRESS_FOR_ADVANCED_HIGH = 'ADVANCED_HIGH'.freeze,
+      INDEX_COMPRESS_FOR_NONE = 'NONE'.freeze,
       INDEX_COMPRESS_FOR_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -301,6 +302,10 @@ module OCI
     # @return [Float]
     attr_accessor :used_percent_allocated
 
+    # Indicates whether this is the default tablespace.
+    # @return [BOOLEAN]
+    attr_accessor :is_default
+
     # A list of the data files associated with the tablespace.
     # @return [Array<OCI::DatabaseManagement::Models::Datafile>]
     attr_accessor :datafiles
@@ -346,6 +351,7 @@ module OCI
         'used_space_kb': :'usedSpaceKB',
         'used_percent_available': :'usedPercentAvailable',
         'used_percent_allocated': :'usedPercentAllocated',
+        'is_default': :'isDefault',
         'datafiles': :'datafiles'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -392,6 +398,7 @@ module OCI
         'used_space_kb': :'Float',
         'used_percent_available': :'Float',
         'used_percent_allocated': :'Float',
+        'is_default': :'BOOLEAN',
         'datafiles': :'Array<OCI::DatabaseManagement::Models::Datafile>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -440,6 +447,7 @@ module OCI
     # @option attributes [Float] :used_space_kb The value to assign to the {#used_space_kb} property
     # @option attributes [Float] :used_percent_available The value to assign to the {#used_percent_available} property
     # @option attributes [Float] :used_percent_allocated The value to assign to the {#used_percent_allocated} property
+    # @option attributes [BOOLEAN] :is_default The value to assign to the {#is_default} property
     # @option attributes [Array<OCI::DatabaseManagement::Models::Datafile>] :datafiles The value to assign to the {#datafiles} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -644,6 +652,12 @@ module OCI
       raise 'You cannot provide both :usedPercentAllocated and :used_percent_allocated' if attributes.key?(:'usedPercentAllocated') && attributes.key?(:'used_percent_allocated')
 
       self.used_percent_allocated = attributes[:'used_percent_allocated'] if attributes[:'used_percent_allocated']
+
+      self.is_default = attributes[:'isDefault'] unless attributes[:'isDefault'].nil?
+
+      raise 'You cannot provide both :isDefault and :is_default' if attributes.key?(:'isDefault') && attributes.key?(:'is_default')
+
+      self.is_default = attributes[:'is_default'] unless attributes[:'is_default'].nil?
 
       self.datafiles = attributes[:'datafiles'] if attributes[:'datafiles']
     end
@@ -956,6 +970,7 @@ module OCI
         used_space_kb == other.used_space_kb &&
         used_percent_available == other.used_percent_available &&
         used_percent_allocated == other.used_percent_allocated &&
+        is_default == other.is_default &&
         datafiles == other.datafiles
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -972,7 +987,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, type, status, block_size_bytes, logging, is_force_logging, extent_management, allocation_type, is_plugged_in, segment_space_management, default_table_compression, retention, is_bigfile, predicate_evaluation, is_encrypted, compress_for, default_in_memory, default_in_memory_priority, default_in_memory_distribute, default_in_memory_compression, default_in_memory_duplicate, shared, default_index_compression, index_compress_for, default_cell_memory, default_in_memory_service, default_in_memory_service_name, lost_write_protect, is_chunk_tablespace, temp_group, max_size_kb, allocated_size_kb, user_size_kb, free_space_kb, used_space_kb, used_percent_available, used_percent_allocated, datafiles].hash
+      [name, type, status, block_size_bytes, logging, is_force_logging, extent_management, allocation_type, is_plugged_in, segment_space_management, default_table_compression, retention, is_bigfile, predicate_evaluation, is_encrypted, compress_for, default_in_memory, default_in_memory_priority, default_in_memory_distribute, default_in_memory_compression, default_in_memory_duplicate, shared, default_index_compression, index_compress_for, default_cell_memory, default_in_memory_service, default_in_memory_service_name, lost_write_protect, is_chunk_tablespace, temp_group, max_size_kb, allocated_size_kb, user_size_kb, free_space_kb, used_space_kb, used_percent_available, used_percent_allocated, is_default, datafiles].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

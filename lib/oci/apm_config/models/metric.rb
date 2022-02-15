@@ -6,22 +6,22 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A metric. This a quantitative measurement of an entity.
+  # A metric is a quantitative measurement of an entity.
   #
   class ApmConfig::Models::Metric
-    # **[Required]** The name of the metric
+    # **[Required]** The name of the metric. This must be a known metric name.
     # @return [String]
     attr_accessor :name
 
-    # Must be NULL at the moment, and \"name\" must be a known metric.
+    # This must not be set.
     # @return [String]
     attr_accessor :value_source
 
-    # The unit of the metric
+    # The unit of the metric.
     # @return [String]
     attr_accessor :unit
 
-    # A description of the metric
+    # A description of the metric.
     # @return [String]
     attr_accessor :description
 

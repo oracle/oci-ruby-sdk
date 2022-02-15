@@ -2,11 +2,18 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Throughput and storage limits configuration of a table.
   class Nosql::Models::TableLimits
+    CAPACITY_MODE_ENUM = [
+      CAPACITY_MODE_PROVISIONED = 'PROVISIONED'.freeze,
+      CAPACITY_MODE_ON_DEMAND = 'ON_DEMAND'.freeze,
+      CAPACITY_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Maximum sustained read throughput limit for the table.
     # @return [Integer]
     attr_accessor :max_read_units
@@ -19,13 +26,21 @@ module OCI
     # @return [Integer]
     attr_accessor :max_storage_in_g_bs
 
+    # The capacity mode of the table.  If capacityMode = ON_DEMAND,
+    # maxReadUnits and maxWriteUnits are not used, and both will have
+    # the value of zero.
+    #
+    # @return [String]
+    attr_reader :capacity_mode
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'max_read_units': :'maxReadUnits',
         'max_write_units': :'maxWriteUnits',
-        'max_storage_in_g_bs': :'maxStorageInGBs'
+        'max_storage_in_g_bs': :'maxStorageInGBs',
+        'capacity_mode': :'capacityMode'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,7 +51,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'max_read_units': :'Integer',
         'max_write_units': :'Integer',
-        'max_storage_in_g_bs': :'Integer'
+        'max_storage_in_g_bs': :'Integer',
+        'capacity_mode': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -50,6 +66,7 @@ module OCI
     # @option attributes [Integer] :max_read_units The value to assign to the {#max_read_units} property
     # @option attributes [Integer] :max_write_units The value to assign to the {#max_write_units} property
     # @option attributes [Integer] :max_storage_in_g_bs The value to assign to the {#max_storage_in_g_bs} property
+    # @option attributes [String] :capacity_mode The value to assign to the {#capacity_mode} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -73,9 +90,28 @@ module OCI
       raise 'You cannot provide both :maxStorageInGBs and :max_storage_in_g_bs' if attributes.key?(:'maxStorageInGBs') && attributes.key?(:'max_storage_in_g_bs')
 
       self.max_storage_in_g_bs = attributes[:'max_storage_in_g_bs'] if attributes[:'max_storage_in_g_bs']
+
+      self.capacity_mode = attributes[:'capacityMode'] if attributes[:'capacityMode']
+
+      raise 'You cannot provide both :capacityMode and :capacity_mode' if attributes.key?(:'capacityMode') && attributes.key?(:'capacity_mode')
+
+      self.capacity_mode = attributes[:'capacity_mode'] if attributes[:'capacity_mode']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] capacity_mode Object to be assigned
+    def capacity_mode=(capacity_mode)
+      # rubocop:disable Style/ConditionalAssignment
+      if capacity_mode && !CAPACITY_MODE_ENUM.include?(capacity_mode)
+        OCI.logger.debug("Unknown value for 'capacity_mode' [" + capacity_mode + "]. Mapping to 'CAPACITY_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @capacity_mode = CAPACITY_MODE_UNKNOWN_ENUM_VALUE
+      else
+        @capacity_mode = capacity_mode
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -88,7 +124,8 @@ module OCI
       self.class == other.class &&
         max_read_units == other.max_read_units &&
         max_write_units == other.max_write_units &&
-        max_storage_in_g_bs == other.max_storage_in_g_bs
+        max_storage_in_g_bs == other.max_storage_in_g_bs &&
+        capacity_mode == other.capacity_mode
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -104,7 +141,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [max_read_units, max_write_units, max_storage_in_g_bs].hash
+      [max_read_units, max_write_units, max_storage_in_g_bs, capacity_mode].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

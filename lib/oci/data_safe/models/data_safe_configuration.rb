@@ -39,6 +39,14 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # The Oracle Data Safe's NAT Gateway IP Address.
+    #
+    # @return [String]
+    attr_accessor :data_safe_nat_gateway_ip_address
+
+    # @return [OCI::DataSafe::Models::GlobalSettings]
+    attr_accessor :global_settings
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
     #
     # Example: `{\"Department\": \"Finance\"}`
@@ -62,6 +70,8 @@ module OCI
         'compartment_id': :'compartmentId',
         'time_enabled': :'timeEnabled',
         'lifecycle_state': :'lifecycleState',
+        'data_safe_nat_gateway_ip_address': :'dataSafeNatGatewayIpAddress',
+        'global_settings': :'globalSettings',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -77,6 +87,8 @@ module OCI
         'compartment_id': :'String',
         'time_enabled': :'DateTime',
         'lifecycle_state': :'String',
+        'data_safe_nat_gateway_ip_address': :'String',
+        'global_settings': :'OCI::DataSafe::Models::GlobalSettings',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -94,6 +106,8 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [DateTime] :time_enabled The value to assign to the {#time_enabled} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :data_safe_nat_gateway_ip_address The value to assign to the {#data_safe_nat_gateway_ip_address} property
+    # @option attributes [OCI::DataSafe::Models::GlobalSettings] :global_settings The value to assign to the {#global_settings} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -127,6 +141,18 @@ module OCI
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.data_safe_nat_gateway_ip_address = attributes[:'dataSafeNatGatewayIpAddress'] if attributes[:'dataSafeNatGatewayIpAddress']
+
+      raise 'You cannot provide both :dataSafeNatGatewayIpAddress and :data_safe_nat_gateway_ip_address' if attributes.key?(:'dataSafeNatGatewayIpAddress') && attributes.key?(:'data_safe_nat_gateway_ip_address')
+
+      self.data_safe_nat_gateway_ip_address = attributes[:'data_safe_nat_gateway_ip_address'] if attributes[:'data_safe_nat_gateway_ip_address']
+
+      self.global_settings = attributes[:'globalSettings'] if attributes[:'globalSettings']
+
+      raise 'You cannot provide both :globalSettings and :global_settings' if attributes.key?(:'globalSettings') && attributes.key?(:'global_settings')
+
+      self.global_settings = attributes[:'global_settings'] if attributes[:'global_settings']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -170,6 +196,8 @@ module OCI
         compartment_id == other.compartment_id &&
         time_enabled == other.time_enabled &&
         lifecycle_state == other.lifecycle_state &&
+        data_safe_nat_gateway_ip_address == other.data_safe_nat_gateway_ip_address &&
+        global_settings == other.global_settings &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -187,7 +215,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_enabled, url, compartment_id, time_enabled, lifecycle_state, freeform_tags, defined_tags].hash
+      [is_enabled, url, compartment_id, time_enabled, lifecycle_state, data_safe_nat_gateway_ip_address, global_settings, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

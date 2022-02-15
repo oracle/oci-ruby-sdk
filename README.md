@@ -2,7 +2,7 @@
 
 This is Oracle Cloud Infrastructure SDK for Ruby. This project is open source, in active development and maintained by Oracle Corp. The home page for the project is <a href="https://docs.cloud.oracle.com/en-us/iaas/Content/API/SDKDocs/rubysdk.htm">here</a>.
 
-**Version 2.14.0**
+**Version 2.17.0**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -15,6 +15,7 @@ The Ruby SDK supports the following services:
 * Announcements
 * AI Anomaly Detection service
 * AI Language service
+* AI Vision
 * API Gateway
 * Application Management service
 * Application Migration
@@ -30,6 +31,7 @@ The Ruby SDK supports the following services:
 * Cloud Guard
 * Compute Instance Agent
 * Compute Autoscaling
+* Console Dashboard service
 * Container Engine
 * Content and Experience
 * Core Services (which includes Networking, Compute, and Block Volume)
@@ -89,6 +91,7 @@ The Ruby SDK supports the following services:
 * Source Code Management service
 * Streaming
 * Support Management
+* Threat Intelligence
 * Usage
 * Visual Builder
 * VMWare Solution
@@ -233,7 +236,8 @@ You can start from importing oci module, this will allow you to access the whole
 
 However, in some cases, if you're only using limited number of OCI services, importing the whole OCI module is not necessary and would possibly increase the loading time of your application. Instead importing the `oci` module, you can manually import sub modules based on your requirement:
 
-	require 'oci/auth/auth' # This module is commonly required to authenticate api calls
+	require 'oci/common' # This is commonly required for using oci ruby sdk
+    require 'oci/auth/auth' # This module is commonly required to authenticate api calls
     require 'oci/core/core' # Replace this with your target service
 
 
@@ -249,6 +253,12 @@ Note that the Ruby SDK does not support parsing custom attributes in the configu
 ## Forward Compatibility
 
 Some response fields are enum-typed. In the future, individual services may return values not covered by existing enums for that field. To address this possibility, every enum-type response field has an additional value named "UNKNOWN_ENUM_VALUE". If a service returns a value that is not recognized by your version of the SDK, then the response field will be set to this value. Please ensure that your code handles the "UNKNOWN_ENUM_VALUE" case if you have conditional logic based on an enum-typed field.
+
+## Thread Safety
+
+The OCI Ruby SDK is using net/http package which is not guaranteed to be thread-safe. 
+
+If you're using this SDK in a multi-threaded application, you may have to create unique clients for each thread.
 
 ## New Region Support
 

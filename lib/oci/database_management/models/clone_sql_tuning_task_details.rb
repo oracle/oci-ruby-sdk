@@ -5,15 +5,15 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Request to clone and run a SQL tuning task. The new task uses same inputs as the one being cloned.
+  # The request to clone and run a SQL tuning task. The new task uses the same inputs as the one being cloned.
   class DatabaseManagement::Models::CloneSqlTuningTaskDetails
-    # **[Required]** The name of the SQL tuning task. The name is unique per user in a database, and it is case sensitive.
+    # **[Required]** The name of the SQL tuning task. The name is unique per user in a database, and it is case-sensitive.
     # @return [String]
     attr_accessor :task_name
 
-    # **[Required]** The identifier of the task being cloned. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # **[Required]** The identifier of the SQL tuning task being cloned. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # It can be retrieved from the following endpoint
-    # {#list_sql_tuning_advisor_tasks list_sql_tuning_advisor_tasks}
+    # {#list_sql_tuning_advisor_tasks list_sql_tuning_advisor_tasks}.
     #
     # @return [Integer]
     attr_accessor :original_task_id

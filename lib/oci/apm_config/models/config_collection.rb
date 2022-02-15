@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A collection of configuration entities
+  # A collection of configuration items.
   class ApmConfig::Models::ConfigCollection
     # This attribute is required.
     # @return [Array<OCI::ApmConfig::Models::ConfigSummary>]

@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A collection of Users for a specific database.
+  # A collection of users for a specific database.
   class DatabaseManagement::Models::UserCollection
     # **[Required]** An array of User resources.
     # @return [Array<OCI::DatabaseManagement::Models::UserSummary>]

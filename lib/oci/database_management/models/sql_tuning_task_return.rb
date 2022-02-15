@@ -5,11 +5,11 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The returned object for starting/cloning a SQL tuning advisor task.
+  # The returned object for starting or cloning a SQL tuning advisor task.
   class DatabaseManagement::Models::SqlTuningTaskReturn
-    # **[Required]** The identifier of the task being cloned. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # **[Required]** The identifier of the task being started or cloned. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # It can be retrieved from the following endpoint
-    # {#list_sql_tuning_advisor_tasks list_sql_tuning_advisor_tasks}
+    # {#list_sql_tuning_advisor_tasks list_sql_tuning_advisor_tasks}.
     #
     # @return [Integer]
     attr_accessor :sql_tuning_task_id

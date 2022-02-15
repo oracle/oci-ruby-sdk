@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # SQL Tuning advisor task general info.
+  # The general information regarding the SQL Tuning Advisor task.
   class DatabaseManagement::Models::SqlTuningAdvisorTaskSummaryReportTaskInfo
     STATUS_ENUM = [
       STATUS_COMPLETED = 'COMPLETED'.freeze,
@@ -17,35 +17,35 @@ module OCI
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The SQL Tuning Advisor task id. It is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # **[Required]** The ID of the SQL Tuning Advisor task. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @return [Integer]
     attr_accessor :id
 
-    # **[Required]** The SQL Tuning Advisor task name.
+    # **[Required]** The name of the SQL Tuning Advisor task.
     # @return [String]
     attr_accessor :name
 
-    # The SQL Tuning Advisor task description. Not defined on Auto SQL Tuning tasks.
+    # The description of the SQL Tuning Advisor task. This is not defined for Auto SQL Tuning tasks.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** The SQL Tuning Advisor task user owner.
+    # **[Required]** The owner of the SQL Tuning Advisor task.
     # @return [String]
     attr_accessor :owner
 
-    # The SQL Tuning Advisor task status. Not defined on Auto SQL Tuning tasks.
+    # The status of the SQL Tuning Advisor task. This is not defined for Auto SQL Tuning tasks.
     # @return [String]
     attr_reader :status
 
-    # **[Required]** Start timestamp of task execution.
+    # **[Required]** The start time of the task execution.
     # @return [DateTime]
     attr_accessor :time_started
 
-    # **[Required]** End timestamp of task execution.
+    # **[Required]** The end time of the task execution.
     # @return [DateTime]
     attr_accessor :time_ended
 
-    # The total running time in seconds. Not defined on Auto SQL Tuning tasks.
+    # The total running time in seconds. This is not defined for Auto SQL Tuning tasks.
     # @return [Integer]
     attr_accessor :running_time
 

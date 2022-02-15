@@ -31,11 +31,11 @@ module OCI
     # @return [String]
     attr_accessor :name
 
-    # **[Required]** The account status of the User
+    # **[Required]** The status of the user account.
     # @return [String]
     attr_reader :status
 
-    # The date of expiration of the account
+    # The date and time of the expiration of the user account.
     # @return [DateTime]
     attr_accessor :time_expiring
 
@@ -47,7 +47,7 @@ module OCI
     # @return [String]
     attr_accessor :temp_tablespace
 
-    # **[Required]** The User creation date.
+    # **[Required]** The date and time the user was created.
     # @return [DateTime]
     attr_accessor :time_created
 

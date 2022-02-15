@@ -24,7 +24,7 @@ module OCI
     # @return [String]
     attr_accessor :paid_by
 
-    # Payment method
+    # **[Required]** Payment method
     # @return [String]
     attr_reader :payment_method
 

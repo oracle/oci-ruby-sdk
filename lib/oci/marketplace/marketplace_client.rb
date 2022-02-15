@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Manage applications in Oracle Cloud Infrastructure Marketplace.
+  # Use the Marketplace API to manage applications in Oracle Cloud Infrastructure Marketplace. For more information, see [Overview of Marketplace](/Content/Marketplace/Concepts/marketoverview.htm)
   class Marketplace::MarketplaceClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -1042,6 +1042,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Array<String>] :name The name of the listing.
     # @option opts [String] :listing_id The unique identifier for the listing.
+    # @option opts [String] :image_id Image ID of the listing
     # @option opts [String] :publisher_id Limit results to just this publisher.
     # @option opts [String] :package_type A filter to return only packages that match the given package type exactly.
     #
@@ -1113,6 +1114,7 @@ module OCI
       query_params = {}
       query_params[:name] = OCI::ApiClient.build_collection_params(opts[:name], :multi) if opts[:name] && !opts[:name].empty?
       query_params[:listingId] = opts[:listing_id] if opts[:listing_id]
+      query_params[:imageId] = opts[:image_id] if opts[:image_id]
       query_params[:publisherId] = opts[:publisher_id] if opts[:publisher_id]
       query_params[:packageType] = opts[:package_type] if opts[:package_type]
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -1555,7 +1557,8 @@ module OCI
 
     # Lists reports in the compartment that match the specified report type and date.
     # @param [String] report_type The type of the report.
-    # @param [DateTime] date Date, expressed in `YYYYMMDD` format, where `Y` represents the year, `M` represents the month, and `D` represents the day.
+    # @param [DateTime] date Date, expressed in [RFC 3339](https://tools.ietf.org/html/rfc3339) timestamp format. The service only interprets the year, month, and day parts in the input value, and ignores the hour, minute, and second parts.
+    #
     # @param [String] compartment_id The unique identifier for the compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1675,8 +1678,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Find listings that match the specified criteria. The search query could be free text
-    # or structured.
+    # Queries all Marketplace Applications to find listings that match the specified criteria. To search
+    # for a listing, you can use a free text or structured search.
     #
     # @param [OCI::Marketplace::Models::SearchListingsDetails] search_listings_details Details related to the search query
     # @param [Hash] opts the optional parameters

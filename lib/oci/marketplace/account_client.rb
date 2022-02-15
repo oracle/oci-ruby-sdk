@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Manage applications in Oracle Cloud Infrastructure Marketplace.
+  # Use the Marketplace API to manage applications in Oracle Cloud Infrastructure Marketplace. For more information, see [Overview of Marketplace](/Content/Marketplace/Concepts/marketoverview.htm)
   class Marketplace::AccountClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]

@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The SQL Tuning Advisor task finding list.
+  # The list of findings for a SQL Tuning Advisor task.
   class DatabaseManagement::Models::SqlTuningAdvisorTaskFindingCollection
     # **[Required]** An array of the findings for a tuning task.
     # @return [Array<OCI::DatabaseManagement::Models::SqlTuningAdvisorTaskFindingSummary>]

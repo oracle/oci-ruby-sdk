@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A collection of ObjectPrivileges granted to the current User.
+  # A collection of object privileges granted to the current user.
   class DatabaseManagement::Models::ObjectPrivilegeCollection
-    # **[Required]** An array of User resources.
+    # **[Required]** An array of object privileges.
     # @return [Array<OCI::DatabaseManagement::Models::ObjectPrivilegeSummary>]
     attr_accessor :items
 

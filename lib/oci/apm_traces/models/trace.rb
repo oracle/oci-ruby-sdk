@@ -9,53 +9,52 @@ module OCI
   #
   class ApmTraces::Models::Trace
     # **[Required]** Unique identifier (traceId) for the trace that represents the span set.  Note that this field is
-    # defined as traceKey in the API to comply with OCI API fields naming conventions.  The traceKey maps to
-    # the traceId in the APM repository.
+    # defined as traceKey in the API and it maps to the traceId in the trace data in Application Performance
+    # Monitoring.
     #
     # @return [String]
     attr_accessor :key
 
-    # Root span name associated with the trace. This is usually the flow start operation name.
-    # Null if the root span is not yet completed.
+    # Root span name associated with the trace. This is the flow start operation name.
+    # Null is displayed if the root span is not yet completed.
     #
     # @return [String]
     attr_accessor :root_span_operation_name
 
-    # Start time of the earliest span in this span collection.
+    # Start time of the earliest span in the span collection.
     #
     # @return [DateTime]
     attr_accessor :time_earliest_span_started
 
-    # End time of the span that most recently ended in this span collection.
+    # End time of the span that most recently ended in the span collection.
     #
     # @return [DateTime]
     attr_accessor :time_latest_span_ended
 
-    # The number of spans that have been processed by the system for this trace.  Note that there
+    # The number of spans that have been processed by the system for the trace.  Note that there
     # could be additional spans that have not been processed or reported yet if the trace is still
     # in progress.
     #
     # @return [Integer]
     attr_accessor :span_count
 
-    # The number of spans with error that have been processed by the system for this trace.
-    # Note that the number of spans with errors may be less than the total number of actual spans
-    # in this trace.
+    # The number of spans with errors that have been processed by the system for the trace.
+    # Note that the number of spans with errors will be less than or equal to the total number of spans in the trace.
     #
     # @return [Integer]
     attr_accessor :error_span_count
 
-    # Service associated with this trace.
+    # Service associated with the trace.
     #
     # @return [String]
     attr_accessor :root_span_service_name
 
-    # Start time of the root span for this span collection.
+    # Start time of the root span for the span collection.
     #
     # @return [DateTime]
     attr_accessor :time_root_span_started
 
-    # End time of the root span for this span collection.
+    # End time of the root span for the span collection.
     #
     # @return [DateTime]
     attr_accessor :time_root_span_ended
@@ -70,14 +69,14 @@ module OCI
     # @return [Integer]
     attr_accessor :trace_duration_in_ms
 
-    # Boolean flag that indicates whether the trace errored out.
+    # Boolean flag that indicates whether the trace has an error.
     #
     # @return [BOOLEAN]
     attr_accessor :is_fault
 
     # The status of the trace.
     # The trace statuses are defined as follows:
-    # complete \u2013 a root span has been recorded, but there is no information on the errors.
+    # complete - a root span has been recorded, but there is no information on the errors.
     # success - a complete root span is recorded there is a successful error type and error code - HTTP 200.
     # incomplete - the root span has not yet been received.
     # error - the root span returned with an error. There may or may not be an associated error code or error type.
@@ -95,7 +94,7 @@ module OCI
     # @return [String]
     attr_accessor :trace_error_code
 
-    # A summary of the spans by service
+    # A summary of the spans by service.
     #
     # @return [Array<OCI::ApmTraces::Models::TraceServiceSummary>]
     attr_accessor :service_summaries

@@ -6,7 +6,9 @@ require_relative 'search_listings_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The model for a request that uses Search's structured query language.
+  # A request that uses Search's structured query language to specify filter conditions to
+  # apply to search listings. For more information about writing search queries, see [Search Language Syntax](https://docs.cloud.oracle.com/Content/Search/Concepts/querysyntax.htm).
+  #
   class Marketplace::Models::StructuredSearchDetails < Marketplace::Models::SearchListingsDetails
     # **[Required]** The structured query describing which resources to search for.
     # @return [String]

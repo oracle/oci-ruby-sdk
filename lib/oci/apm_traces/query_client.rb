@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API for APM Trace service. Use this API to query the Traces and associated Spans.
+  # Use the Application Performance Monitoring Trace Explorer API to query traces and associated spans in Trace Explorer. For more information, see [Application Performance Monitoring](https://docs.oracle.com/iaas/application-performance-monitoring/index.html).
   class ApmTraces::QueryClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -98,10 +98,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns a list of predefined quick pick queries intended to assist the user
+    # Returns a list of predefined Quick Pick queries intended to assist the user
     # to choose a query to run.  There is no sorting applied on the results.
     #
-    # @param [String] apm_domain_id The APM Domain Id the request is intended for.
+    # @param [String] apm_domain_id The APM Domain ID the request is intended for.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -164,18 +164,19 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Given a query, constructed according to the APM Defined Query Syntax, retrieves the results - selected attributes,
-    # and aggregations of the queried entity.  Query Results are filtered by the filter criteria specified in the where clause.
+    # Retrieves the results (selected attributes and aggregations) of a query constructed according to the Application Performance Monitoring Defined Query Syntax.
+    # Query results are filtered by the filter criteria specified in the where clause.
     # Further query results are grouped by the attributes specified in the group by clause.  Finally,
     # ordering (asc/desc) is done by the specified attributes in the order by clause.
     #
-    # @param [String] apm_domain_id The APM Domain Id the request is intended for.
+    # @param [String] apm_domain_id The APM Domain ID the request is intended for.
     #
-    # @param [DateTime] time_span_started_greater_than_or_equal_to Include spans that have a `spanStartTime` equal to or greater this value.
+    # @param [DateTime] time_span_started_greater_than_or_equal_to Include spans that have a `spanStartTime` equal to or greater than this value.
     #
     # @param [DateTime] time_span_started_less_than Include spans that have a `spanStartTime`less than this value.
     #
-    # @param [OCI::ApmTraces::Models::QueryDetails] query_details Request body containing the query to be run against our repository.
+    # @param [OCI::ApmTraces::Models::QueryDetails] query_details Request body containing the query to be run against the trace data and to filter and
+    #   retrieve trace data results.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -221,87 +222,6 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'QueryClient#query') do
-        @api_client.call_api(
-          :POST,
-          path,
-          endpoint,
-          header_params: header_params,
-          query_params: query_params,
-          operation_signing_strategy: operation_signing_strategy,
-          body: post_body,
-          return_type: 'OCI::ApmTraces::Models::QueryResultResponse'
-        )
-      end
-      # rubocop:enable Metrics/BlockLength
-    end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
-    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
-    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-
-
-    # THIS API ENDPOINT WILL BE DEPRECATED AND INSTEAD /queries/actions/runQuery as defined below WILL BE USED GOING FORWARD.  THIS EXISTS JUST
-    # AS A TEMPORARY PLACEHOLDER SO AS TO BE BACKWARDS COMPATIBLE WITH THE UI BETWEEN RELEASE CYCLES.
-    # Given a query, constructed according to the APM Defined Query Syntax, retrieves the results - selected attributes,
-    # and aggregations of the queried entity.  Query Results are filtered by the filter criteria specified in the where clause.
-    # Further query results are grouped by the attributes specified in the group by clause.  Finally,
-    # ordering (asc/desc) is done by the specified attributes in the order by clause.
-    #
-    # @param [String] apm_domain_id The APM Domain Id the request is intended for.
-    #
-    # @param [DateTime] time_span_started_greater_than_or_equal_to Include spans that have a `spanStartTime` equal to or greater this value.
-    #
-    # @param [DateTime] time_span_started_less_than Include spans that have a `spanStartTime`less than this value.
-    #
-    # @param [OCI::ApmTraces::Models::QueryDetails] query_details Request body containing the query to be run against our repository.
-    #
-    # @param [Hash] opts the optional parameters
-    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
-    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request.  If you need to contact Oracle about a
-    #   particular request, please provide the request ID.
-    #
-    # @option opts [Integer] :limit The maximum number of items to return.
-    #    (default to 50)
-    # @option opts [String] :page The page token representing the page at which to start retrieving results.
-    #   This is usually retrieved from a previous response.
-    #    (default to 1)
-    # @return [Response] A Response object with data of type {OCI::ApmTraces::Models::QueryResultResponse QueryResultResponse}
-    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apmtraces/query_old.rb.html) to see an example of how to use query_old API.
-    def query_old(apm_domain_id, time_span_started_greater_than_or_equal_to, time_span_started_less_than, query_details, opts = {})
-      logger.debug 'Calling operation QueryClient#query_old.' if logger
-
-      raise "Missing the required parameter 'apm_domain_id' when calling query_old." if apm_domain_id.nil?
-      raise "Missing the required parameter 'time_span_started_greater_than_or_equal_to' when calling query_old." if time_span_started_greater_than_or_equal_to.nil?
-      raise "Missing the required parameter 'time_span_started_less_than' when calling query_old." if time_span_started_less_than.nil?
-      raise "Missing the required parameter 'query_details' when calling query_old." if query_details.nil?
-
-      path = '/queries/action/runQuery'
-      operation_signing_strategy = :standard
-
-      # rubocop:disable Style/NegatedIf
-      # Query Params
-      query_params = {}
-      query_params[:apmDomainId] = apm_domain_id
-      query_params[:timeSpanStartedGreaterThanOrEqualTo] = time_span_started_greater_than_or_equal_to
-      query_params[:timeSpanStartedLessThan] = time_span_started_less_than
-      query_params[:limit] = opts[:limit] if opts[:limit]
-      query_params[:page] = opts[:page] if opts[:page]
-
-      # Header Params
-      header_params = {}
-      header_params[:accept] = 'application/json'
-      header_params[:'content-type'] = 'application/json'
-      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
-      # rubocop:enable Style/NegatedIf
-
-      post_body = @api_client.object_to_http_body(query_details)
-
-      # rubocop:disable Metrics/BlockLength
-      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'QueryClient#query_old') do
         @api_client.call_api(
           :POST,
           path,

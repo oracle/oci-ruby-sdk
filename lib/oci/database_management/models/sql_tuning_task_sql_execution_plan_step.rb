@@ -5,49 +5,49 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A step of a SQL execution plan.
+  # A step in the SQL execution plan.
   class DatabaseManagement::Models::SqlTuningTaskSqlExecutionPlanStep
-    # Numerical representation of the execution plan
+    # The numerical representation of the SQL execution plan.
     # @return [Integer]
     attr_accessor :plan_hash_value
 
-    # Identification number for this step in the execution plan. It is unique within the execution plan.
-    # It is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # The identification number of a step in the SQL execution plan. This is unique within the SQL execution plan.
+    # This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # @return [Integer]
     attr_accessor :step_id
 
-    # ID of the next step that operates on the results of this step.
-    # It is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # The ID of the next step that operates on the results of this step.
+    # This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # @return [Integer]
     attr_accessor :parent_step_id
 
-    # Order of processing for steps with the same parent ID.
+    # The order of processing for steps with the same parent ID.
     # @return [Integer]
     attr_accessor :position
 
-    # Name of the operation performed at this step
+    # The name of the operation performed at this step.
     # @return [String]
     attr_accessor :operation
 
-    # Options used for the operation performed at this step.
+    # The options used for the operation performed at this step.
     # @return [String]
     attr_accessor :options
 
-    # Current mode of the optimizer, such as all_rows, first_rows_n (where n = 1, 10, 100, 1000 etc).
+    # The current mode of the optimizer, such as all_rows, first_rows_n (where n = 1, 10, 100, 1000, and so on).
     # @return [String]
     attr_accessor :optimizer_mode
 
-    # Cost of the current operation estimated by the cost-based optimizer (CBO).
+    # The cost of the current operation estimated by the cost-based optimizer (CBO).
     # @return [Float]
     attr_accessor :cost
 
-    # Number of rows returned by the current operation (estimated by the CBO).
+    # The number of rows returned by the current operation (estimated by the CBO).
     # @return [Integer]
     attr_accessor :cardinality
 
-    # Number of bytes returned by the current operation.
+    # The number of bytes returned by the current operation.
     # @return [Integer]
     attr_accessor :bytes
 
@@ -59,58 +59,58 @@ module OCI
     # @return [Float]
     attr_accessor :io_cost
 
-    # Temporary space usage (in bytes) of the operation (sort or hash-join) as estimated by the CBO.
+    # The temporary space usage (in bytes) of the operation (sort or hash-join) as estimated by the CBO.
     # @return [Integer]
     attr_accessor :temp_space
 
-    # Elapsed time (in seconds) of the operation as estimated by the CBO.
+    # The elapsed time (in seconds) of the operation as estimated by the CBO.
     # @return [Integer]
     attr_accessor :time
 
-    # Name of the database link used to reference the object.
+    # The name of the database link used to reference the object.
     # @return [String]
     attr_accessor :object_node
 
-    # Owner of the object.
+    # The owner of the object.
     # @return [String]
     attr_accessor :object_owner
 
-    # Name of the object.
+    # The name of the object.
     # @return [String]
     attr_accessor :object_name
 
-    # Numbered position of the object name in the original SQL statement.
+    # The numbered position of the object name in the original SQL statement.
     # @return [Integer]
     attr_accessor :object_position
 
-    # Descriptive modifier that further describes the type of object.
+    # The descriptive modifier that further describes the type of object.
     # @return [String]
     attr_accessor :object_type
 
-    # A step may get data from a range of partitions of a partitioned object, such table or index,
+    # A step may get data from a range of partitions of a partitioned object, such as table or index,
     # based on predicates and sorting order. The partionStart is the starting partition of the range.
-    # The partitionStop is the ending partition of the range
+    # The partitionStop is the ending partition of the range.
     #
     # @return [String]
     attr_accessor :partition_start
 
-    # A step may get data from a range of partitions of a partitioned object, such table or index,
+    # A step may get data from a range of partitions of a partitioned object, such as table or index,
     # based on predicates and sorting order. The partionStart is the starting partition of the range.
-    # The partitionStop is the ending partition of the range
+    # The partitionStop is the ending partition of the range.
     #
     # @return [String]
     attr_accessor :partition_stop
 
-    # The id of the step in the execution plan that has computed the pair of values of the partitionStart and partitionStop
+    # The ID of the step in the execution plan that has computed the pair of values of partitionStart and partitionStop.
     #
     # @return [Integer]
     attr_accessor :partition_id
 
-    # Place for comments that can be added to the steps of the execution plan.
+    # The place for comments that can be added to the steps of the execution plan.
     # @return [String]
     attr_accessor :remarks
 
-    # Number of index columns with start and stop keys (that is, the number of columns with matching predicates)
+    # Number of index columns with start and stop keys (that is, the number of columns with matching predicates).
     #
     # @return [Integer]
     attr_accessor :number_of_search_column
@@ -123,17 +123,17 @@ module OCI
     # @return [String]
     attr_accessor :other_tag
 
-    # Text string identifying the type of the execution plan.
+    # The text string identifying the type of execution plan.
     # @return [String]
     attr_accessor :attribute
 
-    # Predicates used to locate rows in an access structure. For example,
+    # The predicates used to locate rows in an access structure. For example,
     # start or stop predicates for an index range scan.
     #
     # @return [String]
     attr_accessor :access_predicates
 
-    # Predicates used to filter rows before producing them.
+    # The predicates used to filter rows before producing them.
     # @return [String]
     attr_accessor :filter_predicates
 

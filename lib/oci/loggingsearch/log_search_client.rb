@@ -100,6 +100,8 @@ module OCI
 
     # Submit a query to search logs.
     #
+    # See [Using the API](https://docs.cloud.oracle.com/Content/Logging/Concepts/using_the_api_searchlogs.htm) for SDK examples.
+    #
     # @param [OCI::Loggingsearch::Models::SearchLogsDetails] search_logs_details Search request.
     #
     # @param [Hash] opts the optional parameters
@@ -110,7 +112,8 @@ module OCI
     #
     # @option opts [Integer] :limit The maximum number of items to return in a response. Pagination is not supported in this API.
     #    (default to 100)
-    # @option opts [String] :page Reserved for future use. Pagination is not supported in this API.
+    # @option opts [String] :page For list pagination. The value of the opc-next-page response header from the previous \"Search\" call.
+    #   For important details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
     #
     # @return [Response] A Response object with data of type {OCI::Loggingsearch::Models::SearchResponse SearchResponse}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loggingsearch/search_logs.rb.html) to see an example of how to use search_logs API.

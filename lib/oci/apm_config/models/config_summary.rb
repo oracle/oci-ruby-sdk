@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The request body used to update the Configuration entity. It must specify the data to update the item with.
+  # A description of a configuration item. It specifes all the properties that define the configuration item.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class ApmConfig::Models::ConfigSummary
@@ -17,13 +17,13 @@ module OCI
       CONFIG_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the configuration item. An OCID will be generated
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the configuration item. An OCID is generated
     # when the item is created.
     #
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The type of configuration item
+    # **[Required]** The type of configuration item.
     # @return [String]
     attr_reader :config_type
 

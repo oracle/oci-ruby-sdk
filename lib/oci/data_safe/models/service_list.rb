@@ -14,6 +14,7 @@ module OCI
       SERVICE_LIST_DATA_SAFE_DEV6 = 'DataSafe-dev6'.freeze,
       SERVICE_LIST_DATA_SAFE_DEV7 = 'DataSafe-dev7'.freeze,
       SERVICE_LIST_DATA_SAFE_DEV8 = 'DataSafe-dev8'.freeze,
+      SERVICE_LIST_DATA_SAFE_DEV9 = 'DataSafe-dev9'.freeze,
       SERVICE_LIST_DATA_SAFE_LRG1 = 'DataSafe-lrg1'.freeze,
       SERVICE_LIST_DATA_SAFE_LRG2 = 'DataSafe-lrg2'.freeze,
       SERVICE_LIST_DATA_SAFE_LRG3 = 'DataSafe-lrg3'.freeze,

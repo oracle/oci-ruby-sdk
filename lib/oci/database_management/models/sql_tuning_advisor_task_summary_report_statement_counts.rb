@@ -5,21 +5,21 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The statement counts data for the SQL Tuning Advisor summary report.
+  # The number of statements in the SQL Tuning Advisor summary report.
   class DatabaseManagement::Models::SqlTuningAdvisorTaskSummaryReportStatementCounts
-    # **[Required]** The count of distinct SQL statements.
+    # **[Required]** The number of distinct SQL statements.
     # @return [Integer]
     attr_accessor :distinct_sql
 
-    # **[Required]** The total count of SQL statements.
+    # **[Required]** The total number of SQL statements.
     # @return [Integer]
     attr_accessor :total_sql
 
-    # **[Required]** The count of distinct SQL statements with findings.
+    # **[Required]** The number of distinct SQL statements with findings.
     # @return [Integer]
     attr_accessor :finding_count
 
-    # **[Required]** The count of distinct SQL statements with errors.
+    # **[Required]** The number of distinct SQL statements with errors.
     # @return [Integer]
     attr_accessor :error_count
 

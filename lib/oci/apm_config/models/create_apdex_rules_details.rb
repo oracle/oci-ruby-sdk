@@ -7,15 +7,14 @@ require_relative 'create_config_details'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The set of Apdex rules to be used in Apdex computation. In the current version, only one rule set may exist per
-  # configuration, and attempting to create a rule set if it already exists will result in an error. This may change
-  # in future releases.
+  # configuration, and attempting to create a rule set if it already exists results in an error.
   #
   class ApmConfig::Models::CreateApdexRulesDetails < ApmConfig::Models::CreateConfigDetails
     # This attribute is required.
     # @return [Array<OCI::ApmConfig::Models::Apdex>]
     attr_accessor :rules
 
-    # **[Required]** The name by which this rule set can be displayed to the user.
+    # **[Required]** The name by which this rule set is displayed to the end user.
     # @return [String]
     attr_accessor :display_name
 

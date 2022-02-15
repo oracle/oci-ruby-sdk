@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A summary of the datatype, unit and related metadata of an individual row element of a query result row that is returned.
+  # Summary of the datatype, unit and related metadata of an individual row element of a query result row that is returned.
   #
   class ApmTraces::Models::QueryResultRowTypeSummary
     # Datatype of the query result row element.

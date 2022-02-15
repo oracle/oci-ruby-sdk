@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The request body used to update the Configuration entity. It must specify the data to update the item with.
+  # The request body used to update the configuration item. It must specify the data to update the item with.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class ApmConfig::Models::UpdateConfigDetails
@@ -15,7 +15,7 @@ module OCI
       CONFIG_TYPE_APDEX = 'APDEX'.freeze
     ].freeze
 
-    # **[Required]** The type of configuration item
+    # **[Required]** The type of configuration item.
     # @return [String]
     attr_reader :config_type
 

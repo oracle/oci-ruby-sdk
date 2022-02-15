@@ -6,13 +6,13 @@ require_relative 'config_summary'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The set of Apdex rules to be used in Apdex computation.
+  # The set of Apdex rules used in Apdex computation.
   #
   class ApmConfig::Models::ApdexRulesSummary < ApmConfig::Models::ConfigSummary
     # @return [Array<OCI::ApmConfig::Models::Apdex>]
     attr_accessor :rules
 
-    # The name by which this rule set can be displayed to the user.
+    # The name by which the rule set is displayed to the end user.
     # @return [String]
     attr_accessor :display_name
 

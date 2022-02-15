@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A collection of proxy users for the current User.
+  # A collection of proxy users for the current user.
   class DatabaseManagement::Models::ProxyUserCollection
-    # **[Required]** An array of User resources.
+    # **[Required]** An array of user resources.
     # @return [Array<OCI::DatabaseManagement::Models::ProxyUserSummary>]
     attr_accessor :items
 

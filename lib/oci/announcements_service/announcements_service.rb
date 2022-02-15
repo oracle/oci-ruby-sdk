@@ -13,6 +13,9 @@ end
 # Require models
 require 'oci/announcements_service/models/affected_resource'
 require 'oci/announcements_service/models/announcement'
+require 'oci/announcements_service/models/announcement_subscription'
+require 'oci/announcements_service/models/announcement_subscription_collection'
+require 'oci/announcements_service/models/announcement_subscription_summary'
 require 'oci/announcements_service/models/announcement_summary'
 require 'oci/announcements_service/models/announcement_user_status_details'
 require 'oci/announcements_service/models/announcements_collection'
@@ -21,12 +24,23 @@ require 'oci/announcements_service/models/announcements_preferences_summary'
 require 'oci/announcements_service/models/base_announcement'
 require 'oci/announcements_service/models/base_announcements_preferences'
 require 'oci/announcements_service/models/base_create_announcements_preferences_details'
+require 'oci/announcements_service/models/change_announcement_subscription_compartment_details'
+require 'oci/announcements_service/models/create_announcement_subscription_details'
 require 'oci/announcements_service/models/create_announcements_preferences_details'
+require 'oci/announcements_service/models/create_filter_group_details'
+require 'oci/announcements_service/models/filter'
+require 'oci/announcements_service/models/filter_group'
+require 'oci/announcements_service/models/filter_group_details'
 require 'oci/announcements_service/models/property'
+require 'oci/announcements_service/models/sort_order'
+require 'oci/announcements_service/models/update_announcement_subscription_details'
 require 'oci/announcements_service/models/update_announcements_preferences_details'
+require 'oci/announcements_service/models/update_filter_group_details'
 
 # Require generated clients
 require 'oci/announcements_service/announcement_client'
+require 'oci/announcements_service/announcement_subscription_client'
+require 'oci/announcements_service/announcement_subscription_client_composite_operations'
 require 'oci/announcements_service/announcements_preferences_client'
 
 # Require service utilities
