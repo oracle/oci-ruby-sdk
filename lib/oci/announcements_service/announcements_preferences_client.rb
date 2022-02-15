@@ -84,7 +84,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://announcements.{region}.{secondLevelDomain}') + '/20180904'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://announcements.{region}.oci.{secondLevelDomain}') + '/20180904'
       logger.info "AnnouncementsPreferencesClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -99,6 +99,8 @@ module OCI
 
 
     # Creates a request that specifies preferences for the tenancy regarding receiving announcements by email.
+    #
+    # This call is subject to an Announcements limit that applies to the total number of requests across all read or write operations. Announcements might throttle this call to reject an otherwise valid request when the total rate of operations exceeds 20 requests per second for a given user. The service might also throttle this call to reject an otherwise valid request when the total rate of operations exceeds 100 requests per second for a given tenancy.
     #
     # @param [OCI::AnnouncementsService::Models::CreateAnnouncementsPreferencesDetails] announcements_preference_details The object that contains details about tenancy preferences for receiving announcements by email.
     # @param [Hash] opts the optional parameters
@@ -159,6 +161,8 @@ module OCI
 
     # Gets the current preferences of the tenancy regarding receiving announcements by email.
     #
+    # This call is subject to an Announcements limit that applies to the total number of requests across all read or write operations. Announcements might throttle this call to reject an otherwise valid request when the total rate of operations exceeds 20 requests per second for a given user. The service might also throttle this call to reject an otherwise valid request when the total rate of operations exceeds 100 requests per second for a given tenancy.
+    #
     # @param [String] preference_id The ID of the preference.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -216,8 +220,9 @@ module OCI
 
     # Gets the current preferences of the tenancy regarding receiving announcements by email.
     #
-    # @param [String] compartment_id The OCID of the compartment. Because announcements are specific to a tenancy, this is the
-    #   OCID of the root compartment.
+    # This call is subject to an Announcements limit that applies to the total number of requests across all read or write operations. Announcements might throttle this call to reject an otherwise valid request when the total rate of operations exceeds 20 requests per second for a given user. The service might also throttle this call to reject an otherwise valid request when the total rate of operations exceeds 100 requests per second for a given tenancy.
+    #
+    # @param [String] compartment_id The OCID of the compartment.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -278,6 +283,8 @@ module OCI
 
 
     # Updates the preferences of the tenancy regarding receiving announcements by email.
+    #
+    # This call is subject to an Announcements limit that applies to the total number of requests across all read or write operations. Announcements might throttle this call to reject an otherwise valid request when the total rate of operations exceeds 20 requests per second for a given user. The service might also throttle this call to reject an otherwise valid request when the total rate of operations exceeds 100 requests per second for a given tenancy.
     #
     # @param [String] preference_id The ID of the preference.
     # @param [OCI::AnnouncementsService::Models::UpdateAnnouncementsPreferencesDetails] announcements_preference_details The object that contains details about tenancy preferences for receiving announcements by email.

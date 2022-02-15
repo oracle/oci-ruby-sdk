@@ -44,6 +44,11 @@ module OCI
       LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze
     ].freeze
 
+    PLATFORM_TYPE_ENUM = [
+      PLATFORM_TYPE_IAAS = 'IAAS'.freeze,
+      PLATFORM_TYPE_SAAS = 'SAAS'.freeze
+    ].freeze
+
     # **[Required]** The OCID of the announcement.
     # @return [String]
     attr_accessor :id
@@ -130,6 +135,16 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_updated
 
+    # The name of the environment that this announcement pertains to.
+    #
+    # @return [String]
+    attr_accessor :environment_name
+
+    # The platform type that this announcement pertains to.
+    #
+    # @return [String]
+    attr_reader :platform_type
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -150,7 +165,9 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'is_banner': :'isBanner',
         'time_created': :'timeCreated',
-        'time_updated': :'timeUpdated'
+        'time_updated': :'timeUpdated',
+        'environment_name': :'environmentName',
+        'platform_type': :'platformType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -175,7 +192,9 @@ module OCI
         'lifecycle_state': :'String',
         'is_banner': :'BOOLEAN',
         'time_created': :'DateTime',
-        'time_updated': :'DateTime'
+        'time_updated': :'DateTime',
+        'environment_name': :'String',
+        'platform_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -219,6 +238,8 @@ module OCI
     # @option attributes [BOOLEAN] :is_banner The value to assign to the {#is_banner} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [String] :environment_name The value to assign to the {#environment_name} property
+    # @option attributes [String] :platform_type The value to assign to the {#platform_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -310,6 +331,18 @@ module OCI
       raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
 
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.environment_name = attributes[:'environmentName'] if attributes[:'environmentName']
+
+      raise 'You cannot provide both :environmentName and :environment_name' if attributes.key?(:'environmentName') && attributes.key?(:'environment_name')
+
+      self.environment_name = attributes[:'environment_name'] if attributes[:'environment_name']
+
+      self.platform_type = attributes[:'platformType'] if attributes[:'platformType']
+
+      raise 'You cannot provide both :platformType and :platform_type' if attributes.key?(:'platformType') && attributes.key?(:'platform_type')
+
+      self.platform_type = attributes[:'platform_type'] if attributes[:'platform_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -346,6 +379,14 @@ module OCI
       @lifecycle_state = lifecycle_state
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] platform_type Object to be assigned
+    def platform_type=(platform_type)
+      raise "Invalid value for 'platform_type': this must be one of the values in PLATFORM_TYPE_ENUM." if platform_type && !PLATFORM_TYPE_ENUM.include?(platform_type)
+
+      @platform_type = platform_type
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -371,7 +412,9 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         is_banner == other.is_banner &&
         time_created == other.time_created &&
-        time_updated == other.time_updated
+        time_updated == other.time_updated &&
+        environment_name == other.environment_name &&
+        platform_type == other.platform_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -387,7 +430,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, type, reference_ticket_number, summary, time_one_title, time_one_type, time_one_value, time_two_title, time_two_type, time_two_value, services, affected_regions, announcement_type, lifecycle_state, is_banner, time_created, time_updated].hash
+      [id, type, reference_ticket_number, summary, time_one_title, time_one_type, time_one_value, time_two_title, time_two_type, time_two_value, services, affected_regions, announcement_type, lifecycle_state, is_banner, time_created, time_updated, environment_name, platform_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

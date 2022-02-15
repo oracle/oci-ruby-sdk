@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API for APM Trace service. Use this API to query the Traces and associated Spans.
+  # Use the Application Performance Monitoring Trace Explorer API to query traces and associated spans in Trace Explorer. For more information, see [Application Performance Monitoring](https://docs.oracle.com/iaas/application-performance-monitoring/index.html).
   class ApmTraces::TraceClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -98,13 +98,75 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get the span details identified by spanId
+    # Gets the aggregated snapshot identified by trace ID.
     #
-    # @param [String] apm_domain_id The APM Domain Id the request is intended for.
+    # @param [String] apm_domain_id The APM Domain ID the request is intended for.
     #
-    # @param [String] span_key Unique APM span identifier(spanId).
+    # @param [String] trace_key Unique Application Performance Monitoring trace identifier (traceId).
     #
-    # @param [String] trace_key Unique APM trace identifier(traceId).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request.  If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::ApmTraces::Models::AggregatedSnapshot AggregatedSnapshot}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apmtraces/get_aggregated_snapshot.rb.html) to see an example of how to use get_aggregated_snapshot API.
+    def get_aggregated_snapshot(apm_domain_id, trace_key, opts = {})
+      logger.debug 'Calling operation TraceClient#get_aggregated_snapshot.' if logger
+
+      raise "Missing the required parameter 'apm_domain_id' when calling get_aggregated_snapshot." if apm_domain_id.nil?
+      raise "Missing the required parameter 'trace_key' when calling get_aggregated_snapshot." if trace_key.nil?
+      raise "Parameter value for 'trace_key' must not be blank" if OCI::Internal::Util.blank_string?(trace_key)
+
+      path = '/traces/{traceKey}/aggregatedSnapshotData'.sub('{traceKey}', trace_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:apmDomainId] = apm_domain_id
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'TraceClient#get_aggregated_snapshot') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ApmTraces::Models::AggregatedSnapshot'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the span details identified by spanId.
+    #
+    # @param [String] apm_domain_id The APM Domain ID the request is intended for.
+    #
+    # @param [String] span_key Unique Application Performance Monitoring span identifier (spanId).
+    #
+    # @param [String] trace_key Unique Application Performance Monitoring trace identifier (traceId).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -164,11 +226,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get the trace details identified by traceId
+    # Gets the trace details identified by traceId.
     #
-    # @param [String] apm_domain_id The APM Domain Id the request is intended for.
+    # @param [String] apm_domain_id The APM Domain ID the request is intended for.
     #
-    # @param [String] trace_key Unique APM trace identifier(traceId).
+    # @param [String] trace_key Unique Application Performance Monitoring trace identifier (traceId).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -213,6 +275,77 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::ApmTraces::Models::Trace'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the trace snapshots data identified by trace ID.
+    #
+    # @param [String] apm_domain_id The APM Domain ID the request is intended for.
+    #
+    # @param [String] trace_key Unique Application Performance Monitoring trace identifier (traceId).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request.  If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [BOOLEAN] :is_summarized If enabled, then only span level details will be sent.
+    #
+    # @option opts [String] :thread_id Thread id for which snapshots needs to be retrieved. This is an identifier of a thread, and is a positive long number generated when when a thread is created.
+    #
+    # @option opts [String] :snapshot_time Epoch time of snapshot.
+    #
+    # @return [Response] A Response object with data of type {OCI::ApmTraces::Models::TraceSnapshot TraceSnapshot}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apmtraces/get_trace_snapshot.rb.html) to see an example of how to use get_trace_snapshot API.
+    def get_trace_snapshot(apm_domain_id, trace_key, opts = {})
+      logger.debug 'Calling operation TraceClient#get_trace_snapshot.' if logger
+
+      raise "Missing the required parameter 'apm_domain_id' when calling get_trace_snapshot." if apm_domain_id.nil?
+      raise "Missing the required parameter 'trace_key' when calling get_trace_snapshot." if trace_key.nil?
+      raise "Parameter value for 'trace_key' must not be blank" if OCI::Internal::Util.blank_string?(trace_key)
+
+      path = '/traces/{traceKey}/snapshotData'.sub('{traceKey}', trace_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:apmDomainId] = apm_domain_id
+      query_params[:isSummarized] = opts[:is_summarized] if !opts[:is_summarized].nil?
+      query_params[:threadId] = opts[:thread_id] if opts[:thread_id]
+      query_params[:snapshotTime] = opts[:snapshot_time] if opts[:snapshot_time]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'TraceClient#get_trace_snapshot') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ApmTraces::Models::TraceSnapshot'
         )
       end
       # rubocop:enable Metrics/BlockLength

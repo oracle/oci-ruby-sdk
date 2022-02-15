@@ -13,7 +13,7 @@ module OCI
     # @return [Array<OCI::ApmConfig::Models::Apdex>]
     attr_accessor :rules
 
-    # The name by which this rule set can be displayed to the user.
+    # The name by which the rule set is displayed to the end user.
     # @return [String]
     attr_accessor :display_name
 

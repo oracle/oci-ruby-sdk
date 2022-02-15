@@ -9,12 +9,12 @@ module OCI
   #
   class ApmTraces::Models::QueryResultMetadataSummary
     # A collection of QueryResultRowTypeSummary objects that describe the type and properties of the individual row elements of the query rows
-    # being returned.  The ith element in this list contains the QueryResultRowTypeSummary of the ith key value pair in the QueryResultRowData map.
+    # being returned.  The i-th element in this list contains the QueryResultRowTypeSummary of the i-th key-value pair in the QueryResultRowData map.
     #
     # @return [Array<OCI::ApmTraces::Models::QueryResultRowTypeSummary>]
     attr_accessor :query_result_row_type_summaries
 
-    # Source of the query result set (traces, spans, etc).
+    # Source of the query result set (traces, spans, and so on).
     #
     # @return [String]
     attr_accessor :source_name

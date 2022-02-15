@@ -23,6 +23,12 @@ module OCI
     # @return [OCI::ContainerEngine::Models::AdmissionControllerOptions]
     attr_accessor :admission_controller_options
 
+    # @return [OCI::ContainerEngine::Models::PersistentVolumeConfigDetails]
+    attr_accessor :persistent_volume_config
+
+    # @return [OCI::ContainerEngine::Models::ServiceLbConfigDetails]
+    attr_accessor :service_lb_config
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -30,7 +36,9 @@ module OCI
         'service_lb_subnet_ids': :'serviceLbSubnetIds',
         'kubernetes_network_config': :'kubernetesNetworkConfig',
         'add_ons': :'addOns',
-        'admission_controller_options': :'admissionControllerOptions'
+        'admission_controller_options': :'admissionControllerOptions',
+        'persistent_volume_config': :'persistentVolumeConfig',
+        'service_lb_config': :'serviceLbConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,7 +50,9 @@ module OCI
         'service_lb_subnet_ids': :'Array<String>',
         'kubernetes_network_config': :'OCI::ContainerEngine::Models::KubernetesNetworkConfig',
         'add_ons': :'OCI::ContainerEngine::Models::AddOnOptions',
-        'admission_controller_options': :'OCI::ContainerEngine::Models::AdmissionControllerOptions'
+        'admission_controller_options': :'OCI::ContainerEngine::Models::AdmissionControllerOptions',
+        'persistent_volume_config': :'OCI::ContainerEngine::Models::PersistentVolumeConfigDetails',
+        'service_lb_config': :'OCI::ContainerEngine::Models::ServiceLbConfigDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,6 +67,8 @@ module OCI
     # @option attributes [OCI::ContainerEngine::Models::KubernetesNetworkConfig] :kubernetes_network_config The value to assign to the {#kubernetes_network_config} property
     # @option attributes [OCI::ContainerEngine::Models::AddOnOptions] :add_ons The value to assign to the {#add_ons} property
     # @option attributes [OCI::ContainerEngine::Models::AdmissionControllerOptions] :admission_controller_options The value to assign to the {#admission_controller_options} property
+    # @option attributes [OCI::ContainerEngine::Models::PersistentVolumeConfigDetails] :persistent_volume_config The value to assign to the {#persistent_volume_config} property
+    # @option attributes [OCI::ContainerEngine::Models::ServiceLbConfigDetails] :service_lb_config The value to assign to the {#service_lb_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -86,6 +98,18 @@ module OCI
       raise 'You cannot provide both :admissionControllerOptions and :admission_controller_options' if attributes.key?(:'admissionControllerOptions') && attributes.key?(:'admission_controller_options')
 
       self.admission_controller_options = attributes[:'admission_controller_options'] if attributes[:'admission_controller_options']
+
+      self.persistent_volume_config = attributes[:'persistentVolumeConfig'] if attributes[:'persistentVolumeConfig']
+
+      raise 'You cannot provide both :persistentVolumeConfig and :persistent_volume_config' if attributes.key?(:'persistentVolumeConfig') && attributes.key?(:'persistent_volume_config')
+
+      self.persistent_volume_config = attributes[:'persistent_volume_config'] if attributes[:'persistent_volume_config']
+
+      self.service_lb_config = attributes[:'serviceLbConfig'] if attributes[:'serviceLbConfig']
+
+      raise 'You cannot provide both :serviceLbConfig and :service_lb_config' if attributes.key?(:'serviceLbConfig') && attributes.key?(:'service_lb_config')
+
+      self.service_lb_config = attributes[:'service_lb_config'] if attributes[:'service_lb_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -102,7 +126,9 @@ module OCI
         service_lb_subnet_ids == other.service_lb_subnet_ids &&
         kubernetes_network_config == other.kubernetes_network_config &&
         add_ons == other.add_ons &&
-        admission_controller_options == other.admission_controller_options
+        admission_controller_options == other.admission_controller_options &&
+        persistent_volume_config == other.persistent_volume_config &&
+        service_lb_config == other.service_lb_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -118,7 +144,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [service_lb_subnet_ids, kubernetes_network_config, add_ons, admission_controller_options].hash
+      [service_lb_subnet_ids, kubernetes_network_config, add_ons, admission_controller_options, persistent_volume_config, service_lb_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -6,7 +6,7 @@ require_relative 'sql_tuning_task_credential_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # User provides a secret OCID, which will be used to retrieve the password to connect to the database.
+  # The OCID of the Secret provided by the user to retrieve the password to connect to the database.
   #
   class DatabaseManagement::Models::SqlTuningTaskSecretCredentialDetails < DatabaseManagement::Models::SqlTuningTaskCredentialDetails
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Secret

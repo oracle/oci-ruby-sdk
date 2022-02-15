@@ -25,6 +25,20 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_pv_encryption_in_transit_enabled
 
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
     # The placement configurations for the node pool. Provide one placement
     # configuration for each availability domain in which you intend to launch a node.
     #
@@ -43,6 +57,8 @@ module OCI
         'nsg_ids': :'nsgIds',
         'kms_key_id': :'kmsKeyId',
         'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags',
         'placement_configs': :'placementConfigs'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -56,6 +72,8 @@ module OCI
         'nsg_ids': :'Array<String>',
         'kms_key_id': :'String',
         'is_pv_encryption_in_transit_enabled': :'BOOLEAN',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'placement_configs': :'Array<OCI::ContainerEngine::Models::NodePoolPlacementConfigDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -71,6 +89,8 @@ module OCI
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [BOOLEAN] :is_pv_encryption_in_transit_enabled The value to assign to the {#is_pv_encryption_in_transit_enabled} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Array<OCI::ContainerEngine::Models::NodePoolPlacementConfigDetails>] :placement_configs The value to assign to the {#placement_configs} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -100,6 +120,18 @@ module OCI
       self.is_pv_encryption_in_transit_enabled = attributes[:'is_pv_encryption_in_transit_enabled'] unless attributes[:'is_pv_encryption_in_transit_enabled'].nil?
       self.is_pv_encryption_in_transit_enabled = false if is_pv_encryption_in_transit_enabled.nil? && !attributes.key?(:'isPvEncryptionInTransitEnabled') && !attributes.key?(:'is_pv_encryption_in_transit_enabled') # rubocop:disable Style/StringLiterals
 
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
       self.placement_configs = attributes[:'placementConfigs'] if attributes[:'placementConfigs']
 
       raise 'You cannot provide both :placementConfigs and :placement_configs' if attributes.key?(:'placementConfigs') && attributes.key?(:'placement_configs')
@@ -122,6 +154,8 @@ module OCI
         nsg_ids == other.nsg_ids &&
         kms_key_id == other.kms_key_id &&
         is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags &&
         placement_configs == other.placement_configs
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -138,7 +172,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [size, nsg_ids, kms_key_id, is_pv_encryption_in_transit_enabled, placement_configs].hash
+      [size, nsg_ids, kms_key_id, is_pv_encryption_in_transit_enabled, freeform_tags, defined_tags, placement_configs].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

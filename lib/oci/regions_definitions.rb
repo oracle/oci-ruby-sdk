@@ -46,7 +46,8 @@ module OCI
       REGION_UK_GOV_CARDIFF_1 = 'uk-gov-cardiff-1'.freeze,
       REGION_AP_CHIYODA_1 = 'ap-chiyoda-1'.freeze,
       REGION_AP_IBARAKI_1 = 'ap-ibaraki-1'.freeze,
-      REGION_ME_DCC_MUSCAT_1 = 'me-dcc-muscat-1'.freeze
+      REGION_ME_DCC_MUSCAT_1 = 'me-dcc-muscat-1'.freeze,
+      REGION_AP_DCC_CANBERRA_1 = 'ap-dcc-canberra-1'.freeze
     ]
 
     REGION_SHORT_NAMES_TO_LONG_NAMES = {
@@ -89,7 +90,8 @@ module OCI
       'brs': REGION_UK_GOV_CARDIFF_1,
       'nja': REGION_AP_CHIYODA_1,
       'ukb': REGION_AP_IBARAKI_1,
-      'mct': REGION_ME_DCC_MUSCAT_1
+      'mct': REGION_ME_DCC_MUSCAT_1,
+      'wga': REGION_AP_DCC_CANBERRA_1
     }
 
     # --- Start of region realm mapping ---
@@ -138,7 +140,9 @@ module OCI
       'ap-chiyoda-1': 'oc8'.freeze,
       'ap-ibaraki-1': 'oc8'.freeze,
 
-      'me-dcc-muscat-1': 'oc9'.freeze
+      'me-dcc-muscat-1': 'oc9'.freeze,
+
+      'ap-dcc-canberra-1': 'oc10'.freeze
     }
     # ---  end of region realm mapping  ---
 
@@ -149,7 +153,8 @@ module OCI
       'oc3': 'oraclegovcloud.com'.freeze,
       'oc4': 'oraclegovcloud.uk'.freeze,
       'oc8': 'oraclecloud8.com'.freeze,
-      'oc9': 'oraclecloud9.com'.freeze
+      'oc9': 'oraclecloud9.com'.freeze,
+      'oc10': 'oraclecloud10.com'.freeze
     }
     # ---  end of realm domain mapping  ---
   end

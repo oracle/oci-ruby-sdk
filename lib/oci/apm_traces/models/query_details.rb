@@ -5,10 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Request object containing the query to be run against our repository.
+  # Request object containing the query to be run against the trace data.
   #
   class ApmTraces::Models::QueryDetails
-    # APM defined query string to run against our repository and return results for.
+    # Application Performance Monitoring defined query string that filters and retrieves trace data results.
     #
     # @return [String]
     attr_accessor :query_text

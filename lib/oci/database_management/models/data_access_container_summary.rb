@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary of ContainerDataAccess user
+  # A summary of the ContainerDataAccess user.
   class DatabaseManagement::Models::DataAccessContainerSummary
-    # The name of a container included in this attribute if it does not apply to all containers.
+    # The name of the container included in the attribute.
     # @return [String]
     attr_accessor :name
 

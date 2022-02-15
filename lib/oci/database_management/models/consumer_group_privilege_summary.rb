@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary of consumerGroupPrivileges.
+  # A summary of consumer group privileges.
   class DatabaseManagement::Models::ConsumerGroupPrivilegeSummary
     GRANT_OPTION_ENUM = [
       GRANT_OPTION_YES = 'YES'.freeze,
@@ -20,15 +20,15 @@ module OCI
       INITIAL_GROUP_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # The name of granted consumer group.
+    # The name of the granted consumer group privilege.
     # @return [String]
     attr_accessor :name
 
-    # Indicates whether the grant was with the GRANT option (YES) or not (NO).
+    # Indicates whether the privilege is granted with the GRANT option (YES) or not (NO).
     # @return [String]
     attr_reader :grant_option
 
-    # Indicates whether the consumer group is designated as the default for this user or role (YES) or not (NO)
+    # Indicates whether the consumer group is designated as the default for this user or role (YES) or not (NO).
     # @return [String]
     attr_reader :initial_group
 

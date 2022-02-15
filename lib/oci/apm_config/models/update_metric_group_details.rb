@@ -6,27 +6,31 @@ require_relative 'update_config_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A Metric Group.
+  # A metric group defines a set of metrics to collect from a span. It uses a span filter to specify which spans to
+  # process. The set is then published to a namespace, which is a product level subdivision of metrics.
   #
   class ApmConfig::Models::UpdateMetricGroupDetails < ApmConfig::Models::UpdateConfigDetails
-    # The name of this metric group
+    # The name of the metric group.
     # @return [String]
     attr_accessor :display_name
 
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Span Filter. The filterId is mandatory for the creation
-    # of MetricGroups. A filterId will be generated when a Span Filter is created.
+    # of MetricGroups. A filterId is generated when a Span Filter is created.
     #
     # @return [String]
     attr_accessor :filter_id
 
-    # The namespace to write the metrics to
+    # The namespace to which the metrics are published. It must be one of several predefined namespaces.
+    #
     # @return [String]
     attr_accessor :namespace
 
-    # A list of dimensions for this metric
+    # A list of dimensions for the metric. This variable should not be used.
     # @return [Array<OCI::ApmConfig::Models::Dimension>]
     attr_accessor :dimensions
 
+    # The list of metrics in this group.
+    #
     # @return [Array<OCI::ApmConfig::Models::Metric>]
     attr_accessor :metrics
 

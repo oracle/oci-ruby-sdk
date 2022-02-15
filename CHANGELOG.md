@@ -3,6 +3,34 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.17.0 - 2022-02-15
+### Added
+- Support for calling Oracle Cloud Infrastructure services in the ap-dcc-canberra-1 region
+- Support for the Console Dashboard service
+- Support for capacity reservation in the Container Engine for Kubernetes service
+- Support for tagging in the Container Engine for Kubernetes service
+- Support for fetching listings by image OCID in the Marketplace service
+- Support for underscores and hyphens in project resource names in the DevOps service
+- Support for cross-region cloning in the Database service
+- Support for managing tablespaces in the Database Management service
+- Support for upgrading and managing payment for subscriptions in the Account Management service
+- Support for listing fast launch job configurations in the Data Science service
+- Support for the AI Vision service
+- Support for the Threat Intelligence service
+- Support for creation of NoSQL database tables with on-demand throughput capacity in the NoSQL Database Cloud service
+- Support for tagging features in the Oracle Container Engine for Kubernetes (OKE) service
+- Support for trace snapshots in the Application Performance Monitoring service
+- Support for auditing and alerts in the Data Safe service
+- Support for data discovery and data masking in the Data Safe service
+- Support for customized subscriptions and delivery of announcements by email and SMS in the Announcements service
+- Support for requiring common package for faster load speed
+
+### Breaking changes
+- The type for the `bill_to_address` parameter was changed from `Address` to `BillToAddress` in the invoice model of the Account Management service
+- `payment_method` was made a required property of the `payment_detail` model of the Account Management service
+- The API `query_old` was removed from `query_client` in the Application Performance Monitoring service
+
+
 ## 2.16.0 - 2022-01-25
 ### Added
 - Support for getting management agent hosts which are eligible to create Operations Insights host resources on, in the Operations Insights service

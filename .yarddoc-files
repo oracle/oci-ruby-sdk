@@ -1,5 +1,6 @@
 lib/oci/ai_anomaly_detection/ai_anomaly_detection.rb
 lib/oci/ai_language/ai_language.rb
+lib/oci/ai_vision/ai_vision.rb
 lib/oci/analytics/analytics.rb
 lib/oci/announcements_service/announcements_service.rb
 lib/oci/apigateway/apigateway.rb
@@ -24,6 +25,7 @@ lib/oci/cloud_guard/cloud_guard.rb
 lib/oci/compute_instance_agent/compute_instance_agent.rb
 lib/oci/container_engine/container_engine.rb
 lib/oci/core/core.rb
+lib/oci/dashboard_service/dashboard_service.rb
 lib/oci/data_catalog/data_catalog.rb
 lib/oci/data_flow/data_flow.rb
 lib/oci/data_integration/data_integration.rb
@@ -86,6 +88,7 @@ lib/oci/service_catalog/service_catalog.rb
 lib/oci/service_manager_proxy/service_manager_proxy.rb
 lib/oci/streaming/streaming.rb
 lib/oci/tenant_manager_control_plane/tenant_manager_control_plane.rb
+lib/oci/threat_intelligence/threat_intelligence.rb
 lib/oci/usage/usage.rb
 lib/oci/usage_api/usage_api.rb
 lib/oci/vault/vault.rb

@@ -6,7 +6,7 @@ require_relative 'sql_tuning_task_credential_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # User provides a password to be used to connect to the database.
+  # The password provided by the user to connect to the database.
   class DatabaseManagement::Models::SqlTuningTaskPasswordCredentialDetails < DatabaseManagement::Models::SqlTuningTaskCredentialDetails
     # **[Required]** The database user's password encoded using BASE64 scheme.
     # @return [String]

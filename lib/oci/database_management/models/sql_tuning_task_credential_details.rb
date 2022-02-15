@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The credential to be used to connect to the database.
+  # The credential used to connect to the database.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class DatabaseManagement::Models::SqlTuningTaskCredentialDetails
     SQL_TUNING_TASK_CREDENTIAL_TYPE_ENUM = [
@@ -18,11 +18,11 @@ module OCI
       ROLE_SYSDBA = 'SYSDBA'.freeze
     ].freeze
 
-    # **[Required]** The type pf the credential for SQL tuning task.
+    # **[Required]** The type of credential for the SQL tuning task.
     # @return [String]
     attr_reader :sql_tuning_task_credential_type
 
-    # **[Required]** The user to connect to the database.
+    # **[Required]** The user name used to connect to the database.
     # @return [String]
     attr_accessor :username
 

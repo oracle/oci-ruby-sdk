@@ -5,14 +5,14 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Request to start a SQL tuning task
+  # The request to start a SQL tuning task.
   class DatabaseManagement::Models::StartSqlTuningTaskDetails
     SCOPE_ENUM = [
       SCOPE_LIMITED = 'LIMITED'.freeze,
       SCOPE_COMPREHENSIVE = 'COMPREHENSIVE'.freeze
     ].freeze
 
-    # **[Required]** The name of the SQL tuning task. The name is unique per user in a database, and it is case sensitive.
+    # **[Required]** The name of the SQL tuning task. The name is unique per user in a database, and it is case-sensitive.
     # @return [String]
     attr_accessor :task_name
 
@@ -29,27 +29,27 @@ module OCI
     attr_accessor :total_time_limit_in_minutes
 
     # **[Required]** The scope for the SQL tuning task. For LIMITED scope, the SQL profile recommendation
-    # is excluded, so the task is faster. For COMPREHENSIVE scope, the SQL profile recommendation
+    # is excluded, so the task is executed faster. For COMPREHENSIVE scope, the SQL profile recommendation
     # is included.
     #
     # @return [String]
     attr_reader :scope
 
-    # The time limit per SQL statement in minutes. This is for task with COMPREHENSIVE scope.
-    # Per statement time limit should not be larger than the total time limit.
+    # The time limit per SQL statement (in minutes). This is for a task with the COMPREHENSIVE scope.
+    # The time limit per SQL statement should not be more than the total time limit.
     #
     # @return [Integer]
     attr_accessor :statement_time_limit_in_minutes
 
-    # **[Required]** The array of the details of SQL statments on which the tuning is performed.
+    # **[Required]** The array of the details of SQL statement on which tuning is performed.
     # @return [Array<OCI::DatabaseManagement::Models::SqlTuningTaskSqlDetail>]
     attr_accessor :sql_details
 
-    # **[Required]** The start time of the period, in which SQL statements are running.
+    # **[Required]** The start time of the period in which SQL statements are running.
     # @return [DateTime]
     attr_accessor :time_started
 
-    # **[Required]** The end time of the period, in which SQL statements are running.
+    # **[Required]** The end time of the period in which SQL statements are running.
     # @return [DateTime]
     attr_accessor :time_ended
 

@@ -5,7 +5,8 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The base model for a Search Listings details.
+  # A base request type that contains common criteria for Marketplace Search Listings details.
+  #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Marketplace::Models::SearchListingsDetails
     TYPE_ENUM = [
@@ -22,7 +23,8 @@ module OCI
     # @return [String]
     attr_reader :type
 
-    # The type of matching context returned in the response.
+    # The type of matching context returned in the response. If you specify HIGHLIGHTS, then the service will highlight fragments in its response. The default value is NONE.
+    #
     # @return [String]
     attr_reader :matching_context_type
 

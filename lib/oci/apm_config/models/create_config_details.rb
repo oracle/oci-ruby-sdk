@@ -5,8 +5,8 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The request body used to create new Configuration entities. It must specify the configuration type of the item to
-  # create, as well as the actual data to populate the item with.
+  # The request body used to create new configuration items. It must specify the configuration type of the item,
+  # as well as the actual data to populate the item with.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class ApmConfig::Models::CreateConfigDetails
@@ -16,7 +16,7 @@ module OCI
       CONFIG_TYPE_APDEX = 'APDEX'.freeze
     ].freeze
 
-    # **[Required]** The type of configuration item
+    # **[Required]** The type of configuration item.
     # @return [String]
     attr_reader :config_type
 

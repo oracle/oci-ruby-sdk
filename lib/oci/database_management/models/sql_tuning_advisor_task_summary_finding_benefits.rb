@@ -5,23 +5,23 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The finding benefits data for the SQL Tuning Advisor summary report.
+  # The benefits of the findings in the SQL Tuning Advisor summary report.
   class DatabaseManagement::Models::SqlTuningAdvisorTaskSummaryFindingBenefits
-    # **[Required]** The count of Potential database time before SQL recommendations are implemented.
+    # **[Required]** The actual database time of the SQL statements for which SQL Tuning Advisor recommendations are not implemented.
     # @return [Integer]
     attr_accessor :db_time_before_recommended
 
-    # **[Required]** The count of Potential database time after SQL recommendations are implemented.
+    # **[Required]** The estimated database time of the above SQL statements, if SQL Tuning Advisor recommendations are implemented.
     # @return [Integer]
     attr_accessor :db_time_after_recommended
 
-    # **[Required]** The count of database time benefit before SQL recommendations are implemented.
-    # @return [Integer]
-    attr_accessor :db_time_before_implemented
-
-    # **[Required]** The count of database time benefit after SQL recommendations are implemented.
+    # **[Required]** The actual database time of the SQL statements for which SQL Tuning Advisor recommendations are implemented.
     # @return [Integer]
     attr_accessor :db_time_after_implemented
+
+    # **[Required]** The actual database time of the above SQL statements, before SQL Tuning Advisor recommendations are implemented.
+    # @return [Integer]
+    attr_accessor :db_time_before_implemented
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -29,8 +29,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'db_time_before_recommended': :'dbTimeBeforeRecommended',
         'db_time_after_recommended': :'dbTimeAfterRecommended',
-        'db_time_before_implemented': :'dbTimeBeforeImplemented',
-        'db_time_after_implemented': :'dbTimeAfterImplemented'
+        'db_time_after_implemented': :'dbTimeAfterImplemented',
+        'db_time_before_implemented': :'dbTimeBeforeImplemented'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -41,8 +41,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'db_time_before_recommended': :'Integer',
         'db_time_after_recommended': :'Integer',
-        'db_time_before_implemented': :'Integer',
-        'db_time_after_implemented': :'Integer'
+        'db_time_after_implemented': :'Integer',
+        'db_time_before_implemented': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -55,8 +55,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Integer] :db_time_before_recommended The value to assign to the {#db_time_before_recommended} property
     # @option attributes [Integer] :db_time_after_recommended The value to assign to the {#db_time_after_recommended} property
-    # @option attributes [Integer] :db_time_before_implemented The value to assign to the {#db_time_before_implemented} property
     # @option attributes [Integer] :db_time_after_implemented The value to assign to the {#db_time_after_implemented} property
+    # @option attributes [Integer] :db_time_before_implemented The value to assign to the {#db_time_before_implemented} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -75,17 +75,17 @@ module OCI
 
       self.db_time_after_recommended = attributes[:'db_time_after_recommended'] if attributes[:'db_time_after_recommended']
 
-      self.db_time_before_implemented = attributes[:'dbTimeBeforeImplemented'] if attributes[:'dbTimeBeforeImplemented']
-
-      raise 'You cannot provide both :dbTimeBeforeImplemented and :db_time_before_implemented' if attributes.key?(:'dbTimeBeforeImplemented') && attributes.key?(:'db_time_before_implemented')
-
-      self.db_time_before_implemented = attributes[:'db_time_before_implemented'] if attributes[:'db_time_before_implemented']
-
       self.db_time_after_implemented = attributes[:'dbTimeAfterImplemented'] if attributes[:'dbTimeAfterImplemented']
 
       raise 'You cannot provide both :dbTimeAfterImplemented and :db_time_after_implemented' if attributes.key?(:'dbTimeAfterImplemented') && attributes.key?(:'db_time_after_implemented')
 
       self.db_time_after_implemented = attributes[:'db_time_after_implemented'] if attributes[:'db_time_after_implemented']
+
+      self.db_time_before_implemented = attributes[:'dbTimeBeforeImplemented'] if attributes[:'dbTimeBeforeImplemented']
+
+      raise 'You cannot provide both :dbTimeBeforeImplemented and :db_time_before_implemented' if attributes.key?(:'dbTimeBeforeImplemented') && attributes.key?(:'db_time_before_implemented')
+
+      self.db_time_before_implemented = attributes[:'db_time_before_implemented'] if attributes[:'db_time_before_implemented']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -101,8 +101,8 @@ module OCI
       self.class == other.class &&
         db_time_before_recommended == other.db_time_before_recommended &&
         db_time_after_recommended == other.db_time_after_recommended &&
-        db_time_before_implemented == other.db_time_before_implemented &&
-        db_time_after_implemented == other.db_time_after_implemented
+        db_time_after_implemented == other.db_time_after_implemented &&
+        db_time_before_implemented == other.db_time_before_implemented
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -118,7 +118,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [db_time_before_recommended, db_time_after_recommended, db_time_before_implemented, db_time_after_implemented].hash
+      [db_time_before_recommended, db_time_after_recommended, db_time_after_implemented, db_time_before_implemented].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -478,7 +478,8 @@ module OCI
     # @return [String]
     attr_accessor :key_store_wallet_name
 
-    # The list of regions that support the creation of Autonomous Data Guard standby database.
+    # The list of regions that support the creation of an Autonomous Database clone or an Autonomous Data Guard standby database.
+    #
     # @return [Array<String>]
     attr_accessor :supported_regions_to_clone_to
 

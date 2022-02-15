@@ -118,7 +118,7 @@ module OCI
     # @return [OCI::OspGateway::Models::PaymentDetail]
     attr_accessor :last_payment_detail
 
-    # @return [OCI::OspGateway::Models::Address]
+    # @return [OCI::OspGateway::Models::BillToAddress]
     attr_accessor :bill_to_address
 
     # List of subscription identifiers
@@ -185,7 +185,7 @@ module OCI
         'is_payable': :'BOOLEAN',
         'payment_terms': :'String',
         'last_payment_detail': :'OCI::OspGateway::Models::PaymentDetail',
-        'bill_to_address': :'OCI::OspGateway::Models::Address',
+        'bill_to_address': :'OCI::OspGateway::Models::BillToAddress',
         'subscription_ids': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -220,7 +220,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_payable The value to assign to the {#is_payable} property
     # @option attributes [String] :payment_terms The value to assign to the {#payment_terms} property
     # @option attributes [OCI::OspGateway::Models::PaymentDetail] :last_payment_detail The value to assign to the {#last_payment_detail} property
-    # @option attributes [OCI::OspGateway::Models::Address] :bill_to_address The value to assign to the {#bill_to_address} property
+    # @option attributes [OCI::OspGateway::Models::BillToAddress] :bill_to_address The value to assign to the {#bill_to_address} property
     # @option attributes [Array<String>] :subscription_ids The value to assign to the {#subscription_ids} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)

@@ -100,6 +100,75 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Adds data files or temp files to the tablespace.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] tablespace_name The name of the tablespace.
+    # @param [OCI::DatabaseManagement::Models::AddDataFilesDetails] add_data_files_details The details required to add data files or temp files to the tablespace.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::TablespaceAdminStatus TablespaceAdminStatus}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/add_data_files.rb.html) to see an example of how to use add_data_files API.
+    def add_data_files(managed_database_id, tablespace_name, add_data_files_details, opts = {})
+      logger.debug 'Calling operation DbManagementClient#add_data_files.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling add_data_files." if managed_database_id.nil?
+      raise "Missing the required parameter 'tablespace_name' when calling add_data_files." if tablespace_name.nil?
+      raise "Missing the required parameter 'add_data_files_details' when calling add_data_files." if add_data_files_details.nil?
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'tablespace_name' must not be blank" if OCI::Internal::Util.blank_string?(tablespace_name)
+
+      path = '/managedDatabases/{managedDatabaseId}/tablespaces/{tablespaceName}/actions/addDataFiles'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{tablespaceName}', tablespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(add_data_files_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#add_data_files') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::TablespaceAdminStatus'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Adds a Managed Database to a specific Managed Database Group.
     # After the database is added, it will be included in the
     # management activities performed on the Managed Database Group.
@@ -646,6 +715,71 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a tablespace within the Managed Database specified by managedDatabaseId.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [OCI::DatabaseManagement::Models::CreateTablespaceDetails] create_tablespace_details The details required to create a tablespace.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::Tablespace Tablespace}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/create_tablespace.rb.html) to see an example of how to use create_tablespace API.
+    def create_tablespace(managed_database_id, create_tablespace_details, opts = {})
+      logger.debug 'Calling operation DbManagementClient#create_tablespace.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling create_tablespace." if managed_database_id.nil?
+      raise "Missing the required parameter 'create_tablespace_details' when calling create_tablespace." if create_tablespace_details.nil?
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/tablespaces'.sub('{managedDatabaseId}', managed_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_tablespace_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#create_tablespace') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::Tablespace'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes a specific Database Management private endpoint.
     # @param [String] db_management_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Management private endpoint.
     # @param [Hash] opts the optional parameters
@@ -815,6 +949,74 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Drops the tablespace specified by tablespaceName within the Managed Database specified by managedDatabaseId.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] tablespace_name The name of the tablespace.
+    # @param [OCI::DatabaseManagement::Models::DropTablespaceDetails] drop_tablespace_details The details required to drop a tablespace.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::TablespaceAdminStatus TablespaceAdminStatus}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/drop_tablespace.rb.html) to see an example of how to use drop_tablespace API.
+    def drop_tablespace(managed_database_id, tablespace_name, drop_tablespace_details, opts = {})
+      logger.debug 'Calling operation DbManagementClient#drop_tablespace.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling drop_tablespace." if managed_database_id.nil?
+      raise "Missing the required parameter 'tablespace_name' when calling drop_tablespace." if tablespace_name.nil?
+      raise "Missing the required parameter 'drop_tablespace_details' when calling drop_tablespace." if drop_tablespace_details.nil?
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'tablespace_name' must not be blank" if OCI::Internal::Util.blank_string?(tablespace_name)
+
+      path = '/managedDatabases/{managedDatabaseId}/tablespaces/{tablespaceName}/actions/dropTablespace'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{tablespaceName}', tablespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(drop_tablespace_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#drop_tablespace') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::TablespaceAdminStatus'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1638,7 +1840,65 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the details of a specific user for the specified managedDatabaseId and userName.
+    # Gets the details of the tablespace specified by tablespaceName within the Managed Database specified by managedDatabaseId.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] tablespace_name The name of the tablespace.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::Tablespace Tablespace}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/get_tablespace.rb.html) to see an example of how to use get_tablespace API.
+    def get_tablespace(managed_database_id, tablespace_name, opts = {})
+      logger.debug 'Calling operation DbManagementClient#get_tablespace.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling get_tablespace." if managed_database_id.nil?
+      raise "Missing the required parameter 'tablespace_name' when calling get_tablespace." if tablespace_name.nil?
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'tablespace_name' must not be blank" if OCI::Internal::Util.blank_string?(tablespace_name)
+
+      path = '/managedDatabases/{managedDatabaseId}/tablespaces/{tablespaceName}'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{tablespaceName}', tablespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#get_tablespace') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::Tablespace'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the details of the user specified by managedDatabaseId and userName.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] user_name The name of the user whose details are to be viewed.
@@ -1737,6 +1997,84 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DatabaseManagement::Models::WorkRequest'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the list of ASM properties for the specified managedDatabaseId.
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :name A filter to return only resources that match the entire name.
+    # @option opts [String] :sort_by The field to sort information by. Only one sortOrder can be used. The default sort order
+    #   for \u2018TIMECREATED\u2019 is descending and the default sort order for \u2018NAME\u2019 is ascending.
+    #   The \u2018NAME\u2019 sort order is case-sensitive.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::AsmPropertyCollection AsmPropertyCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_asm_properties.rb.html) to see an example of how to use list_asm_properties API.
+    def list_asm_properties(managed_database_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#list_asm_properties.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling list_asm_properties." if managed_database_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/asmProperties'.sub('{managedDatabaseId}', managed_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#list_asm_properties') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::AsmPropertyCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2018,7 +2356,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the list of Consumer Group Privileges granted for the specified user.
+    # Gets the list of consumer group privileges granted to a specific user.
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] user_name The name of the user whose details are to be viewed.
     # @param [Hash] opts the optional parameters
@@ -2098,7 +2436,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the list of Containers if it does not apply to all containers for the specified user.
+    # Gets the list of containers for a specific user. This is only applicable if ALL_CONTAINERS !='Y'.
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] user_name The name of the user whose details are to be viewed.
     # @param [Hash] opts the optional parameters
@@ -2823,7 +3161,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the list of Object Privileges granted for the specified user.
+    # Gets the list of object privileges granted to a specific user.
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] user_name The name of the user whose details are to be viewed.
     # @param [Hash] opts the optional parameters
@@ -2903,7 +3241,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the list of Users for which the current user acts as proxy.
+    # Gets the list of users on whose behalf the current user acts as proxy.
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] user_name The name of the user whose details are to be viewed.
     # @param [Hash] opts the optional parameters
@@ -2983,7 +3321,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the list of proxy users for the current User.
+    # Gets the list of proxy users for the current user.
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] user_name The name of the user whose details are to be viewed.
     # @param [Hash] opts the optional parameters
@@ -3063,7 +3401,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the list of roles granted for the specified user.
+    # Gets the list of roles granted to a specific user.
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] user_name The name of the user whose details are to be viewed.
     # @param [Hash] opts the optional parameters
@@ -3143,7 +3481,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the list of System Privileges granted for the specified user.
+    # Gets the list of system privileges granted to a specific user.
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [String] user_name The name of the user whose details are to be viewed.
     # @param [Hash] opts the optional parameters
@@ -3614,6 +3952,75 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Removes a data file or temp file from the tablespace.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] tablespace_name The name of the tablespace.
+    # @param [OCI::DatabaseManagement::Models::RemoveDataFileDetails] remove_data_file_details The details required to remove a data file or temp file from the tablespace.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::TablespaceAdminStatus TablespaceAdminStatus}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/remove_data_file.rb.html) to see an example of how to use remove_data_file API.
+    def remove_data_file(managed_database_id, tablespace_name, remove_data_file_details, opts = {})
+      logger.debug 'Calling operation DbManagementClient#remove_data_file.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling remove_data_file." if managed_database_id.nil?
+      raise "Missing the required parameter 'tablespace_name' when calling remove_data_file." if tablespace_name.nil?
+      raise "Missing the required parameter 'remove_data_file_details' when calling remove_data_file." if remove_data_file_details.nil?
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'tablespace_name' must not be blank" if OCI::Internal::Util.blank_string?(tablespace_name)
+
+      path = '/managedDatabases/{managedDatabaseId}/tablespaces/{tablespaceName}/actions/removeDataFile'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{tablespaceName}', tablespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(remove_data_file_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#remove_data_file') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::TablespaceAdminStatus'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Removes a Managed Database from a Managed Database Group. Any management
     # activities that are currently running on this database will continue to
     # run to completion. However, any activities scheduled to run in the future
@@ -3733,6 +4140,75 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DatabaseManagement::Models::UpdateDatabaseParametersResult'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Resizes a data file or temp file within the tablespace.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] tablespace_name The name of the tablespace.
+    # @param [OCI::DatabaseManagement::Models::ResizeDataFileDetails] resize_data_file_details The details required to resize a data file or temp file within the tablespace.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::TablespaceAdminStatus TablespaceAdminStatus}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/resize_data_file.rb.html) to see an example of how to use resize_data_file API.
+    def resize_data_file(managed_database_id, tablespace_name, resize_data_file_details, opts = {})
+      logger.debug 'Calling operation DbManagementClient#resize_data_file.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling resize_data_file." if managed_database_id.nil?
+      raise "Missing the required parameter 'tablespace_name' when calling resize_data_file." if tablespace_name.nil?
+      raise "Missing the required parameter 'resize_data_file_details' when calling resize_data_file." if resize_data_file_details.nil?
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'tablespace_name' must not be blank" if OCI::Internal::Util.blank_string?(tablespace_name)
+
+      path = '/managedDatabases/{managedDatabaseId}/tablespaces/{tablespaceName}/actions/resizeDataFile'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{tablespaceName}', tablespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(resize_data_file_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#resize_data_file') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::TablespaceAdminStatus'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -5000,6 +5476,66 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DatabaseManagement::Models::ManagedDatabaseGroup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the attributes of the tablespace specified by tablespaceName within the Managed Database specified by managedDatabaseId.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [String] tablespace_name The name of the tablespace.
+    # @param [OCI::DatabaseManagement::Models::UpdateTablespaceDetails] update_tablespace_details The details required to update a tablespace.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::Tablespace Tablespace}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/update_tablespace.rb.html) to see an example of how to use update_tablespace API.
+    def update_tablespace(managed_database_id, tablespace_name, update_tablespace_details, opts = {})
+      logger.debug 'Calling operation DbManagementClient#update_tablespace.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling update_tablespace." if managed_database_id.nil?
+      raise "Missing the required parameter 'tablespace_name' when calling update_tablespace." if tablespace_name.nil?
+      raise "Missing the required parameter 'update_tablespace_details' when calling update_tablespace." if update_tablespace_details.nil?
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+      raise "Parameter value for 'tablespace_name' must not be blank" if OCI::Internal::Util.blank_string?(tablespace_name)
+
+      path = '/managedDatabases/{managedDatabaseId}/tablespaces/{tablespaceName}'.sub('{managedDatabaseId}', managed_database_id.to_s).sub('{tablespaceName}', tablespace_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_tablespace_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#update_tablespace') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::Tablespace'
         )
       end
       # rubocop:enable Metrics/BlockLength

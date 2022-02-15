@@ -5,15 +5,15 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary of quick pick query objects that contains the quick pick queries.
+  # Summary of the Quick Pick query objects.
   #
   class ApmTraces::Models::QuickPickSummary
-    # **[Required]** Quick pick name for the query.
+    # **[Required]** Quick Pick name for the query.
     #
     # @return [String]
     attr_accessor :quick_pick_name
 
-    # **[Required]** Query for the quick pick.
+    # **[Required]** Query for the Quick Pick.
     #
     # @return [String]
     attr_accessor :quick_pick_query

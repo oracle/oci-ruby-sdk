@@ -5,10 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary of the sort attribute and order by which the query results are organized.
+  # Summary of the sort and order by attribute based on which the query results are organized.
   #
   class ApmTraces::Models::QueryResultsOrderedBySummary
-    # Attribute by which the query result is sorted by.
+    # Attribute by which the query results are sorted.
     #
     # @return [String]
     attr_accessor :query_results_ordered_by

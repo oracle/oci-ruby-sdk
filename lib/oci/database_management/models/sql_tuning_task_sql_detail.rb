@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The detail of the SQL statements on which SQL tuning is performed.
+  # The details of the SQL statements on which SQL tuning is performed.
   class DatabaseManagement::Models::SqlTuningTaskSqlDetail
     # **[Required]** The identifier of a SQL statement.
     # @return [String]

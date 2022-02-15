@@ -84,7 +84,7 @@ module OCI
 
       raise 'A region must be specified.' unless @region
 
-      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://announcements.{region}.{secondLevelDomain}') + '/20180904'
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://announcements.{region}.oci.{secondLevelDomain}') + '/20180904'
       logger.info "AnnouncementClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
     end
 
@@ -99,6 +99,8 @@ module OCI
 
 
     # Gets the details of a specific announcement.
+    #
+    # This call is subject to an Announcements limit that applies to the total number of requests across all read or write operations. Announcements might throttle this call to reject an otherwise valid request when the total rate of operations exceeds 20 requests per second for a given user. The service might also throttle this call to reject an otherwise valid request when the total rate of operations exceeds 100 requests per second for a given tenancy.
     #
     # @param [String] announcement_id The OCID of the announcement.
     # @param [Hash] opts the optional parameters
@@ -157,6 +159,8 @@ module OCI
 
     # Gets information about whether a specific announcement was acknowledged by a user.
     #
+    # This call is subject to an Announcements limit that applies to the total number of requests across all read or write operations. Announcements might throttle this call to reject an otherwise valid request when the total rate of operations exceeds 20 requests per second for a given user. The service might also throttle this call to reject an otherwise valid request when the total rate of operations exceeds 100 requests per second for a given tenancy.
+    #
     # @param [String] announcement_id The OCID of the announcement.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -214,8 +218,9 @@ module OCI
 
     # Gets a list of announcements for the current tenancy.
     #
-    # @param [String] compartment_id The OCID of the compartment. Because announcements are specific to a tenancy, this is the
-    #   OCID of the root compartment.
+    # This call is subject to an Announcements limit that applies to the total number of requests across all read or write operations. Announcements might throttle this call to reject an otherwise valid request when the total rate of operations exceeds 20 requests per second for a given user. The service might also throttle this call to reject an otherwise valid request when the total rate of operations exceeds 100 requests per second for a given tenancy.
+    #
+    # @param [String] compartment_id The OCID of the compartment.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -234,6 +239,11 @@ module OCI
     #   Allowed values are: ASC, DESC
     # @option opts [DateTime] :time_one_earliest_time The boundary for the earliest `timeOneValue` date on announcements that you want to see.
     # @option opts [DateTime] :time_one_latest_time The boundary for the latest `timeOneValue` date on announcements that you want to see.
+    # @option opts [String] :environment_name A filter to return only announcements that match a specific environment name.
+    # @option opts [String] :service A filter to return only announcements affecting a specific service.
+    # @option opts [String] :platform_type A filter to return only announcements affecting a specific platform.
+    #   Allowed values are: IAAS, SAAS
+    # @option opts [Array<String>] :exclude_announcement_types Exclude The type of announcement.
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about
     #   a particular request, please provide the complete request ID.
     #
@@ -256,6 +266,10 @@ module OCI
         raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
       end
 
+      if opts[:platform_type] && !%w[IAAS SAAS].include?(opts[:platform_type])
+        raise 'Invalid value for "platform_type", must be one of IAAS, SAAS.'
+      end
+
       path = '/announcements'
       operation_signing_strategy = :standard
 
@@ -272,6 +286,10 @@ module OCI
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:timeOneEarliestTime] = opts[:time_one_earliest_time] if opts[:time_one_earliest_time]
       query_params[:timeOneLatestTime] = opts[:time_one_latest_time] if opts[:time_one_latest_time]
+      query_params[:environmentName] = opts[:environment_name] if opts[:environment_name]
+      query_params[:service] = opts[:service] if opts[:service]
+      query_params[:platformType] = opts[:platform_type] if opts[:platform_type]
+      query_params[:excludeAnnouncementTypes] = OCI::ApiClient.build_collection_params(opts[:exclude_announcement_types], :multi) if opts[:exclude_announcement_types] && !opts[:exclude_announcement_types].empty?
 
       # Header Params
       header_params = {}
@@ -308,6 +326,8 @@ module OCI
 
     # Updates the status of the specified announcement with regard to whether it has been marked as read.
     #
+    # This call is subject to an Announcements limit that applies to the total number of requests across all read or write operations. Announcements might throttle this call to reject an otherwise valid request when the total rate of operations exceeds 20 requests per second for a given user. The service might also throttle this call to reject an otherwise valid request when the total rate of operations exceeds 100 requests per second for a given tenancy.
+    #
     # @param [String] announcement_id The OCID of the announcement.
     # @param [OCI::AnnouncementsService::Models::AnnouncementUserStatusDetails] status_details The information to use to update the announcement's read status.
     # @param [Hash] opts the optional parameters
@@ -317,7 +337,7 @@ module OCI
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about
     #   a particular request, please provide the complete request ID.
     #
-    # @return [Response] A Response object with data of type nil
+    # @return [Response] A Response object with data of type {OCI::AnnouncementsService::Models::AnnouncementUserStatusDetails AnnouncementUserStatusDetails}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/announcementsservice/update_announcement_user_status.rb.html) to see an example of how to use update_announcement_user_status API.
     def update_announcement_user_status(announcement_id, status_details, opts = {})
       logger.debug 'Calling operation AnnouncementClient#update_announcement_user_status.' if logger
@@ -352,7 +372,8 @@ module OCI
           header_params: header_params,
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
-          body: post_body
+          body: post_body,
+          return_type: 'OCI::AnnouncementsService::Models::AnnouncementUserStatusDetails'
         )
       end
       # rubocop:enable Metrics/BlockLength

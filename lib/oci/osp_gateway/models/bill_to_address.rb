@@ -6,7 +6,7 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Address details model
-  class OspGateway::Models::Address
+  class OspGateway::Models::BillToAddress
     # Name of the contact person
     # @return [String]
     attr_accessor :contact_name
