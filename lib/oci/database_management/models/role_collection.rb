@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A collection of Roles granted to the current User.
+  # A collection of roles granted to the current User.
   class DatabaseManagement::Models::RoleCollection
-    # **[Required]** An array of User resources.
+    # **[Required]** An array of roles.
     # @return [Array<OCI::DatabaseManagement::Models::RoleSummary>]
     attr_accessor :items
 

@@ -81,6 +81,26 @@ module OCI
     # @return [OCI::ContainerEngine::Models::NodePoolNodeConfigDetails]
     attr_accessor :node_config_details
 
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # Usage of system tag keys. These predefined keys are scoped to namespaces.
+    # Example: `{\"orcl-cloud\": {\"free-tier-retained\": \"true\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :system_tags
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -102,7 +122,10 @@ module OCI
         'quantity_per_subnet': :'quantityPerSubnet',
         'subnet_ids': :'subnetIds',
         'nodes': :'nodes',
-        'node_config_details': :'nodeConfigDetails'
+        'node_config_details': :'nodeConfigDetails',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags',
+        'system_tags': :'systemTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -128,7 +151,10 @@ module OCI
         'quantity_per_subnet': :'Integer',
         'subnet_ids': :'Array<String>',
         'nodes': :'Array<OCI::ContainerEngine::Models::Node>',
-        'node_config_details': :'OCI::ContainerEngine::Models::NodePoolNodeConfigDetails'
+        'node_config_details': :'OCI::ContainerEngine::Models::NodePoolNodeConfigDetails',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'system_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -157,6 +183,9 @@ module OCI
     # @option attributes [Array<String>] :subnet_ids The value to assign to the {#subnet_ids} property
     # @option attributes [Array<OCI::ContainerEngine::Models::Node>] :nodes The value to assign to the {#nodes} property
     # @option attributes [OCI::ContainerEngine::Models::NodePoolNodeConfigDetails] :node_config_details The value to assign to the {#node_config_details} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -258,6 +287,24 @@ module OCI
       raise 'You cannot provide both :nodeConfigDetails and :node_config_details' if attributes.key?(:'nodeConfigDetails') && attributes.key?(:'node_config_details')
 
       self.node_config_details = attributes[:'node_config_details'] if attributes[:'node_config_details']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.system_tags = attributes[:'systemTags'] if attributes[:'systemTags']
+
+      raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
+
+      self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -288,7 +335,10 @@ module OCI
         quantity_per_subnet == other.quantity_per_subnet &&
         subnet_ids == other.subnet_ids &&
         nodes == other.nodes &&
-        node_config_details == other.node_config_details
+        node_config_details == other.node_config_details &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags &&
+        system_tags == other.system_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -304,7 +354,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, cluster_id, name, kubernetes_version, node_metadata, node_image_id, node_image_name, node_shape_config, node_source, node_source_details, node_shape, initial_node_labels, ssh_public_key, quantity_per_subnet, subnet_ids, nodes, node_config_details].hash
+      [id, compartment_id, cluster_id, name, kubernetes_version, node_metadata, node_image_id, node_image_name, node_shape_config, node_source, node_source_details, node_shape, initial_node_labels, ssh_public_key, quantity_per_subnet, subnet_ids, nodes, node_config_details, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

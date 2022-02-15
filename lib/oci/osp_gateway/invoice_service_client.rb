@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # This site describes all the Rest endpoints of Billing Center Gateway.
+  # This site describes all the Rest endpoints of OSP Gateway.
   class OspGateway::InvoiceServiceClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]

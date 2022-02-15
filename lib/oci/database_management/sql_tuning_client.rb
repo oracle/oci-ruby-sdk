@@ -100,10 +100,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Clone and start a SQL tuning task for a given SQL tuning task.
+    # Clones and runs a SQL tuning task in the database.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
-    # @param [OCI::DatabaseManagement::Models::CloneSqlTuningTaskDetails] clone_sql_tuning_task_details Detail inputs for cloning a SQL tuning task
+    # @param [OCI::DatabaseManagement::Models::CloneSqlTuningTaskDetails] clone_sql_tuning_task_details The detailed inputs required to clone a SQL tuning task.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -165,10 +165,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Drop a SQL tuning task and its related results from the database.
+    # Drops a SQL tuning task and its related results from the database.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
-    # @param [OCI::DatabaseManagement::Models::DropSqlTuningTaskDetails] drop_sql_tuning_task_details Detail inputs for dropping a SQL tuning task
+    # @param [OCI::DatabaseManagement::Models::DropSqlTuningTaskDetails] drop_sql_tuning_task_details The detailed inputs required to drop a SQL tuning task.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -229,13 +229,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # A SQL tuning task may suggest new execution plan for a SQL. The API returns the
-    # stats comparison report for the plans.
+    # Retrieves a comparison of the existing SQL execution plan and a new plan.
+    # A SQL tuning task may suggest a new execution plan for a SQL,
+    # and this API retrieves the comparison report of the statistics of the two plans.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [Integer] sql_tuning_advisor_task_id The SQL tuning task identifier. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Integer] sql_object_id The SQL object id for the SQL tuning task. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Integer] execution_id The execution id for an execution of a SQL tuning task. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Integer] sql_object_id The SQL object ID for the SQL tuning task. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Integer] execution_id The execution ID for an execution of a SQL tuning task. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -295,11 +296,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Retrieve a SQL execution plan for a SQL being tuned, for original or new plan
+    # Retrieves a SQL execution plan for the SQL being tuned.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [Integer] sql_tuning_advisor_task_id The SQL tuning task identifier. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Integer] sql_object_id The SQL object id for the SQL tuning task. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Integer] sql_object_id The SQL object ID for the SQL tuning task. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [String] attribute The attribute of the SQL execution plan.
     #   Allowed values are: ORIGINAL, ORIGINAL_WITH_ADJUSTED_COST, USING_SQL_PROFILE, USING_NEW_INDICES
     # @param [Hash] opts the optional parameters
@@ -363,7 +364,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the summary report for the specific SQL Tuning Advisor task.
+    # Gets the summary report for the specified SQL Tuning Advisor task.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [Integer] sql_tuning_advisor_task_id The SQL tuning task identifier. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -436,7 +437,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Takes in a task id, and a finding/object type filter and applies some SQLs to find return the output.
+    # Gets an array of the details of the findings that match specific filters.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [Integer] sql_tuning_advisor_task_id The SQL tuning task identifier. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -445,9 +446,11 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Integer] :begin_exec_id The optional greater than or equal to filter on the execution ID related to a specific SQL Tuning Advisor task.
     # @option opts [Integer] :end_exec_id The optional less than or equal to query parameter to filter on the execution ID related to a specific SQL Tuning Advisor task.
-    # @option opts [String] :search_period How far back the API will search for begin and end exec id, if not supplied. Unused if beginExecId and endExecId optional query params are both supplied. (default to ALL)
+    # @option opts [String] :search_period The search period during which the API will search for begin and end exec id, if not supplied.
+    #   Unused if beginExecId and endExecId optional query params are both supplied.
+    #    (default to ALL)
     #   Allowed values are: LAST_24HR, LAST_7DAY, LAST_31DAY, SINCE_LAST, ALL
-    # @option opts [String] :finding_filter Filters which findings get shown in the report (default to none)
+    # @option opts [String] :finding_filter The filter used to display specific findings in the report. (default to none)
     #   Allowed values are: none, FINDINGS, NOFINDINGS, ERRORS, PROFILES, INDICES, STATS, RESTRUCTURE, ALTERNATIVE, AUTO_PROFILES, OTHER_PROFILES
     # @option opts [String] :stats_hash_filter The hash value of the object for the statistic finding search.
     # @option opts [String] :index_hash_filter The hash value of the index table name.
@@ -535,12 +538,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Takes in a task id and object id and returns the recommendations/findings.
+    # Gets the findings and possible actions for a given object in a SQL tuning task.
+    # The task ID and object ID are used to retrieve the findings and recommendations.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
     # @param [Integer] sql_tuning_advisor_task_id The SQL tuning task identifier. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Integer] sql_object_id The SQL object id for the SQL tuning task. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
-    # @param [Integer] execution_id The execution id for an execution of a SQL tuning task. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Integer] sql_object_id The SQL object ID for the SQL tuning task. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Integer] execution_id The execution ID for an execution of a SQL tuning task. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -634,7 +638,7 @@ module OCI
     #   are retrieved. This is usually retrieved from a previous list call.
     #
     # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
-    # @option opts [String] :sort_by The option to sort the SQL Tuning advisor task summary data. (default to START_TIME)
+    # @option opts [String] :sort_by The option to sort the SQL Tuning Advisor task summary data. (default to START_TIME)
     #   Allowed values are: NAME, START_TIME
     # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the default order. (default to DESC)
     # @option opts [String] :opc_request_id The client request ID for tracing.
@@ -706,11 +710,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Start a SQL tuning task for a given set of SQLs from active session history
-    # top SQLs.
+    # Starts a SQL tuning task for a given set of SQL statements from the active session history top SQL statements.
     #
     # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
-    # @param [OCI::DatabaseManagement::Models::StartSqlTuningTaskDetails] start_sql_tuning_task_details Detail inputs for starting a SQL tuning task
+    # @param [OCI::DatabaseManagement::Models::StartSqlTuningTaskDetails] start_sql_tuning_task_details The detailed inputs required to start a SQL tuning task.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # A SQL execution plan.
   class DatabaseManagement::Models::SqlTuningAdvisorTaskSqlExecutionPlan
-    # **[Required]** A SQL execution plan as a list of steps
+    # **[Required]** A SQL execution plan as a list of steps.
     # @return [Array<OCI::DatabaseManagement::Models::SqlTuningTaskSqlExecutionPlanStep>]
     attr_accessor :plan
 

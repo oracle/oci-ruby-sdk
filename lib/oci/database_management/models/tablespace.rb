@@ -2,6 +2,7 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -11,50 +12,59 @@ module OCI
       TYPE_UNDO = 'UNDO'.freeze,
       TYPE_LOST_WRITE_PROTECTION = 'LOST_WRITE_PROTECTION'.freeze,
       TYPE_PERMANENT = 'PERMANENT'.freeze,
-      TYPE_TEMPORARY = 'TEMPORARY'.freeze
+      TYPE_TEMPORARY = 'TEMPORARY'.freeze,
+      TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     STATUS_ENUM = [
       STATUS_ONLINE = 'ONLINE'.freeze,
       STATUS_OFFLINE = 'OFFLINE'.freeze,
-      STATUS_READ_ONLY = 'READ_ONLY'.freeze
+      STATUS_READ_ONLY = 'READ_ONLY'.freeze,
+      STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     LOGGING_ENUM = [
       LOGGING_LOGGING = 'LOGGING'.freeze,
-      LOGGING_NOLOGGING = 'NOLOGGING'.freeze
+      LOGGING_NOLOGGING = 'NOLOGGING'.freeze,
+      LOGGING_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     EXTENT_MANAGEMENT_ENUM = [
       EXTENT_MANAGEMENT_LOCAL = 'LOCAL'.freeze,
-      EXTENT_MANAGEMENT_DICTIONARY = 'DICTIONARY'.freeze
+      EXTENT_MANAGEMENT_DICTIONARY = 'DICTIONARY'.freeze,
+      EXTENT_MANAGEMENT_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     ALLOCATION_TYPE_ENUM = [
       ALLOCATION_TYPE_SYSTEM = 'SYSTEM'.freeze,
       ALLOCATION_TYPE_UNIFORM = 'UNIFORM'.freeze,
-      ALLOCATION_TYPE_USER = 'USER'.freeze
+      ALLOCATION_TYPE_USER = 'USER'.freeze,
+      ALLOCATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     SEGMENT_SPACE_MANAGEMENT_ENUM = [
       SEGMENT_SPACE_MANAGEMENT_MANUAL = 'MANUAL'.freeze,
-      SEGMENT_SPACE_MANAGEMENT_AUTO = 'AUTO'.freeze
+      SEGMENT_SPACE_MANAGEMENT_AUTO = 'AUTO'.freeze,
+      SEGMENT_SPACE_MANAGEMENT_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     DEFAULT_TABLE_COMPRESSION_ENUM = [
       DEFAULT_TABLE_COMPRESSION_ENABLED = 'ENABLED'.freeze,
-      DEFAULT_TABLE_COMPRESSION_DISABLED = 'DISABLED'.freeze
+      DEFAULT_TABLE_COMPRESSION_DISABLED = 'DISABLED'.freeze,
+      DEFAULT_TABLE_COMPRESSION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     RETENTION_ENUM = [
       RETENTION_GUARANTEE = 'GUARANTEE'.freeze,
       RETENTION_NOGUARANTEE = 'NOGUARANTEE'.freeze,
-      RETENTION_NOT_APPLY = 'NOT_APPLY'.freeze
+      RETENTION_NOT_APPLY = 'NOT_APPLY'.freeze,
+      RETENTION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     PREDICATE_EVALUATION_ENUM = [
       PREDICATE_EVALUATION_HOST = 'HOST'.freeze,
-      PREDICATE_EVALUATION_STORAGE = 'STORAGE'.freeze
+      PREDICATE_EVALUATION_STORAGE = 'STORAGE'.freeze,
+      PREDICATE_EVALUATION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     COMPRESS_FOR_ENUM = [
@@ -65,12 +75,14 @@ module OCI
       COMPRESS_FOR_ARCHIVE_LOW = 'ARCHIVE_LOW'.freeze,
       COMPRESS_FOR_ARCHIVE_HIGH = 'ARCHIVE_HIGH'.freeze,
       COMPRESS_FOR_DIRECT_LOAD_ONLY = 'DIRECT_LOAD_ONLY'.freeze,
-      COMPRESS_FOR_FOR_ALL_OPERATIONS = 'FOR_ALL_OPERATIONS'.freeze
+      COMPRESS_FOR_FOR_ALL_OPERATIONS = 'FOR_ALL_OPERATIONS'.freeze,
+      COMPRESS_FOR_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     DEFAULT_IN_MEMORY_ENUM = [
       DEFAULT_IN_MEMORY_ENABLED = 'ENABLED'.freeze,
-      DEFAULT_IN_MEMORY_DISABLED = 'DISABLED'.freeze
+      DEFAULT_IN_MEMORY_DISABLED = 'DISABLED'.freeze,
+      DEFAULT_IN_MEMORY_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     DEFAULT_IN_MEMORY_PRIORITY_ENUM = [
@@ -78,14 +90,16 @@ module OCI
       DEFAULT_IN_MEMORY_PRIORITY_MEDIUM = 'MEDIUM'.freeze,
       DEFAULT_IN_MEMORY_PRIORITY_HIGH = 'HIGH'.freeze,
       DEFAULT_IN_MEMORY_PRIORITY_CRITICAL = 'CRITICAL'.freeze,
-      DEFAULT_IN_MEMORY_PRIORITY_NONE = 'NONE'.freeze
+      DEFAULT_IN_MEMORY_PRIORITY_NONE = 'NONE'.freeze,
+      DEFAULT_IN_MEMORY_PRIORITY_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     DEFAULT_IN_MEMORY_DISTRIBUTE_ENUM = [
       DEFAULT_IN_MEMORY_DISTRIBUTE_AUTO = 'AUTO'.freeze,
       DEFAULT_IN_MEMORY_DISTRIBUTE_BY_ROWID_RANGE = 'BY_ROWID_RANGE'.freeze,
       DEFAULT_IN_MEMORY_DISTRIBUTE_BY_PARTITION = 'BY_PARTITION'.freeze,
-      DEFAULT_IN_MEMORY_DISTRIBUTE_BY_SUBPARTITION = 'BY_SUBPARTITION'.freeze
+      DEFAULT_IN_MEMORY_DISTRIBUTE_BY_SUBPARTITION = 'BY_SUBPARTITION'.freeze,
+      DEFAULT_IN_MEMORY_DISTRIBUTE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     DEFAULT_IN_MEMORY_COMPRESSION_ENUM = [
@@ -94,42 +108,50 @@ module OCI
       DEFAULT_IN_MEMORY_COMPRESSION_FOR_QUERY_LOW = 'FOR_QUERY_LOW'.freeze,
       DEFAULT_IN_MEMORY_COMPRESSION_FOR_QUERY_HIGH = 'FOR_QUERY_HIGH'.freeze,
       DEFAULT_IN_MEMORY_COMPRESSION_FOR_CAPACITY_LOW = 'FOR_CAPACITY_LOW'.freeze,
-      DEFAULT_IN_MEMORY_COMPRESSION_FOR_CAPACITY_HIGH = 'FOR_CAPACITY_HIGH'.freeze
+      DEFAULT_IN_MEMORY_COMPRESSION_FOR_CAPACITY_HIGH = 'FOR_CAPACITY_HIGH'.freeze,
+      DEFAULT_IN_MEMORY_COMPRESSION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     DEFAULT_IN_MEMORY_DUPLICATE_ENUM = [
       DEFAULT_IN_MEMORY_DUPLICATE_NO_DUPLICATE = 'NO_DUPLICATE'.freeze,
       DEFAULT_IN_MEMORY_DUPLICATE_DUPLICATE = 'DUPLICATE'.freeze,
-      DEFAULT_IN_MEMORY_DUPLICATE_DUPLICATE_ALL = 'DUPLICATE_ALL'.freeze
+      DEFAULT_IN_MEMORY_DUPLICATE_DUPLICATE_ALL = 'DUPLICATE_ALL'.freeze,
+      DEFAULT_IN_MEMORY_DUPLICATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     SHARED_ENUM = [
       SHARED_SHARED = 'SHARED'.freeze,
       SHARED_LOCAL_ON_LEAF = 'LOCAL_ON_LEAF'.freeze,
-      SHARED_LOCAL_ON_ALL = 'LOCAL_ON_ALL'.freeze
+      SHARED_LOCAL_ON_ALL = 'LOCAL_ON_ALL'.freeze,
+      SHARED_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     DEFAULT_INDEX_COMPRESSION_ENUM = [
       DEFAULT_INDEX_COMPRESSION_ENABLED = 'ENABLED'.freeze,
-      DEFAULT_INDEX_COMPRESSION_DISABLED = 'DISABLED'.freeze
+      DEFAULT_INDEX_COMPRESSION_DISABLED = 'DISABLED'.freeze,
+      DEFAULT_INDEX_COMPRESSION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     INDEX_COMPRESS_FOR_ENUM = [
       INDEX_COMPRESS_FOR_ADVANCED_LOW = 'ADVANCED_LOW'.freeze,
-      INDEX_COMPRESS_FOR_ADVANCED_HIGH = 'ADVANCED_HIGH'.freeze
+      INDEX_COMPRESS_FOR_ADVANCED_HIGH = 'ADVANCED_HIGH'.freeze,
+      INDEX_COMPRESS_FOR_NONE = 'NONE'.freeze,
+      INDEX_COMPRESS_FOR_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     DEFAULT_IN_MEMORY_SERVICE_ENUM = [
       DEFAULT_IN_MEMORY_SERVICE_DEFAULT = 'DEFAULT'.freeze,
       DEFAULT_IN_MEMORY_SERVICE_NONE = 'NONE'.freeze,
       DEFAULT_IN_MEMORY_SERVICE_ALL = 'ALL'.freeze,
-      DEFAULT_IN_MEMORY_SERVICE_USER_DEFINED = 'USER_DEFINED'.freeze
+      DEFAULT_IN_MEMORY_SERVICE_USER_DEFINED = 'USER_DEFINED'.freeze,
+      DEFAULT_IN_MEMORY_SERVICE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     LOST_WRITE_PROTECT_ENUM = [
       LOST_WRITE_PROTECT_ENABLED = 'ENABLED'.freeze,
       LOST_WRITE_PROTECT_PROTECT_OFF = 'PROTECT_OFF'.freeze,
-      LOST_WRITE_PROTECT_SUSPEND = 'SUSPEND'.freeze
+      LOST_WRITE_PROTECT_SUSPEND = 'SUSPEND'.freeze,
+      LOST_WRITE_PROTECT_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The name of the tablespace.
@@ -280,6 +302,10 @@ module OCI
     # @return [Float]
     attr_accessor :used_percent_allocated
 
+    # Indicates whether this is the default tablespace.
+    # @return [BOOLEAN]
+    attr_accessor :is_default
+
     # A list of the data files associated with the tablespace.
     # @return [Array<OCI::DatabaseManagement::Models::Datafile>]
     attr_accessor :datafiles
@@ -325,6 +351,7 @@ module OCI
         'used_space_kb': :'usedSpaceKB',
         'used_percent_available': :'usedPercentAvailable',
         'used_percent_allocated': :'usedPercentAllocated',
+        'is_default': :'isDefault',
         'datafiles': :'datafiles'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -371,6 +398,7 @@ module OCI
         'used_space_kb': :'Float',
         'used_percent_available': :'Float',
         'used_percent_allocated': :'Float',
+        'is_default': :'BOOLEAN',
         'datafiles': :'Array<OCI::DatabaseManagement::Models::Datafile>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -419,6 +447,7 @@ module OCI
     # @option attributes [Float] :used_space_kb The value to assign to the {#used_space_kb} property
     # @option attributes [Float] :used_percent_available The value to assign to the {#used_percent_available} property
     # @option attributes [Float] :used_percent_allocated The value to assign to the {#used_percent_allocated} property
+    # @option attributes [BOOLEAN] :is_default The value to assign to the {#is_default} property
     # @option attributes [Array<OCI::DatabaseManagement::Models::Datafile>] :datafiles The value to assign to the {#datafiles} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -621,6 +650,12 @@ module OCI
 
       self.used_percent_allocated = attributes[:'used_percent_allocated'] if attributes[:'used_percent_allocated']
 
+      self.is_default = attributes[:'isDefault'] unless attributes[:'isDefault'].nil?
+
+      raise 'You cannot provide both :isDefault and :is_default' if attributes.key?(:'isDefault') && attributes.key?(:'is_default')
+
+      self.is_default = attributes[:'is_default'] unless attributes[:'is_default'].nil?
+
       self.datafiles = attributes[:'datafiles'] if attributes[:'datafiles']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -629,161 +664,261 @@ module OCI
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] type Object to be assigned
     def type=(type)
-      raise "Invalid value for 'type': this must be one of the values in TYPE_ENUM." if type && !TYPE_ENUM.include?(type)
-
-      @type = type
+      # rubocop:disable Style/ConditionalAssignment
+      if type && !TYPE_ENUM.include?(type)
+        OCI.logger.debug("Unknown value for 'type' [" + type + "]. Mapping to 'TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @type = TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @type = type
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] status Object to be assigned
     def status=(status)
-      raise "Invalid value for 'status': this must be one of the values in STATUS_ENUM." if status && !STATUS_ENUM.include?(status)
-
-      @status = status
+      # rubocop:disable Style/ConditionalAssignment
+      if status && !STATUS_ENUM.include?(status)
+        OCI.logger.debug("Unknown value for 'status' [" + status + "]. Mapping to 'STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @status = STATUS_UNKNOWN_ENUM_VALUE
+      else
+        @status = status
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] logging Object to be assigned
     def logging=(logging)
-      raise "Invalid value for 'logging': this must be one of the values in LOGGING_ENUM." if logging && !LOGGING_ENUM.include?(logging)
-
-      @logging = logging
+      # rubocop:disable Style/ConditionalAssignment
+      if logging && !LOGGING_ENUM.include?(logging)
+        OCI.logger.debug("Unknown value for 'logging' [" + logging + "]. Mapping to 'LOGGING_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @logging = LOGGING_UNKNOWN_ENUM_VALUE
+      else
+        @logging = logging
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] extent_management Object to be assigned
     def extent_management=(extent_management)
-      raise "Invalid value for 'extent_management': this must be one of the values in EXTENT_MANAGEMENT_ENUM." if extent_management && !EXTENT_MANAGEMENT_ENUM.include?(extent_management)
-
-      @extent_management = extent_management
+      # rubocop:disable Style/ConditionalAssignment
+      if extent_management && !EXTENT_MANAGEMENT_ENUM.include?(extent_management)
+        OCI.logger.debug("Unknown value for 'extent_management' [" + extent_management + "]. Mapping to 'EXTENT_MANAGEMENT_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @extent_management = EXTENT_MANAGEMENT_UNKNOWN_ENUM_VALUE
+      else
+        @extent_management = extent_management
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] allocation_type Object to be assigned
     def allocation_type=(allocation_type)
-      raise "Invalid value for 'allocation_type': this must be one of the values in ALLOCATION_TYPE_ENUM." if allocation_type && !ALLOCATION_TYPE_ENUM.include?(allocation_type)
-
-      @allocation_type = allocation_type
+      # rubocop:disable Style/ConditionalAssignment
+      if allocation_type && !ALLOCATION_TYPE_ENUM.include?(allocation_type)
+        OCI.logger.debug("Unknown value for 'allocation_type' [" + allocation_type + "]. Mapping to 'ALLOCATION_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @allocation_type = ALLOCATION_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @allocation_type = allocation_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] segment_space_management Object to be assigned
     def segment_space_management=(segment_space_management)
-      raise "Invalid value for 'segment_space_management': this must be one of the values in SEGMENT_SPACE_MANAGEMENT_ENUM." if segment_space_management && !SEGMENT_SPACE_MANAGEMENT_ENUM.include?(segment_space_management)
-
-      @segment_space_management = segment_space_management
+      # rubocop:disable Style/ConditionalAssignment
+      if segment_space_management && !SEGMENT_SPACE_MANAGEMENT_ENUM.include?(segment_space_management)
+        OCI.logger.debug("Unknown value for 'segment_space_management' [" + segment_space_management + "]. Mapping to 'SEGMENT_SPACE_MANAGEMENT_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @segment_space_management = SEGMENT_SPACE_MANAGEMENT_UNKNOWN_ENUM_VALUE
+      else
+        @segment_space_management = segment_space_management
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] default_table_compression Object to be assigned
     def default_table_compression=(default_table_compression)
-      raise "Invalid value for 'default_table_compression': this must be one of the values in DEFAULT_TABLE_COMPRESSION_ENUM." if default_table_compression && !DEFAULT_TABLE_COMPRESSION_ENUM.include?(default_table_compression)
-
-      @default_table_compression = default_table_compression
+      # rubocop:disable Style/ConditionalAssignment
+      if default_table_compression && !DEFAULT_TABLE_COMPRESSION_ENUM.include?(default_table_compression)
+        OCI.logger.debug("Unknown value for 'default_table_compression' [" + default_table_compression + "]. Mapping to 'DEFAULT_TABLE_COMPRESSION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @default_table_compression = DEFAULT_TABLE_COMPRESSION_UNKNOWN_ENUM_VALUE
+      else
+        @default_table_compression = default_table_compression
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] retention Object to be assigned
     def retention=(retention)
-      raise "Invalid value for 'retention': this must be one of the values in RETENTION_ENUM." if retention && !RETENTION_ENUM.include?(retention)
-
-      @retention = retention
+      # rubocop:disable Style/ConditionalAssignment
+      if retention && !RETENTION_ENUM.include?(retention)
+        OCI.logger.debug("Unknown value for 'retention' [" + retention + "]. Mapping to 'RETENTION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @retention = RETENTION_UNKNOWN_ENUM_VALUE
+      else
+        @retention = retention
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] predicate_evaluation Object to be assigned
     def predicate_evaluation=(predicate_evaluation)
-      raise "Invalid value for 'predicate_evaluation': this must be one of the values in PREDICATE_EVALUATION_ENUM." if predicate_evaluation && !PREDICATE_EVALUATION_ENUM.include?(predicate_evaluation)
-
-      @predicate_evaluation = predicate_evaluation
+      # rubocop:disable Style/ConditionalAssignment
+      if predicate_evaluation && !PREDICATE_EVALUATION_ENUM.include?(predicate_evaluation)
+        OCI.logger.debug("Unknown value for 'predicate_evaluation' [" + predicate_evaluation + "]. Mapping to 'PREDICATE_EVALUATION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @predicate_evaluation = PREDICATE_EVALUATION_UNKNOWN_ENUM_VALUE
+      else
+        @predicate_evaluation = predicate_evaluation
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] compress_for Object to be assigned
     def compress_for=(compress_for)
-      raise "Invalid value for 'compress_for': this must be one of the values in COMPRESS_FOR_ENUM." if compress_for && !COMPRESS_FOR_ENUM.include?(compress_for)
-
-      @compress_for = compress_for
+      # rubocop:disable Style/ConditionalAssignment
+      if compress_for && !COMPRESS_FOR_ENUM.include?(compress_for)
+        OCI.logger.debug("Unknown value for 'compress_for' [" + compress_for + "]. Mapping to 'COMPRESS_FOR_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @compress_for = COMPRESS_FOR_UNKNOWN_ENUM_VALUE
+      else
+        @compress_for = compress_for
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] default_in_memory Object to be assigned
     def default_in_memory=(default_in_memory)
-      raise "Invalid value for 'default_in_memory': this must be one of the values in DEFAULT_IN_MEMORY_ENUM." if default_in_memory && !DEFAULT_IN_MEMORY_ENUM.include?(default_in_memory)
-
-      @default_in_memory = default_in_memory
+      # rubocop:disable Style/ConditionalAssignment
+      if default_in_memory && !DEFAULT_IN_MEMORY_ENUM.include?(default_in_memory)
+        OCI.logger.debug("Unknown value for 'default_in_memory' [" + default_in_memory + "]. Mapping to 'DEFAULT_IN_MEMORY_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @default_in_memory = DEFAULT_IN_MEMORY_UNKNOWN_ENUM_VALUE
+      else
+        @default_in_memory = default_in_memory
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] default_in_memory_priority Object to be assigned
     def default_in_memory_priority=(default_in_memory_priority)
-      raise "Invalid value for 'default_in_memory_priority': this must be one of the values in DEFAULT_IN_MEMORY_PRIORITY_ENUM." if default_in_memory_priority && !DEFAULT_IN_MEMORY_PRIORITY_ENUM.include?(default_in_memory_priority)
-
-      @default_in_memory_priority = default_in_memory_priority
+      # rubocop:disable Style/ConditionalAssignment
+      if default_in_memory_priority && !DEFAULT_IN_MEMORY_PRIORITY_ENUM.include?(default_in_memory_priority)
+        OCI.logger.debug("Unknown value for 'default_in_memory_priority' [" + default_in_memory_priority + "]. Mapping to 'DEFAULT_IN_MEMORY_PRIORITY_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @default_in_memory_priority = DEFAULT_IN_MEMORY_PRIORITY_UNKNOWN_ENUM_VALUE
+      else
+        @default_in_memory_priority = default_in_memory_priority
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] default_in_memory_distribute Object to be assigned
     def default_in_memory_distribute=(default_in_memory_distribute)
-      raise "Invalid value for 'default_in_memory_distribute': this must be one of the values in DEFAULT_IN_MEMORY_DISTRIBUTE_ENUM." if default_in_memory_distribute && !DEFAULT_IN_MEMORY_DISTRIBUTE_ENUM.include?(default_in_memory_distribute)
-
-      @default_in_memory_distribute = default_in_memory_distribute
+      # rubocop:disable Style/ConditionalAssignment
+      if default_in_memory_distribute && !DEFAULT_IN_MEMORY_DISTRIBUTE_ENUM.include?(default_in_memory_distribute)
+        OCI.logger.debug("Unknown value for 'default_in_memory_distribute' [" + default_in_memory_distribute + "]. Mapping to 'DEFAULT_IN_MEMORY_DISTRIBUTE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @default_in_memory_distribute = DEFAULT_IN_MEMORY_DISTRIBUTE_UNKNOWN_ENUM_VALUE
+      else
+        @default_in_memory_distribute = default_in_memory_distribute
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] default_in_memory_compression Object to be assigned
     def default_in_memory_compression=(default_in_memory_compression)
-      raise "Invalid value for 'default_in_memory_compression': this must be one of the values in DEFAULT_IN_MEMORY_COMPRESSION_ENUM." if default_in_memory_compression && !DEFAULT_IN_MEMORY_COMPRESSION_ENUM.include?(default_in_memory_compression)
-
-      @default_in_memory_compression = default_in_memory_compression
+      # rubocop:disable Style/ConditionalAssignment
+      if default_in_memory_compression && !DEFAULT_IN_MEMORY_COMPRESSION_ENUM.include?(default_in_memory_compression)
+        OCI.logger.debug("Unknown value for 'default_in_memory_compression' [" + default_in_memory_compression + "]. Mapping to 'DEFAULT_IN_MEMORY_COMPRESSION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @default_in_memory_compression = DEFAULT_IN_MEMORY_COMPRESSION_UNKNOWN_ENUM_VALUE
+      else
+        @default_in_memory_compression = default_in_memory_compression
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] default_in_memory_duplicate Object to be assigned
     def default_in_memory_duplicate=(default_in_memory_duplicate)
-      raise "Invalid value for 'default_in_memory_duplicate': this must be one of the values in DEFAULT_IN_MEMORY_DUPLICATE_ENUM." if default_in_memory_duplicate && !DEFAULT_IN_MEMORY_DUPLICATE_ENUM.include?(default_in_memory_duplicate)
-
-      @default_in_memory_duplicate = default_in_memory_duplicate
+      # rubocop:disable Style/ConditionalAssignment
+      if default_in_memory_duplicate && !DEFAULT_IN_MEMORY_DUPLICATE_ENUM.include?(default_in_memory_duplicate)
+        OCI.logger.debug("Unknown value for 'default_in_memory_duplicate' [" + default_in_memory_duplicate + "]. Mapping to 'DEFAULT_IN_MEMORY_DUPLICATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @default_in_memory_duplicate = DEFAULT_IN_MEMORY_DUPLICATE_UNKNOWN_ENUM_VALUE
+      else
+        @default_in_memory_duplicate = default_in_memory_duplicate
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] shared Object to be assigned
     def shared=(shared)
-      raise "Invalid value for 'shared': this must be one of the values in SHARED_ENUM." if shared && !SHARED_ENUM.include?(shared)
-
-      @shared = shared
+      # rubocop:disable Style/ConditionalAssignment
+      if shared && !SHARED_ENUM.include?(shared)
+        OCI.logger.debug("Unknown value for 'shared' [" + shared + "]. Mapping to 'SHARED_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @shared = SHARED_UNKNOWN_ENUM_VALUE
+      else
+        @shared = shared
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] default_index_compression Object to be assigned
     def default_index_compression=(default_index_compression)
-      raise "Invalid value for 'default_index_compression': this must be one of the values in DEFAULT_INDEX_COMPRESSION_ENUM." if default_index_compression && !DEFAULT_INDEX_COMPRESSION_ENUM.include?(default_index_compression)
-
-      @default_index_compression = default_index_compression
+      # rubocop:disable Style/ConditionalAssignment
+      if default_index_compression && !DEFAULT_INDEX_COMPRESSION_ENUM.include?(default_index_compression)
+        OCI.logger.debug("Unknown value for 'default_index_compression' [" + default_index_compression + "]. Mapping to 'DEFAULT_INDEX_COMPRESSION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @default_index_compression = DEFAULT_INDEX_COMPRESSION_UNKNOWN_ENUM_VALUE
+      else
+        @default_index_compression = default_index_compression
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] index_compress_for Object to be assigned
     def index_compress_for=(index_compress_for)
-      raise "Invalid value for 'index_compress_for': this must be one of the values in INDEX_COMPRESS_FOR_ENUM." if index_compress_for && !INDEX_COMPRESS_FOR_ENUM.include?(index_compress_for)
-
-      @index_compress_for = index_compress_for
+      # rubocop:disable Style/ConditionalAssignment
+      if index_compress_for && !INDEX_COMPRESS_FOR_ENUM.include?(index_compress_for)
+        OCI.logger.debug("Unknown value for 'index_compress_for' [" + index_compress_for + "]. Mapping to 'INDEX_COMPRESS_FOR_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @index_compress_for = INDEX_COMPRESS_FOR_UNKNOWN_ENUM_VALUE
+      else
+        @index_compress_for = index_compress_for
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] default_in_memory_service Object to be assigned
     def default_in_memory_service=(default_in_memory_service)
-      raise "Invalid value for 'default_in_memory_service': this must be one of the values in DEFAULT_IN_MEMORY_SERVICE_ENUM." if default_in_memory_service && !DEFAULT_IN_MEMORY_SERVICE_ENUM.include?(default_in_memory_service)
-
-      @default_in_memory_service = default_in_memory_service
+      # rubocop:disable Style/ConditionalAssignment
+      if default_in_memory_service && !DEFAULT_IN_MEMORY_SERVICE_ENUM.include?(default_in_memory_service)
+        OCI.logger.debug("Unknown value for 'default_in_memory_service' [" + default_in_memory_service + "]. Mapping to 'DEFAULT_IN_MEMORY_SERVICE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @default_in_memory_service = DEFAULT_IN_MEMORY_SERVICE_UNKNOWN_ENUM_VALUE
+      else
+        @default_in_memory_service = default_in_memory_service
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lost_write_protect Object to be assigned
     def lost_write_protect=(lost_write_protect)
-      raise "Invalid value for 'lost_write_protect': this must be one of the values in LOST_WRITE_PROTECT_ENUM." if lost_write_protect && !LOST_WRITE_PROTECT_ENUM.include?(lost_write_protect)
-
-      @lost_write_protect = lost_write_protect
+      # rubocop:disable Style/ConditionalAssignment
+      if lost_write_protect && !LOST_WRITE_PROTECT_ENUM.include?(lost_write_protect)
+        OCI.logger.debug("Unknown value for 'lost_write_protect' [" + lost_write_protect + "]. Mapping to 'LOST_WRITE_PROTECT_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lost_write_protect = LOST_WRITE_PROTECT_UNKNOWN_ENUM_VALUE
+      else
+        @lost_write_protect = lost_write_protect
+      end
+      # rubocop:enable Style/ConditionalAssignment
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -832,6 +967,7 @@ module OCI
         used_space_kb == other.used_space_kb &&
         used_percent_available == other.used_percent_available &&
         used_percent_allocated == other.used_percent_allocated &&
+        is_default == other.is_default &&
         datafiles == other.datafiles
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -848,7 +984,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, type, status, block_size_bytes, logging, is_force_logging, extent_management, allocation_type, is_plugged_in, segment_space_management, default_table_compression, retention, is_bigfile, predicate_evaluation, is_encrypted, compress_for, default_in_memory, default_in_memory_priority, default_in_memory_distribute, default_in_memory_compression, default_in_memory_duplicate, shared, default_index_compression, index_compress_for, default_cell_memory, default_in_memory_service, default_in_memory_service_name, lost_write_protect, is_chunk_tablespace, temp_group, max_size_kb, allocated_size_kb, user_size_kb, free_space_kb, used_space_kb, used_percent_available, used_percent_allocated, datafiles].hash
+      [name, type, status, block_size_bytes, logging, is_force_logging, extent_management, allocation_type, is_plugged_in, segment_space_management, default_table_compression, retention, is_bigfile, predicate_evaluation, is_encrypted, compress_for, default_in_memory, default_in_memory_priority, default_in_memory_distribute, default_in_memory_compression, default_in_memory_duplicate, shared, default_index_compression, index_compress_for, default_cell_memory, default_in_memory_service, default_in_memory_service_name, lost_write_protect, is_chunk_tablespace, temp_group, max_size_kb, allocated_size_kb, user_size_kb, free_space_kb, used_space_kb, used_percent_available, used_percent_allocated, is_default, datafiles].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

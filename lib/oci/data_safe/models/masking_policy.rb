@@ -1,0 +1,448 @@
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
+
+require 'date'
+require 'logger'
+
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
+module OCI
+  # A masking policy defines the approach to mask data in a target database. It's basically
+  # a collection of columns to be masked, called masking columns, and the associated masking
+  # formats to be used to mask these columns. A masking policy can be used to mask multiple
+  # databases provided that they have the same schema design. For more information, see
+  # <a href=\"https://docs.oracle.com/en/cloud/paas/data-safe/udscs/masking-policies.html\">Masking Policies </a>
+  # in the Oracle Data Safe documentation.
+  #
+  class DataSafe::Models::MaskingPolicy
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_NEEDS_ATTENTION = 'NEEDS_ATTENTION'.freeze,
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    RECOMPILE_ENUM = [
+      RECOMPILE_SERIAL = 'SERIAL'.freeze,
+      RECOMPILE_PARALLEL = 'PARALLEL'.freeze,
+      RECOMPILE_NONE = 'NONE'.freeze,
+      RECOMPILE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # **[Required]** The OCID of the masking policy.
+    # @return [String]
+    attr_accessor :id
+
+    # **[Required]** The OCID of the compartment that contains the masking policy.
+    # @return [String]
+    attr_accessor :compartment_id
+
+    # **[Required]** The display name of the masking policy.
+    # @return [String]
+    attr_accessor :display_name
+
+    # **[Required]** The date and time the masking policy was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
+    # @return [DateTime]
+    attr_accessor :time_created
+
+    # **[Required]** The current state of the masking policy.
+    # @return [String]
+    attr_reader :lifecycle_state
+
+    # **[Required]** The date and time the masking policy was last updated, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339)
+    #
+    # @return [DateTime]
+    attr_accessor :time_updated
+
+    # The description of the masking policy.
+    # @return [String]
+    attr_accessor :description
+
+    # **[Required]** Indicates if the temporary tables created during a masking operation should be dropped after masking. It's enabled by default.
+    # Set this attribute to false to preserve the temporary tables. Masking creates temporary tables that map the original sensitive
+    # data values to mask values. By default, these temporary tables are dropped after masking. But, in some cases, you may want
+    # to preserve this information to track how masking changed your data. Note that doing so compromises security. These tables
+    # must be dropped before the database is available for unprivileged users.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_drop_temp_tables_enabled
+
+    # **[Required]** Indicates if redo logging is enabled during a masking operation. It's disabled by default. Set this attribute to true to
+    # enable redo logging. By default, masking disables redo logging and flashback logging to purge any original unmasked
+    # data from logs. However, in certain circumstances when you only want to test masking, rollback changes, and retry masking,
+    # you could enable logging and use a flashback database to retrieve the original unmasked data after it has been masked.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_redo_logging_enabled
+
+    # **[Required]** Indicates if statistics gathering is enabled. It's enabled by default. Set this attribute to false to disable statistics
+    # gathering. The masking process gathers statistics on masked database tables after masking completes.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_refresh_stats_enabled
+
+    # **[Required]** Specifies options to enable parallel execution when running data masking. Allowed values are 'NONE' (no parallelism),
+    # 'DEFAULT' (the Oracle Database computes the optimum degree of parallelism) or an integer value to be used as the degree
+    # of parallelism. Parallel execution helps effectively use multiple CPUsi and improve masking performance. Refer to the
+    # Oracle Database parallel execution framework when choosing an explicit degree of parallelism.
+    #
+    # @return [String]
+    attr_accessor :parallel_degree
+
+    # **[Required]** Specifies how to recompile invalid objects post data masking. Allowed values are 'SERIAL' (recompile in serial),
+    # 'PARALLEL' (recompile in parallel), 'NONE' (do not recompile). If it's set to PARALLEL, the value of parallelDegree
+    # attribute is used.
+    #
+    # @return [String]
+    attr_reader :recompile
+
+    # A pre-masking script, which can contain SQL and PL/SQL statements. It's executed before
+    # the core masking script generated using the masking policy. It's usually used to perform
+    # any preparation or prerequisite work before masking data.
+    #
+    # @return [String]
+    attr_accessor :pre_masking_script
+
+    # A post-masking script, which can contain SQL and PL/SQL statements. It's executed after
+    # the core masking script generated using the masking policy. It's usually used to perform
+    # additional transformation or cleanup work after masking.
+    #
+    # @return [String]
+    attr_accessor :post_masking_script
+
+    # @return [OCI::DataSafe::Models::ColumnSourceDetails]
+    attr_accessor :column_source
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
+    #
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # Attribute mapping from ruby-style variable name to JSON key.
+    def self.attribute_map
+      {
+        # rubocop:disable Style/SymbolLiteral
+        'id': :'id',
+        'compartment_id': :'compartmentId',
+        'display_name': :'displayName',
+        'time_created': :'timeCreated',
+        'lifecycle_state': :'lifecycleState',
+        'time_updated': :'timeUpdated',
+        'description': :'description',
+        'is_drop_temp_tables_enabled': :'isDropTempTablesEnabled',
+        'is_redo_logging_enabled': :'isRedoLoggingEnabled',
+        'is_refresh_stats_enabled': :'isRefreshStatsEnabled',
+        'parallel_degree': :'parallelDegree',
+        'recompile': :'recompile',
+        'pre_masking_script': :'preMaskingScript',
+        'post_masking_script': :'postMaskingScript',
+        'column_source': :'columnSource',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags'
+        # rubocop:enable Style/SymbolLiteral
+      }
+    end
+
+    # Attribute type mapping.
+    def self.swagger_types
+      {
+        # rubocop:disable Style/SymbolLiteral
+        'id': :'String',
+        'compartment_id': :'String',
+        'display_name': :'String',
+        'time_created': :'DateTime',
+        'lifecycle_state': :'String',
+        'time_updated': :'DateTime',
+        'description': :'String',
+        'is_drop_temp_tables_enabled': :'BOOLEAN',
+        'is_redo_logging_enabled': :'BOOLEAN',
+        'is_refresh_stats_enabled': :'BOOLEAN',
+        'parallel_degree': :'String',
+        'recompile': :'String',
+        'pre_masking_script': :'String',
+        'post_masking_script': :'String',
+        'column_source': :'OCI::DataSafe::Models::ColumnSourceDetails',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        # rubocop:enable Style/SymbolLiteral
+      }
+    end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+
+    # Initializes the object
+    # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [BOOLEAN] :is_drop_temp_tables_enabled The value to assign to the {#is_drop_temp_tables_enabled} property
+    # @option attributes [BOOLEAN] :is_redo_logging_enabled The value to assign to the {#is_redo_logging_enabled} property
+    # @option attributes [BOOLEAN] :is_refresh_stats_enabled The value to assign to the {#is_refresh_stats_enabled} property
+    # @option attributes [String] :parallel_degree The value to assign to the {#parallel_degree} property
+    # @option attributes [String] :recompile The value to assign to the {#recompile} property
+    # @option attributes [String] :pre_masking_script The value to assign to the {#pre_masking_script} property
+    # @option attributes [String] :post_masking_script The value to assign to the {#post_masking_script} property
+    # @option attributes [OCI::DataSafe::Models::ColumnSourceDetails] :column_source The value to assign to the {#column_source} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    def initialize(attributes = {})
+      return unless attributes.is_a?(Hash)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.id = attributes[:'id'] if attributes[:'id']
+
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
+
+      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
+
+      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
+
+      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
+
+      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.time_updated = attributes[:'timeUpdated'] if attributes[:'timeUpdated']
+
+      raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
+
+      self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.description = attributes[:'description'] if attributes[:'description']
+
+      self.is_drop_temp_tables_enabled = attributes[:'isDropTempTablesEnabled'] unless attributes[:'isDropTempTablesEnabled'].nil?
+
+      raise 'You cannot provide both :isDropTempTablesEnabled and :is_drop_temp_tables_enabled' if attributes.key?(:'isDropTempTablesEnabled') && attributes.key?(:'is_drop_temp_tables_enabled')
+
+      self.is_drop_temp_tables_enabled = attributes[:'is_drop_temp_tables_enabled'] unless attributes[:'is_drop_temp_tables_enabled'].nil?
+
+      self.is_redo_logging_enabled = attributes[:'isRedoLoggingEnabled'] unless attributes[:'isRedoLoggingEnabled'].nil?
+
+      raise 'You cannot provide both :isRedoLoggingEnabled and :is_redo_logging_enabled' if attributes.key?(:'isRedoLoggingEnabled') && attributes.key?(:'is_redo_logging_enabled')
+
+      self.is_redo_logging_enabled = attributes[:'is_redo_logging_enabled'] unless attributes[:'is_redo_logging_enabled'].nil?
+
+      self.is_refresh_stats_enabled = attributes[:'isRefreshStatsEnabled'] unless attributes[:'isRefreshStatsEnabled'].nil?
+
+      raise 'You cannot provide both :isRefreshStatsEnabled and :is_refresh_stats_enabled' if attributes.key?(:'isRefreshStatsEnabled') && attributes.key?(:'is_refresh_stats_enabled')
+
+      self.is_refresh_stats_enabled = attributes[:'is_refresh_stats_enabled'] unless attributes[:'is_refresh_stats_enabled'].nil?
+
+      self.parallel_degree = attributes[:'parallelDegree'] if attributes[:'parallelDegree']
+
+      raise 'You cannot provide both :parallelDegree and :parallel_degree' if attributes.key?(:'parallelDegree') && attributes.key?(:'parallel_degree')
+
+      self.parallel_degree = attributes[:'parallel_degree'] if attributes[:'parallel_degree']
+
+      self.recompile = attributes[:'recompile'] if attributes[:'recompile']
+
+      self.pre_masking_script = attributes[:'preMaskingScript'] if attributes[:'preMaskingScript']
+
+      raise 'You cannot provide both :preMaskingScript and :pre_masking_script' if attributes.key?(:'preMaskingScript') && attributes.key?(:'pre_masking_script')
+
+      self.pre_masking_script = attributes[:'pre_masking_script'] if attributes[:'pre_masking_script']
+
+      self.post_masking_script = attributes[:'postMaskingScript'] if attributes[:'postMaskingScript']
+
+      raise 'You cannot provide both :postMaskingScript and :post_masking_script' if attributes.key?(:'postMaskingScript') && attributes.key?(:'post_masking_script')
+
+      self.post_masking_script = attributes[:'post_masking_script'] if attributes[:'post_masking_script']
+
+      self.column_source = attributes[:'columnSource'] if attributes[:'columnSource']
+
+      raise 'You cannot provide both :columnSource and :column_source' if attributes.key?(:'columnSource') && attributes.key?(:'column_source')
+
+      self.column_source = attributes[:'column_source'] if attributes[:'column_source']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] recompile Object to be assigned
+    def recompile=(recompile)
+      # rubocop:disable Style/ConditionalAssignment
+      if recompile && !RECOMPILE_ENUM.include?(recompile)
+        OCI.logger.debug("Unknown value for 'recompile' [" + recompile + "]. Mapping to 'RECOMPILE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @recompile = RECOMPILE_UNKNOWN_ENUM_VALUE
+      else
+        @recompile = recompile
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+
+
+    # Checks equality by comparing each attribute.
+    # @param [Object] other the other object to be compared
+    def ==(other)
+      return true if equal?(other)
+
+      self.class == other.class &&
+        id == other.id &&
+        compartment_id == other.compartment_id &&
+        display_name == other.display_name &&
+        time_created == other.time_created &&
+        lifecycle_state == other.lifecycle_state &&
+        time_updated == other.time_updated &&
+        description == other.description &&
+        is_drop_temp_tables_enabled == other.is_drop_temp_tables_enabled &&
+        is_redo_logging_enabled == other.is_redo_logging_enabled &&
+        is_refresh_stats_enabled == other.is_refresh_stats_enabled &&
+        parallel_degree == other.parallel_degree &&
+        recompile == other.recompile &&
+        pre_masking_script == other.pre_masking_script &&
+        post_masking_script == other.post_masking_script &&
+        column_source == other.column_source &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+
+    # @see the `==` method
+    # @param [Object] other the other object to be compared
+    def eql?(other)
+      self == other
+    end
+
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
+
+
+    # Calculates hash code according to all attributes.
+    # @return [Fixnum] Hash code
+    def hash
+      [id, compartment_id, display_name, time_created, lifecycle_state, time_updated, description, is_drop_temp_tables_enabled, is_redo_logging_enabled, is_refresh_stats_enabled, parallel_degree, recompile, pre_masking_script, post_masking_script, column_source, freeform_tags, defined_tags].hash
+    end
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
+
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
+
+
+    # Builds the object from hash
+    # @param [Hash] attributes Model attributes in the form of hash
+    # @return [Object] Returns the model itself
+    def build_from_hash(attributes)
+      return nil unless attributes.is_a?(Hash)
+
+      self.class.swagger_types.each_pair do |key, type|
+        if type =~ /^Array<(.*)>/i
+          # check to ensure the input is an array given that the the attribute
+          # is documented as an array but the input is not
+          if attributes[self.class.attribute_map[key]].is_a?(Array)
+            public_method("#{key}=").call(
+              attributes[self.class.attribute_map[key]]
+                .map { |v| OCI::Internal::Util.convert_to_type(Regexp.last_match(1), v) }
+            )
+          end
+        elsif !attributes[self.class.attribute_map[key]].nil?
+          public_method("#{key}=").call(
+            OCI::Internal::Util.convert_to_type(type, attributes[self.class.attribute_map[key]])
+          )
+        end
+        # or else data not found in attributes(hash), not an issue as the data can be optional
+      end
+
+      self
+    end
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
+
+    # Returns the string representation of the object
+    # @return [String] String presentation of the object
+    def to_s
+      to_hash.to_s
+    end
+
+    # Returns the object in the form of hash
+    # @return [Hash] Returns the object in the form of hash
+    def to_hash
+      hash = {}
+      self.class.attribute_map.each_pair do |attr, param|
+        value = public_method(attr).call
+        next if value.nil? && !instance_variable_defined?("@#{attr}")
+
+        hash[param] = _to_hash(value)
+      end
+      hash
+    end
+
+    private
+
+    # Outputs non-array value in the form of hash
+    # For object, use to_hash. Otherwise, just return the value
+    # @param [Object] value Any valid value
+    # @return [Hash] Returns the value in the form of hash
+    def _to_hash(value)
+      if value.is_a?(Array)
+        value.compact.map { |v| _to_hash(v) }
+      elsif value.is_a?(Hash)
+        {}.tap do |hash|
+          value.each { |k, v| hash[k] = _to_hash(v) }
+        end
+      elsif value.respond_to? :to_hash
+        value.to_hash
+      else
+        value
+      end
+    end
+  end
+end
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

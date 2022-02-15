@@ -49,6 +49,10 @@ module OCI
     # @return [OCI::DataSafe::Models::ConnectionOption]
     attr_accessor :connection_option
 
+    # The OCIDs of associated resources like Database, Data Safe private endpoint etc.
+    # @return [Array<String>]
+    attr_accessor :associated_resource_ids
+
     # **[Required]** The current state of the target database in Data Safe.
     # @return [String]
     attr_reader :lifecycle_state
@@ -97,6 +101,7 @@ module OCI
         'credentials': :'credentials',
         'tls_config': :'tlsConfig',
         'connection_option': :'connectionOption',
+        'associated_resource_ids': :'associatedResourceIds',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
         'time_created': :'timeCreated',
@@ -120,6 +125,7 @@ module OCI
         'credentials': :'OCI::DataSafe::Models::Credentials',
         'tls_config': :'OCI::DataSafe::Models::TlsConfig',
         'connection_option': :'OCI::DataSafe::Models::ConnectionOption',
+        'associated_resource_ids': :'Array<String>',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
         'time_created': :'DateTime',
@@ -145,6 +151,7 @@ module OCI
     # @option attributes [OCI::DataSafe::Models::Credentials] :credentials The value to assign to the {#credentials} property
     # @option attributes [OCI::DataSafe::Models::TlsConfig] :tls_config The value to assign to the {#tls_config} property
     # @option attributes [OCI::DataSafe::Models::ConnectionOption] :connection_option The value to assign to the {#connection_option} property
+    # @option attributes [Array<String>] :associated_resource_ids The value to assign to the {#associated_resource_ids} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -193,6 +200,12 @@ module OCI
       raise 'You cannot provide both :connectionOption and :connection_option' if attributes.key?(:'connectionOption') && attributes.key?(:'connection_option')
 
       self.connection_option = attributes[:'connection_option'] if attributes[:'connection_option']
+
+      self.associated_resource_ids = attributes[:'associatedResourceIds'] if attributes[:'associatedResourceIds']
+
+      raise 'You cannot provide both :associatedResourceIds and :associated_resource_ids' if attributes.key?(:'associatedResourceIds') && attributes.key?(:'associated_resource_ids')
+
+      self.associated_resource_ids = attributes[:'associated_resource_ids'] if attributes[:'associated_resource_ids']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -269,6 +282,7 @@ module OCI
         credentials == other.credentials &&
         tls_config == other.tls_config &&
         connection_option == other.connection_option &&
+        associated_resource_ids == other.associated_resource_ids &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
         time_created == other.time_created &&
@@ -291,7 +305,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, id, display_name, description, database_details, credentials, tls_config, connection_option, lifecycle_state, lifecycle_details, time_created, time_updated, freeform_tags, defined_tags, system_tags].hash
+      [compartment_id, id, display_name, description, database_details, credentials, tls_config, connection_option, associated_resource_ids, lifecycle_state, lifecycle_details, time_created, time_updated, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

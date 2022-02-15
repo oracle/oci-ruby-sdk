@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary of objectPrivileges.
+  # A summary of object privileges.
   class DatabaseManagement::Models::ObjectPrivilegeSummary
     HIERARCHY_ENUM = [
       HIERARCHY_YES = 'YES'.freeze,
@@ -36,7 +36,7 @@ module OCI
     # @return [String]
     attr_accessor :name
 
-    # The type of the object.
+    # The type of object.
     # @return [String]
     attr_accessor :schema_type
 
@@ -44,11 +44,11 @@ module OCI
     # @return [String]
     attr_accessor :owner
 
-    # The name of the user who performed the grant
+    # The name of the user who granted the object privilege.
     # @return [String]
     attr_accessor :grantor
 
-    # Indicates whether the privilege was granted with the HIERARCHY OPTION (YES) or not (NO)
+    # Indicates whether the privilege is granted with the HIERARCHY OPTION (YES) or not (NO).
     # @return [String]
     attr_reader :hierarchy
 
@@ -56,18 +56,18 @@ module OCI
     # @return [String]
     attr_accessor :object
 
-    # Indicates whether the privilege was granted with the GRANT OPTION (YES) or not (NO)
+    # Indicates whether the privilege is granted with the GRANT OPTION (YES) or not (NO).
     # @return [String]
     attr_reader :grant_option
 
-    # Indicates how the grant was made. Possible values:
-    # YES if the role was granted commonly (CONTAINER=ALL was used)
-    # NO if the role was granted locally (CONTAINER=ALL was not used)
+    # Indicates how the object privilege was granted. Possible values:
+    # YES if the role is granted commonly (CONTAINER=ALL is used)
+    # NO if the role is granted locally (CONTAINER=ALL is not used)
     #
     # @return [String]
     attr_reader :common
 
-    # Indicates whether the role grant was inherited from another container (YES) or not (NO)
+    # Indicates whether the granted privilege is inherited from another container (YES) or not (NO).
     # @return [String]
     attr_reader :inherited
 

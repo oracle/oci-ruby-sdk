@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The comparision report of SQL execution plans' statistics between the original plan and modified plan.
+  # The comparison report of the SQL execution plan statistics in the original and modified plan.
   #
   class DatabaseManagement::Models::ExecutionPlanStatsComparision
     # This attribute is required.

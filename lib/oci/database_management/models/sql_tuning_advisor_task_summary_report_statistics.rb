@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Statistics of statements and findings for the SQL Tuning Advisor summary report.
+  # The statistics of the statements and findings in the SQL Tuning Advisor summary report.
   class DatabaseManagement::Models::SqlTuningAdvisorTaskSummaryReportStatistics
     # This attribute is required.
     # @return [OCI::DatabaseManagement::Models::SqlTuningAdvisorTaskSummaryReportStatementCounts]

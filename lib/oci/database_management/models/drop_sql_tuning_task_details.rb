@@ -5,11 +5,11 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Request to drop a SQL tuning task.
+  # The request to drop a SQL tuning task.
   class DatabaseManagement::Models::DropSqlTuningTaskDetails
-    # **[Required]** The identifier of the task being dropped. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # **[Required]** The identifier of the SQL tuning task being dropped. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # It can be retrieved from the following endpoint
-    # {#list_sql_tuning_advisor_tasks list_sql_tuning_advisor_tasks}
+    # {#list_sql_tuning_advisor_tasks list_sql_tuning_advisor_tasks}.
     #
     # @return [Integer]
     attr_accessor :task_id

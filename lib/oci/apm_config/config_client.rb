@@ -6,7 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An API for the APM Configuration service. Use this API to query and set APM configuration.
+  # Use the Application Performance Monitoring Configuration API to query and set Application Performance Monitoring
+  # configuration. For more information, see [Application Performance Monitoring](https://docs.oracle.com/iaas/application-performance-monitoring/index.html).
   class ApmConfig::ConfigClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -98,10 +99,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new Configuration item.
-    # @param [String] apm_domain_id The APM Domain Id the request is intended for.
+    # Creates a new configuration item.
+    # @param [String] apm_domain_id The APM Domain ID the request is intended for.
     #
-    # @param [OCI::ApmConfig::Models::CreateConfigDetails] create_config_details The configuration details describing the new item
+    # @param [OCI::ApmConfig::Models::CreateConfigDetails] create_config_details The configuration details of the new item.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -114,8 +115,8 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
-    # @option opts [String] :opc_dry_run Indicates that this request is a dry-run.
-    #   If set to \"true\", nothing will be modified, only the validation will be performed.
+    # @option opts [String] :opc_dry_run Indicates that the request is a dry run, if set to \"true\". A dry run request does not modify the
+    #   configuration item details and is used only to perform validation on the submitted data.
     #    (default to false)
     # @return [Response] A Response object with data of type {OCI::ApmConfig::Models::Config Config}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apmconfig/create_config.rb.html) to see an example of how to use create_config API.
@@ -169,10 +170,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the specified configuration item
-    # @param [String] apm_domain_id The APM Domain Id the request is intended for.
+    # Deletes the configuration item identified by the OCID.
+    # @param [String] apm_domain_id The APM Domain ID the request is intended for.
     #
-    # @param [String] config_id The OCID of the ConfiguredItem.
+    # @param [String] config_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the configuration item.
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -235,10 +237,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get the configuration of the item identified by the OCID.
-    # @param [String] apm_domain_id The APM Domain Id the request is intended for.
+    # Gets the configuration item identified by the OCID.
+    # @param [String] apm_domain_id The APM Domain ID the request is intended for.
     #
-    # @param [String] config_id The OCID of the ConfiguredItem.
+    # @param [String] config_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the configuration item.
+    #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -295,8 +298,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns all configured items optionally filtered by configuration type
-    # @param [String] apm_domain_id The APM Domain Id the request is intended for.
+    # Returns all configuration items, which can optionally be filtered by configuration type.
+    # @param [String] apm_domain_id The APM Domain ID the request is intended for.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -304,22 +307,20 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
-    # @option opts [String] :config_type A filter to match only configuration items of the given type.
+    # @option opts [String] :config_type A filter to match configuration items of a given type.
     #   Supported values are SPAN_FILTER, METRIC_GROUP, and APDEX.
     #
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :display_name A filter to return resources that match the given display name.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
-    # @option opts [String] :page For list pagination. The maximum number of results per page, or items to return in a paginated
-    #   \"List\" call. For important details about how pagination works, see
-    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
-    #
+    # @option opts [String] :page The maximum number of results per page, or items to return in a paginated \"List\" call. For information on
+    #   how pagination works, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
     #   Example: `50`
     #    (default to 50)
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). The displayName sort order
-    #   is case sensitive.
+    #   is case-sensitive.
     #    (default to ASC)
-    # @option opts [String] :sort_by The field to sort by. You can provide one sort by (`sortBy`). Default order for displayName, timeCreated and
-    #   timeUpdated is ascending. The displayName sort by is case sensitive.
+    # @option opts [String] :sort_by The field to sort by. You can provide one \"sortBy\" value. The default order for displayName, timeCreated
+    #   and timeUpdated is ascending. The displayName sort by is case-sensitive.
     #    (default to displayName)
     #   Allowed values are: displayName, timeCreated, timeUpdated
     # @return [Response] A Response object with data of type {OCI::ApmConfig::Models::ConfigCollection ConfigCollection}
@@ -384,11 +385,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the item.
-    # @param [String] apm_domain_id The APM Domain Id the request is intended for.
+    # Updates the details of the configuration item identified by the OCID.
+    # @param [String] apm_domain_id The APM Domain ID the request is intended for.
     #
-    # @param [String] config_id The OCID of the ConfiguredItem.
-    # @param [OCI::ApmConfig::Models::UpdateConfigDetails] update_config_details The data to be updated.
+    # @param [String] config_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the configuration item.
+    #
+    # @param [OCI::ApmConfig::Models::UpdateConfigDetails] update_config_details The configuration details to be updated.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -401,8 +403,8 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
-    # @option opts [String] :opc_dry_run Indicates that this request is a dry-run.
-    #   If set to \"true\", nothing will be modified, only the validation will be performed.
+    # @option opts [String] :opc_dry_run Indicates that the request is a dry run, if set to \"true\". A dry run request does not modify the
+    #   configuration item details and is used only to perform validation on the submitted data.
     #    (default to false)
     # @return [Response] A Response object with data of type {OCI::ApmConfig::Models::Config Config}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apmconfig/update_config.rb.html) to see an example of how to use update_config API.

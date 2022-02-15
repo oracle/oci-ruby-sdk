@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Definition of a log which is a key value pair of log data.
+  # Definition of a log which is a key-value pair of log data.
   #
   class ApmTraces::Models::SpanLog
     # **[Required]** Key that specifies the log name.

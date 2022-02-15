@@ -48,6 +48,8 @@ module OCI
         'is_banner': :'isBanner',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
+        'environment_name': :'environmentName',
+        'platform_type': :'platformType',
         'description': :'description',
         'additional_information': :'additionalInformation',
         'affected_resources': :'affectedResources'
@@ -76,6 +78,8 @@ module OCI
         'is_banner': :'BOOLEAN',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
+        'environment_name': :'String',
+        'platform_type': :'String',
         'description': :'String',
         'additional_information': :'String',
         'affected_resources': :'Array<OCI::AnnouncementsService::Models::AffectedResource>'
@@ -105,6 +109,8 @@ module OCI
     # @option attributes [BOOLEAN] :is_banner The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#is_banner #is_banner} proprety
     # @option attributes [DateTime] :time_created The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#time_created #time_created} proprety
     # @option attributes [DateTime] :time_updated The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#time_updated #time_updated} proprety
+    # @option attributes [String] :environment_name The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#environment_name #environment_name} proprety
+    # @option attributes [String] :platform_type The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#platform_type #platform_type} proprety
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :additional_information The value to assign to the {#additional_information} property
     # @option attributes [Array<OCI::AnnouncementsService::Models::AffectedResource>] :affected_resources The value to assign to the {#affected_resources} property
@@ -161,6 +167,8 @@ module OCI
         is_banner == other.is_banner &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
+        environment_name == other.environment_name &&
+        platform_type == other.platform_type &&
         description == other.description &&
         additional_information == other.additional_information &&
         affected_resources == other.affected_resources
@@ -179,7 +187,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, type, reference_ticket_number, summary, time_one_title, time_one_type, time_one_value, time_two_title, time_two_type, time_two_value, services, affected_regions, announcement_type, lifecycle_state, is_banner, time_created, time_updated, description, additional_information, affected_resources].hash
+      [id, type, reference_ticket_number, summary, time_one_title, time_one_type, time_one_value, time_two_title, time_two_type, time_two_value, services, affected_regions, announcement_type, lifecycle_state, is_banner, time_created, time_updated, environment_name, platform_type, description, additional_information, affected_resources].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

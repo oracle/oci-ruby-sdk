@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A summary of the spans in a trace by service.
+  # Summary of the spans in a trace by service.
   #
   class ApmTraces::Models::TraceServiceSummary
     # **[Required]** Name associated with the service.
@@ -13,12 +13,12 @@ module OCI
     # @return [String]
     attr_accessor :span_service_name
 
-    # **[Required]** Number of spans for serviceName in this trace.
+    # **[Required]** Number of spans for serviceName in the trace.
     #
     # @return [Integer]
     attr_accessor :total_spans
 
-    # **[Required]** Number of spans with errorsfor serviceName in this trace.
+    # **[Required]** Number of spans with errors for serviceName in the trace.
     #
     # @return [Integer]
     attr_accessor :error_spans

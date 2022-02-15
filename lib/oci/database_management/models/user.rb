@@ -87,7 +87,7 @@ module OCI
     # @return [String]
     attr_accessor :name
 
-    # **[Required]** The account status of the User
+    # **[Required]** The status of the user account.
     # @return [String]
     attr_reader :status
 
@@ -95,7 +95,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_locked
 
-    # The date of expiration of the account
+    # The date and time of the expiration of the user account.
     # @return [DateTime]
     attr_accessor :time_expiring
 
@@ -107,11 +107,11 @@ module OCI
     # @return [String]
     attr_accessor :temp_tablespace
 
-    # The default local temporary tablespace for the User.
+    # The default local temporary tablespace for the user.
     # @return [String]
     attr_accessor :local_temp_tablespace
 
-    # **[Required]** The User creation date.
+    # **[Required]** The date and time the user was created.
     # @return [DateTime]
     attr_accessor :time_created
 
@@ -123,19 +123,19 @@ module OCI
     # @return [String]
     attr_accessor :consumer_group
 
-    # The external name of User.
+    # The external name of the user.
     # @return [String]
     attr_accessor :external_name
 
-    # The list of versions of the password hashes (also known as \"verifiers\") existing for the account.
+    # The list of existing versions of the password hashes (also known as \"verifiers\") for the account.
     # @return [String]
     attr_accessor :password_versions
 
-    # Indicates whether editions have been enabled for the corresponding user (Y) or not (N)
+    # Indicates whether editions have been enabled for the corresponding user (Y) or not (N).
     # @return [String]
     attr_reader :editions_enabled
 
-    # The authentication mechanism for the user
+    # The authentication mechanism for the user.
     # @return [String]
     attr_reader :authentication
 
@@ -149,29 +149,29 @@ module OCI
     # @return [String]
     attr_reader :common
 
-    # The time of the last user login.
+    # The date and time of the last user login.
     # This column is not populated when a user connects to the database with administrative privileges, that is, AS { SYSASM | SYSBACKUP | SYSDBA | SYSDG | SYSOPER | SYSRAC | SYSKM }.
     #
     # @return [DateTime]
     attr_accessor :time_last_login
 
-    # Indicates whether the user was created, and is maintained, by Oracle-supplied scripts (such as catalog.sql or catproc.sql).
+    # Indicates whether the user was created and is maintained by Oracle-supplied scripts (such as catalog.sql or catproc.sql).
     # @return [String]
     attr_reader :oracle_maintained
 
-    # Indicates whether the user definition was inherited from another container (YES) or not (NO)
+    # Indicates whether the user definition is inherited from another container (YES) or not (NO).
     # @return [String]
     attr_reader :inherited
 
-    # The default collation for the user\u2019s schema.
+    # The default collation for the user schema.
     # @return [String]
     attr_accessor :default_collation
 
-    # Indicates whether this user is a common user created by an implicit application (YES) or not (NO)
+    # Indicates whether the user is a common user created by an implicit application (YES) or not (NO).
     # @return [String]
     attr_reader :implicit
 
-    # In a sharded database, the value in this column indicates whether the user was created with shard DDL enabled.
+    # In a sharded database, indicates whether the user is created with shard DDL enabled (YES) or not (NO).
     # @return [String]
     attr_reader :all_shared
 
@@ -179,7 +179,7 @@ module OCI
     # @return [String]
     attr_reader :external_shared
 
-    # The date on which the user's password was last set.
+    # The date and time when the user password was last set.
     # This column is populated only when the value of the AUTHENTICATION_TYPE column is PASSWORD. Otherwise, this column is null.
     #
     # @return [DateTime]

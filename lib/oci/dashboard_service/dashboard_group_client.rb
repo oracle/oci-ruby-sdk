@@ -1,0 +1,477 @@
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
+
+require 'uri'
+require 'logger'
+
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
+module OCI
+  # Use the Oracle Cloud Infrastructure Dashboards service API to manage dashboards in the Console.
+  # Dashboards provide an organized and customizable view of resources and their metrics in the Console.
+  # For more information, see [Dashboards](/Content/Dashboards/home.htm).
+  #
+  # **Important:** Resources for the Dashboards service are created in the tenacy&#39;s home region.
+  # Although it is possible to create dashboard and dashboard group resources in regions other than the home region,
+  # you won&#39;t be able to view those resources in the Console.
+  # Therefore, creating resources outside of the home region is not recommended.
+  class DashboardService::DashboardGroupClient
+    # Client used to make HTTP requests.
+    # @return [OCI::ApiClient]
+    attr_reader :api_client
+
+    # Fully qualified endpoint URL
+    # @return [String]
+    attr_reader :endpoint
+
+    # The default retry configuration to apply to all operations in this service client. This can be overridden
+    # on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
+    # will not perform any retries
+    # @return [OCI::Retry::RetryConfig]
+    attr_reader :retry_config
+
+    # The region, which will usually correspond to a value in {OCI::Regions::REGION_ENUM}.
+    # @return [String]
+    attr_reader :region
+
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity
+
+
+    # Creates a new DashboardGroupClient.
+    # Notes:
+    #   If a config is not specified, then the global OCI.config will be used.
+    #
+    #   This client is not thread-safe
+    #
+    #   Either a region or an endpoint must be specified.  If an endpoint is specified, it will be used instead of the
+    #     region. A region may be specified in the config or via or the region parameter. If specified in both, then the
+    #     region parameter will be used.
+    # @param [Config] config A Config object.
+    # @param [String] region A region used to determine the service endpoint. This will usually
+    #   correspond to a value in {OCI::Regions::REGION_ENUM}, but may be an arbitrary string.
+    # @param [String] endpoint The fully qualified endpoint URL
+    # @param [OCI::BaseSigner] signer A signer implementation which can be used by this client. If this is not provided then
+    #   a signer will be constructed via the provided config. One use case of this parameter is instance principals authentication,
+    #   so that the instance principals signer can be provided to the client
+    # @param [OCI::ApiClientProxySettings] proxy_settings If your environment requires you to use a proxy server for outgoing HTTP requests
+    #   the details for the proxy can be provided in this parameter
+    # @param [OCI::Retry::RetryConfig] retry_config The retry configuration for this service client. This represents the default retry configuration to
+    #   apply across all operations. This can be overridden on a per-operation basis. The default retry configuration value is `nil`, which means that an operation
+    #   will not perform any retries
+    def initialize(config: nil, region: nil, endpoint: nil, signer: nil, proxy_settings: nil, retry_config: nil)
+      # If the signer is an InstancePrincipalsSecurityTokenSigner or SecurityTokenSigner and no config was supplied (they are self-sufficient signers)
+      # then create a dummy config to pass to the ApiClient constructor. If customers wish to create a client which uses instance principals
+      # and has config (either populated programmatically or loaded from a file), they must construct that config themselves and then
+      # pass it to this constructor.
+      #
+      # If there is no signer (or the signer is not an instance principals signer) and no config was supplied, this is not valid
+      # so try and load the config from the default file.
+      config = OCI::Config.validate_and_build_config_with_signer(config, signer)
+
+      signer = OCI::Signer.config_file_auth_builder(config) if signer.nil?
+
+      @api_client = OCI::ApiClient.new(config, signer, proxy_settings: proxy_settings)
+      @retry_config = retry_config
+
+      if endpoint
+        @endpoint = endpoint + '/20210731'
+      else
+        region ||= config.region
+        region ||= signer.region if signer.respond_to?(:region)
+        self.region = region
+      end
+      logger.info "DashboardGroupClient endpoint set to '#{@endpoint}'." if logger
+    end
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Layout/EmptyLines, Metrics/PerceivedComplexity
+
+    # Set the region that will be used to determine the service endpoint.
+    # This will usually correspond to a value in {OCI::Regions::REGION_ENUM},
+    # but may be an arbitrary string.
+    def region=(new_region)
+      @region = new_region
+
+      raise 'A region must be specified.' unless @region
+
+      @endpoint = OCI::Regions.get_service_endpoint_for_template(@region, 'https://dashboard.{region}.oci.{secondLevelDomain}') + '/20210731'
+      logger.info "DashboardGroupClient endpoint set to '#{@endpoint} from region #{@region}'." if logger
+    end
+
+    # @return [Logger] The logger for this client. May be nil.
+    def logger
+      @api_client.config.logger
+    end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new dashboard group using the details provided in request body.
+    #
+    # **Caution:** Resources for the Dashboard service are created in the tenacy's home region.
+    # Although it is possible to create dashboard group resource in regions other than the home region,
+    # you won't be able to view those resources in the Console.
+    # Therefore, creating resources outside of the home region is not recommended.
+    #
+    # @param [OCI::DashboardService::Models::CreateDashboardGroupDetails] create_dashboard_group_details Details about the dashboard group being created.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server
+    #   error without risk of executing that same action again.
+    #   Retry tokens expire after 24 hours, but can be invalidated before then due to conflicting operations
+    #   (for example, if a resource has been deleted and purged from the system,
+    #   then a retry of the original creation request may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_cross_region To identify if the call is cross-regional. In CRUD calls for a resource, to
+    #   identify that the call originates from different region, set the
+    #   `CrossRegionIdentifierHeader` parameter to a region name (ex - `US-ASHBURN-1`)
+    #   The call will be served from a Replicated bucket.
+    #   For same-region calls, the value is unassigned.
+    #
+    # @return [Response] A Response object with data of type {OCI::DashboardService::Models::DashboardGroup DashboardGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dashboardservice/create_dashboard_group.rb.html) to see an example of how to use create_dashboard_group API.
+    def create_dashboard_group(create_dashboard_group_details, opts = {})
+      logger.debug 'Calling operation DashboardGroupClient#create_dashboard_group.' if logger
+
+      raise "Missing the required parameter 'create_dashboard_group_details' when calling create_dashboard_group." if create_dashboard_group_details.nil?
+
+      path = '/dashboardGroups'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-cross-region'] = opts[:opc_cross_region] if opts[:opc_cross_region]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_dashboard_group_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DashboardGroupClient#create_dashboard_group') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DashboardService::Models::DashboardGroup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified dashboard group. Uses the dashboard group's OCID to determine which dashboard group to delete.
+    # @param [String] dashboard_group_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the dashboard group.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_cross_region To identify if the call is cross-regional. In CRUD calls for a resource, to
+    #   identify that the call originates from different region, set the
+    #   `CrossRegionIdentifierHeader` parameter to a region name (ex - `US-ASHBURN-1`)
+    #   The call will be served from a Replicated bucket.
+    #   For same-region calls, the value is unassigned.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dashboardservice/delete_dashboard_group.rb.html) to see an example of how to use delete_dashboard_group API.
+    def delete_dashboard_group(dashboard_group_id, opts = {})
+      logger.debug 'Calling operation DashboardGroupClient#delete_dashboard_group.' if logger
+
+      raise "Missing the required parameter 'dashboard_group_id' when calling delete_dashboard_group." if dashboard_group_id.nil?
+      raise "Parameter value for 'dashboard_group_id' must not be blank" if OCI::Internal::Util.blank_string?(dashboard_group_id)
+
+      path = '/dashboardGroups/{dashboardGroupId}'.sub('{dashboardGroupId}', dashboard_group_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-cross-region'] = opts[:opc_cross_region] if opts[:opc_cross_region]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DashboardGroupClient#delete_dashboard_group') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the specified dashboard group's information. Uses the dashboard group's OCID to determine which dashboard to retrieve.
+    # @param [String] dashboard_group_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the dashboard group.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_cross_region To identify if the call is cross-regional. In CRUD calls for a resource, to
+    #   identify that the call originates from different region, set the
+    #   `CrossRegionIdentifierHeader` parameter to a region name (ex - `US-ASHBURN-1`)
+    #   The call will be served from a Replicated bucket.
+    #   For same-region calls, the value is unassigned.
+    #
+    # @return [Response] A Response object with data of type {OCI::DashboardService::Models::DashboardGroup DashboardGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dashboardservice/get_dashboard_group.rb.html) to see an example of how to use get_dashboard_group API.
+    def get_dashboard_group(dashboard_group_id, opts = {})
+      logger.debug 'Calling operation DashboardGroupClient#get_dashboard_group.' if logger
+
+      raise "Missing the required parameter 'dashboard_group_id' when calling get_dashboard_group." if dashboard_group_id.nil?
+      raise "Parameter value for 'dashboard_group_id' must not be blank" if OCI::Internal::Util.blank_string?(dashboard_group_id)
+
+      path = '/dashboardGroups/{dashboardGroupId}'.sub('{dashboardGroupId}', dashboard_group_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-cross-region'] = opts[:opc_cross_region] if opts[:opc_cross_region]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DashboardGroupClient#get_dashboard_group') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DashboardService::Models::DashboardGroup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of dashboard groups with a specific compartment ID.
+    #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :lifecycle_state A filter that returns dashboard groups that match the lifecycle state specified.
+    # @option opts [String] :display_name A case-sensitive filter that returns resources that match the entire display name specified.
+    # @option opts [String] :id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the dashboard group.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This value is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    # @option opts [String] :sort_by The field to sort by. You can provide one sort order (`sortOrder`).
+    #   Default order for TIMECREATED is descending.
+    #   Default order for DISPLAYNAME is ascending.
+    #   The DISPLAYNAME sort order is case sensitive.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_cross_region To identify if the call is cross-regional. In CRUD calls for a resource, to
+    #   identify that the call originates from different region, set the
+    #   `CrossRegionIdentifierHeader` parameter to a region name (ex - `US-ASHBURN-1`)
+    #   The call will be served from a Replicated bucket.
+    #   For same-region calls, the value is unassigned.
+    #
+    # @return [Response] A Response object with data of type {OCI::DashboardService::Models::DashboardGroupCollection DashboardGroupCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dashboardservice/list_dashboard_groups.rb.html) to see an example of how to use list_dashboard_groups API.
+    def list_dashboard_groups(compartment_id, opts = {})
+      logger.debug 'Calling operation DashboardGroupClient#list_dashboard_groups.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_dashboard_groups." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::DashboardService::Models::DashboardGroup::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DashboardService::Models::DashboardGroup::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::DashboardService::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DashboardService::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      path = '/dashboardGroups'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-cross-region'] = opts[:opc_cross_region] if opts[:opc_cross_region]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DashboardGroupClient#list_dashboard_groups') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DashboardService::Models::DashboardGroupCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the specified dashboard group. Uses the dashboard group's OCID to determine which dashboard group to update.
+    # @param [String] dashboard_group_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the dashboard group.
+    # @param [OCI::DashboardService::Models::UpdateDashboardGroupDetails] update_dashboard_group_details The dashboard group details to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
+    # @option opts [String] :opc_cross_region To identify if the call is cross-regional. In CRUD calls for a resource, to
+    #   identify that the call originates from different region, set the
+    #   `CrossRegionIdentifierHeader` parameter to a region name (ex - `US-ASHBURN-1`)
+    #   The call will be served from a Replicated bucket.
+    #   For same-region calls, the value is unassigned.
+    #
+    # @return [Response] A Response object with data of type {OCI::DashboardService::Models::DashboardGroup DashboardGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dashboardservice/update_dashboard_group.rb.html) to see an example of how to use update_dashboard_group API.
+    def update_dashboard_group(dashboard_group_id, update_dashboard_group_details, opts = {})
+      logger.debug 'Calling operation DashboardGroupClient#update_dashboard_group.' if logger
+
+      raise "Missing the required parameter 'dashboard_group_id' when calling update_dashboard_group." if dashboard_group_id.nil?
+      raise "Missing the required parameter 'update_dashboard_group_details' when calling update_dashboard_group." if update_dashboard_group_details.nil?
+      raise "Parameter value for 'dashboard_group_id' must not be blank" if OCI::Internal::Util.blank_string?(dashboard_group_id)
+
+      path = '/dashboardGroups/{dashboardGroupId}'.sub('{dashboardGroupId}', dashboard_group_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-cross-region'] = opts[:opc_cross_region] if opts[:opc_cross_region]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_dashboard_group_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DashboardGroupClient#update_dashboard_group') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DashboardService::Models::DashboardGroup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    private
+
+    def applicable_retry_config(opts = {})
+      return @retry_config unless opts.key?(:retry_config)
+
+      opts[:retry_config]
+    end
+  end
+end
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

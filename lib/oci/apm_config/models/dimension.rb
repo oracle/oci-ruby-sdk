@@ -5,14 +5,14 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A dimension is a label that can be used to describe or group metrics.
+  # A dimension is a label that is used to describe or group metrics.
   #
   class ApmConfig::Models::Dimension
-    # **[Required]** The dimension name
+    # **[Required]** The name of the dimension.
     # @return [String]
     attr_accessor :name
 
-    # The source to populate the dimension. Must be NULL at the moment.
+    # The source to populate the dimension. This must not be specified.
     #
     # @return [String]
     attr_accessor :value_source

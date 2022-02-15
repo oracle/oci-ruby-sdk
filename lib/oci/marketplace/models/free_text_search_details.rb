@@ -6,7 +6,8 @@ require_relative 'search_listings_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The model for a request that uses Search's Free text.
+  # A request containing arbitrary text that must be present in the Marketplace Applications.
+  #
   class Marketplace::Models::FreeTextSearchDetails < Marketplace::Models::SearchListingsDetails
     # **[Required]** The text to search for.
     # @return [String]

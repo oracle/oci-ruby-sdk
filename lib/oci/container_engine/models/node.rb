@@ -59,6 +59,26 @@ module OCI
     # @return [OCI::ContainerEngine::Models::NodeError]
     attr_accessor :node_error
 
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # Usage of system tag keys. These predefined keys are scoped to namespaces.
+    # Example: `{\"orcl-cloud\": {\"free-tier-retained\": \"true\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :system_tags
+
     # The state of the node.
     # @return [String]
     attr_reader :lifecycle_state
@@ -81,6 +101,9 @@ module OCI
         'private_ip': :'privateIp',
         'public_ip': :'publicIp',
         'node_error': :'nodeError',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags',
+        'system_tags': :'systemTags',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails'
         # rubocop:enable Style/SymbolLiteral
@@ -101,6 +124,9 @@ module OCI
         'private_ip': :'String',
         'public_ip': :'String',
         'node_error': :'OCI::ContainerEngine::Models::NodeError',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'system_tags': :'Hash<String, Hash<String, Object>>',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -123,6 +149,9 @@ module OCI
     # @option attributes [String] :private_ip The value to assign to the {#private_ip} property
     # @option attributes [String] :public_ip The value to assign to the {#public_ip} property
     # @option attributes [OCI::ContainerEngine::Models::NodeError] :node_error The value to assign to the {#node_error} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     def initialize(attributes = {})
@@ -183,6 +212,24 @@ module OCI
 
       self.node_error = attributes[:'node_error'] if attributes[:'node_error']
 
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.system_tags = attributes[:'systemTags'] if attributes[:'systemTags']
+
+      raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
+
+      self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
+
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
@@ -230,6 +277,9 @@ module OCI
         private_ip == other.private_ip &&
         public_ip == other.public_ip &&
         node_error == other.node_error &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags &&
+        system_tags == other.system_tags &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details
     end
@@ -247,7 +297,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, kubernetes_version, availability_domain, subnet_id, node_pool_id, fault_domain, private_ip, public_ip, node_error, lifecycle_state, lifecycle_details].hash
+      [id, name, kubernetes_version, availability_domain, subnet_id, node_pool_id, fault_domain, private_ip, public_ip, node_error, freeform_tags, defined_tags, system_tags, lifecycle_state, lifecycle_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -19,13 +19,23 @@ module OCI
     # @return [Integer]
     attr_accessor :auto_reclaimable_tables
 
+    # The current number of on demand capacity tables in the tenancy.
+    # @return [Integer]
+    attr_accessor :on_demand_capacity_tables
+
+    # The maximum number of on demand capacity tables allowed in the tenancy.
+    # @return [Integer]
+    attr_accessor :max_on_demand_capacity_tables
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'items': :'items',
         'max_auto_reclaimable_tables': :'maxAutoReclaimableTables',
-        'auto_reclaimable_tables': :'autoReclaimableTables'
+        'auto_reclaimable_tables': :'autoReclaimableTables',
+        'on_demand_capacity_tables': :'onDemandCapacityTables',
+        'max_on_demand_capacity_tables': :'maxOnDemandCapacityTables'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,7 +46,9 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'items': :'Array<OCI::Nosql::Models::TableSummary>',
         'max_auto_reclaimable_tables': :'Integer',
-        'auto_reclaimable_tables': :'Integer'
+        'auto_reclaimable_tables': :'Integer',
+        'on_demand_capacity_tables': :'Integer',
+        'max_on_demand_capacity_tables': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -50,6 +62,8 @@ module OCI
     # @option attributes [Array<OCI::Nosql::Models::TableSummary>] :items The value to assign to the {#items} property
     # @option attributes [Integer] :max_auto_reclaimable_tables The value to assign to the {#max_auto_reclaimable_tables} property
     # @option attributes [Integer] :auto_reclaimable_tables The value to assign to the {#auto_reclaimable_tables} property
+    # @option attributes [Integer] :on_demand_capacity_tables The value to assign to the {#on_demand_capacity_tables} property
+    # @option attributes [Integer] :max_on_demand_capacity_tables The value to assign to the {#max_on_demand_capacity_tables} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -69,6 +83,18 @@ module OCI
       raise 'You cannot provide both :autoReclaimableTables and :auto_reclaimable_tables' if attributes.key?(:'autoReclaimableTables') && attributes.key?(:'auto_reclaimable_tables')
 
       self.auto_reclaimable_tables = attributes[:'auto_reclaimable_tables'] if attributes[:'auto_reclaimable_tables']
+
+      self.on_demand_capacity_tables = attributes[:'onDemandCapacityTables'] if attributes[:'onDemandCapacityTables']
+
+      raise 'You cannot provide both :onDemandCapacityTables and :on_demand_capacity_tables' if attributes.key?(:'onDemandCapacityTables') && attributes.key?(:'on_demand_capacity_tables')
+
+      self.on_demand_capacity_tables = attributes[:'on_demand_capacity_tables'] if attributes[:'on_demand_capacity_tables']
+
+      self.max_on_demand_capacity_tables = attributes[:'maxOnDemandCapacityTables'] if attributes[:'maxOnDemandCapacityTables']
+
+      raise 'You cannot provide both :maxOnDemandCapacityTables and :max_on_demand_capacity_tables' if attributes.key?(:'maxOnDemandCapacityTables') && attributes.key?(:'max_on_demand_capacity_tables')
+
+      self.max_on_demand_capacity_tables = attributes[:'max_on_demand_capacity_tables'] if attributes[:'max_on_demand_capacity_tables']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -84,7 +110,9 @@ module OCI
       self.class == other.class &&
         items == other.items &&
         max_auto_reclaimable_tables == other.max_auto_reclaimable_tables &&
-        auto_reclaimable_tables == other.auto_reclaimable_tables
+        auto_reclaimable_tables == other.auto_reclaimable_tables &&
+        on_demand_capacity_tables == other.on_demand_capacity_tables &&
+        max_on_demand_capacity_tables == other.max_on_demand_capacity_tables
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -100,7 +128,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [items, max_auto_reclaimable_tables, auto_reclaimable_tables].hash
+      [items, max_auto_reclaimable_tables, auto_reclaimable_tables, on_demand_capacity_tables, max_on_demand_capacity_tables].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

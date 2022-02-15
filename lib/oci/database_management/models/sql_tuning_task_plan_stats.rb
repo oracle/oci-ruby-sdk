@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The statistics of an SQL execution plan.
+  # The statistics of a SQL execution plan.
   #
   class DatabaseManagement::Models::SqlTuningTaskPlanStats
     PLAN_STATUS_ENUM = [
@@ -15,7 +15,7 @@ module OCI
       PLAN_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The type of the plan for the original or the new plan with profile/index etc.
+    # **[Required]** The type of the original or modified plan with profile, index, and so on.
     # @return [String]
     attr_accessor :plan_type
 

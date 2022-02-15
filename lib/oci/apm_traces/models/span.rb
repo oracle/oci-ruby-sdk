@@ -9,8 +9,8 @@ module OCI
   #
   class ApmTraces::Models::Span
     # **[Required]** Unique identifier (spanId) for the span.  Note that this field is
-    # defined as spanKey in the API to comply with OCI API fields naming conventions.
-    # The spanKey maps to the spanId in the APM repository.
+    # defined as spanKey in the API and it maps to the spanId in the trace data
+    # in Application Performance Monitoring.
     #
     # @return [String]
     attr_accessor :key
@@ -40,7 +40,7 @@ module OCI
     # @return [Integer]
     attr_accessor :duration_in_ms
 
-    # **[Required]** Span name associated with the trace.  This is usually the method or uri of the request.
+    # **[Required]** Span name associated with the trace.  This is usually the method or URI of the request.
     #
     # @return [String]
     attr_accessor :operation_name
@@ -65,7 +65,7 @@ module OCI
     # @return [Array<OCI::ApmTraces::Models::SpanLogCollection>]
     attr_accessor :logs
 
-    # **[Required]** Indicates if the span has an error
+    # **[Required]** Indicates if the span has an error.
     #
     # @return [BOOLEAN]
     attr_accessor :is_error

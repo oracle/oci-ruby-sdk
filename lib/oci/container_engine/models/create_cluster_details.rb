@@ -34,6 +34,20 @@ module OCI
     # @return [String]
     attr_accessor :kms_key_id
 
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
     # Optional attributes for the cluster.
     # @return [OCI::ContainerEngine::Models::ClusterCreateOptions]
     attr_accessor :options
@@ -55,6 +69,8 @@ module OCI
         'vcn_id': :'vcnId',
         'kubernetes_version': :'kubernetesVersion',
         'kms_key_id': :'kmsKeyId',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags',
         'options': :'options',
         'image_policy_config': :'imagePolicyConfig'
         # rubocop:enable Style/SymbolLiteral
@@ -71,6 +87,8 @@ module OCI
         'vcn_id': :'String',
         'kubernetes_version': :'String',
         'kms_key_id': :'String',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'options': :'OCI::ContainerEngine::Models::ClusterCreateOptions',
         'image_policy_config': :'OCI::ContainerEngine::Models::CreateImagePolicyConfigDetails'
         # rubocop:enable Style/SymbolLiteral
@@ -89,6 +107,8 @@ module OCI
     # @option attributes [String] :vcn_id The value to assign to the {#vcn_id} property
     # @option attributes [String] :kubernetes_version The value to assign to the {#kubernetes_version} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [OCI::ContainerEngine::Models::ClusterCreateOptions] :options The value to assign to the {#options} property
     # @option attributes [OCI::ContainerEngine::Models::CreateImagePolicyConfigDetails] :image_policy_config The value to assign to the {#image_policy_config} property
     def initialize(attributes = {})
@@ -129,6 +149,18 @@ module OCI
 
       self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
 
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
       self.options = attributes[:'options'] if attributes[:'options']
 
       self.image_policy_config = attributes[:'imagePolicyConfig'] if attributes[:'imagePolicyConfig']
@@ -155,6 +187,8 @@ module OCI
         vcn_id == other.vcn_id &&
         kubernetes_version == other.kubernetes_version &&
         kms_key_id == other.kms_key_id &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags &&
         options == other.options &&
         image_policy_config == other.image_policy_config
     end
@@ -172,7 +206,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, compartment_id, endpoint_config, vcn_id, kubernetes_version, kms_key_id, options, image_policy_config].hash
+      [name, compartment_id, endpoint_config, vcn_id, kubernetes_version, kms_key_id, freeform_tags, defined_tags, options, image_policy_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

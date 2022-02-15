@@ -30,7 +30,9 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'is_banner': :'isBanner',
         'time_created': :'timeCreated',
-        'time_updated': :'timeUpdated'
+        'time_updated': :'timeUpdated',
+        'environment_name': :'environmentName',
+        'platform_type': :'platformType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -55,7 +57,9 @@ module OCI
         'lifecycle_state': :'String',
         'is_banner': :'BOOLEAN',
         'time_created': :'DateTime',
-        'time_updated': :'DateTime'
+        'time_updated': :'DateTime',
+        'environment_name': :'String',
+        'platform_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -82,6 +86,8 @@ module OCI
     # @option attributes [BOOLEAN] :is_banner The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#is_banner #is_banner} proprety
     # @option attributes [DateTime] :time_created The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#time_created #time_created} proprety
     # @option attributes [DateTime] :time_updated The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#time_updated #time_updated} proprety
+    # @option attributes [String] :environment_name The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#environment_name #environment_name} proprety
+    # @option attributes [String] :platform_type The value to assign to the {OCI::AnnouncementsService::Models::BaseAnnouncement#platform_type #platform_type} proprety
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -117,7 +123,9 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         is_banner == other.is_banner &&
         time_created == other.time_created &&
-        time_updated == other.time_updated
+        time_updated == other.time_updated &&
+        environment_name == other.environment_name &&
+        platform_type == other.platform_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -133,7 +141,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, type, reference_ticket_number, summary, time_one_title, time_one_type, time_one_value, time_two_title, time_two_type, time_two_value, services, affected_regions, announcement_type, lifecycle_state, is_banner, time_created, time_updated].hash
+      [id, type, reference_ticket_number, summary, time_one_title, time_one_type, time_one_value, time_two_title, time_two_type, time_two_value, services, affected_regions, announcement_type, lifecycle_state, is_banner, time_created, time_updated, environment_name, platform_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

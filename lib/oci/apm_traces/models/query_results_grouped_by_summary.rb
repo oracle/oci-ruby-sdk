@@ -5,10 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary of the attribute based on which the query results are grouped by.
+  # Summary of the attribute based on which the query results are grouped.
   #
   class ApmTraces::Models::QueryResultsGroupedBySummary
-    # Column or attribute in the query result which is a group by value.
+    # Column or attribute in the query result, which is a group by value.
     #
     # @return [String]
     attr_accessor :query_results_grouped_by_column

@@ -65,6 +65,20 @@ module OCI
     # @return [OCI::ContainerEngine::Models::UpdateNodeShapeConfigDetails]
     attr_accessor :node_shape_config
 
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -79,7 +93,9 @@ module OCI
         'node_source_details': :'nodeSourceDetails',
         'ssh_public_key': :'sshPublicKey',
         'node_shape': :'nodeShape',
-        'node_shape_config': :'nodeShapeConfig'
+        'node_shape_config': :'nodeShapeConfig',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -98,7 +114,9 @@ module OCI
         'node_source_details': :'OCI::ContainerEngine::Models::NodeSourceDetails',
         'ssh_public_key': :'String',
         'node_shape': :'String',
-        'node_shape_config': :'OCI::ContainerEngine::Models::UpdateNodeShapeConfigDetails'
+        'node_shape_config': :'OCI::ContainerEngine::Models::UpdateNodeShapeConfigDetails',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -120,6 +138,8 @@ module OCI
     # @option attributes [String] :ssh_public_key The value to assign to the {#ssh_public_key} property
     # @option attributes [String] :node_shape The value to assign to the {#node_shape} property
     # @option attributes [OCI::ContainerEngine::Models::UpdateNodeShapeConfigDetails] :node_shape_config The value to assign to the {#node_shape_config} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -187,6 +207,18 @@ module OCI
       raise 'You cannot provide both :nodeShapeConfig and :node_shape_config' if attributes.key?(:'nodeShapeConfig') && attributes.key?(:'node_shape_config')
 
       self.node_shape_config = attributes[:'node_shape_config'] if attributes[:'node_shape_config']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -210,7 +242,9 @@ module OCI
         node_source_details == other.node_source_details &&
         ssh_public_key == other.ssh_public_key &&
         node_shape == other.node_shape &&
-        node_shape_config == other.node_shape_config
+        node_shape_config == other.node_shape_config &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -226,7 +260,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, kubernetes_version, initial_node_labels, quantity_per_subnet, subnet_ids, node_config_details, node_metadata, node_source_details, ssh_public_key, node_shape, node_shape_config].hash
+      [name, kubernetes_version, initial_node_labels, quantity_per_subnet, subnet_ids, node_config_details, node_metadata, node_source_details, ssh_public_key, node_shape, node_shape_config, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

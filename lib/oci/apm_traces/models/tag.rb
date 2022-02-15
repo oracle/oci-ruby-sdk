@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Definition of a tag which is a key value pair.
+  # Definition of a tag which is a key-value pair.
   #
   class ApmTraces::Models::Tag
     # **[Required]** Key that specifies the tag name.

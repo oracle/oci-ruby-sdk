@@ -17,12 +17,17 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
+    # The OCID of the compute capacity reservation in which to place the compute instance.
+    # @return [String]
+    attr_accessor :capacity_reservation_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'availabilityDomain',
-        'subnet_id': :'subnetId'
+        'subnet_id': :'subnetId',
+        'capacity_reservation_id': :'capacityReservationId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -32,7 +37,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'String',
-        'subnet_id': :'String'
+        'subnet_id': :'String',
+        'capacity_reservation_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -45,6 +51,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [String] :capacity_reservation_id The value to assign to the {#capacity_reservation_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -62,6 +69,12 @@ module OCI
       raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
 
       self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
+
+      self.capacity_reservation_id = attributes[:'capacityReservationId'] if attributes[:'capacityReservationId']
+
+      raise 'You cannot provide both :capacityReservationId and :capacity_reservation_id' if attributes.key?(:'capacityReservationId') && attributes.key?(:'capacity_reservation_id')
+
+      self.capacity_reservation_id = attributes[:'capacity_reservation_id'] if attributes[:'capacity_reservation_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -76,7 +89,8 @@ module OCI
 
       self.class == other.class &&
         availability_domain == other.availability_domain &&
-        subnet_id == other.subnet_id
+        subnet_id == other.subnet_id &&
+        capacity_reservation_id == other.capacity_reservation_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -92,7 +106,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, subnet_id].hash
+      [availability_domain, subnet_id, capacity_reservation_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

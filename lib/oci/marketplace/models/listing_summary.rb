@@ -40,6 +40,10 @@ module OCI
     # @return [String]
     attr_accessor :short_description
 
+    # True if this application is Rover exportable
+    # @return [BOOLEAN]
+    attr_accessor :is_rover_exportable
+
     # The tagline of the listing.
     # @return [String]
     attr_accessor :tagline
@@ -86,6 +90,7 @@ module OCI
         'id': :'id',
         'name': :'name',
         'short_description': :'shortDescription',
+        'is_rover_exportable': :'isRoverExportable',
         'tagline': :'tagline',
         'icon': :'icon',
         'package_type': :'packageType',
@@ -107,6 +112,7 @@ module OCI
         'id': :'String',
         'name': :'String',
         'short_description': :'String',
+        'is_rover_exportable': :'BOOLEAN',
         'tagline': :'String',
         'icon': :'OCI::Marketplace::Models::UploadData',
         'package_type': :'String',
@@ -130,6 +136,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :short_description The value to assign to the {#short_description} property
+    # @option attributes [BOOLEAN] :is_rover_exportable The value to assign to the {#is_rover_exportable} property
     # @option attributes [String] :tagline The value to assign to the {#tagline} property
     # @option attributes [OCI::Marketplace::Models::UploadData] :icon The value to assign to the {#icon} property
     # @option attributes [String] :package_type The value to assign to the {#package_type} property
@@ -155,6 +162,14 @@ module OCI
       raise 'You cannot provide both :shortDescription and :short_description' if attributes.key?(:'shortDescription') && attributes.key?(:'short_description')
 
       self.short_description = attributes[:'short_description'] if attributes[:'short_description']
+
+      self.is_rover_exportable = attributes[:'isRoverExportable'] unless attributes[:'isRoverExportable'].nil?
+      self.is_rover_exportable = false if is_rover_exportable.nil? && !attributes.key?(:'isRoverExportable') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isRoverExportable and :is_rover_exportable' if attributes.key?(:'isRoverExportable') && attributes.key?(:'is_rover_exportable')
+
+      self.is_rover_exportable = attributes[:'is_rover_exportable'] unless attributes[:'is_rover_exportable'].nil?
+      self.is_rover_exportable = false if is_rover_exportable.nil? && !attributes.key?(:'isRoverExportable') && !attributes.key?(:'is_rover_exportable') # rubocop:disable Style/StringLiterals
 
       self.tagline = attributes[:'tagline'] if attributes[:'tagline']
 
@@ -257,6 +272,7 @@ module OCI
         id == other.id &&
         name == other.name &&
         short_description == other.short_description &&
+        is_rover_exportable == other.is_rover_exportable &&
         tagline == other.tagline &&
         icon == other.icon &&
         package_type == other.package_type &&
@@ -282,7 +298,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, short_description, tagline, icon, package_type, pricing_types, regions, is_featured, categories, publisher, supported_operating_systems, listing_type].hash
+      [id, name, short_description, is_rover_exportable, tagline, icon, package_type, pricing_types, regions, is_featured, categories, publisher, supported_operating_systems, listing_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -6,9 +6,9 @@ require_relative 'config_summary'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A span filter is a named setting that specifies filter criteria to match a subset of the spans.
+  # A named setting that specifies the span filter criteria to match a subset of the spans.
   class ApmConfig::Models::SpanFilterSummary < ApmConfig::Models::ConfigSummary
-    # The name by which this filter can be displayed in the UI.
+    # The name by which the span filter is displayed in the UI.
     # @return [String]
     attr_accessor :display_name
 

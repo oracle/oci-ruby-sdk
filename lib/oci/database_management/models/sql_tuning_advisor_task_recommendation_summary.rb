@@ -20,28 +20,28 @@ module OCI
       RECOMMENDATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Unique identifier of the task. It is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # **[Required]** The unique identifier of the task. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @return [Integer]
     attr_accessor :sql_tuning_advisor_task_id
 
-    # **[Required]** Key of the object to which these recommendations apply. It is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # **[Required]** The key of the object to which these recommendations apply. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # @return [Integer]
     attr_accessor :sql_tuning_advisor_task_object_id
 
-    # **[Required]** Unique identifier of the recommendation in the scope of the task.
+    # **[Required]** The unique identifier of the recommendation in the scope of the task.
     # @return [Integer]
     attr_accessor :recommendation_key
 
-    # **[Required]** Type of recommendation
+    # **[Required]** Type of recommendation.
     # @return [String]
     attr_reader :recommendation_type
 
-    # Summary of the issue found for the SQL statement.
+    # Summary of the issue found in the SQL statement.
     # @return [String]
     attr_accessor :finding
 
-    # Particular recommendation for the finding.
+    # The recommendation for a specific finding.
     # @return [String]
     attr_accessor :recommendation
 

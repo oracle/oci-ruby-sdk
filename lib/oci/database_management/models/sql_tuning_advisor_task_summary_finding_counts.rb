@@ -5,29 +5,29 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The finding counts data for the SQL Tuning Advisor summary report.
+  # The number of findings in the SQL Tuning Advisor summary report.
   class DatabaseManagement::Models::SqlTuningAdvisorTaskSummaryFindingCounts
-    # **[Required]** The count of distinct SQL statements with recommended SQL profiles.
+    # **[Required]** The number of distinct SQL statements with recommended SQL profiles.
     # @return [Integer]
     attr_accessor :recommended_sql_profile
 
-    # **[Required]** The count of distinct SQL statements with implemented SQL profiles.
+    # **[Required]** The number of distinct SQL statements with implemented SQL profiles.
     # @return [Integer]
     attr_accessor :implemented_sql_profile
 
-    # **[Required]** The count of distinct SQL statements with index recommendations.
+    # **[Required]** The number of distinct SQL statements with index recommendations.
     # @return [Integer]
     attr_accessor :index
 
-    # **[Required]** The count of distinct SQL statements with restructure SQL recommendations.
+    # **[Required]** The number of distinct SQL statements with restructured SQL recommendations.
     # @return [Integer]
     attr_accessor :restructure
 
-    # **[Required]** The count of distinct SQL statements with stale/missing optimizer statistics recommendations.
+    # **[Required]** The number of distinct SQL statements with stale or missing optimizer statistics recommendations.
     # @return [Integer]
     attr_accessor :statistics
 
-    # **[Required]** The count of distinct SQL statements with alternative plan recommendations.
+    # **[Required]** The number of distinct SQL statements with alternative plan recommendations.
     # @return [Integer]
     attr_accessor :alternate_plan
 

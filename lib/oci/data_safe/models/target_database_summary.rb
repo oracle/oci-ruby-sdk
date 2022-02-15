@@ -59,6 +59,10 @@ module OCI
     # @return [String]
     attr_reader :database_type
 
+    # The OCIDs of associated resources like Database, Data Safe private endpoint etc.
+    # @return [Array<String>]
+    attr_accessor :associated_resource_ids
+
     # **[Required]** The current state of the target database in Data Safe.
     # @return [String]
     attr_reader :lifecycle_state
@@ -95,6 +99,7 @@ module OCI
         'description': :'description',
         'infrastructure_type': :'infrastructureType',
         'database_type': :'databaseType',
+        'associated_resource_ids': :'associatedResourceIds',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
         'time_created': :'timeCreated',
@@ -114,6 +119,7 @@ module OCI
         'description': :'String',
         'infrastructure_type': :'String',
         'database_type': :'String',
+        'associated_resource_ids': :'Array<String>',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
         'time_created': :'DateTime',
@@ -135,6 +141,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :infrastructure_type The value to assign to the {#infrastructure_type} property
     # @option attributes [String] :database_type The value to assign to the {#database_type} property
+    # @option attributes [Array<String>] :associated_resource_ids The value to assign to the {#associated_resource_ids} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -173,6 +180,12 @@ module OCI
       raise 'You cannot provide both :databaseType and :database_type' if attributes.key?(:'databaseType') && attributes.key?(:'database_type')
 
       self.database_type = attributes[:'database_type'] if attributes[:'database_type']
+
+      self.associated_resource_ids = attributes[:'associatedResourceIds'] if attributes[:'associatedResourceIds']
+
+      raise 'You cannot provide both :associatedResourceIds and :associated_resource_ids' if attributes.key?(:'associatedResourceIds') && attributes.key?(:'associated_resource_ids')
+
+      self.associated_resource_ids = attributes[:'associated_resource_ids'] if attributes[:'associated_resource_ids']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -261,6 +274,7 @@ module OCI
         description == other.description &&
         infrastructure_type == other.infrastructure_type &&
         database_type == other.database_type &&
+        associated_resource_ids == other.associated_resource_ids &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
         time_created == other.time_created &&
@@ -281,7 +295,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, id, display_name, description, infrastructure_type, database_type, lifecycle_state, lifecycle_details, time_created, freeform_tags, defined_tags].hash
+      [compartment_id, id, display_name, description, infrastructure_type, database_type, associated_resource_ids, lifecycle_state, lifecycle_details, time_created, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

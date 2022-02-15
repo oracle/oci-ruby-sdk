@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A collection of Containers if it does not apply to all containers for the current User.
+  # A collection of specific containers for the current user. This is only applicable if ALL_CONTAINERS !='Y'.
   class DatabaseManagement::Models::DataAccessContainerCollection
-    # **[Required]** An array of Container resources.
+    # **[Required]** An array of container resources.
     # @return [Array<OCI::DatabaseManagement::Models::DataAccessContainerSummary>]
     attr_accessor :items
 
