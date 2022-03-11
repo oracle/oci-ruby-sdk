@@ -3,6 +3,8 @@
 
 module OCI
   module ObjectStorage
+    autoload :Transfer, 'oci/object_storage/transfer/transfer'
+
     # Module containing models for requests made to, and responses received from,
     # OCI ObjectStorage services
     module Models
