@@ -36,6 +36,24 @@ module OCI
     # @return [String]
     attr_reader :patching_mode
 
+    # If true, enables the configuration of a custom action timeout (waiting period) between database servers patching operations.
+    # @return [BOOLEAN]
+    attr_accessor :is_custom_action_timeout_enabled
+
+    # Determines the amount of time the system will wait before the start of each database server patching operation.
+    # Specify a number of minutes from 15 to 120.
+    #
+    # @return [Integer]
+    attr_accessor :custom_action_timeout_in_mins
+
+    # The current custom action timeout between the current database servers during waiting state in addition to custom action timeout, from 0 (zero) to 30 minutes.
+    # @return [Integer]
+    attr_accessor :current_custom_action_timeout_in_mins
+
+    # If true, then the patching is resumed and the next component will be patched immediately.
+    # @return [BOOLEAN]
+    attr_accessor :is_resume_patching
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -44,7 +62,11 @@ module OCI
         'time_scheduled': :'timeScheduled',
         'is_patch_now_enabled': :'isPatchNowEnabled',
         'patch_id': :'patchId',
-        'patching_mode': :'patchingMode'
+        'patching_mode': :'patchingMode',
+        'is_custom_action_timeout_enabled': :'isCustomActionTimeoutEnabled',
+        'custom_action_timeout_in_mins': :'customActionTimeoutInMins',
+        'current_custom_action_timeout_in_mins': :'currentCustomActionTimeoutInMins',
+        'is_resume_patching': :'isResumePatching'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,7 +79,11 @@ module OCI
         'time_scheduled': :'DateTime',
         'is_patch_now_enabled': :'BOOLEAN',
         'patch_id': :'String',
-        'patching_mode': :'String'
+        'patching_mode': :'String',
+        'is_custom_action_timeout_enabled': :'BOOLEAN',
+        'custom_action_timeout_in_mins': :'Integer',
+        'current_custom_action_timeout_in_mins': :'Integer',
+        'is_resume_patching': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -73,6 +99,10 @@ module OCI
     # @option attributes [BOOLEAN] :is_patch_now_enabled The value to assign to the {#is_patch_now_enabled} property
     # @option attributes [String] :patch_id The value to assign to the {#patch_id} property
     # @option attributes [String] :patching_mode The value to assign to the {#patching_mode} property
+    # @option attributes [BOOLEAN] :is_custom_action_timeout_enabled The value to assign to the {#is_custom_action_timeout_enabled} property
+    # @option attributes [Integer] :custom_action_timeout_in_mins The value to assign to the {#custom_action_timeout_in_mins} property
+    # @option attributes [Integer] :current_custom_action_timeout_in_mins The value to assign to the {#current_custom_action_timeout_in_mins} property
+    # @option attributes [BOOLEAN] :is_resume_patching The value to assign to the {#is_resume_patching} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -108,6 +138,30 @@ module OCI
       raise 'You cannot provide both :patchingMode and :patching_mode' if attributes.key?(:'patchingMode') && attributes.key?(:'patching_mode')
 
       self.patching_mode = attributes[:'patching_mode'] if attributes[:'patching_mode']
+
+      self.is_custom_action_timeout_enabled = attributes[:'isCustomActionTimeoutEnabled'] unless attributes[:'isCustomActionTimeoutEnabled'].nil?
+
+      raise 'You cannot provide both :isCustomActionTimeoutEnabled and :is_custom_action_timeout_enabled' if attributes.key?(:'isCustomActionTimeoutEnabled') && attributes.key?(:'is_custom_action_timeout_enabled')
+
+      self.is_custom_action_timeout_enabled = attributes[:'is_custom_action_timeout_enabled'] unless attributes[:'is_custom_action_timeout_enabled'].nil?
+
+      self.custom_action_timeout_in_mins = attributes[:'customActionTimeoutInMins'] if attributes[:'customActionTimeoutInMins']
+
+      raise 'You cannot provide both :customActionTimeoutInMins and :custom_action_timeout_in_mins' if attributes.key?(:'customActionTimeoutInMins') && attributes.key?(:'custom_action_timeout_in_mins')
+
+      self.custom_action_timeout_in_mins = attributes[:'custom_action_timeout_in_mins'] if attributes[:'custom_action_timeout_in_mins']
+
+      self.current_custom_action_timeout_in_mins = attributes[:'currentCustomActionTimeoutInMins'] if attributes[:'currentCustomActionTimeoutInMins']
+
+      raise 'You cannot provide both :currentCustomActionTimeoutInMins and :current_custom_action_timeout_in_mins' if attributes.key?(:'currentCustomActionTimeoutInMins') && attributes.key?(:'current_custom_action_timeout_in_mins')
+
+      self.current_custom_action_timeout_in_mins = attributes[:'current_custom_action_timeout_in_mins'] if attributes[:'current_custom_action_timeout_in_mins']
+
+      self.is_resume_patching = attributes[:'isResumePatching'] unless attributes[:'isResumePatching'].nil?
+
+      raise 'You cannot provide both :isResumePatching and :is_resume_patching' if attributes.key?(:'isResumePatching') && attributes.key?(:'is_resume_patching')
+
+      self.is_resume_patching = attributes[:'is_resume_patching'] unless attributes[:'is_resume_patching'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -133,7 +187,11 @@ module OCI
         time_scheduled == other.time_scheduled &&
         is_patch_now_enabled == other.is_patch_now_enabled &&
         patch_id == other.patch_id &&
-        patching_mode == other.patching_mode
+        patching_mode == other.patching_mode &&
+        is_custom_action_timeout_enabled == other.is_custom_action_timeout_enabled &&
+        custom_action_timeout_in_mins == other.custom_action_timeout_in_mins &&
+        current_custom_action_timeout_in_mins == other.current_custom_action_timeout_in_mins &&
+        is_resume_patching == other.is_resume_patching
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -149,7 +207,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_enabled, time_scheduled, is_patch_now_enabled, patch_id, patching_mode].hash
+      [is_enabled, time_scheduled, is_patch_now_enabled, patch_id, patching_mode, is_custom_action_timeout_enabled, custom_action_timeout_in_mins, current_custom_action_timeout_in_mins, is_resume_patching].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

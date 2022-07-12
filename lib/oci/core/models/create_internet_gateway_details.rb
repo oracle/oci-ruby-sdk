@@ -37,7 +37,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN the internet gateway is attached to.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN the Internet Gateway is attached to.
     # @return [String]
     attr_accessor :vcn_id
 

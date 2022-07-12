@@ -7,16 +7,21 @@ require 'date'
 module OCI
   # The create budget details.
   #
-  # Client should use 'targetType' & 'targets' to specify the target type and list of targets on which the budget is applied.
+  # Clients should use 'targetType' and 'targets' to specify the target type and list of targets on which the budget is applied.
   #
-  # For backwards compatibility, 'targetCompartmentId' will still be supported for all existing clients.
-  # However, this is considered deprecreated and all clients be upgraded to use 'targetType' & 'targets'.
+  # For backwards compatibility, 'targetCompartmentId' is still supported for all existing clients.
+  # This is considered deprecated, however, and all clients are upgraded to use 'targetType' and 'targets'.
   #
-  # Specifying both 'targetCompartmentId' and 'targets' will cause a Bad Request.
+  # Specifying both 'targetCompartmentId' and 'targets' causes a Bad Request.
   #
   class Budget::Models::CreateBudgetDetails
     RESET_PERIOD_ENUM = [
       RESET_PERIOD_MONTHLY = 'MONTHLY'.freeze
+    ].freeze
+
+    PROCESSING_PERIOD_TYPE_ENUM = [
+      PROCESSING_PERIOD_TYPE_INVOICE = 'INVOICE'.freeze,
+      PROCESSING_PERIOD_TYPE_MONTH = 'MONTH'.freeze
     ].freeze
 
     TARGET_TYPE_ENUM = [
@@ -24,16 +29,16 @@ module OCI
       TARGET_TYPE_TAG = 'TAG'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the compartment
+    # **[Required]** The OCID of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # This is DEPRECTAED. Set the target compartment id in targets instead.
+    # This is DEPRECATED. Set the target compartment ID in targets instead.
     #
     # @return [String]
     attr_accessor :target_compartment_id
 
-    # The displayName of the budget.
+    # The displayName of the budget. Avoid entering confidential information.
     # @return [String]
     attr_accessor :display_name
 
@@ -55,15 +60,20 @@ module OCI
     # @return [Integer]
     attr_accessor :budget_processing_period_start_offset
 
+    # The type of the budget processing period. Valid values are INVOICE and MONTH.
+    #
+    # @return [String]
+    attr_reader :processing_period_type
+
     # The type of target on which the budget is applied.
     #
     # @return [String]
     attr_reader :target_type
 
     # The list of targets on which the budget is applied.
-    #   If targetType is \"COMPARTMENT\", targets contains list of compartment OCIDs.
-    #   If targetType is \"TAG\", targets contains list of cost tracking tag identifiers in the form of \"{tagNamespace}.{tagKey}.{tagValue}\".
-    # Curerntly, the array should contain EXACT ONE item.
+    #   If targetType is \"COMPARTMENT\", the targets contain the list of compartment OCIDs.
+    #   If targetType is \"TAG\", the targets contain the list of cost tracking tag identifiers in the form of \"{tagNamespace}.{tagKey}.{tagValue}\".
+    # Curerntly, the array should contain exactly one item.
     #
     # @return [Array<String>]
     attr_accessor :targets
@@ -95,6 +105,7 @@ module OCI
         'amount': :'amount',
         'reset_period': :'resetPeriod',
         'budget_processing_period_start_offset': :'budgetProcessingPeriodStartOffset',
+        'processing_period_type': :'processingPeriodType',
         'target_type': :'targetType',
         'targets': :'targets',
         'freeform_tags': :'freeformTags',
@@ -114,6 +125,7 @@ module OCI
         'amount': :'Float',
         'reset_period': :'String',
         'budget_processing_period_start_offset': :'Integer',
+        'processing_period_type': :'String',
         'target_type': :'String',
         'targets': :'Array<String>',
         'freeform_tags': :'Hash<String, String>',
@@ -135,6 +147,7 @@ module OCI
     # @option attributes [Float] :amount The value to assign to the {#amount} property
     # @option attributes [String] :reset_period The value to assign to the {#reset_period} property
     # @option attributes [Integer] :budget_processing_period_start_offset The value to assign to the {#budget_processing_period_start_offset} property
+    # @option attributes [String] :processing_period_type The value to assign to the {#processing_period_type} property
     # @option attributes [String] :target_type The value to assign to the {#target_type} property
     # @option attributes [Array<String>] :targets The value to assign to the {#targets} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -179,6 +192,12 @@ module OCI
 
       self.budget_processing_period_start_offset = attributes[:'budget_processing_period_start_offset'] if attributes[:'budget_processing_period_start_offset']
 
+      self.processing_period_type = attributes[:'processingPeriodType'] if attributes[:'processingPeriodType']
+
+      raise 'You cannot provide both :processingPeriodType and :processing_period_type' if attributes.key?(:'processingPeriodType') && attributes.key?(:'processing_period_type')
+
+      self.processing_period_type = attributes[:'processing_period_type'] if attributes[:'processing_period_type']
+
       self.target_type = attributes[:'targetType'] if attributes[:'targetType']
       self.target_type = "COMPARTMENT" if target_type.nil? && !attributes.key?(:'targetType') # rubocop:disable Style/StringLiterals
 
@@ -213,6 +232,14 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] processing_period_type Object to be assigned
+    def processing_period_type=(processing_period_type)
+      raise "Invalid value for 'processing_period_type': this must be one of the values in PROCESSING_PERIOD_TYPE_ENUM." if processing_period_type && !PROCESSING_PERIOD_TYPE_ENUM.include?(processing_period_type)
+
+      @processing_period_type = processing_period_type
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] target_type Object to be assigned
     def target_type=(target_type)
       raise "Invalid value for 'target_type': this must be one of the values in TARGET_TYPE_ENUM." if target_type && !TARGET_TYPE_ENUM.include?(target_type)
@@ -236,6 +263,7 @@ module OCI
         amount == other.amount &&
         reset_period == other.reset_period &&
         budget_processing_period_start_offset == other.budget_processing_period_start_offset &&
+        processing_period_type == other.processing_period_type &&
         target_type == other.target_type &&
         targets == other.targets &&
         freeform_tags == other.freeform_tags &&
@@ -255,7 +283,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, target_compartment_id, display_name, description, amount, reset_period, budget_processing_period_start_offset, target_type, targets, freeform_tags, defined_tags].hash
+      [compartment_id, target_compartment_id, display_name, description, amount, reset_period, budget_processing_period_start_offset, processing_period_type, target_type, targets, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

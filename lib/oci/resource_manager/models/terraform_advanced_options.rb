@@ -34,7 +34,6 @@ module OCI
     attr_accessor :parallelism
 
     # Enables detailed logs at the specified verbosity for running the job (operation).
-    # Used with the following operations: `PLAN`, `APPLY`, `DESTROY`.
     #
     # @return [String]
     attr_reader :detailed_log_level

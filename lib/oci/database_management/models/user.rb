@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The summary of a specific User.
+  # The summary of a specific user resource.
   class DatabaseManagement::Models::User
     STATUS_ENUM = [
       STATUS_OPEN = 'OPEN'.freeze,
@@ -91,7 +91,7 @@ module OCI
     # @return [String]
     attr_reader :status
 
-    # The date the account was locked if account status was LOCKED.
+    # The date the account was locked, if the status of the account is LOCKED.
     # @return [DateTime]
     attr_accessor :time_locked
 
@@ -115,7 +115,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The User resource profile name.
+    # **[Required]** The profile name of the user.
     # @return [String]
     attr_accessor :profile
 

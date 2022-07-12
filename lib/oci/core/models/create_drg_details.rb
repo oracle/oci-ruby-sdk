@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # CreateDrgDetails model.
   class Core::Models::CreateDrgDetails
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment to contain the DRG.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment to contain the DRG.
     # @return [String]
     attr_accessor :compartment_id
 

@@ -11,11 +11,16 @@ module OCI
     # @return [Array<String>]
     attr_accessor :kubernetes_versions
 
+    # Available CNIs and network options for existing and new node pools of the cluster
+    # @return [Array<OCI::ContainerEngine::Models::ClusterPodNetworkOptionDetails>]
+    attr_accessor :cluster_pod_network_options
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'kubernetes_versions': :'kubernetesVersions'
+        'kubernetes_versions': :'kubernetesVersions',
+        'cluster_pod_network_options': :'clusterPodNetworkOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -24,7 +29,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'kubernetes_versions': :'Array<String>'
+        'kubernetes_versions': :'Array<String>',
+        'cluster_pod_network_options': :'Array<OCI::ContainerEngine::Models::ClusterPodNetworkOptionDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,6 +42,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Array<String>] :kubernetes_versions The value to assign to the {#kubernetes_versions} property
+    # @option attributes [Array<OCI::ContainerEngine::Models::ClusterPodNetworkOptionDetails>] :cluster_pod_network_options The value to assign to the {#cluster_pod_network_options} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -47,6 +54,12 @@ module OCI
       raise 'You cannot provide both :kubernetesVersions and :kubernetes_versions' if attributes.key?(:'kubernetesVersions') && attributes.key?(:'kubernetes_versions')
 
       self.kubernetes_versions = attributes[:'kubernetes_versions'] if attributes[:'kubernetes_versions']
+
+      self.cluster_pod_network_options = attributes[:'clusterPodNetworkOptions'] if attributes[:'clusterPodNetworkOptions']
+
+      raise 'You cannot provide both :clusterPodNetworkOptions and :cluster_pod_network_options' if attributes.key?(:'clusterPodNetworkOptions') && attributes.key?(:'cluster_pod_network_options')
+
+      self.cluster_pod_network_options = attributes[:'cluster_pod_network_options'] if attributes[:'cluster_pod_network_options']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -60,7 +73,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        kubernetes_versions == other.kubernetes_versions
+        kubernetes_versions == other.kubernetes_versions &&
+        cluster_pod_network_options == other.cluster_pod_network_options
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -76,7 +90,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [kubernetes_versions].hash
+      [kubernetes_versions, cluster_pod_network_options].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

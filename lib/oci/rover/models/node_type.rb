@@ -5,7 +5,8 @@ module OCI
   module Rover::Models
     NODE_TYPE_ENUM = [
       NODE_TYPE_STANDALONE = 'STANDALONE'.freeze,
-      NODE_TYPE_CLUSTERED = 'CLUSTERED'.freeze
+      NODE_TYPE_CLUSTERED = 'CLUSTERED'.freeze,
+      NODE_TYPE_STATION = 'STATION'.freeze
     ].freeze
   end
 end

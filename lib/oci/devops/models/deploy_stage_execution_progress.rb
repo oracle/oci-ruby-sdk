@@ -93,13 +93,24 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'deployStageType'] # rubocop:disable Style/SymbolLiteral
 
-      return 'OCI::Devops::Models::ManualApprovalDeployStageExecutionProgress' if type == 'MANUAL_APPROVAL'
+      return 'OCI::Devops::Models::ComputeInstanceGroupBlueGreenTrafficShiftDeployStageExecutionProgress' if type == 'COMPUTE_INSTANCE_GROUP_BLUE_GREEN_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::ComputeInstanceGroupCanaryDeployStageExecutionProgress' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_DEPLOYMENT'
+      return 'OCI::Devops::Models::OkeBlueGreenDeployStageExecutionProgress' if type == 'OKE_BLUE_GREEN_DEPLOYMENT'
       return 'OCI::Devops::Models::ComputeInstanceGroupDeployStageExecutionProgress' if type == 'COMPUTE_INSTANCE_GROUP_ROLLING_DEPLOYMENT'
-      return 'OCI::Devops::Models::OkeDeployStageExecutionProgress' if type == 'OKE_DEPLOYMENT'
+      return 'OCI::Devops::Models::OkeCanaryDeployStageExecutionProgress' if type == 'OKE_CANARY_DEPLOYMENT'
       return 'OCI::Devops::Models::LoadBalancerTrafficShiftDeployStageExecutionProgress' if type == 'LOAD_BALANCER_TRAFFIC_SHIFT'
-      return 'OCI::Devops::Models::FunctionDeployStageExecutionProgress' if type == 'DEPLOY_FUNCTION'
-      return 'OCI::Devops::Models::InvokeFunctionDeployStageExecutionProgress' if type == 'INVOKE_FUNCTION'
       return 'OCI::Devops::Models::WaitDeployStageExecutionProgress' if type == 'WAIT'
+      return 'OCI::Devops::Models::ComputeInstanceGroupCanaryTrafficShiftDeployStageExecutionProgress' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::OkeCanaryApprovalDeployStageExecutionProgress' if type == 'OKE_CANARY_APPROVAL'
+      return 'OCI::Devops::Models::ManualApprovalDeployStageExecutionProgress' if type == 'MANUAL_APPROVAL'
+      return 'OCI::Devops::Models::OkeDeployStageExecutionProgress' if type == 'OKE_DEPLOYMENT'
+      return 'OCI::Devops::Models::FunctionDeployStageExecutionProgress' if type == 'DEPLOY_FUNCTION'
+      return 'OCI::Devops::Models::OkeBlueGreenTrafficShiftDeployStageExecutionProgress' if type == 'OKE_BLUE_GREEN_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::OkeHelmChartDeploymentStageExecutionProgress' if type == 'OKE_HELM_CHART_DEPLOYMENT'
+      return 'OCI::Devops::Models::InvokeFunctionDeployStageExecutionProgress' if type == 'INVOKE_FUNCTION'
+      return 'OCI::Devops::Models::OkeCanaryTrafficShiftDeployStageExecutionProgress' if type == 'OKE_CANARY_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::ComputeInstanceGroupCanaryApprovalDeployStageExecutionProgress' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_APPROVAL'
+      return 'OCI::Devops::Models::ComputeInstanceGroupBlueGreenDeployStageExecutionProgress' if type == 'COMPUTE_INSTANCE_GROUP_BLUE_GREEN_DEPLOYMENT'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::Devops::Models::DeployStageExecutionProgress'

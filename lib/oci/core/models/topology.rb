@@ -11,7 +11,8 @@ module OCI
     TYPE_ENUM = [
       TYPE_NETWORKING = 'NETWORKING'.freeze,
       TYPE_VCN = 'VCN'.freeze,
-      TYPE_SUBNET = 'SUBNET'.freeze
+      TYPE_SUBNET = 'SUBNET'.freeze,
+      TYPE_PATH = 'PATH'.freeze
     ].freeze
 
     # **[Required]** Type of the topology object.

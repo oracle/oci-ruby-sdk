@@ -95,6 +95,14 @@ module OCI
     # @return [String]
     attr_accessor :ipv6_cidr_block
 
+    # The list of all IPv6 CIDR blocks (Oracle allocated IPv6 GUA, ULA or private IPv6 CIDR blocks, BYOIPv6 CIDR blocks) for the subnet that meets the following criteria:
+    # - The CIDR blocks must be valid.
+    # - Multiple CIDR blocks must not overlap each other or the on-premises network CIDR block.
+    # - The number of CIDR blocks must not exceed the limit of IPv6 CIDR blocks allowed to a subnet.
+    #
+    # @return [Array<String>]
+    attr_accessor :ipv6_cidr_blocks
+
     # Whether to disallow ingress internet traffic to VNICs within this subnet. Defaults to false.
     #
     # For IPv6, if `prohibitInternetIngress` is set to `true`, internet access is not allowed for any
@@ -156,6 +164,7 @@ module OCI
         'dns_label': :'dnsLabel',
         'freeform_tags': :'freeformTags',
         'ipv6_cidr_block': :'ipv6CidrBlock',
+        'ipv6_cidr_blocks': :'ipv6CidrBlocks',
         'prohibit_internet_ingress': :'prohibitInternetIngress',
         'prohibit_public_ip_on_vnic': :'prohibitPublicIpOnVnic',
         'route_table_id': :'routeTableId',
@@ -178,6 +187,7 @@ module OCI
         'dns_label': :'String',
         'freeform_tags': :'Hash<String, String>',
         'ipv6_cidr_block': :'String',
+        'ipv6_cidr_blocks': :'Array<String>',
         'prohibit_internet_ingress': :'BOOLEAN',
         'prohibit_public_ip_on_vnic': :'BOOLEAN',
         'route_table_id': :'String',
@@ -202,6 +212,7 @@ module OCI
     # @option attributes [String] :dns_label The value to assign to the {#dns_label} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :ipv6_cidr_block The value to assign to the {#ipv6_cidr_block} property
+    # @option attributes [Array<String>] :ipv6_cidr_blocks The value to assign to the {#ipv6_cidr_blocks} property
     # @option attributes [BOOLEAN] :prohibit_internet_ingress The value to assign to the {#prohibit_internet_ingress} property
     # @option attributes [BOOLEAN] :prohibit_public_ip_on_vnic The value to assign to the {#prohibit_public_ip_on_vnic} property
     # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
@@ -267,6 +278,12 @@ module OCI
 
       self.ipv6_cidr_block = attributes[:'ipv6_cidr_block'] if attributes[:'ipv6_cidr_block']
 
+      self.ipv6_cidr_blocks = attributes[:'ipv6CidrBlocks'] if attributes[:'ipv6CidrBlocks']
+
+      raise 'You cannot provide both :ipv6CidrBlocks and :ipv6_cidr_blocks' if attributes.key?(:'ipv6CidrBlocks') && attributes.key?(:'ipv6_cidr_blocks')
+
+      self.ipv6_cidr_blocks = attributes[:'ipv6_cidr_blocks'] if attributes[:'ipv6_cidr_blocks']
+
       self.prohibit_internet_ingress = attributes[:'prohibitInternetIngress'] unless attributes[:'prohibitInternetIngress'].nil?
 
       raise 'You cannot provide both :prohibitInternetIngress and :prohibit_internet_ingress' if attributes.key?(:'prohibitInternetIngress') && attributes.key?(:'prohibit_internet_ingress')
@@ -318,6 +335,7 @@ module OCI
         dns_label == other.dns_label &&
         freeform_tags == other.freeform_tags &&
         ipv6_cidr_block == other.ipv6_cidr_block &&
+        ipv6_cidr_blocks == other.ipv6_cidr_blocks &&
         prohibit_internet_ingress == other.prohibit_internet_ingress &&
         prohibit_public_ip_on_vnic == other.prohibit_public_ip_on_vnic &&
         route_table_id == other.route_table_id &&
@@ -338,7 +356,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, cidr_block, compartment_id, defined_tags, dhcp_options_id, display_name, dns_label, freeform_tags, ipv6_cidr_block, prohibit_internet_ingress, prohibit_public_ip_on_vnic, route_table_id, security_list_ids, vcn_id].hash
+      [availability_domain, cidr_block, compartment_id, defined_tags, dhcp_options_id, display_name, dns_label, freeform_tags, ipv6_cidr_block, ipv6_cidr_blocks, prohibit_internet_ingress, prohibit_public_ip_on_vnic, route_table_id, security_list_ids, vcn_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

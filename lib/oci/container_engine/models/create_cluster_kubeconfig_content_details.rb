@@ -10,7 +10,8 @@ module OCI
     ENDPOINT_ENUM = [
       ENDPOINT_LEGACY_KUBERNETES = 'LEGACY_KUBERNETES'.freeze,
       ENDPOINT_PUBLIC_ENDPOINT = 'PUBLIC_ENDPOINT'.freeze,
-      ENDPOINT_PRIVATE_ENDPOINT = 'PRIVATE_ENDPOINT'.freeze
+      ENDPOINT_PRIVATE_ENDPOINT = 'PRIVATE_ENDPOINT'.freeze,
+      ENDPOINT_VCN_HOSTNAME = 'VCN_HOSTNAME'.freeze
     ].freeze
 
     # The version of the kubeconfig token. Supported value 2.0.0

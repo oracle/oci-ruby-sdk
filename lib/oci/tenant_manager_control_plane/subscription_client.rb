@@ -522,10 +522,10 @@ module OCI
 
 
     # Lists the subscription mappings for all the subscriptions owned by a given compartmentId. Only the root compartment is allowed.
+    # @param [String] subscription_id The ID of the subscription to which the tenancy is associated.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :subscription_id The ID of the subscription to which the tenancy is associated.
     # @option opts [String] :subscription_mapping_id SubscriptionMappingId is a unique ID for subscription and tenancy mapping.
     # @option opts [String] :compartment_id The ID of the compartment in which to list resources.
     # @option opts [String] :lifecycle_state The lifecycle state of the resource.
@@ -541,9 +541,10 @@ module OCI
     #   Allowed values are: timeCreated, displayName
     # @return [Response] A Response object with data of type {OCI::TenantManagerControlPlane::Models::SubscriptionMappingCollection SubscriptionMappingCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/list_subscription_mappings.rb.html) to see an example of how to use list_subscription_mappings API.
-    def list_subscription_mappings(opts = {})
+    def list_subscription_mappings(subscription_id, opts = {})
       logger.debug 'Calling operation SubscriptionClient#list_subscription_mappings.' if logger
 
+      raise "Missing the required parameter 'subscription_id' when calling list_subscription_mappings." if subscription_id.nil?
 
       if opts[:lifecycle_state] && !OCI::TenantManagerControlPlane::Models::SubscriptionMapping::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::TenantManagerControlPlane::Models::SubscriptionMapping::LIFECYCLE_STATE_ENUM.'
@@ -563,7 +564,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
-      query_params[:subscriptionId] = opts[:subscription_id] if opts[:subscription_id]
+      query_params[:subscriptionId] = subscription_id
       query_params[:subscriptionMappingId] = opts[:subscription_mapping_id] if opts[:subscription_mapping_id]
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]

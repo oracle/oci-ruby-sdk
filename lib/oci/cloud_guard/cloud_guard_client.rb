@@ -6,7 +6,9 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of the Cloud Guard APIs
+  # Use the Cloud Guard and Security Zones API to automate processes that you would otherwise perform through the Cloud Guard Console or the Security Zones Console. For more information on these services, see the [Cloud Guard](/iaas/cloud-guard/home.htm) and [Security Zones](/iaas/security-zone/home.htm) documentation.
+  #
+  # **Note:** For Cloud Guard, you can perform Create, Update, and Delete operations only from the reporting region of your Cloud Guard tenancy. You can perform Read operations in Cloud Guard from any region.
   class CloudGuard::CloudGuardClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -92,6 +94,77 @@ module OCI
     def logger
       @api_client.config.logger
     end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Add an existing compartment to a security zone. If you previously removed a subcompartment from a security zone, you can add it back to the same security zone. The security zone ensures that resources in the subcompartment comply with the security zone's policies.
+    # @param [String] security_zone_id The unique identifier of the security zone (`SecurityZone`)
+    # @param [OCI::CloudGuard::Models::AddCompartmentDetails] add_compartment_details The compartment to add to the security zone.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SecurityZone SecurityZone}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/add_compartment.rb.html) to see an example of how to use add_compartment API.
+    def add_compartment(security_zone_id, add_compartment_details, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#add_compartment.' if logger
+
+      raise "Missing the required parameter 'security_zone_id' when calling add_compartment." if security_zone_id.nil?
+      raise "Missing the required parameter 'add_compartment_details' when calling add_compartment." if add_compartment_details.nil?
+      raise "Parameter value for 'security_zone_id' must not be blank" if OCI::Internal::Util.blank_string?(security_zone_id)
+
+      path = '/securityZones/{securityZoneId}/actions/addCompartment'.sub('{securityZoneId}', security_zone_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(add_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#add_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::SecurityZone'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -287,6 +360,146 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#change_responder_recipe_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a security zone recipe to a different compartment. When provided, `If-Match` is checked against `ETag` values of the resource.
+    # @param [String] security_recipe_id The unique identifier of the security zone recipe (`SecurityRecipe`)
+    # @param [OCI::CloudGuard::Models::ChangeSecurityRecipeCompartmentDetails] change_security_recipe_compartment_details The compartment to which you want to move the recipe.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/change_security_recipe_compartment.rb.html) to see an example of how to use change_security_recipe_compartment API.
+    def change_security_recipe_compartment(security_recipe_id, change_security_recipe_compartment_details, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#change_security_recipe_compartment.' if logger
+
+      raise "Missing the required parameter 'security_recipe_id' when calling change_security_recipe_compartment." if security_recipe_id.nil?
+      raise "Missing the required parameter 'change_security_recipe_compartment_details' when calling change_security_recipe_compartment." if change_security_recipe_compartment_details.nil?
+      raise "Parameter value for 'security_recipe_id' must not be blank" if OCI::Internal::Util.blank_string?(security_recipe_id)
+
+      path = '/securityRecipes/{securityRecipeId}/actions/changeCompartment'.sub('{securityRecipeId}', security_recipe_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_security_recipe_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#change_security_recipe_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a security zone to a different compartment. When provided, `If-Match` is checked against `ETag` values of the resource.
+    # @param [String] security_zone_id The unique identifier of the security zone (`SecurityZone`)
+    # @param [OCI::CloudGuard::Models::ChangeSecurityZoneCompartmentDetails] change_security_zone_compartment_details The compartment to which you want to move the security zone.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/change_security_zone_compartment.rb.html) to see an example of how to use change_security_zone_compartment API.
+    def change_security_zone_compartment(security_zone_id, change_security_zone_compartment_details, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#change_security_zone_compartment.' if logger
+
+      raise "Missing the required parameter 'security_zone_id' when calling change_security_zone_compartment." if security_zone_id.nil?
+      raise "Missing the required parameter 'change_security_zone_compartment_details' when calling change_security_zone_compartment." if change_security_zone_compartment_details.nil?
+      raise "Parameter value for 'security_zone_id' must not be blank" if OCI::Internal::Util.blank_string?(security_zone_id)
+
+      path = '/securityZones/{securityZoneId}/actions/changeCompartment'.sub('{securityZoneId}', security_zone_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_security_zone_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#change_security_zone_compartment') do
         @api_client.call_api(
           :POST,
           path,
@@ -543,6 +756,130 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::CloudGuard::Models::ResponderRecipe'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a security zone recipe. A security zone recipe is a collection of security zone policies.
+    #
+    # @param [OCI::CloudGuard::Models::CreateSecurityRecipeDetails] create_security_recipe_details Details for the new `SecurityRecipe`.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SecurityRecipe SecurityRecipe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/create_security_recipe.rb.html) to see an example of how to use create_security_recipe API.
+    def create_security_recipe(create_security_recipe_details, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#create_security_recipe.' if logger
+
+      raise "Missing the required parameter 'create_security_recipe_details' when calling create_security_recipe." if create_security_recipe_details.nil?
+
+      path = '/securityRecipes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_security_recipe_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#create_security_recipe') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::SecurityRecipe'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a security zone for a compartment. A security zone enforces all security zone policies in a given security zone recipe. Any actions that violate a policy are denied. By default, any subcompartments are also in the same security zone.
+    #
+    # @param [OCI::CloudGuard::Models::CreateSecurityZoneDetails] create_security_zone_details Details for the new `SecurityZone`.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SecurityZone SecurityZone}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/create_security_zone.rb.html) to see an example of how to use create_security_zone API.
+    def create_security_zone(create_security_zone_details, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#create_security_zone.' if logger
+
+      raise "Missing the required parameter 'create_security_zone_details' when calling create_security_zone." if create_security_zone_details.nil?
+
+      path = '/securityZones'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_security_zone_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#create_security_zone') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::SecurityZone'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -983,6 +1320,126 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#delete_responder_recipe') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a security zone recipe. The recipe can't be associated with an existing security zone.
+    # @param [String] security_recipe_id The unique identifier of the security zone recipe (`SecurityRecipe`)
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/delete_security_recipe.rb.html) to see an example of how to use delete_security_recipe API.
+    def delete_security_recipe(security_recipe_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#delete_security_recipe.' if logger
+
+      raise "Missing the required parameter 'security_recipe_id' when calling delete_security_recipe." if security_recipe_id.nil?
+      raise "Parameter value for 'security_recipe_id' must not be blank" if OCI::Internal::Util.blank_string?(security_recipe_id)
+
+      path = '/securityRecipes/{securityRecipeId}'.sub('{securityRecipeId}', security_recipe_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#delete_security_recipe') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes an existing security zone with a given identifier.
+    # @param [String] security_zone_id The unique identifier of the security zone (`SecurityZone`)
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/delete_security_zone.rb.html) to see an example of how to use delete_security_zone API.
+    def delete_security_zone(security_zone_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#delete_security_zone.' if logger
+
+      raise "Missing the required parameter 'security_zone_id' when calling delete_security_zone." if security_zone_id.nil?
+      raise "Parameter value for 'security_zone_id' must not be blank" if OCI::Internal::Util.blank_string?(security_zone_id)
+
+      path = '/securityZones/{securityZoneId}'.sub('{securityZoneId}', security_zone_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#delete_security_zone') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -1765,6 +2222,60 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns resource profile details
+    # @param [String] resource_profile_id OCID of the resource profile.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResourceProfile ResourceProfile}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_resource_profile.rb.html) to see an example of how to use get_resource_profile API.
+    def get_resource_profile(resource_profile_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#get_resource_profile.' if logger
+
+      raise "Missing the required parameter 'resource_profile_id' when calling get_resource_profile." if resource_profile_id.nil?
+      raise "Parameter value for 'resource_profile_id' must not be blank" if OCI::Internal::Util.blank_string?(resource_profile_id)
+
+      path = '/resourceProfiles/{resourceProfileId}'.sub('{resourceProfileId}', resource_profile_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#get_resource_profile') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::ResourceProfile'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a Responder Execution identified by responderExecutionId
     #
     # @param [String] responder_execution_id The identifier of the responder execution.
@@ -1972,6 +2483,222 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::CloudGuard::Models::ResponderRule'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a security zone policy using its identifier. When a policy is enabled in a security zone, then any action in the zone that attempts to violate that policy is denied.
+    # @param [String] security_policy_id The unique identifier of the security zone policy (`SecurityPolicy`)
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SecurityPolicy SecurityPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_security_policy.rb.html) to see an example of how to use get_security_policy API.
+    def get_security_policy(security_policy_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#get_security_policy.' if logger
+
+      raise "Missing the required parameter 'security_policy_id' when calling get_security_policy." if security_policy_id.nil?
+      raise "Parameter value for 'security_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(security_policy_id)
+
+      path = '/securityPolicies/{securityPolicyId}'.sub('{securityPolicyId}', security_policy_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#get_security_policy') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::SecurityPolicy'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a security zone recipe by identifier. A security zone recipe is a collection of security zone policies.
+    # @param [String] security_recipe_id The unique identifier of the security zone recipe (`SecurityRecipe`)
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SecurityRecipe SecurityRecipe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_security_recipe.rb.html) to see an example of how to use get_security_recipe API.
+    def get_security_recipe(security_recipe_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#get_security_recipe.' if logger
+
+      raise "Missing the required parameter 'security_recipe_id' when calling get_security_recipe." if security_recipe_id.nil?
+      raise "Parameter value for 'security_recipe_id' must not be blank" if OCI::Internal::Util.blank_string?(security_recipe_id)
+
+      path = '/securityRecipes/{securityRecipeId}'.sub('{securityRecipeId}', security_recipe_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#get_security_recipe') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::SecurityRecipe'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a security zone by its identifier. A security zone is associated with a security zone recipe and enforces all security zone policies in the recipe. Any actions in the zone's compartments that violate a policy are denied.
+    # @param [String] security_zone_id The unique identifier of the security zone (`SecurityZone`)
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SecurityZone SecurityZone}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_security_zone.rb.html) to see an example of how to use get_security_zone API.
+    def get_security_zone(security_zone_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#get_security_zone.' if logger
+
+      raise "Missing the required parameter 'security_zone_id' when calling get_security_zone." if security_zone_id.nil?
+      raise "Parameter value for 'security_zone_id' must not be blank" if OCI::Internal::Util.blank_string?(security_zone_id)
+
+      path = '/securityZones/{securityZoneId}'.sub('{securityZoneId}', security_zone_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#get_security_zone') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::SecurityZone'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns Sighting details
+    # @param [String] sighting_id OCID of the sighting.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::Sighting Sighting}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/get_sighting.rb.html) to see an example of how to use get_sighting API.
+    def get_sighting(sighting_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#get_sighting.' if logger
+
+      raise "Missing the required parameter 'sighting_id' when calling get_sighting." if sighting_id.nil?
+      raise "Parameter value for 'sighting_id' must not be blank" if OCI::Internal::Util.blank_string?(sighting_id)
+
+      path = '/sightings/{sightingId}'.sub('{sightingId}', sighting_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#get_sighting') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::Sighting'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -3169,6 +3896,79 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns a list of endpoints associated with a cloud guard problem
+    #
+    # @param [String] problem_id OCId of the problem.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. If no value is specified timeCreated is default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ProblemEndpointCollection ProblemEndpointCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_problem_endpoints.rb.html) to see an example of how to use list_problem_endpoints API.
+    def list_problem_endpoints(problem_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#list_problem_endpoints.' if logger
+
+      raise "Missing the required parameter 'problem_id' when calling list_problem_endpoints." if problem_id.nil?
+
+      if opts[:sort_order] && !OCI::CloudGuard::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::CloudGuard::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated.'
+      end
+      raise "Parameter value for 'problem_id' must not be blank" if OCI::Internal::Util.blank_string?(problem_id)
+
+      path = '/problems/{problemId}/endpoints'.sub('{problemId}', problem_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#list_problem_endpoints') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::ProblemEndpointCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of Actions done on CloudGuard Problem
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
@@ -3282,6 +4082,8 @@ module OCI
     # @option opts [String] :detector_type The field to list the Problems by Detector Type. Valid values are IAAS_ACTIVITY_DETECTOR and IAAS_CONFIGURATION_DETECTOR
     #
     # @option opts [String] :target_id The ID of the target in which to list resources.
+    # @option opts [String] :problem_category Setting this to `SECURITY_ZONE` returns only security-zone related violations.
+    #
     # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
     #   When set to true, the hierarchy of compartments is traversed
     #   and all compartments and subcompartments in the tenancy are
@@ -3321,6 +4123,10 @@ module OCI
         raise 'Invalid value for "detector_type", must be one of the values in OCI::CloudGuard::Models::DETECTOR_ENUM_ENUM.'
       end
 
+      if opts[:problem_category] && !OCI::CloudGuard::Models::PROBLEM_CATEGORY_ENUM_ENUM.include?(opts[:problem_category])
+        raise 'Invalid value for "problem_category", must be one of the values in OCI::CloudGuard::Models::PROBLEM_CATEGORY_ENUM_ENUM.'
+      end
+
       if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
         raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
       end
@@ -3356,6 +4162,7 @@ module OCI
       query_params[:detectorRuleIdList] = OCI::ApiClient.build_collection_params(opts[:detector_rule_id_list], :multi) if opts[:detector_rule_id_list] && !opts[:detector_rule_id_list].empty?
       query_params[:detectorType] = opts[:detector_type] if opts[:detector_type]
       query_params[:targetId] = opts[:target_id] if opts[:target_id]
+      query_params[:problemCategory] = opts[:problem_category] if opts[:problem_category]
       query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
       query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
       query_params[:resourceId] = opts[:resource_id] if opts[:resource_id]
@@ -3502,12 +4309,279 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns a list of endpoints for Cloud Guard resource profile
+    # @param [String] resource_profile_id OCID of the resource profile.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. If no value is specified timeCreated is default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResourceProfileEndpointCollection ResourceProfileEndpointCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_resource_profile_endpoints.rb.html) to see an example of how to use list_resource_profile_endpoints API.
+    def list_resource_profile_endpoints(resource_profile_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#list_resource_profile_endpoints.' if logger
+
+      raise "Missing the required parameter 'resource_profile_id' when calling list_resource_profile_endpoints." if resource_profile_id.nil?
+
+      if opts[:sort_order] && !OCI::CloudGuard::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::CloudGuard::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated.'
+      end
+      raise "Parameter value for 'resource_profile_id' must not be blank" if OCI::Internal::Util.blank_string?(resource_profile_id)
+
+      path = '/resourceProfiles/{resourceProfileId}/endpoints'.sub('{resourceProfileId}', resource_profile_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#list_resource_profile_endpoints') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::ResourceProfileEndpointCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of impacted resources for Cloud Guard resource profile
+    # @param [String] resource_profile_id OCID of the resource profile.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. If no value is specified timeCreated is default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResourceProfileImpactedResourceCollection ResourceProfileImpactedResourceCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_resource_profile_impacted_resources.rb.html) to see an example of how to use list_resource_profile_impacted_resources API.
+    def list_resource_profile_impacted_resources(resource_profile_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#list_resource_profile_impacted_resources.' if logger
+
+      raise "Missing the required parameter 'resource_profile_id' when calling list_resource_profile_impacted_resources." if resource_profile_id.nil?
+
+      if opts[:sort_order] && !OCI::CloudGuard::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::CloudGuard::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated.'
+      end
+      raise "Parameter value for 'resource_profile_id' must not be blank" if OCI::Internal::Util.blank_string?(resource_profile_id)
+
+      path = '/resourceProfiles/{resourceProfileId}/impactedResources'.sub('{resourceProfileId}', resource_profile_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#list_resource_profile_impacted_resources') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::ResourceProfileImpactedResourceCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of all resource profiles identified by the Cloud Guard
+    # The ListResourceProfiles operation returns only resource profiles that match the passed filters.
+    #
+    # The ListResourceProfiles operation returns only the resource profiles in `compartmentId` passed.
+    # The parameter `accessLevel` specifies whether to return only those compartments for which the
+    # requestor has INSPECT permissions on at least one resource directly
+    # or indirectly (ACCESSIBLE) (the resource can be in a subcompartment) or to return Not Authorized if
+    # Principal doesn't have access to even one of the child compartments. This is valid only when
+    # `compartmentIdInSubtree` is set to `true`.
+    #
+    # The parameter `compartmentIdInSubtree` applies when you perform ListResourceProfiles on the
+    # `compartmentId` passed and when it is set to true, the entire hierarchy of compartments can be returned.
+    # To get a full list of all compartments and subcompartments in the tenancy (root compartment),
+    # set the parameter `compartmentIdInSubtree` to true and `accessLevel` to ACCESSIBLE.
+    #
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [DateTime] :time_last_detected_greater_than_or_equal_to Start time for a filter. If start time is not specified, start time will be set to current time - 30 days.
+    # @option opts [DateTime] :time_last_detected_less_than_or_equal_to End time for a filter. If end time is not specified, end time will be set to current time.
+    # @option opts [DateTime] :time_first_detected_greater_than_or_equal_to Start time for a filter. If start time is not specified, start time will be set to current time - 30 days.
+    # @option opts [DateTime] :time_first_detected_less_than_or_equal_to End time for a filter. If end time is not specified, end time will be set to current time.
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed
+    #   and all compartments and subcompartments in the tenancy are
+    #   returned depending on the the setting of `accessLevel`.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are `RESTRICTED` and `ACCESSIBLE`. Default is `RESTRICTED`.
+    #   Setting this to `ACCESSIBLE` returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment).
+    #   When set to `RESTRICTED` permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [Array<String>] :resource_types A filter to return only resources that match the list of resource types given (default to [])
+    # @option opts [Float] :risk_score_greater_than_or_equal_to risk score filter
+    # @option opts [Float] :risk_score_less_than_or_equal_to risk score filter
+    # @option opts [Array<String>] :techniques A filter to return only resources that match the list of techniques given (default to [])
+    # @option opts [Array<String>] :tactics A filter to return only resources that match the list of tactics given. (default to [])
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field to sort resource profiles. Only one sort order may be provided. Default order for timeLastDetected is descending. If no value is specified timeLastDetected is default.
+    #    (default to timeLastDetected)
+    #   Allowed values are: riskScore, riskScoreGrowth, timeFirstDetected, timeLastDetected, sightingsCount, displayName, type
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResourceProfileCollection ResourceProfileCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_resource_profiles.rb.html) to see an example of how to use list_resource_profiles API.
+    def list_resource_profiles(compartment_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#list_resource_profiles.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_resource_profiles." if compartment_id.nil?
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+      if opts[:sort_order] && !OCI::CloudGuard::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::CloudGuard::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[riskScore riskScoreGrowth timeFirstDetected timeLastDetected sightingsCount displayName type].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of riskScore, riskScoreGrowth, timeFirstDetected, timeLastDetected, sightingsCount, displayName, type.'
+      end
+
+      path = '/resourceProfiles'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:timeLastDetectedGreaterThanOrEqualTo] = opts[:time_last_detected_greater_than_or_equal_to] if opts[:time_last_detected_greater_than_or_equal_to]
+      query_params[:timeLastDetectedLessThanOrEqualTo] = opts[:time_last_detected_less_than_or_equal_to] if opts[:time_last_detected_less_than_or_equal_to]
+      query_params[:timeFirstDetectedGreaterThanOrEqualTo] = opts[:time_first_detected_greater_than_or_equal_to] if opts[:time_first_detected_greater_than_or_equal_to]
+      query_params[:timeFirstDetectedLessThanOrEqualTo] = opts[:time_first_detected_less_than_or_equal_to] if opts[:time_first_detected_less_than_or_equal_to]
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:resourceTypes] = OCI::ApiClient.build_collection_params(opts[:resource_types], :multi) if opts[:resource_types] && !opts[:resource_types].empty?
+      query_params[:riskScoreGreaterThanOrEqualTo] = opts[:risk_score_greater_than_or_equal_to] if opts[:risk_score_greater_than_or_equal_to]
+      query_params[:riskScoreLessThanOrEqualTo] = opts[:risk_score_less_than_or_equal_to] if opts[:risk_score_less_than_or_equal_to]
+      query_params[:techniques] = OCI::ApiClient.build_collection_params(opts[:techniques], :multi) if opts[:techniques] && !opts[:techniques].empty?
+      query_params[:tactics] = OCI::ApiClient.build_collection_params(opts[:tactics], :multi) if opts[:tactics] && !opts[:tactics].empty?
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#list_resource_profiles') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::ResourceProfileCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of resource types.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :detector_id Detector type
     # @option opts [String] :lifecycle_state The field life cycle state. Only one state can be provided. Default value for state is active. If no value is specified state is active. (default to ACTIVE)
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
@@ -3522,6 +4596,10 @@ module OCI
       logger.debug 'Calling operation CloudGuardClient#list_resource_types.' if logger
 
       raise "Missing the required parameter 'compartment_id' when calling list_resource_types." if compartment_id.nil?
+
+      if opts[:detector_id] && !OCI::CloudGuard::Models::DETECTOR_ENUM_ENUM.include?(opts[:detector_id])
+        raise 'Invalid value for "detector_id", must be one of the values in OCI::CloudGuard::Models::DETECTOR_ENUM_ENUM.'
+      end
 
       if opts[:lifecycle_state] && !OCI::CloudGuard::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::CloudGuard::Models::LIFECYCLE_STATE_ENUM.'
@@ -3542,6 +4620,7 @@ module OCI
       # Query Params
       query_params = {}
       query_params[:compartmentId] = compartment_id
+      query_params[:detectorId] = opts[:detector_id] if opts[:detector_id]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
@@ -4061,6 +5140,593 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns a list of security zone policies. Specify any compartment.
+    #
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :lifecycle_state The field life cycle state. Only one state can be provided. Default value for state is active. If no value is specified state is active. (default to ACTIVE)
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :id The unique identifier of the security zone policy (`SecurityPolicy`)
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SecurityPolicyCollection SecurityPolicyCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_security_policies.rb.html) to see an example of how to use list_security_policies API.
+    def list_security_policies(compartment_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#list_security_policies.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_security_policies." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::CloudGuard::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::CloudGuard::Models::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::CloudGuard::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::CloudGuard::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      path = '/securityPolicies'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#list_security_policies') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::SecurityPolicyCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of all security zone recipes in a compartment.
+    #
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :lifecycle_state The field life cycle state. Only one state can be provided. Default value for state is active. If no value is specified state is active. (default to ACTIVE)
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :id The unique identifier of the security zone recipe (`SecurityRecipe`)
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SecurityRecipeCollection SecurityRecipeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_security_recipes.rb.html) to see an example of how to use list_security_recipes API.
+    def list_security_recipes(compartment_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#list_security_recipes.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_security_recipes." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::CloudGuard::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::CloudGuard::Models::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::CloudGuard::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::CloudGuard::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      path = '/securityRecipes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#list_security_recipes') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::SecurityRecipeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of all security zones in a compartment.
+    #
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :lifecycle_state The field life cycle state. Only one state can be provided. Default value for state is active. If no value is specified state is active. (default to ACTIVE)
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :id The unique identifier of the security zone (`SecurityZone`)
+    # @option opts [String] :security_recipe_id The unique identifier of the security zone recipe (`SecurityRecipe`)
+    # @option opts [BOOLEAN] :is_required_security_zones_in_subtree security zones in the subtree
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SecurityZoneCollection SecurityZoneCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_security_zones.rb.html) to see an example of how to use list_security_zones API.
+    def list_security_zones(compartment_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#list_security_zones.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_security_zones." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::CloudGuard::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::CloudGuard::Models::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::CloudGuard::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::CloudGuard::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      path = '/securityZones'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:securityRecipeId] = opts[:security_recipe_id] if opts[:security_recipe_id]
+      query_params[:isRequiredSecurityZonesInSubtree] = opts[:is_required_security_zones_in_subtree] if !opts[:is_required_security_zones_in_subtree].nil?
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#list_security_zones') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::SecurityZoneCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns Sighting endpoints details
+    # @param [String] sighting_id OCID of the sighting.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. If no value is specified timeCreated is default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SightingEndpointCollection SightingEndpointCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_sighting_endpoints.rb.html) to see an example of how to use list_sighting_endpoints API.
+    def list_sighting_endpoints(sighting_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#list_sighting_endpoints.' if logger
+
+      raise "Missing the required parameter 'sighting_id' when calling list_sighting_endpoints." if sighting_id.nil?
+
+      if opts[:sort_order] && !OCI::CloudGuard::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::CloudGuard::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated.'
+      end
+      raise "Parameter value for 'sighting_id' must not be blank" if OCI::Internal::Util.blank_string?(sighting_id)
+
+      path = '/sightings/{sightingId}/endpoints'.sub('{sightingId}', sighting_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#list_sighting_endpoints') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::SightingEndpointCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Return a list of Impacted Resources for a CloudGuard Sighting
+    # @param [String] sighting_id OCID of the sighting.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. If no value is specified timeCreated is default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SightingImpactedResourceCollection SightingImpactedResourceCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_sighting_impacted_resources.rb.html) to see an example of how to use list_sighting_impacted_resources API.
+    def list_sighting_impacted_resources(sighting_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#list_sighting_impacted_resources.' if logger
+
+      raise "Missing the required parameter 'sighting_id' when calling list_sighting_impacted_resources." if sighting_id.nil?
+
+      if opts[:sort_order] && !OCI::CloudGuard::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::CloudGuard::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated.'
+      end
+      raise "Parameter value for 'sighting_id' must not be blank" if OCI::Internal::Util.blank_string?(sighting_id)
+
+      path = '/sightings/{sightingId}/impactedResources'.sub('{sightingId}', sighting_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#list_sighting_impacted_resources') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::SightingImpactedResourceCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of all Sightings identified by the Cloud Guard
+    # The ListSightings operation returns only sightings that match the passed filters.
+    #
+    # The parameter `accessLevel` specifies whether to return only those compartments for which the
+    # requestor has INSPECT permissions on at least one resource directly
+    # or indirectly (ACCESSIBLE) (the resource can be in a subcompartment) or to return Not Authorized if
+    # Principal doesn't have access to even one of the child compartments. This is valid only when
+    # `compartmentIdInSubtree` is set to `true`.
+    #
+    # The parameter `compartmentIdInSubtree` applies when you perform ListSightings on the
+    # `compartmentId` passed and when it is set to true, the entire hierarchy of compartments can be returned.
+    # To get a full list of all compartments and subcompartments in the tenancy (root compartment),
+    # set the parameter `compartmentIdInSubtree` to true and `accessLevel` to ACCESSIBLE.
+    #
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :problem_id OCID of the problem.
+    # @option opts [String] :resource_profile_id OCID of the resource profile.
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed
+    #   and all compartments and subcompartments in the tenancy are
+    #   returned depending on the the setting of `accessLevel`.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are `RESTRICTED` and `ACCESSIBLE`. Default is `RESTRICTED`.
+    #   Setting this to `ACCESSIBLE` returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment).
+    #   When set to `RESTRICTED` permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. If no value is specified timeCreated is default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated
+    # @option opts [DateTime] :time_last_detected_greater_than_or_equal_to Start time for a filter. If start time is not specified, start time will be set to current time - 30 days.
+    # @option opts [DateTime] :time_last_detected_less_than_or_equal_to End time for a filter. If end time is not specified, end time will be set to current time.
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SightingCollection SightingCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_sightings.rb.html) to see an example of how to use list_sightings API.
+    def list_sightings(compartment_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#list_sightings.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_sightings." if compartment_id.nil?
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+      if opts[:sort_order] && !OCI::CloudGuard::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::CloudGuard::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated.'
+      end
+
+      path = '/sightings'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:problemId] = opts[:problem_id] if opts[:problem_id]
+      query_params[:resourceProfileId] = opts[:resource_profile_id] if opts[:resource_profile_id]
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:timeLastDetectedGreaterThanOrEqualTo] = opts[:time_last_detected_greater_than_or_equal_to] if opts[:time_last_detected_greater_than_or_equal_to]
+      query_params[:timeLastDetectedLessThanOrEqualTo] = opts[:time_last_detected_less_than_or_equal_to] if opts[:time_last_detected_less_than_or_equal_to]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#list_sightings') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::SightingCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of tactics associated with detector rules.
+    #
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :lifecycle_state The field life cycle state. Only one state can be provided. Default value for state is active. If no value is specified state is active. (default to ACTIVE)
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for displayName is ascending. If no value is specified displayName is default.
+    #    (default to displayName)
+    #   Allowed values are: displayName
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TacticCollection TacticCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_tactics.rb.html) to see an example of how to use list_tactics API.
+    def list_tactics(compartment_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#list_tactics.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_tactics." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::CloudGuard::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::CloudGuard::Models::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::CloudGuard::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::CloudGuard::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of displayName.'
+      end
+
+      path = '/tactics'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#list_tactics') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::TacticCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of DetectorRule associated with DetectorRecipe within a Target.
     #
     # @param [String] target_id OCID of target
@@ -4421,6 +6087,10 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [BOOLEAN] :is_non_security_zone_targets_only_query Default is false.
+    #   When set to true, only the targets that would be deleted as part of
+    #   security zone creation will be returned.
+    #    (default to false)
     # @option opts [String] :lifecycle_state The field life cycle state. Only one state can be provided. Default value for state is active. If no value is specified state is active. (default to ACTIVE)
     # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
     #   When set to true, the hierarchy of compartments is traversed
@@ -4472,6 +6142,7 @@ module OCI
       query_params = {}
       query_params[:compartmentId] = compartment_id
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:isNonSecurityZoneTargetsOnlyQuery] = opts[:is_non_security_zone_targets_only_query] if !opts[:is_non_security_zone_targets_only_query].nil?
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
       query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
@@ -4500,6 +6171,158 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::CloudGuard::Models::TargetCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of techniques associated with detector rules.
+    #
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Array<String>] :tactics A filter to return only resources that match the list of tactics given. (default to [])
+    # @option opts [String] :lifecycle_state The field life cycle state. Only one state can be provided. Default value for state is active. If no value is specified state is active. (default to ACTIVE)
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for displayName is ascending. If no value is specified displayName is default.
+    #    (default to displayName)
+    #   Allowed values are: displayName
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::TechniqueCollection TechniqueCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/list_techniques.rb.html) to see an example of how to use list_techniques API.
+    def list_techniques(compartment_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#list_techniques.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_techniques." if compartment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::CloudGuard::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::CloudGuard::Models::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::CloudGuard::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::CloudGuard::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of displayName.'
+      end
+
+      path = '/techniques'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:tactics] = OCI::ApiClient.build_collection_params(opts[:tactics], :multi) if opts[:tactics] && !opts[:tactics].empty?
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#list_techniques') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::TechniqueCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Removes an existing compartment from a security zone. When you remove a subcompartment from a security zone, it no longer enforces security zone policies on the resources in the subcompartment. You can't remove the primary compartment that was used to create the security zone.
+    # @param [String] security_zone_id The unique identifier of the security zone (`SecurityZone`)
+    # @param [OCI::CloudGuard::Models::RemoveCompartmentDetails] remove_compartment_details The compartment to remove from the security zone.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SecurityZone SecurityZone}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/remove_compartment.rb.html) to see an example of how to use remove_compartment API.
+    def remove_compartment(security_zone_id, remove_compartment_details, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#remove_compartment.' if logger
+
+      raise "Missing the required parameter 'security_zone_id' when calling remove_compartment." if security_zone_id.nil?
+      raise "Missing the required parameter 'remove_compartment_details' when calling remove_compartment." if remove_compartment_details.nil?
+      raise "Parameter value for 'security_zone_id' must not be blank" if OCI::Internal::Util.blank_string?(security_zone_id)
+
+      path = '/securityZones/{securityZoneId}/actions/removeCompartment'.sub('{securityZoneId}', security_zone_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(remove_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#remove_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::SecurityZone'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -5137,6 +6960,97 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Summarizes the resource profile risk score top trends for the given time range based on the search filters.
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [DateTime] :time_score_computed_greater_than_or_equal_to Start time for a filter. If start time is not specified, start time will be set to today's current time - 30 days.
+    # @option opts [DateTime] :time_score_computed_less_than_or_equal_to End time for a filter. If end time is not specified, end time will be set to today's current time.
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed
+    #   and all compartments and subcompartments in the tenancy are
+    #   returned depending on the the setting of `accessLevel`.
+    #    (default to false)
+    # @option opts [String] :sort_by The field to sort trendlines for resource profiles. Only one sort order may be provided. If no value is specified riskScore is default.
+    #    (default to riskScore)
+    #   Allowed values are: riskScore, riskScoreGrowth, timeFirstDetected, timeLastDetected
+    # @option opts [Integer] :count Number of resource profile risk score trend-lines to be displayed. Default value is 10.
+    #    (default to 10)
+    # @option opts [String] :access_level Valid values are `RESTRICTED` and `ACCESSIBLE`. Default is `RESTRICTED`.
+    #   Setting this to `ACCESSIBLE` returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment).
+    #   When set to `RESTRICTED` permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResourceProfileRiskScoreAggregationSummaryCollection ResourceProfileRiskScoreAggregationSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/request_summarized_top_trend_resource_profile_risk_scores.rb.html) to see an example of how to use request_summarized_top_trend_resource_profile_risk_scores API.
+    def request_summarized_top_trend_resource_profile_risk_scores(compartment_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#request_summarized_top_trend_resource_profile_risk_scores.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling request_summarized_top_trend_resource_profile_risk_scores." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[riskScore riskScoreGrowth timeFirstDetected timeLastDetected].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of riskScore, riskScoreGrowth, timeFirstDetected, timeLastDetected.'
+      end
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+      path = '/resourceProfileRiskScores/actions/summarizeTopTrends'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:timeScoreComputedGreaterThanOrEqualTo] = opts[:time_score_computed_greater_than_or_equal_to] if opts[:time_score_computed_greater_than_or_equal_to]
+      query_params[:timeScoreComputedLessThanOrEqualTo] = opts[:time_score_computed_less_than_or_equal_to] if opts[:time_score_computed_less_than_or_equal_to]
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:count] = opts[:count] if opts[:count]
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#request_summarized_top_trend_resource_profile_risk_scores') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::ResourceProfileRiskScoreAggregationSummaryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns the number of problems identified by cloud guard, for a given time period.
     #
     # The parameter `accessLevel` specifies whether to return only those compartments for which the
@@ -5216,6 +7130,88 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::CloudGuard::Models::ProblemTrendAggregationCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Summarizes the resource risk score trend for the given time range based on the search filters.
+    # @param [OCI::CloudGuard::Models::RequestSummarizedTrendResourceRiskScoresDetails] request_summarized_trend_resource_risk_scores_details The filter to fetch risk score trend.
+    # @param [String] compartment_id The ID of the compartment in which to list resources.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [DateTime] :time_score_computed_greater_than_or_equal_to Start time for a filter. If start time is not specified, start time will be set to today's current time - 30 days.
+    # @option opts [DateTime] :time_score_computed_less_than_or_equal_to End time for a filter. If end time is not specified, end time will be set to today's current time.
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed
+    #   and all compartments and subcompartments in the tenancy are
+    #   returned depending on the the setting of `accessLevel`.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are `RESTRICTED` and `ACCESSIBLE`. Default is `RESTRICTED`.
+    #   Setting this to `ACCESSIBLE` returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment).
+    #   When set to `RESTRICTED` permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::ResourceRiskScoreAggregationCollection ResourceRiskScoreAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/request_summarized_trend_resource_risk_scores.rb.html) to see an example of how to use request_summarized_trend_resource_risk_scores API.
+    def request_summarized_trend_resource_risk_scores(request_summarized_trend_resource_risk_scores_details, compartment_id, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#request_summarized_trend_resource_risk_scores.' if logger
+
+      raise "Missing the required parameter 'request_summarized_trend_resource_risk_scores_details' when calling request_summarized_trend_resource_risk_scores." if request_summarized_trend_resource_risk_scores_details.nil?
+      raise "Missing the required parameter 'compartment_id' when calling request_summarized_trend_resource_risk_scores." if compartment_id.nil?
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+      path = '/resourceRiskScores/actions/summarizeTrend'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:timeScoreComputedGreaterThanOrEqualTo] = opts[:time_score_computed_greater_than_or_equal_to] if opts[:time_score_computed_greater_than_or_equal_to]
+      query_params[:timeScoreComputedLessThanOrEqualTo] = opts[:time_score_computed_less_than_or_equal_to] if opts[:time_score_computed_less_than_or_equal_to]
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(request_summarized_trend_resource_risk_scores_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#request_summarized_trend_resource_risk_scores') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::ResourceRiskScoreAggregationCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -6165,6 +8161,132 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::CloudGuard::Models::ResponderRecipeResponderRule'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates a security zone recipe. A security zone recipe is a collection of security zone policies.
+    # @param [String] security_recipe_id The unique identifier of the security zone recipe (`SecurityRecipe`)
+    # @param [OCI::CloudGuard::Models::UpdateSecurityRecipeDetails] update_security_recipe_details The information to be updated in the security zone recipe.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SecurityRecipe SecurityRecipe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/update_security_recipe.rb.html) to see an example of how to use update_security_recipe API.
+    def update_security_recipe(security_recipe_id, update_security_recipe_details, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#update_security_recipe.' if logger
+
+      raise "Missing the required parameter 'security_recipe_id' when calling update_security_recipe." if security_recipe_id.nil?
+      raise "Missing the required parameter 'update_security_recipe_details' when calling update_security_recipe." if update_security_recipe_details.nil?
+      raise "Parameter value for 'security_recipe_id' must not be blank" if OCI::Internal::Util.blank_string?(security_recipe_id)
+
+      path = '/securityRecipes/{securityRecipeId}'.sub('{securityRecipeId}', security_recipe_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_security_recipe_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#update_security_recipe') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::SecurityRecipe'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the security zone identified by its id
+    # @param [String] security_zone_id The unique identifier of the security zone (`SecurityZone`)
+    # @param [OCI::CloudGuard::Models::UpdateSecurityZoneDetails] update_security_zone_details The security zone information to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::CloudGuard::Models::SecurityZone SecurityZone}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/cloudguard/update_security_zone.rb.html) to see an example of how to use update_security_zone API.
+    def update_security_zone(security_zone_id, update_security_zone_details, opts = {})
+      logger.debug 'Calling operation CloudGuardClient#update_security_zone.' if logger
+
+      raise "Missing the required parameter 'security_zone_id' when calling update_security_zone." if security_zone_id.nil?
+      raise "Missing the required parameter 'update_security_zone_details' when calling update_security_zone." if update_security_zone_details.nil?
+      raise "Parameter value for 'security_zone_id' must not be blank" if OCI::Internal::Util.blank_string?(security_zone_id)
+
+      path = '/securityZones/{securityZoneId}'.sub('{securityZoneId}', security_zone_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_security_zone_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'CloudGuardClient#update_security_zone') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::CloudGuard::Models::SecurityZone'
         )
       end
       # rubocop:enable Metrics/BlockLength

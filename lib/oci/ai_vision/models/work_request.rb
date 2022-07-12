@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of workrequest status.
+  # The workrequest status details.
   class AiVision::Models::WorkRequest
     OPERATION_TYPE_ENUM = [
       OPERATION_TYPE_CREATE_PROJECT = 'CREATE_PROJECT'.freeze,
@@ -31,15 +31,15 @@ module OCI
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Type of the work request.
+    # **[Required]** The type of work request.
     # @return [String]
     attr_reader :operation_type
 
-    # **[Required]** Status of current work request.
+    # **[Required]** The status of the current work request.
     # @return [String]
     attr_reader :status
 
-    # **[Required]** The id of the work request.
+    # **[Required]** The ID of the work request.
     # @return [String]
     attr_accessor :id
 
@@ -53,7 +53,7 @@ module OCI
     # @return [Array<OCI::AiVision::Models::WorkRequestResource>]
     attr_accessor :resources
 
-    # **[Required]** Percentage of the request completed.
+    # **[Required]** The percentage of the request completed.
     # @return [Float]
     attr_accessor :percent_complete
 

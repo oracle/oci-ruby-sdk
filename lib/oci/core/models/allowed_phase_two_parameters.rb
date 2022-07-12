@@ -5,17 +5,17 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Phase Two Parameters
+  # Allowed phase two parameters.
   class Core::Models::AllowedPhaseTwoParameters
-    # Phase Two Encryption Algorithms
+    # Allowed phase two encryption algorithms.
     # @return [Array<String>]
     attr_accessor :encryption_algorithms
 
-    # Phase Two Authentication Algorithms
+    # Allowed phase two authentication algorithms.
     # @return [Array<String>]
     attr_accessor :authentication_algorithms
 
-    # PFS DH Groups
+    # Allowed perfect forward secrecy Diffie-Hellman groups.
     # @return [Array<String>]
     attr_accessor :pfs_dh_groups
 

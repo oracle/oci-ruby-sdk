@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # CreateRoverNodeDetails model.
+  # The information required to create a RoverNode.
   class Rover::Models::CreateRoverNodeDetails
     SHIPPING_PREFERENCE_ENUM = [
       SHIPPING_PREFERENCE_ORACLE_SHIPPED = 'ORACLE_SHIPPED'.freeze,
@@ -33,6 +33,10 @@ module OCI
     # **[Required]** The OCID of the compartment containing the RoverNode.
     # @return [String]
     attr_accessor :compartment_id
+
+    # The shape of the node.
+    # @return [String]
+    attr_accessor :shape
 
     # @return [OCI::Rover::Models::ShippingAddress]
     attr_accessor :customer_shipping_address
@@ -117,6 +121,10 @@ module OCI
     # @return [String]
     attr_accessor :data_validation_code
 
+    # Customer provided master key ID to encrypt secret information. If not provided, Rover's master key will be used for encryption.
+    # @return [String]
+    attr_accessor :master_key_id
+
     # The freeform tags associated with this resource, if any. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Department\": \"Finance\"}`
@@ -144,6 +152,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
         'compartment_id': :'compartmentId',
+        'shape': :'shape',
         'customer_shipping_address': :'customerShippingAddress',
         'node_workloads': :'nodeWorkloads',
         'super_user_password': :'superUserPassword',
@@ -165,6 +174,7 @@ module OCI
         'import_compartment_id': :'importCompartmentId',
         'import_file_bucket': :'importFileBucket',
         'data_validation_code': :'dataValidationCode',
+        'master_key_id': :'masterKeyId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'system_tags': :'systemTags'
@@ -178,6 +188,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
         'compartment_id': :'String',
+        'shape': :'String',
         'customer_shipping_address': :'OCI::Rover::Models::ShippingAddress',
         'node_workloads': :'Array<OCI::Rover::Models::RoverWorkload>',
         'super_user_password': :'String',
@@ -199,6 +210,7 @@ module OCI
         'import_compartment_id': :'String',
         'import_file_bucket': :'String',
         'data_validation_code': :'String',
+        'master_key_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'system_tags': :'Hash<String, Hash<String, Object>>'
@@ -214,6 +226,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [OCI::Rover::Models::ShippingAddress] :customer_shipping_address The value to assign to the {#customer_shipping_address} property
     # @option attributes [Array<OCI::Rover::Models::RoverWorkload>] :node_workloads The value to assign to the {#node_workloads} property
     # @option attributes [String] :super_user_password The value to assign to the {#super_user_password} property
@@ -235,6 +248,7 @@ module OCI
     # @option attributes [String] :import_compartment_id The value to assign to the {#import_compartment_id} property
     # @option attributes [String] :import_file_bucket The value to assign to the {#import_file_bucket} property
     # @option attributes [String] :data_validation_code The value to assign to the {#data_validation_code} property
+    # @option attributes [String] :master_key_id The value to assign to the {#master_key_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
@@ -255,6 +269,8 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.shape = attributes[:'shape'] if attributes[:'shape']
 
       self.customer_shipping_address = attributes[:'customerShippingAddress'] if attributes[:'customerShippingAddress']
 
@@ -384,6 +400,12 @@ module OCI
 
       self.data_validation_code = attributes[:'data_validation_code'] if attributes[:'data_validation_code']
 
+      self.master_key_id = attributes[:'masterKeyId'] if attributes[:'masterKeyId']
+
+      raise 'You cannot provide both :masterKeyId and :master_key_id' if attributes.key?(:'masterKeyId') && attributes.key?(:'master_key_id')
+
+      self.master_key_id = attributes[:'master_key_id'] if attributes[:'master_key_id']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -440,6 +462,7 @@ module OCI
       self.class == other.class &&
         display_name == other.display_name &&
         compartment_id == other.compartment_id &&
+        shape == other.shape &&
         customer_shipping_address == other.customer_shipping_address &&
         node_workloads == other.node_workloads &&
         super_user_password == other.super_user_password &&
@@ -461,6 +484,7 @@ module OCI
         import_compartment_id == other.import_compartment_id &&
         import_file_bucket == other.import_file_bucket &&
         data_validation_code == other.data_validation_code &&
+        master_key_id == other.master_key_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         system_tags == other.system_tags
@@ -479,7 +503,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, compartment_id, customer_shipping_address, node_workloads, super_user_password, unlock_passphrase, point_of_contact, point_of_contact_phone_number, shipping_preference, shipping_vendor, time_pickup_expected, public_key, time_return_window_starts, time_return_window_ends, lifecycle_state, enclosure_type, lifecycle_state_details, serial_number, oracle_shipping_tracking_url, is_import_requested, import_compartment_id, import_file_bucket, data_validation_code, freeform_tags, defined_tags, system_tags].hash
+      [display_name, compartment_id, shape, customer_shipping_address, node_workloads, super_user_password, unlock_passphrase, point_of_contact, point_of_contact_phone_number, shipping_preference, shipping_vendor, time_pickup_expected, public_key, time_return_window_starts, time_return_window_ends, lifecycle_state, enclosure_type, lifecycle_state_details, serial_number, oracle_shipping_tracking_url, is_import_requested, import_compartment_id, import_file_bucket, data_validation_code, master_key_id, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

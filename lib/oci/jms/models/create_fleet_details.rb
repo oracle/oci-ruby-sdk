@@ -19,6 +19,12 @@ module OCI
     # @return [String]
     attr_accessor :description
 
+    # @return [OCI::Jms::Models::CustomLog]
+    attr_accessor :inventory_log
+
+    # @return [OCI::Jms::Models::CustomLog]
+    attr_accessor :operation_log
+
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
     # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`. (See [Understanding Free-form Tags](https://docs.cloud.oracle.com/Content/Tagging/Tasks/managingtagsandtagnamespaces.htm)).
     #
@@ -38,6 +44,8 @@ module OCI
         'display_name': :'displayName',
         'compartment_id': :'compartmentId',
         'description': :'description',
+        'inventory_log': :'inventoryLog',
+        'operation_log': :'operationLog',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags'
         # rubocop:enable Style/SymbolLiteral
@@ -51,6 +59,8 @@ module OCI
         'display_name': :'String',
         'compartment_id': :'String',
         'description': :'String',
+        'inventory_log': :'OCI::Jms::Models::CustomLog',
+        'operation_log': :'OCI::Jms::Models::CustomLog',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
@@ -66,6 +76,8 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [OCI::Jms::Models::CustomLog] :inventory_log The value to assign to the {#inventory_log} property
+    # @option attributes [OCI::Jms::Models::CustomLog] :operation_log The value to assign to the {#operation_log} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     def initialize(attributes = {})
@@ -87,6 +99,18 @@ module OCI
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
       self.description = attributes[:'description'] if attributes[:'description']
+
+      self.inventory_log = attributes[:'inventoryLog'] if attributes[:'inventoryLog']
+
+      raise 'You cannot provide both :inventoryLog and :inventory_log' if attributes.key?(:'inventoryLog') && attributes.key?(:'inventory_log')
+
+      self.inventory_log = attributes[:'inventory_log'] if attributes[:'inventory_log']
+
+      self.operation_log = attributes[:'operationLog'] if attributes[:'operationLog']
+
+      raise 'You cannot provide both :operationLog and :operation_log' if attributes.key?(:'operationLog') && attributes.key?(:'operation_log')
+
+      self.operation_log = attributes[:'operation_log'] if attributes[:'operation_log']
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -115,6 +139,8 @@ module OCI
         display_name == other.display_name &&
         compartment_id == other.compartment_id &&
         description == other.description &&
+        inventory_log == other.inventory_log &&
+        operation_log == other.operation_log &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags
     end
@@ -132,7 +158,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, compartment_id, description, defined_tags, freeform_tags].hash
+      [display_name, compartment_id, description, inventory_log, operation_log, defined_tags, freeform_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

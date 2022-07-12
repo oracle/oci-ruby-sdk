@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Database Tools APIs to manage Connections and Private Endpoints.
+  # Use the Database Tools API to manage connections, private endpoints, and work requests in the Database Tools service.
   class DatabaseTools::DatabaseToolsClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -98,11 +98,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves a DatabaseToolsConnection into a different compartment within the same tenancy.
+    # Moves the specified Database Tools connection to a different compartment in the same tenancy.
     # For information about moving resources between compartments, see
     # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
     #
-    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a DatabaseToolsConnection.
+    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools connection.
     # @param [OCI::DatabaseTools::Models::ChangeDatabaseToolsConnectionCompartmentDetails] change_database_tools_connection_compartment_details Request to change the compartment of the DatabaseToolsConnection.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -171,11 +171,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves a DatabaseToolsPrivateEndpoint into a different compartment within the same tenancy.
+    # Moves a Database Tools private endpoint into a different compartment in the same tenancy.
     # For information about moving resources between compartments, see
     # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
     #
-    # @param [String] database_tools_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a DatabaseToolsPrivateEndpoint.
+    # @param [String] database_tools_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools private endpoint.
     # @param [OCI::DatabaseTools::Models::ChangeDatabaseToolsPrivateEndpointCompartmentDetails] change_database_tools_private_endpoint_compartment_details Request to change the compartment of the DatabaseToolsPrivateEndpoint.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -244,9 +244,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new DatabaseToolsConnection.
+    # Creates a new Database Tools connection.
     #
-    # @param [OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionDetails] create_database_tools_connection_details Details for the new DatabaseToolsConnection.
+    # @param [OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionDetails] create_database_tools_connection_details Details for the new `DatabaseToolsConnection`.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -306,7 +306,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new DatabaseToolsPrivateEndpoint.
+    # Creates a new Database Tools private endpoint.
     #
     # @param [OCI::DatabaseTools::Models::CreateDatabaseToolsPrivateEndpointDetails] create_database_tools_private_endpoint_details Details for the new DatabaseToolsPrivateEndpoint.
     # @param [Hash] opts the optional parameters
@@ -368,8 +368,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes a DatabaseToolsConnection resource by identifier
-    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a DatabaseToolsConnection.
+    # Deletes the specified Database Tools connection resource.
+    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools connection.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -428,8 +428,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes a DatabaseToolsPrivateEndpoint resource by identifier
-    # @param [String] database_tools_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a DatabaseToolsPrivateEndpoint.
+    # Deletes the specified Database Tools private endpoint.
+    # @param [String] database_tools_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools private endpoint.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -488,8 +488,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a DatabaseToolsConnection by identifier
-    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a DatabaseToolsConnection.
+    # Gets details of the specified Database Tools connection.
+    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools connection.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -542,8 +542,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a DatabaseToolsEndpointService by identifier
-    # @param [String] database_tools_endpoint_service_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a DatabaseToolsEndpointService.
+    # Gets details for the specified Database Tools endpoint service.
+    # @param [String] database_tools_endpoint_service_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools Endpoint Service.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -596,8 +596,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a DatabaseToolsPrivateEndpoint by identifier
-    # @param [String] database_tools_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a DatabaseToolsPrivateEndpoint.
+    # Gets details of a specified Database Tools private endpoint.
+    # @param [String] database_tools_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools private endpoint.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -650,7 +650,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the status of the work request with the given ID.
+    # Gets the status of the specified work request.
     # @param [String] work_request_id The ID of the asynchronous request.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -704,16 +704,16 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns a list of DatabaseToolsConnections.
+    # Returns a list of Database Tools connections.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :lifecycle_state A filter to return only resources their lifecycleState matches the given lifecycleState.
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
-    # @option opts [Array<String>] :type A filter to return only resources their endpointServiceId matches the given endpointServiceId.
-    #   Allowed values are: ORACLE_DATABASE
+    # @option opts [String] :lifecycle_state A filter to return only resources their `lifecycleState` matches the specified `lifecycleState`.
+    # @option opts [String] :display_name A filter to return only resources that match the entire specified display name.
+    # @option opts [Array<String>] :type A filter to return only resources their type matches the specified type.
+    #   Allowed values are: ORACLE_DATABASE, MYSQL
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
@@ -733,11 +733,11 @@ module OCI
       end
 
 
-      type_allowable_values = %w[ORACLE_DATABASE]
+      type_allowable_values = %w[ORACLE_DATABASE MYSQL]
       if opts[:type] && !opts[:type].empty?
         opts[:type].each do |val_to_check|
           unless type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "type", must be one of ORACLE_DATABASE.'
+            raise 'Invalid value for "type", must be one of ORACLE_DATABASE, MYSQL.'
           end
         end
       end
@@ -798,7 +798,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns a list of DatabaseToolsEndpointServices.
+    # Returns a list of Database Tools endpoint services.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
@@ -811,9 +811,9 @@ module OCI
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
-    # @option opts [String] :lifecycle_state A filter to return only resources their lifecycleState matches the given lifecycleState.
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
-    # @option opts [String] :name A filter to return only resources that match the entire name given.
+    # @option opts [String] :lifecycle_state A filter to return only resources their `lifecycleState` matches the specified `lifecycleState`.
+    # @option opts [String] :display_name A filter to return only resources that match the entire specified display name.
+    # @option opts [String] :name A filter to return only resources that match the entire specified name.
     # @return [Response] A Response object with data of type {OCI::DatabaseTools::Models::DatabaseToolsEndpointServiceCollection DatabaseToolsEndpointServiceCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasetools/list_database_tools_endpoint_services.rb.html) to see an example of how to use list_database_tools_endpoint_services API.
     def list_database_tools_endpoint_services(compartment_id, opts = {})
@@ -881,13 +881,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns a list of DatabaseToolsPrivateEndpoints.
+    # Returns a list of Database Tools private endpoints.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :subnet_id A filter to return only resources their subnetId matches the given subnetId.
+    # @option opts [String] :subnet_id A filter to return only resources their `subnetId` matches the specified `subnetId`.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
@@ -895,9 +895,9 @@ module OCI
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
-    # @option opts [String] :endpoint_service_id A filter to return only resources their type matches the given type.
-    # @option opts [String] :lifecycle_state A filter to return only resources their lifecycleState matches the given lifecycleState.
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :endpoint_service_id A filter to return only resources their `endpointServiceId` matches the specified `endpointServiceId`.
+    # @option opts [String] :lifecycle_state A filter to return only resources their `lifecycleState` matches the specified `lifecycleState`.
+    # @option opts [String] :display_name A filter to return only resources that match the entire specified display name.
     # @return [Response] A Response object with data of type {OCI::DatabaseTools::Models::DatabaseToolsPrivateEndpointCollection DatabaseToolsPrivateEndpointCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasetools/list_database_tools_private_endpoints.rb.html) to see an example of how to use list_database_tools_private_endpoints API.
     def list_database_tools_private_endpoints(compartment_id, opts = {})
@@ -966,7 +966,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Return a (paginated) list of errors for a given work request.
+    # Returns a paginated list of errors for the specified work request.
     #
     # @param [String] work_request_id The ID of the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -1039,7 +1039,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Return a (paginated) list of logs for a given work request.
+    # Returns a paginated list of logs for the specified work request.
     #
     # @param [String] work_request_id The ID of the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -1187,8 +1187,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the DatabaseToolsConnection
-    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a DatabaseToolsConnection.
+    # Updates the specified Database Tools connection.
+    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools connection.
     # @param [OCI::DatabaseTools::Models::UpdateDatabaseToolsConnectionDetails] update_database_tools_connection_details The information to be updated.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1249,8 +1249,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates the DatabaseToolsPrivateEndpoint
-    # @param [String] database_tools_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a DatabaseToolsPrivateEndpoint.
+    # Updates the specified Database Tools private endpoint.
+    # @param [String] database_tools_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools private endpoint.
     # @param [OCI::DatabaseTools::Models::UpdateDatabaseToolsPrivateEndpointDetails] update_database_tools_private_endpoint_details The information to be updated.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1311,9 +1311,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Validate the DatabaseToolsConnection information details by establishing a connection to the database.
+    # Validates the Database Tools connection details by establishing a connection to the database.
     #
-    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a DatabaseToolsConnection.
+    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools connection.
     # @param [OCI::DatabaseTools::Models::ValidateDatabaseToolsConnectionDetails] validate_database_tools_connection_details Request to validate a DatabaseToolsConnection.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level

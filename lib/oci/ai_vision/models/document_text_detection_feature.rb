@@ -8,7 +8,7 @@ require_relative 'document_feature'
 module OCI
   # Text recognition
   class AiVision::Models::DocumentTextDetectionFeature < AiVision::Models::DocumentFeature
-    # Whether to generate a searchable PDF file.
+    # Whether or not to generate a searchable PDF file.
     # @return [BOOLEAN]
     attr_accessor :generate_searchable_pdf
 

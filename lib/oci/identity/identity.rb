@@ -11,6 +11,7 @@ module OCI
 end
 
 # Require models
+require 'oci/identity/models/add_lock_details'
 require 'oci/identity/models/add_user_to_group_details'
 require 'oci/identity/models/allowed_domain_license_type_summary'
 require 'oci/identity/models/api_key'
@@ -93,7 +94,9 @@ require 'oci/identity/models/password_policy'
 require 'oci/identity/models/policy'
 require 'oci/identity/models/region'
 require 'oci/identity/models/region_subscription'
+require 'oci/identity/models/remove_lock_details'
 require 'oci/identity/models/replicated_region_details'
+require 'oci/identity/models/resource_lock'
 require 'oci/identity/models/saml2_identity_provider'
 require 'oci/identity/models/scim_client_credentials'
 require 'oci/identity/models/smtp_credential'

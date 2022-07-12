@@ -99,6 +99,15 @@ module OCI
     # @return [String]
     attr_accessor :kms_key_id
 
+    # The OCID of the key container version that is used in database transparent data encryption (TDE) operations KMS Key can have multiple key versions. If none is specified, the current key version (latest) of the Key Id is used for the operation.
+    #
+    # @return [String]
+    attr_accessor :kms_key_version_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Oracle Cloud Infrastructure [vault](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm#concepts).
+    # @return [String]
+    attr_accessor :vault_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -117,7 +126,9 @@ module OCI
         'database_size_in_gbs': :'databaseSizeInGBs',
         'shape': :'shape',
         'version': :'version',
-        'kms_key_id': :'kmsKeyId'
+        'kms_key_id': :'kmsKeyId',
+        'kms_key_version_id': :'kmsKeyVersionId',
+        'vault_id': :'vaultId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -140,7 +151,9 @@ module OCI
         'database_size_in_gbs': :'Float',
         'shape': :'String',
         'version': :'String',
-        'kms_key_id': :'String'
+        'kms_key_id': :'String',
+        'kms_key_version_id': :'String',
+        'vault_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -166,6 +179,8 @@ module OCI
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [String] :version The value to assign to the {#version} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
+    # @option attributes [String] :kms_key_version_id The value to assign to the {#kms_key_version_id} property
+    # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -245,6 +260,18 @@ module OCI
       raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
 
       self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
+      self.kms_key_version_id = attributes[:'kmsKeyVersionId'] if attributes[:'kmsKeyVersionId']
+
+      raise 'You cannot provide both :kmsKeyVersionId and :kms_key_version_id' if attributes.key?(:'kmsKeyVersionId') && attributes.key?(:'kms_key_version_id')
+
+      self.kms_key_version_id = attributes[:'kms_key_version_id'] if attributes[:'kms_key_version_id']
+
+      self.vault_id = attributes[:'vaultId'] if attributes[:'vaultId']
+
+      raise 'You cannot provide both :vaultId and :vault_id' if attributes.key?(:'vaultId') && attributes.key?(:'vault_id')
+
+      self.vault_id = attributes[:'vault_id'] if attributes[:'vault_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -311,7 +338,9 @@ module OCI
         database_size_in_gbs == other.database_size_in_gbs &&
         shape == other.shape &&
         version == other.version &&
-        kms_key_id == other.kms_key_id
+        kms_key_id == other.kms_key_id &&
+        kms_key_version_id == other.kms_key_version_id &&
+        vault_id == other.vault_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -327,7 +356,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, database_id, display_name, type, time_started, time_ended, lifecycle_details, availability_domain, lifecycle_state, database_edition, database_size_in_gbs, shape, version, kms_key_id].hash
+      [id, compartment_id, database_id, display_name, type, time_started, time_ended, lifecycle_details, availability_domain, lifecycle_state, database_edition, database_size_in_gbs, shape, version, kms_key_id, kms_key_version_id, vault_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

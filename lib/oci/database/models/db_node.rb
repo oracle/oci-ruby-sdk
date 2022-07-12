@@ -42,14 +42,18 @@ module OCI
     # @return [String]
     attr_accessor :backup_vnic_id
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the host IP address associated with the database node.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the host IP address associated with the database node. Use this OCID with either the
+    # {#get_private_ip get_private_ip} or the {#get_public_ip_by_private_ip_id get_public_ip_by_private_ip_id} API to get the IP address
+    # needed to make a database connection.
     #
     # **Note:** Applies only to Exadata Cloud Service.
     #
     # @return [String]
     attr_accessor :host_ip_id
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the backup IP address associated with the database node.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the backup IP address associated with the database node. Use this OCID with either the
+    # {#get_private_ip get_private_ip} or the {#get_public_ip_by_private_ip_id get_public_ip_by_private_ip_id} API to get the IP address
+    # needed to make a database connection.
     #
     # **Note:** Applies only to Exadata Cloud Service.
     #

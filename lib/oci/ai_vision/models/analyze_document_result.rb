@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Document analysis results.
+  # The document analysis results.
   class AiVision::Models::AnalyzeDocumentResult
     # This attribute is required.
     # @return [OCI::AiVision::Models::DocumentMetadata]
     attr_accessor :document_metadata
 
-    # **[Required]** Array of Page.
+    # **[Required]** The array of a Page.
     # @return [Array<OCI::AiVision::Models::Page>]
     attr_accessor :pages
 
@@ -23,31 +23,31 @@ module OCI
     # @return [Array<OCI::AiVision::Models::DetectedLanguage>]
     attr_accessor :detected_languages
 
-    # Document classification model version.
+    # The document classification model version.
     # @return [String]
     attr_accessor :document_classification_model_version
 
-    # Document language classification model version.
+    # The document language classification model version.
     # @return [String]
     attr_accessor :language_classification_model_version
 
-    # Document text detection model version.
+    # The document text detection model version.
     # @return [String]
     attr_accessor :text_detection_model_version
 
-    # Document keyValue detection model version.
+    # The document keyValue detection model version.
     # @return [String]
     attr_accessor :key_value_detection_model_version
 
-    # Document table detection model version.
+    # The document table detection model version.
     # @return [String]
     attr_accessor :table_detection_model_version
 
-    # Errors encountered during document analysis.
+    # The errors encountered during document analysis.
     # @return [Array<OCI::AiVision::Models::ProcessingError>]
     attr_accessor :errors
 
-    # Generated searchable PDF file.
+    # The searchable PDF file that was generated.
     # @return [String]
     attr_accessor :searchable_pdf
 

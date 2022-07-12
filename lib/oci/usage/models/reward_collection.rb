@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The response object for the ListRewards API call. It provides information about the rewards for a subscription.
+  # The response object for the ListRewards API call. Provides information about the subscription rewards.
   class Usage::Models::RewardCollection
     # This attribute is required.
     # @return [OCI::Usage::Models::RewardDetails]

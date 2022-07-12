@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Results of a project search.
+  # The results of a project search.
   class AiVision::Models::ProjectCollection
     # **[Required]** List of projects.
     # @return [Array<OCI::AiVision::Models::ProjectSummary>]

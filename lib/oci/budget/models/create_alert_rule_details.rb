@@ -17,7 +17,7 @@ module OCI
       THRESHOLD_TYPE_ABSOLUTE = 'ABSOLUTE'.freeze
     ].freeze
 
-    # The name of the alert rule.
+    # The name of the alert rule. Avoid entering confidential information.
     # @return [String]
     attr_accessor :display_name
 
@@ -25,15 +25,15 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** Type of alert. Valid values are ACTUAL (the alert will trigger based on actual usage) or
-    # FORECAST (the alert will trigger based on predicted usage).
+    # **[Required]** The type of the alert. Valid values are ACTUAL (the alert triggers based on actual usage), or
+    # FORECAST (the alert triggers based on predicted usage).
     #
     # @return [String]
     attr_reader :type
 
-    # **[Required]** The threshold for triggering the alert expressed as a whole number or decimal value.
-    # If thresholdType is ABSOLUTE, threshold can have at most 12 digits before the decimal point and up to 2 digits after the decimal point.
-    # If thresholdType is PERCENTAGE, the maximum value is 10000 and can have up to 2 digits after the decimal point.
+    # **[Required]** The threshold for triggering the alert, expressed as a whole number or decimal value.
+    # If the thresholdType is ABSOLUTE, the threshold can have at most 12 digits before the decimal point, and up to two digits after the decimal point.
+    # If the thresholdType is PERCENTAGE, the maximum value is 10000 and can have up to two digits after the decimal point.
     #
     # @return [Float]
     attr_accessor :threshold
@@ -42,11 +42,11 @@ module OCI
     # @return [String]
     attr_reader :threshold_type
 
-    # The audience that will receive the alert when it triggers. An empty string is interpreted as null.
+    # The audience that receives the alert when it triggers. An empty string is interpreted as null.
     # @return [String]
     attr_accessor :recipients
 
-    # The message to be sent to the recipients when alert rule is triggered.
+    # The message to be sent to the recipients when the alert rule is triggered.
     # @return [String]
     attr_accessor :message
 

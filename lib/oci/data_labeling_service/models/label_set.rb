@@ -5,10 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An ordered collection of Labels that are unique by name.
+  # An ordered collection of labels that are unique by name.
   #
   class DataLabelingService::Models::LabelSet
-    # An ordered collection of Labels that are unique by name.
+    # An ordered collection of labels that are unique by name.
     # @return [Array<OCI::DataLabelingService::Models::Label>]
     attr_accessor :items
 

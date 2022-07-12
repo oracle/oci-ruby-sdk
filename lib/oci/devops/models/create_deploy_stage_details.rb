@@ -74,13 +74,24 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'deployStageType'] # rubocop:disable Style/SymbolLiteral
 
-      return 'OCI::Devops::Models::CreateManualApprovalDeployStageDetails' if type == 'MANUAL_APPROVAL'
+      return 'OCI::Devops::Models::CreateOkeCanaryTrafficShiftDeployStageDetails' if type == 'OKE_CANARY_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::CreateOkeBlueGreenTrafficShiftDeployStageDetails' if type == 'OKE_BLUE_GREEN_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::CreateComputeInstanceGroupCanaryDeployStageDetails' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_DEPLOYMENT'
       return 'OCI::Devops::Models::CreateWaitDeployStageDetails' if type == 'WAIT'
-      return 'OCI::Devops::Models::CreateOkeDeployStageDetails' if type == 'OKE_DEPLOYMENT'
       return 'OCI::Devops::Models::CreateLoadBalancerTrafficShiftDeployStageDetails' if type == 'LOAD_BALANCER_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::CreateComputeInstanceGroupBlueGreenTrafficShiftDeployStageDetails' if type == 'COMPUTE_INSTANCE_GROUP_BLUE_GREEN_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::CreateOkeBlueGreenDeployStageDetails' if type == 'OKE_BLUE_GREEN_DEPLOYMENT'
       return 'OCI::Devops::Models::CreateComputeInstanceGroupDeployStageDetails' if type == 'COMPUTE_INSTANCE_GROUP_ROLLING_DEPLOYMENT'
       return 'OCI::Devops::Models::CreateInvokeFunctionDeployStageDetails' if type == 'INVOKE_FUNCTION'
       return 'OCI::Devops::Models::CreateFunctionDeployStageDetails' if type == 'DEPLOY_FUNCTION'
+      return 'OCI::Devops::Models::CreateOkeCanaryDeployStageDetails' if type == 'OKE_CANARY_DEPLOYMENT'
+      return 'OCI::Devops::Models::CreateComputeInstanceGroupCanaryTrafficShiftDeployStageDetails' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::CreateComputeInstanceGroupCanaryApprovalDeployStageDetails' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_APPROVAL'
+      return 'OCI::Devops::Models::CreateOkeHelmChartDeployStageDetails' if type == 'OKE_HELM_CHART_DEPLOYMENT'
+      return 'OCI::Devops::Models::CreateManualApprovalDeployStageDetails' if type == 'MANUAL_APPROVAL'
+      return 'OCI::Devops::Models::CreateOkeDeployStageDetails' if type == 'OKE_DEPLOYMENT'
+      return 'OCI::Devops::Models::CreateComputeInstanceGroupBlueGreenDeployStageDetails' if type == 'COMPUTE_INSTANCE_GROUP_BLUE_GREEN_DEPLOYMENT'
+      return 'OCI::Devops::Models::CreateOkeCanaryApprovalDeployStageDetails' if type == 'OKE_CANARY_APPROVAL'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::Devops::Models::CreateDeployStageDetails'

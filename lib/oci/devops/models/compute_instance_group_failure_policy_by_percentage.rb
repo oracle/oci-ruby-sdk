@@ -8,7 +8,7 @@ require_relative 'compute_instance_group_failure_policy'
 module OCI
   # Specifies a failure policy by percentage for a compute instance group rolling deployment stage.
   class Devops::Models::ComputeInstanceGroupFailurePolicyByPercentage < Devops::Models::ComputeInstanceGroupFailurePolicy
-    # **[Required]** The failure percentage threshold, which when reached or exceeded sets the stage as FAILED. Percentage is computed as the ceiling value of the number of failed instances over the total count of the instances in the group.
+    # **[Required]** The failure percentage threshold, which when reached or exceeded sets the stage as Failed. Percentage is computed as the ceiling value of the number of failed instances over the total count of the instances in the group.
     # @return [Integer]
     attr_accessor :failure_percentage
 

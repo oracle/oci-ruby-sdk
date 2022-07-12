@@ -23,6 +23,10 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
+    # If set to true, the install key has no expiration date or usage limit. Defaults to false
+    # @return [BOOLEAN]
+    attr_accessor :is_unlimited
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -30,7 +34,8 @@ module OCI
         'display_name': :'displayName',
         'allowed_key_install_count': :'allowedKeyInstallCount',
         'time_expires': :'timeExpires',
-        'compartment_id': :'compartmentId'
+        'compartment_id': :'compartmentId',
+        'is_unlimited': :'isUnlimited'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,7 +47,8 @@ module OCI
         'display_name': :'String',
         'allowed_key_install_count': :'Integer',
         'time_expires': :'DateTime',
-        'compartment_id': :'String'
+        'compartment_id': :'String',
+        'is_unlimited': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,6 +63,7 @@ module OCI
     # @option attributes [Integer] :allowed_key_install_count The value to assign to the {#allowed_key_install_count} property
     # @option attributes [DateTime] :time_expires The value to assign to the {#time_expires} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [BOOLEAN] :is_unlimited The value to assign to the {#is_unlimited} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -86,6 +93,14 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.is_unlimited = attributes[:'isUnlimited'] unless attributes[:'isUnlimited'].nil?
+      self.is_unlimited = false if is_unlimited.nil? && !attributes.key?(:'isUnlimited') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isUnlimited and :is_unlimited' if attributes.key?(:'isUnlimited') && attributes.key?(:'is_unlimited')
+
+      self.is_unlimited = attributes[:'is_unlimited'] unless attributes[:'is_unlimited'].nil?
+      self.is_unlimited = false if is_unlimited.nil? && !attributes.key?(:'isUnlimited') && !attributes.key?(:'is_unlimited') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -102,7 +117,8 @@ module OCI
         display_name == other.display_name &&
         allowed_key_install_count == other.allowed_key_install_count &&
         time_expires == other.time_expires &&
-        compartment_id == other.compartment_id
+        compartment_id == other.compartment_id &&
+        is_unlimited == other.is_unlimited
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -118,7 +134,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, allowed_key_install_count, time_expires, compartment_id].hash
+      [display_name, allowed_key_install_count, time_expires, compartment_id, is_unlimited].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

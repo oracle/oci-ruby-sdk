@@ -14,6 +14,11 @@ module OCI
       DATABASE_TYPE_USER_MANAGED_OCI = 'USER_MANAGED_OCI'.freeze
     ].freeze
 
+    MANUAL_DATABASE_SUB_TYPE_ENUM = [
+      MANUAL_DATABASE_SUB_TYPE_ORACLE = 'ORACLE'.freeze,
+      MANUAL_DATABASE_SUB_TYPE_RDS_ORACLE = 'RDS_ORACLE'.freeze
+    ].freeze
+
     # **[Required]** OCID of the compartment
     #
     # @return [String]
@@ -28,6 +33,11 @@ module OCI
     #
     # @return [String]
     attr_reader :database_type
+
+    # Database manual connection subtype. This value can only be specified for manual connections.
+    #
+    # @return [String]
+    attr_reader :manual_database_sub_type
 
     # The OCID of the cloud database. Required if the database connection type is Autonomous.
     #
@@ -86,6 +96,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'display_name': :'displayName',
         'database_type': :'databaseType',
+        'manual_database_sub_type': :'manualDatabaseSubType',
         'database_id': :'databaseId',
         'connect_descriptor': :'connectDescriptor',
         'certificate_tdn': :'certificateTdn',
@@ -108,6 +119,7 @@ module OCI
         'compartment_id': :'String',
         'display_name': :'String',
         'database_type': :'String',
+        'manual_database_sub_type': :'String',
         'database_id': :'String',
         'connect_descriptor': :'OCI::DatabaseMigration::Models::CreateConnectDescriptor',
         'certificate_tdn': :'String',
@@ -132,6 +144,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :database_type The value to assign to the {#database_type} property
+    # @option attributes [String] :manual_database_sub_type The value to assign to the {#manual_database_sub_type} property
     # @option attributes [String] :database_id The value to assign to the {#database_id} property
     # @option attributes [OCI::DatabaseMigration::Models::CreateConnectDescriptor] :connect_descriptor The value to assign to the {#connect_descriptor} property
     # @option attributes [String] :certificate_tdn The value to assign to the {#certificate_tdn} property
@@ -166,6 +179,14 @@ module OCI
       raise 'You cannot provide both :databaseType and :database_type' if attributes.key?(:'databaseType') && attributes.key?(:'database_type')
 
       self.database_type = attributes[:'database_type'] if attributes[:'database_type']
+
+      self.manual_database_sub_type = attributes[:'manualDatabaseSubType'] if attributes[:'manualDatabaseSubType']
+      self.manual_database_sub_type = "ORACLE" if manual_database_sub_type.nil? && !attributes.key?(:'manualDatabaseSubType') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :manualDatabaseSubType and :manual_database_sub_type' if attributes.key?(:'manualDatabaseSubType') && attributes.key?(:'manual_database_sub_type')
+
+      self.manual_database_sub_type = attributes[:'manual_database_sub_type'] if attributes[:'manual_database_sub_type']
+      self.manual_database_sub_type = "ORACLE" if manual_database_sub_type.nil? && !attributes.key?(:'manualDatabaseSubType') && !attributes.key?(:'manual_database_sub_type') # rubocop:disable Style/StringLiterals
 
       self.database_id = attributes[:'databaseId'] if attributes[:'databaseId']
 
@@ -244,6 +265,14 @@ module OCI
       @database_type = database_type
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] manual_database_sub_type Object to be assigned
+    def manual_database_sub_type=(manual_database_sub_type)
+      raise "Invalid value for 'manual_database_sub_type': this must be one of the values in MANUAL_DATABASE_SUB_TYPE_ENUM." if manual_database_sub_type && !MANUAL_DATABASE_SUB_TYPE_ENUM.include?(manual_database_sub_type)
+
+      @manual_database_sub_type = manual_database_sub_type
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -256,6 +285,7 @@ module OCI
         compartment_id == other.compartment_id &&
         display_name == other.display_name &&
         database_type == other.database_type &&
+        manual_database_sub_type == other.manual_database_sub_type &&
         database_id == other.database_id &&
         connect_descriptor == other.connect_descriptor &&
         certificate_tdn == other.certificate_tdn &&
@@ -282,7 +312,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, database_type, database_id, connect_descriptor, certificate_tdn, tls_wallet, tls_keystore, ssh_details, admin_credentials, private_endpoint, vault_details, freeform_tags, defined_tags].hash
+      [compartment_id, display_name, database_type, manual_database_sub_type, database_id, connect_descriptor, certificate_tdn, tls_wallet, tls_keystore, ssh_details, admin_credentials, private_endpoint, vault_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -8,6 +8,16 @@ require 'logger'
 module OCI
   # The application summary type contains the audit summary information and the definition of the application.
   class DataIntegration::Models::ApplicationSummary
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # Generated key that can be used in API calls to identify application.
     # @return [String]
     attr_accessor :key
@@ -63,6 +73,45 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_patched
 
+    # OCID of the resource that is used to uniquely identify the application
+    # @return [String]
+    attr_accessor :id
+
+    # OCID of the compartment that this resource belongs to. Defaults to compartment of the Workspace.
+    # @return [String]
+    attr_accessor :compartment_id
+
+    # Free form text without any restriction on permitted characters. Name can have letters, numbers, and special characters. The value is editable and is restricted to 1000 characters.
+    # @return [String]
+    attr_accessor :display_name
+
+    # The date and time the application was created, in the timestamp format defined by RFC3339.
+    #
+    # @return [DateTime]
+    attr_accessor :time_created
+
+    # The date and time the application was updated, in the timestamp format defined by RFC3339.
+    # example: 2019-08-25T21:10:29.41Z
+    #
+    # @return [DateTime]
+    attr_accessor :time_updated
+
+    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    # Example: `{\"bar-key\": \"value\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Usage of predefined tag keys. These predefined keys are scoped to namespaces.
+    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # The current state of the workspace.
+    # @return [String]
+    attr_reader :lifecycle_state
+
     # @return [OCI::DataIntegration::Models::ObjectMetadata]
     attr_accessor :metadata
 
@@ -88,6 +137,14 @@ module OCI
         'published_object_metadata': :'publishedObjectMetadata',
         'source_application_info': :'sourceApplicationInfo',
         'time_patched': :'timePatched',
+        'id': :'id',
+        'compartment_id': :'compartmentId',
+        'display_name': :'displayName',
+        'time_created': :'timeCreated',
+        'time_updated': :'timeUpdated',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags',
+        'lifecycle_state': :'lifecycleState',
         'metadata': :'metadata',
         'key_map': :'keyMap'
         # rubocop:enable Style/SymbolLiteral
@@ -112,6 +169,14 @@ module OCI
         'published_object_metadata': :'Hash<String, OCI::DataIntegration::Models::PatchObjectMetadata>',
         'source_application_info': :'OCI::DataIntegration::Models::SourceApplicationInfo',
         'time_patched': :'DateTime',
+        'id': :'String',
+        'compartment_id': :'String',
+        'display_name': :'String',
+        'time_created': :'DateTime',
+        'time_updated': :'DateTime',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'lifecycle_state': :'String',
         'metadata': :'OCI::DataIntegration::Models::ObjectMetadata',
         'key_map': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
@@ -138,6 +203,14 @@ module OCI
     # @option attributes [Hash<String, OCI::DataIntegration::Models::PatchObjectMetadata>] :published_object_metadata The value to assign to the {#published_object_metadata} property
     # @option attributes [OCI::DataIntegration::Models::SourceApplicationInfo] :source_application_info The value to assign to the {#source_application_info} property
     # @option attributes [DateTime] :time_patched The value to assign to the {#time_patched} property
+    # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [OCI::DataIntegration::Models::ObjectMetadata] :metadata The value to assign to the {#metadata} property
     # @option attributes [Hash<String, String>] :key_map The value to assign to the {#key_map} property
     def initialize(attributes = {})
@@ -211,6 +284,50 @@ module OCI
 
       self.time_patched = attributes[:'time_patched'] if attributes[:'time_patched']
 
+      self.id = attributes[:'id'] if attributes[:'id']
+
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
+
+      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
+
+      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
+
+      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
+
+      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.time_updated = attributes[:'timeUpdated'] if attributes[:'timeUpdated']
+
+      raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
+
+      self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
       self.metadata = attributes[:'metadata'] if attributes[:'metadata']
 
       self.key_map = attributes[:'keyMap'] if attributes[:'keyMap']
@@ -221,6 +338,19 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -245,6 +375,14 @@ module OCI
         published_object_metadata == other.published_object_metadata &&
         source_application_info == other.source_application_info &&
         time_patched == other.time_patched &&
+        id == other.id &&
+        compartment_id == other.compartment_id &&
+        display_name == other.display_name &&
+        time_created == other.time_created &&
+        time_updated == other.time_updated &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags &&
+        lifecycle_state == other.lifecycle_state &&
         metadata == other.metadata &&
         key_map == other.key_map
     end
@@ -262,7 +400,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, model_type, model_version, name, description, application_version, object_status, identifier, parent_ref, object_version, dependent_object_metadata, published_object_metadata, source_application_info, time_patched, metadata, key_map].hash
+      [key, model_type, model_version, name, description, application_version, object_status, identifier, parent_ref, object_version, dependent_object_metadata, published_object_metadata, source_application_info, time_patched, id, compartment_id, display_name, time_created, time_updated, freeform_tags, defined_tags, lifecycle_state, metadata, key_map].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

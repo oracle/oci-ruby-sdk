@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Contains the details for the compartment to move the DatabaseToolsConnection to.
+  # Contains the details for the compartment to move the `DatabaseToolsConnection` to.
   class DatabaseTools::Models::ChangeDatabaseToolsConnectionCompartmentDetails
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment to move the DatabaseToolsConnection to.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment to move the `DatabaseToolsConnection` to.
     # @return [String]
     attr_accessor :compartment_id
 

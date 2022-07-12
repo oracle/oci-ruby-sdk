@@ -7,17 +7,33 @@ require 'date'
 module OCI
   # Individual worker nodes groups details.
   class Bds::Models::ChangeShapeNodes
-    # Change shape of worker nodes to the desired target shape. Only VM_STANDARD shapes are allowed here.
+    # Change shape of worker nodes to the desired target shape. Both VM_STANDARD and E4 Flex shapes are allowed here.
     # @return [String]
     attr_accessor :worker
 
-    # Change shape of master nodes to the desired target shape. Only VM_STANDARD shapes are allowed here.
+    # @return [OCI::Bds::Models::ShapeConfigDetails]
+    attr_accessor :worker_shape_config
+
+    # Change shape of compute only worker nodes to the desired target shape. Both VM_STANDARD and E4 Flex shapes are allowed here.
+    # @return [String]
+    attr_accessor :compute_only_worker
+
+    # @return [OCI::Bds::Models::ShapeConfigDetails]
+    attr_accessor :compute_only_worker_shape_config
+
+    # Change shape of master nodes to the desired target shape. Both VM_STANDARD and E4 Flex shapes are allowed here.
     # @return [String]
     attr_accessor :master
 
-    # Change shape of utility nodes to the desired target shape. Only VM_STANDARD shapes are allowed here.
+    # @return [OCI::Bds::Models::ShapeConfigDetails]
+    attr_accessor :master_shape_config
+
+    # Change shape of utility nodes to the desired target shape. Both VM_STANDARD and E4 Flex shapes are allowed here.
     # @return [String]
     attr_accessor :utility
+
+    # @return [OCI::Bds::Models::ShapeConfigDetails]
+    attr_accessor :utility_shape_config
 
     # Change shape of the Cloud SQL node to the desired target shape. Only VM_STANDARD shapes are allowed here.
     # @return [String]
@@ -28,8 +44,13 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'worker': :'worker',
+        'worker_shape_config': :'workerShapeConfig',
+        'compute_only_worker': :'computeOnlyWorker',
+        'compute_only_worker_shape_config': :'computeOnlyWorkerShapeConfig',
         'master': :'master',
+        'master_shape_config': :'masterShapeConfig',
         'utility': :'utility',
+        'utility_shape_config': :'utilityShapeConfig',
         'cloudsql': :'cloudsql'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -40,8 +61,13 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'worker': :'String',
+        'worker_shape_config': :'OCI::Bds::Models::ShapeConfigDetails',
+        'compute_only_worker': :'String',
+        'compute_only_worker_shape_config': :'OCI::Bds::Models::ShapeConfigDetails',
         'master': :'String',
+        'master_shape_config': :'OCI::Bds::Models::ShapeConfigDetails',
         'utility': :'String',
+        'utility_shape_config': :'OCI::Bds::Models::ShapeConfigDetails',
         'cloudsql': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -54,8 +80,13 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :worker The value to assign to the {#worker} property
+    # @option attributes [OCI::Bds::Models::ShapeConfigDetails] :worker_shape_config The value to assign to the {#worker_shape_config} property
+    # @option attributes [String] :compute_only_worker The value to assign to the {#compute_only_worker} property
+    # @option attributes [OCI::Bds::Models::ShapeConfigDetails] :compute_only_worker_shape_config The value to assign to the {#compute_only_worker_shape_config} property
     # @option attributes [String] :master The value to assign to the {#master} property
+    # @option attributes [OCI::Bds::Models::ShapeConfigDetails] :master_shape_config The value to assign to the {#master_shape_config} property
     # @option attributes [String] :utility The value to assign to the {#utility} property
+    # @option attributes [OCI::Bds::Models::ShapeConfigDetails] :utility_shape_config The value to assign to the {#utility_shape_config} property
     # @option attributes [String] :cloudsql The value to assign to the {#cloudsql} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -65,9 +96,39 @@ module OCI
 
       self.worker = attributes[:'worker'] if attributes[:'worker']
 
+      self.worker_shape_config = attributes[:'workerShapeConfig'] if attributes[:'workerShapeConfig']
+
+      raise 'You cannot provide both :workerShapeConfig and :worker_shape_config' if attributes.key?(:'workerShapeConfig') && attributes.key?(:'worker_shape_config')
+
+      self.worker_shape_config = attributes[:'worker_shape_config'] if attributes[:'worker_shape_config']
+
+      self.compute_only_worker = attributes[:'computeOnlyWorker'] if attributes[:'computeOnlyWorker']
+
+      raise 'You cannot provide both :computeOnlyWorker and :compute_only_worker' if attributes.key?(:'computeOnlyWorker') && attributes.key?(:'compute_only_worker')
+
+      self.compute_only_worker = attributes[:'compute_only_worker'] if attributes[:'compute_only_worker']
+
+      self.compute_only_worker_shape_config = attributes[:'computeOnlyWorkerShapeConfig'] if attributes[:'computeOnlyWorkerShapeConfig']
+
+      raise 'You cannot provide both :computeOnlyWorkerShapeConfig and :compute_only_worker_shape_config' if attributes.key?(:'computeOnlyWorkerShapeConfig') && attributes.key?(:'compute_only_worker_shape_config')
+
+      self.compute_only_worker_shape_config = attributes[:'compute_only_worker_shape_config'] if attributes[:'compute_only_worker_shape_config']
+
       self.master = attributes[:'master'] if attributes[:'master']
 
+      self.master_shape_config = attributes[:'masterShapeConfig'] if attributes[:'masterShapeConfig']
+
+      raise 'You cannot provide both :masterShapeConfig and :master_shape_config' if attributes.key?(:'masterShapeConfig') && attributes.key?(:'master_shape_config')
+
+      self.master_shape_config = attributes[:'master_shape_config'] if attributes[:'master_shape_config']
+
       self.utility = attributes[:'utility'] if attributes[:'utility']
+
+      self.utility_shape_config = attributes[:'utilityShapeConfig'] if attributes[:'utilityShapeConfig']
+
+      raise 'You cannot provide both :utilityShapeConfig and :utility_shape_config' if attributes.key?(:'utilityShapeConfig') && attributes.key?(:'utility_shape_config')
+
+      self.utility_shape_config = attributes[:'utility_shape_config'] if attributes[:'utility_shape_config']
 
       self.cloudsql = attributes[:'cloudsql'] if attributes[:'cloudsql']
     end
@@ -84,8 +145,13 @@ module OCI
 
       self.class == other.class &&
         worker == other.worker &&
+        worker_shape_config == other.worker_shape_config &&
+        compute_only_worker == other.compute_only_worker &&
+        compute_only_worker_shape_config == other.compute_only_worker_shape_config &&
         master == other.master &&
+        master_shape_config == other.master_shape_config &&
         utility == other.utility &&
+        utility_shape_config == other.utility_shape_config &&
         cloudsql == other.cloudsql
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -102,7 +168,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [worker, master, utility, cloudsql].hash
+      [worker, worker_shape_config, compute_only_worker, compute_only_worker_shape_config, master, master_shape_config, utility, utility_shape_config, cloudsql].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

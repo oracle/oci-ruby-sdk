@@ -22,6 +22,9 @@ module OCI
       MODEL_TYPE_DYNAMIC_INPUT_FIELD = 'DYNAMIC_INPUT_FIELD'.freeze,
       MODEL_TYPE_PROXY_FIELD = 'PROXY_FIELD'.freeze,
       MODEL_TYPE_PARAMETER = 'PARAMETER'.freeze,
+      MODEL_TYPE_PIVOT_FIELD = 'PIVOT_FIELD'.freeze,
+      MODEL_TYPE_MACRO_PIVOT_FIELD = 'MACRO_PIVOT_FIELD'.freeze,
+      MODEL_TYPE_CONDITIONAL_OUTPUT_PORT = 'CONDITIONAL_OUTPUT_PORT'.freeze,
       MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -101,13 +104,16 @@ module OCI
       return 'OCI::DataIntegration::Models::InputField' if type == 'INPUT_FIELD'
       return 'OCI::DataIntegration::Models::Shape' if type == 'SHAPE'
       return 'OCI::DataIntegration::Models::InputPort' if type == 'INPUT_PORT'
+      return 'OCI::DataIntegration::Models::ConditionalOutputPort' if type == 'CONDITIONAL_OUTPUT_PORT'
       return 'OCI::DataIntegration::Models::ProxyField' if type == 'PROXY_FIELD'
       return 'OCI::DataIntegration::Models::DynamicProxyField' if type == 'DYNAMIC_PROXY_FIELD'
       return 'OCI::DataIntegration::Models::ShapeField' if type == 'SHAPE_FIELD'
       return 'OCI::DataIntegration::Models::Parameter' if type == 'PARAMETER'
+      return 'OCI::DataIntegration::Models::PivotField' if type == 'PIVOT_FIELD'
       return 'OCI::DataIntegration::Models::OutputField' if type == 'OUTPUT_FIELD'
       return 'OCI::DataIntegration::Models::MacroField' if type == 'MACRO_FIELD'
       return 'OCI::DataIntegration::Models::DerivedField' if type == 'DERIVED_FIELD'
+      return 'OCI::DataIntegration::Models::TypedExpression' if type == 'TYPED_EXPRESSION'
       return 'OCI::DataIntegration::Models::FlowPort' if type == 'FLOW_PORT'
 
       # TODO: Log a warning when the subtype is not found.

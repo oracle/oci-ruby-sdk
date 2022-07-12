@@ -526,6 +526,8 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :node_type A filter to return only Nodes of type matched with the given node type.
+    # @option opts [String] :shape A filter to return only Nodes of type matched with the given node shape.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :lifecycle_state A filter to return only resources their lifecycleState matches the given lifecycleState.
@@ -540,6 +542,10 @@ module OCI
       logger.debug 'Calling operation RoverNodeClient#list_rover_nodes.' if logger
 
       raise "Missing the required parameter 'compartment_id' when calling list_rover_nodes." if compartment_id.nil?
+
+      if opts[:node_type] && !OCI::Rover::Models::NODE_TYPE_ENUM.include?(opts[:node_type])
+        raise 'Invalid value for "node_type", must be one of the values in OCI::Rover::Models::NODE_TYPE_ENUM.'
+      end
 
       if opts[:lifecycle_state] && !OCI::Rover::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Rover::Models::LIFECYCLE_STATE_ENUM.'
@@ -561,6 +567,8 @@ module OCI
       query_params = {}
       query_params[:compartmentId] = compartment_id
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:nodeType] = opts[:node_type] if opts[:node_type]
+      query_params[:shape] = opts[:shape] if opts[:shape]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]

@@ -6,7 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A public IP pool is a set of public IP addresses represented as one or more IPv4 CIDR blocks. Resources like load balancers and compute instances can be allocated public IP addresses from a public IP pool.
+  # A public IP pool is a set of public IP addresses represented as one or more IPv4 CIDR blocks.      Resources like load balancers and compute instances can be allocated public IP addresses from a public IP pool.
+  #
   class Core::Models::PublicIpPool
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
@@ -18,6 +19,7 @@ module OCI
     ].freeze
 
     # The CIDR blocks added to this pool. This could be all or a portion of a BYOIP CIDR block.
+    #
     # @return [Array<String>]
     attr_accessor :cidr_blocks
 

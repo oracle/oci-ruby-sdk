@@ -102,6 +102,10 @@ module OCI
     # @return [String]
     attr_accessor :uri
 
+    # URL of the data entity in the object store.
+    # @return [String]
+    attr_accessor :object_storage_url
+
     # State of the data entity.
     # @return [String]
     attr_reader :lifecycle_state
@@ -137,6 +141,7 @@ module OCI
         'time_updated': :'timeUpdated',
         'updated_by_id': :'updatedById',
         'uri': :'uri',
+        'object_storage_url': :'objectStorageUrl',
         'lifecycle_state': :'lifecycleState',
         'properties': :'properties'
         # rubocop:enable Style/SymbolLiteral
@@ -165,6 +170,7 @@ module OCI
         'time_updated': :'DateTime',
         'updated_by_id': :'String',
         'uri': :'String',
+        'object_storage_url': :'String',
         'lifecycle_state': :'String',
         'properties': :'Hash<String, Hash<String, String>>'
         # rubocop:enable Style/SymbolLiteral
@@ -195,6 +201,7 @@ module OCI
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :updated_by_id The value to assign to the {#updated_by_id} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
+    # @option attributes [String] :object_storage_url The value to assign to the {#object_storage_url} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     def initialize(attributes = {})
@@ -295,6 +302,12 @@ module OCI
 
       self.uri = attributes[:'uri'] if attributes[:'uri']
 
+      self.object_storage_url = attributes[:'objectStorageUrl'] if attributes[:'objectStorageUrl']
+
+      raise 'You cannot provide both :objectStorageUrl and :object_storage_url' if attributes.key?(:'objectStorageUrl') && attributes.key?(:'object_storage_url')
+
+      self.object_storage_url = attributes[:'object_storage_url'] if attributes[:'object_storage_url']
+
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
@@ -346,6 +359,7 @@ module OCI
         time_updated == other.time_updated &&
         updated_by_id == other.updated_by_id &&
         uri == other.uri &&
+        object_storage_url == other.object_storage_url &&
         lifecycle_state == other.lifecycle_state &&
         properties == other.properties
     end
@@ -363,7 +377,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, business_name, description, is_logical, is_partition, data_asset_key, folder_key, folder_name, external_key, pattern_key, type_key, realized_expression, path, time_created, time_updated, updated_by_id, uri, lifecycle_state, properties].hash
+      [key, display_name, business_name, description, is_logical, is_partition, data_asset_key, folder_key, folder_name, external_key, pattern_key, type_key, realized_expression, path, time_created, time_updated, updated_by_id, uri, object_storage_url, lifecycle_state, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

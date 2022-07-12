@@ -58,6 +58,7 @@ module OCI
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
+        'database_connection_status_details': :'databaseConnectionStatusDetails',
         'enterprise_manager_identifier': :'enterpriseManagerIdentifier',
         'enterprise_manager_entity_name': :'enterpriseManagerEntityName',
         'enterprise_manager_entity_type': :'enterpriseManagerEntityType',
@@ -91,6 +92,7 @@ module OCI
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
+        'database_connection_status_details': :'String',
         'enterprise_manager_identifier': :'String',
         'enterprise_manager_entity_name': :'String',
         'enterprise_manager_entity_type': :'String',
@@ -125,6 +127,7 @@ module OCI
     # @option attributes [DateTime] :time_updated The value to assign to the {OCI::Opsi::Models::DatabaseInsightSummary#time_updated #time_updated} proprety
     # @option attributes [String] :lifecycle_state The value to assign to the {OCI::Opsi::Models::DatabaseInsightSummary#lifecycle_state #lifecycle_state} proprety
     # @option attributes [String] :lifecycle_details The value to assign to the {OCI::Opsi::Models::DatabaseInsightSummary#lifecycle_details #lifecycle_details} proprety
+    # @option attributes [String] :database_connection_status_details The value to assign to the {OCI::Opsi::Models::DatabaseInsightSummary#database_connection_status_details #database_connection_status_details} proprety
     # @option attributes [String] :enterprise_manager_identifier The value to assign to the {#enterprise_manager_identifier} property
     # @option attributes [String] :enterprise_manager_entity_name The value to assign to the {#enterprise_manager_entity_name} property
     # @option attributes [String] :enterprise_manager_entity_type The value to assign to the {#enterprise_manager_entity_type} property
@@ -214,6 +217,7 @@ module OCI
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
+        database_connection_status_details == other.database_connection_status_details &&
         enterprise_manager_identifier == other.enterprise_manager_identifier &&
         enterprise_manager_entity_name == other.enterprise_manager_entity_name &&
         enterprise_manager_entity_type == other.enterprise_manager_entity_type &&
@@ -236,7 +240,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, database_id, compartment_id, database_name, database_display_name, database_type, database_version, database_host_names, freeform_tags, defined_tags, system_tags, entity_source, processor_count, status, time_created, time_updated, lifecycle_state, lifecycle_details, enterprise_manager_identifier, enterprise_manager_entity_name, enterprise_manager_entity_type, enterprise_manager_entity_identifier, enterprise_manager_entity_display_name, enterprise_manager_bridge_id, exadata_insight_id].hash
+      [id, database_id, compartment_id, database_name, database_display_name, database_type, database_version, database_host_names, freeform_tags, defined_tags, system_tags, entity_source, processor_count, status, time_created, time_updated, lifecycle_state, lifecycle_details, database_connection_status_details, enterprise_manager_identifier, enterprise_manager_entity_name, enterprise_manager_entity_type, enterprise_manager_entity_identifier, enterprise_manager_entity_display_name, enterprise_manager_bridge_id, exadata_insight_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

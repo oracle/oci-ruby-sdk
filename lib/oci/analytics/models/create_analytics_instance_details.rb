@@ -76,6 +76,11 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the OCI Vault Key encrypting the customer data stored in this Analytics instance. A null value indicates Oracle managed default encryption.
+    #
+    # @return [String]
+    attr_accessor :kms_key_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -90,7 +95,8 @@ module OCI
         'network_endpoint_details': :'networkEndpointDetails',
         'idcs_access_token': :'idcsAccessToken',
         'defined_tags': :'definedTags',
-        'freeform_tags': :'freeformTags'
+        'freeform_tags': :'freeformTags',
+        'kms_key_id': :'kmsKeyId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -109,7 +115,8 @@ module OCI
         'network_endpoint_details': :'OCI::Analytics::Models::NetworkEndpointDetails',
         'idcs_access_token': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'freeform_tags': :'Hash<String, String>'
+        'freeform_tags': :'Hash<String, String>',
+        'kms_key_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -131,6 +138,7 @@ module OCI
     # @option attributes [String] :idcs_access_token The value to assign to the {#idcs_access_token} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -190,6 +198,12 @@ module OCI
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -229,7 +243,8 @@ module OCI
         network_endpoint_details == other.network_endpoint_details &&
         idcs_access_token == other.idcs_access_token &&
         defined_tags == other.defined_tags &&
-        freeform_tags == other.freeform_tags
+        freeform_tags == other.freeform_tags &&
+        kms_key_id == other.kms_key_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -245,7 +260,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, description, compartment_id, feature_set, capacity, license_type, email_notification, network_endpoint_details, idcs_access_token, defined_tags, freeform_tags].hash
+      [name, description, compartment_id, feature_set, capacity, license_type, email_notification, network_endpoint_details, idcs_access_token, defined_tags, freeform_tags, kms_key_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

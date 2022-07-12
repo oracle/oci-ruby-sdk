@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A resource created or operated on by a work request.
+  # A resource created, or operated on, by a work request.
   class AiVision::Models::WorkRequestResource
     ACTION_TYPE_ENUM = [
       ACTION_TYPE_CREATED = 'CREATED'.freeze,
@@ -23,9 +23,9 @@ module OCI
     attr_accessor :entity_type
 
     # **[Required]** The way in which this resource is affected by the work tracked in the work request.
-    # A resource being created, updated, or deleted will remain in the IN_PROGRESS state until
-    # work is complete for that resource at which point it will transition to CREATED, UPDATED,
-    # or DELETED, respectively.
+    # A resource being created, updated, or deleted remains in the IN_PROGRESS state until
+    # the work is complete for. At that point, it transitions to CREATED, UPDATED,
+    # or DELETED, as appropriate.
     #
     # @return [String]
     attr_reader :action_type

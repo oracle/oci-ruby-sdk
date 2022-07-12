@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Object describing the rewards summary for a month for the requested subscriptionId.
+  # Object describing the monthly rewards summary for the requested subscription ID.
   class Usage::Models::MonthlyRewardSummary
     # The number of rewards available for a specific usage period.
     # @return [Float]
@@ -19,15 +19,15 @@ module OCI
     # @return [Float]
     attr_accessor :earned_rewards
 
-    # The boolean flag to tell if the available rewards are posted manually or not.
+    # The boolean parameter to indicate whether or not the available rewards are manually posted.
     # @return [BOOLEAN]
     attr_accessor :is_manual
 
-    # The date and time on which rewards are expired.
+    # The date and time when rewards expire.
     # @return [DateTime]
     attr_accessor :time_rewards_expired
 
-    # The date and time on which rewards are accrued.
+    # The date and time when rewards accrue.
     #
     # @return [DateTime]
     attr_accessor :time_rewards_earned
@@ -52,12 +52,12 @@ module OCI
     # @return [Float]
     attr_accessor :eligible_usage_amount
 
-    # The in eligible usage amount for the usage period.
+    # The ineligible usage amount for the usage period.
     #
     # @return [Float]
     attr_accessor :ineligible_usage_amount
 
-    # The id for the usage period.
+    # The usage period ID.
     #
     # @return [String]
     attr_accessor :usage_period_key

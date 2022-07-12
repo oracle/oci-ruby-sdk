@@ -413,6 +413,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :cluster_type A filter to return only Clusters of type matched with the given cluster type.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :lifecycle_state A filter to return only resources their lifecycleState matches the given lifecycleState.
@@ -427,6 +428,10 @@ module OCI
       logger.debug 'Calling operation RoverClusterClient#list_rover_clusters.' if logger
 
       raise "Missing the required parameter 'compartment_id' when calling list_rover_clusters." if compartment_id.nil?
+
+      if opts[:cluster_type] && !OCI::Rover::Models::CLUSTER_TYPE_ENUM.include?(opts[:cluster_type])
+        raise 'Invalid value for "cluster_type", must be one of the values in OCI::Rover::Models::CLUSTER_TYPE_ENUM.'
+      end
 
       if opts[:lifecycle_state] && !OCI::Rover::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Rover::Models::LIFECYCLE_STATE_ENUM.'
@@ -448,6 +453,7 @@ module OCI
       query_params = {}
       query_params[:compartmentId] = compartment_id
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:clusterType] = opts[:cluster_type] if opts[:cluster_type]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]

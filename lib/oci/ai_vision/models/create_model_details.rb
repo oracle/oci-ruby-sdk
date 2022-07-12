@@ -5,33 +5,33 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Information needed to create a new model.
+  # The information needed to create a new model.
   class AiVision::Models::CreateModelDetails
-    # Human-friendly name for the model, which can be changed.
+    # A human-friendly name for the model, which can be changed.
     # @return [String]
     attr_accessor :display_name
 
-    # Optional description of the model.
+    # An optional description of the model.
     # @return [String]
     attr_accessor :description
 
-    # Model version
+    # The model version
     # @return [String]
     attr_accessor :model_version
 
-    # **[Required]** What type of Vision model this is.
+    # **[Required]** Which type of Vision model this is.
     # @return [String]
     attr_accessor :model_type
 
-    # **[Required]** Compartment identifier.
+    # **[Required]** The compartment identifier.
     # @return [String]
     attr_accessor :compartment_id
 
-    # Set to true when experimenting with a new model type or dataset so model training is quick, with a predefined low number of passes through the training data.
+    # Set to true when experimenting with a new model type or dataset, so the model training is quick, with a predefined low number of passes through the training data.
     # @return [BOOLEAN]
     attr_accessor :is_quick_mode
 
-    # Maximum model training duration in hours, expressed as a decimal fraction.
+    # The maximum model training duration in hours, expressed as a decimal fraction.
     # @return [Float]
     attr_accessor :max_training_duration_in_hours
 
@@ -45,18 +45,18 @@ module OCI
     # @return [OCI::AiVision::Models::Dataset]
     attr_accessor :validation_dataset
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the project which contains the model.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the project that contains the model.
     # @return [String]
     attr_accessor :project_id
 
-    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # A simple key-value pair that is applied without any predefined name, type, or scope. It exists for cross-compatibility only.
+    # For example: `{\"bar-key\": \"value\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    # For example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags

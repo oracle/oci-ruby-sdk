@@ -14,11 +14,19 @@ module OCI
   # Each shape only supports certain configurable values. If the values that you provide are not valid for the
   # specified `shape`, an error is returned.
   #
+  # For more information about shielded instances, see
+  # [Shielded Instances](https://docs.cloud.oracle.com/iaas/Content/Compute/References/shielded-instances.htm).
+  #
+  # For more information about BIOS settings for bare metal instances, see
+  # [BIOS Settings for Bare Metal Instances](https://docs.cloud.oracle.com/iaas/Content/Compute/References/bios-settings.htm).
+  #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Core::Models::LaunchInstancePlatformConfig
     TYPE_ENUM = [
       TYPE_AMD_MILAN_BM = 'AMD_MILAN_BM'.freeze,
       TYPE_AMD_ROME_BM = 'AMD_ROME_BM'.freeze,
+      TYPE_AMD_ROME_BM_GPU = 'AMD_ROME_BM_GPU'.freeze,
+      TYPE_INTEL_ICELAKE_BM = 'INTEL_ICELAKE_BM'.freeze,
       TYPE_INTEL_SKYLAKE_BM = 'INTEL_SKYLAKE_BM'.freeze,
       TYPE_AMD_VM = 'AMD_VM'.freeze,
       TYPE_INTEL_VM = 'INTEL_VM'.freeze
@@ -76,7 +84,9 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'type'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::Core::Models::AmdRomeBmGpuLaunchInstancePlatformConfig' if type == 'AMD_ROME_BM_GPU'
       return 'OCI::Core::Models::AmdRomeBmLaunchInstancePlatformConfig' if type == 'AMD_ROME_BM'
+      return 'OCI::Core::Models::IntelIcelakeBmLaunchInstancePlatformConfig' if type == 'INTEL_ICELAKE_BM'
       return 'OCI::Core::Models::AmdVmLaunchInstancePlatformConfig' if type == 'AMD_VM'
       return 'OCI::Core::Models::IntelVmLaunchInstancePlatformConfig' if type == 'INTEL_VM'
       return 'OCI::Core::Models::IntelSkylakeBmLaunchInstancePlatformConfig' if type == 'INTEL_SKYLAKE_BM'

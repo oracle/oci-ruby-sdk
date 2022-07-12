@@ -10,7 +10,7 @@ module OCI
   # process. The set is then published to a namespace, which is a product level subdivision of metrics.
   #
   class ApmConfig::Models::CreateMetricGroupDetails < ApmConfig::Models::CreateConfigDetails
-    # **[Required]** The name of the metric group.
+    # **[Required]** The name by which a configuration entity is displayed to the end user.
     # @return [String]
     attr_accessor :display_name
 

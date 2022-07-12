@@ -180,8 +180,17 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_upgrade_required
 
-    # **[Required]** The type of deployment, the value determines the exact 'type' of service executed in the Deployment. NOTE: Use of the value OGG is maintained for backward compatibility purposes.  Its use is discouraged
-    #       in favor of the equivalent DATABASE_ORACLE value.
+    # The amount of storage being utilized (in bytes)
+    #
+    # @return [Integer]
+    attr_accessor :storage_utilization_in_bytes
+
+    # Indicator will be true if the amount of storage being utilized exceeds the allowable storage utilization limit.  Exceeding the limit may be an indication of a misconfiguration of the deployment's GoldenGate service.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_storage_utilization_limit_exceeded
+
+    # **[Required]** The deployment type.
     #
     # @return [String]
     attr_reader :deployment_type
@@ -219,6 +228,8 @@ module OCI
         'system_tags': :'systemTags',
         'is_latest_version': :'isLatestVersion',
         'time_upgrade_required': :'timeUpgradeRequired',
+        'storage_utilization_in_bytes': :'storageUtilizationInBytes',
+        'is_storage_utilization_limit_exceeded': :'isStorageUtilizationLimitExceeded',
         'deployment_type': :'deploymentType',
         'ogg_data': :'oggData'
         # rubocop:enable Style/SymbolLiteral
@@ -255,6 +266,8 @@ module OCI
         'system_tags': :'Hash<String, Hash<String, Object>>',
         'is_latest_version': :'BOOLEAN',
         'time_upgrade_required': :'DateTime',
+        'storage_utilization_in_bytes': :'Integer',
+        'is_storage_utilization_limit_exceeded': :'BOOLEAN',
         'deployment_type': :'String',
         'ogg_data': :'OCI::GoldenGate::Models::OggDeployment'
         # rubocop:enable Style/SymbolLiteral
@@ -293,6 +306,8 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     # @option attributes [BOOLEAN] :is_latest_version The value to assign to the {#is_latest_version} property
     # @option attributes [DateTime] :time_upgrade_required The value to assign to the {#time_upgrade_required} property
+    # @option attributes [Integer] :storage_utilization_in_bytes The value to assign to the {#storage_utilization_in_bytes} property
+    # @option attributes [BOOLEAN] :is_storage_utilization_limit_exceeded The value to assign to the {#is_storage_utilization_limit_exceeded} property
     # @option attributes [String] :deployment_type The value to assign to the {#deployment_type} property
     # @option attributes [OCI::GoldenGate::Models::OggDeployment] :ogg_data The value to assign to the {#ogg_data} property
     def initialize(attributes = {})
@@ -445,6 +460,18 @@ module OCI
 
       self.time_upgrade_required = attributes[:'time_upgrade_required'] if attributes[:'time_upgrade_required']
 
+      self.storage_utilization_in_bytes = attributes[:'storageUtilizationInBytes'] if attributes[:'storageUtilizationInBytes']
+
+      raise 'You cannot provide both :storageUtilizationInBytes and :storage_utilization_in_bytes' if attributes.key?(:'storageUtilizationInBytes') && attributes.key?(:'storage_utilization_in_bytes')
+
+      self.storage_utilization_in_bytes = attributes[:'storage_utilization_in_bytes'] if attributes[:'storage_utilization_in_bytes']
+
+      self.is_storage_utilization_limit_exceeded = attributes[:'isStorageUtilizationLimitExceeded'] unless attributes[:'isStorageUtilizationLimitExceeded'].nil?
+
+      raise 'You cannot provide both :isStorageUtilizationLimitExceeded and :is_storage_utilization_limit_exceeded' if attributes.key?(:'isStorageUtilizationLimitExceeded') && attributes.key?(:'is_storage_utilization_limit_exceeded')
+
+      self.is_storage_utilization_limit_exceeded = attributes[:'is_storage_utilization_limit_exceeded'] unless attributes[:'is_storage_utilization_limit_exceeded'].nil?
+
       self.deployment_type = attributes[:'deploymentType'] if attributes[:'deploymentType']
 
       raise 'You cannot provide both :deploymentType and :deployment_type' if attributes.key?(:'deploymentType') && attributes.key?(:'deployment_type')
@@ -547,6 +574,8 @@ module OCI
         system_tags == other.system_tags &&
         is_latest_version == other.is_latest_version &&
         time_upgrade_required == other.time_upgrade_required &&
+        storage_utilization_in_bytes == other.storage_utilization_in_bytes &&
+        is_storage_utilization_limit_exceeded == other.is_storage_utilization_limit_exceeded &&
         deployment_type == other.deployment_type &&
         ogg_data == other.ogg_data
     end
@@ -564,7 +593,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, description, compartment_id, deployment_backup_id, time_created, time_updated, lifecycle_state, lifecycle_sub_state, lifecycle_details, freeform_tags, defined_tags, is_healthy, subnet_id, fqdn, license_model, cpu_core_count, is_auto_scaling_enabled, nsg_ids, is_public, public_ip_address, private_ip_address, deployment_url, system_tags, is_latest_version, time_upgrade_required, deployment_type, ogg_data].hash
+      [id, display_name, description, compartment_id, deployment_backup_id, time_created, time_updated, lifecycle_state, lifecycle_sub_state, lifecycle_details, freeform_tags, defined_tags, is_healthy, subnet_id, fqdn, license_model, cpu_core_count, is_auto_scaling_enabled, nsg_ids, is_public, public_ip_address, private_ip_address, deployment_url, system_tags, is_latest_version, time_upgrade_required, storage_utilization_in_bytes, is_storage_utilization_limit_exceeded, deployment_type, ogg_data].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -35,11 +35,11 @@ module OCI
     # @return [String]
     attr_accessor :responder_rule_id
 
-    # ResponderRule Display Name
+    # ResponderRule display name.
     # @return [String]
     attr_accessor :display_name
 
-    # ResponderRule Description
+    # ResponderRule description.
     # @return [String]
     attr_accessor :description
 

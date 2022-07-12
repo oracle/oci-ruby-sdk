@@ -20,9 +20,12 @@ module OCI
     # @return [OCI::DataIntegration::Models::ParentReference]
     attr_accessor :parent_ref
 
-    # Reference to a typed object, this can be either a key value to an object within the document, a shall referenced to a `TypedObject` or a full `TypedObject` definition.
+    # Deprecated - Reference to a typed object, this can be either a key value to an object within the document, a shall referenced to a `TypedObject` or a full `TypedObject` definition.
     # @return [Object]
     attr_accessor :scope
+
+    # @return [OCI::DataIntegration::Models::ScopeReference]
+    attr_accessor :scope_reference
 
     # Specifies whether it is ordered by rule.
     # @return [BOOLEAN]
@@ -48,6 +51,7 @@ module OCI
         'model_version': :'modelVersion',
         'parent_ref': :'parentRef',
         'scope': :'scope',
+        'scope_reference': :'scopeReference',
         'is_order_by_rule': :'isOrderByRule',
         'projection_rules': :'projectionRules',
         'config_values': :'configValues',
@@ -65,6 +69,7 @@ module OCI
         'model_version': :'String',
         'parent_ref': :'OCI::DataIntegration::Models::ParentReference',
         'scope': :'Object',
+        'scope_reference': :'OCI::DataIntegration::Models::ScopeReference',
         'is_order_by_rule': :'BOOLEAN',
         'projection_rules': :'Array<OCI::DataIntegration::Models::ProjectionRule>',
         'config_values': :'OCI::DataIntegration::Models::ConfigValues',
@@ -83,6 +88,7 @@ module OCI
     # @option attributes [String] :model_version The value to assign to the {#model_version} property
     # @option attributes [OCI::DataIntegration::Models::ParentReference] :parent_ref The value to assign to the {#parent_ref} property
     # @option attributes [Object] :scope The value to assign to the {#scope} property
+    # @option attributes [OCI::DataIntegration::Models::ScopeReference] :scope_reference The value to assign to the {#scope_reference} property
     # @option attributes [BOOLEAN] :is_order_by_rule The value to assign to the {#is_order_by_rule} property
     # @option attributes [Array<OCI::DataIntegration::Models::ProjectionRule>] :projection_rules The value to assign to the {#projection_rules} property
     # @option attributes [OCI::DataIntegration::Models::ConfigValues] :config_values The value to assign to the {#config_values} property
@@ -112,6 +118,12 @@ module OCI
       self.parent_ref = attributes[:'parent_ref'] if attributes[:'parent_ref']
 
       self.scope = attributes[:'scope'] if attributes[:'scope']
+
+      self.scope_reference = attributes[:'scopeReference'] if attributes[:'scopeReference']
+
+      raise 'You cannot provide both :scopeReference and :scope_reference' if attributes.key?(:'scopeReference') && attributes.key?(:'scope_reference')
+
+      self.scope_reference = attributes[:'scope_reference'] if attributes[:'scope_reference']
 
       self.is_order_by_rule = attributes[:'isOrderByRule'] unless attributes[:'isOrderByRule'].nil?
 
@@ -154,6 +166,7 @@ module OCI
         model_version == other.model_version &&
         parent_ref == other.parent_ref &&
         scope == other.scope &&
+        scope_reference == other.scope_reference &&
         is_order_by_rule == other.is_order_by_rule &&
         projection_rules == other.projection_rules &&
         config_values == other.config_values &&
@@ -173,7 +186,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, parent_ref, scope, is_order_by_rule, projection_rules, config_values, object_status].hash
+      [model_type, key, model_version, parent_ref, scope, scope_reference, is_order_by_rule, projection_rules, config_values, object_status].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

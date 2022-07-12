@@ -14,6 +14,11 @@ module OCI
       ROUTING_POLICY_GLOBAL = 'GLOBAL'.freeze
     ].freeze
 
+    BGP_ADMIN_STATE_ENUM = [
+      BGP_ADMIN_STATE_ENABLED = 'ENABLED'.freeze,
+      BGP_ADMIN_STATE_DISABLED = 'DISABLED'.freeze
+    ].freeze
+
     TYPE_ENUM = [
       TYPE_PUBLIC = 'PUBLIC'.freeze,
       TYPE_PRIVATE = 'PRIVATE'.freeze
@@ -51,6 +56,16 @@ module OCI
     #
     # @return [Array<String>]
     attr_reader :routing_policy
+
+    # Set to `ENABLED` (the default) to activate the BGP session of the virtual circuit, set to `DISABLED` to deactivate the virtual circuit.
+    #
+    # @return [String]
+    attr_reader :bgp_admin_state
+
+    # Set to `true` to enable BFD for IPv4 BGP peering, or set to `false` to disable BFD. If this is not set, the default is `false`.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_bfd_enabled
 
     # Deprecated. Instead use `customerAsn`.
     # If you specify values for both, the request will be rejected.
@@ -154,6 +169,8 @@ module OCI
         'compartment_id': :'compartmentId',
         'cross_connect_mappings': :'crossConnectMappings',
         'routing_policy': :'routingPolicy',
+        'bgp_admin_state': :'bgpAdminState',
+        'is_bfd_enabled': :'isBfdEnabled',
         'customer_bgp_asn': :'customerBgpAsn',
         'customer_asn': :'customerAsn',
         'defined_tags': :'definedTags',
@@ -180,6 +197,8 @@ module OCI
         'compartment_id': :'String',
         'cross_connect_mappings': :'Array<OCI::Core::Models::CrossConnectMapping>',
         'routing_policy': :'Array<String>',
+        'bgp_admin_state': :'String',
+        'is_bfd_enabled': :'BOOLEAN',
         'customer_bgp_asn': :'Integer',
         'customer_asn': :'Integer',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -208,6 +227,8 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Array<OCI::Core::Models::CrossConnectMapping>] :cross_connect_mappings The value to assign to the {#cross_connect_mappings} property
     # @option attributes [Array<String>] :routing_policy The value to assign to the {#routing_policy} property
+    # @option attributes [String] :bgp_admin_state The value to assign to the {#bgp_admin_state} property
+    # @option attributes [BOOLEAN] :is_bfd_enabled The value to assign to the {#is_bfd_enabled} property
     # @option attributes [Integer] :customer_bgp_asn The value to assign to the {#customer_bgp_asn} property
     # @option attributes [Integer] :customer_asn The value to assign to the {#customer_asn} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -251,6 +272,20 @@ module OCI
       raise 'You cannot provide both :routingPolicy and :routing_policy' if attributes.key?(:'routingPolicy') && attributes.key?(:'routing_policy')
 
       self.routing_policy = attributes[:'routing_policy'] if attributes[:'routing_policy']
+
+      self.bgp_admin_state = attributes[:'bgpAdminState'] if attributes[:'bgpAdminState']
+
+      raise 'You cannot provide both :bgpAdminState and :bgp_admin_state' if attributes.key?(:'bgpAdminState') && attributes.key?(:'bgp_admin_state')
+
+      self.bgp_admin_state = attributes[:'bgp_admin_state'] if attributes[:'bgp_admin_state']
+
+      self.is_bfd_enabled = attributes[:'isBfdEnabled'] unless attributes[:'isBfdEnabled'].nil?
+      self.is_bfd_enabled = false if is_bfd_enabled.nil? && !attributes.key?(:'isBfdEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isBfdEnabled and :is_bfd_enabled' if attributes.key?(:'isBfdEnabled') && attributes.key?(:'is_bfd_enabled')
+
+      self.is_bfd_enabled = attributes[:'is_bfd_enabled'] unless attributes[:'is_bfd_enabled'].nil?
+      self.is_bfd_enabled = false if is_bfd_enabled.nil? && !attributes.key?(:'isBfdEnabled') && !attributes.key?(:'is_bfd_enabled') # rubocop:disable Style/StringLiterals
 
       self.customer_bgp_asn = attributes[:'customerBgpAsn'] if attributes[:'customerBgpAsn']
 
@@ -347,6 +382,14 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] bgp_admin_state Object to be assigned
+    def bgp_admin_state=(bgp_admin_state)
+      raise "Invalid value for 'bgp_admin_state': this must be one of the values in BGP_ADMIN_STATE_ENUM." if bgp_admin_state && !BGP_ADMIN_STATE_ENUM.include?(bgp_admin_state)
+
+      @bgp_admin_state = bgp_admin_state
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] type Object to be assigned
     def type=(type)
       raise "Invalid value for 'type': this must be one of the values in TYPE_ENUM." if type && !TYPE_ENUM.include?(type)
@@ -375,6 +418,8 @@ module OCI
         compartment_id == other.compartment_id &&
         cross_connect_mappings == other.cross_connect_mappings &&
         routing_policy == other.routing_policy &&
+        bgp_admin_state == other.bgp_admin_state &&
+        is_bfd_enabled == other.is_bfd_enabled &&
         customer_bgp_asn == other.customer_bgp_asn &&
         customer_asn == other.customer_asn &&
         defined_tags == other.defined_tags &&
@@ -404,7 +449,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bandwidth_shape_name, compartment_id, cross_connect_mappings, routing_policy, customer_bgp_asn, customer_asn, defined_tags, display_name, freeform_tags, gateway_id, provider_name, provider_service_id, provider_service_key_name, provider_service_name, public_prefixes, region, type, ip_mtu].hash
+      [bandwidth_shape_name, compartment_id, cross_connect_mappings, routing_policy, bgp_admin_state, is_bfd_enabled, customer_bgp_asn, customer_asn, defined_tags, display_name, freeform_tags, gateway_id, provider_name, provider_service_id, provider_service_key_name, provider_service_name, public_prefixes, region, type, ip_mtu].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

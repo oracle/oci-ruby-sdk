@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details about the batch image analysis.
+  # The details of the batch image analysis.
   class AiVision::Models::CreateImageJobDetails
     # This attribute is required.
     # @return [OCI::AiVision::Models::InputLocation]
     attr_accessor :input_location
 
-    # **[Required]** List of image analysis types requested.
+    # **[Required]** The list of requested image analysis types.
     # @return [Array<OCI::AiVision::Models::ImageFeature>]
     attr_accessor :features
 
@@ -19,15 +19,15 @@ module OCI
     # @return [OCI::AiVision::Models::OutputLocation]
     attr_accessor :output_location
 
-    # Compartment identifier from the requester.
+    # The compartment identifier from the requester.
     # @return [String]
     attr_accessor :compartment_id
 
-    # Image job display name.
+    # The image job display name.
     # @return [String]
     attr_accessor :display_name
 
-    # Whether to generate a Zip file containing the results.
+    # Whether or not to generate a ZIP file containing the results.
     # @return [BOOLEAN]
     attr_accessor :is_zip_output_enabled
 

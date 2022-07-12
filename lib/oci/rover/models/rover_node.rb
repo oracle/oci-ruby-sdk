@@ -11,6 +11,7 @@ module OCI
     NODE_TYPE_ENUM = [
       NODE_TYPE_STANDALONE = 'STANDALONE'.freeze,
       NODE_TYPE_CLUSTERED = 'CLUSTERED'.freeze,
+      NODE_TYPE_STATION = 'STATION'.freeze,
       NODE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -51,6 +52,10 @@ module OCI
     # The type of node indicating if it belongs to a cluster
     # @return [String]
     attr_reader :node_type
+
+    # The shape of the node.
+    # @return [String]
+    attr_accessor :shape
 
     # The type of enclosure rover node is shipped in.
     # @return [String]
@@ -163,6 +168,10 @@ module OCI
     # @return [String]
     attr_accessor :image_export_par
 
+    # Customer provided master key ID to encrypt secret information. If not provided, Rover's master key will be used for encryption.
+    # @return [String]
+    attr_accessor :master_key_id
+
     # The tags associated with tagSlug.
     #
     # @return [String]
@@ -197,6 +206,7 @@ module OCI
         'cluster_id': :'clusterId',
         'compartment_id': :'compartmentId',
         'node_type': :'nodeType',
+        'shape': :'shape',
         'enclosure_type': :'enclosureType',
         'serial_number': :'serialNumber',
         'display_name': :'displayName',
@@ -225,6 +235,7 @@ module OCI
         'data_validation_code': :'dataValidationCode',
         'public_key': :'publicKey',
         'image_export_par': :'imageExportPar',
+        'master_key_id': :'masterKeyId',
         'tags': :'tags',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
@@ -241,6 +252,7 @@ module OCI
         'cluster_id': :'String',
         'compartment_id': :'String',
         'node_type': :'String',
+        'shape': :'String',
         'enclosure_type': :'String',
         'serial_number': :'String',
         'display_name': :'String',
@@ -269,6 +281,7 @@ module OCI
         'data_validation_code': :'String',
         'public_key': :'String',
         'image_export_par': :'String',
+        'master_key_id': :'String',
         'tags': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -287,6 +300,7 @@ module OCI
     # @option attributes [String] :cluster_id The value to assign to the {#cluster_id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :node_type The value to assign to the {#node_type} property
+    # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [String] :enclosure_type The value to assign to the {#enclosure_type} property
     # @option attributes [String] :serial_number The value to assign to the {#serial_number} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
@@ -315,6 +329,7 @@ module OCI
     # @option attributes [String] :data_validation_code The value to assign to the {#data_validation_code} property
     # @option attributes [String] :public_key The value to assign to the {#public_key} property
     # @option attributes [String] :image_export_par The value to assign to the {#image_export_par} property
+    # @option attributes [String] :master_key_id The value to assign to the {#master_key_id} property
     # @option attributes [String] :tags The value to assign to the {#tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -344,6 +359,8 @@ module OCI
       raise 'You cannot provide both :nodeType and :node_type' if attributes.key?(:'nodeType') && attributes.key?(:'node_type')
 
       self.node_type = attributes[:'node_type'] if attributes[:'node_type']
+
+      self.shape = attributes[:'shape'] if attributes[:'shape']
 
       self.enclosure_type = attributes[:'enclosureType'] if attributes[:'enclosureType']
 
@@ -515,6 +532,12 @@ module OCI
 
       self.image_export_par = attributes[:'image_export_par'] if attributes[:'image_export_par']
 
+      self.master_key_id = attributes[:'masterKeyId'] if attributes[:'masterKeyId']
+
+      raise 'You cannot provide both :masterKeyId and :master_key_id' if attributes.key?(:'masterKeyId') && attributes.key?(:'master_key_id')
+
+      self.master_key_id = attributes[:'master_key_id'] if attributes[:'master_key_id']
+
       self.tags = attributes[:'tags'] if attributes[:'tags']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
@@ -603,6 +626,7 @@ module OCI
         cluster_id == other.cluster_id &&
         compartment_id == other.compartment_id &&
         node_type == other.node_type &&
+        shape == other.shape &&
         enclosure_type == other.enclosure_type &&
         serial_number == other.serial_number &&
         display_name == other.display_name &&
@@ -631,6 +655,7 @@ module OCI
         data_validation_code == other.data_validation_code &&
         public_key == other.public_key &&
         image_export_par == other.image_export_par &&
+        master_key_id == other.master_key_id &&
         tags == other.tags &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
@@ -650,7 +675,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, cluster_id, compartment_id, node_type, enclosure_type, serial_number, display_name, time_created, lifecycle_state, lifecycle_state_details, customer_shipping_address, node_workloads, time_customer_receieved, time_customer_returned, delivery_tracking_info, super_user_password, unlock_passphrase, point_of_contact, point_of_contact_phone_number, shipping_preference, shipping_vendor, time_pickup_expected, time_return_window_starts, oracle_shipping_tracking_url, time_return_window_ends, return_shipping_label_uri, is_import_requested, import_compartment_id, import_file_bucket, data_validation_code, public_key, image_export_par, tags, freeform_tags, defined_tags, system_tags].hash
+      [id, cluster_id, compartment_id, node_type, shape, enclosure_type, serial_number, display_name, time_created, lifecycle_state, lifecycle_state_details, customer_shipping_address, node_workloads, time_customer_receieved, time_customer_returned, delivery_tracking_info, super_user_password, unlock_passphrase, point_of_contact, point_of_contact_phone_number, shipping_preference, shipping_vendor, time_pickup_expected, time_return_window_starts, oracle_shipping_tracking_url, time_return_window_ends, return_shipping_label_uri, is_import_requested, import_compartment_id, import_file_bucket, data_validation_code, public_key, image_export_par, master_key_id, tags, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

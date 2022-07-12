@@ -13,7 +13,7 @@ module OCI
       REF_TYPE_TAG = 'TAG'.freeze
     ].freeze
 
-    # **[Required]** The type of reference (Branch or Tag).
+    # **[Required]** The type of reference (BRANCH or TAG).
     # @return [String]
     attr_reader :ref_type
 

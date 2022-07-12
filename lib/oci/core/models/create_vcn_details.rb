@@ -27,6 +27,27 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
+    # The list of one or more ULA or Private IPv6 CIDR blocks for the vcn that meets the following criteria:
+    # - The CIDR blocks must be valid.
+    # - Multiple CIDR blocks must not overlap each other or the on-premises network CIDR block.
+    # - The number of CIDR blocks must not exceed the limit of IPv6 CIDR blocks allowed to a vcn.
+    #
+    # **Important:** Do *not* specify a value for `ipv6CidrBlock`. Use this parameter instead.
+    #
+    # @return [Array<String>]
+    attr_accessor :ipv6_private_cidr_blocks
+
+    # Specifies whether to skip Oracle allocated IPv6 GUA. By default, Oracle will allocate one GUA of /56
+    # size for an IPv6 enabled VCN.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_oracle_gua_allocation_enabled
+
+    # The list of BYOIPv6 OCIDs and BYOIPv6 CIDR blocks required to create a VCN that uses BYOIPv6 ranges.
+    #
+    # @return [Array<OCI::Core::Models::Byoipv6CidrDetails>]
+    attr_accessor :byoipv6_cidr_details
+
     # Defined tags for this resource. Each key is predefined and scoped to a
     # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
@@ -70,6 +91,7 @@ module OCI
 
     # Whether IPv6 is enabled for the VCN. Default is `false`.
     # If enabled, Oracle will assign the VCN a IPv6 /56 CIDR block.
+    # You may skip having Oracle allocate the VCN a IPv6 /56 CIDR block by setting isOracleGuaAllocationEnabled to `false`.
     # For important details about IPv6 addressing in a VCN, see [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
     #
     # Example: `true`
@@ -84,6 +106,9 @@ module OCI
         'cidr_block': :'cidrBlock',
         'cidr_blocks': :'cidrBlocks',
         'compartment_id': :'compartmentId',
+        'ipv6_private_cidr_blocks': :'ipv6PrivateCidrBlocks',
+        'is_oracle_gua_allocation_enabled': :'isOracleGuaAllocationEnabled',
+        'byoipv6_cidr_details': :'byoipv6CidrDetails',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'dns_label': :'dnsLabel',
@@ -100,6 +125,9 @@ module OCI
         'cidr_block': :'String',
         'cidr_blocks': :'Array<String>',
         'compartment_id': :'String',
+        'ipv6_private_cidr_blocks': :'Array<String>',
+        'is_oracle_gua_allocation_enabled': :'BOOLEAN',
+        'byoipv6_cidr_details': :'Array<OCI::Core::Models::Byoipv6CidrDetails>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'dns_label': :'String',
@@ -118,6 +146,9 @@ module OCI
     # @option attributes [String] :cidr_block The value to assign to the {#cidr_block} property
     # @option attributes [Array<String>] :cidr_blocks The value to assign to the {#cidr_blocks} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [Array<String>] :ipv6_private_cidr_blocks The value to assign to the {#ipv6_private_cidr_blocks} property
+    # @option attributes [BOOLEAN] :is_oracle_gua_allocation_enabled The value to assign to the {#is_oracle_gua_allocation_enabled} property
+    # @option attributes [Array<OCI::Core::Models::Byoipv6CidrDetails>] :byoipv6_cidr_details The value to assign to the {#byoipv6_cidr_details} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :dns_label The value to assign to the {#dns_label} property
@@ -146,6 +177,26 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.ipv6_private_cidr_blocks = attributes[:'ipv6PrivateCidrBlocks'] if attributes[:'ipv6PrivateCidrBlocks']
+
+      raise 'You cannot provide both :ipv6PrivateCidrBlocks and :ipv6_private_cidr_blocks' if attributes.key?(:'ipv6PrivateCidrBlocks') && attributes.key?(:'ipv6_private_cidr_blocks')
+
+      self.ipv6_private_cidr_blocks = attributes[:'ipv6_private_cidr_blocks'] if attributes[:'ipv6_private_cidr_blocks']
+
+      self.is_oracle_gua_allocation_enabled = attributes[:'isOracleGuaAllocationEnabled'] unless attributes[:'isOracleGuaAllocationEnabled'].nil?
+      self.is_oracle_gua_allocation_enabled = true if is_oracle_gua_allocation_enabled.nil? && !attributes.key?(:'isOracleGuaAllocationEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isOracleGuaAllocationEnabled and :is_oracle_gua_allocation_enabled' if attributes.key?(:'isOracleGuaAllocationEnabled') && attributes.key?(:'is_oracle_gua_allocation_enabled')
+
+      self.is_oracle_gua_allocation_enabled = attributes[:'is_oracle_gua_allocation_enabled'] unless attributes[:'is_oracle_gua_allocation_enabled'].nil?
+      self.is_oracle_gua_allocation_enabled = true if is_oracle_gua_allocation_enabled.nil? && !attributes.key?(:'isOracleGuaAllocationEnabled') && !attributes.key?(:'is_oracle_gua_allocation_enabled') # rubocop:disable Style/StringLiterals
+
+      self.byoipv6_cidr_details = attributes[:'byoipv6CidrDetails'] if attributes[:'byoipv6CidrDetails']
+
+      raise 'You cannot provide both :byoipv6CidrDetails and :byoipv6_cidr_details' if attributes.key?(:'byoipv6CidrDetails') && attributes.key?(:'byoipv6_cidr_details')
+
+      self.byoipv6_cidr_details = attributes[:'byoipv6_cidr_details'] if attributes[:'byoipv6_cidr_details']
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -192,6 +243,9 @@ module OCI
         cidr_block == other.cidr_block &&
         cidr_blocks == other.cidr_blocks &&
         compartment_id == other.compartment_id &&
+        ipv6_private_cidr_blocks == other.ipv6_private_cidr_blocks &&
+        is_oracle_gua_allocation_enabled == other.is_oracle_gua_allocation_enabled &&
+        byoipv6_cidr_details == other.byoipv6_cidr_details &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         dns_label == other.dns_label &&
@@ -212,7 +266,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cidr_block, cidr_blocks, compartment_id, defined_tags, display_name, dns_label, freeform_tags, is_ipv6_enabled].hash
+      [cidr_block, cidr_blocks, compartment_id, ipv6_private_cidr_blocks, is_oracle_gua_allocation_enabled, byoipv6_cidr_details, defined_tags, display_name, dns_label, freeform_tags, is_ipv6_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

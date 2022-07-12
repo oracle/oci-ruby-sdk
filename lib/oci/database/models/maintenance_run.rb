@@ -28,6 +28,7 @@ module OCI
       TARGET_RESOURCE_TYPE_EXADATA_DB_SYSTEM = 'EXADATA_DB_SYSTEM'.freeze,
       TARGET_RESOURCE_TYPE_CLOUD_EXADATA_INFRASTRUCTURE = 'CLOUD_EXADATA_INFRASTRUCTURE'.freeze,
       TARGET_RESOURCE_TYPE_EXACC_INFRASTRUCTURE = 'EXACC_INFRASTRUCTURE'.freeze,
+      TARGET_RESOURCE_TYPE_AUTONOMOUS_VM_CLUSTER = 'AUTONOMOUS_VM_CLUSTER'.freeze,
       TARGET_RESOURCE_TYPE_AUTONOMOUS_DATABASE = 'AUTONOMOUS_DATABASE'.freeze,
       TARGET_RESOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
@@ -52,6 +53,13 @@ module OCI
       PATCHING_MODE_ROLLING = 'ROLLING'.freeze,
       PATCHING_MODE_NONROLLING = 'NONROLLING'.freeze,
       PATCHING_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    PATCHING_STATUS_ENUM = [
+      PATCHING_STATUS_PATCHING = 'PATCHING'.freeze,
+      PATCHING_STATUS_WAITING = 'WAITING'.freeze,
+      PATCHING_STATUS_SCHEDULED = 'SCHEDULED'.freeze,
+      PATCHING_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
     # **[Required]** The OCID of the maintenance run.
@@ -126,6 +134,51 @@ module OCI
     # @return [Integer]
     attr_accessor :patch_failure_count
 
+    # The target software version for the database server patching operation.
+    # @return [String]
+    attr_accessor :target_db_server_version
+
+    # The target Cell version that is to be patched to.
+    # @return [String]
+    attr_accessor :target_storage_server_version
+
+    # If true, enables the configuration of a custom action timeout (waiting period) between database servers patching operations.
+    # @return [BOOLEAN]
+    attr_accessor :is_custom_action_timeout_enabled
+
+    # Determines the amount of time the system will wait before the start of each database server patching operation.
+    # Specify a number of minutes, from 15 to 120.
+    #
+    # @return [Integer]
+    attr_accessor :custom_action_timeout_in_mins
+
+    # Extend current custom action timeout between the current database servers during waiting state, from 0 (zero) to 30 minutes.
+    # @return [Integer]
+    attr_accessor :current_custom_action_timeout_in_mins
+
+    # The status of the patching operation.
+    # @return [String]
+    attr_reader :patching_status
+
+    # The time when the patching operation started.
+    # @return [DateTime]
+    attr_accessor :patching_start_time
+
+    # The time when the patching operation ended.
+    # @return [DateTime]
+    attr_accessor :patching_end_time
+
+    # @return [OCI::Database::Models::EstimatedPatchingTime]
+    attr_accessor :estimated_patching_time
+
+    # The name of the current infrastruture component that is getting patched.
+    # @return [String]
+    attr_accessor :current_patching_component
+
+    # The estimated start time of the next infrastruture component patching operation.
+    # @return [DateTime]
+    attr_accessor :estimated_component_patching_start_time
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -146,7 +199,18 @@ module OCI
         'maintenance_subtype': :'maintenanceSubtype',
         'peer_maintenance_run_id': :'peerMaintenanceRunId',
         'patching_mode': :'patchingMode',
-        'patch_failure_count': :'patchFailureCount'
+        'patch_failure_count': :'patchFailureCount',
+        'target_db_server_version': :'targetDbServerVersion',
+        'target_storage_server_version': :'targetStorageServerVersion',
+        'is_custom_action_timeout_enabled': :'isCustomActionTimeoutEnabled',
+        'custom_action_timeout_in_mins': :'customActionTimeoutInMins',
+        'current_custom_action_timeout_in_mins': :'currentCustomActionTimeoutInMins',
+        'patching_status': :'patchingStatus',
+        'patching_start_time': :'patchingStartTime',
+        'patching_end_time': :'patchingEndTime',
+        'estimated_patching_time': :'estimatedPatchingTime',
+        'current_patching_component': :'currentPatchingComponent',
+        'estimated_component_patching_start_time': :'estimatedComponentPatchingStartTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -171,7 +235,18 @@ module OCI
         'maintenance_subtype': :'String',
         'peer_maintenance_run_id': :'String',
         'patching_mode': :'String',
-        'patch_failure_count': :'Integer'
+        'patch_failure_count': :'Integer',
+        'target_db_server_version': :'String',
+        'target_storage_server_version': :'String',
+        'is_custom_action_timeout_enabled': :'BOOLEAN',
+        'custom_action_timeout_in_mins': :'Integer',
+        'current_custom_action_timeout_in_mins': :'Integer',
+        'patching_status': :'String',
+        'patching_start_time': :'DateTime',
+        'patching_end_time': :'DateTime',
+        'estimated_patching_time': :'OCI::Database::Models::EstimatedPatchingTime',
+        'current_patching_component': :'String',
+        'estimated_component_patching_start_time': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -199,6 +274,17 @@ module OCI
     # @option attributes [String] :peer_maintenance_run_id The value to assign to the {#peer_maintenance_run_id} property
     # @option attributes [String] :patching_mode The value to assign to the {#patching_mode} property
     # @option attributes [Integer] :patch_failure_count The value to assign to the {#patch_failure_count} property
+    # @option attributes [String] :target_db_server_version The value to assign to the {#target_db_server_version} property
+    # @option attributes [String] :target_storage_server_version The value to assign to the {#target_storage_server_version} property
+    # @option attributes [BOOLEAN] :is_custom_action_timeout_enabled The value to assign to the {#is_custom_action_timeout_enabled} property
+    # @option attributes [Integer] :custom_action_timeout_in_mins The value to assign to the {#custom_action_timeout_in_mins} property
+    # @option attributes [Integer] :current_custom_action_timeout_in_mins The value to assign to the {#current_custom_action_timeout_in_mins} property
+    # @option attributes [String] :patching_status The value to assign to the {#patching_status} property
+    # @option attributes [DateTime] :patching_start_time The value to assign to the {#patching_start_time} property
+    # @option attributes [DateTime] :patching_end_time The value to assign to the {#patching_end_time} property
+    # @option attributes [OCI::Database::Models::EstimatedPatchingTime] :estimated_patching_time The value to assign to the {#estimated_patching_time} property
+    # @option attributes [String] :current_patching_component The value to assign to the {#current_patching_component} property
+    # @option attributes [DateTime] :estimated_component_patching_start_time The value to assign to the {#estimated_component_patching_start_time} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -295,6 +381,72 @@ module OCI
       raise 'You cannot provide both :patchFailureCount and :patch_failure_count' if attributes.key?(:'patchFailureCount') && attributes.key?(:'patch_failure_count')
 
       self.patch_failure_count = attributes[:'patch_failure_count'] if attributes[:'patch_failure_count']
+
+      self.target_db_server_version = attributes[:'targetDbServerVersion'] if attributes[:'targetDbServerVersion']
+
+      raise 'You cannot provide both :targetDbServerVersion and :target_db_server_version' if attributes.key?(:'targetDbServerVersion') && attributes.key?(:'target_db_server_version')
+
+      self.target_db_server_version = attributes[:'target_db_server_version'] if attributes[:'target_db_server_version']
+
+      self.target_storage_server_version = attributes[:'targetStorageServerVersion'] if attributes[:'targetStorageServerVersion']
+
+      raise 'You cannot provide both :targetStorageServerVersion and :target_storage_server_version' if attributes.key?(:'targetStorageServerVersion') && attributes.key?(:'target_storage_server_version')
+
+      self.target_storage_server_version = attributes[:'target_storage_server_version'] if attributes[:'target_storage_server_version']
+
+      self.is_custom_action_timeout_enabled = attributes[:'isCustomActionTimeoutEnabled'] unless attributes[:'isCustomActionTimeoutEnabled'].nil?
+
+      raise 'You cannot provide both :isCustomActionTimeoutEnabled and :is_custom_action_timeout_enabled' if attributes.key?(:'isCustomActionTimeoutEnabled') && attributes.key?(:'is_custom_action_timeout_enabled')
+
+      self.is_custom_action_timeout_enabled = attributes[:'is_custom_action_timeout_enabled'] unless attributes[:'is_custom_action_timeout_enabled'].nil?
+
+      self.custom_action_timeout_in_mins = attributes[:'customActionTimeoutInMins'] if attributes[:'customActionTimeoutInMins']
+
+      raise 'You cannot provide both :customActionTimeoutInMins and :custom_action_timeout_in_mins' if attributes.key?(:'customActionTimeoutInMins') && attributes.key?(:'custom_action_timeout_in_mins')
+
+      self.custom_action_timeout_in_mins = attributes[:'custom_action_timeout_in_mins'] if attributes[:'custom_action_timeout_in_mins']
+
+      self.current_custom_action_timeout_in_mins = attributes[:'currentCustomActionTimeoutInMins'] if attributes[:'currentCustomActionTimeoutInMins']
+
+      raise 'You cannot provide both :currentCustomActionTimeoutInMins and :current_custom_action_timeout_in_mins' if attributes.key?(:'currentCustomActionTimeoutInMins') && attributes.key?(:'current_custom_action_timeout_in_mins')
+
+      self.current_custom_action_timeout_in_mins = attributes[:'current_custom_action_timeout_in_mins'] if attributes[:'current_custom_action_timeout_in_mins']
+
+      self.patching_status = attributes[:'patchingStatus'] if attributes[:'patchingStatus']
+
+      raise 'You cannot provide both :patchingStatus and :patching_status' if attributes.key?(:'patchingStatus') && attributes.key?(:'patching_status')
+
+      self.patching_status = attributes[:'patching_status'] if attributes[:'patching_status']
+
+      self.patching_start_time = attributes[:'patchingStartTime'] if attributes[:'patchingStartTime']
+
+      raise 'You cannot provide both :patchingStartTime and :patching_start_time' if attributes.key?(:'patchingStartTime') && attributes.key?(:'patching_start_time')
+
+      self.patching_start_time = attributes[:'patching_start_time'] if attributes[:'patching_start_time']
+
+      self.patching_end_time = attributes[:'patchingEndTime'] if attributes[:'patchingEndTime']
+
+      raise 'You cannot provide both :patchingEndTime and :patching_end_time' if attributes.key?(:'patchingEndTime') && attributes.key?(:'patching_end_time')
+
+      self.patching_end_time = attributes[:'patching_end_time'] if attributes[:'patching_end_time']
+
+      self.estimated_patching_time = attributes[:'estimatedPatchingTime'] if attributes[:'estimatedPatchingTime']
+
+      raise 'You cannot provide both :estimatedPatchingTime and :estimated_patching_time' if attributes.key?(:'estimatedPatchingTime') && attributes.key?(:'estimated_patching_time')
+
+      self.estimated_patching_time = attributes[:'estimated_patching_time'] if attributes[:'estimated_patching_time']
+
+      self.current_patching_component = attributes[:'currentPatchingComponent'] if attributes[:'currentPatchingComponent']
+
+      raise 'You cannot provide both :currentPatchingComponent and :current_patching_component' if attributes.key?(:'currentPatchingComponent') && attributes.key?(:'current_patching_component')
+
+      self.current_patching_component = attributes[:'current_patching_component'] if attributes[:'current_patching_component']
+
+      self.estimated_component_patching_start_time = attributes[:'estimatedComponentPatchingStartTime'] if attributes[:'estimatedComponentPatchingStartTime']
+
+      raise 'You cannot provide both :estimatedComponentPatchingStartTime and :estimated_component_patching_start_time' if attributes.key?(:'estimatedComponentPatchingStartTime') && attributes.key?(:'estimated_component_patching_start_time')
+
+      self.estimated_component_patching_start_time = attributes[:'estimated_component_patching_start_time'] if attributes[:'estimated_component_patching_start_time']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -364,6 +516,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] patching_status Object to be assigned
+    def patching_status=(patching_status)
+      # rubocop:disable Style/ConditionalAssignment
+      if patching_status && !PATCHING_STATUS_ENUM.include?(patching_status)
+        OCI.logger.debug("Unknown value for 'patching_status' [" + patching_status + "]. Mapping to 'PATCHING_STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @patching_status = PATCHING_STATUS_UNKNOWN_ENUM_VALUE
+      else
+        @patching_status = patching_status
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -389,7 +554,18 @@ module OCI
         maintenance_subtype == other.maintenance_subtype &&
         peer_maintenance_run_id == other.peer_maintenance_run_id &&
         patching_mode == other.patching_mode &&
-        patch_failure_count == other.patch_failure_count
+        patch_failure_count == other.patch_failure_count &&
+        target_db_server_version == other.target_db_server_version &&
+        target_storage_server_version == other.target_storage_server_version &&
+        is_custom_action_timeout_enabled == other.is_custom_action_timeout_enabled &&
+        custom_action_timeout_in_mins == other.custom_action_timeout_in_mins &&
+        current_custom_action_timeout_in_mins == other.current_custom_action_timeout_in_mins &&
+        patching_status == other.patching_status &&
+        patching_start_time == other.patching_start_time &&
+        patching_end_time == other.patching_end_time &&
+        estimated_patching_time == other.estimated_patching_time &&
+        current_patching_component == other.current_patching_component &&
+        estimated_component_patching_start_time == other.estimated_component_patching_start_time
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -405,7 +581,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, description, lifecycle_state, lifecycle_details, time_scheduled, time_started, time_ended, target_resource_type, target_resource_id, maintenance_type, patch_id, maintenance_subtype, peer_maintenance_run_id, patching_mode, patch_failure_count].hash
+      [id, compartment_id, display_name, description, lifecycle_state, lifecycle_details, time_scheduled, time_started, time_ended, target_resource_type, target_resource_id, maintenance_type, patch_id, maintenance_subtype, peer_maintenance_run_id, patching_mode, patch_failure_count, target_db_server_version, target_storage_server_version, is_custom_action_timeout_enabled, custom_action_timeout_in_mins, current_custom_action_timeout_in_mins, patching_status, patching_start_time, patching_end_time, estimated_patching_time, current_patching_component, estimated_component_patching_start_time].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

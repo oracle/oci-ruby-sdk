@@ -105,6 +105,17 @@ module OCI
     # @return [OCI::Core::Models::MacsecProperties]
     attr_accessor :macsec_properties
 
+    # The FastConnect device that terminates the physical connection.
+    #
+    # @return [String]
+    attr_accessor :oci_physical_device_name
+
+    # The FastConnect device that terminates the logical connection.
+    # This device might be different than the device that terminates the physical connection.
+    #
+    # @return [String]
+    attr_accessor :oci_logical_device_name
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -121,7 +132,9 @@ module OCI
         'port_speed_shape_name': :'portSpeedShapeName',
         'customer_reference_name': :'customerReferenceName',
         'time_created': :'timeCreated',
-        'macsec_properties': :'macsecProperties'
+        'macsec_properties': :'macsecProperties',
+        'oci_physical_device_name': :'ociPhysicalDeviceName',
+        'oci_logical_device_name': :'ociLogicalDeviceName'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -142,7 +155,9 @@ module OCI
         'port_speed_shape_name': :'String',
         'customer_reference_name': :'String',
         'time_created': :'DateTime',
-        'macsec_properties': :'OCI::Core::Models::MacsecProperties'
+        'macsec_properties': :'OCI::Core::Models::MacsecProperties',
+        'oci_physical_device_name': :'String',
+        'oci_logical_device_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -166,6 +181,8 @@ module OCI
     # @option attributes [String] :customer_reference_name The value to assign to the {#customer_reference_name} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [OCI::Core::Models::MacsecProperties] :macsec_properties The value to assign to the {#macsec_properties} property
+    # @option attributes [String] :oci_physical_device_name The value to assign to the {#oci_physical_device_name} property
+    # @option attributes [String] :oci_logical_device_name The value to assign to the {#oci_logical_device_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -245,6 +262,18 @@ module OCI
       raise 'You cannot provide both :macsecProperties and :macsec_properties' if attributes.key?(:'macsecProperties') && attributes.key?(:'macsec_properties')
 
       self.macsec_properties = attributes[:'macsec_properties'] if attributes[:'macsec_properties']
+
+      self.oci_physical_device_name = attributes[:'ociPhysicalDeviceName'] if attributes[:'ociPhysicalDeviceName']
+
+      raise 'You cannot provide both :ociPhysicalDeviceName and :oci_physical_device_name' if attributes.key?(:'ociPhysicalDeviceName') && attributes.key?(:'oci_physical_device_name')
+
+      self.oci_physical_device_name = attributes[:'oci_physical_device_name'] if attributes[:'oci_physical_device_name']
+
+      self.oci_logical_device_name = attributes[:'ociLogicalDeviceName'] if attributes[:'ociLogicalDeviceName']
+
+      raise 'You cannot provide both :ociLogicalDeviceName and :oci_logical_device_name' if attributes.key?(:'ociLogicalDeviceName') && attributes.key?(:'oci_logical_device_name')
+
+      self.oci_logical_device_name = attributes[:'oci_logical_device_name'] if attributes[:'oci_logical_device_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -283,7 +312,9 @@ module OCI
         port_speed_shape_name == other.port_speed_shape_name &&
         customer_reference_name == other.customer_reference_name &&
         time_created == other.time_created &&
-        macsec_properties == other.macsec_properties
+        macsec_properties == other.macsec_properties &&
+        oci_physical_device_name == other.oci_physical_device_name &&
+        oci_logical_device_name == other.oci_logical_device_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -299,7 +330,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, cross_connect_group_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, location_name, port_name, port_speed_shape_name, customer_reference_name, time_created, macsec_properties].hash
+      [compartment_id, cross_connect_group_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, location_name, port_name, port_speed_shape_name, customer_reference_name, time_created, macsec_properties, oci_physical_device_name, oci_logical_device_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

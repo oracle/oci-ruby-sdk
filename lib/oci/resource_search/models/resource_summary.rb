@@ -65,6 +65,16 @@ module OCI
     # @return [Hash<String, Object>]
     attr_accessor :identity_context
 
+    # Additional resource attribute fields of this resource that match queries with a return clause, if any.
+    # For example, if you ran a query to find the private IP addresses, public IP addresses, and isPrimary field of
+    # the VNIC attachment on instance resources, that field would be included in the ResourceSummary object as:
+    # {\"additionalDetails\": {\"attachedVnic\": [{\"publicIP\" : \"172.110.110.110\",\"privateIP\" : \"10.10.10.10\",\"isPrimary\" : true},
+    # {\"publicIP\" : \"172.110.110.111\",\"privateIP\" : \"10.10.10.11\",\"isPrimary\" : false}]}.
+    # The structure of the additional details attribute fields depends on the matching resource.
+    #
+    # @return [Hash<String, Object>]
+    attr_accessor :additional_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -80,7 +90,8 @@ module OCI
         'defined_tags': :'definedTags',
         'system_tags': :'systemTags',
         'search_context': :'searchContext',
-        'identity_context': :'identityContext'
+        'identity_context': :'identityContext',
+        'additional_details': :'additionalDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -100,7 +111,8 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'system_tags': :'Hash<String, Hash<String, Object>>',
         'search_context': :'OCI::ResourceSearch::Models::SearchContext',
-        'identity_context': :'Hash<String, Object>'
+        'identity_context': :'Hash<String, Object>',
+        'additional_details': :'Hash<String, Object>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -123,6 +135,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     # @option attributes [OCI::ResourceSearch::Models::SearchContext] :search_context The value to assign to the {#search_context} property
     # @option attributes [Hash<String, Object>] :identity_context The value to assign to the {#identity_context} property
+    # @option attributes [Hash<String, Object>] :additional_details The value to assign to the {#additional_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -196,6 +209,12 @@ module OCI
       raise 'You cannot provide both :identityContext and :identity_context' if attributes.key?(:'identityContext') && attributes.key?(:'identity_context')
 
       self.identity_context = attributes[:'identity_context'] if attributes[:'identity_context']
+
+      self.additional_details = attributes[:'additionalDetails'] if attributes[:'additionalDetails']
+
+      raise 'You cannot provide both :additionalDetails and :additional_details' if attributes.key?(:'additionalDetails') && attributes.key?(:'additional_details')
+
+      self.additional_details = attributes[:'additional_details'] if attributes[:'additional_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -220,7 +239,8 @@ module OCI
         defined_tags == other.defined_tags &&
         system_tags == other.system_tags &&
         search_context == other.search_context &&
-        identity_context == other.identity_context
+        identity_context == other.identity_context &&
+        additional_details == other.additional_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -236,7 +256,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [resource_type, identifier, compartment_id, time_created, display_name, availability_domain, lifecycle_state, freeform_tags, defined_tags, system_tags, search_context, identity_context].hash
+      [resource_type, identifier, compartment_id, time_created, display_name, availability_domain, lifecycle_state, freeform_tags, defined_tags, system_tags, search_context, identity_context, additional_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

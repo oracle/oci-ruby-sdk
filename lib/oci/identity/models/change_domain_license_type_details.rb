@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Update domain license type
+  # (For tenancies that support identity domains) Details for updating the license type of the identity domain.
   class Identity::Models::ChangeDomainLicenseTypeDetails
-    # The License type of Domain
+    # The license type of the identity domain.
     # @return [String]
     attr_accessor :license_type
 

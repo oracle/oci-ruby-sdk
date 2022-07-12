@@ -8,10 +8,16 @@ module OCI
   # UpdateUserDetails model.
   class Identity::Models::UpdateUserDetails
     # The description you assign to the user. Does not have to be unique, and it's changeable.
+    #
+    # (For tenancies that support identity domains) You can have an empty description.
+    #
     # @return [String]
     attr_accessor :description
 
-    # The email address you assign to the user. Has to be unique across the tenancy.
+    # The email you assign to the user during creation. The email must be unique across all users in the tenancy.
+    #
+    # (For tenancies that support identity domains) You must provide an email for each user.
+    #
     # @return [String]
     attr_accessor :email
 

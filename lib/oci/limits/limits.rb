@@ -11,12 +11,15 @@ module OCI
 end
 
 # Require models
+require 'oci/limits/models/add_lock_details'
 require 'oci/limits/models/create_quota_details'
 require 'oci/limits/models/limit_definition_summary'
 require 'oci/limits/models/limit_value_summary'
 require 'oci/limits/models/quota'
 require 'oci/limits/models/quota_summary'
+require 'oci/limits/models/remove_lock_details'
 require 'oci/limits/models/resource_availability'
+require 'oci/limits/models/resource_lock'
 require 'oci/limits/models/service_summary'
 require 'oci/limits/models/update_quota_details'
 

@@ -19,7 +19,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
-    # **[Required]** The Risk Level
+    # The Risk Level
     # @return [String]
     attr_reader :risk_level
 

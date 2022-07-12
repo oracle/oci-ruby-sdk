@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The Email object for redeemable user.
+  # The email object for a user that can redeem rewards.
   class Usage::Models::RedeemableUser
-    # **[Required]** The Email Id for redeemable user.
+    # **[Required]** The email ID for a user that can redeem rewards.
     # @return [String]
     attr_accessor :email_id
 

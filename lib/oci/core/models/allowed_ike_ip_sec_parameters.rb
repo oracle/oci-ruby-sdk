@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Allowed IKE IPSec Parameters
+  # Lists the current allowed and default IPSec tunnel parameters.
   class Core::Models::AllowedIkeIPSecParameters
     # This attribute is required.
     # @return [OCI::Core::Models::AllowedPhaseOneParameters]

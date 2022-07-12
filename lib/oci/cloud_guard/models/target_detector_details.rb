@@ -21,7 +21,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
-    # **[Required]** The Risk Level
+    # The Risk Level
     # @return [String]
     attr_reader :risk_level
 
@@ -41,6 +41,18 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_configuration_allowed
 
+    # Cutover point for an elevated resource Risk Score to create a Problem
+    # @return [Integer]
+    attr_accessor :problem_threshold
+
+    # List of target types for which the detector rule is applicable
+    # @return [Array<String>]
+    attr_accessor :target_types
+
+    # List of sighting types
+    # @return [Array<OCI::CloudGuard::Models::SightingType>]
+    attr_accessor :sighting_types
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -50,7 +62,10 @@ module OCI
         'configurations': :'configurations',
         'condition_groups': :'conditionGroups',
         'labels': :'labels',
-        'is_configuration_allowed': :'isConfigurationAllowed'
+        'is_configuration_allowed': :'isConfigurationAllowed',
+        'problem_threshold': :'problemThreshold',
+        'target_types': :'targetTypes',
+        'sighting_types': :'sightingTypes'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -64,7 +79,10 @@ module OCI
         'configurations': :'Array<OCI::CloudGuard::Models::DetectorConfiguration>',
         'condition_groups': :'Array<OCI::CloudGuard::Models::ConditionGroup>',
         'labels': :'Array<String>',
-        'is_configuration_allowed': :'BOOLEAN'
+        'is_configuration_allowed': :'BOOLEAN',
+        'problem_threshold': :'Integer',
+        'target_types': :'Array<String>',
+        'sighting_types': :'Array<OCI::CloudGuard::Models::SightingType>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -81,6 +99,9 @@ module OCI
     # @option attributes [Array<OCI::CloudGuard::Models::ConditionGroup>] :condition_groups The value to assign to the {#condition_groups} property
     # @option attributes [Array<String>] :labels The value to assign to the {#labels} property
     # @option attributes [BOOLEAN] :is_configuration_allowed The value to assign to the {#is_configuration_allowed} property
+    # @option attributes [Integer] :problem_threshold The value to assign to the {#problem_threshold} property
+    # @option attributes [Array<String>] :target_types The value to assign to the {#target_types} property
+    # @option attributes [Array<OCI::CloudGuard::Models::SightingType>] :sighting_types The value to assign to the {#sighting_types} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -114,6 +135,24 @@ module OCI
       raise 'You cannot provide both :isConfigurationAllowed and :is_configuration_allowed' if attributes.key?(:'isConfigurationAllowed') && attributes.key?(:'is_configuration_allowed')
 
       self.is_configuration_allowed = attributes[:'is_configuration_allowed'] unless attributes[:'is_configuration_allowed'].nil?
+
+      self.problem_threshold = attributes[:'problemThreshold'] if attributes[:'problemThreshold']
+
+      raise 'You cannot provide both :problemThreshold and :problem_threshold' if attributes.key?(:'problemThreshold') && attributes.key?(:'problem_threshold')
+
+      self.problem_threshold = attributes[:'problem_threshold'] if attributes[:'problem_threshold']
+
+      self.target_types = attributes[:'targetTypes'] if attributes[:'targetTypes']
+
+      raise 'You cannot provide both :targetTypes and :target_types' if attributes.key?(:'targetTypes') && attributes.key?(:'target_types')
+
+      self.target_types = attributes[:'target_types'] if attributes[:'target_types']
+
+      self.sighting_types = attributes[:'sightingTypes'] if attributes[:'sightingTypes']
+
+      raise 'You cannot provide both :sightingTypes and :sighting_types' if attributes.key?(:'sightingTypes') && attributes.key?(:'sighting_types')
+
+      self.sighting_types = attributes[:'sighting_types'] if attributes[:'sighting_types']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -145,7 +184,10 @@ module OCI
         configurations == other.configurations &&
         condition_groups == other.condition_groups &&
         labels == other.labels &&
-        is_configuration_allowed == other.is_configuration_allowed
+        is_configuration_allowed == other.is_configuration_allowed &&
+        problem_threshold == other.problem_threshold &&
+        target_types == other.target_types &&
+        sighting_types == other.sighting_types
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -161,7 +203,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_enabled, risk_level, configurations, condition_groups, labels, is_configuration_allowed].hash
+      [is_enabled, risk_level, configurations, condition_groups, labels, is_configuration_allowed, problem_threshold, target_types, sighting_types].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

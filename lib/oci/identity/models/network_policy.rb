@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Network policy, Consists of a list of Network Source ids.
+  # Network policy, which consists of a list of network source IDs.
   #
   class Identity::Models::NetworkPolicy
     # Network Source ids

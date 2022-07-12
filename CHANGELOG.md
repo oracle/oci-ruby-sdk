@@ -3,6 +3,157 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.18.0 - 2022-07-12
+### Added
+- Support for the Data Connectivity Management service
+- Support for the AI Speech service
+- Support for disabling crash recovery in the MySQL Database service
+- Support for detector recipes of type "threat", new detector rule of type "rogue user", and sightings operations in the Cloud Guard service
+- Support for more VM shape configurations when listing shapes in the Compute service
+- Support for customer-managed encryption keys in the Analytics Cloud service
+- Support for FastConnect device information in the Networking service
+- Support for DRG route distribution statements to be specified with a new match type 'MATCH_ALL' for matching criteria in the Networking service
+- Support for VCN route types on DRG attachments for deciding whether to import VCN CIDRs or subnet CIDRs into route rules in the Networking service
+- Support for CPS offline reports in the Database service
+- Support for infrastructure patching v2 features in the Database service
+- Support for auto-scaling the storage of an autonomous database, as well as shrinking an autonomous database, in the Database service
+- Support for managed egress via a default networking option on jobs and notebooks in the Data Science service
+- Support for more types of saved search enums in the Management Dashboard service 
+- Support for the Sales Accelerator license option in the Content Management service
+- Support for VCN hostname cluster endpoints in the Container Engine for Kubernetes service
+- Support for optionally specifying an admin username and password when creating a database system during a restore operation in the MySQL Database service
+- Support for automatic tablespace creation on non-autonomous and autonomous database dedicated targets in the Database Migration service
+- Support for reporting excluded objects based on static exclusion rules and dynamic exclusion settings in the Database Migration service
+- Support for removing, listing, and adding database objects reported by the Cloud Premigration Advisor Tool (CPAT) in the Database Migration service
+- Support for migrating Oracle databases from the AWS RDS service to OCI as autonomous databases, using the AWS S3 service and DBLINK for data transfer, in the Database Migration service
+- Support for querying additional fields of a resource using return clauses in the Search service
+- Support for clusters and station clusters in the Roving Edge Infrastructure service
+- Support for creating database systems and database homes using customer-managed keys in the Database service
+- Support for Ubuntu platforms and unlimited installation keys in the Management Agent Cloud service
+- Support for shielded instances in the VMWare Solution service
+- Support for application resources in the Data Integration service
+- Support for multi-AVM on Exadata Cloud at Customer infrastructure in the Database service
+- Support for heterogeneous (VM and AVM) clusters on Exadata Cloud at Customer infrastructure in the Database service
+- Support for custom maintenance schedules for AVM clusters on Exadata Cloud at Customer infrastructure in the Database service
+- Support for listing vulnerabilities, vulnerability-impacted containers, and vulnerability-impacted hosts in the Vulnerability Scanning service
+- Support for specifying an image count when creating or updating container scan recipes in the Vulnerability Scanning service
+- Support for getting the storage utilization of a deployment on deployment list and get operations in the GoldenGate service
+- Support for virtual machines, bare metal machines, and Exadata databases with private endpoints in the Operations Insights service
+- Support for setting deletion policies on database systems in the MySQL Database service
+- Support for returning the number of network ports as part of listing shapes in the Compute service
+- Support for Java runtime removal and custom logs in the Java Management service
+- Support for new parameters for BGP admin state and enabling/disabling BFD in the Networking service
+- Support for private OKE clusters and blue-green deployments in the DevOps service
+- Support for international customers to consume and launch third-party paid listings in the Marketplace service
+- Support for additional fields on entities, attributes, and folders in the Data Catalog service
+- Support for content length and content type response headers when downloading PDFs in the Account Management service
+- Support for creating Enterprise Manager-based zLinux host targets, creating alarms, and viewing top process analytics in the Operations Insights service
+- Support for diagnostic reboots on VM instances in the Compute service
+- Support for bringing your own IPv6 addresses in the Networking service
+- Support for specifying database edition and maximum CPU core count when creating or updating an autonomous database in the Database service
+- Support for enabling and disabling data collection options when creating or updating Exadata Cloud at Customer VM clusters in the Database service
+- Support for the Stack Monitoring service
+- Support for stack monitoring on external databases in the Database service
+- Support for upgrading VM database systems in place in the Database service
+- Support for viewing supported VMWare software versions when listing host shapes in the VMWare Solution service
+- Support for choosing compute shapes when creating SDDCs and ESXi hosts in the VMWare Solution service
+- Support for work requests on delete operations in the Vulnerability Scanning service
+- Support for additional scan metadata in reports, including CVE descriptions, in the Vulnerability Scanning service
+- Support for redemption codes in the Usage service
+- Support for the Service Mesh service
+- Support for security zones in the Cloud Guard service
+- Support for virtual test access points (VTAPs) in the Networking service
+- Support for monitoring as a source in the Service Connector Hub service
+- Support for creating budgets that target subscriptions and child tenancies in the Budgets service
+- Support for listing shapes and specifying a shape during creation of a node in the Roving Edge Infrastructure service
+- Support for bringing your own key in the Roving Edge Infrastructure service
+- Support for enabling inspection of HTTP request bodies in the Web Application Acceleration and Security
+- Support for cost management schedules in the Usage service
+- Support for TCPS on external containers as well as non-container and pluggable databases in the Database service
+- Support for autoscaling on Open Data Hub (ODH) clusters in the Big Data service
+- Support for creating Open Data Hub (ODH) 0.9 clusters in the Big Data service
+- Support for Open Data Hub (ODH) patch management in the Big Data service
+- Support for customizable Kerberos realm names in the Big Data service
+- Support for dedicated vantage points in the Application Performance Monitoring service
+- Support for reactivating child tenancies in the Organizations service
+- Support for punctuation and the SRT transcription format in the AI Speech service
+- Support for the Application Dependency Management service
+- Support for platform configuration options on some bare metal shapes in the Compute service
+- Support for shielded instances for BM.Standard.E4.128 and BM.Standard3.64 shapes in the Compute service
+- Support for E4 dense VMs on launch and update instance operations in the Compute service
+- Support for reboot migration on DenseIO shapes in the Compute service
+- Support for an increased database name maximum length, from 14 to 30 characters, in the Database service
+- Support for provisioned concurrency in the Functions service
+- Support for getting usage information for autonomous databases and Cloud at Customer autonomous databases in the Database service
+- Support for the "standby" lifecycle state on autonomous databases in the Database service
+- Support for BIP connections and dataflow operators in the Data Integration service
+- Support for information requests in the Operator Access Control service
+- Support for Helm charts and repositories on deployments in the DevOps service
+- Support for Application Dependency Management service scan results on builds in the DevOps service
+- Support for build resources to use Bitbucket Cloud repositories for source code in the DevOps service
+- Support for character set selection on autonomous dedicated databases in the Database service
+- Support for listing autonomous dedicated database supported character sets in the Database service
+- Support for AMD E4 flex shapes on virtual machine database systems in the Database service
+- Support for terraform and improvements for cross-region ADGs in the Database service
+- Support for the License Manager service
+- Support for usage plans in the API Gateway service
+- Support for packaged skill and instance metadata management, role-based access options on instance creation, and assigned ownership in the Digital Assistant service
+- Support for compute capacity reservations in the VMWare Solution service
+- Support for Oracle Linux 8 application streams in the OS Management service
+- Support for in-depth monitoring, diagnostics capabilities, and advanced management functionality for on-premise Oracle databases in the Database Management service
+- Support for using Oracle Cloud Agent to perform iSCSI login and logout for non-multipath-enabled iSCSI attachments in the Container Engine for Kubernetes service
+- Support for Fault Domain placement in the Container Engine for Kubernetes service
+- Support for worker node images in the Container Engine for Kubernetes service
+- Support for flexible shapes using the driverShapeConfig and executorShapeConfig properties in the Data Flow service
+- Support for calling Oracle Cloud Infrastructure services in the eu-paris-1 region
+- Support for private endpoints in Resource Manager service
+- Support downloading generated Terraform plan output in JSON or binary format in Resource Manager service
+- Support for querying OPSI Data Objects in the Operations Insights service
+- Support for the Web Application Acceleration (WAA) service
+- Support for the Governance Rules service
+- Support for the OneSubscription service
+- Support for resource locking in the Identity service
+- Support for quota resource locking in the Limits service
+- Support for returning the backup with the requested changes in the MySQL Database service
+- Support for time zone in Cloud Autonomous VM (CAVM) clusters in the Database service
+- Support for configuration options in the Application Performance Monitoring service
+- Support for MySQL connections in the Database Tools service
+- Support for the Network Monitoring service
+- Support for specifying application scan settings when creating or updating host scan recipes in the Vulnerability Scanning service
+- Support for moving data into an autonomous data warehouse in the Operations Insights service
+- Support for shared infrastructure autonomous database character sets in the Database service
+- Support for data collection logging events on Exadata instances in the Database service
+- Support for specifying boot volume VPUs when launching instances from images in the Compute service
+- Support for safe-deleting nodes in the Container Engine for Kubernetes service
+- Support for backup policies returned as part of the database system list operation in the MySQL Database service
+- Support for DBCS databases in the Operations Insights service
+- Support for point-in-time recovery for non-highly-available database systems in the MySQL Database service
+- Support for triggering reboot migration on instances with pending maintenance in the Compute service
+- Support for native pod networking in the Container Engine for Kubernetes service
+- Support for creating Data Guard associations with new database systems in the Database service
+- Support for the Network Firewall service
+- Support for smaller and larger HeatWave cluster nodes in the MySQL Database service
+- Support for CSV file type datasets for text labeling and JSONL in the Data Labeling service
+- Support for diagnostics in the Database Management service
+
+### Breaking
+- Param `type` in model `DiscoveryDetails` assumes the value of `UNKNOWN_ENUM_VALUE` if it is assigned a value that is not of the allowed_values. It will not raise a `ValueError`.
+- Property `risk_score` is removed from model `Sighting` in the Cloud Guard service
+- `subscription_id` is a required parameter for operation `list_subscription_mappings` in the subscription client in Tenant Manager control plane service
+- The type of parameter `default_connection` was changed from `CreateConnectionFromBICC` to `CreateConnectionDetails` in the create_data_asset_from_fusion_app model in the Data Integration service
+- The type of parameter `default_connection` was changed from `ConnectionFromBICCDetails` to `ConnectionDetails` in the data_asset_from_fusion_app model in the Data Integration service
+- The type of parameter `default_connection` was changed from `ConnectionSummaryFromBICC` to `ConnectionSummary` in the data_asset_summary_from_fusion_app model in the Data Integration service
+- The type of parameter `output_ports` was changed from a list of oci.data_integration.models.OutputPort to oci.data_integration.models.TypedObject in the aggregator model in the Data Integration service
+- The property `specification` is now a required parameter for the deployment model in the API Gateway service
+- The property `specification` is now a required parameter for the create_deployment_details model in the API Gateway service
+- The models `DatabaseToolsAllowedNetworkSources`, `DatabaseToolsVirtualSource`, and `ServiceCapability` are removed from the Database Tools service
+- The property `SecretId` is made a required property in the `DatabaseToolsUserPasswordSecretIdDetails` model in the Database Tools service
+- Response type for operation `update_backup` is changed to `oci.mysql.models.Backup` from `None` in the `DbBackupsClient` of the MySQL service
+
+### Changed
+- Network security groups (NSGs) are now optional for autonomous databases on private endpoints in the Database service
+- Optimized the loading time, only the required modules are loaded for OCI Ruby SDK
+
 ## 2.17.0 - 2022-02-15
 ### Added
 - Support for calling Oracle Cloud Infrastructure services in the ap-dcc-canberra-1 region

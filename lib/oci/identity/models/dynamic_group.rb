@@ -14,7 +14,7 @@ module OCI
   #
   # This works like regular user/group membership. But in that case, the membership is a static relationship, whereas
   # in a dynamic group, the membership of an instance certificate to a dynamic group is determined during runtime.
-  # For more information, see [Managing Dynamic Groups](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingdynamicgroups.htm).
+  # For more information, see [Managing Dynamic Groups](https://docs.cloud.oracle.com/Content/Identity/dynamicgroups/managingdynamicgroups.htm).
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using
   # the API.
@@ -44,11 +44,14 @@ module OCI
     attr_accessor :name
 
     # **[Required]** The description you assign to the group. Does not have to be unique, and it's changeable.
+    #
+    # (For tenancies that support identity domains) You can have an empty description.
+    #
     # @return [String]
     attr_accessor :description
 
     # **[Required]** A rule string that defines which instance certificates will be matched.
-    # For syntax, see [Managing Dynamic Groups](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingdynamicgroups.htm).
+    # For syntax, see [Managing Dynamic Groups](https://docs.cloud.oracle.com/Content/Identity/dynamicgroups/managingdynamicgroups.htm).
     #
     # @return [String]
     attr_accessor :matching_rule

@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details about how to analyze an image.
+  # The details of how to analyze an image.
   class AiVision::Models::AnalyzeImageDetails
-    # **[Required]** Types of image analysis.
+    # **[Required]** The types of image analysis.
     # @return [Array<OCI::AiVision::Models::ImageFeature>]
     attr_accessor :features
 
@@ -15,7 +15,7 @@ module OCI
     # @return [OCI::AiVision::Models::ImageDetails]
     attr_accessor :image
 
-    # The ocid of the compartment that calls the API.
+    # The OCID of the compartment that calls the API.
     # @return [String]
     attr_accessor :compartment_id
 

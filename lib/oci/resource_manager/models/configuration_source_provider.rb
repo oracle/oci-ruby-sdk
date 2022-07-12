@@ -60,6 +60,9 @@ module OCI
     # @return [String]
     attr_reader :config_source_provider_type
 
+    # @return [OCI::ResourceManager::Models::PrivateServerConfigDetails]
+    attr_accessor :private_server_config_details
+
     # Free-form tags associated with this resource. Each tag is a key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Department\": \"Finance\"}`
@@ -85,6 +88,7 @@ module OCI
         'time_created': :'timeCreated',
         'lifecycle_state': :'lifecycleState',
         'config_source_provider_type': :'configSourceProviderType',
+        'private_server_config_details': :'privateServerConfigDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -102,6 +106,7 @@ module OCI
         'time_created': :'DateTime',
         'lifecycle_state': :'String',
         'config_source_provider_type': :'String',
+        'private_server_config_details': :'OCI::ResourceManager::Models::PrivateServerConfigDetails',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -137,6 +142,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :config_source_provider_type The value to assign to the {#config_source_provider_type} property
+    # @option attributes [OCI::ResourceManager::Models::PrivateServerConfigDetails] :private_server_config_details The value to assign to the {#private_server_config_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -178,6 +184,12 @@ module OCI
       raise 'You cannot provide both :configSourceProviderType and :config_source_provider_type' if attributes.key?(:'configSourceProviderType') && attributes.key?(:'config_source_provider_type')
 
       self.config_source_provider_type = attributes[:'config_source_provider_type'] if attributes[:'config_source_provider_type']
+
+      self.private_server_config_details = attributes[:'privateServerConfigDetails'] if attributes[:'privateServerConfigDetails']
+
+      raise 'You cannot provide both :privateServerConfigDetails and :private_server_config_details' if attributes.key?(:'privateServerConfigDetails') && attributes.key?(:'private_server_config_details')
+
+      self.private_server_config_details = attributes[:'private_server_config_details'] if attributes[:'private_server_config_details']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -236,6 +248,7 @@ module OCI
         time_created == other.time_created &&
         lifecycle_state == other.lifecycle_state &&
         config_source_provider_type == other.config_source_provider_type &&
+        private_server_config_details == other.private_server_config_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -253,7 +266,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, description, time_created, lifecycle_state, config_source_provider_type, freeform_tags, defined_tags].hash
+      [id, compartment_id, display_name, description, time_created, lifecycle_state, config_source_provider_type, private_server_config_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

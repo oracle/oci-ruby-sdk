@@ -6,7 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A IAM work request object that allows users to track Asynchronous API status.
+  # (For tenancies that support identity domains) An IAM work request object that allows users to track the status of asynchronous API requests.
+  #
   class Identity::Models::IamWorkRequest
     OPERATION_TYPE_ENUM = [
       OPERATION_TYPE_CREATE_DOMAIN = 'CREATE_DOMAIN'.freeze,
@@ -38,7 +39,7 @@ module OCI
     # @return [String]
     attr_reader :operation_type
 
-    # **[Required]** Status of the work request
+    # **[Required]** The status of the work request.
     # @return [String]
     attr_reader :status
 

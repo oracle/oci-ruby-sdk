@@ -65,6 +65,7 @@ module OCI
 
       return 'OCI::Devops::Models::UpdateGithubAccessTokenConnectionDetails' if type == 'GITHUB_ACCESS_TOKEN'
       return 'OCI::Devops::Models::UpdateGitlabAccessTokenConnectionDetails' if type == 'GITLAB_ACCESS_TOKEN'
+      return 'OCI::Devops::Models::UpdateBitbucketCloudAppPasswordConnectionDetails' if type == 'BITBUCKET_CLOUD_APP_PASSWORD'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::Devops::Models::UpdateConnectionDetails'

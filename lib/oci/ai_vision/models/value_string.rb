@@ -6,9 +6,9 @@ require_relative 'field_value'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # String field value.
+  # The string field value.
   class AiVision::Models::ValueString < AiVision::Models::FieldValue
-    # **[Required]** String text.
+    # **[Required]** The string text.
     # @return [String]
     attr_accessor :value
 

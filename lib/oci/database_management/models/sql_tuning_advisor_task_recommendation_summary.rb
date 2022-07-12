@@ -57,6 +57,10 @@ module OCI
     # @return [String]
     attr_accessor :implement_action_sql
 
+    # Indicates whether a SQL Profile recommendation uses parallel execution.
+    # @return [BOOLEAN]
+    attr_accessor :is_parallel_execution
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -69,7 +73,8 @@ module OCI
         'recommendation': :'recommendation',
         'rationale': :'rationale',
         'benefit': :'benefit',
-        'implement_action_sql': :'implementActionSql'
+        'implement_action_sql': :'implementActionSql',
+        'is_parallel_execution': :'isParallelExecution'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -86,7 +91,8 @@ module OCI
         'recommendation': :'String',
         'rationale': :'String',
         'benefit': :'Float',
-        'implement_action_sql': :'String'
+        'implement_action_sql': :'String',
+        'is_parallel_execution': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -106,6 +112,7 @@ module OCI
     # @option attributes [String] :rationale The value to assign to the {#rationale} property
     # @option attributes [Float] :benefit The value to assign to the {#benefit} property
     # @option attributes [String] :implement_action_sql The value to assign to the {#implement_action_sql} property
+    # @option attributes [BOOLEAN] :is_parallel_execution The value to assign to the {#is_parallel_execution} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -149,6 +156,12 @@ module OCI
       raise 'You cannot provide both :implementActionSql and :implement_action_sql' if attributes.key?(:'implementActionSql') && attributes.key?(:'implement_action_sql')
 
       self.implement_action_sql = attributes[:'implement_action_sql'] if attributes[:'implement_action_sql']
+
+      self.is_parallel_execution = attributes[:'isParallelExecution'] unless attributes[:'isParallelExecution'].nil?
+
+      raise 'You cannot provide both :isParallelExecution and :is_parallel_execution' if attributes.key?(:'isParallelExecution') && attributes.key?(:'is_parallel_execution')
+
+      self.is_parallel_execution = attributes[:'is_parallel_execution'] unless attributes[:'is_parallel_execution'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -183,7 +196,8 @@ module OCI
         recommendation == other.recommendation &&
         rationale == other.rationale &&
         benefit == other.benefit &&
-        implement_action_sql == other.implement_action_sql
+        implement_action_sql == other.implement_action_sql &&
+        is_parallel_execution == other.is_parallel_execution
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -199,7 +213,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [sql_tuning_advisor_task_id, sql_tuning_advisor_task_object_id, recommendation_key, recommendation_type, finding, recommendation, rationale, benefit, implement_action_sql].hash
+      [sql_tuning_advisor_task_id, sql_tuning_advisor_task_object_id, recommendation_key, recommendation_type, finding, recommendation, rationale, benefit, implement_action_sql, is_parallel_execution].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

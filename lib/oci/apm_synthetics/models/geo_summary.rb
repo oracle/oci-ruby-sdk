@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Geographic summary about a vantage point.
+  # Geographic summary of a vantage point.
   class ApmSynthetics::Models::GeoSummary
     # The ISO 3166-2 code for this location's first-level administrative division, either a US state or Canadian province.
     # Only included for locations in the US or Canada. For a list of codes, see Country Codes.

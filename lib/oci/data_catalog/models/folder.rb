@@ -131,6 +131,10 @@ module OCI
     # @return [String]
     attr_accessor :uri
 
+    # URL of the folder in the object store.
+    # @return [String]
+    attr_accessor :object_storage_url
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -156,7 +160,8 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'harvest_status': :'harvestStatus',
         'last_job_key': :'lastJobKey',
-        'uri': :'uri'
+        'uri': :'uri',
+        'object_storage_url': :'objectStorageUrl'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -186,7 +191,8 @@ module OCI
         'lifecycle_state': :'String',
         'harvest_status': :'String',
         'last_job_key': :'String',
-        'uri': :'String'
+        'uri': :'String',
+        'object_storage_url': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -219,6 +225,7 @@ module OCI
     # @option attributes [String] :harvest_status The value to assign to the {#harvest_status} property
     # @option attributes [String] :last_job_key The value to assign to the {#last_job_key} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
+    # @option attributes [String] :object_storage_url The value to assign to the {#object_storage_url} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -336,6 +343,12 @@ module OCI
       self.last_job_key = attributes[:'last_job_key'] if attributes[:'last_job_key']
 
       self.uri = attributes[:'uri'] if attributes[:'uri']
+
+      self.object_storage_url = attributes[:'objectStorageUrl'] if attributes[:'objectStorageUrl']
+
+      raise 'You cannot provide both :objectStorageUrl and :object_storage_url' if attributes.key?(:'objectStorageUrl') && attributes.key?(:'object_storage_url')
+
+      self.object_storage_url = attributes[:'object_storage_url'] if attributes[:'object_storage_url']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -396,7 +409,8 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         harvest_status == other.harvest_status &&
         last_job_key == other.last_job_key &&
-        uri == other.uri
+        uri == other.uri &&
+        object_storage_url == other.object_storage_url
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -412,7 +426,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, business_name, description, parent_folder_key, type_key, time_harvested, object_relationships, path, data_asset_key, custom_property_members, properties, external_key, time_created, time_updated, created_by_id, updated_by_id, time_external, lifecycle_state, harvest_status, last_job_key, uri].hash
+      [key, display_name, business_name, description, parent_folder_key, type_key, time_harvested, object_relationships, path, data_asset_key, custom_property_members, properties, external_key, time_created, time_updated, created_by_id, updated_by_id, time_external, lifecycle_state, harvest_status, last_job_key, uri, object_storage_url].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

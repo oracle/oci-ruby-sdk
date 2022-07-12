@@ -4,7 +4,13 @@
 module OCI
   module Marketplace::Models
     PRICING_CURRENCY_ENUM_ENUM = [
-      PRICING_CURRENCY_ENUM_USD = 'USD'.freeze
+      PRICING_CURRENCY_ENUM_USD = 'USD'.freeze,
+      PRICING_CURRENCY_ENUM_CAD = 'CAD'.freeze,
+      PRICING_CURRENCY_ENUM_INR = 'INR'.freeze,
+      PRICING_CURRENCY_ENUM_GBP = 'GBP'.freeze,
+      PRICING_CURRENCY_ENUM_BRL = 'BRL'.freeze,
+      PRICING_CURRENCY_ENUM_JPY = 'JPY'.freeze,
+      PRICING_CURRENCY_ENUM_OMR = 'OMR'.freeze
     ].freeze
   end
 end

@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Results of a workRequestLog search.
+  # The results of a workRequestLog search.
   class AiVision::Models::WorkRequestLogEntryCollection
-    # **[Required]** List of workRequestLogEntries.
+    # **[Required]** The list of workRequestLogEntries.
     # @return [Array<OCI::AiVision::Models::WorkRequestLogEntry>]
     attr_accessor :items
 

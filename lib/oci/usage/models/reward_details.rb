@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The overrall reward summary of the monthly summary rewards.
+  # The overall monthly reward summary.
   class Usage::Models::RewardDetails
     # The OCID of the target tenancy.
     # @return [String]
     attr_accessor :tenancy_id
 
-    # The entitlement id from MQS and it is same as subcription id.
+    # The entitlement ID from MQS, which is the same as the subcription ID.
     # @return [String]
     attr_accessor :subscription_id
 
@@ -23,9 +23,13 @@ module OCI
     # @return [Float]
     attr_accessor :rewards_rate
 
-    # The total number of available rewards for a given subscription Id.
+    # The total number of available rewards for a given subscription ID.
     # @return [Float]
     attr_accessor :total_rewards_available
+
+    # The redemption code used in the billing center during the reward redemption process
+    # @return [String]
+    attr_accessor :redemption_code
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -35,7 +39,8 @@ module OCI
         'subscription_id': :'subscriptionId',
         'currency': :'currency',
         'rewards_rate': :'rewardsRate',
-        'total_rewards_available': :'totalRewardsAvailable'
+        'total_rewards_available': :'totalRewardsAvailable',
+        'redemption_code': :'redemptionCode'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,7 +53,8 @@ module OCI
         'subscription_id': :'String',
         'currency': :'String',
         'rewards_rate': :'Float',
-        'total_rewards_available': :'Float'
+        'total_rewards_available': :'Float',
+        'redemption_code': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -64,6 +70,7 @@ module OCI
     # @option attributes [String] :currency The value to assign to the {#currency} property
     # @option attributes [Float] :rewards_rate The value to assign to the {#rewards_rate} property
     # @option attributes [Float] :total_rewards_available The value to assign to the {#total_rewards_available} property
+    # @option attributes [String] :redemption_code The value to assign to the {#redemption_code} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -95,6 +102,12 @@ module OCI
       raise 'You cannot provide both :totalRewardsAvailable and :total_rewards_available' if attributes.key?(:'totalRewardsAvailable') && attributes.key?(:'total_rewards_available')
 
       self.total_rewards_available = attributes[:'total_rewards_available'] if attributes[:'total_rewards_available']
+
+      self.redemption_code = attributes[:'redemptionCode'] if attributes[:'redemptionCode']
+
+      raise 'You cannot provide both :redemptionCode and :redemption_code' if attributes.key?(:'redemptionCode') && attributes.key?(:'redemption_code')
+
+      self.redemption_code = attributes[:'redemption_code'] if attributes[:'redemption_code']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -112,7 +125,8 @@ module OCI
         subscription_id == other.subscription_id &&
         currency == other.currency &&
         rewards_rate == other.rewards_rate &&
-        total_rewards_available == other.total_rewards_available
+        total_rewards_available == other.total_rewards_available &&
+        redemption_code == other.redemption_code
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -128,7 +142,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [tenancy_id, subscription_id, currency, rewards_rate, total_rewards_available].hash
+      [tenancy_id, subscription_id, currency, rewards_rate, total_rewards_available, redemption_code].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

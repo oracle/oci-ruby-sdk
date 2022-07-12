@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The location of the input(s).
+  # The location of the inputs.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class AiVision::Models::InputLocation
     SOURCE_TYPE_ENUM = [
@@ -14,8 +14,8 @@ module OCI
       SOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The type of input location
-    # Allowed values are:
+    # **[Required]** The type of input location.
+    # The allowed values are:
     # - `OBJECT_LIST_INLINE_INPUT_LOCATION`: A list of object locations in Object Storage.
     #
     # @return [String]

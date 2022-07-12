@@ -45,6 +45,11 @@ module OCI
     # @return [String]
     attr_accessor :vnic_id
 
+    # The IPv6 CIDR allocated to the subnet. This is required if more than one IPv6 CIDR exists on the subnet.
+    #
+    # @return [String]
+    attr_accessor :ipv6_subnet_cidr
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -53,7 +58,8 @@ module OCI
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'ip_address': :'ipAddress',
-        'vnic_id': :'vnicId'
+        'vnic_id': :'vnicId',
+        'ipv6_subnet_cidr': :'ipv6SubnetCidr'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -66,7 +72,8 @@ module OCI
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'ip_address': :'String',
-        'vnic_id': :'String'
+        'vnic_id': :'String',
+        'ipv6_subnet_cidr': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -82,6 +89,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :ip_address The value to assign to the {#ip_address} property
     # @option attributes [String] :vnic_id The value to assign to the {#vnic_id} property
+    # @option attributes [String] :ipv6_subnet_cidr The value to assign to the {#ipv6_subnet_cidr} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -117,6 +125,12 @@ module OCI
       raise 'You cannot provide both :vnicId and :vnic_id' if attributes.key?(:'vnicId') && attributes.key?(:'vnic_id')
 
       self.vnic_id = attributes[:'vnic_id'] if attributes[:'vnic_id']
+
+      self.ipv6_subnet_cidr = attributes[:'ipv6SubnetCidr'] if attributes[:'ipv6SubnetCidr']
+
+      raise 'You cannot provide both :ipv6SubnetCidr and :ipv6_subnet_cidr' if attributes.key?(:'ipv6SubnetCidr') && attributes.key?(:'ipv6_subnet_cidr')
+
+      self.ipv6_subnet_cidr = attributes[:'ipv6_subnet_cidr'] if attributes[:'ipv6_subnet_cidr']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -134,7 +148,8 @@ module OCI
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         ip_address == other.ip_address &&
-        vnic_id == other.vnic_id
+        vnic_id == other.vnic_id &&
+        ipv6_subnet_cidr == other.ipv6_subnet_cidr
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -150,7 +165,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, ip_address, vnic_id].hash
+      [defined_tags, display_name, freeform_tags, ip_address, vnic_id, ipv6_subnet_cidr].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

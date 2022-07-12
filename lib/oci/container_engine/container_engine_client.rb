@@ -443,6 +443,77 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Delete node.
+    # @param [String] node_pool_id The OCID of the node pool.
+    # @param [String] node_id The OCID of the compute instance.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :is_decrement_size If the nodepool should be scaled down after the node is deleted. (default to true)
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :override_eviction_grace_duration Duration after which OKE will give up eviction of the pods on the node.
+    #   PT0M will indicate you want to delete the node without cordon and drain. Default PT60M, Min PT0M, Max: PT60M. Format ISO 8601 e.g PT30M
+    #
+    # @option opts [BOOLEAN] :is_force_deletion_after_override_grace_duration If the underlying compute instance should be deleted if you cannot evict all the pods in grace period
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/delete_node.rb.html) to see an example of how to use delete_node API.
+    def delete_node(node_pool_id, node_id, opts = {})
+      logger.debug 'Calling operation ContainerEngineClient#delete_node.' if logger
+
+      raise "Missing the required parameter 'node_pool_id' when calling delete_node." if node_pool_id.nil?
+      raise "Missing the required parameter 'node_id' when calling delete_node." if node_id.nil?
+      raise "Parameter value for 'node_pool_id' must not be blank" if OCI::Internal::Util.blank_string?(node_pool_id)
+      raise "Parameter value for 'node_id' must not be blank" if OCI::Internal::Util.blank_string?(node_id)
+
+      path = '/nodePools/{nodePoolId}/node/{nodeId}'.sub('{nodePoolId}', node_pool_id.to_s).sub('{nodeId}', node_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:isDecrementSize] = opts[:is_decrement_size] if !opts[:is_decrement_size].nil?
+      query_params[:overrideEvictionGraceDuration] = opts[:override_eviction_grace_duration] if opts[:override_eviction_grace_duration]
+      query_params[:isForceDeletionAfterOverrideGraceDuration] = opts[:is_force_deletion_after_override_grace_duration] if !opts[:is_force_deletion_after_override_grace_duration].nil?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ContainerEngineClient#delete_node') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Delete a node pool.
     # @param [String] node_pool_id The OCID of the node pool.
     # @param [Hash] opts the optional parameters
@@ -455,6 +526,10 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
     #
+    # @option opts [String] :override_eviction_grace_duration Duration after which OKE will give up eviction of the pods on the node.
+    #   PT0M will indicate you want to delete the node without cordon and drain. Default PT60M, Min PT0M, Max: PT60M. Format ISO 8601 e.g PT30M
+    #
+    # @option opts [BOOLEAN] :is_force_deletion_after_override_grace_duration If the underlying compute instance should be deleted if you cannot evict all the pods in grace period
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/delete_node_pool.rb.html) to see an example of how to use delete_node_pool API.
     def delete_node_pool(node_pool_id, opts = {})
@@ -469,6 +544,8 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:overrideEvictionGraceDuration] = opts[:override_eviction_grace_duration] if opts[:override_eviction_grace_duration]
+      query_params[:isForceDeletionAfterOverrideGraceDuration] = opts[:is_force_deletion_after_override_grace_duration] if !opts[:is_force_deletion_after_override_grace_duration].nil?
 
       # Header Params
       header_params = {}
@@ -1016,6 +1093,8 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
     #
+    # @option opts [Array<String>] :lifecycle_state A list of nodepool lifecycle states on which to filter on, matching any of the list items (OR logic). eg. [ACTIVE, DELETING]
+    #   Allowed values are: DELETED, CREATING, ACTIVE, UPDATING, DELETING, FAILED, INACTIVE, NEEDS_ATTENTION
     # @return [Response] A Response object with data of type Array<{OCI::ContainerEngine::Models::NodePoolSummary NodePoolSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/list_node_pools.rb.html) to see an example of how to use list_node_pools API.
     def list_node_pools(compartment_id, opts = {})
@@ -1031,6 +1110,16 @@ module OCI
         raise 'Invalid value for "sort_by", must be one of ID, NAME, TIME_CREATED.'
       end
 
+
+      lifecycle_state_allowable_values = %w[DELETED CREATING ACTIVE UPDATING DELETING FAILED INACTIVE NEEDS_ATTENTION]
+      if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
+        opts[:lifecycle_state].each do |val_to_check|
+          unless lifecycle_state_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "lifecycle_state", must be one of DELETED, CREATING, ACTIVE, UPDATING, DELETING, FAILED, INACTIVE, NEEDS_ATTENTION.'
+          end
+        end
+      end
+
       path = '/nodePools'
       operation_signing_strategy = :standard
 
@@ -1044,6 +1133,7 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:lifecycleState] = OCI::ApiClient.build_collection_params(opts[:lifecycle_state], :multi) if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
 
       # Header Params
       header_params = {}
@@ -1424,6 +1514,10 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
     #
+    # @option opts [String] :override_eviction_grace_duration Duration after which OKE will give up eviction of the pods on the node.
+    #   PT0M will indicate you want to delete the node without cordon and drain. Default PT60M, Min PT0M, Max: PT60M. Format ISO 8601 e.g PT30M
+    #
+    # @option opts [BOOLEAN] :is_force_deletion_after_override_grace_duration If the underlying compute instance should be deleted if you cannot evict all the pods in grace period
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/containerengine/update_node_pool.rb.html) to see an example of how to use update_node_pool API.
     def update_node_pool(node_pool_id, update_node_pool_details, opts = {})
@@ -1439,6 +1533,8 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:overrideEvictionGraceDuration] = opts[:override_eviction_grace_duration] if opts[:override_eviction_grace_duration]
+      query_params[:isForceDeletionAfterOverrideGraceDuration] = opts[:is_force_deletion_after_override_grace_duration] if !opts[:is_force_deletion_after_override_grace_duration].nil?
 
       # Header Params
       header_params = {}

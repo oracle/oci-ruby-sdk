@@ -16,13 +16,17 @@ module OCI
     # @return [OCI::Devops::Models::DeployArtifactOverrideArgumentCollection]
     attr_accessor :artifact_override_parameters
 
+    # @return [OCI::Devops::Models::VulnerabilityAuditSummaryCollection]
+    attr_accessor :vulnerability_audit_summary_collection
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'exported_variables': :'exportedVariables',
         'delivered_artifacts': :'deliveredArtifacts',
-        'artifact_override_parameters': :'artifactOverrideParameters'
+        'artifact_override_parameters': :'artifactOverrideParameters',
+        'vulnerability_audit_summary_collection': :'vulnerabilityAuditSummaryCollection'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -33,7 +37,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'exported_variables': :'OCI::Devops::Models::ExportedVariableCollection',
         'delivered_artifacts': :'OCI::Devops::Models::DeliveredArtifactCollection',
-        'artifact_override_parameters': :'OCI::Devops::Models::DeployArtifactOverrideArgumentCollection'
+        'artifact_override_parameters': :'OCI::Devops::Models::DeployArtifactOverrideArgumentCollection',
+        'vulnerability_audit_summary_collection': :'OCI::Devops::Models::VulnerabilityAuditSummaryCollection'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -47,6 +52,7 @@ module OCI
     # @option attributes [OCI::Devops::Models::ExportedVariableCollection] :exported_variables The value to assign to the {#exported_variables} property
     # @option attributes [OCI::Devops::Models::DeliveredArtifactCollection] :delivered_artifacts The value to assign to the {#delivered_artifacts} property
     # @option attributes [OCI::Devops::Models::DeployArtifactOverrideArgumentCollection] :artifact_override_parameters The value to assign to the {#artifact_override_parameters} property
+    # @option attributes [OCI::Devops::Models::VulnerabilityAuditSummaryCollection] :vulnerability_audit_summary_collection The value to assign to the {#vulnerability_audit_summary_collection} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -70,6 +76,12 @@ module OCI
       raise 'You cannot provide both :artifactOverrideParameters and :artifact_override_parameters' if attributes.key?(:'artifactOverrideParameters') && attributes.key?(:'artifact_override_parameters')
 
       self.artifact_override_parameters = attributes[:'artifact_override_parameters'] if attributes[:'artifact_override_parameters']
+
+      self.vulnerability_audit_summary_collection = attributes[:'vulnerabilityAuditSummaryCollection'] if attributes[:'vulnerabilityAuditSummaryCollection']
+
+      raise 'You cannot provide both :vulnerabilityAuditSummaryCollection and :vulnerability_audit_summary_collection' if attributes.key?(:'vulnerabilityAuditSummaryCollection') && attributes.key?(:'vulnerability_audit_summary_collection')
+
+      self.vulnerability_audit_summary_collection = attributes[:'vulnerability_audit_summary_collection'] if attributes[:'vulnerability_audit_summary_collection']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -85,7 +97,8 @@ module OCI
       self.class == other.class &&
         exported_variables == other.exported_variables &&
         delivered_artifacts == other.delivered_artifacts &&
-        artifact_override_parameters == other.artifact_override_parameters
+        artifact_override_parameters == other.artifact_override_parameters &&
+        vulnerability_audit_summary_collection == other.vulnerability_audit_summary_collection
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -101,7 +114,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [exported_variables, delivered_artifacts, artifact_override_parameters].hash
+      [exported_variables, delivered_artifacts, artifact_override_parameters, vulnerability_audit_summary_collection].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

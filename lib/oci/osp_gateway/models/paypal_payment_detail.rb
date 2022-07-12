@@ -8,6 +8,14 @@ require_relative 'payment_detail'
 module OCI
   # PayPal Payment related details
   class OspGateway::Models::PaypalPaymentDetail < OspGateway::Models::PaymentDetail
+    # The id (email address) of the paypal payment
+    # @return [String]
+    attr_accessor :paypal_id
+
+    # paypal payment reference
+    # @return [String]
+    attr_accessor :paypal_reference
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -15,7 +23,9 @@ module OCI
         'time_paid_on': :'timePaidOn',
         'paid_by': :'paidBy',
         'payment_method': :'paymentMethod',
-        'amount_paid': :'amountPaid'
+        'amount_paid': :'amountPaid',
+        'paypal_id': :'paypalId',
+        'paypal_reference': :'paypalReference'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -27,7 +37,9 @@ module OCI
         'time_paid_on': :'DateTime',
         'paid_by': :'String',
         'payment_method': :'String',
-        'amount_paid': :'Float'
+        'amount_paid': :'Float',
+        'paypal_id': :'String',
+        'paypal_reference': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -41,12 +53,29 @@ module OCI
     # @option attributes [DateTime] :time_paid_on The value to assign to the {OCI::OspGateway::Models::PaymentDetail#time_paid_on #time_paid_on} proprety
     # @option attributes [String] :paid_by The value to assign to the {OCI::OspGateway::Models::PaymentDetail#paid_by #paid_by} proprety
     # @option attributes [Float] :amount_paid The value to assign to the {OCI::OspGateway::Models::PaymentDetail#amount_paid #amount_paid} proprety
+    # @option attributes [String] :paypal_id The value to assign to the {#paypal_id} property
+    # @option attributes [String] :paypal_reference The value to assign to the {#paypal_reference} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       attributes['paymentMethod'] = 'PAYPAL'
 
       super(attributes)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.paypal_id = attributes[:'paypalId'] if attributes[:'paypalId']
+
+      raise 'You cannot provide both :paypalId and :paypal_id' if attributes.key?(:'paypalId') && attributes.key?(:'paypal_id')
+
+      self.paypal_id = attributes[:'paypal_id'] if attributes[:'paypal_id']
+
+      self.paypal_reference = attributes[:'paypalReference'] if attributes[:'paypalReference']
+
+      raise 'You cannot provide both :paypalReference and :paypal_reference' if attributes.key?(:'paypalReference') && attributes.key?(:'paypal_reference')
+
+      self.paypal_reference = attributes[:'paypal_reference'] if attributes[:'paypal_reference']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -63,7 +92,9 @@ module OCI
         time_paid_on == other.time_paid_on &&
         paid_by == other.paid_by &&
         payment_method == other.payment_method &&
-        amount_paid == other.amount_paid
+        amount_paid == other.amount_paid &&
+        paypal_id == other.paypal_id &&
+        paypal_reference == other.paypal_reference
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -79,7 +110,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [time_paid_on, paid_by, payment_method, amount_paid].hash
+      [time_paid_on, paid_by, payment_method, amount_paid, paypal_id, paypal_reference].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

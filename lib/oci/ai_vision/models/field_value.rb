@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Value of a form field.
+  # The value of a form field.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class AiVision::Models::FieldValue
     VALUE_TYPE_ENUM = [
@@ -20,16 +20,16 @@ module OCI
       VALUE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Type of data detected.
+    # **[Required]** The type of data detected.
     #
     # @return [String]
     attr_reader :value_type
 
-    # Detected text of a field.
+    # The detected text of a field.
     # @return [String]
     attr_accessor :text
 
-    # **[Required]** Confidence score between 0 to 1.
+    # **[Required]** The confidence score between 0 and 1.
     # @return [Float]
     attr_accessor :confidence
 
@@ -37,7 +37,7 @@ module OCI
     # @return [OCI::AiVision::Models::BoundingPolygon]
     attr_accessor :bounding_polygon
 
-    # **[Required]** Indexes of the words in the field value.
+    # **[Required]** The indexes of the words in the field value.
     # @return [Array<Integer>]
     attr_accessor :word_indexes
 

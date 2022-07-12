@@ -46,7 +46,23 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The database name. The name must begin with an alphabetic character and can contain a maximum of 14 alphanumeric characters. Special characters are not permitted. The database name must be unique in the tenancy.
+    # The character set for the autonomous database.  The default is AL32UTF8. Allowed values for an Autonomous Database on shared infrastructure as as returned by [List Autonomous Database Character Sets](https://docs.cloud.oracle.com/autonomousDatabaseCharacterSets)
+    #
+    # For an Autonomous Database on dedicated infrastructure, the allowed values are:
+    #
+    # AL32UTF8, AR8ADOS710, AR8ADOS720, AR8APTEC715, AR8ARABICMACS, AR8ASMO8X, AR8ISO8859P6, AR8MSWIN1256, AR8MUSSAD768, AR8NAFITHA711, AR8NAFITHA721, AR8SAKHR706, AR8SAKHR707, AZ8ISO8859P9E, BG8MSWIN, BG8PC437S, BLT8CP921, BLT8ISO8859P13, BLT8MSWIN1257, BLT8PC775, BN8BSCII, CDN8PC863, CEL8ISO8859P14, CL8ISO8859P5, CL8ISOIR111, CL8KOI8R, CL8KOI8U, CL8MACCYRILLICS, CL8MSWIN1251, EE8ISO8859P2, EE8MACCES, EE8MACCROATIANS, EE8MSWIN1250, EE8PC852, EL8DEC, EL8ISO8859P7, EL8MACGREEKS, EL8MSWIN1253, EL8PC437S, EL8PC851, EL8PC869, ET8MSWIN923, HU8ABMOD, HU8CWI2, IN8ISCII, IS8PC861, IW8ISO8859P8, IW8MACHEBREWS, IW8MSWIN1255, IW8PC1507, JA16EUC, JA16EUCTILDE, JA16SJIS, JA16SJISTILDE, JA16VMS, KO16KSC5601, KO16KSCCS, KO16MSWIN949, LA8ISO6937, LA8PASSPORT, LT8MSWIN921, LT8PC772, LT8PC774, LV8PC1117, LV8PC8LR, LV8RST104090, N8PC865, NE8ISO8859P10, NEE8ISO8859P4, RU8BESTA, RU8PC855, RU8PC866, SE8ISO8859P3, TH8MACTHAIS, TH8TISASCII, TR8DEC, TR8MACTURKISHS, TR8MSWIN1254, TR8PC857, US7ASCII, US8PC437, UTF8, VN8MSWIN1258, VN8VN3, WE8DEC, WE8DG, WE8ISO8859P1, WE8ISO8859P15, WE8ISO8859P9, WE8MACROMAN8S, WE8MSWIN1252, WE8NCR4970, WE8NEXTSTEP, WE8PC850, WE8PC858, WE8PC860, WE8ROMAN8, ZHS16CGB231280, ZHS16GBK, ZHT16BIG5, ZHT16CCDC, ZHT16DBT, ZHT16HKSCS, ZHT16MSWIN950, ZHT32EUC, ZHT32SOPS, ZHT32TRIS
+    #
+    # @return [String]
+    attr_accessor :character_set
+
+    # The character set for the Autonomous Database.  The default is AL32UTF8. Use [List Autonomous Database Character Sets](https://docs.cloud.oracle.com/autonomousDatabaseCharacterSets) to list the allowed values for an Autonomous Database on shared Exadata infrastructure.
+    # For an Autonomous Database on dedicated Exadata infrastructure, the allowed values are:
+    # AL16UTF16 or UTF8.
+    #
+    # @return [String]
+    attr_accessor :ncharacter_set
+
+    # The database name. The name must begin with an alphabetic character and can contain a maximum of 14 alphanumeric characters. Special characters are not permitted. The database name must be unique in the tenancy.
     # @return [String]
     attr_accessor :db_name
 
@@ -109,7 +125,8 @@ module OCI
     # @return [String]
     attr_accessor :vault_id
 
-    # The password must be between 12 and 30 characters long, and must contain at least 1 uppercase, 1 lowercase, and 1 numeric character. It cannot contain the double quote symbol (\") or the username \"admin\", regardless of casing.
+    # **Important** The `adminPassword` must be specified for all Autonomous Databases except for refreshable clones. The password must be between 12 and 30 characters long, and must contain at least 1 uppercase, 1 lowercase, and 1 numeric character. It cannot contain the double quote symbol (\") or the username \"admin\", regardless of casing.
+    #
     # @return [String]
     attr_accessor :admin_password
 
@@ -190,11 +207,14 @@ module OCI
     # @return [Array<String>]
     attr_accessor :standby_whitelisted_ips
 
-    # Indicates whether the Autonomous Database has local (in-region) Data Guard enabled. Not applicable to cross-region Autonomous Data Guard associations, or to
-    # Autonomous Databases using dedicated Exadata infrastructure or Exadata Cloud@Customer infrastructure.
+    # **Deprecated.** Indicates whether the Autonomous Database has local (in-region) Data Guard enabled. Not applicable to cross-region Autonomous Data Guard associations, or to Autonomous Databases using dedicated Exadata infrastructure or Exadata Cloud@Customer infrastructure.
     #
     # @return [BOOLEAN]
     attr_accessor :is_data_guard_enabled
+
+    # Indicates whether the Autonomous Database has local (in-region) Data Guard enabled. Not applicable to cross-region Autonomous Data Guard associations, or to Autonomous Databases using dedicated Exadata infrastructure or Exadata Cloud@Customer infrastructure.
+    # @return [BOOLEAN]
+    attr_accessor :is_local_data_guard_enabled
 
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the subnet the resource is associated with.
     #
@@ -210,9 +230,9 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
-    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # The list of [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) for the network security groups (NSGs) to which this resource belongs. Setting this to an empty list removes all resources from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
     # **NsgIds restrictions:**
-    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
+    # - A network security group (NSG) is optional for Autonomous Databases with private access. The nsgIds list can be empty.
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
@@ -264,11 +284,28 @@ module OCI
     # @return [Array<OCI::Database::Models::ScheduledOperationDetails>]
     attr_accessor :scheduled_operations
 
+    # Indicates if auto scaling is enabled for the Autonomous Database storage. The default value is `FALSE`.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_auto_scaling_for_storage_enabled
+
+    # The number of Max OCPU cores to be made available to the autonomous database with auto scaling of cpu enabled.
+    #
+    # @return [Integer]
+    attr_accessor :max_cpu_core_count
+
+    # The Oracle Database Edition that applies to the Autonomous databases.
+    #
+    # @return [String]
+    attr_accessor :database_edition
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'compartmentId',
+        'character_set': :'characterSet',
+        'ncharacter_set': :'ncharacterSet',
         'db_name': :'dbName',
         'cpu_core_count': :'cpuCoreCount',
         'ocpu_count': :'ocpuCount',
@@ -290,6 +327,7 @@ module OCI
         'are_primary_whitelisted_ips_used': :'arePrimaryWhitelistedIpsUsed',
         'standby_whitelisted_ips': :'standbyWhitelistedIps',
         'is_data_guard_enabled': :'isDataGuardEnabled',
+        'is_local_data_guard_enabled': :'isLocalDataGuardEnabled',
         'subnet_id': :'subnetId',
         'nsg_ids': :'nsgIds',
         'private_endpoint_label': :'privateEndpointLabel',
@@ -300,7 +338,10 @@ module OCI
         'customer_contacts': :'customerContacts',
         'is_mtls_connection_required': :'isMtlsConnectionRequired',
         'autonomous_maintenance_schedule_type': :'autonomousMaintenanceScheduleType',
-        'scheduled_operations': :'scheduledOperations'
+        'scheduled_operations': :'scheduledOperations',
+        'is_auto_scaling_for_storage_enabled': :'isAutoScalingForStorageEnabled',
+        'max_cpu_core_count': :'maxCpuCoreCount',
+        'database_edition': :'databaseEdition'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -310,6 +351,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'String',
+        'character_set': :'String',
+        'ncharacter_set': :'String',
         'db_name': :'String',
         'cpu_core_count': :'Integer',
         'ocpu_count': :'Float',
@@ -331,6 +374,7 @@ module OCI
         'are_primary_whitelisted_ips_used': :'BOOLEAN',
         'standby_whitelisted_ips': :'Array<String>',
         'is_data_guard_enabled': :'BOOLEAN',
+        'is_local_data_guard_enabled': :'BOOLEAN',
         'subnet_id': :'String',
         'nsg_ids': :'Array<String>',
         'private_endpoint_label': :'String',
@@ -341,7 +385,10 @@ module OCI
         'customer_contacts': :'Array<OCI::Database::Models::CustomerContact>',
         'is_mtls_connection_required': :'BOOLEAN',
         'autonomous_maintenance_schedule_type': :'String',
-        'scheduled_operations': :'Array<OCI::Database::Models::ScheduledOperationDetails>'
+        'scheduled_operations': :'Array<OCI::Database::Models::ScheduledOperationDetails>',
+        'is_auto_scaling_for_storage_enabled': :'BOOLEAN',
+        'max_cpu_core_count': :'Integer',
+        'database_edition': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -373,6 +420,8 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :character_set The value to assign to the {#character_set} property
+    # @option attributes [String] :ncharacter_set The value to assign to the {#ncharacter_set} property
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
     # @option attributes [Float] :ocpu_count The value to assign to the {#ocpu_count} property
@@ -394,6 +443,7 @@ module OCI
     # @option attributes [BOOLEAN] :are_primary_whitelisted_ips_used The value to assign to the {#are_primary_whitelisted_ips_used} property
     # @option attributes [Array<String>] :standby_whitelisted_ips The value to assign to the {#standby_whitelisted_ips} property
     # @option attributes [BOOLEAN] :is_data_guard_enabled The value to assign to the {#is_data_guard_enabled} property
+    # @option attributes [BOOLEAN] :is_local_data_guard_enabled The value to assign to the {#is_local_data_guard_enabled} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [String] :private_endpoint_label The value to assign to the {#private_endpoint_label} property
@@ -405,6 +455,9 @@ module OCI
     # @option attributes [BOOLEAN] :is_mtls_connection_required The value to assign to the {#is_mtls_connection_required} property
     # @option attributes [String] :autonomous_maintenance_schedule_type The value to assign to the {#autonomous_maintenance_schedule_type} property
     # @option attributes [Array<OCI::Database::Models::ScheduledOperationDetails>] :scheduled_operations The value to assign to the {#scheduled_operations} property
+    # @option attributes [BOOLEAN] :is_auto_scaling_for_storage_enabled The value to assign to the {#is_auto_scaling_for_storage_enabled} property
+    # @option attributes [Integer] :max_cpu_core_count The value to assign to the {#max_cpu_core_count} property
+    # @option attributes [String] :database_edition The value to assign to the {#database_edition} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -416,6 +469,18 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.character_set = attributes[:'characterSet'] if attributes[:'characterSet']
+
+      raise 'You cannot provide both :characterSet and :character_set' if attributes.key?(:'characterSet') && attributes.key?(:'character_set')
+
+      self.character_set = attributes[:'character_set'] if attributes[:'character_set']
+
+      self.ncharacter_set = attributes[:'ncharacterSet'] if attributes[:'ncharacterSet']
+
+      raise 'You cannot provide both :ncharacterSet and :ncharacter_set' if attributes.key?(:'ncharacterSet') && attributes.key?(:'ncharacter_set')
+
+      self.ncharacter_set = attributes[:'ncharacter_set'] if attributes[:'ncharacter_set']
 
       self.db_name = attributes[:'dbName'] if attributes[:'dbName']
 
@@ -549,6 +614,12 @@ module OCI
 
       self.is_data_guard_enabled = attributes[:'is_data_guard_enabled'] unless attributes[:'is_data_guard_enabled'].nil?
 
+      self.is_local_data_guard_enabled = attributes[:'isLocalDataGuardEnabled'] unless attributes[:'isLocalDataGuardEnabled'].nil?
+
+      raise 'You cannot provide both :isLocalDataGuardEnabled and :is_local_data_guard_enabled' if attributes.key?(:'isLocalDataGuardEnabled') && attributes.key?(:'is_local_data_guard_enabled')
+
+      self.is_local_data_guard_enabled = attributes[:'is_local_data_guard_enabled'] unless attributes[:'is_local_data_guard_enabled'].nil?
+
       self.subnet_id = attributes[:'subnetId'] if attributes[:'subnetId']
 
       raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
@@ -613,6 +684,24 @@ module OCI
       raise 'You cannot provide both :scheduledOperations and :scheduled_operations' if attributes.key?(:'scheduledOperations') && attributes.key?(:'scheduled_operations')
 
       self.scheduled_operations = attributes[:'scheduled_operations'] if attributes[:'scheduled_operations']
+
+      self.is_auto_scaling_for_storage_enabled = attributes[:'isAutoScalingForStorageEnabled'] unless attributes[:'isAutoScalingForStorageEnabled'].nil?
+
+      raise 'You cannot provide both :isAutoScalingForStorageEnabled and :is_auto_scaling_for_storage_enabled' if attributes.key?(:'isAutoScalingForStorageEnabled') && attributes.key?(:'is_auto_scaling_for_storage_enabled')
+
+      self.is_auto_scaling_for_storage_enabled = attributes[:'is_auto_scaling_for_storage_enabled'] unless attributes[:'is_auto_scaling_for_storage_enabled'].nil?
+
+      self.max_cpu_core_count = attributes[:'maxCpuCoreCount'] if attributes[:'maxCpuCoreCount']
+
+      raise 'You cannot provide both :maxCpuCoreCount and :max_cpu_core_count' if attributes.key?(:'maxCpuCoreCount') && attributes.key?(:'max_cpu_core_count')
+
+      self.max_cpu_core_count = attributes[:'max_cpu_core_count'] if attributes[:'max_cpu_core_count']
+
+      self.database_edition = attributes[:'databaseEdition'] if attributes[:'databaseEdition']
+
+      raise 'You cannot provide both :databaseEdition and :database_edition' if attributes.key?(:'databaseEdition') && attributes.key?(:'database_edition')
+
+      self.database_edition = attributes[:'database_edition'] if attributes[:'database_edition']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -659,6 +748,8 @@ module OCI
 
       self.class == other.class &&
         compartment_id == other.compartment_id &&
+        character_set == other.character_set &&
+        ncharacter_set == other.ncharacter_set &&
         db_name == other.db_name &&
         cpu_core_count == other.cpu_core_count &&
         ocpu_count == other.ocpu_count &&
@@ -680,6 +771,7 @@ module OCI
         are_primary_whitelisted_ips_used == other.are_primary_whitelisted_ips_used &&
         standby_whitelisted_ips == other.standby_whitelisted_ips &&
         is_data_guard_enabled == other.is_data_guard_enabled &&
+        is_local_data_guard_enabled == other.is_local_data_guard_enabled &&
         subnet_id == other.subnet_id &&
         nsg_ids == other.nsg_ids &&
         private_endpoint_label == other.private_endpoint_label &&
@@ -690,7 +782,10 @@ module OCI
         customer_contacts == other.customer_contacts &&
         is_mtls_connection_required == other.is_mtls_connection_required &&
         autonomous_maintenance_schedule_type == other.autonomous_maintenance_schedule_type &&
-        scheduled_operations == other.scheduled_operations
+        scheduled_operations == other.scheduled_operations &&
+        is_auto_scaling_for_storage_enabled == other.is_auto_scaling_for_storage_enabled &&
+        max_cpu_core_count == other.max_cpu_core_count &&
+        database_edition == other.database_edition
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -706,7 +801,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, ocpu_count, db_workload, data_storage_size_in_tbs, data_storage_size_in_gbs, is_free_tier, kms_key_id, vault_id, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, customer_contacts, is_mtls_connection_required, autonomous_maintenance_schedule_type, scheduled_operations].hash
+      [compartment_id, character_set, ncharacter_set, db_name, cpu_core_count, ocpu_count, db_workload, data_storage_size_in_tbs, data_storage_size_in_gbs, is_free_tier, kms_key_id, vault_id, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, is_local_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, customer_contacts, is_mtls_connection_required, autonomous_maintenance_schedule_type, scheduled_operations, is_auto_scaling_for_storage_enabled, max_cpu_core_count, database_edition].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

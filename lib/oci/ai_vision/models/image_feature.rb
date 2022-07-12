@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Type of image analysis.
+  # The type of image analysis.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class AiVision::Models::ImageFeature
     FEATURE_TYPE_ENUM = [
@@ -16,8 +16,8 @@ module OCI
       FEATURE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Type of image analysis requested.
-    # Allowed values are:
+    # **[Required]** The type of image analysis requested.
+    # The allowed values are:
     # - `IMAGE_CLASSIFICATION`: Label the image.
     # - `OBJECT_DETECTION`: Identify objects in the image with bounding boxes.
     # - `TEXT_DETECTION`: Recognize text in the image.

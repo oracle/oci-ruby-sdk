@@ -7,15 +7,15 @@ require 'date'
 module OCI
   # A location in Object Storage that is uniquely identified by namespace name, bucket name and object name.
   class AiVision::Models::ObjectLocation
-    # **[Required]** Object Storage namespace name.
+    # **[Required]** The Object Storage namespace name.
     # @return [String]
     attr_accessor :namespace_name
 
-    # **[Required]** Object Storage bucket name.
+    # **[Required]** The Object Storage bucket name.
     # @return [String]
     attr_accessor :bucket_name
 
-    # **[Required]** Object Storage object name.
+    # **[Required]** The Object Storage object name.
     # @return [String]
     attr_accessor :object_name
 

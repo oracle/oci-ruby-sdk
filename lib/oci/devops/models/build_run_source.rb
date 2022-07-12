@@ -13,6 +13,7 @@ module OCI
       SOURCE_TYPE_MANUAL = 'MANUAL'.freeze,
       SOURCE_TYPE_GITHUB = 'GITHUB'.freeze,
       SOURCE_TYPE_GITLAB = 'GITLAB'.freeze,
+      SOURCE_TYPE_BITBUCKET_CLOUD = 'BITBUCKET_CLOUD'.freeze,
       SOURCE_TYPE_DEVOPS_CODE_REPOSITORY = 'DEVOPS_CODE_REPOSITORY'.freeze,
       SOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
@@ -50,6 +51,7 @@ module OCI
       return 'OCI::Devops::Models::GithubBuildRunSource' if type == 'GITHUB'
       return 'OCI::Devops::Models::DevopsCodeRepositoryBuildRunSource' if type == 'DEVOPS_CODE_REPOSITORY'
       return 'OCI::Devops::Models::ManualBuildRunSource' if type == 'MANUAL'
+      return 'OCI::Devops::Models::BitbucketCloudBuildRunSource' if type == 'BITBUCKET_CLOUD'
       return 'OCI::Devops::Models::GitlabBuildRunSource' if type == 'GITLAB'
 
       # TODO: Log a warning when the subtype is not found.

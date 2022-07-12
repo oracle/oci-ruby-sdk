@@ -13,6 +13,7 @@ module OCI
       VALUES_COMPARTMENT = 'COMPARTMENT'.freeze,
       VALUES_ERPCLOUD = 'ERPCLOUD'.freeze,
       VALUES_HCMCLOUD = 'HCMCLOUD'.freeze,
+      VALUES_SECURITY_ZONE = 'SECURITY_ZONE'.freeze,
       VALUES_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 

@@ -6,7 +6,7 @@ require_relative 'validate_database_tools_connection_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Connection validation details for Oracle Database.
+  # Connection validation details for the Oracle Database.
   class DatabaseTools::Models::ValidateDatabaseToolsConnectionOracleDatabaseDetails < DatabaseTools::Models::ValidateDatabaseToolsConnectionDetails
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map

@@ -41,7 +41,7 @@ module OCI
     attr_accessor :defined_tags
 
     # Whether the tag is retired.
-    # See [Retiring Key Definitions and Namespace Definitions](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm#Retiring).
+    # See [Retiring Key Definitions and Namespace Definitions](https://docs.cloud.oracle.com/Content/Tagging/Tasks/managingtagsandtagnamespaces.htm#retiringkeys).
     #
     # @return [BOOLEAN]
     attr_accessor :is_retired

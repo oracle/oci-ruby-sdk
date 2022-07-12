@@ -5,7 +5,8 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # An error encountered while executing an operation that is tracked by a IAM work request.
+  # (For tenancies that support identity domains) An error encountered while executing an operation that is tracked by a IAM work request.
+  #
   class Identity::Models::IamWorkRequestErrorSummary
     # **[Required]** A machine-usable code for the error that occured.
     # @return [String]

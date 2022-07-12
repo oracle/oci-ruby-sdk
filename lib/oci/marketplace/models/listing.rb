@@ -8,6 +8,12 @@ require 'logger'
 module OCI
   # The model for an Oracle Cloud Infrastructure Marketplace listing.
   class Marketplace::Models::Listing
+    COMPATIBLE_ARCHITECTURES_ENUM = [
+      COMPATIBLE_ARCHITECTURES_X86 = 'X86'.freeze,
+      COMPATIBLE_ARCHITECTURES_ARM = 'ARM'.freeze,
+      COMPATIBLE_ARCHITECTURES_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     PACKAGE_TYPE_ENUM = [
       PACKAGE_TYPE_ORCHESTRATION = 'ORCHESTRATION'.freeze,
       PACKAGE_TYPE_IMAGE = 'IMAGE'.freeze,
@@ -106,6 +112,10 @@ module OCI
     # @return [OCI::Marketplace::Models::UploadData]
     attr_accessor :banner
 
+    # The list of compatible architectures supported by the listing
+    # @return [Array<String>]
+    attr_reader :compatible_architectures
+
     # The regions where you can deploy the listing. (Some listings have restrictions that limit their deployment to United States regions only.)
     #
     # @return [Array<OCI::Marketplace::Models::Region>]
@@ -161,6 +171,7 @@ module OCI
         'documentation_links': :'documentationLinks',
         'icon': :'icon',
         'banner': :'banner',
+        'compatible_architectures': :'compatibleArchitectures',
         'regions': :'regions',
         'package_type': :'packageType',
         'default_package_version': :'defaultPackageVersion',
@@ -198,6 +209,7 @@ module OCI
         'documentation_links': :'Array<OCI::Marketplace::Models::DocumentationLink>',
         'icon': :'OCI::Marketplace::Models::UploadData',
         'banner': :'OCI::Marketplace::Models::UploadData',
+        'compatible_architectures': :'Array<String>',
         'regions': :'Array<OCI::Marketplace::Models::Region>',
         'package_type': :'String',
         'default_package_version': :'String',
@@ -237,6 +249,7 @@ module OCI
     # @option attributes [Array<OCI::Marketplace::Models::DocumentationLink>] :documentation_links The value to assign to the {#documentation_links} property
     # @option attributes [OCI::Marketplace::Models::UploadData] :icon The value to assign to the {#icon} property
     # @option attributes [OCI::Marketplace::Models::UploadData] :banner The value to assign to the {#banner} property
+    # @option attributes [Array<String>] :compatible_architectures The value to assign to the {#compatible_architectures} property
     # @option attributes [Array<OCI::Marketplace::Models::Region>] :regions The value to assign to the {#regions} property
     # @option attributes [String] :package_type The value to assign to the {#package_type} property
     # @option attributes [String] :default_package_version The value to assign to the {#default_package_version} property
@@ -334,6 +347,12 @@ module OCI
 
       self.banner = attributes[:'banner'] if attributes[:'banner']
 
+      self.compatible_architectures = attributes[:'compatibleArchitectures'] if attributes[:'compatibleArchitectures']
+
+      raise 'You cannot provide both :compatibleArchitectures and :compatible_architectures' if attributes.key?(:'compatibleArchitectures') && attributes.key?(:'compatible_architectures')
+
+      self.compatible_architectures = attributes[:'compatible_architectures'] if attributes[:'compatible_architectures']
+
       self.regions = attributes[:'regions'] if attributes[:'regions']
 
       self.package_type = attributes[:'packageType'] if attributes[:'packageType']
@@ -370,6 +389,26 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] compatible_architectures Object to be assigned
+    def compatible_architectures=(compatible_architectures)
+      # rubocop:disable Style/ConditionalAssignment
+      if compatible_architectures.nil?
+        @compatible_architectures = nil
+      else
+        @compatible_architectures =
+          compatible_architectures.collect do |item|
+            if COMPATIBLE_ARCHITECTURES_ENUM.include?(item)
+              item
+            else
+              OCI.logger.debug("Unknown value for 'compatible_architectures' [#{item}]. Mapping to 'COMPATIBLE_ARCHITECTURES_UNKNOWN_ENUM_VALUE'") if OCI.logger
+              COMPATIBLE_ARCHITECTURES_UNKNOWN_ENUM_VALUE
+            end
+          end
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] package_type Object to be assigned
@@ -428,6 +467,7 @@ module OCI
         documentation_links == other.documentation_links &&
         icon == other.icon &&
         banner == other.banner &&
+        compatible_architectures == other.compatible_architectures &&
         regions == other.regions &&
         package_type == other.package_type &&
         default_package_version == other.default_package_version &&
@@ -450,7 +490,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, version, tagline, keywords, short_description, usage_information, long_description, license_model_description, system_requirements, time_released, release_notes, categories, publisher, languages, screenshots, videos, support_contacts, support_links, documentation_links, icon, banner, regions, package_type, default_package_version, links, is_featured, listing_type, supported_operating_systems].hash
+      [id, name, version, tagline, keywords, short_description, usage_information, long_description, license_model_description, system_requirements, time_released, release_notes, categories, publisher, languages, screenshots, videos, support_contacts, support_links, documentation_links, icon, banner, compatible_architectures, regions, package_type, default_package_version, links, is_featured, listing_type, supported_operating_systems].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

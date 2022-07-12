@@ -12,7 +12,7 @@ module OCI
     # @return [String]
     attr_accessor :service_url
 
-    # @return [OCI::DataIntegration::Models::ConnectionFromBICCDetails]
+    # @return [OCI::DataIntegration::Models::ConnectionDetails]
     attr_accessor :default_connection
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -58,7 +58,7 @@ module OCI
         'metadata': :'OCI::DataIntegration::Models::ObjectMetadata',
         'key_map': :'Hash<String, String>',
         'service_url': :'String',
-        'default_connection': :'OCI::DataIntegration::Models::ConnectionFromBICCDetails'
+        'default_connection': :'OCI::DataIntegration::Models::ConnectionDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -83,7 +83,7 @@ module OCI
     # @option attributes [OCI::DataIntegration::Models::ObjectMetadata] :metadata The value to assign to the {OCI::DataIntegration::Models::DataAsset#metadata #metadata} proprety
     # @option attributes [Hash<String, String>] :key_map The value to assign to the {OCI::DataIntegration::Models::DataAsset#key_map #key_map} proprety
     # @option attributes [String] :service_url The value to assign to the {#service_url} property
-    # @option attributes [OCI::DataIntegration::Models::ConnectionFromBICCDetails] :default_connection The value to assign to the {#default_connection} property
+    # @option attributes [OCI::DataIntegration::Models::ConnectionDetails] :default_connection The value to assign to the {#default_connection} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 

@@ -16,7 +16,7 @@ module OCI
     # @return [String]
     attr_reader :type
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network attached to the DRG.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the network attached to the DRG.
     #
     # @return [String]
     attr_accessor :id

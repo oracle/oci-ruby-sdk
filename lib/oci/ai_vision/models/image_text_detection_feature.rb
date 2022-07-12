@@ -7,7 +7,7 @@ require_relative 'image_feature'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Text detection parameters.
+  # The text detection parameters.
   class AiVision::Models::ImageTextDetectionFeature < AiVision::Models::ImageFeature
     LANGUAGE_ENUM = [
       LANGUAGE_ENG = 'ENG'.freeze,
@@ -38,7 +38,7 @@ module OCI
       LANGUAGE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # Language of the document image, abbreviated according to ISO 639-2.
+    # The language of the document image, abbreviated according to ISO 639-2.
     # @return [String]
     attr_reader :language
 

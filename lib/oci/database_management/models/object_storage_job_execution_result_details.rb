@@ -22,7 +22,7 @@ module OCI
     # @return [String]
     attr_accessor :object_name
 
-    # The number of rows returned in the result. Only applicable for QUERY SqlType.
+    # The number of rows returned in the result for the Query SqlType.
     # @return [Integer]
     attr_accessor :row_count
 

@@ -33,7 +33,7 @@ module OCI
     # @return [String]
     attr_accessor :identifier
 
-    # The URI path that the user can do a GET on to access the resource metadata
+    # The URI path that the user can use for a GET operation to access the resource metadata.
     # @return [String]
     attr_accessor :entity_uri
 

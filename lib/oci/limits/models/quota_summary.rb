@@ -40,6 +40,10 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # Locks associated with this resource.
+    # @return [Array<OCI::Limits::Models::ResourceLock>]
+    attr_accessor :locks
+
     # The quota's current state. After creating a quota, make sure its `lifecycleState` is set to
     # ACTIVE before using it.
     #
@@ -69,6 +73,7 @@ module OCI
         'name': :'name',
         'description': :'description',
         'time_created': :'timeCreated',
+        'locks': :'locks',
         'lifecycle_state': :'lifecycleState',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
@@ -85,6 +90,7 @@ module OCI
         'name': :'String',
         'description': :'String',
         'time_created': :'DateTime',
+        'locks': :'Array<OCI::Limits::Models::ResourceLock>',
         'lifecycle_state': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
@@ -103,6 +109,7 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [Array<OCI::Limits::Models::ResourceLock>] :locks The value to assign to the {#locks} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -129,6 +136,8 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.locks = attributes[:'locks'] if attributes[:'locks']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -178,6 +187,7 @@ module OCI
         name == other.name &&
         description == other.description &&
         time_created == other.time_created &&
+        locks == other.locks &&
         lifecycle_state == other.lifecycle_state &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
@@ -196,7 +206,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, time_created, lifecycle_state, freeform_tags, defined_tags].hash
+      [id, compartment_id, name, description, time_created, locks, lifecycle_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

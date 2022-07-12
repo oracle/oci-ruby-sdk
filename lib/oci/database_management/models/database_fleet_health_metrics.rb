@@ -11,6 +11,7 @@ module OCI
     COMPARE_TYPE_ENUM = [
       COMPARE_TYPE_HOUR = 'HOUR'.freeze,
       COMPARE_TYPE_DAY = 'DAY'.freeze,
+      COMPARE_TYPE_WEEK = 'WEEK'.freeze,
       COMPARE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 

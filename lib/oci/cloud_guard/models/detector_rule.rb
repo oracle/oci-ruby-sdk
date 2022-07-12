@@ -11,6 +11,7 @@ module OCI
     DETECTOR_ENUM = [
       DETECTOR_IAAS_ACTIVITY_DETECTOR = 'IAAS_ACTIVITY_DETECTOR'.freeze,
       DETECTOR_IAAS_CONFIGURATION_DETECTOR = 'IAAS_CONFIGURATION_DETECTOR'.freeze,
+      DETECTOR_IAAS_THREAT_DETECTOR = 'IAAS_THREAT_DETECTOR'.freeze,
       DETECTOR_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -41,15 +42,15 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The unique identifier of the detector rule
+    # **[Required]** The unique identifier of the detector rule.
     # @return [String]
     attr_accessor :id
 
-    # displayName
+    # Display name for DetectorRule.
     # @return [String]
     attr_accessor :display_name
 
-    # description for DetectorRule
+    # Description for DetectorRule.
     # @return [String]
     attr_accessor :description
 

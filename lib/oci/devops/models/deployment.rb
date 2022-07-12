@@ -13,6 +13,7 @@ module OCI
       DEPLOYMENT_TYPE_PIPELINE_DEPLOYMENT = 'PIPELINE_DEPLOYMENT'.freeze,
       DEPLOYMENT_TYPE_PIPELINE_REDEPLOYMENT = 'PIPELINE_REDEPLOYMENT'.freeze,
       DEPLOYMENT_TYPE_SINGLE_STAGE_DEPLOYMENT = 'SINGLE_STAGE_DEPLOYMENT'.freeze,
+      DEPLOYMENT_TYPE_SINGLE_STAGE_REDEPLOYMENT = 'SINGLE_STAGE_REDEPLOYMENT'.freeze,
       DEPLOYMENT_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -32,7 +33,7 @@ module OCI
     # @return [OCI::Devops::Models::DeployPipelineEnvironmentCollection]
     attr_accessor :deploy_pipeline_environments
 
-    # **[Required]** Specifies type of Deployment
+    # **[Required]** Specifies type of deployment.
     # @return [String]
     attr_reader :deployment_type
 
@@ -153,6 +154,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'deploymentType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::Devops::Models::SingleDeployStageRedeployment' if type == 'SINGLE_STAGE_REDEPLOYMENT'
       return 'OCI::Devops::Models::DeployPipelineDeployment' if type == 'PIPELINE_DEPLOYMENT'
       return 'OCI::Devops::Models::DeployPipelineRedeployment' if type == 'PIPELINE_REDEPLOYMENT'
       return 'OCI::Devops::Models::SingleDeployStageDeployment' if type == 'SINGLE_STAGE_DEPLOYMENT'

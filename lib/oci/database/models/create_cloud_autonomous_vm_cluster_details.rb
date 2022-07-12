@@ -34,6 +34,10 @@ module OCI
     # @return [String]
     attr_accessor :cloud_exadata_infrastructure_id
 
+    # The time zone to use for the Cloud Autonomous VM cluster. For details, see [DB System Time Zones](https://docs.cloud.oracle.com/Content/Database/References/timezones.htm).
+    # @return [String]
+    attr_accessor :cluster_time_zone
+
     # The Oracle license model that applies to the Oracle Autonomous Database. Bring your own license (BYOL) allows you to apply your current on-premises Oracle software licenses to equivalent, highly automated Oracle PaaS and IaaS services in the cloud.
     # License Included allows you to subscribe to new Oracle Database software licenses and the Database service.
     # Note that when provisioning an Autonomous Database on [dedicated Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html), this attribute must be null because the attribute is already set at the
@@ -42,9 +46,9 @@ module OCI
     # @return [String]
     attr_reader :license_model
 
-    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # The list of [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) for the network security groups (NSGs) to which this resource belongs. Setting this to an empty list removes all resources from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
     # **NsgIds restrictions:**
-    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
+    # - A network security group (NSG) is optional for Autonomous Databases with private access. The nsgIds list can be empty.
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
@@ -72,6 +76,7 @@ module OCI
         'subnet_id': :'subnetId',
         'display_name': :'displayName',
         'cloud_exadata_infrastructure_id': :'cloudExadataInfrastructureId',
+        'cluster_time_zone': :'clusterTimeZone',
         'license_model': :'licenseModel',
         'nsg_ids': :'nsgIds',
         'freeform_tags': :'freeformTags',
@@ -89,6 +94,7 @@ module OCI
         'subnet_id': :'String',
         'display_name': :'String',
         'cloud_exadata_infrastructure_id': :'String',
+        'cluster_time_zone': :'String',
         'license_model': :'String',
         'nsg_ids': :'Array<String>',
         'freeform_tags': :'Hash<String, String>',
@@ -108,6 +114,7 @@ module OCI
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :cloud_exadata_infrastructure_id The value to assign to the {#cloud_exadata_infrastructure_id} property
+    # @option attributes [String] :cluster_time_zone The value to assign to the {#cluster_time_zone} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -143,6 +150,14 @@ module OCI
       raise 'You cannot provide both :cloudExadataInfrastructureId and :cloud_exadata_infrastructure_id' if attributes.key?(:'cloudExadataInfrastructureId') && attributes.key?(:'cloud_exadata_infrastructure_id')
 
       self.cloud_exadata_infrastructure_id = attributes[:'cloud_exadata_infrastructure_id'] if attributes[:'cloud_exadata_infrastructure_id']
+
+      self.cluster_time_zone = attributes[:'clusterTimeZone'] if attributes[:'clusterTimeZone']
+      self.cluster_time_zone = "Etc/UTC" if cluster_time_zone.nil? && !attributes.key?(:'clusterTimeZone') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :clusterTimeZone and :cluster_time_zone' if attributes.key?(:'clusterTimeZone') && attributes.key?(:'cluster_time_zone')
+
+      self.cluster_time_zone = attributes[:'cluster_time_zone'] if attributes[:'cluster_time_zone']
+      self.cluster_time_zone = "Etc/UTC" if cluster_time_zone.nil? && !attributes.key?(:'clusterTimeZone') && !attributes.key?(:'cluster_time_zone') # rubocop:disable Style/StringLiterals
 
       self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
 
@@ -193,6 +208,7 @@ module OCI
         subnet_id == other.subnet_id &&
         display_name == other.display_name &&
         cloud_exadata_infrastructure_id == other.cloud_exadata_infrastructure_id &&
+        cluster_time_zone == other.cluster_time_zone &&
         license_model == other.license_model &&
         nsg_ids == other.nsg_ids &&
         freeform_tags == other.freeform_tags &&
@@ -212,7 +228,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, description, subnet_id, display_name, cloud_exadata_infrastructure_id, license_model, nsg_ids, freeform_tags, defined_tags].hash
+      [compartment_id, description, subnet_id, display_name, cloud_exadata_infrastructure_id, cluster_time_zone, license_model, nsg_ids, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

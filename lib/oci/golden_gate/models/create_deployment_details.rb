@@ -84,8 +84,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_auto_scaling_enabled
 
-    # **[Required]** The type of deployment, the value determines the exact 'type' of service executed in the Deployment. NOTE: Use of the value OGG is maintained for backward compatibility purposes.  Its use is discouraged
-    #       in favor of the equivalent DATABASE_ORACLE value.
+    # **[Required]** The deployment type.
     #
     # @return [String]
     attr_reader :deployment_type

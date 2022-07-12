@@ -12,7 +12,8 @@ module OCI
     METRIC_NAME_ENUM = [
       METRIC_NAME_HOST_CPU_USAGE = 'HOST_CPU_USAGE'.freeze,
       METRIC_NAME_HOST_MEMORY_USAGE = 'HOST_MEMORY_USAGE'.freeze,
-      METRIC_NAME_HOST_NETWORK_ACTIVITY_SUMMARY = 'HOST_NETWORK_ACTIVITY_SUMMARY'.freeze
+      METRIC_NAME_HOST_NETWORK_ACTIVITY_SUMMARY = 'HOST_NETWORK_ACTIVITY_SUMMARY'.freeze,
+      METRIC_NAME_HOST_TOP_PROCESSES = 'HOST_TOP_PROCESSES'.freeze
     ].freeze
 
     # **[Required]** Name of the metric group
@@ -55,6 +56,7 @@ module OCI
       type = object_hash[:'metricName'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Opsi::Models::HostMemoryUsage' if type == 'HOST_MEMORY_USAGE'
+      return 'OCI::Opsi::Models::HostTopProcesses' if type == 'HOST_TOP_PROCESSES'
       return 'OCI::Opsi::Models::HostCpuUsage' if type == 'HOST_CPU_USAGE'
       return 'OCI::Opsi::Models::HostNetworkActivitySummary' if type == 'HOST_NETWORK_ACTIVITY_SUMMARY'
 

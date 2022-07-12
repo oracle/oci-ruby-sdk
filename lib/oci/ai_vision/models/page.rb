@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # One page document analysis result.
   class AiVision::Models::Page
-    # **[Required]** Document page number.
+    # **[Required]** The document page number.
     # @return [Integer]
     attr_accessor :page_number
 
@@ -22,19 +22,19 @@ module OCI
     # @return [Array<OCI::AiVision::Models::DetectedLanguage>]
     attr_accessor :detected_languages
 
-    # Words detected on the page.
+    # The words detected on the page.
     # @return [Array<OCI::AiVision::Models::Word>]
     attr_accessor :words
 
-    # Text lines detected on the page.
+    # The lines of text detected on the page.
     # @return [Array<OCI::AiVision::Models::Line>]
     attr_accessor :lines
 
-    # Tables detected on the page.
+    # The tables detected on the page.
     # @return [Array<OCI::AiVision::Models::Table>]
     attr_accessor :tables
 
-    # Form fields detected on the page.
+    # The form fields detected on the page.
     # @return [Array<OCI::AiVision::Models::DocumentField>]
     attr_accessor :document_fields
 

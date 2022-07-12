@@ -6,9 +6,9 @@ require_relative 'field_value'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Date field value.
+  # The date field value.
   class AiVision::Models::ValueDate < AiVision::Models::FieldValue
-    # **[Required]** Date field value as yyyy-mm-dd.
+    # **[Required]** The date field value as yyyy-mm-dd.
     # @return [DateTime]
     attr_accessor :value
 

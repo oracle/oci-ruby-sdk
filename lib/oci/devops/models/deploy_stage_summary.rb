@@ -121,13 +121,24 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'deployStageType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::Devops::Models::ComputeInstanceGroupBlueGreenDeployStageSummary' if type == 'COMPUTE_INSTANCE_GROUP_BLUE_GREEN_DEPLOYMENT'
+      return 'OCI::Devops::Models::ComputeInstanceGroupBlueGreenTrafficShiftDeployStageSummary' if type == 'COMPUTE_INSTANCE_GROUP_BLUE_GREEN_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::OkeBlueGreenDeployStageSummary' if type == 'OKE_BLUE_GREEN_DEPLOYMENT'
       return 'OCI::Devops::Models::WaitDeployStageSummary' if type == 'WAIT'
-      return 'OCI::Devops::Models::ComputeInstanceGroupDeployStageSummary' if type == 'COMPUTE_INSTANCE_GROUP_ROLLING_DEPLOYMENT'
       return 'OCI::Devops::Models::OkeDeployStageSummary' if type == 'OKE_DEPLOYMENT'
+      return 'OCI::Devops::Models::ComputeInstanceGroupCanaryApprovalDeployStageSummary' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_APPROVAL'
       return 'OCI::Devops::Models::InvokeFunctionDeployStageSummary' if type == 'INVOKE_FUNCTION'
+      return 'OCI::Devops::Models::OkeHelmChartDeployStageSummary' if type == 'OKE_HELM_CHART_DEPLOYMENT'
+      return 'OCI::Devops::Models::OkeCanaryTrafficShiftDeployStageSummary' if type == 'OKE_CANARY_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::ComputeInstanceGroupDeployStageSummary' if type == 'COMPUTE_INSTANCE_GROUP_ROLLING_DEPLOYMENT'
+      return 'OCI::Devops::Models::ComputeInstanceGroupCanaryDeployStageSummary' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_DEPLOYMENT'
+      return 'OCI::Devops::Models::OkeCanaryApprovalDeployStageSummary' if type == 'OKE_CANARY_APPROVAL'
+      return 'OCI::Devops::Models::OkeCanaryDeployStageSummary' if type == 'OKE_CANARY_DEPLOYMENT'
       return 'OCI::Devops::Models::LoadBalancerTrafficShiftDeployStageSummary' if type == 'LOAD_BALANCER_TRAFFIC_SHIFT'
       return 'OCI::Devops::Models::ManualApprovalDeployStageSummary' if type == 'MANUAL_APPROVAL'
+      return 'OCI::Devops::Models::OkeBlueGreenTrafficShiftDeployStageSummary' if type == 'OKE_BLUE_GREEN_TRAFFIC_SHIFT'
       return 'OCI::Devops::Models::FunctionDeployStageSummary' if type == 'DEPLOY_FUNCTION'
+      return 'OCI::Devops::Models::ComputeInstanceGroupCanaryTrafficShiftDeployStageSummary' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_TRAFFIC_SHIFT'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::Devops::Models::DeployStageSummary'

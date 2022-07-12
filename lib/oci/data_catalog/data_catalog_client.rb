@@ -7667,9 +7667,8 @@ module OCI
     # @option opts [String] :job_type Job type.
     # @option opts [String] :job_definition_key Unique job definition key.
     # @option opts [String] :data_asset_key Unique data asset key.
-    # @option opts [String] :schedule_cron_expression Schedule specified in the cron expression format that has seven fields for second, minute, hour, day-of-month, month, day-of-week, year.
-    #   It can also include special characters like * for all and ? for any. There are also pre-defined schedules that can be specified using
-    #   special strings. For example, @hourly will run the job every hour.
+    # @option opts [String] :schedule_cron_expression Interval on which the job will be run. Value is specified as a cron-supported time specification \"nickname\".
+    #   The following subset of those is supported: @monthly, @weekly, @daily, @hourly.
     #
     # @option opts [DateTime] :time_schedule_begin Date that the schedule should be operational. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.
     # @option opts [DateTime] :time_schedule_end Date that the schedule should end from being operational. An [RFC3339](https://tools.ietf.org/html/rfc3339) formatted datetime string.

@@ -7,6 +7,11 @@ require 'date'
 module OCI
   # The information about added block volumes.
   class Bds::Models::AddBlockStorageDetails
+    NODE_TYPE_ENUM = [
+      NODE_TYPE_WORKER = 'WORKER'.freeze,
+      NODE_TYPE_COMPUTE_ONLY_WORKER = 'COMPUTE_ONLY_WORKER'.freeze
+    ].freeze
+
     # **[Required]** Base-64 encoded password for the cluster (and Cloudera Manager) admin user.
     # @return [String]
     attr_accessor :cluster_admin_password
@@ -17,12 +22,17 @@ module OCI
     # @return [Integer]
     attr_accessor :block_volume_size_in_gbs
 
+    # **[Required]** Worker node types, can either be Worker Data node or Compute only worker node.
+    # @return [String]
+    attr_reader :node_type
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'cluster_admin_password': :'clusterAdminPassword',
-        'block_volume_size_in_gbs': :'blockVolumeSizeInGBs'
+        'block_volume_size_in_gbs': :'blockVolumeSizeInGBs',
+        'node_type': :'nodeType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -32,7 +42,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'cluster_admin_password': :'String',
-        'block_volume_size_in_gbs': :'Integer'
+        'block_volume_size_in_gbs': :'Integer',
+        'node_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -45,6 +56,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :cluster_admin_password The value to assign to the {#cluster_admin_password} property
     # @option attributes [Integer] :block_volume_size_in_gbs The value to assign to the {#block_volume_size_in_gbs} property
+    # @option attributes [String] :node_type The value to assign to the {#node_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -62,9 +74,23 @@ module OCI
       raise 'You cannot provide both :blockVolumeSizeInGBs and :block_volume_size_in_gbs' if attributes.key?(:'blockVolumeSizeInGBs') && attributes.key?(:'block_volume_size_in_gbs')
 
       self.block_volume_size_in_gbs = attributes[:'block_volume_size_in_gbs'] if attributes[:'block_volume_size_in_gbs']
+
+      self.node_type = attributes[:'nodeType'] if attributes[:'nodeType']
+
+      raise 'You cannot provide both :nodeType and :node_type' if attributes.key?(:'nodeType') && attributes.key?(:'node_type')
+
+      self.node_type = attributes[:'node_type'] if attributes[:'node_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] node_type Object to be assigned
+    def node_type=(node_type)
+      raise "Invalid value for 'node_type': this must be one of the values in NODE_TYPE_ENUM." if node_type && !NODE_TYPE_ENUM.include?(node_type)
+
+      @node_type = node_type
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -76,7 +102,8 @@ module OCI
 
       self.class == other.class &&
         cluster_admin_password == other.cluster_admin_password &&
-        block_volume_size_in_gbs == other.block_volume_size_in_gbs
+        block_volume_size_in_gbs == other.block_volume_size_in_gbs &&
+        node_type == other.node_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -92,7 +119,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cluster_admin_password, block_volume_size_in_gbs].hash
+      [cluster_admin_password, block_volume_size_in_gbs, node_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

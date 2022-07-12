@@ -17,12 +17,27 @@ module OCI
     # @return [String]
     attr_accessor :kms_key_version_id
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Oracle Cloud Infrastructure [vault](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm#concepts).
+    # @return [String]
+    attr_accessor :vault_id
+
+    # The existing TDE wallet password of the database.
+    # @return [String]
+    attr_accessor :tde_wallet_password
+
+    # The existing admin password of the database.
+    # @return [String]
+    attr_accessor :admin_password
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'kms_key_id': :'kmsKeyId',
-        'kms_key_version_id': :'kmsKeyVersionId'
+        'kms_key_version_id': :'kmsKeyVersionId',
+        'vault_id': :'vaultId',
+        'tde_wallet_password': :'tdeWalletPassword',
+        'admin_password': :'adminPassword'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -32,7 +47,10 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'kms_key_id': :'String',
-        'kms_key_version_id': :'String'
+        'kms_key_version_id': :'String',
+        'vault_id': :'String',
+        'tde_wallet_password': :'String',
+        'admin_password': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -45,6 +63,9 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [String] :kms_key_version_id The value to assign to the {#kms_key_version_id} property
+    # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
+    # @option attributes [String] :tde_wallet_password The value to assign to the {#tde_wallet_password} property
+    # @option attributes [String] :admin_password The value to assign to the {#admin_password} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -62,6 +83,24 @@ module OCI
       raise 'You cannot provide both :kmsKeyVersionId and :kms_key_version_id' if attributes.key?(:'kmsKeyVersionId') && attributes.key?(:'kms_key_version_id')
 
       self.kms_key_version_id = attributes[:'kms_key_version_id'] if attributes[:'kms_key_version_id']
+
+      self.vault_id = attributes[:'vaultId'] if attributes[:'vaultId']
+
+      raise 'You cannot provide both :vaultId and :vault_id' if attributes.key?(:'vaultId') && attributes.key?(:'vault_id')
+
+      self.vault_id = attributes[:'vault_id'] if attributes[:'vault_id']
+
+      self.tde_wallet_password = attributes[:'tdeWalletPassword'] if attributes[:'tdeWalletPassword']
+
+      raise 'You cannot provide both :tdeWalletPassword and :tde_wallet_password' if attributes.key?(:'tdeWalletPassword') && attributes.key?(:'tde_wallet_password')
+
+      self.tde_wallet_password = attributes[:'tde_wallet_password'] if attributes[:'tde_wallet_password']
+
+      self.admin_password = attributes[:'adminPassword'] if attributes[:'adminPassword']
+
+      raise 'You cannot provide both :adminPassword and :admin_password' if attributes.key?(:'adminPassword') && attributes.key?(:'admin_password')
+
+      self.admin_password = attributes[:'admin_password'] if attributes[:'admin_password']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -76,7 +115,10 @@ module OCI
 
       self.class == other.class &&
         kms_key_id == other.kms_key_id &&
-        kms_key_version_id == other.kms_key_version_id
+        kms_key_version_id == other.kms_key_version_id &&
+        vault_id == other.vault_id &&
+        tde_wallet_password == other.tde_wallet_password &&
+        admin_password == other.admin_password
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -92,7 +134,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [kms_key_id, kms_key_version_id].hash
+      [kms_key_id, kms_key_version_id, vault_id, tde_wallet_password, admin_password].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

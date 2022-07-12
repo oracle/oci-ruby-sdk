@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details about how to analyze a document.
+  # The details of how to analyze a document.
   class AiVision::Models::AnalyzeDocumentDetails
     LANGUAGE_ENUM = [
       LANGUAGE_ENG = 'ENG'.freeze,
@@ -48,7 +48,7 @@ module OCI
       DOCUMENT_TYPE_OTHERS = 'OTHERS'.freeze
     ].freeze
 
-    # **[Required]** Types of document analysis requested.
+    # **[Required]** The types of document analysis requested.
     # @return [Array<OCI::AiVision::Models::DocumentFeature>]
     attr_accessor :features
 
@@ -63,11 +63,11 @@ module OCI
     # @return [OCI::AiVision::Models::OutputLocation]
     attr_accessor :output_location
 
-    # Language of the document, abbreviated according to ISO 639-2.
+    # The document language, abbreviated according to ISO 639-2.
     # @return [String]
     attr_reader :language
 
-    # The type of document.
+    # The document type.
     # @return [String]
     attr_reader :document_type
 

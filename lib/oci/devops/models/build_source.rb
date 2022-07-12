@@ -12,6 +12,7 @@ module OCI
     CONNECTION_TYPE_ENUM = [
       CONNECTION_TYPE_GITHUB = 'GITHUB'.freeze,
       CONNECTION_TYPE_GITLAB = 'GITLAB'.freeze,
+      CONNECTION_TYPE_BITBUCKET_CLOUD = 'BITBUCKET_CLOUD'.freeze,
       CONNECTION_TYPE_DEVOPS_CODE_REPOSITORY = 'DEVOPS_CODE_REPOSITORY'.freeze,
       CONNECTION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
@@ -65,6 +66,7 @@ module OCI
       type = object_hash[:'connectionType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Devops::Models::GithubBuildSource' if type == 'GITHUB'
+      return 'OCI::Devops::Models::BitbucketCloudBuildSource' if type == 'BITBUCKET_CLOUD'
       return 'OCI::Devops::Models::DevopsCodeRepositoryBuildSource' if type == 'DEVOPS_CODE_REPOSITORY'
       return 'OCI::Devops::Models::GitlabBuildSource' if type == 'GITLAB'
 

@@ -54,9 +54,9 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
-    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # The list of [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) for the network security groups (NSGs) to which this resource belongs. Setting this to an empty list removes all resources from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
     # **NsgIds restrictions:**
-    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
+    # - A network security group (NSG) is optional for Autonomous Databases with private access. The nsgIds list can be empty.
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
@@ -80,6 +80,10 @@ module OCI
     # The last date and time that the cloud Autonomous VM cluster was updated.
     # @return [DateTime]
     attr_accessor :time_updated
+
+    # The time zone of the Cloud Autonomous VM Cluster.
+    # @return [String]
+    attr_accessor :cluster_time_zone
 
     # Additional information about the current lifecycle state.
     # @return [String]
@@ -157,6 +161,38 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # CPU cores available for allocation to Autonomous Databases.
+    # @return [Float]
+    attr_accessor :available_cpus
+
+    # CPU cores that continue to be included in the count of OCPUs available to the Autonomous Container Database even after one of its Autonomous Database is terminated or scaled down. You can release them to the available OCPUs at its parent AVMC level by restarting the Autonomous Container Database.
+    # @return [Float]
+    attr_accessor :reclaimable_cpus
+
+    # The number of Autonomous Container Databases that can be created with the currently available local storage.
+    # @return [Integer]
+    attr_accessor :available_container_databases
+
+    # The total number of Autonomous Container Databases that can be created with the allocated local storage.
+    # @return [Integer]
+    attr_accessor :total_container_databases
+
+    # The data disk group size available for Autonomous Databases, in TBs.
+    # @return [Float]
+    attr_accessor :available_autonomous_data_storage_size_in_tbs
+
+    # The data disk group size allocated for Autonomous Databases, in TBs.
+    # @return [Float]
+    attr_accessor :autonomous_data_storage_size_in_tbs
+
+    # The local node storage allocated in GBs.
+    # @return [Integer]
+    attr_accessor :db_node_storage_size_in_gbs
+
+    # The amount of memory (in GBs) enabled per each OCPU core.
+    # @return [Integer]
+    attr_accessor :memory_per_oracle_compute_unit_in_gbs
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -172,6 +208,7 @@ module OCI
         'display_name': :'displayName',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
+        'cluster_time_zone': :'clusterTimeZone',
         'lifecycle_details': :'lifecycleDetails',
         'hostname': :'hostname',
         'domain': :'domain',
@@ -187,7 +224,15 @@ module OCI
         'last_maintenance_run_id': :'lastMaintenanceRunId',
         'next_maintenance_run_id': :'nextMaintenanceRunId',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'available_cpus': :'availableCpus',
+        'reclaimable_cpus': :'reclaimableCpus',
+        'available_container_databases': :'availableContainerDatabases',
+        'total_container_databases': :'totalContainerDatabases',
+        'available_autonomous_data_storage_size_in_tbs': :'availableAutonomousDataStorageSizeInTBs',
+        'autonomous_data_storage_size_in_tbs': :'autonomousDataStorageSizeInTBs',
+        'db_node_storage_size_in_gbs': :'dbNodeStorageSizeInGBs',
+        'memory_per_oracle_compute_unit_in_gbs': :'memoryPerOracleComputeUnitInGBs'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -207,6 +252,7 @@ module OCI
         'display_name': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
+        'cluster_time_zone': :'String',
         'lifecycle_details': :'String',
         'hostname': :'String',
         'domain': :'String',
@@ -222,7 +268,15 @@ module OCI
         'last_maintenance_run_id': :'String',
         'next_maintenance_run_id': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'available_cpus': :'Float',
+        'reclaimable_cpus': :'Float',
+        'available_container_databases': :'Integer',
+        'total_container_databases': :'Integer',
+        'available_autonomous_data_storage_size_in_tbs': :'Float',
+        'autonomous_data_storage_size_in_tbs': :'Float',
+        'db_node_storage_size_in_gbs': :'Integer',
+        'memory_per_oracle_compute_unit_in_gbs': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -244,6 +298,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [String] :cluster_time_zone The value to assign to the {#cluster_time_zone} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
     # @option attributes [String] :domain The value to assign to the {#domain} property
@@ -260,6 +315,14 @@ module OCI
     # @option attributes [String] :next_maintenance_run_id The value to assign to the {#next_maintenance_run_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Float] :available_cpus The value to assign to the {#available_cpus} property
+    # @option attributes [Float] :reclaimable_cpus The value to assign to the {#reclaimable_cpus} property
+    # @option attributes [Integer] :available_container_databases The value to assign to the {#available_container_databases} property
+    # @option attributes [Integer] :total_container_databases The value to assign to the {#total_container_databases} property
+    # @option attributes [Float] :available_autonomous_data_storage_size_in_tbs The value to assign to the {#available_autonomous_data_storage_size_in_tbs} property
+    # @option attributes [Float] :autonomous_data_storage_size_in_tbs The value to assign to the {#autonomous_data_storage_size_in_tbs} property
+    # @option attributes [Integer] :db_node_storage_size_in_gbs The value to assign to the {#db_node_storage_size_in_gbs} property
+    # @option attributes [Integer] :memory_per_oracle_compute_unit_in_gbs The value to assign to the {#memory_per_oracle_compute_unit_in_gbs} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -323,6 +386,12 @@ module OCI
       raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
 
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.cluster_time_zone = attributes[:'clusterTimeZone'] if attributes[:'clusterTimeZone']
+
+      raise 'You cannot provide both :clusterTimeZone and :cluster_time_zone' if attributes.key?(:'clusterTimeZone') && attributes.key?(:'cluster_time_zone')
+
+      self.cluster_time_zone = attributes[:'cluster_time_zone'] if attributes[:'cluster_time_zone']
 
       self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
 
@@ -407,6 +476,54 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.available_cpus = attributes[:'availableCpus'] if attributes[:'availableCpus']
+
+      raise 'You cannot provide both :availableCpus and :available_cpus' if attributes.key?(:'availableCpus') && attributes.key?(:'available_cpus')
+
+      self.available_cpus = attributes[:'available_cpus'] if attributes[:'available_cpus']
+
+      self.reclaimable_cpus = attributes[:'reclaimableCpus'] if attributes[:'reclaimableCpus']
+
+      raise 'You cannot provide both :reclaimableCpus and :reclaimable_cpus' if attributes.key?(:'reclaimableCpus') && attributes.key?(:'reclaimable_cpus')
+
+      self.reclaimable_cpus = attributes[:'reclaimable_cpus'] if attributes[:'reclaimable_cpus']
+
+      self.available_container_databases = attributes[:'availableContainerDatabases'] if attributes[:'availableContainerDatabases']
+
+      raise 'You cannot provide both :availableContainerDatabases and :available_container_databases' if attributes.key?(:'availableContainerDatabases') && attributes.key?(:'available_container_databases')
+
+      self.available_container_databases = attributes[:'available_container_databases'] if attributes[:'available_container_databases']
+
+      self.total_container_databases = attributes[:'totalContainerDatabases'] if attributes[:'totalContainerDatabases']
+
+      raise 'You cannot provide both :totalContainerDatabases and :total_container_databases' if attributes.key?(:'totalContainerDatabases') && attributes.key?(:'total_container_databases')
+
+      self.total_container_databases = attributes[:'total_container_databases'] if attributes[:'total_container_databases']
+
+      self.available_autonomous_data_storage_size_in_tbs = attributes[:'availableAutonomousDataStorageSizeInTBs'] if attributes[:'availableAutonomousDataStorageSizeInTBs']
+
+      raise 'You cannot provide both :availableAutonomousDataStorageSizeInTBs and :available_autonomous_data_storage_size_in_tbs' if attributes.key?(:'availableAutonomousDataStorageSizeInTBs') && attributes.key?(:'available_autonomous_data_storage_size_in_tbs')
+
+      self.available_autonomous_data_storage_size_in_tbs = attributes[:'available_autonomous_data_storage_size_in_tbs'] if attributes[:'available_autonomous_data_storage_size_in_tbs']
+
+      self.autonomous_data_storage_size_in_tbs = attributes[:'autonomousDataStorageSizeInTBs'] if attributes[:'autonomousDataStorageSizeInTBs']
+
+      raise 'You cannot provide both :autonomousDataStorageSizeInTBs and :autonomous_data_storage_size_in_tbs' if attributes.key?(:'autonomousDataStorageSizeInTBs') && attributes.key?(:'autonomous_data_storage_size_in_tbs')
+
+      self.autonomous_data_storage_size_in_tbs = attributes[:'autonomous_data_storage_size_in_tbs'] if attributes[:'autonomous_data_storage_size_in_tbs']
+
+      self.db_node_storage_size_in_gbs = attributes[:'dbNodeStorageSizeInGBs'] if attributes[:'dbNodeStorageSizeInGBs']
+
+      raise 'You cannot provide both :dbNodeStorageSizeInGBs and :db_node_storage_size_in_gbs' if attributes.key?(:'dbNodeStorageSizeInGBs') && attributes.key?(:'db_node_storage_size_in_gbs')
+
+      self.db_node_storage_size_in_gbs = attributes[:'db_node_storage_size_in_gbs'] if attributes[:'db_node_storage_size_in_gbs']
+
+      self.memory_per_oracle_compute_unit_in_gbs = attributes[:'memoryPerOracleComputeUnitInGBs'] if attributes[:'memoryPerOracleComputeUnitInGBs']
+
+      raise 'You cannot provide both :memoryPerOracleComputeUnitInGBs and :memory_per_oracle_compute_unit_in_gbs' if attributes.key?(:'memoryPerOracleComputeUnitInGBs') && attributes.key?(:'memory_per_oracle_compute_unit_in_gbs')
+
+      self.memory_per_oracle_compute_unit_in_gbs = attributes[:'memory_per_oracle_compute_unit_in_gbs'] if attributes[:'memory_per_oracle_compute_unit_in_gbs']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -457,6 +574,7 @@ module OCI
         display_name == other.display_name &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
+        cluster_time_zone == other.cluster_time_zone &&
         lifecycle_details == other.lifecycle_details &&
         hostname == other.hostname &&
         domain == other.domain &&
@@ -472,7 +590,15 @@ module OCI
         last_maintenance_run_id == other.last_maintenance_run_id &&
         next_maintenance_run_id == other.next_maintenance_run_id &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        available_cpus == other.available_cpus &&
+        reclaimable_cpus == other.reclaimable_cpus &&
+        available_container_databases == other.available_container_databases &&
+        total_container_databases == other.total_container_databases &&
+        available_autonomous_data_storage_size_in_tbs == other.available_autonomous_data_storage_size_in_tbs &&
+        autonomous_data_storage_size_in_tbs == other.autonomous_data_storage_size_in_tbs &&
+        db_node_storage_size_in_gbs == other.db_node_storage_size_in_gbs &&
+        memory_per_oracle_compute_unit_in_gbs == other.memory_per_oracle_compute_unit_in_gbs
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -488,7 +614,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, description, availability_domain, subnet_id, nsg_ids, last_update_history_entry_id, lifecycle_state, display_name, time_created, time_updated, lifecycle_details, hostname, domain, cloud_exadata_infrastructure_id, shape, node_count, data_storage_size_in_tbs, data_storage_size_in_gbs, cpu_core_count, ocpu_count, memory_size_in_gbs, license_model, last_maintenance_run_id, next_maintenance_run_id, freeform_tags, defined_tags].hash
+      [id, compartment_id, description, availability_domain, subnet_id, nsg_ids, last_update_history_entry_id, lifecycle_state, display_name, time_created, time_updated, cluster_time_zone, lifecycle_details, hostname, domain, cloud_exadata_infrastructure_id, shape, node_count, data_storage_size_in_tbs, data_storage_size_in_gbs, cpu_core_count, ocpu_count, memory_size_in_gbs, license_model, last_maintenance_run_id, next_maintenance_run_id, freeform_tags, defined_tags, available_cpus, reclaimable_cpus, available_container_databases, total_container_databases, available_autonomous_data_storage_size_in_tbs, autonomous_data_storage_size_in_tbs, db_node_storage_size_in_gbs, memory_per_oracle_compute_unit_in_gbs].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

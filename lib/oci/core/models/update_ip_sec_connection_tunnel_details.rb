@@ -35,7 +35,7 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # The type of routing to use for this tunnel (either BGP dynamic routing or static routing).
+    # The type of routing to use for this tunnel (BGP dynamic routing, static routing, or policy-based routing).
     #
     # @return [String]
     attr_reader :routing
@@ -48,11 +48,20 @@ module OCI
     # @return [OCI::Core::Models::UpdateIPSecTunnelBgpSessionDetails]
     attr_accessor :bgp_session_config
 
-    # Whether Oracle side is the initiator for negotiation.
+    # Indicates whether the Oracle end of the IPSec connection is able to initiate starting up the IPSec tunnel.
+    #
     # @return [String]
     attr_reader :oracle_initiation
 
-    # Whether NAT-T Enabled on the tunnel
+    # By default (the `AUTO` setting), IKE sends packets with a source and destination port set to 500,
+    # and when it detects that the port used to forward packets has changed (most likely because a NAT device
+    # is between the CPE device and the Oracle VPN headend) it will try to negotiate the use of NAT-T.
+    #
+    # The `ENABLED` option sets the IKE protocol to use port 4500 instead of 500 and forces encapsulating traffic with the ESP protocol inside UDP packets.
+    #
+    # The `DISABLED` option directs IKE to completely refuse to negotiate NAT-T
+    # even if it senses there may be a NAT device in use.
+    #
     # @return [String]
     attr_reader :nat_translation_enabled
 

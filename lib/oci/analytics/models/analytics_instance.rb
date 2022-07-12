@@ -111,6 +111,11 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the OCI Vault Key encrypting the customer data stored in this Analytics instance. A null value indicates Oracle managed default encryption.
+    #
+    # @return [String]
+    attr_accessor :kms_key_id
+
     # **[Required]** The date and time the instance was created, in the format defined by RFC3339.
     #
     # Example: `2016-08-25T21:10:29.600Z`
@@ -144,6 +149,7 @@ module OCI
         'service_url': :'serviceUrl',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags',
+        'kms_key_id': :'kmsKeyId',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated'
         # rubocop:enable Style/SymbolLiteral
@@ -169,6 +175,7 @@ module OCI
         'service_url': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>',
+        'kms_key_id': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
@@ -196,6 +203,7 @@ module OCI
     # @option attributes [String] :service_url The value to assign to the {#service_url} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     def initialize(attributes = {})
@@ -278,6 +286,12 @@ module OCI
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
@@ -356,6 +370,7 @@ module OCI
         service_url == other.service_url &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags &&
+        kms_key_id == other.kms_key_id &&
         time_created == other.time_created &&
         time_updated == other.time_updated
     end
@@ -373,7 +388,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, description, compartment_id, lifecycle_state, feature_set, capacity, license_type, email_notification, network_endpoint_details, private_access_channels, vanity_url_details, service_url, defined_tags, freeform_tags, time_created, time_updated].hash
+      [id, name, description, compartment_id, lifecycle_state, feature_set, capacity, license_type, email_notification, network_endpoint_details, private_access_channels, vanity_url_details, service_url, defined_tags, freeform_tags, kms_key_id, time_created, time_updated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

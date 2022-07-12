@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # A single row in a table.
   class AiVision::Models::TableRow
-    # **[Required]** Cells in the row.
+    # **[Required]** The cells in the row.
     # @return [Array<OCI::AiVision::Models::Cell>]
     attr_accessor :cells
 

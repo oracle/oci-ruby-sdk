@@ -6,7 +6,7 @@ require_relative 'deploy_environment'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the Compute instance group environment. The instances in the group is the combined results of each selectors in the instance group selectors.
+  # Specifies the Compute instance group environment. The combination of instances matching the selectors are included in the instance group.
   class Devops::Models::ComputeInstanceGroupDeployEnvironment < Devops::Models::DeployEnvironment
     # This attribute is required.
     # @return [OCI::Devops::Models::ComputeInstanceGroupSelectorCollection]

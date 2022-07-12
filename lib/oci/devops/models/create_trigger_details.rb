@@ -76,6 +76,7 @@ module OCI
 
       return 'OCI::Devops::Models::CreateGithubTriggerDetails' if type == 'GITHUB'
       return 'OCI::Devops::Models::CreateDevopsCodeRepositoryTriggerDetails' if type == 'DEVOPS_CODE_REPOSITORY'
+      return 'OCI::Devops::Models::CreateBitbucketCloudTriggerDetails' if type == 'BITBUCKET_CLOUD'
       return 'OCI::Devops::Models::CreateGitlabTriggerDetails' if type == 'GITLAB'
 
       # TODO: Log a warning when the subtype is not found.

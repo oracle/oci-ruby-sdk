@@ -23,6 +23,16 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    # The list of BYOIPv6 CIDR blocks required to create a VCN that uses BYOIPv6 ranges.
+    #
+    # @return [Array<String>]
+    attr_accessor :byoipv6_cidr_blocks
+
+    # For an IPv6-enabled VCN, this is the list of Private IPv6 CIDR blocks for the VCN's IP address space.
+    #
+    # @return [Array<String>]
+    attr_accessor :ipv6_private_cidr_blocks
+
     # **[Required]** Deprecated. The first CIDR IP address from cidrBlocks.
     #
     # Example: `172.16.0.0/16`
@@ -127,6 +137,8 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'byoipv6_cidr_blocks': :'byoipv6CidrBlocks',
+        'ipv6_private_cidr_blocks': :'ipv6PrivateCidrBlocks',
         'cidr_block': :'cidrBlock',
         'cidr_blocks': :'cidrBlocks',
         'compartment_id': :'compartmentId',
@@ -150,6 +162,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'byoipv6_cidr_blocks': :'Array<String>',
+        'ipv6_private_cidr_blocks': :'Array<String>',
         'cidr_block': :'String',
         'cidr_blocks': :'Array<String>',
         'compartment_id': :'String',
@@ -175,6 +189,8 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [Array<String>] :byoipv6_cidr_blocks The value to assign to the {#byoipv6_cidr_blocks} property
+    # @option attributes [Array<String>] :ipv6_private_cidr_blocks The value to assign to the {#ipv6_private_cidr_blocks} property
     # @option attributes [String] :cidr_block The value to assign to the {#cidr_block} property
     # @option attributes [Array<String>] :cidr_blocks The value to assign to the {#cidr_blocks} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
@@ -195,6 +211,18 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.byoipv6_cidr_blocks = attributes[:'byoipv6CidrBlocks'] if attributes[:'byoipv6CidrBlocks']
+
+      raise 'You cannot provide both :byoipv6CidrBlocks and :byoipv6_cidr_blocks' if attributes.key?(:'byoipv6CidrBlocks') && attributes.key?(:'byoipv6_cidr_blocks')
+
+      self.byoipv6_cidr_blocks = attributes[:'byoipv6_cidr_blocks'] if attributes[:'byoipv6_cidr_blocks']
+
+      self.ipv6_private_cidr_blocks = attributes[:'ipv6PrivateCidrBlocks'] if attributes[:'ipv6PrivateCidrBlocks']
+
+      raise 'You cannot provide both :ipv6PrivateCidrBlocks and :ipv6_private_cidr_blocks' if attributes.key?(:'ipv6PrivateCidrBlocks') && attributes.key?(:'ipv6_private_cidr_blocks')
+
+      self.ipv6_private_cidr_blocks = attributes[:'ipv6_private_cidr_blocks'] if attributes[:'ipv6_private_cidr_blocks']
 
       self.cidr_block = attributes[:'cidrBlock'] if attributes[:'cidrBlock']
 
@@ -307,6 +335,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        byoipv6_cidr_blocks == other.byoipv6_cidr_blocks &&
+        ipv6_private_cidr_blocks == other.ipv6_private_cidr_blocks &&
         cidr_block == other.cidr_block &&
         cidr_blocks == other.cidr_blocks &&
         compartment_id == other.compartment_id &&
@@ -337,7 +367,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cidr_block, cidr_blocks, compartment_id, default_dhcp_options_id, default_route_table_id, default_security_list_id, defined_tags, display_name, dns_label, freeform_tags, id, ipv6_cidr_blocks, lifecycle_state, time_created, vcn_domain_name].hash
+      [byoipv6_cidr_blocks, ipv6_private_cidr_blocks, cidr_block, cidr_blocks, compartment_id, default_dhcp_options_id, default_route_table_id, default_security_list_id, defined_tags, display_name, dns_label, freeform_tags, id, ipv6_cidr_blocks, lifecycle_state, time_created, vcn_domain_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

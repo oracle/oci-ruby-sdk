@@ -10,7 +10,7 @@ module OCI
   # This type corresponds to a connection in GitHub that is authenticated with a personal access token.
   #
   class Devops::Models::UpdateGithubAccessTokenConnectionDetails < Devops::Models::UpdateConnectionDetails
-    # The OCID of personal access token saved in secret store.
+    # OCID of personal access token saved in secret store
     # @return [String]
     attr_accessor :access_token
 

@@ -12,7 +12,7 @@ module OCI
     # @return [String]
     attr_accessor :ref_name
 
-    # **[Required]** The type of reference (Branch or Tag).
+    # **[Required]** The type of reference (BRANCH or TAG).
     # @return [String]
     attr_accessor :ref_type
 

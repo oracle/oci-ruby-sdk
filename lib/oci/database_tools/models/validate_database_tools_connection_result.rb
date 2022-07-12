@@ -11,14 +11,15 @@ module OCI
   class DatabaseTools::Models::ValidateDatabaseToolsConnectionResult
     TYPE_ENUM = [
       TYPE_ORACLE_DATABASE = 'ORACLE_DATABASE'.freeze,
+      TYPE_MYSQL = 'MYSQL'.freeze,
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The DatabaseToolsConnection type.
+    # **[Required]** The Database Tools connection type.
     # @return [String]
     attr_reader :type
 
-    # **[Required]** A short code that defines the result of the validation, meant for programmatic parsing.
+    # **[Required]** A short code that defines the result of the validation, meant for programmatic parsing. The value OK indicates that the validation was successful.
     # @return [String]
     attr_accessor :code
 
@@ -69,6 +70,7 @@ module OCI
       type = object_hash[:'type'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::DatabaseTools::Models::ValidateDatabaseToolsConnectionOracleDatabaseResult' if type == 'ORACLE_DATABASE'
+      return 'OCI::DatabaseTools::Models::ValidateDatabaseToolsConnectionMySqlResult' if type == 'MYSQL'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::DatabaseTools::Models::ValidateDatabaseToolsConnectionResult'

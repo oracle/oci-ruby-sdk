@@ -39,11 +39,11 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # Data Mask Rule Identifier, can be renamed
+    # Data Mask Rule Identifier, can be renamed.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** Compartment Identifier where the resource is created
+    # **[Required]** Compartment Identifier where the resource is created.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -85,6 +85,8 @@ module OCI
 
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
+    #
+    # Avoid entering confidential information.
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags

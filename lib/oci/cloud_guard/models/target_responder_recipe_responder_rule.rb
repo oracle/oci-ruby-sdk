@@ -31,15 +31,15 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Identifier for ResponderRule.
+    # **[Required]** Unique ResponderRule identifier.
     # @return [String]
     attr_accessor :responder_rule_id
 
-    # ResponderRule Display Name
+    # ResponderRule display name.
     # @return [String]
     attr_accessor :display_name
 
-    # ResponderRule Description
+    # ResponderRule description.
     # @return [String]
     attr_accessor :description
 

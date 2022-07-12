@@ -98,6 +98,69 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Adds a lock to a resource.
+    # @param [String] quota_id The OCID of the quota.
+    # @param [OCI::Limits::Models::AddLockDetails] add_lock_details
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   is updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Limits::Models::Quota Quota}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/limits/add_quota_lock.rb.html) to see an example of how to use add_quota_lock API.
+    def add_quota_lock(quota_id, add_lock_details, opts = {})
+      logger.debug 'Calling operation QuotasClient#add_quota_lock.' if logger
+
+      raise "Missing the required parameter 'quota_id' when calling add_quota_lock." if quota_id.nil?
+      raise "Missing the required parameter 'add_lock_details' when calling add_quota_lock." if add_lock_details.nil?
+      raise "Parameter value for 'quota_id' must not be blank" if OCI::Internal::Util.blank_string?(quota_id)
+
+      path = '/20181025/quotas/{quotaId}/actions/addLock'.sub('{quotaId}', quota_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(add_lock_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'QuotasClient#add_quota_lock') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Limits::Models::Quota'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new quota with the details supplied.
     # @param [OCI::Limits::Models::CreateQuotaDetails] create_quota_details Request object for creating a new quota.
     # @param [Hash] opts the optional parameters
@@ -173,6 +236,7 @@ module OCI
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   is updated or deleted only if the etag you provide matches the resource's current etag value.
     #
+    # @option opts [BOOLEAN] :is_lock_override Whether to override locks (if any exist). (default to false)
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/limits/delete_quota.rb.html) to see an example of how to use delete_quota API.
     def delete_quota(quota_id, opts = {})
@@ -187,6 +251,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:isLockOverride] = opts[:is_lock_override] if !opts[:is_lock_override].nil?
 
       # Header Params
       header_params = {}
@@ -365,6 +430,69 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Remove a lock from a resource.
+    # @param [String] quota_id The OCID of the quota.
+    # @param [OCI::Limits::Models::RemoveLockDetails] remove_lock_details
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   is updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Limits::Models::Quota Quota}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/limits/remove_quota_lock.rb.html) to see an example of how to use remove_quota_lock API.
+    def remove_quota_lock(quota_id, remove_lock_details, opts = {})
+      logger.debug 'Calling operation QuotasClient#remove_quota_lock.' if logger
+
+      raise "Missing the required parameter 'quota_id' when calling remove_quota_lock." if quota_id.nil?
+      raise "Missing the required parameter 'remove_lock_details' when calling remove_quota_lock." if remove_lock_details.nil?
+      raise "Parameter value for 'quota_id' must not be blank" if OCI::Internal::Util.blank_string?(quota_id)
+
+      path = '/20181025/quotas/{quotaId}/actions/removeLock'.sub('{quotaId}', quota_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(remove_lock_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'QuotasClient#remove_quota_lock') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Limits::Models::Quota'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates the quota corresponding to given OCID with the details supplied.
     # @param [String] quota_id The OCID of the quota.
     # @param [OCI::Limits::Models::UpdateQuotaDetails] update_quota_details Request object for updating a quota.
@@ -378,6 +506,7 @@ module OCI
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   is updated or deleted only if the etag you provide matches the resource's current etag value.
     #
+    # @option opts [BOOLEAN] :is_lock_override Whether to override locks (if any exist). (default to false)
     # @return [Response] A Response object with data of type {OCI::Limits::Models::Quota Quota}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/limits/update_quota.rb.html) to see an example of how to use update_quota API.
     def update_quota(quota_id, update_quota_details, opts = {})
@@ -393,6 +522,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:isLockOverride] = opts[:is_lock_override] if !opts[:is_lock_override].nil?
 
       # Header Params
       header_params = {}

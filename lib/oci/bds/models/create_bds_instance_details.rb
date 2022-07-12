@@ -38,9 +38,17 @@ module OCI
     # @return [OCI::Bds::Models::NetworkConfig]
     attr_accessor :network_config
 
+    # Pre-authenticated URL of the script in Object Store that is downloaded and executed.
+    # @return [String]
+    attr_accessor :bootstrap_script_url
+
     # **[Required]** The list of nodes in the Big Data Service cluster.
     # @return [Array<OCI::Bds::Models::CreateNodeDetails>]
     attr_accessor :nodes
+
+    # The user-defined kerberos realm name.
+    # @return [String]
+    attr_accessor :kerberos_realm_name
 
     # Simple key-value pair that is applied without any predefined name, type, or scope.
     # Exists for cross-compatibility only. For example, `{\"bar-key\": \"value\"}`
@@ -66,7 +74,9 @@ module OCI
         'is_high_availability': :'isHighAvailability',
         'is_secure': :'isSecure',
         'network_config': :'networkConfig',
+        'bootstrap_script_url': :'bootstrapScriptUrl',
         'nodes': :'nodes',
+        'kerberos_realm_name': :'kerberosRealmName',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -85,7 +95,9 @@ module OCI
         'is_high_availability': :'BOOLEAN',
         'is_secure': :'BOOLEAN',
         'network_config': :'OCI::Bds::Models::NetworkConfig',
+        'bootstrap_script_url': :'String',
         'nodes': :'Array<OCI::Bds::Models::CreateNodeDetails>',
+        'kerberos_realm_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -106,7 +118,9 @@ module OCI
     # @option attributes [BOOLEAN] :is_high_availability The value to assign to the {#is_high_availability} property
     # @option attributes [BOOLEAN] :is_secure The value to assign to the {#is_secure} property
     # @option attributes [OCI::Bds::Models::NetworkConfig] :network_config The value to assign to the {#network_config} property
+    # @option attributes [String] :bootstrap_script_url The value to assign to the {#bootstrap_script_url} property
     # @option attributes [Array<OCI::Bds::Models::CreateNodeDetails>] :nodes The value to assign to the {#nodes} property
+    # @option attributes [String] :kerberos_realm_name The value to assign to the {#kerberos_realm_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -167,7 +181,19 @@ module OCI
 
       self.network_config = attributes[:'network_config'] if attributes[:'network_config']
 
+      self.bootstrap_script_url = attributes[:'bootstrapScriptUrl'] if attributes[:'bootstrapScriptUrl']
+
+      raise 'You cannot provide both :bootstrapScriptUrl and :bootstrap_script_url' if attributes.key?(:'bootstrapScriptUrl') && attributes.key?(:'bootstrap_script_url')
+
+      self.bootstrap_script_url = attributes[:'bootstrap_script_url'] if attributes[:'bootstrap_script_url']
+
       self.nodes = attributes[:'nodes'] if attributes[:'nodes']
+
+      self.kerberos_realm_name = attributes[:'kerberosRealmName'] if attributes[:'kerberosRealmName']
+
+      raise 'You cannot provide both :kerberosRealmName and :kerberos_realm_name' if attributes.key?(:'kerberosRealmName') && attributes.key?(:'kerberos_realm_name')
+
+      self.kerberos_realm_name = attributes[:'kerberos_realm_name'] if attributes[:'kerberos_realm_name']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -201,7 +227,9 @@ module OCI
         is_high_availability == other.is_high_availability &&
         is_secure == other.is_secure &&
         network_config == other.network_config &&
+        bootstrap_script_url == other.bootstrap_script_url &&
         nodes == other.nodes &&
+        kerberos_realm_name == other.kerberos_realm_name &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -219,7 +247,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, cluster_version, cluster_public_key, cluster_admin_password, is_high_availability, is_secure, network_config, nodes, freeform_tags, defined_tags].hash
+      [compartment_id, display_name, cluster_version, cluster_public_key, cluster_admin_password, is_high_availability, is_secure, network_config, bootstrap_script_url, nodes, kerberos_realm_name, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -6,7 +6,7 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The response object representing time series metric details
-  # for a specific database at a particular time.
+  # for a specific Managed Database at a particular time.
   #
   class DatabaseManagement::Models::TimeSeriesMetricDefinition
     # **[Required]** The name of the metric the time series data corresponds to.

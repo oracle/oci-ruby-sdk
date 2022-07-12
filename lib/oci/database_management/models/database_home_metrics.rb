@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The response containing the metric collection for a specific database.
+  # The response containing the metric collection for a specific Managed Database.
   class DatabaseManagement::Models::DatabaseHomeMetrics
     # This attribute is required.
     # @return [OCI::DatabaseManagement::Models::DatabaseHomeMetricDefinition]

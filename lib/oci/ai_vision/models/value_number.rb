@@ -6,9 +6,9 @@ require_relative 'field_value'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Floating point number field value.
+  # The floating point number field value.
   class AiVision::Models::ValueNumber < AiVision::Models::FieldValue
-    # **[Required]** Number value.
+    # **[Required]** The number value.
     # @return [Float]
     attr_accessor :value
 

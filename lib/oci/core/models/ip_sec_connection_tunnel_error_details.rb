@@ -5,29 +5,29 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Ipsec tunnels error details
+  # Details for an error on an IPSec tunnel.
   class Core::Models::IPSecConnectionTunnelErrorDetails
-    # **[Required]** unique id generated for each error report
+    # **[Required]** Unique ID generated for each error report.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** unique code describes error type
+    # **[Required]** Unique code describes the error type.
     # @return [String]
     attr_accessor :error_code
 
-    # **[Required]** detailed description of the error
+    # **[Required]** A detailed description of the error.
     # @return [String]
     attr_accessor :error_description
 
-    # **[Required]** how to resolve the error
+    # **[Required]** Resolution for the error.
     # @return [String]
     attr_accessor :solution
 
-    # **[Required]** link to oracle resources
+    # **[Required]** Link to more Oracle resources or relevant documentation.
     # @return [String]
     attr_accessor :oci_resources_link
 
-    # **[Required]** timestamp when error occurred.
+    # **[Required]** Timestamp when the error occurred.
     # @return [DateTime]
     attr_accessor :timestamp
 

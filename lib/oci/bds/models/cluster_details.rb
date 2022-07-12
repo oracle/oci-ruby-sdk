@@ -60,6 +60,14 @@ module OCI
     # @return [String]
     attr_accessor :hue_server_url
 
+    # Version of the ODH (Oracle Distribution including Apache Hadoop) installed on the cluster.
+    # @return [String]
+    attr_accessor :odh_version
+
+    # The URL of the Jupyterhub.
+    # @return [String]
+    attr_accessor :jupyter_hub_url
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -76,7 +84,9 @@ module OCI
         'cloudera_manager_url': :'clouderaManagerUrl',
         'ambari_url': :'ambariUrl',
         'big_data_manager_url': :'bigDataManagerUrl',
-        'hue_server_url': :'hueServerUrl'
+        'hue_server_url': :'hueServerUrl',
+        'odh_version': :'odhVersion',
+        'jupyter_hub_url': :'jupyterHubUrl'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -97,7 +107,9 @@ module OCI
         'cloudera_manager_url': :'String',
         'ambari_url': :'String',
         'big_data_manager_url': :'String',
-        'hue_server_url': :'String'
+        'hue_server_url': :'String',
+        'odh_version': :'String',
+        'jupyter_hub_url': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -121,6 +133,8 @@ module OCI
     # @option attributes [String] :ambari_url The value to assign to the {#ambari_url} property
     # @option attributes [String] :big_data_manager_url The value to assign to the {#big_data_manager_url} property
     # @option attributes [String] :hue_server_url The value to assign to the {#hue_server_url} property
+    # @option attributes [String] :odh_version The value to assign to the {#odh_version} property
+    # @option attributes [String] :jupyter_hub_url The value to assign to the {#jupyter_hub_url} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -204,6 +218,18 @@ module OCI
       raise 'You cannot provide both :hueServerUrl and :hue_server_url' if attributes.key?(:'hueServerUrl') && attributes.key?(:'hue_server_url')
 
       self.hue_server_url = attributes[:'hue_server_url'] if attributes[:'hue_server_url']
+
+      self.odh_version = attributes[:'odhVersion'] if attributes[:'odhVersion']
+
+      raise 'You cannot provide both :odhVersion and :odh_version' if attributes.key?(:'odhVersion') && attributes.key?(:'odh_version')
+
+      self.odh_version = attributes[:'odh_version'] if attributes[:'odh_version']
+
+      self.jupyter_hub_url = attributes[:'jupyterHubUrl'] if attributes[:'jupyterHubUrl']
+
+      raise 'You cannot provide both :jupyterHubUrl and :jupyter_hub_url' if attributes.key?(:'jupyterHubUrl') && attributes.key?(:'jupyter_hub_url')
+
+      self.jupyter_hub_url = attributes[:'jupyter_hub_url'] if attributes[:'jupyter_hub_url']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -229,7 +255,9 @@ module OCI
         cloudera_manager_url == other.cloudera_manager_url &&
         ambari_url == other.ambari_url &&
         big_data_manager_url == other.big_data_manager_url &&
-        hue_server_url == other.hue_server_url
+        hue_server_url == other.hue_server_url &&
+        odh_version == other.odh_version &&
+        jupyter_hub_url == other.jupyter_hub_url
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -245,7 +273,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bda_version, bdm_version, bds_version, os_version, db_version, bd_cell_version, csql_cell_version, time_created, time_refreshed, cloudera_manager_url, ambari_url, big_data_manager_url, hue_server_url].hash
+      [bda_version, bdm_version, bds_version, os_version, db_version, bd_cell_version, csql_cell_version, time_created, time_refreshed, cloudera_manager_url, ambari_url, big_data_manager_url, hue_server_url, odh_version, jupyter_hub_url].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

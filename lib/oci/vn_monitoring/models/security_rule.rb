@@ -1,0 +1,445 @@
+# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
+# This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
+
+require 'date'
+require 'logger'
+
+# rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
+module OCI
+  # A security rule is one of the items in a {NetworkSecurityGroup}.
+  # It is a virtual firewall rule for the VNICs in the network security group. A rule can be for
+  # either inbound (`direction`= INGRESS) or outbound (`direction`= EGRESS) IP packets.
+  #
+  class VnMonitoring::Models::SecurityRule
+    DESTINATION_TYPE_ENUM = [
+      DESTINATION_TYPE_CIDR_BLOCK = 'CIDR_BLOCK'.freeze,
+      DESTINATION_TYPE_SERVICE_CIDR_BLOCK = 'SERVICE_CIDR_BLOCK'.freeze,
+      DESTINATION_TYPE_NETWORK_SECURITY_GROUP = 'NETWORK_SECURITY_GROUP'.freeze,
+      DESTINATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    DIRECTION_ENUM = [
+      DIRECTION_EGRESS = 'EGRESS'.freeze,
+      DIRECTION_INGRESS = 'INGRESS'.freeze,
+      DIRECTION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    SOURCE_TYPE_ENUM = [
+      SOURCE_TYPE_CIDR_BLOCK = 'CIDR_BLOCK'.freeze,
+      SOURCE_TYPE_SERVICE_CIDR_BLOCK = 'SERVICE_CIDR_BLOCK'.freeze,
+      SOURCE_TYPE_NETWORK_SECURITY_GROUP = 'NETWORK_SECURITY_GROUP'.freeze,
+      SOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # An optional description of your choice for the rule.
+    #
+    # @return [String]
+    attr_accessor :description
+
+    # Conceptually, this is the range of IP addresses that a packet originating from the instance
+    # can go to.
+    #
+    # Allowed values:
+    #
+    #   * An IP address range in CIDR notation. For example: `192.168.1.0/24` or `2001:0db8:0123:45::/56`
+    #     IPv6 addressing is supported for all commercial and government regions.
+    #     See [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
+    #
+    #   * The `cidrBlock` value for a {Service}, if you're
+    #     setting up a security rule for traffic destined for a particular `Service` through
+    #     a service gateway. For example: `oci-phx-objectstorage`.
+    #
+    #   * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of a {NetworkSecurityGroup} in the same
+    #     VCN. The value can be the NSG that the rule belongs to if the rule's intent is to control
+    #     traffic between VNICs in the same NSG.
+    #
+    # @return [String]
+    attr_accessor :destination
+
+    # Type of destination for the rule. Required if `direction` = `EGRESS`.
+    #
+    # Allowed values:
+    #
+    #   * `CIDR_BLOCK`: If the rule's `destination` is an IP address range in CIDR notation.
+    #
+    #   * `SERVICE_CIDR_BLOCK`: If the rule's `destination` is the `cidrBlock` value for a
+    #     {Service} (the rule is for traffic destined for a
+    #     particular `Service` through a service gateway).
+    #
+    #   * `NETWORK_SECURITY_GROUP`: If the rule's `destination` is the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of a
+    #     {NetworkSecurityGroup}.
+    #
+    # @return [String]
+    attr_reader :destination_type
+
+    # **[Required]** Direction of the security rule. Set to `EGRESS` for rules to allow outbound IP packets,
+    # or `INGRESS` for rules to allow inbound IP packets.
+    #
+    # @return [String]
+    attr_reader :direction
+
+    # @return [OCI::VnMonitoring::Models::IcmpOptions]
+    attr_accessor :icmp_options
+
+    # An Oracle-assigned identifier for the security rule. You specify this ID when you want to
+    # update or delete the rule.
+    #
+    # Example: `04ABEC`
+    #
+    # @return [String]
+    attr_accessor :id
+
+    # A stateless rule allows traffic in one direction. Remember to add a corresponding
+    # stateless rule in the other direction if you need to support bidirectional traffic. For
+    # example, if egress traffic allows TCP destination port 80, there should be an ingress
+    # rule to allow TCP source port 80. Defaults to false, which means the rule is stateful
+    # and a corresponding rule is not necessary for bidirectional traffic.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_stateless
+
+    # Whether the rule is valid. The value is `True` when the rule is first created. If
+    # the rule's `source` or `destination` is a network security group, the value changes to
+    # `False` if that network security group is deleted.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_valid
+
+    # **[Required]** The transport protocol. Specify either `all` or an IPv4 protocol number as
+    # defined in
+    # [Protocol Numbers](http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml).
+    # Options are supported only for ICMP (\"1\"), TCP (\"6\"), UDP (\"17\"), and ICMPv6 (\"58\").
+    #
+    # @return [String]
+    attr_accessor :protocol
+
+    # Conceptually, this is the range of IP addresses that a packet coming into the instance
+    # can come from.
+    #
+    # Allowed values:
+    #
+    #   * An IP address range in CIDR notation. For example: `192.168.1.0/24` or `2001:0db8:0123:45::/56`
+    #     IPv6 addressing is supported for all commercial and government regions.
+    #     See [IPv6 Addresses](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/ipv6.htm).
+    #
+    #   * The `cidrBlock` value for a {Service}, if you're
+    #     setting up a security rule for traffic coming from a particular `Service` through
+    #     a service gateway. For example: `oci-phx-objectstorage`.
+    #
+    #   * The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of a {NetworkSecurityGroup} in the same
+    #     VCN. The value can be the NSG that the rule belongs to if the rule's intent is to control
+    #     traffic between VNICs in the same NSG.
+    #
+    # @return [String]
+    attr_accessor :source
+
+    # Type of source for the rule. Required if `direction` = `INGRESS`.
+    #
+    #   * `CIDR_BLOCK`: If the rule's `source` is an IP address range in CIDR notation.
+    #
+    #   * `SERVICE_CIDR_BLOCK`: If the rule's `source` is the `cidrBlock` value for a
+    #     {Service} (the rule is for traffic coming from a
+    #     particular `Service` through a service gateway).
+    #
+    #   * `NETWORK_SECURITY_GROUP`: If the rule's `source` is the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of a
+    #     {NetworkSecurityGroup}.
+    #
+    # @return [String]
+    attr_reader :source_type
+
+    # @return [OCI::VnMonitoring::Models::TcpOptions]
+    attr_accessor :tcp_options
+
+    # The date and time the security rule was created. Format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # @return [DateTime]
+    attr_accessor :time_created
+
+    # @return [OCI::VnMonitoring::Models::UdpOptions]
+    attr_accessor :udp_options
+
+    # Attribute mapping from ruby-style variable name to JSON key.
+    def self.attribute_map
+      {
+        # rubocop:disable Style/SymbolLiteral
+        'description': :'description',
+        'destination': :'destination',
+        'destination_type': :'destinationType',
+        'direction': :'direction',
+        'icmp_options': :'icmpOptions',
+        'id': :'id',
+        'is_stateless': :'isStateless',
+        'is_valid': :'isValid',
+        'protocol': :'protocol',
+        'source': :'source',
+        'source_type': :'sourceType',
+        'tcp_options': :'tcpOptions',
+        'time_created': :'timeCreated',
+        'udp_options': :'udpOptions'
+        # rubocop:enable Style/SymbolLiteral
+      }
+    end
+
+    # Attribute type mapping.
+    def self.swagger_types
+      {
+        # rubocop:disable Style/SymbolLiteral
+        'description': :'String',
+        'destination': :'String',
+        'destination_type': :'String',
+        'direction': :'String',
+        'icmp_options': :'OCI::VnMonitoring::Models::IcmpOptions',
+        'id': :'String',
+        'is_stateless': :'BOOLEAN',
+        'is_valid': :'BOOLEAN',
+        'protocol': :'String',
+        'source': :'String',
+        'source_type': :'String',
+        'tcp_options': :'OCI::VnMonitoring::Models::TcpOptions',
+        'time_created': :'DateTime',
+        'udp_options': :'OCI::VnMonitoring::Models::UdpOptions'
+        # rubocop:enable Style/SymbolLiteral
+      }
+    end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+
+    # Initializes the object
+    # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :description The value to assign to the {#description} property
+    # @option attributes [String] :destination The value to assign to the {#destination} property
+    # @option attributes [String] :destination_type The value to assign to the {#destination_type} property
+    # @option attributes [String] :direction The value to assign to the {#direction} property
+    # @option attributes [OCI::VnMonitoring::Models::IcmpOptions] :icmp_options The value to assign to the {#icmp_options} property
+    # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [BOOLEAN] :is_stateless The value to assign to the {#is_stateless} property
+    # @option attributes [BOOLEAN] :is_valid The value to assign to the {#is_valid} property
+    # @option attributes [String] :protocol The value to assign to the {#protocol} property
+    # @option attributes [String] :source The value to assign to the {#source} property
+    # @option attributes [String] :source_type The value to assign to the {#source_type} property
+    # @option attributes [OCI::VnMonitoring::Models::TcpOptions] :tcp_options The value to assign to the {#tcp_options} property
+    # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [OCI::VnMonitoring::Models::UdpOptions] :udp_options The value to assign to the {#udp_options} property
+    def initialize(attributes = {})
+      return unless attributes.is_a?(Hash)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.description = attributes[:'description'] if attributes[:'description']
+
+      self.destination = attributes[:'destination'] if attributes[:'destination']
+
+      self.destination_type = attributes[:'destinationType'] if attributes[:'destinationType']
+
+      raise 'You cannot provide both :destinationType and :destination_type' if attributes.key?(:'destinationType') && attributes.key?(:'destination_type')
+
+      self.destination_type = attributes[:'destination_type'] if attributes[:'destination_type']
+
+      self.direction = attributes[:'direction'] if attributes[:'direction']
+
+      self.icmp_options = attributes[:'icmpOptions'] if attributes[:'icmpOptions']
+
+      raise 'You cannot provide both :icmpOptions and :icmp_options' if attributes.key?(:'icmpOptions') && attributes.key?(:'icmp_options')
+
+      self.icmp_options = attributes[:'icmp_options'] if attributes[:'icmp_options']
+
+      self.id = attributes[:'id'] if attributes[:'id']
+
+      self.is_stateless = attributes[:'isStateless'] unless attributes[:'isStateless'].nil?
+
+      raise 'You cannot provide both :isStateless and :is_stateless' if attributes.key?(:'isStateless') && attributes.key?(:'is_stateless')
+
+      self.is_stateless = attributes[:'is_stateless'] unless attributes[:'is_stateless'].nil?
+
+      self.is_valid = attributes[:'isValid'] unless attributes[:'isValid'].nil?
+
+      raise 'You cannot provide both :isValid and :is_valid' if attributes.key?(:'isValid') && attributes.key?(:'is_valid')
+
+      self.is_valid = attributes[:'is_valid'] unless attributes[:'is_valid'].nil?
+
+      self.protocol = attributes[:'protocol'] if attributes[:'protocol']
+
+      self.source = attributes[:'source'] if attributes[:'source']
+
+      self.source_type = attributes[:'sourceType'] if attributes[:'sourceType']
+
+      raise 'You cannot provide both :sourceType and :source_type' if attributes.key?(:'sourceType') && attributes.key?(:'source_type')
+
+      self.source_type = attributes[:'source_type'] if attributes[:'source_type']
+
+      self.tcp_options = attributes[:'tcpOptions'] if attributes[:'tcpOptions']
+
+      raise 'You cannot provide both :tcpOptions and :tcp_options' if attributes.key?(:'tcpOptions') && attributes.key?(:'tcp_options')
+
+      self.tcp_options = attributes[:'tcp_options'] if attributes[:'tcp_options']
+
+      self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
+
+      raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
+
+      self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.udp_options = attributes[:'udpOptions'] if attributes[:'udpOptions']
+
+      raise 'You cannot provide both :udpOptions and :udp_options' if attributes.key?(:'udpOptions') && attributes.key?(:'udp_options')
+
+      self.udp_options = attributes[:'udp_options'] if attributes[:'udp_options']
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] destination_type Object to be assigned
+    def destination_type=(destination_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if destination_type && !DESTINATION_TYPE_ENUM.include?(destination_type)
+        OCI.logger.debug("Unknown value for 'destination_type' [" + destination_type + "]. Mapping to 'DESTINATION_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @destination_type = DESTINATION_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @destination_type = destination_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] direction Object to be assigned
+    def direction=(direction)
+      # rubocop:disable Style/ConditionalAssignment
+      if direction && !DIRECTION_ENUM.include?(direction)
+        OCI.logger.debug("Unknown value for 'direction' [" + direction + "]. Mapping to 'DIRECTION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @direction = DIRECTION_UNKNOWN_ENUM_VALUE
+      else
+        @direction = direction
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] source_type Object to be assigned
+    def source_type=(source_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if source_type && !SOURCE_TYPE_ENUM.include?(source_type)
+        OCI.logger.debug("Unknown value for 'source_type' [" + source_type + "]. Mapping to 'SOURCE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @source_type = SOURCE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @source_type = source_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+
+
+    # Checks equality by comparing each attribute.
+    # @param [Object] other the other object to be compared
+    def ==(other)
+      return true if equal?(other)
+
+      self.class == other.class &&
+        description == other.description &&
+        destination == other.destination &&
+        destination_type == other.destination_type &&
+        direction == other.direction &&
+        icmp_options == other.icmp_options &&
+        id == other.id &&
+        is_stateless == other.is_stateless &&
+        is_valid == other.is_valid &&
+        protocol == other.protocol &&
+        source == other.source &&
+        source_type == other.source_type &&
+        tcp_options == other.tcp_options &&
+        time_created == other.time_created &&
+        udp_options == other.udp_options
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
+
+    # @see the `==` method
+    # @param [Object] other the other object to be compared
+    def eql?(other)
+      self == other
+    end
+
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
+
+
+    # Calculates hash code according to all attributes.
+    # @return [Fixnum] Hash code
+    def hash
+      [description, destination, destination_type, direction, icmp_options, id, is_stateless, is_valid, protocol, source, source_type, tcp_options, time_created, udp_options].hash
+    end
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
+
+    # rubocop:disable Metrics/AbcSize, Layout/EmptyLines
+
+
+    # Builds the object from hash
+    # @param [Hash] attributes Model attributes in the form of hash
+    # @return [Object] Returns the model itself
+    def build_from_hash(attributes)
+      return nil unless attributes.is_a?(Hash)
+
+      self.class.swagger_types.each_pair do |key, type|
+        if type =~ /^Array<(.*)>/i
+          # check to ensure the input is an array given that the the attribute
+          # is documented as an array but the input is not
+          if attributes[self.class.attribute_map[key]].is_a?(Array)
+            public_method("#{key}=").call(
+              attributes[self.class.attribute_map[key]]
+                .map { |v| OCI::Internal::Util.convert_to_type(Regexp.last_match(1), v) }
+            )
+          end
+        elsif !attributes[self.class.attribute_map[key]].nil?
+          public_method("#{key}=").call(
+            OCI::Internal::Util.convert_to_type(type, attributes[self.class.attribute_map[key]])
+          )
+        end
+        # or else data not found in attributes(hash), not an issue as the data can be optional
+      end
+
+      self
+    end
+    # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
+
+    # Returns the string representation of the object
+    # @return [String] String presentation of the object
+    def to_s
+      to_hash.to_s
+    end
+
+    # Returns the object in the form of hash
+    # @return [Hash] Returns the object in the form of hash
+    def to_hash
+      hash = {}
+      self.class.attribute_map.each_pair do |attr, param|
+        value = public_method(attr).call
+        next if value.nil? && !instance_variable_defined?("@#{attr}")
+
+        hash[param] = _to_hash(value)
+      end
+      hash
+    end
+
+    private
+
+    # Outputs non-array value in the form of hash
+    # For object, use to_hash. Otherwise, just return the value
+    # @param [Object] value Any valid value
+    # @return [Hash] Returns the value in the form of hash
+    def _to_hash(value)
+      if value.is_a?(Array)
+        value.compact.map { |v| _to_hash(v) }
+      elsif value.is_a?(Hash)
+        {}.tap do |hash|
+          value.each { |k, v| hash[k] = _to_hash(v) }
+        end
+      elsif value.respond_to? :to_hash
+        value.to_hash
+      else
+        value
+      end
+    end
+  end
+end
+# rubocop:enable Lint/UnneededCopDisableDirective, Metrics/LineLength

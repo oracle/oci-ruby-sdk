@@ -34,6 +34,7 @@ module OCI
     # @return [String]
     attr_accessor :path_prefix
 
+    # This attribute is required.
     # @return [OCI::Apigateway::Models::ApiSpecification]
     attr_accessor :specification
 

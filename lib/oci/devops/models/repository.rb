@@ -68,8 +68,8 @@ module OCI
     attr_accessor :default_branch
 
     # Type of repository:
-    # Mirrored - Repository created by mirroring an existing repository.
-    # Hosted - Repository created and hosted using OCI DevOps code repository.
+    # MIRRORED - Repository created by mirroring an existing repository.
+    # HOSTED - Repository created and hosted using OCI DevOps code repository.
     #
     # @return [String]
     attr_reader :repository_type
@@ -106,8 +106,8 @@ module OCI
     attr_accessor :size_in_bytes
 
     # Trigger build events supported for this repository:
-    # Push - Build is triggered when a push event occurs.
-    # Commit updates - Build is triggered when new commits are mirrored into a repository.
+    # PUSH - Build is triggered when a push event occurs.
+    # COMMIT_UPDATES - Build is triggered when new commits are mirrored into a repository.
     #
     # @return [Array<String>]
     attr_reader :trigger_build_events

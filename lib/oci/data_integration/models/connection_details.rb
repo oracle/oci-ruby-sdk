@@ -16,7 +16,8 @@ module OCI
       MODEL_TYPE_MYSQL_CONNECTION = 'MYSQL_CONNECTION'.freeze,
       MODEL_TYPE_GENERIC_JDBC_CONNECTION = 'GENERIC_JDBC_CONNECTION'.freeze,
       MODEL_TYPE_BICC_CONNECTION = 'BICC_CONNECTION'.freeze,
-      MODEL_TYPE_AMAZON_S3_CONNECTION = 'AMAZON_S3_CONNECTION'.freeze
+      MODEL_TYPE_AMAZON_S3_CONNECTION = 'AMAZON_S3_CONNECTION'.freeze,
+      MODEL_TYPE_BIP_CONNECTION = 'BIP_CONNECTION'.freeze
     ].freeze
 
     # **[Required]** The type of the connection.
@@ -126,6 +127,7 @@ module OCI
       return 'OCI::DataIntegration::Models::ConnectionFromAdwcDetails' if type == 'ORACLE_ADWC_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionFromAtpDetails' if type == 'ORACLE_ATP_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionFromOracleDetails' if type == 'ORACLEDB_CONNECTION'
+      return 'OCI::DataIntegration::Models::ConnectionFromBipDetails' if type == 'BIP_CONNECTION'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::DataIntegration::Models::ConnectionDetails'

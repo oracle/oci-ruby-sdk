@@ -7,7 +7,7 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A managed container for defined tags. A tag namespace is unique in a tenancy. For more information,
-  # see [Managing Tags and Tag Namespaces](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm).
+  # see [Managing Tags and Tag Namespaces](https://docs.cloud.oracle.com/Content/Tagging/Tasks/managingtagsandtagnamespaces.htm).
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values
   # using the API.
@@ -53,7 +53,7 @@ module OCI
     attr_accessor :defined_tags
 
     # **[Required]** Whether the tag namespace is retired.
-    # See [Retiring Key Definitions and Namespace Definitions](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm#Retiring).
+    # See [Retiring Key Definitions and Namespace Definitions](https://docs.cloud.oracle.com/Content/Tagging/Tasks/managingtagsandtagnamespaces.htm#retiringkeys).
     #
     # @return [BOOLEAN]
     attr_accessor :is_retired
@@ -68,6 +68,10 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # Locks associated with this resource.
+    # @return [Array<OCI::Identity::Models::ResourceLock>]
+    attr_accessor :locks
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -80,7 +84,8 @@ module OCI
         'defined_tags': :'definedTags',
         'is_retired': :'isRetired',
         'lifecycle_state': :'lifecycleState',
-        'time_created': :'timeCreated'
+        'time_created': :'timeCreated',
+        'locks': :'locks'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -97,7 +102,8 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'is_retired': :'BOOLEAN',
         'lifecycle_state': :'String',
-        'time_created': :'DateTime'
+        'time_created': :'DateTime',
+        'locks': :'Array<OCI::Identity::Models::ResourceLock>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -117,6 +123,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_retired The value to assign to the {#is_retired} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [Array<OCI::Identity::Models::ResourceLock>] :locks The value to assign to the {#locks} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -164,6 +171,8 @@ module OCI
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
+
+      self.locks = attributes[:'locks'] if attributes[:'locks']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -198,7 +207,8 @@ module OCI
         defined_tags == other.defined_tags &&
         is_retired == other.is_retired &&
         lifecycle_state == other.lifecycle_state &&
-        time_created == other.time_created
+        time_created == other.time_created &&
+        locks == other.locks
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -214,7 +224,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, description, freeform_tags, defined_tags, is_retired, lifecycle_state, time_created].hash
+      [id, compartment_id, name, description, freeform_tags, defined_tags, is_retired, lifecycle_state, time_created, locks].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

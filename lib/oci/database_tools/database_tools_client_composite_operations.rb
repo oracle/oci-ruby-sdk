@@ -28,7 +28,7 @@ module OCI
     # Calls {OCI::DatabaseTools::DatabaseToolsClient#change_database_tools_connection_compartment} and then waits for the {OCI::DatabaseTools::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a DatabaseToolsConnection.
+    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools connection.
     # @param [OCI::DatabaseTools::Models::ChangeDatabaseToolsConnectionCompartmentDetails] change_database_tools_connection_compartment_details Request to change the compartment of the DatabaseToolsConnection.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DatabaseTools::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DatabaseTools::DatabaseToolsClient#change_database_tools_connection_compartment}
@@ -78,7 +78,7 @@ module OCI
     # Calls {OCI::DatabaseTools::DatabaseToolsClient#change_database_tools_private_endpoint_compartment} and then waits for the {OCI::DatabaseTools::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] database_tools_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a DatabaseToolsPrivateEndpoint.
+    # @param [String] database_tools_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools private endpoint.
     # @param [OCI::DatabaseTools::Models::ChangeDatabaseToolsPrivateEndpointCompartmentDetails] change_database_tools_private_endpoint_compartment_details Request to change the compartment of the DatabaseToolsPrivateEndpoint.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DatabaseTools::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DatabaseTools::DatabaseToolsClient#change_database_tools_private_endpoint_compartment}
@@ -128,7 +128,7 @@ module OCI
     # Calls {OCI::DatabaseTools::DatabaseToolsClient#create_database_tools_connection} and then waits for the {OCI::DatabaseTools::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionDetails] create_database_tools_connection_details Details for the new DatabaseToolsConnection.
+    # @param [OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionDetails] create_database_tools_connection_details Details for the new `DatabaseToolsConnection`.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DatabaseTools::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DatabaseTools::DatabaseToolsClient#create_database_tools_connection}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -226,7 +226,7 @@ module OCI
     # Calls {OCI::DatabaseTools::DatabaseToolsClient#delete_database_tools_connection} and then waits for the {OCI::DatabaseTools::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a DatabaseToolsConnection.
+    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools connection.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DatabaseTools::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DatabaseTools::DatabaseToolsClient#delete_database_tools_connection}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -275,7 +275,7 @@ module OCI
     # Calls {OCI::DatabaseTools::DatabaseToolsClient#delete_database_tools_private_endpoint} and then waits for the {OCI::DatabaseTools::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] database_tools_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a DatabaseToolsPrivateEndpoint.
+    # @param [String] database_tools_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools private endpoint.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DatabaseTools::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DatabaseTools::DatabaseToolsClient#delete_database_tools_private_endpoint}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -324,7 +324,7 @@ module OCI
     # Calls {OCI::DatabaseTools::DatabaseToolsClient#update_database_tools_connection} and then waits for the {OCI::DatabaseTools::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a DatabaseToolsConnection.
+    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools connection.
     # @param [OCI::DatabaseTools::Models::UpdateDatabaseToolsConnectionDetails] update_database_tools_connection_details The information to be updated.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DatabaseTools::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DatabaseTools::DatabaseToolsClient#update_database_tools_connection}
@@ -374,7 +374,7 @@ module OCI
     # Calls {OCI::DatabaseTools::DatabaseToolsClient#update_database_tools_private_endpoint} and then waits for the {OCI::DatabaseTools::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] database_tools_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a DatabaseToolsPrivateEndpoint.
+    # @param [String] database_tools_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools private endpoint.
     # @param [OCI::DatabaseTools::Models::UpdateDatabaseToolsPrivateEndpointDetails] update_database_tools_private_endpoint_details The information to be updated.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DatabaseTools::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DatabaseTools::DatabaseToolsClient#update_database_tools_private_endpoint}

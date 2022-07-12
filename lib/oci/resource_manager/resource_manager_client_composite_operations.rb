@@ -193,6 +193,45 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::ResourceManager::ResourceManagerClient#create_private_endpoint} and then waits for the {OCI::ResourceManager::Models::PrivateEndpoint} acted upon
+    # to enter the given state(s).
+    #
+    # @param [OCI::ResourceManager::Models::CreatePrivateEndpointDetails] create_private_endpoint_details Creation details for a private endpoint.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ResourceManager::Models::PrivateEndpoint#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ResourceManager::ResourceManagerClient#create_private_endpoint}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::ResourceManager::Models::PrivateEndpoint}
+    def create_private_endpoint_and_wait_for_state(create_private_endpoint_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_private_endpoint(create_private_endpoint_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_private_endpoint(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::ResourceManager::ResourceManagerClient#create_stack} and then waits for the {OCI::ResourceManager::Models::WorkRequest}
     # to enter the given state(s).
     #
@@ -296,6 +335,46 @@ module OCI
     def delete_configuration_source_provider_and_wait_for_state(configuration_source_provider_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       initial_get_result = @service_client.get_configuration_source_provider(configuration_source_provider_id)
       operation_result = @service_client.delete_configuration_source_provider(configuration_source_provider_id, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+
+      begin
+        waiter_result = initial_get_result.wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
+          succeed_on_not_found: true
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::ResourceManager::ResourceManagerClient#delete_private_endpoint} and then waits for the {OCI::ResourceManager::Models::PrivateEndpoint} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] private_endpoint_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the private endpoint.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ResourceManager::Models::PrivateEndpoint#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ResourceManager::ResourceManagerClient#delete_private_endpoint}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    def delete_private_endpoint_and_wait_for_state(private_endpoint_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      initial_get_result = @service_client.get_private_endpoint(private_endpoint_id)
+      operation_result = @service_client.delete_private_endpoint(private_endpoint_id, base_operation_opts)
 
       return operation_result if wait_for_states.empty?
 
@@ -515,6 +594,46 @@ module OCI
 
       begin
         waiter_result = @service_client.get_job(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::ResourceManager::ResourceManagerClient#update_private_endpoint} and then waits for the {OCI::ResourceManager::Models::PrivateEndpoint} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] private_endpoint_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the private endpoint.
+    # @param [OCI::ResourceManager::Models::UpdatePrivateEndpointDetails] update_private_endpoint_details Update details for a private endpoint.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::ResourceManager::Models::PrivateEndpoint#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::ResourceManager::ResourceManagerClient#update_private_endpoint}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::ResourceManager::Models::PrivateEndpoint}
+    def update_private_endpoint_and_wait_for_state(private_endpoint_id, update_private_endpoint_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_private_endpoint(private_endpoint_id, update_private_endpoint_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_private_endpoint(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200

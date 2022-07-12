@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Detected text.
+  # The detected text.
   class AiVision::Models::ImageText
-    # **[Required]** Words recognized in the image.
+    # **[Required]** The words recognized in an image.
     # @return [Array<OCI::AiVision::Models::Word>]
     attr_accessor :words
 
-    # **[Required]** Lines of text recognized in the image.
+    # **[Required]** The lines of text recognized in an image.
     # @return [Array<OCI::AiVision::Models::Line>]
     attr_accessor :lines
 

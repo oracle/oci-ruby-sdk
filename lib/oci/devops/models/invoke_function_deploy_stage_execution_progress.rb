@@ -6,7 +6,7 @@ require_relative 'deploy_stage_execution_progress'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the invoke function stage specific execution details.
+  # Specifies the Invoke Function stage specific execution details.
   class Devops::Models::InvokeFunctionDeployStageExecutionProgress < Devops::Models::DeployStageExecutionProgress
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map

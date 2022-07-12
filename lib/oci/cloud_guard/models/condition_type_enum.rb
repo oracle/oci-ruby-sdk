@@ -6,7 +6,8 @@ module OCI
     CONDITION_TYPE_ENUM_ENUM = [
       CONDITION_TYPE_ENUM_ACTIVITY_CONDITION = 'ActivityCondition'.freeze,
       CONDITION_TYPE_ENUM_SECURITY_CONDITION = 'SecurityCondition'.freeze,
-      CONDITION_TYPE_ENUM_CLOUD_GUARD_CONDITION = 'CloudGuardCondition'.freeze
+      CONDITION_TYPE_ENUM_CLOUD_GUARD_CONDITION = 'CloudGuardCondition'.freeze,
+      CONDITION_TYPE_ENUM_THREAT_CONDITION = 'ThreatCondition'.freeze
     ].freeze
   end
 end

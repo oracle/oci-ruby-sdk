@@ -62,6 +62,11 @@ module OCI
     # @return [String]
     attr_reader :encryption_in_transit_type
 
+    # Whether Oracle Cloud Agent is enabled perform the iSCSI login and logout commands after the volume attach or detach operations for non multipath-enabled iSCSI attachments.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_agent_auto_iscsi_login_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -87,7 +92,8 @@ module OCI
         'iqn': :'iqn',
         'port': :'port',
         'multipath_devices': :'multipathDevices',
-        'encryption_in_transit_type': :'encryptionInTransitType'
+        'encryption_in_transit_type': :'encryptionInTransitType',
+        'is_agent_auto_iscsi_login_enabled': :'isAgentAutoIscsiLoginEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -117,7 +123,8 @@ module OCI
         'iqn': :'String',
         'port': :'Integer',
         'multipath_devices': :'Array<OCI::Core::Models::MultipathDevice>',
-        'encryption_in_transit_type': :'String'
+        'encryption_in_transit_type': :'String',
+        'is_agent_auto_iscsi_login_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -149,6 +156,7 @@ module OCI
     # @option attributes [Integer] :port The value to assign to the {#port} property
     # @option attributes [Array<OCI::Core::Models::MultipathDevice>] :multipath_devices The value to assign to the {#multipath_devices} property
     # @option attributes [String] :encryption_in_transit_type The value to assign to the {#encryption_in_transit_type} property
+    # @option attributes [BOOLEAN] :is_agent_auto_iscsi_login_enabled The value to assign to the {#is_agent_auto_iscsi_login_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -190,6 +198,12 @@ module OCI
 
       self.encryption_in_transit_type = attributes[:'encryption_in_transit_type'] if attributes[:'encryption_in_transit_type']
       self.encryption_in_transit_type = "NONE" if encryption_in_transit_type.nil? && !attributes.key?(:'encryptionInTransitType') && !attributes.key?(:'encryption_in_transit_type') # rubocop:disable Style/StringLiterals
+
+      self.is_agent_auto_iscsi_login_enabled = attributes[:'isAgentAutoIscsiLoginEnabled'] unless attributes[:'isAgentAutoIscsiLoginEnabled'].nil?
+
+      raise 'You cannot provide both :isAgentAutoIscsiLoginEnabled and :is_agent_auto_iscsi_login_enabled' if attributes.key?(:'isAgentAutoIscsiLoginEnabled') && attributes.key?(:'is_agent_auto_iscsi_login_enabled')
+
+      self.is_agent_auto_iscsi_login_enabled = attributes[:'is_agent_auto_iscsi_login_enabled'] unless attributes[:'is_agent_auto_iscsi_login_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -237,7 +251,8 @@ module OCI
         iqn == other.iqn &&
         port == other.port &&
         multipath_devices == other.multipath_devices &&
-        encryption_in_transit_type == other.encryption_in_transit_type
+        encryption_in_transit_type == other.encryption_in_transit_type &&
+        is_agent_auto_iscsi_login_enabled == other.is_agent_auto_iscsi_login_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -253,7 +268,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [attachment_type, availability_domain, compartment_id, device, display_name, id, instance_id, is_read_only, is_shareable, lifecycle_state, time_created, volume_id, is_pv_encryption_in_transit_enabled, is_multipath, iscsi_login_state, chap_secret, chap_username, ipv4, iqn, port, multipath_devices, encryption_in_transit_type].hash
+      [attachment_type, availability_domain, compartment_id, device, display_name, id, instance_id, is_read_only, is_shareable, lifecycle_state, time_created, volume_id, is_pv_encryption_in_transit_enabled, is_multipath, iscsi_login_state, chap_secret, chap_username, ipv4, iqn, port, multipath_devices, encryption_in_transit_type, is_agent_auto_iscsi_login_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -12,6 +12,9 @@ module OCI
     # @return [String]
     attr_accessor :cluster_id
 
+    # @return [OCI::Devops::Models::NetworkChannel]
+    attr_accessor :network_channel
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -29,7 +32,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'system_tags': :'systemTags',
-        'cluster_id': :'clusterId'
+        'cluster_id': :'clusterId',
+        'network_channel': :'networkChannel'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -51,7 +55,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'system_tags': :'Hash<String, Hash<String, Object>>',
-        'cluster_id': :'String'
+        'cluster_id': :'String',
+        'network_channel': :'OCI::Devops::Models::NetworkChannel'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -75,6 +80,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Devops::Models::DeployEnvironment#defined_tags #defined_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {OCI::Devops::Models::DeployEnvironment#system_tags #system_tags} proprety
     # @option attributes [String] :cluster_id The value to assign to the {#cluster_id} property
+    # @option attributes [OCI::Devops::Models::NetworkChannel] :network_channel The value to assign to the {#network_channel} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -90,6 +96,12 @@ module OCI
       raise 'You cannot provide both :clusterId and :cluster_id' if attributes.key?(:'clusterId') && attributes.key?(:'cluster_id')
 
       self.cluster_id = attributes[:'cluster_id'] if attributes[:'cluster_id']
+
+      self.network_channel = attributes[:'networkChannel'] if attributes[:'networkChannel']
+
+      raise 'You cannot provide both :networkChannel and :network_channel' if attributes.key?(:'networkChannel') && attributes.key?(:'network_channel')
+
+      self.network_channel = attributes[:'network_channel'] if attributes[:'network_channel']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -116,7 +128,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         system_tags == other.system_tags &&
-        cluster_id == other.cluster_id
+        cluster_id == other.cluster_id &&
+        network_channel == other.network_channel
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -132,7 +145,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, description, display_name, project_id, compartment_id, deploy_environment_type, time_created, time_updated, lifecycle_state, lifecycle_details, freeform_tags, defined_tags, system_tags, cluster_id].hash
+      [id, description, display_name, project_id, compartment_id, deploy_environment_type, time_created, time_updated, lifecycle_state, lifecycle_details, freeform_tags, defined_tags, system_tags, cluster_id, network_channel].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

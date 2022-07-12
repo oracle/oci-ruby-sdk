@@ -6,9 +6,9 @@ require_relative 'field_value'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Integer field value.
+  # The integer field value.
   class AiVision::Models::ValueInteger < AiVision::Models::FieldValue
-    # **[Required]** Integer value.
+    # **[Required]** The integer value.
     # @return [Integer]
     attr_accessor :value
 

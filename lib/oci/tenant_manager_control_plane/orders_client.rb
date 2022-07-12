@@ -100,7 +100,7 @@ module OCI
 
     # Triggers an order activation workflow on behalf of the tenant, given by compartment ID in the body.
     # @param [OCI::TenantManagerControlPlane::Models::ActivateOrderDetails] activate_order_details The information needed to activate an order in a tenancy.
-    # @param [String] activation_token Activation Token containing an order id. JWT RFC 7519 formatted string.
+    # @param [String] activation_token Activation Token containing an order ID. A JWT RFC 7519 formatted string.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -162,9 +162,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns the Order Details given by the order id in the JWT
+    # Returns the Order Details given by the order ID in the JWT.
     #
-    # @param [String] activation_token Activation Token containing an order id. JWT RFC 7519 formatted string.
+    # @param [String] activation_token Activation Token containing an order ID. A JWT RFC 7519 formatted string.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level

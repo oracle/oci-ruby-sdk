@@ -30,9 +30,13 @@ module OCI
       LIFECYCLE_SUB_STATE_STARTING = 'STARTING'.freeze,
       LIFECYCLE_SUB_STATE_STOPPING = 'STOPPING'.freeze,
       LIFECYCLE_SUB_STATE_CHANGING_COMPARTMENT = 'CHANGING_COMPARTMENT'.freeze,
+      LIFECYCLE_SUB_STATE_ACTIVATING_CUSTOMER_ENCRYPTION_KEY = 'ACTIVATING_CUSTOMER_ENCRYPTION_KEY'.freeze,
+      LIFECYCLE_SUB_STATE_UPDATING_CUSTOMER_ENCRYPTION_KEY = 'UPDATING_CUSTOMER_ENCRYPTION_KEY'.freeze,
+      LIFECYCLE_SUB_STATE_DEACTIVATING_CUSTOMER_ENCRYPTION_KEY = 'DEACTIVATING_CUSTOMER_ENCRYPTION_KEY'.freeze,
       LIFECYCLE_SUB_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_SUB_STATE_DELETE_PENDING = 'DELETE_PENDING'.freeze,
       LIFECYCLE_SUB_STATE_RECOVERING = 'RECOVERING'.freeze,
+      LIFECYCLE_SUB_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_SUB_STATE_PURGING = 'PURGING'.freeze,
       LIFECYCLE_SUB_STATE_QUEUED = 'QUEUED'.freeze,
       LIFECYCLE_SUB_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
@@ -80,7 +84,7 @@ module OCI
     # @return [String]
     attr_accessor :state_message
 
-    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    # Simple key-value pair that is applied without any predefined name, type, or scope.
     # Example: `{\"bar-key\": \"value\"}`
     #
     # @return [Hash<String, String>]
@@ -91,6 +95,22 @@ module OCI
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
+
+    # Should this Digital Assistant instance use role-based authorization via an identity domain (true) or use the default policy-based authorization via IAM policies (false)
+    # @return [BOOLEAN]
+    attr_accessor :is_role_based_access
+
+    # If isRoleBasedAccess is set to true, this property specifies the identity domain that is to be used to implement this type of authorzation. Digital Assistant will create an Identity Application instance and Application Roles within this identity domain. The caller may then perform and user roll mappings they like to grant access to users within the identity domain.
+    # @return [String]
+    attr_accessor :identity_domain
+
+    # A list of package names imported into this instance (if any).
+    # @return [Array<String>]
+    attr_accessor :imported_package_names
+
+    # A list of attachment types for this instance (if any).
+    # @return [Array<String>]
+    attr_accessor :attachment_types
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -107,7 +127,11 @@ module OCI
         'lifecycle_sub_state': :'lifecycleSubState',
         'state_message': :'stateMessage',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'is_role_based_access': :'isRoleBasedAccess',
+        'identity_domain': :'identityDomain',
+        'imported_package_names': :'importedPackageNames',
+        'attachment_types': :'attachmentTypes'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -127,7 +151,11 @@ module OCI
         'lifecycle_sub_state': :'String',
         'state_message': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'is_role_based_access': :'BOOLEAN',
+        'identity_domain': :'String',
+        'imported_package_names': :'Array<String>',
+        'attachment_types': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -150,6 +178,10 @@ module OCI
     # @option attributes [String] :state_message The value to assign to the {#state_message} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [BOOLEAN] :is_role_based_access The value to assign to the {#is_role_based_access} property
+    # @option attributes [String] :identity_domain The value to assign to the {#identity_domain} property
+    # @option attributes [Array<String>] :imported_package_names The value to assign to the {#imported_package_names} property
+    # @option attributes [Array<String>] :attachment_types The value to assign to the {#attachment_types} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -219,6 +251,32 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.is_role_based_access = attributes[:'isRoleBasedAccess'] unless attributes[:'isRoleBasedAccess'].nil?
+      self.is_role_based_access = false if is_role_based_access.nil? && !attributes.key?(:'isRoleBasedAccess') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isRoleBasedAccess and :is_role_based_access' if attributes.key?(:'isRoleBasedAccess') && attributes.key?(:'is_role_based_access')
+
+      self.is_role_based_access = attributes[:'is_role_based_access'] unless attributes[:'is_role_based_access'].nil?
+      self.is_role_based_access = false if is_role_based_access.nil? && !attributes.key?(:'isRoleBasedAccess') && !attributes.key?(:'is_role_based_access') # rubocop:disable Style/StringLiterals
+
+      self.identity_domain = attributes[:'identityDomain'] if attributes[:'identityDomain']
+
+      raise 'You cannot provide both :identityDomain and :identity_domain' if attributes.key?(:'identityDomain') && attributes.key?(:'identity_domain')
+
+      self.identity_domain = attributes[:'identity_domain'] if attributes[:'identity_domain']
+
+      self.imported_package_names = attributes[:'importedPackageNames'] if attributes[:'importedPackageNames']
+
+      raise 'You cannot provide both :importedPackageNames and :imported_package_names' if attributes.key?(:'importedPackageNames') && attributes.key?(:'imported_package_names')
+
+      self.imported_package_names = attributes[:'imported_package_names'] if attributes[:'imported_package_names']
+
+      self.attachment_types = attributes[:'attachmentTypes'] if attributes[:'attachmentTypes']
+
+      raise 'You cannot provide both :attachmentTypes and :attachment_types' if attributes.key?(:'attachmentTypes') && attributes.key?(:'attachment_types')
+
+      self.attachment_types = attributes[:'attachment_types'] if attributes[:'attachment_types']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -282,7 +340,11 @@ module OCI
         lifecycle_sub_state == other.lifecycle_sub_state &&
         state_message == other.state_message &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        is_role_based_access == other.is_role_based_access &&
+        identity_domain == other.identity_domain &&
+        imported_package_names == other.imported_package_names &&
+        attachment_types == other.attachment_types
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -298,7 +360,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, description, compartment_id, shape_name, time_created, time_updated, lifecycle_state, lifecycle_sub_state, state_message, freeform_tags, defined_tags].hash
+      [id, display_name, description, compartment_id, shape_name, time_created, time_updated, lifecycle_state, lifecycle_sub_state, state_message, freeform_tags, defined_tags, is_role_based_access, identity_domain, imported_package_names, attachment_types].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

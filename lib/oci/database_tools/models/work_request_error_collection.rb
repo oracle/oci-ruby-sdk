@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # List of WorkRequestError items.
   class DatabaseTools::Models::WorkRequestErrorCollection
-    # **[Required]** Array of WorkRequestError.
+    # **[Required]** Array of Work Request Error items.
     # @return [Array<OCI::DatabaseTools::Models::WorkRequestError>]
     attr_accessor :items
 

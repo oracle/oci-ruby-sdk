@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Job details for a batch image analysis.
+  # The job details for a batch image analysis.
   class AiVision::Models::ImageJob
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_SUCCEEDED = 'SUCCEEDED'.freeze,
@@ -24,7 +24,7 @@ module OCI
       LIFECYCLE_DETAILS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Job id
+    # **[Required]** The job id
     # @return [String]
     attr_accessor :id
 
@@ -32,30 +32,30 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # Image job display name.
+    # The image job display name.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** List of document analysis types requested.
+    # **[Required]** The list of requested document analysis types.
     # @return [Array<OCI::AiVision::Models::ImageFeature>]
     attr_accessor :features
 
     # @return [OCI::AiVision::Models::InputLocation]
     attr_accessor :input_location
 
-    # **[Required]** Job accepted time.
+    # **[Required]** The job acceptance time.
     # @return [DateTime]
     attr_accessor :time_accepted
 
-    # Job started time.
+    # The job start time.
     # @return [DateTime]
     attr_accessor :time_started
 
-    # Job finished time.
+    # The job finish time.
     # @return [DateTime]
     attr_accessor :time_finished
 
-    # How much progress the operation has made, vs the total amount of work that must be performed.
+    # How much progress the operation has made, compared to the total amount of work to be performed.
     # @return [Float]
     attr_accessor :percent_complete
 
@@ -67,11 +67,11 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # Detailed status of FAILED state.
+    # The detailed status of FAILED state.
     # @return [String]
     attr_reader :lifecycle_details
 
-    # Whether to generate a Zip file containing the results.
+    # Whether or not to generate a ZIP file containing the results.
     # @return [BOOLEAN]
     attr_accessor :is_zip_output_enabled
 

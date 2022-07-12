@@ -17,6 +17,7 @@ module OCI
   class Sch::Models::SourceDetails
     KIND_ENUM = [
       KIND_LOGGING = 'logging'.freeze,
+      KIND_MONITORING = 'monitoring'.freeze,
       KIND_STREAMING = 'streaming'.freeze,
       KIND_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
@@ -53,6 +54,7 @@ module OCI
       type = object_hash[:'kind'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Sch::Models::LoggingSourceDetails' if type == 'logging'
+      return 'OCI::Sch::Models::MonitoringSourceDetails' if type == 'monitoring'
       return 'OCI::Sch::Models::StreamingSourceDetails' if type == 'streaming'
 
       # TODO: Log a warning when the subtype is not found.

@@ -446,6 +446,148 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a private endpoint from one compartment to another. When provided, If-Match is checked against ETag values of the resource.
+    # @param [String] operations_insights_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Operation Insights private endpoint.
+    # @param [OCI::Opsi::Models::ChangeOperationsInsightsPrivateEndpointCompartmentDetails] change_operations_insights_private_endpoint_compartment_details The details used to change the compartment of a private endpoint
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match Used for optimistic concurrency control. In the update or delete call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous get, create, or update response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request that can be retried in case of a timeout or
+    #   server error without risk of executing the same action again. Retry tokens expire after 24
+    #   hours.
+    #
+    #   *Note:* Retry tokens can be invalidated before the 24 hour time limit due to conflicting
+    #   operations, such as a resource being deleted or purged from the system.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/change_operations_insights_private_endpoint_compartment.rb.html) to see an example of how to use change_operations_insights_private_endpoint_compartment API.
+    def change_operations_insights_private_endpoint_compartment(operations_insights_private_endpoint_id, change_operations_insights_private_endpoint_compartment_details, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#change_operations_insights_private_endpoint_compartment.' if logger
+
+      raise "Missing the required parameter 'operations_insights_private_endpoint_id' when calling change_operations_insights_private_endpoint_compartment." if operations_insights_private_endpoint_id.nil?
+      raise "Missing the required parameter 'change_operations_insights_private_endpoint_compartment_details' when calling change_operations_insights_private_endpoint_compartment." if change_operations_insights_private_endpoint_compartment_details.nil?
+      raise "Parameter value for 'operations_insights_private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(operations_insights_private_endpoint_id)
+
+      path = '/operationsInsightsPrivateEndpoints/{operationsInsightsPrivateEndpointId}/actions/changeCompartment'.sub('{operationsInsightsPrivateEndpointId}', operations_insights_private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_operations_insights_private_endpoint_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#change_operations_insights_private_endpoint_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Change the connection details of a co-managed  database insight. When provided, If-Match is checked against ETag values of the resource.
+    # @param [String] database_insight_id Unique database insight identifier
+    # @param [OCI::Opsi::Models::ChangePeComanagedDatabaseInsightDetails] change_pe_comanaged_database_insight_details The information to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match Used for optimistic concurrency control. In the update or delete call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous get, create, or update response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request that can be retried in case of a timeout or
+    #   server error without risk of executing the same action again. Retry tokens expire after 24
+    #   hours.
+    #
+    #   *Note:* Retry tokens can be invalidated before the 24 hour time limit due to conflicting
+    #   operations, such as a resource being deleted or purged from the system.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/change_pe_comanaged_database_insight.rb.html) to see an example of how to use change_pe_comanaged_database_insight API.
+    def change_pe_comanaged_database_insight(database_insight_id, change_pe_comanaged_database_insight_details, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#change_pe_comanaged_database_insight.' if logger
+
+      raise "Missing the required parameter 'database_insight_id' when calling change_pe_comanaged_database_insight." if database_insight_id.nil?
+      raise "Missing the required parameter 'change_pe_comanaged_database_insight_details' when calling change_pe_comanaged_database_insight." if change_pe_comanaged_database_insight_details.nil?
+      raise "Parameter value for 'database_insight_id' must not be blank" if OCI::Internal::Util.blank_string?(database_insight_id)
+
+      path = '/databaseInsights/{databaseInsightId}/actions/changePeComanagedDatabaseInsightDetails'.sub('{databaseInsightId}', database_insight_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_pe_comanaged_database_insight_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#change_pe_comanaged_database_insight') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Create a AWR hub resource for the tenant in Operations Insights.
     # This resource will be created in root compartment.
     #
@@ -772,8 +914,75 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Create a private endpoint resource for the tenant in Operations Insights.
+    # This resource will be created in customer compartment.
+    #
+    # @param [OCI::Opsi::Models::CreateOperationsInsightsPrivateEndpointDetails] create_operations_insights_private_endpoint_details Details to create a new private endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request that can be retried in case of a timeout or
+    #   server error without risk of executing the same action again. Retry tokens expire after 24
+    #   hours.
+    #
+    #   *Note:* Retry tokens can be invalidated before the 24 hour time limit due to conflicting
+    #   operations, such as a resource being deleted or purged from the system.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Opsi::Models::OperationsInsightsPrivateEndpoint OperationsInsightsPrivateEndpoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/create_operations_insights_private_endpoint.rb.html) to see an example of how to use create_operations_insights_private_endpoint API.
+    def create_operations_insights_private_endpoint(create_operations_insights_private_endpoint_details, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#create_operations_insights_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'create_operations_insights_private_endpoint_details' when calling create_operations_insights_private_endpoint." if create_operations_insights_private_endpoint_details.nil?
+
+      path = '/operationsInsightsPrivateEndpoints'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_operations_insights_private_endpoint_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#create_operations_insights_private_endpoint') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Opsi::Models::OperationsInsightsPrivateEndpoint'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Create a Operations Insights Warehouse resource for the tenant in Operations Insights. New ADW will be provisioned for this tenant.
-    # There is only expected to be 1 warehouse per tenant. The warehouse is expected to be in the root compartment.
+    # There is only expected to be 1 warehouse per tenant. The warehouse is expected to be in the root compartment. If the 'opsi-warehouse-type'
+    # header is passed to the API, a warehouse resource without ADW or Schema provisioning is created.
     #
     # @param [OCI::Opsi::Models::CreateOperationsInsightsWarehouseDetails] create_operations_insights_warehouse_details Details using which an Operations Insights Warehouse resource will be created in Operations Insights.
     # @param [Hash] opts the optional parameters
@@ -1183,6 +1392,66 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#delete_host_insight') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a private endpoint.
+    # @param [String] operations_insights_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Operation Insights private endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match Used for optimistic concurrency control. In the update or delete call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous get, create, or update response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/delete_operations_insights_private_endpoint.rb.html) to see an example of how to use delete_operations_insights_private_endpoint API.
+    def delete_operations_insights_private_endpoint(operations_insights_private_endpoint_id, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#delete_operations_insights_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'operations_insights_private_endpoint_id' when calling delete_operations_insights_private_endpoint." if operations_insights_private_endpoint_id.nil?
+      raise "Parameter value for 'operations_insights_private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(operations_insights_private_endpoint_id)
+
+      path = '/operationsInsightsPrivateEndpoints/{operationsInsightsPrivateEndpointId}'.sub('{operationsInsightsPrivateEndpointId}', operations_insights_private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#delete_operations_insights_private_endpoint') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -2222,6 +2491,62 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets the details of the specified private endpoint.
+    # @param [String] operations_insights_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Operation Insights private endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Opsi::Models::OperationsInsightsPrivateEndpoint OperationsInsightsPrivateEndpoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/get_operations_insights_private_endpoint.rb.html) to see an example of how to use get_operations_insights_private_endpoint API.
+    def get_operations_insights_private_endpoint(operations_insights_private_endpoint_id, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#get_operations_insights_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'operations_insights_private_endpoint_id' when calling get_operations_insights_private_endpoint." if operations_insights_private_endpoint_id.nil?
+      raise "Parameter value for 'operations_insights_private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(operations_insights_private_endpoint_id)
+
+      path = '/operationsInsightsPrivateEndpoints/{operationsInsightsPrivateEndpointId}'.sub('{operationsInsightsPrivateEndpointId}', operations_insights_private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#get_operations_insights_private_endpoint') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Opsi::Models::OperationsInsightsPrivateEndpoint'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets details of an Operations Insights Warehouse.
     # There is only expected to be 1 warehouse per tenant. The warehouse is expected to be in the root compartment.
     #
@@ -2323,6 +2648,65 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Opsi::Models::OperationsInsightsWarehouseUser'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets details of an OPSI data object.
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] opsi_data_object_identifier Unique OPSI data object identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Opsi::Models::OpsiDataObject OpsiDataObject}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/get_opsi_data_object.rb.html) to see an example of how to use get_opsi_data_object API.
+    def get_opsi_data_object(compartment_id, opsi_data_object_identifier, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#get_opsi_data_object.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling get_opsi_data_object." if compartment_id.nil?
+      raise "Missing the required parameter 'opsi_data_object_identifier' when calling get_opsi_data_object." if opsi_data_object_identifier.nil?
+      raise "Parameter value for 'opsi_data_object_identifier' must not be blank" if OCI::Internal::Util.blank_string?(opsi_data_object_identifier)
+
+      path = '/opsiDataObjects/{opsiDataObjectIdentifier}'.sub('{opsiDataObjectIdentifier}', opsi_data_object_identifier.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#get_opsi_data_object') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Opsi::Models::OpsiDataObject'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -3143,7 +3527,7 @@ module OCI
     # @option opts [Array<String>] :database_type Filter by one or more database type.
     #   Possible values are ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.
     #    (default to [])
-    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
+    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to
     #   return in a paginated \"List\" call.
     #   For important details about how pagination works, see
@@ -3194,11 +3578,11 @@ module OCI
 
 
 
-      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB]
+      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB COMANAGED-VM-CDB COMANAGED-VM-PDB COMANAGED-VM-NONCDB COMANAGED-BM-CDB COMANAGED-BM-PDB COMANAGED-BM-NONCDB COMANAGED-EXACS-CDB COMANAGED-EXACS-PDB COMANAGED-EXACS-NONCDB]
       if opts[:database_type] && !opts[:database_type].empty?
         opts[:database_type].each do |val_to_check|
           unless database_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.'
+            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB.'
           end
         end
       end
@@ -3285,7 +3669,7 @@ module OCI
     # @option opts [Array<String>] :database_type Filter by one or more database type.
     #   Possible values are ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.
     #    (default to [])
-    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
+    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
     # @option opts [Array<String>] :fields Specifies the fields to return in a database summary response. By default all fields are returned if omitted.
@@ -3310,6 +3694,7 @@ module OCI
     #
     # @option opts [BOOLEAN] :compartment_id_in_subtree A flag to search all resources within a given compartment and all sub-compartments.
     #    (default to false)
+    # @option opts [String] :opsi_private_endpoint_id Unique Operations Insights PrivateEndpoint identifier
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
     #   Oracle about a particular request, please provide the request ID.
     #
@@ -3340,11 +3725,11 @@ module OCI
       end
 
 
-      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB]
+      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB COMANAGED-VM-CDB COMANAGED-VM-PDB COMANAGED-VM-NONCDB COMANAGED-BM-CDB COMANAGED-BM-PDB COMANAGED-BM-NONCDB COMANAGED-EXACS-CDB COMANAGED-EXACS-PDB COMANAGED-EXACS-NONCDB]
       if opts[:database_type] && !opts[:database_type].empty?
         opts[:database_type].each do |val_to_check|
           unless database_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.'
+            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB.'
           end
         end
       end
@@ -3387,6 +3772,7 @@ module OCI
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:exadataInsightId] = opts[:exadata_insight_id] if opts[:exadata_insight_id]
       query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:opsiPrivateEndpointId] = opts[:opsi_private_endpoint_id] if opts[:opsi_private_endpoint_id]
 
       # Header Params
       header_params = {}
@@ -3775,9 +4161,9 @@ module OCI
     #    (default to [])
     # @option opts [Array<String>] :platform_type Filter by one or more platform types.
     #   Supported platformType(s) for MACS-managed external host insight: [LINUX].
-    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS].
+    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS, ZLINUX].
     #    (default to [])
-    #   Allowed values are: LINUX, SOLARIS, SUNOS
+    #   Allowed values are: LINUX, SOLARIS, SUNOS, ZLINUX
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to
     #   return in a paginated \"List\" call.
     #   For important details about how pagination works, see
@@ -3826,11 +4212,11 @@ module OCI
 
 
 
-      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS]
+      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS ZLINUX]
       if opts[:platform_type] && !opts[:platform_type].empty?
         opts[:platform_type].each do |val_to_check|
           unless platform_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS.'
+            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS, ZLINUX.'
           end
         end
       end
@@ -3913,11 +4299,12 @@ module OCI
     # @option opts [Array<String>] :host_type Filter by one or more host types.
     #   Possible value is EXTERNAL-HOST.
     #    (default to [])
+    #   Allowed values are: EXTERNAL-HOST
     # @option opts [Array<String>] :platform_type Filter by one or more platform types.
     #   Supported platformType(s) for MACS-managed external host insight: [LINUX].
-    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS].
+    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS, ZLINUX].
     #    (default to [])
-    #   Allowed values are: LINUX, SOLARIS, SUNOS
+    #   Allowed values are: LINUX, SOLARIS, SUNOS, ZLINUX
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to
     #   return in a paginated \"List\" call.
     #   For important details about how pagination works, see
@@ -3968,11 +4355,21 @@ module OCI
       end
 
 
-      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS]
+      host_type_allowable_values = %w[EXTERNAL-HOST]
+      if opts[:host_type] && !opts[:host_type].empty?
+        opts[:host_type].each do |val_to_check|
+          unless host_type_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "host_type", must be one of EXTERNAL-HOST.'
+          end
+        end
+      end
+
+
+      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS ZLINUX]
       if opts[:platform_type] && !opts[:platform_type].empty?
         opts[:platform_type].each do |val_to_check|
           unless platform_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS.'
+            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS, ZLINUX.'
           end
         end
       end
@@ -4064,9 +4461,9 @@ module OCI
     #
     # @option opts [Array<String>] :platform_type Filter by one or more platform types.
     #   Supported platformType(s) for MACS-managed external host insight: [LINUX].
-    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS].
+    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS, ZLINUX].
     #    (default to [])
-    #   Allowed values are: LINUX, SOLARIS, SUNOS
+    #   Allowed values are: LINUX, SOLARIS, SUNOS, ZLINUX
     # @option opts [String] :exadata_insight_id [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of exadata insight resource.
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to
@@ -4096,11 +4493,11 @@ module OCI
       raise "Missing the required parameter 'id' when calling list_hosted_entities." if id.nil?
 
 
-      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS]
+      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS ZLINUX]
       if opts[:platform_type] && !opts[:platform_type].empty?
         opts[:platform_type].each do |val_to_check|
           unless platform_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS.'
+            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS, ZLINUX.'
           end
         end
       end
@@ -4330,6 +4727,112 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets a list of Operation Insights private endpoints.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name.
+    # @option opts [String] :opsi_private_endpoint_id Unique Operations Insights PrivateEndpoint identifier
+    # @option opts [BOOLEAN] :is_used_for_rac_dbs The option to filter OPSI private endpoints that can used for RAC. Should be used along with vcnId query parameter. (default to false)
+    # @option opts [String] :vcn_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
+    # @option opts [Array<String>] :lifecycle_state Lifecycle states (default to [])
+    #   Allowed values are: CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED, NEEDS_ATTENTION
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to
+    #   return in a paginated \"List\" call.
+    #   For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
+    #   Example: `50`
+    #    (default to 50)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from
+    #   the previous \"List\" call. For important details about how pagination works,
+    #   see [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #
+    # @option opts [String] :sort_by The field to sort private endpoints.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, id, displayName
+    # @option opts [BOOLEAN] :compartment_id_in_subtree A flag to search all resources within a given compartment and all sub-compartments.
+    #    (default to false)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Opsi::Models::OperationsInsightsPrivateEndpointCollection OperationsInsightsPrivateEndpointCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/list_operations_insights_private_endpoints.rb.html) to see an example of how to use list_operations_insights_private_endpoints API.
+    def list_operations_insights_private_endpoints(opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#list_operations_insights_private_endpoints.' if logger
+
+
+
+      lifecycle_state_allowable_values = %w[CREATING UPDATING ACTIVE DELETING DELETED FAILED NEEDS_ATTENTION]
+      if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
+        opts[:lifecycle_state].each do |val_to_check|
+          unless lifecycle_state_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "lifecycle_state", must be one of CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED, NEEDS_ATTENTION.'
+          end
+        end
+      end
+
+      if opts[:sort_order] && !OCI::Opsi::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Opsi::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated id displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, id, displayName.'
+      end
+
+      path = '/operationsInsightsPrivateEndpoints'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:opsiPrivateEndpointId] = opts[:opsi_private_endpoint_id] if opts[:opsi_private_endpoint_id]
+      query_params[:isUsedForRacDbs] = opts[:is_used_for_rac_dbs] if !opts[:is_used_for_rac_dbs].nil?
+      query_params[:vcnId] = opts[:vcn_id] if opts[:vcn_id]
+      query_params[:lifecycleState] = OCI::ApiClient.build_collection_params(opts[:lifecycle_state], :multi) if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#list_operations_insights_private_endpoints') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Opsi::Models::OperationsInsightsPrivateEndpointCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets a list of Operations Insights Warehouse users. Either compartmentId or id must be specified. All these resources are expected to be in root compartment.
     #
     # @param [String] operations_insights_warehouse_id Unique Operations Insights Warehouse identifier
@@ -4521,6 +5024,105 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Opsi::Models::OperationsInsightsWarehouseSummaryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of OPSI data objects based on the query parameters specified. CompartmentId id query parameter must be specified.
+    #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Array<String>] :data_object_type OPSI data object types. (default to [])
+    #   Allowed values are: DATABASE_INSIGHTS_DATA_OBJECT, HOST_INSIGHTS_DATA_OBJECT, EXADATA_INSIGHTS_DATA_OBJECT
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name.
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to
+    #   return in a paginated \"List\" call.
+    #   For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
+    #   Example: `50`
+    #    (default to 50)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from
+    #   the previous \"List\" call. For important details about how pagination works,
+    #   see [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #
+    # @option opts [String] :sort_by OPSI data object list sort options.
+    #
+    #   Allowed values are: displayName, dataObjectType
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Opsi::Models::OpsiDataObjectsCollection OpsiDataObjectsCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/list_opsi_data_objects.rb.html) to see an example of how to use list_opsi_data_objects API.
+    def list_opsi_data_objects(compartment_id, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#list_opsi_data_objects.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_opsi_data_objects." if compartment_id.nil?
+
+
+      data_object_type_allowable_values = %w[DATABASE_INSIGHTS_DATA_OBJECT HOST_INSIGHTS_DATA_OBJECT EXADATA_INSIGHTS_DATA_OBJECT]
+      if opts[:data_object_type] && !opts[:data_object_type].empty?
+        opts[:data_object_type].each do |val_to_check|
+          unless data_object_type_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "data_object_type", must be one of DATABASE_INSIGHTS_DATA_OBJECT, HOST_INSIGHTS_DATA_OBJECT, EXADATA_INSIGHTS_DATA_OBJECT.'
+          end
+        end
+      end
+
+      if opts[:sort_order] && !OCI::Opsi::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Opsi::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[displayName dataObjectType].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of displayName, dataObjectType.'
+      end
+
+      path = '/opsiDataObjects'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:dataObjectType] = OCI::ApiClient.build_collection_params(opts[:data_object_type], :multi) if opts[:data_object_type] && !opts[:data_object_type].empty?
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#list_opsi_data_objects') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Opsi::Models::OpsiDataObjectsCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -5092,6 +5694,78 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Queries an OPSI data object with the inputs provided and sends the result set back. Either analysisTimeInterval
+    # or timeIntervalStart and timeIntervalEnd parameters need to be passed as well.
+    #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [OCI::Opsi::Models::QueryOpsiDataObjectDataDetails] query_opsi_data_object_data_details The information to be used for querying an OPSI data object.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to
+    #   return in a paginated \"List\" call.
+    #   For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
+    #   Example: `50`
+    #    (default to 50)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from
+    #   the previous \"List\" call. For important details about how pagination works,
+    #   see [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Opsi::Models::QueryDataObjectResultSetRowsCollection QueryDataObjectResultSetRowsCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/query_opsi_data_object_data.rb.html) to see an example of how to use query_opsi_data_object_data API.
+    def query_opsi_data_object_data(compartment_id, query_opsi_data_object_data_details, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#query_opsi_data_object_data.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling query_opsi_data_object_data." if compartment_id.nil?
+      raise "Missing the required parameter 'query_opsi_data_object_data_details' when calling query_opsi_data_object_data." if query_opsi_data_object_data_details.nil?
+
+      path = '/opsiDataObjects/actions/queryData'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(query_opsi_data_object_data_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#query_opsi_data_object_data') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Opsi::Models::QueryDataObjectResultSetRowsCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Rotate the ADW wallet for Operations Insights Warehouse using which the Hub data is exposed.
     # @param [String] operations_insights_warehouse_id Unique Operations Insights Warehouse identifier
     # @param [Hash] opts the optional parameters
@@ -5271,7 +5945,7 @@ module OCI
     # @option opts [Array<String>] :database_type Filter by one or more database type.
     #   Possible values are ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.
     #    (default to [])
-    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
+    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
     # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
@@ -5339,11 +6013,11 @@ module OCI
       raise "Missing the required parameter 'resource_metric' when calling summarize_database_insight_resource_capacity_trend." if resource_metric.nil?
 
 
-      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB]
+      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB COMANAGED-VM-CDB COMANAGED-VM-PDB COMANAGED-VM-NONCDB COMANAGED-BM-CDB COMANAGED-BM-PDB COMANAGED-BM-NONCDB COMANAGED-EXACS-CDB COMANAGED-EXACS-PDB COMANAGED-EXACS-NONCDB]
       if opts[:database_type] && !opts[:database_type].empty?
         opts[:database_type].each do |val_to_check|
           unless database_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.'
+            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB.'
           end
         end
       end
@@ -5451,7 +6125,7 @@ module OCI
     # @option opts [Array<String>] :database_type Filter by one or more database type.
     #   Possible values are ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.
     #    (default to [])
-    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
+    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
     # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
@@ -5531,11 +6205,11 @@ module OCI
       raise "Missing the required parameter 'resource_metric' when calling summarize_database_insight_resource_forecast_trend." if resource_metric.nil?
 
 
-      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB]
+      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB COMANAGED-VM-CDB COMANAGED-VM-PDB COMANAGED-VM-NONCDB COMANAGED-BM-CDB COMANAGED-BM-PDB COMANAGED-BM-NONCDB COMANAGED-EXACS-CDB COMANAGED-EXACS-PDB COMANAGED-EXACS-NONCDB]
       if opts[:database_type] && !opts[:database_type].empty?
         opts[:database_type].each do |val_to_check|
           unless database_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.'
+            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB.'
           end
         end
       end
@@ -5645,7 +6319,7 @@ module OCI
     # @option opts [Array<String>] :database_type Filter by one or more database type.
     #   Possible values are ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.
     #    (default to [])
-    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
+    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
     # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
@@ -5718,11 +6392,11 @@ module OCI
       raise "Missing the required parameter 'resource_metric' when calling summarize_database_insight_resource_statistics." if resource_metric.nil?
 
 
-      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB]
+      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB COMANAGED-VM-CDB COMANAGED-VM-PDB COMANAGED-VM-NONCDB COMANAGED-BM-CDB COMANAGED-BM-PDB COMANAGED-BM-NONCDB COMANAGED-EXACS-CDB COMANAGED-EXACS-PDB COMANAGED-EXACS-NONCDB]
       if opts[:database_type] && !opts[:database_type].empty?
         opts[:database_type].each do |val_to_check|
           unless database_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.'
+            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB.'
           end
         end
       end
@@ -5830,7 +6504,7 @@ module OCI
     # @option opts [Array<String>] :database_type Filter by one or more database type.
     #   Possible values are ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.
     #    (default to [])
-    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
+    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
     # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
@@ -5884,11 +6558,11 @@ module OCI
       raise "Missing the required parameter 'resource_metric' when calling summarize_database_insight_resource_usage." if resource_metric.nil?
 
 
-      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB]
+      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB COMANAGED-VM-CDB COMANAGED-VM-PDB COMANAGED-VM-NONCDB COMANAGED-BM-CDB COMANAGED-BM-PDB COMANAGED-BM-NONCDB COMANAGED-EXACS-CDB COMANAGED-EXACS-PDB COMANAGED-EXACS-NONCDB]
       if opts[:database_type] && !opts[:database_type].empty?
         opts[:database_type].each do |val_to_check|
           unless database_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.'
+            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB.'
           end
         end
       end
@@ -5981,7 +6655,7 @@ module OCI
     # @option opts [Array<String>] :database_type Filter by one or more database type.
     #   Possible values are ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.
     #    (default to [])
-    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
+    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
     # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
@@ -6038,11 +6712,11 @@ module OCI
       raise "Missing the required parameter 'resource_metric' when calling summarize_database_insight_resource_usage_trend." if resource_metric.nil?
 
 
-      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB]
+      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB COMANAGED-VM-CDB COMANAGED-VM-PDB COMANAGED-VM-NONCDB COMANAGED-BM-CDB COMANAGED-BM-PDB COMANAGED-BM-NONCDB COMANAGED-EXACS-CDB COMANAGED-EXACS-PDB COMANAGED-EXACS-NONCDB]
       if opts[:database_type] && !opts[:database_type].empty?
         opts[:database_type].each do |val_to_check|
           unless database_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.'
+            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB.'
           end
         end
       end
@@ -6143,7 +6817,7 @@ module OCI
     # @option opts [Array<String>] :database_type Filter by one or more database type.
     #   Possible values are ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.
     #    (default to [])
-    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
+    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
     # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
@@ -6197,11 +6871,11 @@ module OCI
       raise "Missing the required parameter 'resource_metric' when calling summarize_database_insight_resource_utilization_insight." if resource_metric.nil?
 
 
-      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB]
+      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB COMANAGED-VM-CDB COMANAGED-VM-PDB COMANAGED-VM-NONCDB COMANAGED-BM-CDB COMANAGED-BM-PDB COMANAGED-BM-NONCDB COMANAGED-EXACS-CDB COMANAGED-EXACS-PDB COMANAGED-EXACS-NONCDB]
       if opts[:database_type] && !opts[:database_type].empty?
         opts[:database_type].each do |val_to_check|
           unless database_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.'
+            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB.'
           end
         end
       end
@@ -7666,9 +8340,9 @@ module OCI
     #
     # @option opts [Array<String>] :platform_type Filter by one or more platform types.
     #   Supported platformType(s) for MACS-managed external host insight: [LINUX].
-    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS].
+    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS, ZLINUX].
     #    (default to [])
-    #   Allowed values are: LINUX, SOLARIS, SUNOS
+    #   Allowed values are: LINUX, SOLARIS, SUNOS, ZLINUX
     # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [Array<String>] :exadata_insight_id Optional list of exadata insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
@@ -7724,11 +8398,11 @@ module OCI
       raise "Missing the required parameter 'resource_metric' when calling summarize_host_insight_resource_capacity_trend." if resource_metric.nil?
 
 
-      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS]
+      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS ZLINUX]
       if opts[:platform_type] && !opts[:platform_type].empty?
         opts[:platform_type].each do |val_to_check|
           unless platform_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS.'
+            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS, ZLINUX.'
           end
         end
       end
@@ -7830,9 +8504,9 @@ module OCI
     #
     # @option opts [Array<String>] :platform_type Filter by one or more platform types.
     #   Supported platformType(s) for MACS-managed external host insight: [LINUX].
-    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS].
+    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS, ZLINUX].
     #    (default to [])
-    #   Allowed values are: LINUX, SOLARIS, SUNOS
+    #   Allowed values are: LINUX, SOLARIS, SUNOS, ZLINUX
     # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [Array<String>] :exadata_insight_id Optional list of exadata insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
@@ -7900,11 +8574,11 @@ module OCI
       raise "Missing the required parameter 'resource_metric' when calling summarize_host_insight_resource_forecast_trend." if resource_metric.nil?
 
 
-      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS]
+      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS ZLINUX]
       if opts[:platform_type] && !opts[:platform_type].empty?
         opts[:platform_type].each do |val_to_check|
           unless platform_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS.'
+            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS, ZLINUX.'
           end
         end
       end
@@ -8008,9 +8682,9 @@ module OCI
     #
     # @option opts [Array<String>] :platform_type Filter by one or more platform types.
     #   Supported platformType(s) for MACS-managed external host insight: [LINUX].
-    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS].
+    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS, ZLINUX].
     #    (default to [])
-    #   Allowed values are: LINUX, SOLARIS, SUNOS
+    #   Allowed values are: LINUX, SOLARIS, SUNOS, ZLINUX
     # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [Array<String>] :exadata_insight_id Optional list of exadata insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
@@ -8073,11 +8747,11 @@ module OCI
       raise "Missing the required parameter 'resource_metric' when calling summarize_host_insight_resource_statistics." if resource_metric.nil?
 
 
-      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS]
+      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS ZLINUX]
       if opts[:platform_type] && !opts[:platform_type].empty?
         opts[:platform_type].each do |val_to_check|
           unless platform_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS.'
+            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS, ZLINUX.'
           end
         end
       end
@@ -8180,9 +8854,9 @@ module OCI
     #
     # @option opts [Array<String>] :platform_type Filter by one or more platform types.
     #   Supported platformType(s) for MACS-managed external host insight: [LINUX].
-    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS].
+    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS, ZLINUX].
     #    (default to [])
-    #   Allowed values are: LINUX, SOLARIS, SUNOS
+    #   Allowed values are: LINUX, SOLARIS, SUNOS, ZLINUX
     # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [Array<String>] :exadata_insight_id Optional list of exadata insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
@@ -8228,11 +8902,11 @@ module OCI
       raise "Missing the required parameter 'resource_metric' when calling summarize_host_insight_resource_usage." if resource_metric.nil?
 
 
-      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS]
+      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS ZLINUX]
       if opts[:platform_type] && !opts[:platform_type].empty?
         opts[:platform_type].each do |val_to_check|
           unless platform_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS.'
+            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS, ZLINUX.'
           end
         end
       end
@@ -8321,9 +8995,9 @@ module OCI
     #
     # @option opts [Array<String>] :platform_type Filter by one or more platform types.
     #   Supported platformType(s) for MACS-managed external host insight: [LINUX].
-    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS].
+    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS, ZLINUX].
     #    (default to [])
-    #   Allowed values are: LINUX, SOLARIS, SUNOS
+    #   Allowed values are: LINUX, SOLARIS, SUNOS, ZLINUX
     # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [Array<String>] :exadata_insight_id Optional list of exadata insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
@@ -8372,11 +9046,11 @@ module OCI
       raise "Missing the required parameter 'resource_metric' when calling summarize_host_insight_resource_usage_trend." if resource_metric.nil?
 
 
-      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS]
+      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS ZLINUX]
       if opts[:platform_type] && !opts[:platform_type].empty?
         opts[:platform_type].each do |val_to_check|
           unless platform_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS.'
+            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS, ZLINUX.'
           end
         end
       end
@@ -8473,9 +9147,9 @@ module OCI
     #
     # @option opts [Array<String>] :platform_type Filter by one or more platform types.
     #   Supported platformType(s) for MACS-managed external host insight: [LINUX].
-    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS].
+    #   Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS, ZLINUX].
     #    (default to [])
-    #   Allowed values are: LINUX, SOLARIS, SUNOS
+    #   Allowed values are: LINUX, SOLARIS, SUNOS, ZLINUX
     # @option opts [Array<String>] :id Optional list of host insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
     #    (default to [])
     # @option opts [Array<String>] :exadata_insight_id Optional list of exadata insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
@@ -8521,11 +9195,11 @@ module OCI
       raise "Missing the required parameter 'resource_metric' when calling summarize_host_insight_resource_utilization_insight." if resource_metric.nil?
 
 
-      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS]
+      platform_type_allowable_values = %w[LINUX SOLARIS SUNOS ZLINUX]
       if opts[:platform_type] && !opts[:platform_type].empty?
         opts[:platform_type].each do |val_to_check|
           unless platform_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS.'
+            raise 'Invalid value for "platform_type", must be one of LINUX, SOLARIS, SUNOS, ZLINUX.'
           end
         end
       end
@@ -8572,6 +9246,105 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Opsi::Models::SummarizeHostInsightResourceUtilizationInsightAggregation'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns response with aggregated time series data (timeIntervalstart, timeIntervalEnd, commandArgs, usageData) for top processes.
+    # Data is aggregated for the time period specified and proceses are sorted descendent by the proces metric specified (CPU, MEMORY, VIRTUAL_MEMORY).
+    # HostInsight Id and Process metric must be specified
+    #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [String] id Required [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the host insight resource.
+    #
+    # @param [String] resource_metric Host top processes resource metric sort options.
+    #   Supported values are CPU, MEMORY, VIIRTUAL_MEMORY.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :analysis_time_interval Specify time period in ISO 8601 format with respect to current time.
+    #   Default is last 30 days represented by P30D.
+    #   If timeInterval is specified, then timeIntervalStart and timeIntervalEnd will be ignored.
+    #   Examples  P90D (last 90 days), P4W (last 4 weeks), P2M (last 2 months), P1Y (last 12 months), . Maximum value allowed is 25 months prior to current time (P25M).
+    #    (default to P30D)
+    # @option opts [DateTime] :time_interval_start Analysis start time in UTC in ISO 8601 format(inclusive).
+    #   Example 2019-10-30T00:00:00Z (yyyy-MM-ddThh:mm:ssZ).
+    #   The minimum allowed value is 2 years prior to the current day.
+    #   timeIntervalStart and timeIntervalEnd parameters are used together.
+    #   If analysisTimeInterval is specified, this parameter is ignored.
+    #
+    # @option opts [DateTime] :time_interval_end Analysis end time in UTC in ISO 8601 format(exclusive).
+    #   Example 2019-10-30T00:00:00Z (yyyy-MM-ddThh:mm:ssZ).
+    #   timeIntervalStart and timeIntervalEnd are used together.
+    #   If timeIntervalEnd is not specified, current time is used as timeIntervalEnd.
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from
+    #   the previous \"List\" call. For important details about how pagination works,
+    #   see [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to
+    #   return in a paginated \"List\" call.
+    #   For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
+    #   Example: `50`
+    #    (default to 50)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Opsi::Models::SummarizeHostInsightsTopProcessesUsageTrendCollection SummarizeHostInsightsTopProcessesUsageTrendCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/summarize_host_insight_top_processes_usage_trend.rb.html) to see an example of how to use summarize_host_insight_top_processes_usage_trend API.
+    def summarize_host_insight_top_processes_usage_trend(compartment_id, id, resource_metric, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#summarize_host_insight_top_processes_usage_trend.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling summarize_host_insight_top_processes_usage_trend." if compartment_id.nil?
+      raise "Missing the required parameter 'id' when calling summarize_host_insight_top_processes_usage_trend." if id.nil?
+      raise "Missing the required parameter 'resource_metric' when calling summarize_host_insight_top_processes_usage_trend." if resource_metric.nil?
+
+      path = '/hostInsights/topProcessesUsageTrend'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:id] = id
+      query_params[:resourceMetric] = resource_metric
+      query_params[:analysisTimeInterval] = opts[:analysis_time_interval] if opts[:analysis_time_interval]
+      query_params[:timeIntervalStart] = opts[:time_interval_start] if opts[:time_interval_start]
+      query_params[:timeIntervalEnd] = opts[:time_interval_end] if opts[:time_interval_end]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#summarize_host_insight_top_processes_usage_trend') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Opsi::Models::SummarizeHostInsightsTopProcessesUsageTrendCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -8653,7 +9426,7 @@ module OCI
     # @option opts [Array<String>] :database_type Filter by one or more database type.
     #   Possible values are ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.
     #    (default to [])
-    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
+    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
     # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
@@ -8720,11 +9493,11 @@ module OCI
       raise "Missing the required parameter 'compartment_id' when calling summarize_sql_insights." if compartment_id.nil?
 
 
-      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB]
+      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB COMANAGED-VM-CDB COMANAGED-VM-PDB COMANAGED-VM-NONCDB COMANAGED-BM-CDB COMANAGED-BM-PDB COMANAGED-BM-NONCDB COMANAGED-EXACS-CDB COMANAGED-EXACS-PDB COMANAGED-EXACS-NONCDB]
       if opts[:database_type] && !opts[:database_type].empty?
         opts[:database_type].each do |val_to_check|
           unless database_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.'
+            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB.'
           end
         end
       end
@@ -8982,7 +9755,7 @@ module OCI
     # @option opts [Array<String>] :database_type Filter by one or more database type.
     #   Possible values are ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.
     #    (default to [])
-    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB
+    #   Allowed values are: ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB
     # @option opts [Array<String>] :database_id Optional list of database [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the associated DBaaS entity.
     #    (default to [])
     # @option opts [Array<String>] :id Optional list of database insight resource [OCIDs](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
@@ -9067,11 +9840,11 @@ module OCI
       raise "Missing the required parameter 'compartment_id' when calling summarize_sql_statistics." if compartment_id.nil?
 
 
-      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB]
+      database_type_allowable_values = %w[ADW-S ATP-S ADW-D ATP-D EXTERNAL-PDB EXTERNAL-NONCDB COMANAGED-VM-CDB COMANAGED-VM-PDB COMANAGED-VM-NONCDB COMANAGED-BM-CDB COMANAGED-BM-PDB COMANAGED-BM-NONCDB COMANAGED-EXACS-CDB COMANAGED-EXACS-PDB COMANAGED-EXACS-NONCDB]
       if opts[:database_type] && !opts[:database_type].empty?
         opts[:database_type].each do |val_to_check|
           unless database_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.'
+            raise 'Invalid value for "database_type", must be one of ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB, COMANAGED-VM-CDB, COMANAGED-VM-PDB, COMANAGED-VM-NONCDB, COMANAGED-BM-CDB, COMANAGED-BM-PDB, COMANAGED-BM-NONCDB, COMANAGED-EXACS-CDB, COMANAGED-EXACS-PDB, COMANAGED-EXACS-NONCDB.'
           end
         end
       end
@@ -9668,6 +10441,68 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#update_host_insight') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates one or more attributes of the specified private endpoint.
+    # @param [String] operations_insights_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Operation Insights private endpoint.
+    # @param [OCI::Opsi::Models::UpdateOperationsInsightsPrivateEndpointDetails] update_operations_insights_private_endpoint_details The details used to update a private endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match Used for optimistic concurrency control. In the update or delete call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous get, create, or update response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/update_operations_insights_private_endpoint.rb.html) to see an example of how to use update_operations_insights_private_endpoint API.
+    def update_operations_insights_private_endpoint(operations_insights_private_endpoint_id, update_operations_insights_private_endpoint_details, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#update_operations_insights_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'operations_insights_private_endpoint_id' when calling update_operations_insights_private_endpoint." if operations_insights_private_endpoint_id.nil?
+      raise "Missing the required parameter 'update_operations_insights_private_endpoint_details' when calling update_operations_insights_private_endpoint." if update_operations_insights_private_endpoint_details.nil?
+      raise "Parameter value for 'operations_insights_private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(operations_insights_private_endpoint_id)
+
+      path = '/operationsInsightsPrivateEndpoints/{operationsInsightsPrivateEndpointId}'.sub('{operationsInsightsPrivateEndpointId}', operations_insights_private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_operations_insights_private_endpoint_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#update_operations_insights_private_endpoint') do
         @api_client.call_api(
           :PUT,
           path,

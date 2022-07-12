@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Width and height of a page.
+  # The width and height of a page.
   class AiVision::Models::Dimensions
     UNIT_ENUM = [
       UNIT_PIXEL = 'PIXEL'.freeze,
@@ -14,15 +14,15 @@ module OCI
       UNIT_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Width of a page.
+    # **[Required]** the width of a page.
     # @return [Float]
     attr_accessor :width
 
-    # **[Required]** Height of a page.
+    # **[Required]** The height of a page.
     # @return [Float]
     attr_accessor :height
 
-    # **[Required]** Unit of length.
+    # **[Required]** The unit of length.
     # @return [String]
     attr_reader :unit
 

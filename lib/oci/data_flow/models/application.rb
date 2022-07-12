@@ -88,6 +88,9 @@ module OCI
     # @return [String]
     attr_accessor :driver_shape
 
+    # @return [OCI::DataFlow::Models::ShapeConfig]
+    attr_accessor :driver_shape_config
+
     # The input used for spark-submit command. For more details see https://spark.apache.org/docs/latest/submitting-applications.html#launching-applications-with-spark-submit.
     # Supported options include ``--class``, ``--file``, ``--jars``, ``--conf``, ``--py-files``, and main application file with arguments.
     # Example: ``--jars oci://path/to/a.jar,oci://path/to/b.jar --files oci://path/to/a.json,oci://path/to/b.csv --py-files oci://path/to/a.py,oci://path/to/b.py --conf spark.sql.crossJoin.enabled=true --class org.apache.spark.examples.SparkPi oci://path/to/main.jar 10``
@@ -101,6 +104,9 @@ module OCI
     #
     # @return [String]
     attr_accessor :executor_shape
+
+    # @return [OCI::DataFlow::Models::ShapeConfig]
+    attr_accessor :executor_shape_config
 
     # **[Required]** An Oracle Cloud Infrastructure URI of the file containing the application to execute.
     # See https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/hdfsconnector.htm#uriformat.
@@ -212,8 +218,10 @@ module OCI
         'description': :'description',
         'display_name': :'displayName',
         'driver_shape': :'driverShape',
+        'driver_shape_config': :'driverShapeConfig',
         'execute': :'execute',
         'executor_shape': :'executorShape',
+        'executor_shape_config': :'executorShapeConfig',
         'file_uri': :'fileUri',
         'freeform_tags': :'freeformTags',
         'id': :'id',
@@ -248,8 +256,10 @@ module OCI
         'description': :'String',
         'display_name': :'String',
         'driver_shape': :'String',
+        'driver_shape_config': :'OCI::DataFlow::Models::ShapeConfig',
         'execute': :'String',
         'executor_shape': :'String',
+        'executor_shape_config': :'OCI::DataFlow::Models::ShapeConfig',
         'file_uri': :'String',
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
@@ -286,8 +296,10 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :driver_shape The value to assign to the {#driver_shape} property
+    # @option attributes [OCI::DataFlow::Models::ShapeConfig] :driver_shape_config The value to assign to the {#driver_shape_config} property
     # @option attributes [String] :execute The value to assign to the {#execute} property
     # @option attributes [String] :executor_shape The value to assign to the {#executor_shape} property
+    # @option attributes [OCI::DataFlow::Models::ShapeConfig] :executor_shape_config The value to assign to the {#executor_shape_config} property
     # @option attributes [String] :file_uri The value to assign to the {#file_uri} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
@@ -353,6 +365,12 @@ module OCI
 
       self.driver_shape = attributes[:'driver_shape'] if attributes[:'driver_shape']
 
+      self.driver_shape_config = attributes[:'driverShapeConfig'] if attributes[:'driverShapeConfig']
+
+      raise 'You cannot provide both :driverShapeConfig and :driver_shape_config' if attributes.key?(:'driverShapeConfig') && attributes.key?(:'driver_shape_config')
+
+      self.driver_shape_config = attributes[:'driver_shape_config'] if attributes[:'driver_shape_config']
+
       self.execute = attributes[:'execute'] if attributes[:'execute']
 
       self.executor_shape = attributes[:'executorShape'] if attributes[:'executorShape']
@@ -360,6 +378,12 @@ module OCI
       raise 'You cannot provide both :executorShape and :executor_shape' if attributes.key?(:'executorShape') && attributes.key?(:'executor_shape')
 
       self.executor_shape = attributes[:'executor_shape'] if attributes[:'executor_shape']
+
+      self.executor_shape_config = attributes[:'executorShapeConfig'] if attributes[:'executorShapeConfig']
+
+      raise 'You cannot provide both :executorShapeConfig and :executor_shape_config' if attributes.key?(:'executorShapeConfig') && attributes.key?(:'executor_shape_config')
+
+      self.executor_shape_config = attributes[:'executor_shape_config'] if attributes[:'executor_shape_config']
 
       self.file_uri = attributes[:'fileUri'] if attributes[:'fileUri']
 
@@ -508,8 +532,10 @@ module OCI
         description == other.description &&
         display_name == other.display_name &&
         driver_shape == other.driver_shape &&
+        driver_shape_config == other.driver_shape_config &&
         execute == other.execute &&
         executor_shape == other.executor_shape &&
+        executor_shape_config == other.executor_shape_config &&
         file_uri == other.file_uri &&
         freeform_tags == other.freeform_tags &&
         id == other.id &&
@@ -542,7 +568,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [archive_uri, arguments, class_name, configuration, compartment_id, defined_tags, description, display_name, driver_shape, execute, executor_shape, file_uri, freeform_tags, id, language, lifecycle_state, logs_bucket_uri, metastore_id, num_executors, owner_principal_id, owner_user_name, parameters, private_endpoint_id, spark_version, time_created, time_updated, type, warehouse_bucket_uri].hash
+      [archive_uri, arguments, class_name, configuration, compartment_id, defined_tags, description, display_name, driver_shape, driver_shape_config, execute, executor_shape, executor_shape_config, file_uri, freeform_tags, id, language, lifecycle_state, logs_bucket_uri, metastore_id, num_executors, owner_principal_id, owner_user_name, parameters, private_endpoint_id, spark_version, time_created, time_updated, type, warehouse_bucket_uri].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -11,6 +11,17 @@ module OCI
     # @return [OCI::DataIntegration::Models::DataFlow]
     attr_accessor :data_flow
 
+    # @return [OCI::DataIntegration::Models::ConditionalCompositeFieldMap]
+    attr_accessor :conditional_composite_field_map
+
+    # Defines whether Data Loader task is used for single load or multiple
+    # @return [BOOLEAN]
+    attr_accessor :is_single_load
+
+    # Defines the number of entities being loaded in parallel at a time for a Data Loader task
+    # @return [Integer]
+    attr_accessor :parallel_load_limit
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -30,7 +41,10 @@ module OCI
         'op_config_values': :'opConfigValues',
         'config_provider_delegate': :'configProviderDelegate',
         'registry_metadata': :'registryMetadata',
-        'data_flow': :'dataFlow'
+        'data_flow': :'dataFlow',
+        'conditional_composite_field_map': :'conditionalCompositeFieldMap',
+        'is_single_load': :'isSingleLoad',
+        'parallel_load_limit': :'parallelLoadLimit'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -54,7 +68,10 @@ module OCI
         'op_config_values': :'OCI::DataIntegration::Models::ConfigValues',
         'config_provider_delegate': :'OCI::DataIntegration::Models::ConfigProvider',
         'registry_metadata': :'OCI::DataIntegration::Models::RegistryMetadata',
-        'data_flow': :'OCI::DataIntegration::Models::DataFlow'
+        'data_flow': :'OCI::DataIntegration::Models::DataFlow',
+        'conditional_composite_field_map': :'OCI::DataIntegration::Models::ConditionalCompositeFieldMap',
+        'is_single_load': :'BOOLEAN',
+        'parallel_load_limit': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -80,6 +97,9 @@ module OCI
     # @option attributes [OCI::DataIntegration::Models::ConfigProvider] :config_provider_delegate The value to assign to the {OCI::DataIntegration::Models::UpdateTaskDetails#config_provider_delegate #config_provider_delegate} proprety
     # @option attributes [OCI::DataIntegration::Models::RegistryMetadata] :registry_metadata The value to assign to the {OCI::DataIntegration::Models::UpdateTaskDetails#registry_metadata #registry_metadata} proprety
     # @option attributes [OCI::DataIntegration::Models::DataFlow] :data_flow The value to assign to the {#data_flow} property
+    # @option attributes [OCI::DataIntegration::Models::ConditionalCompositeFieldMap] :conditional_composite_field_map The value to assign to the {#conditional_composite_field_map} property
+    # @option attributes [BOOLEAN] :is_single_load The value to assign to the {#is_single_load} property
+    # @option attributes [Integer] :parallel_load_limit The value to assign to the {#parallel_load_limit} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -95,6 +115,26 @@ module OCI
       raise 'You cannot provide both :dataFlow and :data_flow' if attributes.key?(:'dataFlow') && attributes.key?(:'data_flow')
 
       self.data_flow = attributes[:'data_flow'] if attributes[:'data_flow']
+
+      self.conditional_composite_field_map = attributes[:'conditionalCompositeFieldMap'] if attributes[:'conditionalCompositeFieldMap']
+
+      raise 'You cannot provide both :conditionalCompositeFieldMap and :conditional_composite_field_map' if attributes.key?(:'conditionalCompositeFieldMap') && attributes.key?(:'conditional_composite_field_map')
+
+      self.conditional_composite_field_map = attributes[:'conditional_composite_field_map'] if attributes[:'conditional_composite_field_map']
+
+      self.is_single_load = attributes[:'isSingleLoad'] unless attributes[:'isSingleLoad'].nil?
+      self.is_single_load = false if is_single_load.nil? && !attributes.key?(:'isSingleLoad') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isSingleLoad and :is_single_load' if attributes.key?(:'isSingleLoad') && attributes.key?(:'is_single_load')
+
+      self.is_single_load = attributes[:'is_single_load'] unless attributes[:'is_single_load'].nil?
+      self.is_single_load = false if is_single_load.nil? && !attributes.key?(:'isSingleLoad') && !attributes.key?(:'is_single_load') # rubocop:disable Style/StringLiterals
+
+      self.parallel_load_limit = attributes[:'parallelLoadLimit'] if attributes[:'parallelLoadLimit']
+
+      raise 'You cannot provide both :parallelLoadLimit and :parallel_load_limit' if attributes.key?(:'parallelLoadLimit') && attributes.key?(:'parallel_load_limit')
+
+      self.parallel_load_limit = attributes[:'parallel_load_limit'] if attributes[:'parallel_load_limit']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -123,7 +163,10 @@ module OCI
         op_config_values == other.op_config_values &&
         config_provider_delegate == other.config_provider_delegate &&
         registry_metadata == other.registry_metadata &&
-        data_flow == other.data_flow
+        data_flow == other.data_flow &&
+        conditional_composite_field_map == other.conditional_composite_field_map &&
+        is_single_load == other.is_single_load &&
+        parallel_load_limit == other.parallel_load_limit
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -139,7 +182,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, parent_ref, name, description, object_status, object_version, identifier, input_ports, output_ports, parameters, op_config_values, config_provider_delegate, registry_metadata, data_flow].hash
+      [model_type, key, model_version, parent_ref, name, description, object_status, object_version, identifier, input_ports, output_ports, parameters, op_config_values, config_provider_delegate, registry_metadata, data_flow, conditional_composite_field_map, is_single_load, parallel_load_limit].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Use the Application Performance Monitoring Synthetic Monitoring API to query synthetic scripts and monitors.
+  # Use the Application Performance Monitoring Synthetic Monitoring API to query synthetic scripts and monitors. For more information, see [Application Performance Monitoring](https://docs.oracle.com/iaas/application-performance-monitoring/index.html).
   class ApmSynthetics::ApmSyntheticClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -92,6 +92,74 @@ module OCI
     def logger
       @api_client.config.logger
     end
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Registers a new dedicated vantage point.
+    #
+    # @param [String] apm_domain_id The APM domain ID the request is intended for.
+    #
+    # @param [OCI::ApmSynthetics::Models::CreateDedicatedVantagePointDetails] create_dedicated_vantage_point_details The configuration details for registering a dedicated vantage point.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::ApmSynthetics::Models::DedicatedVantagePoint DedicatedVantagePoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apmsynthetics/create_dedicated_vantage_point.rb.html) to see an example of how to use create_dedicated_vantage_point API.
+    def create_dedicated_vantage_point(apm_domain_id, create_dedicated_vantage_point_details, opts = {})
+      logger.debug 'Calling operation ApmSyntheticClient#create_dedicated_vantage_point.' if logger
+
+      raise "Missing the required parameter 'apm_domain_id' when calling create_dedicated_vantage_point." if apm_domain_id.nil?
+      raise "Missing the required parameter 'create_dedicated_vantage_point_details' when calling create_dedicated_vantage_point." if create_dedicated_vantage_point_details.nil?
+
+      path = '/dedicatedVantagePoints'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:apmDomainId] = apm_domain_id
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_dedicated_vantage_point_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApmSyntheticClient#create_dedicated_vantage_point') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ApmSynthetics::Models::DedicatedVantagePoint'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -221,6 +289,72 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::ApmSynthetics::Models::Script'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deregisters the specified dedicated vantage point.
+    # @param [String] apm_domain_id The APM domain ID the request is intended for.
+    #
+    # @param [String] dedicated_vantage_point_id The OCID of the dedicated vantage point.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apmsynthetics/delete_dedicated_vantage_point.rb.html) to see an example of how to use delete_dedicated_vantage_point API.
+    def delete_dedicated_vantage_point(apm_domain_id, dedicated_vantage_point_id, opts = {})
+      logger.debug 'Calling operation ApmSyntheticClient#delete_dedicated_vantage_point.' if logger
+
+      raise "Missing the required parameter 'apm_domain_id' when calling delete_dedicated_vantage_point." if apm_domain_id.nil?
+      raise "Missing the required parameter 'dedicated_vantage_point_id' when calling delete_dedicated_vantage_point." if dedicated_vantage_point_id.nil?
+      raise "Parameter value for 'dedicated_vantage_point_id' must not be blank" if OCI::Internal::Util.blank_string?(dedicated_vantage_point_id)
+
+      path = '/dedicatedVantagePoints/{dedicatedVantagePointId}'.sub('{dedicatedVantagePointId}', dedicated_vantage_point_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:apmDomainId] = apm_domain_id
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApmSyntheticClient#delete_dedicated_vantage_point') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -366,6 +500,66 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets the details of the dedicated vantage point identified by the OCID.
+    # @param [String] apm_domain_id The APM domain ID the request is intended for.
+    #
+    # @param [String] dedicated_vantage_point_id The OCID of the dedicated vantage point.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::ApmSynthetics::Models::DedicatedVantagePoint DedicatedVantagePoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apmsynthetics/get_dedicated_vantage_point.rb.html) to see an example of how to use get_dedicated_vantage_point API.
+    def get_dedicated_vantage_point(apm_domain_id, dedicated_vantage_point_id, opts = {})
+      logger.debug 'Calling operation ApmSyntheticClient#get_dedicated_vantage_point.' if logger
+
+      raise "Missing the required parameter 'apm_domain_id' when calling get_dedicated_vantage_point." if apm_domain_id.nil?
+      raise "Missing the required parameter 'dedicated_vantage_point_id' when calling get_dedicated_vantage_point." if dedicated_vantage_point_id.nil?
+      raise "Parameter value for 'dedicated_vantage_point_id' must not be blank" if OCI::Internal::Util.blank_string?(dedicated_vantage_point_id)
+
+      path = '/dedicatedVantagePoints/{dedicatedVantagePointId}'.sub('{dedicatedVantagePointId}', dedicated_vantage_point_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:apmDomainId] = apm_domain_id
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApmSyntheticClient#get_dedicated_vantage_point') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ApmSynthetics::Models::DedicatedVantagePoint'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the configuration of the monitor identified by the OCID.
     # @param [String] apm_domain_id The APM domain ID the request is intended for.
     #
@@ -433,9 +627,9 @@ module OCI
     # @param [String] monitor_id The OCID of the monitor.
     # @param [String] vantage_point The vantagePoint name.
     #
-    # @param [String] result_type The result type har, screenshot, log or network.
+    # @param [String] result_type The result type: har, screenshot, log, or network.
     #
-    # @param [String] result_content_type The result content type zip or raw.
+    # @param [String] result_content_type The result content type: zip or raw.
     #
     # @param [String] execution_time The time the object was posted.
     #
@@ -563,6 +757,101 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns a list of dedicated vantage points.
+    #
+    # @param [String] apm_domain_id The APM domain ID the request is intended for.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
+    # @option opts [String] :page For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). Default sort order is ascending.
+    #    (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided.
+    #   Default order of displayName is ascending.
+    #   Default order of timeCreated and timeUpdated is descending.
+    #   The displayName sort by is case sensitive.
+    #    (default to displayName)
+    #   Allowed values are: displayName, name, timeCreated, timeUpdated, status
+    # @option opts [String] :display_name A filter to return only the resources that match the entire display name.
+    # @option opts [String] :name A filter to return only the resources that match the entire name.
+    # @option opts [String] :status A filter to return only the dedicated vantage points that match a given status.
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::ApmSynthetics::Models::DedicatedVantagePointCollection DedicatedVantagePointCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apmsynthetics/list_dedicated_vantage_points.rb.html) to see an example of how to use list_dedicated_vantage_points API.
+    def list_dedicated_vantage_points(apm_domain_id, opts = {})
+      logger.debug 'Calling operation ApmSyntheticClient#list_dedicated_vantage_points.' if logger
+
+      raise "Missing the required parameter 'apm_domain_id' when calling list_dedicated_vantage_points." if apm_domain_id.nil?
+
+      if opts[:sort_order] && !OCI::ApmSynthetics::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::ApmSynthetics::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[displayName name timeCreated timeUpdated status].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of displayName, name, timeCreated, timeUpdated, status.'
+      end
+
+      if opts[:status] && !OCI::ApmSynthetics::Models::DEDICATED_VANTAGE_POINT_STATUS_ENUM.include?(opts[:status])
+        raise 'Invalid value for "status", must be one of the values in OCI::ApmSynthetics::Models::DEDICATED_VANTAGE_POINT_STATUS_ENUM.'
+      end
+
+      path = '/dedicatedVantagePoints'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:apmDomainId] = apm_domain_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:status] = opts[:status] if opts[:status]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApmSyntheticClient#list_dedicated_vantage_points') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ApmSynthetics::Models::DedicatedVantagePointCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of monitors.
     #
     # @param [String] apm_domain_id The APM domain ID the request is intended for.
@@ -570,8 +859,10 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :display_name A filter to return only the resources that match the entire display name.
     # @option opts [String] :script_id A filter to return only monitors using scriptId.
+    # @option opts [String] :vantage_point The name of the public or dedicated vantage point.
+    #
     # @option opts [String] :monitor_type A filter to return only monitors that match the given monitor type.
     #   Supported values are SCRIPTED_BROWSER, BROWSER, SCRIPTED_REST and REST.
     #
@@ -622,6 +913,7 @@ module OCI
       query_params[:apmDomainId] = apm_domain_id
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
       query_params[:scriptId] = opts[:script_id] if opts[:script_id]
+      query_params[:vantagePoint] = opts[:vantage_point] if opts[:vantage_point]
       query_params[:monitorType] = opts[:monitor_type] if opts[:monitor_type]
       query_params[:status] = opts[:status] if opts[:status]
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -682,8 +974,8 @@ module OCI
     #   sort by is case insensitive.
     #    (default to displayName)
     #   Allowed values are: name, displayName
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
-    # @option opts [String] :name A filter to return only resources that match the entire name given.
+    # @option opts [String] :display_name A filter to return only the resources that match the entire display name.
+    # @option opts [String] :name A filter to return only the resources that match the entire name.
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
@@ -759,7 +1051,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #   If you need to contact Oracle about a particular request, please provide the request ID.
     #
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :display_name A filter to return only the resources that match the entire display name.
     # @option opts [String] :content_type A filter to return only resources that match the content type given.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
     # @option opts [String] :page For list pagination. The maximum number of results per page, or items to return in a paginated
@@ -825,6 +1117,75 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::ApmSynthetics::Models::ScriptCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the dedicated vantage point.
+    # @param [String] apm_domain_id The APM domain ID the request is intended for.
+    #
+    # @param [String] dedicated_vantage_point_id The OCID of the dedicated vantage point.
+    # @param [OCI::ApmSynthetics::Models::UpdateDedicatedVantagePointDetails] update_dedicated_vantage_point_details The information to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::ApmSynthetics::Models::DedicatedVantagePoint DedicatedVantagePoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apmsynthetics/update_dedicated_vantage_point.rb.html) to see an example of how to use update_dedicated_vantage_point API.
+    def update_dedicated_vantage_point(apm_domain_id, dedicated_vantage_point_id, update_dedicated_vantage_point_details, opts = {})
+      logger.debug 'Calling operation ApmSyntheticClient#update_dedicated_vantage_point.' if logger
+
+      raise "Missing the required parameter 'apm_domain_id' when calling update_dedicated_vantage_point." if apm_domain_id.nil?
+      raise "Missing the required parameter 'dedicated_vantage_point_id' when calling update_dedicated_vantage_point." if dedicated_vantage_point_id.nil?
+      raise "Missing the required parameter 'update_dedicated_vantage_point_details' when calling update_dedicated_vantage_point." if update_dedicated_vantage_point_details.nil?
+      raise "Parameter value for 'dedicated_vantage_point_id' must not be blank" if OCI::Internal::Util.blank_string?(dedicated_vantage_point_id)
+
+      path = '/dedicatedVantagePoints/{dedicatedVantagePointId}'.sub('{dedicatedVantagePointId}', dedicated_vantage_point_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:apmDomainId] = apm_domain_id
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_dedicated_vantage_point_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApmSyntheticClient#update_dedicated_vantage_point') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ApmSynthetics::Models::DedicatedVantagePoint'
         )
       end
       # rubocop:enable Metrics/BlockLength

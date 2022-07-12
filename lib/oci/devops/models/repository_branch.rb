@@ -20,6 +20,8 @@ module OCI
         'ref_type': :'refType',
         'full_ref_name': :'fullRefName',
         'repository_id': :'repositoryId',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags',
         'commit_id': :'commitId'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -33,6 +35,8 @@ module OCI
         'ref_type': :'String',
         'full_ref_name': :'String',
         'repository_id': :'String',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
         'commit_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -47,6 +51,8 @@ module OCI
     # @option attributes [String] :ref_name The value to assign to the {OCI::Devops::Models::RepositoryRef#ref_name #ref_name} proprety
     # @option attributes [String] :full_ref_name The value to assign to the {OCI::Devops::Models::RepositoryRef#full_ref_name #full_ref_name} proprety
     # @option attributes [String] :repository_id The value to assign to the {OCI::Devops::Models::RepositoryRef#repository_id #repository_id} proprety
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Devops::Models::RepositoryRef#freeform_tags #freeform_tags} proprety
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Devops::Models::RepositoryRef#defined_tags #defined_tags} proprety
     # @option attributes [String] :commit_id The value to assign to the {#commit_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -80,6 +86,8 @@ module OCI
         ref_type == other.ref_type &&
         full_ref_name == other.full_ref_name &&
         repository_id == other.repository_id &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags &&
         commit_id == other.commit_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -96,7 +104,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [ref_name, ref_type, full_ref_name, repository_id, commit_id].hash
+      [ref_name, ref_type, full_ref_name, repository_id, freeform_tags, defined_tags, commit_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
