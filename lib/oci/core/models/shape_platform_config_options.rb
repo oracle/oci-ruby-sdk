@@ -12,6 +12,8 @@ module OCI
     TYPE_ENUM = [
       TYPE_AMD_MILAN_BM = 'AMD_MILAN_BM'.freeze,
       TYPE_AMD_ROME_BM = 'AMD_ROME_BM'.freeze,
+      TYPE_AMD_ROME_BM_GPU = 'AMD_ROME_BM_GPU'.freeze,
+      TYPE_INTEL_ICELAKE_BM = 'INTEL_ICELAKE_BM'.freeze,
       TYPE_INTEL_SKYLAKE_BM = 'INTEL_SKYLAKE_BM'.freeze,
       TYPE_AMD_VM = 'AMD_VM'.freeze,
       TYPE_INTEL_VM = 'INTEL_VM'.freeze,
@@ -35,6 +37,21 @@ module OCI
     # @return [OCI::Core::Models::ShapeNumaNodesPerSocketPlatformOptions]
     attr_accessor :numa_nodes_per_socket_platform_options
 
+    # @return [OCI::Core::Models::ShapeSymmetricMultiThreadingEnabledPlatformOptions]
+    attr_accessor :symmetric_multi_threading_options
+
+    # @return [OCI::Core::Models::ShapeAccessControlServiceEnabledPlatformOptions]
+    attr_accessor :access_control_service_options
+
+    # @return [OCI::Core::Models::ShapeVirtualInstructionsEnabledPlatformOptions]
+    attr_accessor :virtual_instructions_options
+
+    # @return [OCI::Core::Models::ShapeInputOutputMemoryManagementUnitEnabledPlatformOptions]
+    attr_accessor :input_output_memory_management_unit_options
+
+    # @return [OCI::Core::Models::PercentageOfCoresEnabledOptions]
+    attr_accessor :percentage_of_cores_enabled_options
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -43,7 +60,12 @@ module OCI
         'secure_boot_options': :'secureBootOptions',
         'measured_boot_options': :'measuredBootOptions',
         'trusted_platform_module_options': :'trustedPlatformModuleOptions',
-        'numa_nodes_per_socket_platform_options': :'numaNodesPerSocketPlatformOptions'
+        'numa_nodes_per_socket_platform_options': :'numaNodesPerSocketPlatformOptions',
+        'symmetric_multi_threading_options': :'symmetricMultiThreadingOptions',
+        'access_control_service_options': :'accessControlServiceOptions',
+        'virtual_instructions_options': :'virtualInstructionsOptions',
+        'input_output_memory_management_unit_options': :'inputOutputMemoryManagementUnitOptions',
+        'percentage_of_cores_enabled_options': :'percentageOfCoresEnabledOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -56,7 +78,12 @@ module OCI
         'secure_boot_options': :'OCI::Core::Models::ShapeSecureBootOptions',
         'measured_boot_options': :'OCI::Core::Models::ShapeMeasuredBootOptions',
         'trusted_platform_module_options': :'OCI::Core::Models::ShapeTrustedPlatformModuleOptions',
-        'numa_nodes_per_socket_platform_options': :'OCI::Core::Models::ShapeNumaNodesPerSocketPlatformOptions'
+        'numa_nodes_per_socket_platform_options': :'OCI::Core::Models::ShapeNumaNodesPerSocketPlatformOptions',
+        'symmetric_multi_threading_options': :'OCI::Core::Models::ShapeSymmetricMultiThreadingEnabledPlatformOptions',
+        'access_control_service_options': :'OCI::Core::Models::ShapeAccessControlServiceEnabledPlatformOptions',
+        'virtual_instructions_options': :'OCI::Core::Models::ShapeVirtualInstructionsEnabledPlatformOptions',
+        'input_output_memory_management_unit_options': :'OCI::Core::Models::ShapeInputOutputMemoryManagementUnitEnabledPlatformOptions',
+        'percentage_of_cores_enabled_options': :'OCI::Core::Models::PercentageOfCoresEnabledOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -72,6 +99,11 @@ module OCI
     # @option attributes [OCI::Core::Models::ShapeMeasuredBootOptions] :measured_boot_options The value to assign to the {#measured_boot_options} property
     # @option attributes [OCI::Core::Models::ShapeTrustedPlatformModuleOptions] :trusted_platform_module_options The value to assign to the {#trusted_platform_module_options} property
     # @option attributes [OCI::Core::Models::ShapeNumaNodesPerSocketPlatformOptions] :numa_nodes_per_socket_platform_options The value to assign to the {#numa_nodes_per_socket_platform_options} property
+    # @option attributes [OCI::Core::Models::ShapeSymmetricMultiThreadingEnabledPlatformOptions] :symmetric_multi_threading_options The value to assign to the {#symmetric_multi_threading_options} property
+    # @option attributes [OCI::Core::Models::ShapeAccessControlServiceEnabledPlatformOptions] :access_control_service_options The value to assign to the {#access_control_service_options} property
+    # @option attributes [OCI::Core::Models::ShapeVirtualInstructionsEnabledPlatformOptions] :virtual_instructions_options The value to assign to the {#virtual_instructions_options} property
+    # @option attributes [OCI::Core::Models::ShapeInputOutputMemoryManagementUnitEnabledPlatformOptions] :input_output_memory_management_unit_options The value to assign to the {#input_output_memory_management_unit_options} property
+    # @option attributes [OCI::Core::Models::PercentageOfCoresEnabledOptions] :percentage_of_cores_enabled_options The value to assign to the {#percentage_of_cores_enabled_options} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -103,6 +135,36 @@ module OCI
       raise 'You cannot provide both :numaNodesPerSocketPlatformOptions and :numa_nodes_per_socket_platform_options' if attributes.key?(:'numaNodesPerSocketPlatformOptions') && attributes.key?(:'numa_nodes_per_socket_platform_options')
 
       self.numa_nodes_per_socket_platform_options = attributes[:'numa_nodes_per_socket_platform_options'] if attributes[:'numa_nodes_per_socket_platform_options']
+
+      self.symmetric_multi_threading_options = attributes[:'symmetricMultiThreadingOptions'] if attributes[:'symmetricMultiThreadingOptions']
+
+      raise 'You cannot provide both :symmetricMultiThreadingOptions and :symmetric_multi_threading_options' if attributes.key?(:'symmetricMultiThreadingOptions') && attributes.key?(:'symmetric_multi_threading_options')
+
+      self.symmetric_multi_threading_options = attributes[:'symmetric_multi_threading_options'] if attributes[:'symmetric_multi_threading_options']
+
+      self.access_control_service_options = attributes[:'accessControlServiceOptions'] if attributes[:'accessControlServiceOptions']
+
+      raise 'You cannot provide both :accessControlServiceOptions and :access_control_service_options' if attributes.key?(:'accessControlServiceOptions') && attributes.key?(:'access_control_service_options')
+
+      self.access_control_service_options = attributes[:'access_control_service_options'] if attributes[:'access_control_service_options']
+
+      self.virtual_instructions_options = attributes[:'virtualInstructionsOptions'] if attributes[:'virtualInstructionsOptions']
+
+      raise 'You cannot provide both :virtualInstructionsOptions and :virtual_instructions_options' if attributes.key?(:'virtualInstructionsOptions') && attributes.key?(:'virtual_instructions_options')
+
+      self.virtual_instructions_options = attributes[:'virtual_instructions_options'] if attributes[:'virtual_instructions_options']
+
+      self.input_output_memory_management_unit_options = attributes[:'inputOutputMemoryManagementUnitOptions'] if attributes[:'inputOutputMemoryManagementUnitOptions']
+
+      raise 'You cannot provide both :inputOutputMemoryManagementUnitOptions and :input_output_memory_management_unit_options' if attributes.key?(:'inputOutputMemoryManagementUnitOptions') && attributes.key?(:'input_output_memory_management_unit_options')
+
+      self.input_output_memory_management_unit_options = attributes[:'input_output_memory_management_unit_options'] if attributes[:'input_output_memory_management_unit_options']
+
+      self.percentage_of_cores_enabled_options = attributes[:'percentageOfCoresEnabledOptions'] if attributes[:'percentageOfCoresEnabledOptions']
+
+      raise 'You cannot provide both :percentageOfCoresEnabledOptions and :percentage_of_cores_enabled_options' if attributes.key?(:'percentageOfCoresEnabledOptions') && attributes.key?(:'percentage_of_cores_enabled_options')
+
+      self.percentage_of_cores_enabled_options = attributes[:'percentage_of_cores_enabled_options'] if attributes[:'percentage_of_cores_enabled_options']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -133,7 +195,12 @@ module OCI
         secure_boot_options == other.secure_boot_options &&
         measured_boot_options == other.measured_boot_options &&
         trusted_platform_module_options == other.trusted_platform_module_options &&
-        numa_nodes_per_socket_platform_options == other.numa_nodes_per_socket_platform_options
+        numa_nodes_per_socket_platform_options == other.numa_nodes_per_socket_platform_options &&
+        symmetric_multi_threading_options == other.symmetric_multi_threading_options &&
+        access_control_service_options == other.access_control_service_options &&
+        virtual_instructions_options == other.virtual_instructions_options &&
+        input_output_memory_management_unit_options == other.input_output_memory_management_unit_options &&
+        percentage_of_cores_enabled_options == other.percentage_of_cores_enabled_options
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -149,7 +216,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, secure_boot_options, measured_boot_options, trusted_platform_module_options, numa_nodes_per_socket_platform_options].hash
+      [type, secure_boot_options, measured_boot_options, trusted_platform_module_options, numa_nodes_per_socket_platform_options, symmetric_multi_threading_options, access_control_service_options, virtual_instructions_options, input_output_memory_management_unit_options, percentage_of_cores_enabled_options].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

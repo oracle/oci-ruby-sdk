@@ -106,6 +106,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'connectionType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::Devops::Models::BitbucketCloudAppPasswordConnectionSummary' if type == 'BITBUCKET_CLOUD_APP_PASSWORD'
       return 'OCI::Devops::Models::GithubAccessTokenConnectionSummary' if type == 'GITHUB_ACCESS_TOKEN'
       return 'OCI::Devops::Models::GitlabAccessTokenConnectionSummary' if type == 'GITLAB_ACCESS_TOKEN'
 

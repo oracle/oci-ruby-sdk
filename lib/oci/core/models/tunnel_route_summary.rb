@@ -6,7 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The routes advertised to the Customer and the routes received from the Customer
+  # A summary of the routes advertised to and received from the on-premises network.
+  #
   class Core::Models::TunnelRouteSummary
     ADVERTISER_ENUM = [
       ADVERTISER_CUSTOMER = 'CUSTOMER'.freeze,
@@ -14,23 +15,23 @@ module OCI
       ADVERTISER_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # BGP Network Layer Reachability Information
+    # The BGP network layer reachability information.
     # @return [String]
     attr_accessor :prefix
 
-    # The age of the route
+    # The age of the route.
     # @return [Integer]
     attr_accessor :age
 
-    # Is this the best route
+    # Indicates this is the best route.
     # @return [BOOLEAN]
     attr_accessor :is_best_path
 
-    # List of ASNs in AS Path
+    # A list of ASNs in AS_Path.
     # @return [Array<Integer>]
     attr_accessor :as_path
 
-    # Route advertiser
+    # The source of the route advertisement.
     # @return [String]
     attr_reader :advertiser
 

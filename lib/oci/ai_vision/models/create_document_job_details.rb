@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details about the batch document analysis.
+  # The batch document analysis details.
   class AiVision::Models::CreateDocumentJobDetails
     LANGUAGE_ENUM = [
       LANGUAGE_ENG = 'ENG'.freeze,
@@ -52,7 +52,7 @@ module OCI
     # @return [OCI::AiVision::Models::InputLocation]
     attr_accessor :input_location
 
-    # **[Required]** List of document analysis types requested.
+    # **[Required]** The list of requested document analysis types.
     # @return [Array<OCI::AiVision::Models::DocumentFeature>]
     attr_accessor :features
 
@@ -60,15 +60,15 @@ module OCI
     # @return [OCI::AiVision::Models::OutputLocation]
     attr_accessor :output_location
 
-    # Compartment identifier from the requester.
+    # The compartment identifier from the requester.
     # @return [String]
     attr_accessor :compartment_id
 
-    # Document job display name.
+    # The document job display name.
     # @return [String]
     attr_accessor :display_name
 
-    # Language of the document, abbreviated according to ISO 639-2.
+    # The language of the document, abbreviated according to ISO 639-2.
     # @return [String]
     attr_reader :language
 
@@ -76,7 +76,7 @@ module OCI
     # @return [String]
     attr_reader :document_type
 
-    # Whether to generate a Zip file containing the results.
+    # Whether or not to generate a ZIP file containing the results.
     # @return [BOOLEAN]
     attr_accessor :is_zip_output_enabled
 

@@ -26,25 +26,25 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the alert rule
+    # **[Required]** The OCID of the alert rule.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the budget
+    # **[Required]** The OCID of the budget.
     # @return [String]
     attr_accessor :budget_id
 
-    # **[Required]** The name of the alert rule.
+    # **[Required]** The name of the alert rule. Avoid entering confidential information.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** ACTUAL means the alert will trigger based on actual usage.
-    # FORECAST means the alert will trigger based on predicted usage.
+    # **[Required]** ACTUAL means the alert triggers based on actual usage.
+    # FORECAST means the alert triggers based on predicted usage.
     #
     # @return [String]
     attr_reader :type
 
-    # **[Required]** The threshold for triggering the alert. If thresholdType is PERCENTAGE, the maximum value is 10000.
+    # **[Required]** The threshold for triggering the alert. If the thresholdType is PERCENTAGE, the maximum value is 10000.
     #
     # @return [Float]
     attr_accessor :threshold
@@ -57,7 +57,7 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # Custom message that will be sent when alert is triggered
+    # The custom message that will be sent when the alert is triggered.
     # @return [String]
     attr_accessor :message
 
@@ -65,19 +65,19 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # Version of the alert rule. Starts from 1 and increments by 1.
+    # The version of the alert rule. Starts from 1 and increments by 1.
     # @return [Integer]
     attr_accessor :version
 
-    # **[Required]** The audience that will receive the alert when it triggers.
+    # **[Required]** The audience that receives the alert when it triggers.
     # @return [String]
     attr_accessor :recipients
 
-    # **[Required]** Time when budget was created
+    # **[Required]** The time when the budget was created.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** Time when budget was updated
+    # **[Required]** The time when the budget was updated.
     # @return [DateTime]
     attr_accessor :time_updated
 

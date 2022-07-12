@@ -5,17 +5,17 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Update domain details
+  # (For tenancies that support identity domains) Update identity domain details.
   class Identity::Models::UpdateDomainDetails
-    # The domain description
+    # The identity domain description. You can have an empty description.
     # @return [String]
     attr_accessor :description
 
-    # The mutable display name of the domain
+    # The mutable display name of the identity domain.
     # @return [String]
     attr_accessor :display_name
 
-    # Indicates whether domain is hidden on login screen or not.
+    # Indicates whether the identity domain is hidden on the sign-in screen or not.
     #
     # @return [BOOLEAN]
     attr_accessor :is_hidden_on_login

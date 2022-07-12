@@ -60,13 +60,29 @@ module OCI
     # @return [String]
     attr_accessor :compute_availability_domain
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the esxi host that
-    # is failed. It is an optional param, when user supplies this param, new Esxi
-    # Host will be created to replace the failed one, and failedEsxiHostId field
-    # will be udpated in the newly created EsxiHost.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the ESXi host that
+    # is failed. This is an optional parameter. If this parameter is specified, a new ESXi
+    # host will be created to replace the failed one, and the `failedEsxiHostId` field
+    # will be udpated in the newly created Esxi host.
     #
     # @return [String]
     attr_accessor :failed_esxi_host_id
+
+    # The compute shape name of the ESXi host.
+    # {#list_supported_host_shapes list_supported_host_shapes}.
+    #
+    # @return [String]
+    attr_accessor :host_shape_name
+
+    # The OCPU count of the ESXi host.
+    #
+    # @return [Float]
+    attr_accessor :host_ocpu_count
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Capacity Reservation.
+    #
+    # @return [String]
+    attr_accessor :capacity_reservation_id
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -94,6 +110,9 @@ module OCI
         'next_sku': :'nextSku',
         'compute_availability_domain': :'computeAvailabilityDomain',
         'failed_esxi_host_id': :'failedEsxiHostId',
+        'host_shape_name': :'hostShapeName',
+        'host_ocpu_count': :'hostOcpuCount',
+        'capacity_reservation_id': :'capacityReservationId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -110,6 +129,9 @@ module OCI
         'next_sku': :'String',
         'compute_availability_domain': :'String',
         'failed_esxi_host_id': :'String',
+        'host_shape_name': :'String',
+        'host_ocpu_count': :'Float',
+        'capacity_reservation_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -128,6 +150,9 @@ module OCI
     # @option attributes [String] :next_sku The value to assign to the {#next_sku} property
     # @option attributes [String] :compute_availability_domain The value to assign to the {#compute_availability_domain} property
     # @option attributes [String] :failed_esxi_host_id The value to assign to the {#failed_esxi_host_id} property
+    # @option attributes [String] :host_shape_name The value to assign to the {#host_shape_name} property
+    # @option attributes [Float] :host_ocpu_count The value to assign to the {#host_ocpu_count} property
+    # @option attributes [String] :capacity_reservation_id The value to assign to the {#capacity_reservation_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -173,6 +198,24 @@ module OCI
       raise 'You cannot provide both :failedEsxiHostId and :failed_esxi_host_id' if attributes.key?(:'failedEsxiHostId') && attributes.key?(:'failed_esxi_host_id')
 
       self.failed_esxi_host_id = attributes[:'failed_esxi_host_id'] if attributes[:'failed_esxi_host_id']
+
+      self.host_shape_name = attributes[:'hostShapeName'] if attributes[:'hostShapeName']
+
+      raise 'You cannot provide both :hostShapeName and :host_shape_name' if attributes.key?(:'hostShapeName') && attributes.key?(:'host_shape_name')
+
+      self.host_shape_name = attributes[:'host_shape_name'] if attributes[:'host_shape_name']
+
+      self.host_ocpu_count = attributes[:'hostOcpuCount'] if attributes[:'hostOcpuCount']
+
+      raise 'You cannot provide both :hostOcpuCount and :host_ocpu_count' if attributes.key?(:'hostOcpuCount') && attributes.key?(:'host_ocpu_count')
+
+      self.host_ocpu_count = attributes[:'host_ocpu_count'] if attributes[:'host_ocpu_count']
+
+      self.capacity_reservation_id = attributes[:'capacityReservationId'] if attributes[:'capacityReservationId']
+
+      raise 'You cannot provide both :capacityReservationId and :capacity_reservation_id' if attributes.key?(:'capacityReservationId') && attributes.key?(:'capacity_reservation_id')
+
+      self.capacity_reservation_id = attributes[:'capacity_reservation_id'] if attributes[:'capacity_reservation_id']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -220,6 +263,9 @@ module OCI
         next_sku == other.next_sku &&
         compute_availability_domain == other.compute_availability_domain &&
         failed_esxi_host_id == other.failed_esxi_host_id &&
+        host_shape_name == other.host_shape_name &&
+        host_ocpu_count == other.host_ocpu_count &&
+        capacity_reservation_id == other.capacity_reservation_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -237,7 +283,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [sddc_id, display_name, current_sku, next_sku, compute_availability_domain, failed_esxi_host_id, freeform_tags, defined_tags].hash
+      [sddc_id, display_name, current_sku, next_sku, compute_availability_domain, failed_esxi_host_id, host_shape_name, host_ocpu_count, capacity_reservation_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -20,6 +20,8 @@ module OCI
     TYPE_ENUM = [
       TYPE_AMD_MILAN_BM = 'AMD_MILAN_BM'.freeze,
       TYPE_AMD_ROME_BM = 'AMD_ROME_BM'.freeze,
+      TYPE_AMD_ROME_BM_GPU = 'AMD_ROME_BM_GPU'.freeze,
+      TYPE_INTEL_ICELAKE_BM = 'INTEL_ICELAKE_BM'.freeze,
       TYPE_INTEL_SKYLAKE_BM = 'INTEL_SKYLAKE_BM'.freeze,
       TYPE_AMD_VM = 'AMD_VM'.freeze,
       TYPE_INTEL_VM = 'INTEL_VM'.freeze,
@@ -80,8 +82,10 @@ module OCI
 
       return 'OCI::Core::Models::InstanceConfigurationAmdMilanBmLaunchInstancePlatformConfig' if type == 'AMD_MILAN_BM'
       return 'OCI::Core::Models::InstanceConfigurationIntelVmLaunchInstancePlatformConfig' if type == 'INTEL_VM'
+      return 'OCI::Core::Models::InstanceConfigurationIntelIcelakeBmLaunchInstancePlatformConfig' if type == 'INTEL_ICELAKE_BM'
       return 'OCI::Core::Models::InstanceConfigurationAmdRomeBmLaunchInstancePlatformConfig' if type == 'AMD_ROME_BM'
       return 'OCI::Core::Models::InstanceConfigurationIntelSkylakeBmLaunchInstancePlatformConfig' if type == 'INTEL_SKYLAKE_BM'
+      return 'OCI::Core::Models::InstanceConfigurationAmdRomeBmGpuLaunchInstancePlatformConfig' if type == 'AMD_ROME_BM_GPU'
       return 'OCI::Core::Models::InstanceConfigurationAmdVmLaunchInstancePlatformConfig' if type == 'AMD_VM'
 
       # TODO: Log a warning when the subtype is not found.

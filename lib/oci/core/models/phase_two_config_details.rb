@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Phase 2 Configuration Details
+  # Configuration details for IPSec phase two configuration parameters.
   class Core::Models::PhaseTwoConfigDetails
     AUTHENTICATION_ALGORITHM_ENUM = [
       AUTHENTICATION_ALGORITHM_HMAC_SHA2_256_128 = 'HMAC_SHA2_256_128'.freeze,
@@ -30,21 +30,22 @@ module OCI
       PFS_DH_GROUP_GROUP24 = 'GROUP24'.freeze
     ].freeze
 
-    # Indicates whether custom phase two configuration is enabled.
+    # Indicates whether custom configuration is enabled for phase two options.
     # @return [BOOLEAN]
     attr_accessor :is_custom_phase_two_config
 
-    # Phase two authentication algorithm supported during tunnel negotiation.
+    # The authentication algorithm proposed during phase two tunnel negotiation.
     #
     # @return [String]
     attr_reader :authentication_algorithm
 
-    # Phase two encryption algorithm supported during tunnel negotiation.
+    # The encryption algorithm proposed during phase two tunnel negotiation.
     #
     # @return [String]
     attr_reader :encryption_algorithm
 
-    # Lifetime in seconds for IPSec phase two.
+    # Lifetime in seconds for the IPSec session key set in phase two. The default is 3600 which is equivalent to 1 hour.
+    #
     # @return [Integer]
     attr_accessor :lifetime_in_seconds
 
@@ -52,7 +53,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_pfs_enabled
 
-    # Diffie-Hellman group used for PFS.
+    # The Diffie-Hellman group used for PFS, if PFS is enabled.
     # @return [String]
     attr_reader :pfs_dh_group
 

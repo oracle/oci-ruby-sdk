@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Type of document analysis.
+  # The type of document analysis.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class AiVision::Models::DocumentFeature
     FEATURE_TYPE_ENUM = [
@@ -18,8 +18,8 @@ module OCI
       FEATURE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Type of document analysis requested
-    # Allowed values are:
+    # **[Required]** The type of document analysis requested.
+    # The allowed values are:
     # - `LANGUAGE_CLASSIFICATION`: Detect the language.
     # - `TEXT_DETECTION`: Recognize text.
     # - `TABLE_DETECTION`: Detect and extract data in tables.

@@ -8,7 +8,7 @@ require_relative 'input_location'
 module OCI
   # A list of object locations in Object Storage.
   class AiVision::Models::ObjectListInlineInputLocation < AiVision::Models::InputLocation
-    # **[Required]** List of ObjectLocations.
+    # **[Required]** The list of ObjectLocations.
     # @return [Array<OCI::AiVision::Models::ObjectLocation>]
     attr_accessor :object_locations
 

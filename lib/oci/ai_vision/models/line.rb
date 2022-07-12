@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Line of text.
+  # The line of text.
   class AiVision::Models::Line
-    # **[Required]** Text recognized.
+    # **[Required]** The text recognized.
     # @return [String]
     attr_accessor :text
 
-    # **[Required]** Confidence score between 0 to 1.
+    # **[Required]** The confidence score between 0 and 1.
     # @return [Float]
     attr_accessor :confidence
 
@@ -19,7 +19,7 @@ module OCI
     # @return [OCI::AiVision::Models::BoundingPolygon]
     attr_accessor :bounding_polygon
 
-    # **[Required]** Array of words.
+    # **[Required]** The array of words.
     # @return [Array<Integer>]
     attr_accessor :word_indexes
 

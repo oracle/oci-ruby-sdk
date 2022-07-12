@@ -44,6 +44,7 @@ require 'oci/tenant_manager_control_plane/models/organization_tenancy_collection
 require 'oci/tenant_manager_control_plane/models/organization_tenancy_lifecycle_state'
 require 'oci/tenant_manager_control_plane/models/organization_tenancy_role'
 require 'oci/tenant_manager_control_plane/models/organization_tenancy_summary'
+require 'oci/tenant_manager_control_plane/models/promotion'
 require 'oci/tenant_manager_control_plane/models/recipient_invitation'
 require 'oci/tenant_manager_control_plane/models/recipient_invitation_collection'
 require 'oci/tenant_manager_control_plane/models/recipient_invitation_status'

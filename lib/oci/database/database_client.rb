@@ -4930,6 +4930,74 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Disable Stack Monitoring for the external container database.
+    #
+    # @param [String] external_container_database_id The ExternalContainerDatabase [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/disable_external_container_database_stack_monitoring.rb.html) to see an example of how to use disable_external_container_database_stack_monitoring API.
+    def disable_external_container_database_stack_monitoring(external_container_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#disable_external_container_database_stack_monitoring.' if logger
+
+      raise "Missing the required parameter 'external_container_database_id' when calling disable_external_container_database_stack_monitoring." if external_container_database_id.nil?
+      raise "Parameter value for 'external_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_container_database_id)
+
+      path = '/externalcontainerdatabases/{externalContainerDatabaseId}/actions/disableStackMonitoring'.sub('{externalContainerDatabaseId}', external_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#disable_external_container_database_stack_monitoring') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Disable Database Management Service for the external non-container database.
     # For more information about the Database Management Service, see
     # [Database Management Service](https://docs.cloud.oracle.com/Content/ExternalDatabase/Concepts/databasemanagementservice.htm).
@@ -5068,6 +5136,74 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Disable Stack Monitoring for the external non-container database.
+    #
+    # @param [String] external_non_container_database_id The external non-container database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/disable_external_non_container_database_stack_monitoring.rb.html) to see an example of how to use disable_external_non_container_database_stack_monitoring API.
+    def disable_external_non_container_database_stack_monitoring(external_non_container_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#disable_external_non_container_database_stack_monitoring.' if logger
+
+      raise "Missing the required parameter 'external_non_container_database_id' when calling disable_external_non_container_database_stack_monitoring." if external_non_container_database_id.nil?
+      raise "Parameter value for 'external_non_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_non_container_database_id)
+
+      path = '/externalnoncontainerdatabases/{externalNonContainerDatabaseId}/actions/disableStackMonitoring'.sub('{externalNonContainerDatabaseId}', external_non_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#disable_external_non_container_database_stack_monitoring') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Disable Database Management Service for the external pluggable database.
     # For more information about the Database Management Service, see
     # [Database Management Service](https://docs.cloud.oracle.com/Content/ExternalDatabase/Concepts/databasemanagementservice.htm).
@@ -5185,6 +5321,74 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#disable_external_pluggable_database_operations_insights') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Disable Stack Monitoring for the external pluggable database.
+    #
+    # @param [String] external_pluggable_database_id The ExternalPluggableDatabaseId [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/disable_external_pluggable_database_stack_monitoring.rb.html) to see an example of how to use disable_external_pluggable_database_stack_monitoring API.
+    def disable_external_pluggable_database_stack_monitoring(external_pluggable_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#disable_external_pluggable_database_stack_monitoring.' if logger
+
+      raise "Missing the required parameter 'external_pluggable_database_id' when calling disable_external_pluggable_database_stack_monitoring." if external_pluggable_database_id.nil?
+      raise "Parameter value for 'external_pluggable_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_pluggable_database_id)
+
+      path = '/externalpluggabledatabases/{externalPluggableDatabaseId}/actions/disableStackMonitoring'.sub('{externalPluggableDatabaseId}', external_pluggable_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#disable_external_pluggable_database_stack_monitoring') do
         @api_client.call_api(
           :POST,
           path,
@@ -5794,6 +5998,77 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Enable Stack Monitoring for the external container database.
+    #
+    # @param [String] external_container_database_id The ExternalContainerDatabase [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Database::Models::EnableExternalContainerDatabaseStackMonitoringDetails] enable_external_container_database_stack_monitoring_details Details to enable Stack Monitoring on the external container database.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/enable_external_container_database_stack_monitoring.rb.html) to see an example of how to use enable_external_container_database_stack_monitoring API.
+    def enable_external_container_database_stack_monitoring(external_container_database_id, enable_external_container_database_stack_monitoring_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#enable_external_container_database_stack_monitoring.' if logger
+
+      raise "Missing the required parameter 'external_container_database_id' when calling enable_external_container_database_stack_monitoring." if external_container_database_id.nil?
+      raise "Missing the required parameter 'enable_external_container_database_stack_monitoring_details' when calling enable_external_container_database_stack_monitoring." if enable_external_container_database_stack_monitoring_details.nil?
+      raise "Parameter value for 'external_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_container_database_id)
+
+      path = '/externalcontainerdatabases/{externalContainerDatabaseId}/actions/enableStackMonitoring'.sub('{externalContainerDatabaseId}', external_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(enable_external_container_database_stack_monitoring_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#enable_external_container_database_stack_monitoring') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Enable Database Management Service for the external non-container database.
     # For more information about the Database Management Service, see
     # [Database Management Service](https://docs.cloud.oracle.com/Content/ExternalDatabase/Concepts/databasemanagementservice.htm).
@@ -5937,6 +6212,77 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Enable Stack Monitoring for the external non-container database.
+    #
+    # @param [String] external_non_container_database_id The external non-container database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Database::Models::EnableExternalNonContainerDatabaseStackMonitoringDetails] enable_external_non_container_database_stack_monitoring_details Details to enable Stack Monitoring on the external non-container database.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/enable_external_non_container_database_stack_monitoring.rb.html) to see an example of how to use enable_external_non_container_database_stack_monitoring API.
+    def enable_external_non_container_database_stack_monitoring(external_non_container_database_id, enable_external_non_container_database_stack_monitoring_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#enable_external_non_container_database_stack_monitoring.' if logger
+
+      raise "Missing the required parameter 'external_non_container_database_id' when calling enable_external_non_container_database_stack_monitoring." if external_non_container_database_id.nil?
+      raise "Missing the required parameter 'enable_external_non_container_database_stack_monitoring_details' when calling enable_external_non_container_database_stack_monitoring." if enable_external_non_container_database_stack_monitoring_details.nil?
+      raise "Parameter value for 'external_non_container_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_non_container_database_id)
+
+      path = '/externalnoncontainerdatabases/{externalNonContainerDatabaseId}/actions/enableStackMonitoring'.sub('{externalNonContainerDatabaseId}', external_non_container_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(enable_external_non_container_database_stack_monitoring_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#enable_external_non_container_database_stack_monitoring') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Enable Database Management Service for the external pluggable database.
     # For more information about the Database Management Service, see
     # [Database Management Service](https://docs.cloud.oracle.com/Content/ExternalDatabase/Concepts/databasemanagementservice.htm).
@@ -6059,6 +6405,77 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#enable_external_pluggable_database_operations_insights') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Enable Stack Monitoring for the external pluggable database.
+    #
+    # @param [String] external_pluggable_database_id The ExternalPluggableDatabaseId [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Database::Models::EnableExternalPluggableDatabaseStackMonitoringDetails] enable_external_pluggable_database_stack_monitoring_details Details to enable Stack Monitoring on the external pluggable database.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/enable_external_pluggable_database_stack_monitoring.rb.html) to see an example of how to use enable_external_pluggable_database_stack_monitoring API.
+    def enable_external_pluggable_database_stack_monitoring(external_pluggable_database_id, enable_external_pluggable_database_stack_monitoring_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#enable_external_pluggable_database_stack_monitoring.' if logger
+
+      raise "Missing the required parameter 'external_pluggable_database_id' when calling enable_external_pluggable_database_stack_monitoring." if external_pluggable_database_id.nil?
+      raise "Missing the required parameter 'enable_external_pluggable_database_stack_monitoring_details' when calling enable_external_pluggable_database_stack_monitoring." if enable_external_pluggable_database_stack_monitoring_details.nil?
+      raise "Parameter value for 'external_pluggable_database_id' must not be blank" if OCI::Internal::Util.blank_string?(external_pluggable_database_id)
+
+      path = '/externalpluggabledatabases/{externalPluggableDatabaseId}/actions/enableStackMonitoring'.sub('{externalPluggableDatabaseId}', external_pluggable_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(enable_external_pluggable_database_stack_monitoring_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#enable_external_pluggable_database_stack_monitoring') do
         @api_client.call_api(
           :POST,
           path,
@@ -8208,6 +8625,65 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets the details of the specified operating system upgrade operation for the specified DB system.
+    #
+    # @param [String] db_system_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] upgrade_history_entry_id The database/db system upgrade History [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::DbSystemUpgradeHistoryEntry DbSystemUpgradeHistoryEntry}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_db_system_upgrade_history_entry.rb.html) to see an example of how to use get_db_system_upgrade_history_entry API.
+    def get_db_system_upgrade_history_entry(db_system_id, upgrade_history_entry_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#get_db_system_upgrade_history_entry.' if logger
+
+      raise "Missing the required parameter 'db_system_id' when calling get_db_system_upgrade_history_entry." if db_system_id.nil?
+      raise "Missing the required parameter 'upgrade_history_entry_id' when calling get_db_system_upgrade_history_entry." if upgrade_history_entry_id.nil?
+      raise "Parameter value for 'db_system_id' must not be blank" if OCI::Internal::Util.blank_string?(db_system_id)
+      raise "Parameter value for 'upgrade_history_entry_id' must not be blank" if OCI::Internal::Util.blank_string?(upgrade_history_entry_id)
+
+      path = '/dbSystems/{dbSystemId}/upgradeHistoryEntries/{upgradeHistoryEntryId}'.sub('{dbSystemId}', db_system_id.to_s).sub('{upgradeHistoryEntryId}', upgrade_history_entry_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_db_system_upgrade_history_entry') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::DbSystemUpgradeHistoryEntry'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets information about the specified Exadata infrastructure. Applies to Exadata Cloud@Customer instances only.
     # To get information on an Exadata Cloud Service infrastructure resource, use the  {#get_cloud_exadata_infrastructure get_cloud_exadata_infrastructure} operation.
     #
@@ -9603,6 +10079,69 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Database::Models::AutonomousDatabaseBackupSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of supported character sets.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [BOOLEAN] :is_shared Specifies whether this request is for Autonomous Database on Shared infrastructure. By default, this request will be for Autonomous Database on Dedicated Exadata Infrastructure.
+    #
+    # @option opts [String] :character_set_type Specifies whether this request pertains to database character sets or national character sets.
+    #    (default to DATABASE)
+    #   Allowed values are: DATABASE, NATIONAL
+    # @return [Response] A Response object with data of type Array<{OCI::Database::Models::AutonomousDatabaseCharacterSets AutonomousDatabaseCharacterSets}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_autonomous_database_character_sets.rb.html) to see an example of how to use list_autonomous_database_character_sets API.
+    def list_autonomous_database_character_sets(opts = {})
+      logger.debug 'Calling operation DatabaseClient#list_autonomous_database_character_sets.' if logger
+
+
+      if opts[:character_set_type] && !%w[DATABASE NATIONAL].include?(opts[:character_set_type])
+        raise 'Invalid value for "character_set_type", must be one of DATABASE, NATIONAL.'
+      end
+
+      path = '/autonomousDatabaseCharacterSets'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:isShared] = opts[:is_shared] if !opts[:is_shared].nil?
+      query_params[:characterSetType] = opts[:character_set_type] if opts[:character_set_type]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_autonomous_database_character_sets') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::AutonomousDatabaseCharacterSets>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -11575,6 +12114,61 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets a list of expected compute performance parameters for a virtual machine DB system based on system configuration.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :db_system_shape If provided, filters the results to the set of database versions which are supported for the given shape.
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbSystemComputePerformanceSummary DbSystemComputePerformanceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_db_system_compute_performances.rb.html) to see an example of how to use list_db_system_compute_performances API.
+    def list_db_system_compute_performances(opts = {})
+      logger.debug 'Calling operation DatabaseClient#list_db_system_compute_performances.' if logger
+
+
+      path = '/dbSystemComputePerformance'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:dbSystemShape] = opts[:db_system_shape] if opts[:db_system_shape]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_db_system_compute_performances') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::DbSystemComputePerformanceSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the history of the patch actions performed on the specified DB system.
     #
     # @param [String] db_system_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -11747,6 +12341,158 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets a list of possible expected storage performance parameters of a VMDB System based on Configuration.
+    #
+    # @param [String] storage_management The DB system storage management option. Used to list database versions available for that storage manager. Valid values are `ASM` and `LVM`.
+    #   * ASM specifies Oracle Automatic Storage Management
+    #   * LVM specifies logical volume manager, sometimes called logical disk manager.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :shape_type Optional. Filters the performance results by shape type.
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbSystemStoragePerformanceSummary DbSystemStoragePerformanceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_db_system_storage_performances.rb.html) to see an example of how to use list_db_system_storage_performances API.
+    def list_db_system_storage_performances(storage_management, opts = {})
+      logger.debug 'Calling operation DatabaseClient#list_db_system_storage_performances.' if logger
+
+      raise "Missing the required parameter 'storage_management' when calling list_db_system_storage_performances." if storage_management.nil?
+      unless OCI::Database::Models::DbSystemOptions::STORAGE_MANAGEMENT_ENUM.include?(storage_management)
+        raise 'Invalid value for "storage_management", must be one of the values in OCI::Database::Models::DbSystemOptions::STORAGE_MANAGEMENT_ENUM.'
+      end
+
+
+      path = '/dbSystemStoragePerformance'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:storageManagement] = storage_management
+      query_params[:shapeType] = opts[:shape_type] if opts[:shape_type]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_db_system_storage_performances') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::DbSystemStoragePerformanceSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the history of the upgrade actions performed on the specified DB system.
+    #
+    # @param [String] db_system_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
+    # @option opts [String] :page The pagination token to continue listing from.
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is ascending.
+    #    (default to TIMESTARTED)
+    #   Allowed values are: TIMESTARTED
+    # @option opts [String] :upgrade_action A filter to return only upgradeHistoryEntries that match the specified Upgrade Action.
+    # @option opts [String] :lifecycle_state A filter to return only upgrade history entries that match the given lifecycle state exactly.
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Database::Models::DbSystemUpgradeHistoryEntrySummary DbSystemUpgradeHistoryEntrySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_db_system_upgrade_history_entries.rb.html) to see an example of how to use list_db_system_upgrade_history_entries API.
+    def list_db_system_upgrade_history_entries(db_system_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#list_db_system_upgrade_history_entries.' if logger
+
+      raise "Missing the required parameter 'db_system_id' when calling list_db_system_upgrade_history_entries." if db_system_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMESTARTED].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMESTARTED.'
+      end
+
+      if opts[:upgrade_action] && !OCI::Database::Models::DbSystemUpgradeHistoryEntrySummary::ACTION_ENUM.include?(opts[:upgrade_action])
+        raise 'Invalid value for "upgrade_action", must be one of the values in OCI::Database::Models::DbSystemUpgradeHistoryEntrySummary::ACTION_ENUM.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Database::Models::DbSystemUpgradeHistoryEntrySummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Database::Models::DbSystemUpgradeHistoryEntrySummary::LIFECYCLE_STATE_ENUM.'
+      end
+      raise "Parameter value for 'db_system_id' must not be blank" if OCI::Internal::Util.blank_string?(db_system_id)
+
+      path = '/dbSystems/{dbSystemId}/upgradeHistoryEntries'.sub('{dbSystemId}', db_system_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:upgradeAction] = opts[:upgrade_action] if opts[:upgrade_action]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_db_system_upgrade_history_entries') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::DbSystemUpgradeHistoryEntrySummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the DB systems in the specified compartment. You can specify a `backupId` to list only the DB systems that support creating a database using this backup in this compartment.
     #
     # **Note:** Deprecated for Exadata Cloud Service systems. Use the [new resource model APIs](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/exaflexsystem.htm#exaflexsystem_topic-resource_model) instead.
@@ -11846,9 +12592,9 @@ module OCI
     # @option opts [String] :page The pagination token to continue listing from.
     # @option opts [String] :db_system_shape If provided, filters the results to the set of database versions which are supported for the given shape.
     # @option opts [String] :db_system_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm). If provided, filters the results to the set of database versions which are supported for the DB system.
-    # @option opts [String] :storage_management The DB system storage management option. Used to list database versions available for that storage manager. Valid values are:
-    #   * ASM - Automatic storage management
-    #   * LVM - Logical volume management
+    # @option opts [String] :storage_management The DB system storage management option. Used to list database versions available for that storage manager. Valid values are `ASM` and `LVM`.
+    #   * ASM specifies Oracle Automatic Storage Management
+    #   * LVM specifies logical volume manager, sometimes called logical disk manager.
     #
     # @option opts [BOOLEAN] :is_upgrade_supported If provided, filters the results to the set of database versions which are supported for Upgrade.
     # @option opts [BOOLEAN] :is_database_software_image_supported If true, filters the results to the set of Oracle Database versions that are supported for OCI database software images.
@@ -14557,7 +15303,7 @@ module OCI
 
 
     # Scans for pluggable databases in the specified external container database.
-    # This operation will return un-registered pluggable databases in the `GetWorkRequest` operation.
+    # This operation will return un-registered pluggable databases in the {#get_work_request get_work_request} operation.
     #
     # @param [String] external_container_database_id The ExternalContainerDatabase [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [String] external_database_connector_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the
@@ -14612,6 +15358,64 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # This operation shrinks the current allocated storage down to the current actual used data storage (actualUsedDataStorageSizeInTBs). The if the base storage value for the database (dataStorageSizeInTBs) is larger than the actualUsedDataStorageSizeInTBs value, you are billed for the base storage value.
+    #
+    # @param [String] autonomous_database_id The database [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::AutonomousDatabase AutonomousDatabase}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/shrink_autonomous_database.rb.html) to see an example of how to use shrink_autonomous_database API.
+    def shrink_autonomous_database(autonomous_database_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#shrink_autonomous_database.' if logger
+
+      raise "Missing the required parameter 'autonomous_database_id' when calling shrink_autonomous_database." if autonomous_database_id.nil?
+      raise "Parameter value for 'autonomous_database_id' must not be blank" if OCI::Internal::Util.blank_string?(autonomous_database_id)
+
+      path = '/autonomousDatabases/{autonomousDatabaseId}/actions/shrink'.sub('{autonomousDatabaseId}', autonomous_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#shrink_autonomous_database') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::AutonomousDatabase'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -17057,6 +17861,77 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Database::Models::Database'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Upgrades the operating system and grid infrastructure of the DB system.
+    #
+    # @param [String] db_system_id The DB system [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Database::Models::UpgradeDbSystemDetails] upgrade_db_system_details Request to perform an upgrade of the operating system and the Oracle Grid Infrastructure (GI) of the DB system.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::DbSystem DbSystem}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/upgrade_db_system.rb.html) to see an example of how to use upgrade_db_system API.
+    def upgrade_db_system(db_system_id, upgrade_db_system_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#upgrade_db_system.' if logger
+
+      raise "Missing the required parameter 'db_system_id' when calling upgrade_db_system." if db_system_id.nil?
+      raise "Missing the required parameter 'upgrade_db_system_details' when calling upgrade_db_system." if upgrade_db_system_details.nil?
+      raise "Parameter value for 'db_system_id' must not be blank" if OCI::Internal::Util.blank_string?(db_system_id)
+
+      path = '/dbSystems/{dbSystemId}/actions/upgrade'.sub('{dbSystemId}', db_system_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(upgrade_db_system_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#upgrade_db_system') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::DbSystem'
         )
       end
       # rubocop:enable Metrics/BlockLength

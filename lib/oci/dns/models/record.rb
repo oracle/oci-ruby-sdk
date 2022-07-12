@@ -44,7 +44,8 @@ module OCI
     # @return [String]
     attr_accessor :rtype
 
-    # The Time To Live for the record, in seconds.
+    # The Time To Live for the record, in seconds. Using a TTL lower than 30 seconds is not recommended.
+    #
     # @return [Integer]
     attr_accessor :ttl
 

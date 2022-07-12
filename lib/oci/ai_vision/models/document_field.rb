@@ -16,7 +16,7 @@ module OCI
       FIELD_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Field type.
+    # **[Required]** The field type.
     # @return [String]
     attr_reader :field_type
 

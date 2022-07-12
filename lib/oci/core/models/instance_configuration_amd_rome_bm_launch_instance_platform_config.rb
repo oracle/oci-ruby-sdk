@@ -2,13 +2,67 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 require_relative 'instance_configuration_launch_instance_platform_config'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The platform configuration used when launching a bare metal instance with the AMD Rome platform.
+  # The platform configuration used when launching a bare metal instance with the BM.Standard.E3.128 shape
+  # (the AMD Rome platform).
   #
   class Core::Models::InstanceConfigurationAmdRomeBmLaunchInstancePlatformConfig < Core::Models::InstanceConfigurationLaunchInstancePlatformConfig
+    NUMA_NODES_PER_SOCKET_ENUM = [
+      NUMA_NODES_PER_SOCKET_NPS0 = 'NPS0'.freeze,
+      NUMA_NODES_PER_SOCKET_NPS1 = 'NPS1'.freeze,
+      NUMA_NODES_PER_SOCKET_NPS2 = 'NPS2'.freeze,
+      NUMA_NODES_PER_SOCKET_NPS4 = 'NPS4'.freeze,
+      NUMA_NODES_PER_SOCKET_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # The number of NUMA nodes per socket (NPS).
+    #
+    # @return [String]
+    attr_reader :numa_nodes_per_socket
+
+    # Whether symmetric multithreading is enabled on the instance. Symmetric multithreading is also
+    # called simultaneous multithreading (SMT) or Intel Hyper-Threading.
+    #
+    # Intel and AMD processors have two hardware execution threads per core (OCPU). SMT permits multiple
+    # independent threads of execution, to better use the resources and increase the efficiency
+    # of the CPU. When multithreading is disabled, only one thread is permitted to run on each core, which
+    # can provide higher or more predictable performance for some workloads.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_symmetric_multi_threading_enabled
+
+    # Whether the Access Control Service is enabled on the instance. When enabled,
+    # the platform can enforce PCIe device isolation, required for VFIO device pass-through.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_access_control_service_enabled
+
+    # Whether virtualization instructions are available. For example, Secure Virtual Machine for AMD shapes
+    # or VT-x for Intel shapes.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :are_virtual_instructions_enabled
+
+    # Whether the input-output memory management unit is enabled.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_input_output_memory_management_unit_enabled
+
+    # The percentage of cores enabled. Value must be a multiple of 25%. If the requested percentage
+    # results in a fractional number of cores, the system rounds up the number of cores across processors
+    # and provisions an instance with a whole number of cores.
+    #
+    # If the applications that you run on the instance use a core-based licensing model and need fewer cores
+    # than the full size of the shape, you can disable cores to reduce your licensing costs. The instance
+    # itself is billed for the full shape, regardless of whether all cores are enabled.
+    #
+    # @return [Integer]
+    attr_accessor :percentage_of_cores_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -16,7 +70,13 @@ module OCI
         'type': :'type',
         'is_secure_boot_enabled': :'isSecureBootEnabled',
         'is_trusted_platform_module_enabled': :'isTrustedPlatformModuleEnabled',
-        'is_measured_boot_enabled': :'isMeasuredBootEnabled'
+        'is_measured_boot_enabled': :'isMeasuredBootEnabled',
+        'numa_nodes_per_socket': :'numaNodesPerSocket',
+        'is_symmetric_multi_threading_enabled': :'isSymmetricMultiThreadingEnabled',
+        'is_access_control_service_enabled': :'isAccessControlServiceEnabled',
+        'are_virtual_instructions_enabled': :'areVirtualInstructionsEnabled',
+        'is_input_output_memory_management_unit_enabled': :'isInputOutputMemoryManagementUnitEnabled',
+        'percentage_of_cores_enabled': :'percentageOfCoresEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -28,7 +88,13 @@ module OCI
         'type': :'String',
         'is_secure_boot_enabled': :'BOOLEAN',
         'is_trusted_platform_module_enabled': :'BOOLEAN',
-        'is_measured_boot_enabled': :'BOOLEAN'
+        'is_measured_boot_enabled': :'BOOLEAN',
+        'numa_nodes_per_socket': :'String',
+        'is_symmetric_multi_threading_enabled': :'BOOLEAN',
+        'is_access_control_service_enabled': :'BOOLEAN',
+        'are_virtual_instructions_enabled': :'BOOLEAN',
+        'is_input_output_memory_management_unit_enabled': :'BOOLEAN',
+        'percentage_of_cores_enabled': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,15 +108,83 @@ module OCI
     # @option attributes [BOOLEAN] :is_secure_boot_enabled The value to assign to the {OCI::Core::Models::InstanceConfigurationLaunchInstancePlatformConfig#is_secure_boot_enabled #is_secure_boot_enabled} proprety
     # @option attributes [BOOLEAN] :is_trusted_platform_module_enabled The value to assign to the {OCI::Core::Models::InstanceConfigurationLaunchInstancePlatformConfig#is_trusted_platform_module_enabled #is_trusted_platform_module_enabled} proprety
     # @option attributes [BOOLEAN] :is_measured_boot_enabled The value to assign to the {OCI::Core::Models::InstanceConfigurationLaunchInstancePlatformConfig#is_measured_boot_enabled #is_measured_boot_enabled} proprety
+    # @option attributes [String] :numa_nodes_per_socket The value to assign to the {#numa_nodes_per_socket} property
+    # @option attributes [BOOLEAN] :is_symmetric_multi_threading_enabled The value to assign to the {#is_symmetric_multi_threading_enabled} property
+    # @option attributes [BOOLEAN] :is_access_control_service_enabled The value to assign to the {#is_access_control_service_enabled} property
+    # @option attributes [BOOLEAN] :are_virtual_instructions_enabled The value to assign to the {#are_virtual_instructions_enabled} property
+    # @option attributes [BOOLEAN] :is_input_output_memory_management_unit_enabled The value to assign to the {#is_input_output_memory_management_unit_enabled} property
+    # @option attributes [Integer] :percentage_of_cores_enabled The value to assign to the {#percentage_of_cores_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       attributes['type'] = 'AMD_ROME_BM'
 
       super(attributes)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.numa_nodes_per_socket = attributes[:'numaNodesPerSocket'] if attributes[:'numaNodesPerSocket']
+      self.numa_nodes_per_socket = "NPS1" if numa_nodes_per_socket.nil? && !attributes.key?(:'numaNodesPerSocket') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :numaNodesPerSocket and :numa_nodes_per_socket' if attributes.key?(:'numaNodesPerSocket') && attributes.key?(:'numa_nodes_per_socket')
+
+      self.numa_nodes_per_socket = attributes[:'numa_nodes_per_socket'] if attributes[:'numa_nodes_per_socket']
+      self.numa_nodes_per_socket = "NPS1" if numa_nodes_per_socket.nil? && !attributes.key?(:'numaNodesPerSocket') && !attributes.key?(:'numa_nodes_per_socket') # rubocop:disable Style/StringLiterals
+
+      self.is_symmetric_multi_threading_enabled = attributes[:'isSymmetricMultiThreadingEnabled'] unless attributes[:'isSymmetricMultiThreadingEnabled'].nil?
+      self.is_symmetric_multi_threading_enabled = true if is_symmetric_multi_threading_enabled.nil? && !attributes.key?(:'isSymmetricMultiThreadingEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isSymmetricMultiThreadingEnabled and :is_symmetric_multi_threading_enabled' if attributes.key?(:'isSymmetricMultiThreadingEnabled') && attributes.key?(:'is_symmetric_multi_threading_enabled')
+
+      self.is_symmetric_multi_threading_enabled = attributes[:'is_symmetric_multi_threading_enabled'] unless attributes[:'is_symmetric_multi_threading_enabled'].nil?
+      self.is_symmetric_multi_threading_enabled = true if is_symmetric_multi_threading_enabled.nil? && !attributes.key?(:'isSymmetricMultiThreadingEnabled') && !attributes.key?(:'is_symmetric_multi_threading_enabled') # rubocop:disable Style/StringLiterals
+
+      self.is_access_control_service_enabled = attributes[:'isAccessControlServiceEnabled'] unless attributes[:'isAccessControlServiceEnabled'].nil?
+      self.is_access_control_service_enabled = true if is_access_control_service_enabled.nil? && !attributes.key?(:'isAccessControlServiceEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isAccessControlServiceEnabled and :is_access_control_service_enabled' if attributes.key?(:'isAccessControlServiceEnabled') && attributes.key?(:'is_access_control_service_enabled')
+
+      self.is_access_control_service_enabled = attributes[:'is_access_control_service_enabled'] unless attributes[:'is_access_control_service_enabled'].nil?
+      self.is_access_control_service_enabled = true if is_access_control_service_enabled.nil? && !attributes.key?(:'isAccessControlServiceEnabled') && !attributes.key?(:'is_access_control_service_enabled') # rubocop:disable Style/StringLiterals
+
+      self.are_virtual_instructions_enabled = attributes[:'areVirtualInstructionsEnabled'] unless attributes[:'areVirtualInstructionsEnabled'].nil?
+      self.are_virtual_instructions_enabled = true if are_virtual_instructions_enabled.nil? && !attributes.key?(:'areVirtualInstructionsEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :areVirtualInstructionsEnabled and :are_virtual_instructions_enabled' if attributes.key?(:'areVirtualInstructionsEnabled') && attributes.key?(:'are_virtual_instructions_enabled')
+
+      self.are_virtual_instructions_enabled = attributes[:'are_virtual_instructions_enabled'] unless attributes[:'are_virtual_instructions_enabled'].nil?
+      self.are_virtual_instructions_enabled = true if are_virtual_instructions_enabled.nil? && !attributes.key?(:'areVirtualInstructionsEnabled') && !attributes.key?(:'are_virtual_instructions_enabled') # rubocop:disable Style/StringLiterals
+
+      self.is_input_output_memory_management_unit_enabled = attributes[:'isInputOutputMemoryManagementUnitEnabled'] unless attributes[:'isInputOutputMemoryManagementUnitEnabled'].nil?
+      self.is_input_output_memory_management_unit_enabled = true if is_input_output_memory_management_unit_enabled.nil? && !attributes.key?(:'isInputOutputMemoryManagementUnitEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isInputOutputMemoryManagementUnitEnabled and :is_input_output_memory_management_unit_enabled' if attributes.key?(:'isInputOutputMemoryManagementUnitEnabled') && attributes.key?(:'is_input_output_memory_management_unit_enabled')
+
+      self.is_input_output_memory_management_unit_enabled = attributes[:'is_input_output_memory_management_unit_enabled'] unless attributes[:'is_input_output_memory_management_unit_enabled'].nil?
+      self.is_input_output_memory_management_unit_enabled = true if is_input_output_memory_management_unit_enabled.nil? && !attributes.key?(:'isInputOutputMemoryManagementUnitEnabled') && !attributes.key?(:'is_input_output_memory_management_unit_enabled') # rubocop:disable Style/StringLiterals
+
+      self.percentage_of_cores_enabled = attributes[:'percentageOfCoresEnabled'] if attributes[:'percentageOfCoresEnabled']
+
+      raise 'You cannot provide both :percentageOfCoresEnabled and :percentage_of_cores_enabled' if attributes.key?(:'percentageOfCoresEnabled') && attributes.key?(:'percentage_of_cores_enabled')
+
+      self.percentage_of_cores_enabled = attributes[:'percentage_of_cores_enabled'] if attributes[:'percentage_of_cores_enabled']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] numa_nodes_per_socket Object to be assigned
+    def numa_nodes_per_socket=(numa_nodes_per_socket)
+      # rubocop:disable Style/ConditionalAssignment
+      if numa_nodes_per_socket && !NUMA_NODES_PER_SOCKET_ENUM.include?(numa_nodes_per_socket)
+        OCI.logger.debug("Unknown value for 'numa_nodes_per_socket' [" + numa_nodes_per_socket + "]. Mapping to 'NUMA_NODES_PER_SOCKET_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @numa_nodes_per_socket = NUMA_NODES_PER_SOCKET_UNKNOWN_ENUM_VALUE
+      else
+        @numa_nodes_per_socket = numa_nodes_per_socket
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -64,7 +198,13 @@ module OCI
         type == other.type &&
         is_secure_boot_enabled == other.is_secure_boot_enabled &&
         is_trusted_platform_module_enabled == other.is_trusted_platform_module_enabled &&
-        is_measured_boot_enabled == other.is_measured_boot_enabled
+        is_measured_boot_enabled == other.is_measured_boot_enabled &&
+        numa_nodes_per_socket == other.numa_nodes_per_socket &&
+        is_symmetric_multi_threading_enabled == other.is_symmetric_multi_threading_enabled &&
+        is_access_control_service_enabled == other.is_access_control_service_enabled &&
+        are_virtual_instructions_enabled == other.are_virtual_instructions_enabled &&
+        is_input_output_memory_management_unit_enabled == other.is_input_output_memory_management_unit_enabled &&
+        percentage_of_cores_enabled == other.percentage_of_cores_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -80,7 +220,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, is_secure_boot_enabled, is_trusted_platform_module_enabled, is_measured_boot_enabled].hash
+      [type, is_secure_boot_enabled, is_trusted_platform_module_enabled, is_measured_boot_enabled, numa_nodes_per_socket, is_symmetric_multi_threading_enabled, is_access_control_service_enabled, are_virtual_instructions_enabled, is_input_output_memory_management_unit_enabled, percentage_of_cores_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

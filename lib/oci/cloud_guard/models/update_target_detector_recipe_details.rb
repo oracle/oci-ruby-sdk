@@ -7,7 +7,15 @@ require 'date'
 module OCI
   # The information to be updated in DetectorRecipe
   class CloudGuard::Models::UpdateTargetDetectorRecipeDetails
-    # **[Required]** Update detector rules associated with detector recipe in a target.
+    # Detector recipe identifier associated with the target
+    # @return [String]
+    attr_accessor :detector_recipe_id
+
+    # When enabled, validation is performed for attaching the detector recipe.
+    # @return [BOOLEAN]
+    attr_accessor :is_validation_only_query
+
+    # Update detector rules associated with detector recipe in a target.
     # @return [Array<OCI::CloudGuard::Models::UpdateTargetRecipeDetectorRuleDetails>]
     attr_accessor :detector_rules
 
@@ -15,6 +23,8 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'detector_recipe_id': :'detectorRecipeId',
+        'is_validation_only_query': :'isValidationOnlyQuery',
         'detector_rules': :'detectorRules'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -24,6 +34,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'detector_recipe_id': :'String',
+        'is_validation_only_query': :'BOOLEAN',
         'detector_rules': :'Array<OCI::CloudGuard::Models::UpdateTargetRecipeDetectorRuleDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -35,12 +47,28 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :detector_recipe_id The value to assign to the {#detector_recipe_id} property
+    # @option attributes [BOOLEAN] :is_validation_only_query The value to assign to the {#is_validation_only_query} property
     # @option attributes [Array<OCI::CloudGuard::Models::UpdateTargetRecipeDetectorRuleDetails>] :detector_rules The value to assign to the {#detector_rules} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.detector_recipe_id = attributes[:'detectorRecipeId'] if attributes[:'detectorRecipeId']
+
+      raise 'You cannot provide both :detectorRecipeId and :detector_recipe_id' if attributes.key?(:'detectorRecipeId') && attributes.key?(:'detector_recipe_id')
+
+      self.detector_recipe_id = attributes[:'detector_recipe_id'] if attributes[:'detector_recipe_id']
+
+      self.is_validation_only_query = attributes[:'isValidationOnlyQuery'] unless attributes[:'isValidationOnlyQuery'].nil?
+      self.is_validation_only_query = false if is_validation_only_query.nil? && !attributes.key?(:'isValidationOnlyQuery') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isValidationOnlyQuery and :is_validation_only_query' if attributes.key?(:'isValidationOnlyQuery') && attributes.key?(:'is_validation_only_query')
+
+      self.is_validation_only_query = attributes[:'is_validation_only_query'] unless attributes[:'is_validation_only_query'].nil?
+      self.is_validation_only_query = false if is_validation_only_query.nil? && !attributes.key?(:'isValidationOnlyQuery') && !attributes.key?(:'is_validation_only_query') # rubocop:disable Style/StringLiterals
 
       self.detector_rules = attributes[:'detectorRules'] if attributes[:'detectorRules']
 
@@ -60,6 +88,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        detector_recipe_id == other.detector_recipe_id &&
+        is_validation_only_query == other.is_validation_only_query &&
         detector_rules == other.detector_rules
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -76,7 +106,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [detector_rules].hash
+      [detector_recipe_id, is_validation_only_query, detector_rules].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

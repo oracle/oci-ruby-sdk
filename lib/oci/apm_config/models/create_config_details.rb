@@ -13,7 +13,8 @@ module OCI
     CONFIG_TYPE_ENUM = [
       CONFIG_TYPE_SPAN_FILTER = 'SPAN_FILTER'.freeze,
       CONFIG_TYPE_METRIC_GROUP = 'METRIC_GROUP'.freeze,
-      CONFIG_TYPE_APDEX = 'APDEX'.freeze
+      CONFIG_TYPE_APDEX = 'APDEX'.freeze,
+      CONFIG_TYPE_OPTIONS = 'OPTIONS'.freeze
     ].freeze
 
     # **[Required]** The type of configuration item.
@@ -64,6 +65,7 @@ module OCI
 
       return 'OCI::ApmConfig::Models::CreateSpanFilterDetails' if type == 'SPAN_FILTER'
       return 'OCI::ApmConfig::Models::CreateMetricGroupDetails' if type == 'METRIC_GROUP'
+      return 'OCI::ApmConfig::Models::CreateOptionsDetails' if type == 'OPTIONS'
       return 'OCI::ApmConfig::Models::CreateApdexRulesDetails' if type == 'APDEX'
 
       # TODO: Log a warning when the subtype is not found.

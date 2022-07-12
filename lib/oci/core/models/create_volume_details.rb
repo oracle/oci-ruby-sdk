@@ -56,7 +56,7 @@ module OCI
 
     # The number of volume performance units (VPUs) that will be applied to this volume per GB,
     # representing the Block Volume service's elastic performance options.
-    # See [Block Volume Elastic Performance](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/blockvolumeelasticperformance.htm) for more information.
+    # See [Block Volume Performance Levels](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/blockvolumeperformance.htm#perf_levels) for more information.
     #
     # Allowed values:
     #
@@ -65,6 +65,8 @@ module OCI
     #   * `10`: Represents Balanced option.
     #
     #   * `20`: Represents Higher Performance option.
+    #
+    #   * `30`-`120`: Represents the Ultra High Performance option.
     #
     # @return [Integer]
     attr_accessor :vpus_per_gb

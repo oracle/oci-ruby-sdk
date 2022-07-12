@@ -11,6 +11,15 @@ module OCI
       MODEL_TYPE_INTEGRATION_APPLICATION = 'INTEGRATION_APPLICATION'.freeze
     ].freeze
 
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze
+    ].freeze
+
     # Currently not used on application creation. Reserved for future.
     # @return [String]
     attr_accessor :key
@@ -39,6 +48,26 @@ module OCI
     # @return [String]
     attr_accessor :identifier
 
+    # Free form text without any restriction on permitted characters. Name can have letters, numbers, and special characters. The value is editable and is restricted to 1000 characters.
+    # @return [String]
+    attr_accessor :display_name
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. See [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace. See [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # The current state of the workspace.
+    # @return [String]
+    attr_reader :lifecycle_state
+
     # @return [OCI::DataIntegration::Models::CreateSourceApplicationInfo]
     attr_accessor :source_application_info
 
@@ -56,6 +85,10 @@ module OCI
         'description': :'description',
         'object_status': :'objectStatus',
         'identifier': :'identifier',
+        'display_name': :'displayName',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags',
+        'lifecycle_state': :'lifecycleState',
         'source_application_info': :'sourceApplicationInfo',
         'registry_metadata': :'registryMetadata'
         # rubocop:enable Style/SymbolLiteral
@@ -73,6 +106,10 @@ module OCI
         'description': :'String',
         'object_status': :'Integer',
         'identifier': :'String',
+        'display_name': :'String',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'lifecycle_state': :'String',
         'source_application_info': :'OCI::DataIntegration::Models::CreateSourceApplicationInfo',
         'registry_metadata': :'OCI::DataIntegration::Models::RegistryMetadata'
         # rubocop:enable Style/SymbolLiteral
@@ -92,6 +129,10 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [Integer] :object_status The value to assign to the {#object_status} property
     # @option attributes [String] :identifier The value to assign to the {#identifier} property
+    # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [OCI::DataIntegration::Models::CreateSourceApplicationInfo] :source_application_info The value to assign to the {#source_application_info} property
     # @option attributes [OCI::DataIntegration::Models::RegistryMetadata] :registry_metadata The value to assign to the {#registry_metadata} property
     def initialize(attributes = {})
@@ -126,6 +167,30 @@ module OCI
 
       self.identifier = attributes[:'identifier'] if attributes[:'identifier']
 
+      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
+
+      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
+
+      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
       self.source_application_info = attributes[:'sourceApplicationInfo'] if attributes[:'sourceApplicationInfo']
 
       raise 'You cannot provide both :sourceApplicationInfo and :source_application_info' if attributes.key?(:'sourceApplicationInfo') && attributes.key?(:'source_application_info')
@@ -149,6 +214,14 @@ module OCI
       @model_type = model_type
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      raise "Invalid value for 'lifecycle_state': this must be one of the values in LIFECYCLE_STATE_ENUM." if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+
+      @lifecycle_state = lifecycle_state
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -165,6 +238,10 @@ module OCI
         description == other.description &&
         object_status == other.object_status &&
         identifier == other.identifier &&
+        display_name == other.display_name &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags &&
+        lifecycle_state == other.lifecycle_state &&
         source_application_info == other.source_application_info &&
         registry_metadata == other.registry_metadata
     end
@@ -182,7 +259,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, model_version, model_type, name, description, object_status, identifier, source_application_info, registry_metadata].hash
+      [key, model_version, model_type, name, description, object_status, identifier, display_name, freeform_tags, defined_tags, lifecycle_state, source_application_info, registry_metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

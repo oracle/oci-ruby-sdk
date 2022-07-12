@@ -6,9 +6,9 @@ require_relative 'field_value'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Phone number field value.
+  # The phone number field value.
   class AiVision::Models::ValuePhoneNumber < AiVision::Models::FieldValue
-    # **[Required]** Phone number field value.
+    # **[Required]** The phone number field value.
     # @return [String]
     attr_accessor :value
 

@@ -17,19 +17,19 @@ module OCI
       THRESHOLD_TYPE_ABSOLUTE = 'ABSOLUTE'.freeze
     ].freeze
 
-    # The name of the alert rule.
+    # The name of the alert rule. Avoid entering confidential information.
     # @return [String]
     attr_accessor :display_name
 
-    # Type of alert. Valid values are ACTUAL (the alert will trigger based on actual usage) or
-    # FORECAST (the alert will trigger based on predicted usage).
+    # The type of the alert. Valid values are ACTUAL (the alert triggers based on actual usage), or
+    # FORECAST (the alert triggers based on predicted usage).
     #
     # @return [String]
     attr_reader :type
 
-    # The threshold for triggering the alert expressed as a whole number or decimal value.
-    # If thresholdType is ABSOLUTE, threshold can have at most 12 digits before the decimal point and up to 2 digits after the decimal point.
-    # If thresholdType is PERCENTAGE, the maximum value is 10000 and can have up to 2 digits after the decimal point.
+    # The threshold for triggering the alert, expressed as a whole number or decimal value.
+    # If the thresholdType is ABSOLUTE, the threshold can have at most 12 digits before the decimal point, and up to two digits after the decimal point.
+    # If the thresholdType is PERCENTAGE, the maximum value is 10000 and can have up to two digits after the decimal point.
     #
     # @return [Float]
     attr_accessor :threshold
@@ -38,15 +38,15 @@ module OCI
     # @return [String]
     attr_reader :threshold_type
 
-    # The audience that will receive the alert when it triggers. If you need to clear out this value, please pass in an empty string instead of null.
+    # The audience that receives the alert when it triggers. If you need to clear out this value, pass in an empty string instead of a null value.
     # @return [String]
     attr_accessor :recipients
 
-    # The description of the alert rule
+    # The description of the alert rule.
     # @return [String]
     attr_accessor :description
 
-    # The message to be delivered to the recipients when alert is triggered
+    # The message to be delivered to the recipients when an alert is triggered.
     # @return [String]
     attr_accessor :message
 

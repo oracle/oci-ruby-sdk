@@ -54,7 +54,7 @@ module OCI
     # @return [String]
     attr_reader :destination_type
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the next hop DRG attachment responsible
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the next hop DRG attachment responsible
     # for reaching the network destination.
     #
     # A value of `BLACKHOLE` means traffic for this route is discarded without notification.

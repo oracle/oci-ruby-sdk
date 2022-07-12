@@ -18,13 +18,29 @@ module OCI
     # @return [String]
     attr_accessor :image_id
 
+    # The number of volume performance units (VPUs) that will be applied to this volume per GB,
+    # representing the Block Volume service's elastic performance options.
+    # See [Block Volume Performance Levels](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/blockvolumeperformance.htm#perf_levels) for more information.
+    #
+    # Allowed values:
+    #
+    #   * `10`: Represents Balanced option.
+    #
+    #   * `20`: Represents Higher Performance option.
+    #
+    #   * `30`-`120`: Represents the Ultra High Performance option.
+    #
+    # @return [Integer]
+    attr_accessor :boot_volume_vpus_per_gb
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'source_type': :'sourceType',
         'boot_volume_size_in_gbs': :'bootVolumeSizeInGBs',
-        'image_id': :'imageId'
+        'image_id': :'imageId',
+        'boot_volume_vpus_per_gb': :'bootVolumeVpusPerGB'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -35,7 +51,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'source_type': :'String',
         'boot_volume_size_in_gbs': :'Integer',
-        'image_id': :'String'
+        'image_id': :'String',
+        'boot_volume_vpus_per_gb': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,6 +65,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Integer] :boot_volume_size_in_gbs The value to assign to the {#boot_volume_size_in_gbs} property
     # @option attributes [String] :image_id The value to assign to the {#image_id} property
+    # @option attributes [Integer] :boot_volume_vpus_per_gb The value to assign to the {#boot_volume_vpus_per_gb} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -69,6 +87,12 @@ module OCI
       raise 'You cannot provide both :imageId and :image_id' if attributes.key?(:'imageId') && attributes.key?(:'image_id')
 
       self.image_id = attributes[:'image_id'] if attributes[:'image_id']
+
+      self.boot_volume_vpus_per_gb = attributes[:'bootVolumeVpusPerGB'] if attributes[:'bootVolumeVpusPerGB']
+
+      raise 'You cannot provide both :bootVolumeVpusPerGB and :boot_volume_vpus_per_gb' if attributes.key?(:'bootVolumeVpusPerGB') && attributes.key?(:'boot_volume_vpus_per_gb')
+
+      self.boot_volume_vpus_per_gb = attributes[:'boot_volume_vpus_per_gb'] if attributes[:'boot_volume_vpus_per_gb']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -84,7 +108,8 @@ module OCI
       self.class == other.class &&
         source_type == other.source_type &&
         boot_volume_size_in_gbs == other.boot_volume_size_in_gbs &&
-        image_id == other.image_id
+        image_id == other.image_id &&
+        boot_volume_vpus_per_gb == other.boot_volume_vpus_per_gb
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -100,7 +125,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [source_type, boot_volume_size_in_gbs, image_id].hash
+      [source_type, boot_volume_size_in_gbs, image_id, boot_volume_vpus_per_gb].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -11,7 +11,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :options
 
-    # The new target object to reference. This should be of type `DataAsset`. The child references can be of type `Connection`.
+    # The new target object to reference. This can be of type `DataAsset`, `Schema` or `Task`. In case of `DataAsset`, the child references can be of type `Connection`.
     # @return [Object]
     attr_accessor :target_object
 

@@ -35,6 +35,10 @@ module OCI
     # @return [String]
     attr_reader :instance_usage_type
 
+    # a list of add-on features for the ocm instance
+    # @return [Array<String>]
+    attr_accessor :add_on_features
+
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
     #
@@ -55,6 +59,7 @@ module OCI
         'waf_primary_domain': :'wafPrimaryDomain',
         'instance_license_type': :'instanceLicenseType',
         'instance_usage_type': :'instanceUsageType',
+        'add_on_features': :'addOnFeatures',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -69,6 +74,7 @@ module OCI
         'waf_primary_domain': :'String',
         'instance_license_type': :'String',
         'instance_usage_type': :'String',
+        'add_on_features': :'Array<String>',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -85,6 +91,7 @@ module OCI
     # @option attributes [String] :waf_primary_domain The value to assign to the {#waf_primary_domain} property
     # @option attributes [String] :instance_license_type The value to assign to the {#instance_license_type} property
     # @option attributes [String] :instance_usage_type The value to assign to the {#instance_usage_type} property
+    # @option attributes [Array<String>] :add_on_features The value to assign to the {#add_on_features} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -112,6 +119,12 @@ module OCI
       raise 'You cannot provide both :instanceUsageType and :instance_usage_type' if attributes.key?(:'instanceUsageType') && attributes.key?(:'instance_usage_type')
 
       self.instance_usage_type = attributes[:'instance_usage_type'] if attributes[:'instance_usage_type']
+
+      self.add_on_features = attributes[:'addOnFeatures'] if attributes[:'addOnFeatures']
+
+      raise 'You cannot provide both :addOnFeatures and :add_on_features' if attributes.key?(:'addOnFeatures') && attributes.key?(:'add_on_features')
+
+      self.add_on_features = attributes[:'add_on_features'] if attributes[:'add_on_features']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -157,6 +170,7 @@ module OCI
         waf_primary_domain == other.waf_primary_domain &&
         instance_license_type == other.instance_license_type &&
         instance_usage_type == other.instance_usage_type &&
+        add_on_features == other.add_on_features &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -174,7 +188,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [description, waf_primary_domain, instance_license_type, instance_usage_type, freeform_tags, defined_tags].hash
+      [description, waf_primary_domain, instance_license_type, instance_usage_type, add_on_features, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

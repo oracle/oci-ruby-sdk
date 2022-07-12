@@ -111,6 +111,10 @@ module OCI
     # @return [String]
     attr_accessor :step_id
 
+    # A map of the configuration provider input bindings of the run.
+    # @return [Hash<String, OCI::DataIntegration::Models::ParameterValue>]
+    attr_accessor :inputs
+
     # @return [OCI::DataIntegration::Models::ObjectMetadata]
     attr_accessor :metadata
 
@@ -137,6 +141,7 @@ module OCI
         'ref_task_run_id': :'refTaskRunId',
         're_run_type': :'reRunType',
         'step_id': :'stepId',
+        'inputs': :'inputs',
         'metadata': :'metadata'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -165,6 +170,7 @@ module OCI
         'ref_task_run_id': :'String',
         're_run_type': :'String',
         'step_id': :'String',
+        'inputs': :'Hash<String, OCI::DataIntegration::Models::ParameterValue>',
         'metadata': :'OCI::DataIntegration::Models::ObjectMetadata'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -195,6 +201,7 @@ module OCI
     # @option attributes [String] :ref_task_run_id The value to assign to the {#ref_task_run_id} property
     # @option attributes [String] :re_run_type The value to assign to the {#re_run_type} property
     # @option attributes [String] :step_id The value to assign to the {#step_id} property
+    # @option attributes [Hash<String, OCI::DataIntegration::Models::ParameterValue>] :inputs The value to assign to the {#inputs} property
     # @option attributes [OCI::DataIntegration::Models::ObjectMetadata] :metadata The value to assign to the {#metadata} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -293,6 +300,8 @@ module OCI
 
       self.step_id = attributes[:'step_id'] if attributes[:'step_id']
 
+      self.inputs = attributes[:'inputs'] if attributes[:'inputs']
+
       self.metadata = attributes[:'metadata'] if attributes[:'metadata']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -365,6 +374,7 @@ module OCI
         ref_task_run_id == other.ref_task_run_id &&
         re_run_type == other.re_run_type &&
         step_id == other.step_id &&
+        inputs == other.inputs &&
         metadata == other.metadata
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -381,7 +391,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, model_type, model_version, parent_ref, name, description, object_version, status, start_time_millis, end_time_millis, last_updated, records_written, bytes_processed, object_status, task_type, identifier, ref_task_run_id, re_run_type, step_id, metadata].hash
+      [key, model_type, model_version, parent_ref, name, description, object_version, status, start_time_millis, end_time_millis, last_updated, records_written, bytes_processed, object_status, task_type, identifier, ref_task_run_id, re_run_type, step_id, inputs, metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

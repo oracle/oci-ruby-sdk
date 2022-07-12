@@ -14,7 +14,7 @@ module OCI
       SOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The source type.  OBJECT_STORAGE allows the user to describe where in object storage the dataset is.
+    # **[Required]** The source type. OBJECT_STORAGE allows the user to describe where in object storage the dataset is.
     # @return [String]
     attr_reader :source_type
 

@@ -5,36 +5,36 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Image analysis results.
+  # The image analysis results.
   class AiVision::Models::AnalyzeImageResult
-    # Detected objects.
+    # The detected objects.
     # @return [Array<OCI::AiVision::Models::ImageObject>]
     attr_accessor :image_objects
 
-    # Image classification labels.
+    # The image classification labels.
     # @return [Array<OCI::AiVision::Models::Label>]
     attr_accessor :labels
 
-    # ontologyClasses of image labels.
+    # The ontologyClasses of image labels.
     # @return [Array<OCI::AiVision::Models::OntologyClass>]
     attr_accessor :ontology_classes
 
     # @return [OCI::AiVision::Models::ImageText]
     attr_accessor :image_text
 
-    # Image classification model version.
+    # The image classification model version.
     # @return [String]
     attr_accessor :image_classification_model_version
 
-    # Object detection model version.
+    # The object detection model version.
     # @return [String]
     attr_accessor :object_detection_model_version
 
-    # Text detection model version.
+    # The text detection model version.
     # @return [String]
     attr_accessor :text_detection_model_version
 
-    # Errors encountered during image analysis.
+    # The errors encountered during image analysis.
     # @return [Array<OCI::AiVision::Models::ProcessingError>]
     attr_accessor :errors
 

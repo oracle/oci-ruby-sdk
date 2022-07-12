@@ -6,7 +6,7 @@ require_relative 'dataset_format_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Allows the user to specify that the dataset is comprised of document files (e.g. PDFs, DOCs, etc.).  It is open for further configurability.
+  # It indicates the dataset is comprised of document files.  It is open for further configurability.
   class DataLabelingService::Models::DocumentDatasetFormatDetails < DataLabelingService::Models::DatasetFormatDetails
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map

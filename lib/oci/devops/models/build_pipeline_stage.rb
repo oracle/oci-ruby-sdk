@@ -7,7 +7,7 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A single node in a build pipeline. A stage takes a specific designated action.
-  # There are many types of stages such as 'Build' and 'Deliver Artifacts'.
+  # There are many types of stages such as 'BUILD' and 'DELIVER_ARTIFACT'.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Devops::Models::BuildPipelineStage
@@ -53,7 +53,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** Defines the stage type, which is one of the following: Build, Deliver Artifacts, Wait, and Trigger Deployment.
+    # **[Required]** Defines the stage type, which is one of the following: BUILD, DELIVER_ARTIFACT, WAIT, and TRIGGER_DEPLOYMENT_PIPELINE.
     #
     # @return [String]
     attr_reader :build_pipeline_stage_type

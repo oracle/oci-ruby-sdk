@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details about an image to analyze.
+  # The details of an image to analyze.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class AiVision::Models::ImageDetails
     SOURCE_ENUM = [
@@ -13,9 +13,9 @@ module OCI
       SOURCE_OBJECT_STORAGE = 'OBJECT_STORAGE'.freeze
     ].freeze
 
-    # **[Required]** The location of image data
-    # Allowed values are:
-    # - `INLINE`: Data is included directly in the request payload.
+    # **[Required]** The location of the image data.
+    # The allowed values are:
+    # - `INLINE`: The data is included directly in the request payload.
     # - `OBJECT_STORAGE`: The image is in OCI Object Storage.
     #
     # @return [String]

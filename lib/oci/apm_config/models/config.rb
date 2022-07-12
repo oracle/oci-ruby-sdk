@@ -15,6 +15,7 @@ module OCI
       CONFIG_TYPE_SPAN_FILTER = 'SPAN_FILTER'.freeze,
       CONFIG_TYPE_METRIC_GROUP = 'METRIC_GROUP'.freeze,
       CONFIG_TYPE_APDEX = 'APDEX'.freeze,
+      CONFIG_TYPE_OPTIONS = 'OPTIONS'.freeze,
       CONFIG_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -90,6 +91,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'configType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::ApmConfig::Models::Options' if type == 'OPTIONS'
       return 'OCI::ApmConfig::Models::MetricGroup' if type == 'METRIC_GROUP'
       return 'OCI::ApmConfig::Models::ApdexRules' if type == 'APDEX'
       return 'OCI::ApmConfig::Models::SpanFilter' if type == 'SPAN_FILTER'

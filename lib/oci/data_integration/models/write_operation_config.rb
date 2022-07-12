@@ -57,6 +57,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'model_type': :'modelType',
+        'metadata_config_properties': :'metadataConfigProperties',
+        'derived_attributes': :'derivedAttributes',
+        'call_attribute': :'callAttribute',
         'key': :'key',
         'model_version': :'modelVersion',
         'parent_ref': :'parentRef',
@@ -76,6 +79,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'model_type': :'String',
+        'metadata_config_properties': :'Hash<String, String>',
+        'derived_attributes': :'Hash<String, String>',
+        'call_attribute': :'OCI::DataIntegration::Models::BipCallAttribute',
         'key': :'String',
         'model_version': :'String',
         'parent_ref': :'OCI::DataIntegration::Models::ParentReference',
@@ -96,6 +102,9 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [Hash<String, String>] :metadata_config_properties The value to assign to the {OCI::DataIntegration::Models::AbstractDataOperationConfig#metadata_config_properties #metadata_config_properties} proprety
+    # @option attributes [Hash<String, String>] :derived_attributes The value to assign to the {OCI::DataIntegration::Models::AbstractDataOperationConfig#derived_attributes #derived_attributes} proprety
+    # @option attributes [OCI::DataIntegration::Models::BipCallAttribute] :call_attribute The value to assign to the {OCI::DataIntegration::Models::AbstractDataOperationConfig#call_attribute #call_attribute} proprety
     # @option attributes [String] :key The value to assign to the {#key} property
     # @option attributes [String] :model_version The value to assign to the {#model_version} property
     # @option attributes [OCI::DataIntegration::Models::ParentReference] :parent_ref The value to assign to the {#parent_ref} property
@@ -194,6 +203,9 @@ module OCI
 
       self.class == other.class &&
         model_type == other.model_type &&
+        metadata_config_properties == other.metadata_config_properties &&
+        derived_attributes == other.derived_attributes &&
+        call_attribute == other.call_attribute &&
         key == other.key &&
         model_version == other.model_version &&
         parent_ref == other.parent_ref &&
@@ -219,7 +231,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, parent_ref, operations, data_format, partition_config, write_attribute, write_mode, merge_key, object_status].hash
+      [model_type, metadata_config_properties, derived_attributes, call_attribute, key, model_version, parent_ref, operations, data_format, partition_config, write_attribute, write_mode, merge_key, object_status].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

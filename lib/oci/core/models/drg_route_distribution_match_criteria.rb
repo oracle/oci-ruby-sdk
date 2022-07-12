@@ -7,13 +7,14 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The match criteria in a route distribution statement. The match criteria outlines which routes
-  # should be imported or exported. Leaving the match criteria empty implies match ALL.
+  # should be imported or exported.
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Core::Models::DrgRouteDistributionMatchCriteria
     MATCH_TYPE_ENUM = [
       MATCH_TYPE_DRG_ATTACHMENT_TYPE = 'DRG_ATTACHMENT_TYPE'.freeze,
       MATCH_TYPE_DRG_ATTACHMENT_ID = 'DRG_ATTACHMENT_ID'.freeze,
+      MATCH_TYPE_MATCH_ALL = 'MATCH_ALL'.freeze,
       MATCH_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -50,6 +51,7 @@ module OCI
 
       return 'OCI::Core::Models::DrgAttachmentIdDrgRouteDistributionMatchCriteria' if type == 'DRG_ATTACHMENT_ID'
       return 'OCI::Core::Models::DrgAttachmentTypeDrgRouteDistributionMatchCriteria' if type == 'DRG_ATTACHMENT_TYPE'
+      return 'OCI::Core::Models::DrgAttachmentMatchAllDrgRouteDistributionMatchCriteria' if type == 'MATCH_ALL'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::Core::Models::DrgRouteDistributionMatchCriteria'

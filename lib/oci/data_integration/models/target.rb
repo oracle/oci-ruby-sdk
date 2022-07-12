@@ -34,6 +34,18 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_predefined_shape
 
+    # Specifies if entity name is the same as source.
+    # @return [BOOLEAN]
+    attr_accessor :is_use_same_source_name
+
+    # Prefix for the entity Name.
+    # @return [String]
+    attr_accessor :target_entity_name_prefix
+
+    # Suffix for the entity Name.
+    # @return [String]
+    attr_accessor :target_entity_name_suffix
+
     # Specifies the data property.
     # @return [String]
     attr_reader :data_property
@@ -46,6 +58,10 @@ module OCI
 
     # @return [OCI::DataIntegration::Models::WriteOperationConfig]
     attr_accessor :write_operation_config
+
+    # A numeric loading order number for the target.
+    # @return [Integer]
+    attr_accessor :load_order
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -68,10 +84,14 @@ module OCI
         'is_read_access': :'isReadAccess',
         'is_copy_fields': :'isCopyFields',
         'is_predefined_shape': :'isPredefinedShape',
+        'is_use_same_source_name': :'isUseSameSourceName',
+        'target_entity_name_prefix': :'targetEntityNamePrefix',
+        'target_entity_name_suffix': :'targetEntityNameSuffix',
         'data_property': :'dataProperty',
         'schema_drift_config': :'schemaDriftConfig',
         'fixed_data_shape': :'fixedDataShape',
-        'write_operation_config': :'writeOperationConfig'
+        'write_operation_config': :'writeOperationConfig',
+        'load_order': :'loadOrder'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -88,7 +108,7 @@ module OCI
         'description': :'String',
         'object_version': :'Integer',
         'input_ports': :'Array<OCI::DataIntegration::Models::InputPort>',
-        'output_ports': :'Array<OCI::DataIntegration::Models::OutputPort>',
+        'output_ports': :'Array<OCI::DataIntegration::Models::TypedObject>',
         'object_status': :'Integer',
         'identifier': :'String',
         'parameters': :'Array<OCI::DataIntegration::Models::Parameter>',
@@ -97,10 +117,14 @@ module OCI
         'is_read_access': :'BOOLEAN',
         'is_copy_fields': :'BOOLEAN',
         'is_predefined_shape': :'BOOLEAN',
+        'is_use_same_source_name': :'BOOLEAN',
+        'target_entity_name_prefix': :'String',
+        'target_entity_name_suffix': :'String',
         'data_property': :'String',
         'schema_drift_config': :'OCI::DataIntegration::Models::SchemaDriftConfig',
         'fixed_data_shape': :'OCI::DataIntegration::Models::Shape',
-        'write_operation_config': :'OCI::DataIntegration::Models::WriteOperationConfig'
+        'write_operation_config': :'OCI::DataIntegration::Models::WriteOperationConfig',
+        'load_order': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -118,7 +142,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {OCI::DataIntegration::Models::Operator#description #description} proprety
     # @option attributes [Integer] :object_version The value to assign to the {OCI::DataIntegration::Models::Operator#object_version #object_version} proprety
     # @option attributes [Array<OCI::DataIntegration::Models::InputPort>] :input_ports The value to assign to the {OCI::DataIntegration::Models::Operator#input_ports #input_ports} proprety
-    # @option attributes [Array<OCI::DataIntegration::Models::OutputPort>] :output_ports The value to assign to the {OCI::DataIntegration::Models::Operator#output_ports #output_ports} proprety
+    # @option attributes [Array<OCI::DataIntegration::Models::TypedObject>] :output_ports The value to assign to the {OCI::DataIntegration::Models::Operator#output_ports #output_ports} proprety
     # @option attributes [Integer] :object_status The value to assign to the {OCI::DataIntegration::Models::Operator#object_status #object_status} proprety
     # @option attributes [String] :identifier The value to assign to the {OCI::DataIntegration::Models::Operator#identifier #identifier} proprety
     # @option attributes [Array<OCI::DataIntegration::Models::Parameter>] :parameters The value to assign to the {OCI::DataIntegration::Models::Operator#parameters #parameters} proprety
@@ -127,10 +151,14 @@ module OCI
     # @option attributes [BOOLEAN] :is_read_access The value to assign to the {#is_read_access} property
     # @option attributes [BOOLEAN] :is_copy_fields The value to assign to the {#is_copy_fields} property
     # @option attributes [BOOLEAN] :is_predefined_shape The value to assign to the {#is_predefined_shape} property
+    # @option attributes [BOOLEAN] :is_use_same_source_name The value to assign to the {#is_use_same_source_name} property
+    # @option attributes [String] :target_entity_name_prefix The value to assign to the {#target_entity_name_prefix} property
+    # @option attributes [String] :target_entity_name_suffix The value to assign to the {#target_entity_name_suffix} property
     # @option attributes [String] :data_property The value to assign to the {#data_property} property
     # @option attributes [OCI::DataIntegration::Models::SchemaDriftConfig] :schema_drift_config The value to assign to the {#schema_drift_config} property
     # @option attributes [OCI::DataIntegration::Models::Shape] :fixed_data_shape The value to assign to the {#fixed_data_shape} property
     # @option attributes [OCI::DataIntegration::Models::WriteOperationConfig] :write_operation_config The value to assign to the {#write_operation_config} property
+    # @option attributes [Integer] :load_order The value to assign to the {#load_order} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -161,6 +189,30 @@ module OCI
 
       self.is_predefined_shape = attributes[:'is_predefined_shape'] unless attributes[:'is_predefined_shape'].nil?
 
+      self.is_use_same_source_name = attributes[:'isUseSameSourceName'] unless attributes[:'isUseSameSourceName'].nil?
+      self.is_use_same_source_name = true if is_use_same_source_name.nil? && !attributes.key?(:'isUseSameSourceName') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isUseSameSourceName and :is_use_same_source_name' if attributes.key?(:'isUseSameSourceName') && attributes.key?(:'is_use_same_source_name')
+
+      self.is_use_same_source_name = attributes[:'is_use_same_source_name'] unless attributes[:'is_use_same_source_name'].nil?
+      self.is_use_same_source_name = true if is_use_same_source_name.nil? && !attributes.key?(:'isUseSameSourceName') && !attributes.key?(:'is_use_same_source_name') # rubocop:disable Style/StringLiterals
+
+      self.target_entity_name_prefix = attributes[:'targetEntityNamePrefix'] if attributes[:'targetEntityNamePrefix']
+      self.target_entity_name_prefix = "null" if target_entity_name_prefix.nil? && !attributes.key?(:'targetEntityNamePrefix') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :targetEntityNamePrefix and :target_entity_name_prefix' if attributes.key?(:'targetEntityNamePrefix') && attributes.key?(:'target_entity_name_prefix')
+
+      self.target_entity_name_prefix = attributes[:'target_entity_name_prefix'] if attributes[:'target_entity_name_prefix']
+      self.target_entity_name_prefix = "null" if target_entity_name_prefix.nil? && !attributes.key?(:'targetEntityNamePrefix') && !attributes.key?(:'target_entity_name_prefix') # rubocop:disable Style/StringLiterals
+
+      self.target_entity_name_suffix = attributes[:'targetEntityNameSuffix'] if attributes[:'targetEntityNameSuffix']
+      self.target_entity_name_suffix = "null" if target_entity_name_suffix.nil? && !attributes.key?(:'targetEntityNameSuffix') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :targetEntityNameSuffix and :target_entity_name_suffix' if attributes.key?(:'targetEntityNameSuffix') && attributes.key?(:'target_entity_name_suffix')
+
+      self.target_entity_name_suffix = attributes[:'target_entity_name_suffix'] if attributes[:'target_entity_name_suffix']
+      self.target_entity_name_suffix = "null" if target_entity_name_suffix.nil? && !attributes.key?(:'targetEntityNameSuffix') && !attributes.key?(:'target_entity_name_suffix') # rubocop:disable Style/StringLiterals
+
       self.data_property = attributes[:'dataProperty'] if attributes[:'dataProperty']
 
       raise 'You cannot provide both :dataProperty and :data_property' if attributes.key?(:'dataProperty') && attributes.key?(:'data_property')
@@ -184,6 +236,12 @@ module OCI
       raise 'You cannot provide both :writeOperationConfig and :write_operation_config' if attributes.key?(:'writeOperationConfig') && attributes.key?(:'write_operation_config')
 
       self.write_operation_config = attributes[:'write_operation_config'] if attributes[:'write_operation_config']
+
+      self.load_order = attributes[:'loadOrder'] if attributes[:'loadOrder']
+
+      raise 'You cannot provide both :loadOrder and :load_order' if attributes.key?(:'loadOrder') && attributes.key?(:'load_order')
+
+      self.load_order = attributes[:'load_order'] if attributes[:'load_order']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -227,10 +285,14 @@ module OCI
         is_read_access == other.is_read_access &&
         is_copy_fields == other.is_copy_fields &&
         is_predefined_shape == other.is_predefined_shape &&
+        is_use_same_source_name == other.is_use_same_source_name &&
+        target_entity_name_prefix == other.target_entity_name_prefix &&
+        target_entity_name_suffix == other.target_entity_name_suffix &&
         data_property == other.data_property &&
         schema_drift_config == other.schema_drift_config &&
         fixed_data_shape == other.fixed_data_shape &&
-        write_operation_config == other.write_operation_config
+        write_operation_config == other.write_operation_config &&
+        load_order == other.load_order
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -246,7 +308,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, parent_ref, name, description, object_version, input_ports, output_ports, object_status, identifier, parameters, op_config_values, entity, is_read_access, is_copy_fields, is_predefined_shape, data_property, schema_drift_config, fixed_data_shape, write_operation_config].hash
+      [model_type, key, model_version, parent_ref, name, description, object_version, input_ports, output_ports, object_status, identifier, parameters, op_config_values, entity, is_read_access, is_copy_fields, is_predefined_shape, is_use_same_source_name, target_entity_name_prefix, target_entity_name_suffix, data_property, schema_drift_config, fixed_data_shape, write_operation_config, load_order].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

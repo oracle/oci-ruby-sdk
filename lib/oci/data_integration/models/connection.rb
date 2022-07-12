@@ -18,6 +18,7 @@ module OCI
       MODEL_TYPE_GENERIC_JDBC_CONNECTION = 'GENERIC_JDBC_CONNECTION'.freeze,
       MODEL_TYPE_BICC_CONNECTION = 'BICC_CONNECTION'.freeze,
       MODEL_TYPE_AMAZON_S3_CONNECTION = 'AMAZON_S3_CONNECTION'.freeze,
+      MODEL_TYPE_BIP_CONNECTION = 'BIP_CONNECTION'.freeze,
       MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -131,6 +132,7 @@ module OCI
       return 'OCI::DataIntegration::Models::ConnectionFromAtp' if type == 'ORACLE_ATP_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionFromOracle' if type == 'ORACLEDB_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionFromAmazonS3' if type == 'AMAZON_S3_CONNECTION'
+      return 'OCI::DataIntegration::Models::ConnectionFromBIP' if type == 'BIP_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionFromMySQL' if type == 'MYSQL_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionFromJdbc' if type == 'GENERIC_JDBC_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionFromBICC' if type == 'BICC_CONNECTION'

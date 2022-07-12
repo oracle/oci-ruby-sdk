@@ -8,7 +8,7 @@ require_relative 'compute_instance_group_failure_policy'
 module OCI
   # Specifies a failure policy by count for a compute instance group rolling deployment stage.
   class Devops::Models::ComputeInstanceGroupFailurePolicyByCount < Devops::Models::ComputeInstanceGroupFailurePolicy
-    # **[Required]** The threshold count of failed instances in the group, which when reached or exceeded sets the stage as FAILED.
+    # **[Required]** The threshold count of failed instances in the group, which when reached or exceeded sets the stage as Failed.
     # @return [Integer]
     attr_accessor :failure_count
 

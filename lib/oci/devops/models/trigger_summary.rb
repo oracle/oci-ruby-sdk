@@ -110,6 +110,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'triggerSource'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::Devops::Models::BitbucketCloudTriggerSummary' if type == 'BITBUCKET_CLOUD'
       return 'OCI::Devops::Models::GitlabTriggerSummary' if type == 'GITLAB'
       return 'OCI::Devops::Models::GithubTriggerSummary' if type == 'GITHUB'
       return 'OCI::Devops::Models::DevopsCodeRepositoryTriggerSummary' if type == 'DEVOPS_CODE_REPOSITORY'

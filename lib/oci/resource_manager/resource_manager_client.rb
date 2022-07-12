@@ -246,6 +246,79 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a private endpoint to a different compartment within the same tenancy.
+    # For information about moving resources between compartments, see
+    # [Moving Resources to a Different Compartment](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingcompartments.htm#moveRes).
+    #
+    # @param [String] private_endpoint_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the private endpoint.
+    # @param [OCI::ResourceManager::Models::ChangePrivateEndpointCompartmentDetails] change_private_endpoint_compartment_details Defines the properties of changePrivateEndpointCompartment operation.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous `GET` or `POST` response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of retrying the same action. Retry tokens expire after
+    #   24 hours, but can be invalidated before then due to conflicting operations. For example,
+    #   if a resource has been deleted and purged from the system, then a retry of the original
+    #   creation request may be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/change_private_endpoint_compartment.rb.html) to see an example of how to use change_private_endpoint_compartment API.
+    def change_private_endpoint_compartment(private_endpoint_id, change_private_endpoint_compartment_details, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#change_private_endpoint_compartment.' if logger
+
+      raise "Missing the required parameter 'private_endpoint_id' when calling change_private_endpoint_compartment." if private_endpoint_id.nil?
+      raise "Missing the required parameter 'change_private_endpoint_compartment_details' when calling change_private_endpoint_compartment." if change_private_endpoint_compartment_details.nil?
+      raise "Parameter value for 'private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(private_endpoint_id)
+
+      path = '/privateEndpoints/{privateEndpointId}/actions/changeCompartment'.sub('{privateEndpointId}', private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_private_endpoint_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#change_private_endpoint_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves a Stack and it's associated Jobs into a different compartment.
     # @param [String] stack_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the stack.
     # @param [OCI::ResourceManager::Models::ChangeStackCompartmentDetails] change_stack_compartment_details Defines the properties of changeStackCompartment operation.
@@ -518,6 +591,70 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a a private endpoint in the specified compartment.
+    #
+    # @param [OCI::ResourceManager::Models::CreatePrivateEndpointDetails] create_private_endpoint_details Creation details for a private endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of retrying the same action. Retry tokens expire after
+    #   24 hours, but can be invalidated before then due to conflicting operations. For example,
+    #   if a resource has been deleted and purged from the system, then a retry of the original
+    #   creation request may be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::PrivateEndpoint PrivateEndpoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/create_private_endpoint.rb.html) to see an example of how to use create_private_endpoint API.
+    def create_private_endpoint(create_private_endpoint_details, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#create_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'create_private_endpoint_details' when calling create_private_endpoint." if create_private_endpoint_details.nil?
+
+      path = '/privateEndpoints'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_private_endpoint_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#create_private_endpoint') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ResourceManager::Models::PrivateEndpoint'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a stack in the specified compartment.
     # You can create a stack from a Terraform configuration.
     # The Terraform configuration can be directly uploaded or referenced from a source code control system.
@@ -692,6 +829,66 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#delete_configuration_source_provider') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified private endpoint.
+    # @param [String] private_endpoint_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the private endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous `GET` or `POST` response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/delete_private_endpoint.rb.html) to see an example of how to use delete_private_endpoint API.
+    def delete_private_endpoint(private_endpoint_id, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#delete_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'private_endpoint_id' when calling delete_private_endpoint." if private_endpoint_id.nil?
+      raise "Parameter value for 'private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(private_endpoint_id)
+
+      path = '/privateEndpoints/{privateEndpointId}'.sub('{privateEndpointId}', private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#delete_private_endpoint') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -1326,6 +1523,119 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns the output of the specified Terraform plan job in binary or JSON format.
+    # For information about running Terraform plan jobs, see
+    # [To run a plan job](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingstacksandjobs.htm#PlanJobRun).
+    #
+    # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :tf_plan_format The output format of the Terraform plan.
+    #    (default to BINARY)
+    #   Allowed values are: BINARY, JSON
+    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
+    # @option [Block] &block Streaming http body to the block
+    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_job_tf_plan.rb.html) to see an example of how to use get_job_tf_plan API.
+    def get_job_tf_plan(job_id, opts = {}, &block)
+      logger.debug 'Calling operation ResourceManagerClient#get_job_tf_plan.' if logger
+
+      raise "Missing the required parameter 'job_id' when calling get_job_tf_plan." if job_id.nil?
+
+      if opts[:tf_plan_format] && !%w[BINARY JSON].include?(opts[:tf_plan_format])
+        raise 'Invalid value for "tf_plan_format", must be one of BINARY, JSON.'
+      end
+      raise "Parameter value for 'job_id' must not be blank" if OCI::Internal::Util.blank_string?(job_id)
+
+      path = '/jobs/{jobId}/tfPlan'.sub('{jobId}', job_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:tfPlanFormat] = opts[:tf_plan_format] if opts[:tf_plan_format]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = opts[:accept] if opts[:accept]
+      header_params[:accept] ||= 'application/octet-stream'
+      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#get_job_tf_plan') do
+        if !block.nil?
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'Stream',
+            &block
+          )
+        elsif opts[:response_target]
+          if opts[:response_target].respond_to? :write
+            @api_client.call_api(
+              :GET,
+              path,
+              endpoint,
+              header_params: header_params,
+              query_params: query_params,
+              operation_signing_strategy: operation_signing_strategy,
+              body: post_body,
+              return_type: 'Stream',
+              &proc { |chunk, _response| opts[:response_target].write(chunk) }
+            )
+          elsif opts[:response_target].is_a?(String)
+            File.open(opts[:response_target], 'wb') do |output|
+              return @api_client.call_api(
+                :GET,
+                path,
+                endpoint,
+                header_params: header_params,
+                query_params: query_params,
+                operation_signing_strategy: operation_signing_strategy,
+                body: post_body,
+                return_type: 'Stream',
+                &proc { |chunk, _response| output.write(chunk) }
+              )
+            end
+          end
+        else
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'String'
+          )
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns the Terraform state for the specified job.
     # @param [String] job_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the job.
     # @param [Hash] opts the optional parameters
@@ -1416,6 +1726,131 @@ module OCI
             return_type: 'String'
           )
         end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the specified private endpoint.
+    # @param [String] private_endpoint_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the private endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::PrivateEndpoint PrivateEndpoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_private_endpoint.rb.html) to see an example of how to use get_private_endpoint API.
+    def get_private_endpoint(private_endpoint_id, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#get_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'private_endpoint_id' when calling get_private_endpoint." if private_endpoint_id.nil?
+      raise "Parameter value for 'private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(private_endpoint_id)
+
+      path = '/privateEndpoints/{privateEndpointId}'.sub('{privateEndpointId}', private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#get_private_endpoint') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ResourceManager::Models::PrivateEndpoint'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the alternative IP address of the private resource. This IP will be used by Resource Manager Service to connect to the private resource.
+    #
+    # @param [String] private_ip The IP address of the resource in the private subnet.
+    #
+    # @param [String] private_endpoint_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the private endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of retrying the same action. Retry tokens expire after
+    #   24 hours, but can be invalidated before then due to conflicting operations. For example,
+    #   if a resource has been deleted and purged from the system, then a retry of the original
+    #   creation request may be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::ReachableIp ReachableIp}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/get_reachable_ip.rb.html) to see an example of how to use get_reachable_ip API.
+    def get_reachable_ip(private_ip, private_endpoint_id, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#get_reachable_ip.' if logger
+
+      raise "Missing the required parameter 'private_ip' when calling get_reachable_ip." if private_ip.nil?
+      raise "Missing the required parameter 'private_endpoint_id' when calling get_reachable_ip." if private_endpoint_id.nil?
+      raise "Parameter value for 'private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(private_endpoint_id)
+
+      path = '/privateEndpoints/{privateEndpointId}/reachableIp'.sub('{privateEndpointId}', private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:privateIp] = private_ip
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#get_reachable_ip') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ResourceManager::Models::ReachableIp'
+        )
       end
       # rubocop:enable Metrics/BlockLength
     end
@@ -2222,6 +2657,102 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists private endpoints according to the specified filter.
+    # - For `compartmentId`, lists all private endpoint in the matching compartment.
+    # - For `privateEndpointId`, lists the matching private endpoint.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :compartment_id A filter to return only resources that exist in the compartment, identified by [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm).
+    #
+    # @option opts [String] :private_endpoint_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the private endpoint.
+    #
+    # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
+    #   Use this filter to list a resource by name.
+    #   Requires `sortBy` set to `DISPLAYNAME`.
+    #   Alternatively, when you know the resource OCID, use the related Get operation.
+    #
+    # @option opts [String] :vcn_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN.
+    # @option opts [String] :sort_by The field to use when sorting returned resources.
+    #   By default, `TIMECREATED` is ordered descending.
+    #   By default, `DISPLAYNAME` is ordered ascending. Note that you can sort only on one field.
+    #
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use when sorting returned resources. Ascending (`ASC`) or descending (`DESC`).
+    #
+    #   Allowed values are: ASC, DESC
+    # @option opts [Integer] :limit The number of items returned in a paginated `List` call. For information about pagination, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :page The value of the `opc-next-page` response header from the preceding `List` call.
+    #   For information about pagination, see [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::PrivateEndpointCollection PrivateEndpointCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/list_private_endpoints.rb.html) to see an example of how to use list_private_endpoints API.
+    def list_private_endpoints(opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#list_private_endpoints.' if logger
+
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      path = '/privateEndpoints'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:privateEndpointId] = opts[:private_endpoint_id] if opts[:private_endpoint_id]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:vcnId] = opts[:vcn_id] if opts[:vcn_id]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#list_private_endpoints') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ResourceManager::Models::PrivateEndpointCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of supported services for Resource Discovery. For reference on service names, see the [Terraform provider documentation](https://www.terraform.io/docs/providers/oci/guides/resource_discovery.html#services).
     #
     # @param [Hash] opts the optional parameters
@@ -3014,6 +3545,69 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::ResourceManager::Models::Job'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the specified private endpoint.
+    # @param [String] private_endpoint_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the private endpoint.
+    # @param [OCI::ResourceManager::Models::UpdatePrivateEndpointDetails] update_private_endpoint_details Update details for a private endpoint.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the `PUT` or `DELETE` call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous `GET` or `POST` response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::ResourceManager::Models::PrivateEndpoint PrivateEndpoint}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/resourcemanager/update_private_endpoint.rb.html) to see an example of how to use update_private_endpoint API.
+    def update_private_endpoint(private_endpoint_id, update_private_endpoint_details, opts = {})
+      logger.debug 'Calling operation ResourceManagerClient#update_private_endpoint.' if logger
+
+      raise "Missing the required parameter 'private_endpoint_id' when calling update_private_endpoint." if private_endpoint_id.nil?
+      raise "Missing the required parameter 'update_private_endpoint_details' when calling update_private_endpoint." if update_private_endpoint_details.nil?
+      raise "Parameter value for 'private_endpoint_id' must not be blank" if OCI::Internal::Util.blank_string?(private_endpoint_id)
+
+      path = '/privateEndpoints/{privateEndpointId}'.sub('{privateEndpointId}', private_endpoint_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_private_endpoint_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ResourceManagerClient#update_private_endpoint') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ResourceManager::Models::PrivateEndpoint'
         )
       end
       # rubocop:enable Metrics/BlockLength

@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about new DatabaseToolsPrivateEndpoint.
+  # The details for the new Database Tools private endpoint.
   class DatabaseTools::Models::CreateDatabaseToolsPrivateEndpointDetails
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the containing Compartment.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the Database Tools private endpoint.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -27,11 +27,11 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # A description of the DatabaseToolsPrivateEndpoint.
+    # A description of the Database Tools private endpoint.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DatabaseToolsEndpointService.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the `DatabaseToolsEndpointService`.
     # @return [String]
     attr_accessor :endpoint_service_id
 

@@ -171,6 +171,73 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Add excluded/included object to the list.
+    #
+    # @param [String] migration_id The OCID of the migration
+    #
+    # @param [OCI::DatabaseMigration::Models::MigrationObjectCollection] add_migration_objects_details Arrays of object.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemigration/add_migration_objects.rb.html) to see an example of how to use add_migration_objects API.
+    def add_migration_objects(migration_id, add_migration_objects_details, opts = {})
+      logger.debug 'Calling operation DatabaseMigrationClient#add_migration_objects.' if logger
+
+      raise "Missing the required parameter 'migration_id' when calling add_migration_objects." if migration_id.nil?
+      raise "Missing the required parameter 'add_migration_objects_details' when calling add_migration_objects." if add_migration_objects_details.nil?
+      raise "Parameter value for 'migration_id' must not be blank" if OCI::Internal::Util.blank_string?(migration_id)
+
+      path = '/migrations/{migrationId}/actions/addMigrationObjects'.sub('{migrationId}', migration_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(add_migration_objects_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseMigrationClient#add_migration_objects') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Used to configure an ODMS Agent Compartment ID.
     #
     # @param [String] agent_id The OCID of the agent
@@ -1640,6 +1707,112 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # List the excluded database objects.
+    #
+    # @param [String] job_id The OCID of the job
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return.
+    #    (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    #    (default to 1)
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    #    (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided.
+    #   Default order for reasonCategory is ascending.
+    #   If no value is specified reasonCategory is default.
+    #    (default to reasonCategory)
+    #   Allowed values are: type, reasonCategory
+    # @option opts [String] :type Excluded object type.
+    #
+    # @option opts [String] :owner Excluded object owner
+    #
+    # @option opts [String] :object Excluded object name
+    #
+    # @option opts [String] :owner_contains Excluded object owner which contains provided value.
+    #
+    # @option opts [String] :object_contains Excluded object name which contains provided value.
+    #
+    # @option opts [String] :reason_category Reason category for the excluded object
+    #
+    # @option opts [String] :source_rule Exclude object rule that matches the excluded object, if applicable.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseMigration::Models::ExcludedObjectSummaryCollection ExcludedObjectSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemigration/list_excluded_objects.rb.html) to see an example of how to use list_excluded_objects API.
+    def list_excluded_objects(job_id, opts = {})
+      logger.debug 'Calling operation DatabaseMigrationClient#list_excluded_objects.' if logger
+
+      raise "Missing the required parameter 'job_id' when calling list_excluded_objects." if job_id.nil?
+
+      if opts[:sort_order] && !OCI::DatabaseMigration::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseMigration::Models::SORT_ORDERS_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[type reasonCategory].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of type, reasonCategory.'
+      end
+
+      if opts[:reason_category] && !OCI::DatabaseMigration::Models::REASON_KEYWORDS_ENUM.include?(opts[:reason_category])
+        raise 'Invalid value for "reason_category", must be one of the values in OCI::DatabaseMigration::Models::REASON_KEYWORDS_ENUM.'
+      end
+      raise "Parameter value for 'job_id' must not be blank" if OCI::Internal::Util.blank_string?(job_id)
+
+      path = '/jobs/{jobId}/excludedObjects'.sub('{jobId}', job_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:type] = opts[:type] if opts[:type]
+      query_params[:owner] = opts[:owner] if opts[:owner]
+      query_params[:object] = opts[:object] if opts[:object]
+      query_params[:ownerContains] = opts[:owner_contains] if opts[:owner_contains]
+      query_params[:objectContains] = opts[:object_contains] if opts[:object_contains]
+      query_params[:reasonCategory] = opts[:reason_category] if opts[:reason_category]
+      query_params[:sourceRule] = opts[:source_rule] if opts[:source_rule]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseMigrationClient#list_excluded_objects') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseMigration::Models::ExcludedObjectSummaryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # List the Job Outputs
     #
     # @param [String] job_id The OCID of the job
@@ -1858,6 +2031,77 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DatabaseMigration::Models::MigrationObjectTypeSummaryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Display excluded/included objects.
+    #
+    # @param [String] migration_id The OCID of the migration
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return.
+    #    (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    #    (default to 1)
+    # @return [Response] A Response object with data of type {OCI::DatabaseMigration::Models::MigrationObjectCollection MigrationObjectCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemigration/list_migration_objects.rb.html) to see an example of how to use list_migration_objects API.
+    def list_migration_objects(migration_id, opts = {})
+      logger.debug 'Calling operation DatabaseMigrationClient#list_migration_objects.' if logger
+
+      raise "Missing the required parameter 'migration_id' when calling list_migration_objects." if migration_id.nil?
+      raise "Parameter value for 'migration_id' must not be blank" if OCI::Internal::Util.blank_string?(migration_id)
+
+      path = '/migrations/{migrationId}/migrationObjects'.sub('{migrationId}', migration_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseMigrationClient#list_migration_objects') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseMigration::Models::MigrationObjectCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2202,6 +2446,73 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DatabaseMigration::Models::WorkRequestCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Remove excluded/included objects.
+    #
+    # @param [String] migration_id The OCID of the migration
+    #
+    # @param [OCI::DatabaseMigration::Models::MigrationObjectCollection] remove_migration_objects_details Arrays of object.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemigration/remove_migration_objects.rb.html) to see an example of how to use remove_migration_objects API.
+    def remove_migration_objects(migration_id, remove_migration_objects_details, opts = {})
+      logger.debug 'Calling operation DatabaseMigrationClient#remove_migration_objects.' if logger
+
+      raise "Missing the required parameter 'migration_id' when calling remove_migration_objects." if migration_id.nil?
+      raise "Missing the required parameter 'remove_migration_objects_details' when calling remove_migration_objects." if remove_migration_objects_details.nil?
+      raise "Parameter value for 'migration_id' must not be blank" if OCI::Internal::Util.blank_string?(migration_id)
+
+      path = '/migrations/{migrationId}/actions/removeMigrationObjects'.sub('{migrationId}', migration_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(remove_migration_objects_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseMigrationClient#remove_migration_objects') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength

@@ -104,6 +104,22 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # Indicates whether shielded instance is enabled at the SDDC level.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_shielded_instance_enabled
+
+    # **[Required]** The initial compute shape of the SDDC's ESXi hosts.
+    # {#list_supported_host_shapes list_supported_host_shapes}.
+    #
+    # @return [String]
+    attr_accessor :initial_host_shape_name
+
+    # The initial OCPU count of the SDDC's ESXi hosts.
+    #
+    # @return [Float]
+    attr_accessor :initial_host_ocpu_count
+
     # **[Required]** Free-form tags for this resource. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -137,6 +153,9 @@ module OCI
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
+        'is_shielded_instance_enabled': :'isShieldedInstanceEnabled',
+        'initial_host_shape_name': :'initialHostShapeName',
+        'initial_host_ocpu_count': :'initialHostOcpuCount',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -160,6 +179,9 @@ module OCI
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
+        'is_shielded_instance_enabled': :'BOOLEAN',
+        'initial_host_shape_name': :'String',
+        'initial_host_ocpu_count': :'Float',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -185,6 +207,9 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [BOOLEAN] :is_shielded_instance_enabled The value to assign to the {#is_shielded_instance_enabled} property
+    # @option attributes [String] :initial_host_shape_name The value to assign to the {#initial_host_shape_name} property
+    # @option attributes [Float] :initial_host_ocpu_count The value to assign to the {#initial_host_ocpu_count} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -267,6 +292,26 @@ module OCI
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
+      self.is_shielded_instance_enabled = attributes[:'isShieldedInstanceEnabled'] unless attributes[:'isShieldedInstanceEnabled'].nil?
+      self.is_shielded_instance_enabled = false if is_shielded_instance_enabled.nil? && !attributes.key?(:'isShieldedInstanceEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isShieldedInstanceEnabled and :is_shielded_instance_enabled' if attributes.key?(:'isShieldedInstanceEnabled') && attributes.key?(:'is_shielded_instance_enabled')
+
+      self.is_shielded_instance_enabled = attributes[:'is_shielded_instance_enabled'] unless attributes[:'is_shielded_instance_enabled'].nil?
+      self.is_shielded_instance_enabled = false if is_shielded_instance_enabled.nil? && !attributes.key?(:'isShieldedInstanceEnabled') && !attributes.key?(:'is_shielded_instance_enabled') # rubocop:disable Style/StringLiterals
+
+      self.initial_host_shape_name = attributes[:'initialHostShapeName'] if attributes[:'initialHostShapeName']
+
+      raise 'You cannot provide both :initialHostShapeName and :initial_host_shape_name' if attributes.key?(:'initialHostShapeName') && attributes.key?(:'initial_host_shape_name')
+
+      self.initial_host_shape_name = attributes[:'initial_host_shape_name'] if attributes[:'initial_host_shape_name']
+
+      self.initial_host_ocpu_count = attributes[:'initialHostOcpuCount'] if attributes[:'initialHostOcpuCount']
+
+      raise 'You cannot provide both :initialHostOcpuCount and :initial_host_ocpu_count' if attributes.key?(:'initialHostOcpuCount') && attributes.key?(:'initial_host_ocpu_count')
+
+      self.initial_host_ocpu_count = attributes[:'initial_host_ocpu_count'] if attributes[:'initial_host_ocpu_count']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -317,6 +362,9 @@ module OCI
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
+        is_shielded_instance_enabled == other.is_shielded_instance_enabled &&
+        initial_host_shape_name == other.initial_host_shape_name &&
+        initial_host_ocpu_count == other.initial_host_ocpu_count &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -334,7 +382,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compute_availability_domain, display_name, vmware_software_version, compartment_id, esxi_hosts_count, hcx_fqdn, is_hcx_enabled, vcenter_fqdn, nsx_manager_fqdn, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags].hash
+      [id, compute_availability_domain, display_name, vmware_software_version, compartment_id, esxi_hosts_count, hcx_fqdn, is_hcx_enabled, vcenter_fqdn, nsx_manager_fqdn, time_created, time_updated, lifecycle_state, is_shielded_instance_enabled, initial_host_shape_name, initial_host_ocpu_count, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

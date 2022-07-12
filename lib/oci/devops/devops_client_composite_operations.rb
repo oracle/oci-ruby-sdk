@@ -531,7 +531,7 @@ module OCI
     # Calls {OCI::Devops::DevopsClient#create_deploy_stage} and then waits for the {OCI::Devops::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::Devops::Models::CreateDeployStageDetails] create_deploy_stage_details Details for the new DeployStage.
+    # @param [OCI::Devops::Models::CreateDeployStageDetails] create_deploy_stage_details Details for the new deployment stage.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Devops::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Devops::DevopsClient#create_deploy_stage}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

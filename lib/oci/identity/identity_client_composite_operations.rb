@@ -28,7 +28,7 @@ module OCI
     # Calls {OCI::Identity::IdentityClient#activate_domain} and then waits for the {OCI::Identity::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] domain_id The OCID of the domain
+    # @param [String] domain_id The OCID of the identity domain.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#activate_domain}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -60,6 +60,87 @@ module OCI
             max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
           )
         end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Identity::IdentityClient#add_tag_default_lock} and then waits for the {OCI::Identity::Models::TagDefault} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] tag_default_id The OCID of the tag default.
+    # @param [OCI::Identity::Models::AddLockDetails] add_lock_details Lock that is going to be added to resource
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::TagDefault#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#add_tag_default_lock}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Identity::Models::TagDefault}
+    def add_tag_default_lock_and_wait_for_state(tag_default_id, add_lock_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.add_tag_default_lock(tag_default_id, add_lock_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_tag_default(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Identity::IdentityClient#add_tag_namespace_lock} and then waits for the {OCI::Identity::Models::TagNamespace} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] tag_namespace_id The OCID of the tag namespace.
+    #
+    # @param [OCI::Identity::Models::AddLockDetails] add_lock_details Lock that is going to be added to resource
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::TagNamespace#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#add_tag_namespace_lock}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Identity::Models::TagNamespace}
+    def add_tag_namespace_lock_and_wait_for_state(tag_namespace_id, add_lock_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.add_tag_namespace_lock(tag_namespace_id, add_lock_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_tag_namespace(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
         result_to_return = waiter_result
 
         return result_to_return
@@ -363,8 +444,8 @@ module OCI
     # Calls {OCI::Identity::IdentityClient#change_domain_compartment} and then waits for the {OCI::Identity::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] domain_id The OCID of the domain
-    # @param [OCI::Identity::Models::ChangeDomainCompartmentDetails] change_domain_compartment_details the request object for moving compartment of a domain
+    # @param [String] domain_id The OCID of the identity domain.
+    # @param [OCI::Identity::Models::ChangeDomainCompartmentDetails] change_domain_compartment_details The request object for moving the identity domain to a different compartment.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#change_domain_compartment}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -413,8 +494,8 @@ module OCI
     # Calls {OCI::Identity::IdentityClient#change_domain_license_type} and then waits for the {OCI::Identity::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] domain_id The OCID of the domain
-    # @param [OCI::Identity::Models::ChangeDomainLicenseTypeDetails] change_domain_license_type_details the request object for domain license type update
+    # @param [String] domain_id The OCID of the identity domain.
+    # @param [OCI::Identity::Models::ChangeDomainLicenseTypeDetails] change_domain_license_type_details The request object for an update to the license type of the identity domain.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#change_domain_license_type}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -502,7 +583,7 @@ module OCI
     # Calls {OCI::Identity::IdentityClient#create_domain} and then waits for the {OCI::Identity::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::Identity::Models::CreateDomainDetails] create_domain_details The request object for creating a new domain
+    # @param [OCI::Identity::Models::CreateDomainDetails] create_domain_details The request object for creating a new identity domain.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#create_domain}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -944,7 +1025,7 @@ module OCI
     # Calls {OCI::Identity::IdentityClient#deactivate_domain} and then waits for the {OCI::Identity::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] domain_id The OCID of the domain
+    # @param [String] domain_id The OCID of the identity domain.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#deactivate_domain}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -1042,7 +1123,7 @@ module OCI
     # Calls {OCI::Identity::IdentityClient#delete_domain} and then waits for the {OCI::Identity::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] domain_id The OCID of the domain
+    # @param [String] domain_id The OCID of the identity domain.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#delete_domain}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -1424,8 +1505,8 @@ module OCI
     # Calls {OCI::Identity::IdentityClient#enable_replication_to_region} and then waits for the {OCI::Identity::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] domain_id The OCID of the domain
-    # @param [OCI::Identity::Models::EnableReplicationToRegionDetails] enable_replication_to_region_details the request object for region we are replicating domain region
+    # @param [String] domain_id The OCID of the identity domain.
+    # @param [OCI::Identity::Models::EnableReplicationToRegionDetails] enable_replication_to_region_details The request object for replicating the identity domain to another region.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#enable_replication_to_region}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -1648,6 +1729,87 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Identity::IdentityClient#remove_tag_default_lock} and then waits for the {OCI::Identity::Models::TagDefault} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] tag_default_id The OCID of the tag default.
+    # @param [OCI::Identity::Models::RemoveLockDetails] remove_lock_details Lock that is going to be removed from resource
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::TagDefault#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#remove_tag_default_lock}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Identity::Models::TagDefault}
+    def remove_tag_default_lock_and_wait_for_state(tag_default_id, remove_lock_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.remove_tag_default_lock(tag_default_id, remove_lock_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_tag_default(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Identity::IdentityClient#remove_tag_namespace_lock} and then waits for the {OCI::Identity::Models::TagNamespace} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] tag_namespace_id The OCID of the tag namespace.
+    #
+    # @param [OCI::Identity::Models::RemoveLockDetails] remove_lock_details Lock that is going to be removed from resource
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::TagNamespace#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#remove_tag_namespace_lock}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Identity::Models::TagNamespace}
+    def remove_tag_namespace_lock_and_wait_for_state(tag_namespace_id, remove_lock_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.remove_tag_namespace_lock(tag_namespace_id, remove_lock_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_tag_namespace(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Identity::IdentityClient#update_compartment} and then waits for the {OCI::Identity::Models::Compartment} acted upon
     # to enter the given state(s).
     #
@@ -1691,8 +1853,8 @@ module OCI
     # Calls {OCI::Identity::IdentityClient#update_domain} and then waits for the {OCI::Identity::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] domain_id The OCID of the domain
-    # @param [OCI::Identity::Models::UpdateDomainDetails] update_domain_details Request object for updating the Domain.
+    # @param [String] domain_id The OCID of the identity domain.
+    # @param [OCI::Identity::Models::UpdateDomainDetails] update_domain_details Request object for updating the identity domain.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Identity::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Identity::IdentityClient#update_domain}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

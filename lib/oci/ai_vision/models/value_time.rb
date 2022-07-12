@@ -6,9 +6,9 @@ require_relative 'field_value'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Time field value
+  # The time field value.
   class AiVision::Models::ValueTime < AiVision::Models::FieldValue
-    # **[Required]** Time field value as yyyy-mm-dd hh-mm-ss.
+    # **[Required]** The time field value as yyyy-mm-dd hh-mm-ss.
     # @return [DateTime]
     attr_accessor :value
 

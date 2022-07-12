@@ -44,6 +44,9 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # @return [OCI::Mysql::Models::PitrPolicy]
+    attr_accessor :pitr_policy
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -52,7 +55,8 @@ module OCI
         'window_start_time': :'windowStartTime',
         'retention_in_days': :'retentionInDays',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'pitr_policy': :'pitrPolicy'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -65,7 +69,8 @@ module OCI
         'window_start_time': :'String',
         'retention_in_days': :'Integer',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'pitr_policy': :'OCI::Mysql::Models::PitrPolicy'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -81,6 +86,7 @@ module OCI
     # @option attributes [Integer] :retention_in_days The value to assign to the {#retention_in_days} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [OCI::Mysql::Models::PitrPolicy] :pitr_policy The value to assign to the {#pitr_policy} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -118,6 +124,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.pitr_policy = attributes[:'pitrPolicy'] if attributes[:'pitrPolicy']
+
+      raise 'You cannot provide both :pitrPolicy and :pitr_policy' if attributes.key?(:'pitrPolicy') && attributes.key?(:'pitr_policy')
+
+      self.pitr_policy = attributes[:'pitr_policy'] if attributes[:'pitr_policy']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -135,7 +147,8 @@ module OCI
         window_start_time == other.window_start_time &&
         retention_in_days == other.retention_in_days &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        pitr_policy == other.pitr_policy
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -151,7 +164,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_enabled, window_start_time, retention_in_days, freeform_tags, defined_tags].hash
+      [is_enabled, window_start_time, retention_in_days, freeform_tags, defined_tags, pitr_policy].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

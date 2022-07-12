@@ -2,12 +2,19 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Snapshot of the DbSystem details at the time of the backup
   #
   class Mysql::Models::DbSystemSnapshot
+    CRASH_RECOVERY_ENUM = [
+      CRASH_RECOVERY_ENABLED = 'ENABLED'.freeze,
+      CRASH_RECOVERY_DISABLED = 'DISABLED'.freeze,
+      CRASH_RECOVERY_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The OCID of the DB System.
     # @return [String]
     attr_accessor :id
@@ -93,8 +100,7 @@ module OCI
     # @return [Integer]
     attr_accessor :port_x
 
-    # If the policy is to enable high availability of the instance, by
-    # maintaining secondary/failover capacity as necessary.
+    # Specifies if the DB System is highly available.
     #
     # @return [BOOLEAN]
     attr_accessor :is_highly_available
@@ -108,6 +114,10 @@ module OCI
     # @return [OCI::Mysql::Models::MaintenanceDetails]
     attr_accessor :maintenance
 
+    # This attribute is required.
+    # @return [OCI::Mysql::Models::DeletionPolicyDetails]
+    attr_accessor :deletion_policy
+
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
     #
@@ -119,6 +129,12 @@ module OCI
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
+
+    # Whether to run the DB System with InnoDB Redo Logs and the Double Write Buffer enabled or disabled,
+    # and whether to enable or disable syncing of the Binary Logs.
+    #
+    # @return [String]
+    attr_reader :crash_recovery
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -144,8 +160,10 @@ module OCI
         'is_highly_available': :'isHighlyAvailable',
         'endpoints': :'endpoints',
         'maintenance': :'maintenance',
+        'deletion_policy': :'deletionPolicy',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'crash_recovery': :'crashRecovery'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -174,8 +192,10 @@ module OCI
         'is_highly_available': :'BOOLEAN',
         'endpoints': :'Array<OCI::Mysql::Models::DbSystemEndpoint>',
         'maintenance': :'OCI::Mysql::Models::MaintenanceDetails',
+        'deletion_policy': :'OCI::Mysql::Models::DeletionPolicyDetails',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'crash_recovery': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -206,8 +226,10 @@ module OCI
     # @option attributes [BOOLEAN] :is_highly_available The value to assign to the {#is_highly_available} property
     # @option attributes [Array<OCI::Mysql::Models::DbSystemEndpoint>] :endpoints The value to assign to the {#endpoints} property
     # @option attributes [OCI::Mysql::Models::MaintenanceDetails] :maintenance The value to assign to the {#maintenance} property
+    # @option attributes [OCI::Mysql::Models::DeletionPolicyDetails] :deletion_policy The value to assign to the {#deletion_policy} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :crash_recovery The value to assign to the {#crash_recovery} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -316,6 +338,12 @@ module OCI
 
       self.maintenance = attributes[:'maintenance'] if attributes[:'maintenance']
 
+      self.deletion_policy = attributes[:'deletionPolicy'] if attributes[:'deletionPolicy']
+
+      raise 'You cannot provide both :deletionPolicy and :deletion_policy' if attributes.key?(:'deletionPolicy') && attributes.key?(:'deletion_policy')
+
+      self.deletion_policy = attributes[:'deletion_policy'] if attributes[:'deletion_policy']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -327,9 +355,30 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.crash_recovery = attributes[:'crashRecovery'] if attributes[:'crashRecovery']
+      self.crash_recovery = "ENABLED" if crash_recovery.nil? && !attributes.key?(:'crashRecovery') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :crashRecovery and :crash_recovery' if attributes.key?(:'crashRecovery') && attributes.key?(:'crash_recovery')
+
+      self.crash_recovery = attributes[:'crash_recovery'] if attributes[:'crash_recovery']
+      self.crash_recovery = "ENABLED" if crash_recovery.nil? && !attributes.key?(:'crashRecovery') && !attributes.key?(:'crash_recovery') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] crash_recovery Object to be assigned
+    def crash_recovery=(crash_recovery)
+      # rubocop:disable Style/ConditionalAssignment
+      if crash_recovery && !CRASH_RECOVERY_ENUM.include?(crash_recovery)
+        OCI.logger.debug("Unknown value for 'crash_recovery' [" + crash_recovery + "]. Mapping to 'CRASH_RECOVERY_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @crash_recovery = CRASH_RECOVERY_UNKNOWN_ENUM_VALUE
+      else
+        @crash_recovery = crash_recovery
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -360,8 +409,10 @@ module OCI
         is_highly_available == other.is_highly_available &&
         endpoints == other.endpoints &&
         maintenance == other.maintenance &&
+        deletion_policy == other.deletion_policy &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        crash_recovery == other.crash_recovery
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -377,7 +428,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, description, compartment_id, subnet_id, availability_domain, fault_domain, shape_name, mysql_version, admin_username, backup_policy, configuration_id, data_storage_size_in_gbs, hostname_label, ip_address, port, port_x, is_highly_available, endpoints, maintenance, freeform_tags, defined_tags].hash
+      [id, display_name, description, compartment_id, subnet_id, availability_domain, fault_domain, shape_name, mysql_version, admin_username, backup_policy, configuration_id, data_storage_size_in_gbs, hostname_label, ip_address, port, port_x, is_highly_available, endpoints, maintenance, deletion_policy, freeform_tags, defined_tags, crash_recovery].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

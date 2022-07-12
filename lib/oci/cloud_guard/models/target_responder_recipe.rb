@@ -14,11 +14,11 @@ module OCI
       OWNER_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Unique identifier of TargetResponderRecipe that is immutable on creation
+    # **[Required]** Unique identifier of TargetResponderRecipe that can't be changed after creation.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** Unique identifier for Responder Recipe of which this is an extension
+    # **[Required]** Unique identifier for Responder Recipe of which this is an extension.
     # @return [String]
     attr_accessor :responder_recipe_id
 
@@ -26,11 +26,11 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** ResponderRecipe Identifier Name
+    # **[Required]** ResponderRecipe display name.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** ResponderRecipe Description
+    # **[Required]** ResponderRecipe description.
     # @return [String]
     attr_accessor :description
 

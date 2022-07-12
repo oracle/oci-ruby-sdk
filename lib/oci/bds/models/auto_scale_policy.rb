@@ -6,11 +6,13 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Policy definitions for the autoscale configuration.
+  # This model for autoscaling policy is deprecated and not supported for ODH clusters. Use the `AutoScalePolicyDetails` model to manage autoscale policy details for ODH clusters.
+  #
   class Bds::Models::AutoScalePolicy
     POLICY_TYPE_ENUM = [
       POLICY_TYPE_THRESHOLD_BASED = 'THRESHOLD_BASED'.freeze,
       POLICY_TYPE_SCHEDULE_BASED = 'SCHEDULE_BASED'.freeze,
+      POLICY_TYPE_NONE = 'NONE'.freeze,
       POLICY_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 

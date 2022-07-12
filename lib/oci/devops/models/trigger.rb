@@ -12,6 +12,7 @@ module OCI
     TRIGGER_SOURCE_ENUM = [
       TRIGGER_SOURCE_GITHUB = 'GITHUB'.freeze,
       TRIGGER_SOURCE_GITLAB = 'GITLAB'.freeze,
+      TRIGGER_SOURCE_BITBUCKET_CLOUD = 'BITBUCKET_CLOUD'.freeze,
       TRIGGER_SOURCE_DEVOPS_CODE_REPOSITORY = 'DEVOPS_CODE_REPOSITORY'.freeze,
       TRIGGER_SOURCE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
@@ -41,7 +42,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** Source of the trigger. Allowed values are, GITHUB, GITLAB and DEVOPS_CODE_REPOSITORY.
+    # **[Required]** Source of the trigger.
     # @return [String]
     attr_reader :trigger_source
 
@@ -132,6 +133,7 @@ module OCI
       return 'OCI::Devops::Models::GitlabTrigger' if type == 'GITLAB'
       return 'OCI::Devops::Models::GithubTrigger' if type == 'GITHUB'
       return 'OCI::Devops::Models::DevopsCodeRepositoryTrigger' if type == 'DEVOPS_CODE_REPOSITORY'
+      return 'OCI::Devops::Models::BitbucketCloudTrigger' if type == 'BITBUCKET_CLOUD'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::Devops::Models::Trigger'

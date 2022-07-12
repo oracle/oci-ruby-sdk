@@ -25,6 +25,9 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
+    # @return [OCI::Bds::Models::ShapeConfigDetails]
+    attr_accessor :shape_config
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -32,7 +35,8 @@ module OCI
         'node_type': :'nodeType',
         'shape': :'shape',
         'block_volume_size_in_gbs': :'blockVolumeSizeInGBs',
-        'subnet_id': :'subnetId'
+        'subnet_id': :'subnetId',
+        'shape_config': :'shapeConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -44,7 +48,8 @@ module OCI
         'node_type': :'String',
         'shape': :'String',
         'block_volume_size_in_gbs': :'Integer',
-        'subnet_id': :'String'
+        'subnet_id': :'String',
+        'shape_config': :'OCI::Bds::Models::ShapeConfigDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -59,6 +64,7 @@ module OCI
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [Integer] :block_volume_size_in_gbs The value to assign to the {#block_volume_size_in_gbs} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
+    # @option attributes [OCI::Bds::Models::ShapeConfigDetails] :shape_config The value to assign to the {#shape_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -84,6 +90,12 @@ module OCI
       raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
 
       self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
+
+      self.shape_config = attributes[:'shapeConfig'] if attributes[:'shapeConfig']
+
+      raise 'You cannot provide both :shapeConfig and :shape_config' if attributes.key?(:'shapeConfig') && attributes.key?(:'shape_config')
+
+      self.shape_config = attributes[:'shape_config'] if attributes[:'shape_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -100,7 +112,8 @@ module OCI
         node_type == other.node_type &&
         shape == other.shape &&
         block_volume_size_in_gbs == other.block_volume_size_in_gbs &&
-        subnet_id == other.subnet_id
+        subnet_id == other.subnet_id &&
+        shape_config == other.shape_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -116,7 +129,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [node_type, shape, block_volume_size_in_gbs, subnet_id].hash
+      [node_type, shape, block_volume_size_in_gbs, subnet_id, shape_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

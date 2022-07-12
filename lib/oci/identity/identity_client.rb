@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # APIs for managing users, groups, compartments, and policies.
+  # APIs for managing users, groups, compartments, policies, and identity domains.
   class Identity::IdentityClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -98,25 +98,15 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # If the domain's {@code lifecycleState} is INACTIVE,
-    # 1. Set the {@code lifecycleDetails} to ACTIVATING and asynchronously starts enabling
-    #    the domain and return 202 ACCEPTED.
-    #     1.1 Sets the domain status to ENABLED and set specified domain's
-    #         {@code lifecycleState} to ACTIVE and set the {@code lifecycleDetails} to null.
+    # (For tenancies that support identity domains) Activates a deactivated identity domain. You can only activate identity domains that your user account is not a part of.
     #
-    # To track progress, HTTP GET on /iamWorkRequests/{iamWorkRequestsId} endpoint will provide
-    # the async operation's status. Deactivate a domain can be done using HTTP POST
-    # /domains/{domainId}/actions/deactivate.
+    # After you send the request, the `lifecycleDetails` of the identity domain is set to ACTIVATING. When the operation completes, the
+    # `lifecycleDetails` is set to null and the `lifecycleState` of the identity domain is set to ACTIVE.
     #
-    # - If the domain's {@code lifecycleState} is ACTIVE, returns 202 ACCEPTED with no action
-    #   taken on service side.
-    # - If domain is of {@code type} DEFAULT or DEFAULT_LIGHTWEIGHT or domain's {@code lifecycleState} is not INACTIVE,
-    #   returns 400 BAD REQUEST.
-    # - If the domain doesn't exists, returns 404 NOT FOUND.
-    # - If the authenticated user is part of the domain to be activated, returns 400 BAD REQUEST
-    # - If error occurs while activating domain, returns 500 INTERNAL SERVER ERROR.
+    # To track the progress of the request, submitting an HTTP GET on the /iamWorkRequests/{iamWorkRequestsId} endpoint retrieves
+    # the operation's status.
     #
-    # @param [String] domain_id The OCID of the domain
+    # @param [String] domain_id The OCID of the identity domain.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -241,6 +231,151 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Identity::Models::MfaTotpDeviceSummary'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Add a resource lock to a tag default.
+    #
+    # @param [String] tag_default_id The OCID of the tag default.
+    # @param [OCI::Identity::Models::AddLockDetails] add_lock_details Lock that is going to be added to resource
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::TagDefault TagDefault}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/add_tag_default_lock.rb.html) to see an example of how to use add_tag_default_lock API.
+    def add_tag_default_lock(tag_default_id, add_lock_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#add_tag_default_lock.' if logger
+
+      raise "Missing the required parameter 'tag_default_id' when calling add_tag_default_lock." if tag_default_id.nil?
+      raise "Missing the required parameter 'add_lock_details' when calling add_tag_default_lock." if add_lock_details.nil?
+      raise "Parameter value for 'tag_default_id' must not be blank" if OCI::Internal::Util.blank_string?(tag_default_id)
+
+      path = '/tagDefaults/{tagDefaultId}/actions/addLock'.sub('{tagDefaultId}', tag_default_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(add_lock_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#add_tag_default_lock') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::TagDefault'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Add a resource lock to a tag namespace.
+    #
+    # @param [String] tag_namespace_id The OCID of the tag namespace.
+    #
+    # @param [OCI::Identity::Models::AddLockDetails] add_lock_details Lock that is going to be added to resource
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::TagNamespace TagNamespace}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/add_tag_namespace_lock.rb.html) to see an example of how to use add_tag_namespace_lock API.
+    def add_tag_namespace_lock(tag_namespace_id, add_lock_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#add_tag_namespace_lock.' if logger
+
+      raise "Missing the required parameter 'tag_namespace_id' when calling add_tag_namespace_lock." if tag_namespace_id.nil?
+      raise "Missing the required parameter 'add_lock_details' when calling add_tag_namespace_lock." if add_lock_details.nil?
+      raise "Parameter value for 'tag_namespace_id' must not be blank" if OCI::Internal::Util.blank_string?(tag_namespace_id)
+
+      path = '/tagNamespaces/{tagNamespaceId}/actions/addLock'.sub('{tagNamespaceId}', tag_namespace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(add_lock_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#add_tag_namespace_lock') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::TagNamespace'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -383,7 +518,7 @@ module OCI
 
     # Deletes multiple resources in the compartment. All resources must be in the same compartment. You must have the appropriate
     # permissions to delete the resources in the request. This API can only be invoked from the tenancy's
-    # [home region](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingregions.htm#Home). This operation creates a
+    # [home region](https://docs.cloud.oracle.com/Content/Identity/regions/managingregions.htm#Home). This operation creates a
     # {WorkRequest}. Use the {#get_work_request get_work_request}
     # API to monitor the status of the bulk action.
     #
@@ -486,6 +621,7 @@ module OCI
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   may be rejected).
     #
+    # @option opts [BOOLEAN] :is_lock_override Whether to override locks (if any exist). (default to false)
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/bulk_delete_tags.rb.html) to see an example of how to use bulk_delete_tags API.
     def bulk_delete_tags(bulk_delete_tags_details, opts = {})
@@ -499,6 +635,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:isLockOverride] = opts[:is_lock_override] if !opts[:is_lock_override].nil?
 
       # Header Params
       header_params = {}
@@ -610,7 +747,7 @@ module OCI
 
 
     # Moves multiple resources from one compartment to another. All resources must be in the same compartment.
-    # This API can only be invoked from the tenancy's [home region](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingregions.htm#Home).
+    # This API can only be invoked from the tenancy's [home region](https://docs.cloud.oracle.com/Content/Identity/regions/managingregions.htm#Home).
     # To move resources, you must have the appropriate permissions to move the resource in both the source and target
     # compartments. This operation creates a {WorkRequest}.
     # Use the {#get_work_request get_work_request} API to monitor the status of the bulk action.
@@ -717,6 +854,7 @@ module OCI
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   may be rejected).
     #
+    # @option opts [BOOLEAN] :is_lock_override Whether to override locks (if any exist). (default to false)
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/cascade_delete_tag_namespace.rb.html) to see an example of how to use cascade_delete_tag_namespace API.
     def cascade_delete_tag_namespace(tag_namespace_id, opts = {})
@@ -731,6 +869,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:isLockOverride] = opts[:is_lock_override] if !opts[:is_lock_override].nil?
 
       # Header Params
       header_params = {}
@@ -767,21 +906,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Change the containing compartment for a domain.
+    # (For tenancies that support identity domains) Moves the identity domain to a different compartment in the tenancy.
     #
-    # This is an asynchronous call where the Domain's compartment is changed and is updated with the new compartment information.
-    # To track progress, HTTP GET on /iamWorkRequests/{iamWorkRequestsId} endpoint will provide
-    # the async operation's status.
+    # To track the progress of the request, submitting an HTTP GET on the /iamWorkRequests/{iamWorkRequestsId} endpoint retrieves
+    # the operation's status.
     #
-    # The compartment change is complete when accessed via domain URL and
-    # also returns new compartment OCID.
-    # - If the domain doesn't exists, returns 404 NOT FOUND.
-    # - If Domain {@code type} is DEFAULT or DEFAULT_LIGHTWEIGHT, return 400 BAD Request
-    # - If Domain is not active or being updated, returns 400 BAD REQUEST.
-    # - If error occurs while changing compartment for domain, return 500 INTERNAL SERVER ERROR.
-    #
-    # @param [String] domain_id The OCID of the domain
-    # @param [OCI::Identity::Models::ChangeDomainCompartmentDetails] change_domain_compartment_details the request object for moving compartment of a domain
+    # @param [String] domain_id The OCID of the identity domain.
+    # @param [OCI::Identity::Models::ChangeDomainCompartmentDetails] change_domain_compartment_details The request object for moving the identity domain to a different compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -849,24 +980,18 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # If the domain's {@code lifecycleState} is ACTIVE, validates the requested {@code licenseType} update
-    # is allowed and
-    # 1. Set the {@code lifecycleDetails} to UPDATING
-    # 2. Asynchronously starts updating the domain and return 202 ACCEPTED.
-    #     2.1 Successfully updates specified domain's {@code licenseType}.
-    # 3. On completion set the {@code lifecycleDetails} to null.
-    # To track progress, HTTP GET on /iamWorkRequests/{iamWorkRequestsId} endpoint will provide
-    # the async operation's status.
+    # (For tenancies that support identity domains) Changes the license type of the given identity domain. The identity domain's
+    # `lifecycleState` must be set to ACTIVE and the requested `licenseType` must be allowed. To retrieve the allowed `licenseType` for
+    # the identity domain, use {#list_allowed_domain_license_types list_allowed_domain_license_types}.
     #
-    # - If license type update is successful, return 202 ACCEPTED
-    # - If requested {@code licenseType} validation fails, returns 400 Bad request.
-    # - If Domain is not active or being updated, returns 400 BAD REQUEST.
-    # - If Domain {@code type} is DEFAULT or DEFAULT_LIGHTWEIGHT, return 400 BAD Request
-    # - If the domain doesn't exists, returns 404 NOT FOUND
-    # - If any internal error occurs, returns 500 INTERNAL SERVER ERROR.
+    # After you send your request, the `lifecycleDetails` of this identity domain is set to UPDATING. When the update of the identity
+    # domain completes, then the `lifecycleDetails` is set to null.
     #
-    # @param [String] domain_id The OCID of the domain
-    # @param [OCI::Identity::Models::ChangeDomainLicenseTypeDetails] change_domain_license_type_details the request object for domain license type update
+    # To track the progress of the request, submitting an HTTP GET on the /iamWorkRequests/{iamWorkRequestsId} endpoint retrieves
+    # the operation's status.
+    #
+    # @param [String] domain_id The OCID of the identity domain.
+    # @param [OCI::Identity::Models::ChangeDomainLicenseTypeDetails] change_domain_license_type_details The request object for an update to the license type of the identity domain.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -937,7 +1062,7 @@ module OCI
     # Moves the specified tag namespace to the specified compartment within the same tenancy.
     #
     # To move the tag namespace, you must have the manage tag-namespaces permission on both compartments.
-    # For more information about IAM policies, see [Details for IAM](https://docs.cloud.oracle.com/Content/Identity/Reference/iampolicyreference.htm).
+    # For more information about IAM policies, see [Details for IAM](https://docs.cloud.oracle.com/Content/Identity/policyreference/iampolicyreference.htm).
     #
     # Moving a tag namespace moves all the tag key definitions contained in the tag namespace.
     #
@@ -953,6 +1078,7 @@ module OCI
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   may be rejected).
     #
+    # @option opts [BOOLEAN] :is_lock_override Whether to override locks (if any exist). (default to false)
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/change_tag_namespace_compartment.rb.html) to see an example of how to use change_tag_namespace_compartment API.
     def change_tag_namespace_compartment(tag_namespace_id, change_tag_namespace_compartment_detail, opts = {})
@@ -968,6 +1094,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:isLockOverride] = opts[:is_lock_override] if !opts[:is_lock_override].nil?
 
       # Header Params
       header_params = {}
@@ -1003,7 +1130,7 @@ module OCI
 
 
     # Creates a new auth token for the specified user. For information about what auth tokens are for, see
-    # [Managing User Credentials](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcredentials.htm).
+    # [Managing User Credentials](https://docs.cloud.oracle.com/Content/Identity/access/managing-user-credentials.htm).
     #
     # You must specify a *description* for the auth token (although it can be an empty string). It does not
     # have to be unique, and you can change it anytime with
@@ -1076,8 +1203,6 @@ module OCI
 
     # Creates a new compartment in the specified compartment.
     #
-    # **Important:** Compartments cannot be deleted.
-    #
     # Specify the parent compartment's OCID as the compartment ID in the request object. Remember that the tenancy
     # is simply the root compartment. For information about OCIDs, see
     # [Resource Identifiers](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -1085,7 +1210,7 @@ module OCI
     # You must also specify a *name* for the compartment, which must be unique across all compartments in
     # your tenancy. You can use this name or the OCID when writing policies that apply
     # to the compartment. For more information about policies, see
-    # [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/Concepts/policies.htm).
+    # [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/policieshow/how-policies-work.htm).
     #
     # You must also specify a *description* for the compartment (although it can be an empty string). It does
     # not have to be unique, and you can change it anytime with
@@ -1154,7 +1279,7 @@ module OCI
 
     # Creates a new secret key for the specified user. Secret keys are used for authentication with the Object Storage Service's Amazon S3
     # compatible API. The secret key consists of an Access Key/Secret Key pair. For information, see
-    # [Managing User Credentials](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcredentials.htm).
+    # [Managing User Credentials](https://docs.cloud.oracle.com/Content/Identity/access/managing-user-credentials.htm).
     #
     # You must specify a *description* for the secret key (although it can be an empty string). It does not
     # have to be unique, and you can change it anytime with
@@ -1292,24 +1417,16 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new domain in the tenancy with domain home in {@code homeRegion}. This is an asynchronous call - where, at start,
-    # {@code lifecycleState} of this domain is set to CREATING and {@code lifecycleDetails} to UPDATING. On domain creation completion
-    # this Domain's {@code lifecycleState} will be set to ACTIVE and {@code lifecycleDetails} to null.
+    # (For tenancies that support identity domains) Creates a new identity domain in the tenancy with the identity domain home in `homeRegion`.
+    # After you send your request, the temporary `lifecycleState` of this identity domain is set to CREATING and `lifecycleDetails` to UPDATING.
+    # When creation of the identity domain completes, this identity domain's `lifecycleState` is set to ACTIVE and `lifecycleDetails` to null.
     #
-    # To track progress, HTTP GET on /iamWorkRequests/{iamWorkRequestsId} endpoint will provide
-    # the async operation's status.
+    # To track the progress of the request, submitting an HTTP GET on the /iamWorkRequests/{iamWorkRequestsId} endpoint retrieves
+    # the operation's status.
     #
-    # After creating a `Domain`, make sure its `lifecycleState` changes from CREATING to ACTIVE
-    # before using it.
-    # If the domain's {@code displayName} already exists, returns 400 BAD REQUEST.
-    # If any one of admin related fields are provided and one of the following 3 fields
-    # - {@code adminEmail}, {@code adminLastName} and {@code adminUserName} - is not provided,
-    # returns 400 BAD REQUEST.
-    # - If {@code isNotificationBypassed} is NOT provided when admin information is provided,
-    # returns 400 BAD REQUEST.
-    # - If any internal error occurs, return 500 INTERNAL SERVER ERROR.
+    # After creating an `identity domain`, first make sure its `lifecycleState` changes from CREATING to ACTIVE before you use it.
     #
-    # @param [OCI::Identity::Models::CreateDomainDetails] create_domain_details The request object for creating a new domain
+    # @param [OCI::Identity::Models::CreateDomainDetails] create_domain_details The request object for creating a new identity domain.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1381,7 +1498,7 @@ module OCI
     # You must also specify a *name* for the dynamic group, which must be unique across all dynamic groups in your
     # tenancy, and cannot be changed. Note that this name has to be also unique across all groups in your tenancy.
     # You can use this name or the OCID when writing policies that apply to the dynamic group. For more information
-    # about policies, see [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/Concepts/policies.htm).
+    # about policies, see [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/policieshow/how-policies-work.htm).
     #
     # You must also specify a *description* for the dynamic group (although it can be an empty string). It does not
     # have to be unique, and you can change it anytime with {#update_dynamic_group update_dynamic_group}.
@@ -1457,7 +1574,7 @@ module OCI
     #
     # You must also specify a *name* for the group, which must be unique across all groups in your tenancy and
     # cannot be changed. You can use this name or the OCID when writing policies that apply to the group. For more
-    # information about policies, see [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/Concepts/policies.htm).
+    # information about policies, see [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/policieshow/how-policies-work.htm).
     #
     # You must also specify a *description* for the group (although it can be an empty string). It does not
     # have to be unique, and you can change it anytime with {#update_group update_group}.
@@ -1744,7 +1861,7 @@ module OCI
     # You must also specify a *name* for the network source, which must be unique across all network sources in your
     # tenancy, and cannot be changed.
     # You can use this name or the OCID when writing policies that apply to the network source. For more information
-    # about policies, see [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/Concepts/policies.htm).
+    # about policies, see [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/policieshow/how-policies-work.htm).
     #
     # You must also specify a *description* for the network source (although it can be an empty string). It does not
     # have to be unique, and you can change it anytime with {#update_network_source update_network_source}.
@@ -1877,13 +1994,17 @@ module OCI
 
 
     # Creates a new Console one-time password for the specified user. For more information about user
-    # credentials, see [User Credentials](https://docs.cloud.oracle.com/Content/Identity/Concepts/usercredentials.htm).
+    # credentials, see [User Credentials](https://docs.cloud.oracle.com/Content/Identity/usercred/usercredentials.htm).
     #
     # Use this operation after creating a new user, or if a user forgets their password. The new one-time
     # password is returned to you in the response, and you must securely deliver it to the user. They'll
     # be prompted to change this password the next time they sign in to the Console. If they don't change
     # it within 7 days, the password will expire and you'll need to create a new one-time password for the
     # user.
+    #
+    # (For tenancies that support identity domains) Resetting a user's password generates a reset password email
+    # with a link that the user must follow to reset their password. If the user does not reset their password before the
+    # link expires, you'll need to reset the user's password again.
     #
     # **Note:** The user's Console login is the unique name you specified when you created the user
     # (see {#create_user create_user}).
@@ -1948,7 +2069,7 @@ module OCI
 
 
     # Creates a new policy in the specified compartment (either the tenancy or another of your compartments).
-    # If you're new to policies, see [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
+    # If you're new to policies, see [Get Started with Policies](https://docs.cloud.oracle.com/Content/Identity/policiesgs/get-started-with-policies.htm).
     #
     # You must specify a *name* for the policy, which must be unique across all policies in your tenancy
     # and cannot be changed.
@@ -1957,8 +2078,8 @@ module OCI
     # have to be unique, and you can change it anytime with {#update_policy update_policy}.
     #
     # You must specify one or more policy statements in the statements array. For information about writing
-    # policies, see [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/Concepts/policies.htm) and
-    # [Common Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/commonpolicies.htm).
+    # policies, see [How Policies Work](https://docs.cloud.oracle.com/Content/Identity/policieshow/how-policies-work.htm) and
+    # [Common Policies](https://docs.cloud.oracle.com/Content/Identity/policiescommon/commonpolicies.htm).
     #
     # After you send your request, the new object's `lifecycleState` will temporarily be CREATING. Before using the
     # object, first make sure its `lifecycleState` has changed to ACTIVE.
@@ -2261,6 +2382,7 @@ module OCI
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   may be rejected).
     #
+    # @option opts [BOOLEAN] :is_lock_override Whether to override locks (if any exist). (default to false)
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Tag Tag}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/create_tag.rb.html) to see an example of how to use create_tag API.
     def create_tag(tag_namespace_id, create_tag_details, opts = {})
@@ -2276,6 +2398,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:isLockOverride] = opts[:is_lock_override] if !opts[:is_lock_override].nil?
 
       # Header Params
       header_params = {}
@@ -2456,7 +2579,7 @@ module OCI
 
 
     # Creates a new user in your tenancy. For conceptual information about users, your tenancy, and other
-    # IAM Service components, see [Overview of the IAM Service](https://docs.cloud.oracle.com/Content/Identity/Concepts/overview.htm).
+    # IAM Service components, see [Overview of IAM](https://docs.cloud.oracle.com/Content/Identity/getstarted/identity-domains.htm).
     #
     # You must specify your tenancy's OCID as the compartment ID in the request object (remember that the
     # tenancy is simply the root compartment). Notice that IAM resources (users, groups, compartments, and
@@ -2549,26 +2672,17 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # If the domain's {@code lifecycleState} is ACTIVE and no active Apps are present in domain,
-    # 1. Set the {@code lifecycleDetails} to DEACTIVATING and asynchronously starts disabling
-    #    the domain and return 202 ACCEPTED.
-    #     1.1 Sets the domain status to DISABLED and set specified domain's
-    #         {@code lifecycleState} to INACTIVE and set the {@code lifecycleDetails} to null.
+    # (For tenancies that support identity domains) Deactivates the specified identity domain. Identity domains must be in an ACTIVE
+    # `lifecycleState` and have no active apps present in the domain or underlying Identity Cloud Service stripe. You cannot deactivate
+    # the default identity domain.
     #
-    # To track progress, HTTP GET on /iamWorkRequests/{iamWorkRequestsId} endpoint will provide
-    # the async operation's status. Activate a domain can be done using HTTP POST
-    # /domains/{domainId}/actions/activate.
+    # After you send your request, the `lifecycleDetails` of this identity domain is set to DEACTIVATING. When the operation completes,
+    # then the `lifecycleDetails` is set to null and the `lifecycleState` is set to INACTIVE.
     #
-    # - If the domain's {@code lifecycleState} is INACTIVE, returns 202 ACCEPTED with no action
-    #   taken on service side.
-    # - If domain is of {@code type} DEFAULT or DEFAULT_LIGHTWEIGHT or domain's {@code lifecycleState}
-    #   is not ACTIVE, returns 400 BAD REQUEST.
-    # - If the domain doesn't exists, returns 404 NOT FOUND.
-    # - If any active Apps in domain, returns 400 BAD REQUEST.
-    # - If the authenticated user is part of the domain to be activated, returns 400 BAD REQUEST
-    # - If error occurs while deactivating domain, returns 500 INTERNAL SERVER ERROR.
+    # To track the progress of the request, submitting an HTTP GET on the /iamWorkRequests/{iamWorkRequestsId} endpoint retrieves
+    # the operation's status.
     #
-    # @param [String] domain_id The OCID of the domain
+    # @param [String] domain_id The OCID of the identity domain.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2820,7 +2934,7 @@ module OCI
     # Deletes the specified secret key for the specified user.
     #
     # @param [String] user_id The OCID of the user.
-    # @param [String] customer_secret_key_id The OCID of the secret key.
+    # @param [String] customer_secret_key_id The access token of the secret key.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2941,25 +3055,15 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Soft Deletes a domain.
+    # (For tenancies that support identity domains) Deletes an identity domain. The identity domain must have no active apps present in
+    # the underlying IDCS stripe. You must also deactivate the identity domain, rendering the `lifecycleState` of the identity domain INACTIVE.
+    # Furthermore, as the authenticated user performing the operation, you cannot be a member of the identity domain you are deleting.
+    # Lastly, you cannot delete the default identity domain. A tenancy must always have at least the default identity domain.
     #
-    # This is an asynchronous API, where, if the domain's {@code lifecycleState} is INACTIVE and
-    # no active Apps are present in underlying stripe,
-    #   1. Sets the specified domain's {@code lifecycleState} to DELETING.
-    #   2. Domains marked as DELETING will be cleaned up by a periodic task unless customer request it to be undo via ticket.
-    #   3. Work request is created and returned as opc-work-request-id along with 202 ACCEPTED.
-    # To track progress, HTTP GET on /iamWorkRequests/{iamWorkRequestsId} endpoint will provide
-    # the async operation's status.
+    # To track the progress of the request, submitting an HTTP GET on the /iamWorkRequests/{iamWorkRequestsId} endpoint retrieves
+    # the operation's status.
     #
-    # - If the domain's {@code lifecycleState} is DELETING, returns 202 Accepted as a deletion
-    #   is already in progress for this domain.
-    # - If the domain doesn't exists, returns 404 NOT FOUND.
-    # - If domain is of {@code type} DEFAULT or DEFAULT_LIGHTWEIGHT, returns 400 BAD REQUEST.
-    # - If any active Apps in domain, returns 400 BAD REQUEST.
-    # - If the authenticated user is part of the domain to be deleted, returns 400 BAD REQUEST.
-    # - If any internal error occurs, return 500 INTERNAL SERVER ERROR.
-    #
-    # @param [String] domain_id The OCID of the domain
+    # @param [String] domain_id The OCID of the identity domain.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3314,7 +3418,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes the specified network source
+    # Deletes the specified network source.
     #
     # @param [String] network_source_id The OCID of the network source.
     # @param [Hash] opts the optional parameters
@@ -3613,7 +3717,6 @@ module OCI
     # tag from all resources in your tenancy.
     #
     # These things happen immediately:
-    # \u00A0
     #   * If the tag was a cost-tracking tag, it no longer counts against your 10 cost-tracking
     #   tags limit, whether you first disabled it or not.
     #   * If the tag was used with dynamic groups, none of the rules that contain the tag will
@@ -3642,6 +3745,7 @@ module OCI
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
+    # @option opts [BOOLEAN] :is_lock_override Whether to override locks (if any exist). (default to false)
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_tag.rb.html) to see an example of how to use delete_tag API.
     def delete_tag(tag_namespace_id, tag_name, opts = {})
@@ -3658,6 +3762,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:isLockOverride] = opts[:is_lock_override] if !opts[:is_lock_override].nil?
 
       # Header Params
       header_params = {}
@@ -3704,6 +3809,7 @@ module OCI
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
+    # @option opts [BOOLEAN] :is_lock_override Whether to override locks (if any exist). (default to false)
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_tag_default.rb.html) to see an example of how to use delete_tag_default API.
     def delete_tag_default(tag_default_id, opts = {})
@@ -3718,6 +3824,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:isLockOverride] = opts[:is_lock_override] if !opts[:is_lock_override].nil?
 
       # Header Params
       header_params = {}
@@ -3772,6 +3879,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
     #
+    # @option opts [BOOLEAN] :is_lock_override Whether to override locks (if any exist). (default to false)
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/delete_tag_namespace.rb.html) to see an example of how to use delete_tag_namespace API.
     def delete_tag_namespace(tag_namespace_id, opts = {})
@@ -3786,6 +3894,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:isLockOverride] = opts[:is_lock_override] if !opts[:is_lock_override].nil?
 
       # Header Params
       header_params = {}
@@ -3876,22 +3985,19 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Replicate domain to a new region. This is an asynchronous call - where, at start,
-    # {@code state} of this domain in replica region is set to ENABLING_REPLICATION.
-    # On domain replication completion the {@code state} will be set to REPLICATION_ENABLED.
+    # (For tenancies that support identity domains) Replicates the identity domain to a new region (provided that the region is the
+    # tenancy home region or other region that the tenancy subscribes to). You can only replicate identity domains that are in an ACTIVE
+    # `lifecycleState` and not currently updating or already replicating. You also can only trigger the replication of secondary identity domains.
+    # The default identity domain is automatically replicated to all regions that the tenancy subscribes to.
     #
-    # To track progress, HTTP GET on /iamWorkRequests/{iamWorkRequestsId} endpoint will provide
-    # the async operation's status.
+    # After you send the request, the `state` of the identity domain in the replica region is set to ENABLING_REPLICATION. When the operation
+    # completes, the `state` is set to REPLICATION_ENABLED.
     #
-    # If the replica region's {@code state} is already ENABLING_REPLICATION or REPLICATION_ENABLED,
-    # returns 409 CONFLICT.
-    # - If the domain doesn't exists, returns 404 NOT FOUND.
-    # - If home region is same as replication region, return 400 BAD REQUEST.
-    # - If Domain is not active or being updated, returns 400 BAD REQUEST.
-    # - If any internal error occurs, return 500 INTERNAL SERVER ERROR.
+    # To track the progress of the request, submitting an HTTP GET on the /iamWorkRequests/{iamWorkRequestsId} endpoint retrieves
+    # the operation's status.
     #
-    # @param [String] domain_id The OCID of the domain
-    # @param [OCI::Identity::Models::EnableReplicationToRegionDetails] enable_replication_to_region_details the request object for region we are replicating domain region
+    # @param [String] domain_id The OCID of the identity domain.
+    # @param [OCI::Identity::Models::EnableReplicationToRegionDetails] enable_replication_to_region_details The request object for replicating the identity domain to another region.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4138,12 +4244,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get the specified domain's information.
+    # (For tenancies that support identity domains) Gets the specified identity domain's information.
     #
-    # - If the domain doesn't exists, returns 404 NOT FOUND.
-    # - If any internal error occurs, returns 500 INTERNAL SERVER ERROR.
-    #
-    # @param [String] domain_id The OCID of the domain
+    # @param [String] domain_id The OCID of the identity domain.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -4312,11 +4415,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets details on a specified IAM work request. For asynchronous operations in Identity and Access Management service, opc-work-request-id header values contains
-    # iam work request id that can be provided in this API to track the current status of the operation.
-    #
-    # - If workrequest exists, returns 202 ACCEPTED
-    # - If workrequest does not exist, returns 404 NOT FOUND
+    # Gets the details of a specified IAM work request. The workRequestID is returned in the opc-workrequest-id header for any asynchronous operation in the Identity and Access Management service.
     #
     # @param [String] iam_work_request_id The OCID of the IAM work request.
     # @param [Hash] opts the optional parameters
@@ -5280,18 +5379,16 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # List the allowed domain license types supported by OCI
-    # If {@code currentLicenseTypeName} provided, returns allowed license types a domain with the specified license type name can migrate to.
-    # If {@code name} is provided, it filters and returns resources that match the given license type name.
-    # Otherwise, returns all valid license types that are currently supported.
+    # (For tenancies that support identity domains) Lists the license types for identity domains supported by Oracle Cloud Infrastructure.
+    # (License types are also referred to as domain types.)
     #
-    # - If license type details are retrieved sucessfully, return 202 ACCEPTED.
-    # - If any internal error occurs, return 500 INTERNAL SERVER ERROR.
+    # If `currentLicenseTypeName` is provided, then the request returns license types that the identity domain with the specified license
+    # type name can change to. Otherwise, the request returns all valid license types currently supported.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :current_license_type_name The domain license type
+    # @option opts [String] :current_license_type_name The license type of the identity domain.
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
     #
@@ -5775,7 +5872,7 @@ module OCI
 
 
     # Lists all the tags enabled for cost-tracking in the specified tenancy. For information about
-    # cost-tracking tags, see [Using Cost-tracking Tags](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm#costs).
+    # cost-tracking tags, see [Using Cost-tracking Tags](https://docs.cloud.oracle.com/Content/Tagging/Tasks/usingcosttrackingtags.htm).
     #
     # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
@@ -5988,20 +6085,19 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # List all domains that are homed or have a replica region in current region.
-    # - If any internal error occurs, return 500 INTERNAL SERVER ERROR.
+    # (For tenancies that support identity domains) Lists all identity domains within a tenancy.
     #
     # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :display_name The mutable display name of the domain
-    # @option opts [String] :url The region agnostic domain URL
-    # @option opts [String] :home_region_url The region specific domain URL
-    # @option opts [String] :type The domain type
-    # @option opts [String] :license_type The domain license type
-    # @option opts [BOOLEAN] :is_hidden_on_login Indicate if the domain is visible at login screen or not
+    # @option opts [String] :display_name The mutable display name of the identity domain.
+    # @option opts [String] :url The region-agnostic identity domain URL.
+    # @option opts [String] :home_region_url The region-specific identity domain URL.
+    # @option opts [String] :type The identity domain type.
+    # @option opts [String] :license_type The license type of the identity domain.
+    # @option opts [BOOLEAN] :is_hidden_on_login Indicates whether or not the identity domain is visible at the sign-in screen.
     # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
     #
     # @option opts [Integer] :limit The maximum number of items to return in a paginated \"List\" call.
@@ -6025,7 +6121,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
     #   particular request, please provide the request ID.
     #
-    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state.  The state value is case-insensitive.
+    # @option opts [String] :lifecycle_state A filter to only return resources that match the given lifecycle state. The state value is case-insensitive.
     #
     # @return [Response] A Response object with data of type Array<{OCI::Identity::Models::DomainSummary DomainSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/list_domains.rb.html) to see an example of how to use list_domains API.
@@ -6202,7 +6298,7 @@ module OCI
     #
     # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
-    # @param [String] availability_domain The name of the availibilityDomain.
+    # @param [String] availability_domain The name of the availabilityDomain.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -6353,11 +6449,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets error details for a specified IAM work request. For asynchronous operations in Identity and Access Management service, opc-work-request-id header values contains
-    # iam work request id that can be provided in this API to track the current status of the operation.
-    #
-    # - If workrequest exists, returns 202 ACCEPTED
-    # - If workrequest does not exist, returns 404 NOT FOUND
+    # Gets error details for a specified IAM work request. The workRequestID is returned in the opc-workrequest-id header for any asynchronous operation in the Identity and Access Management service.
     #
     # @param [String] iam_work_request_id The OCID of the IAM work request.
     # @param [Hash] opts the optional parameters
@@ -6429,11 +6521,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets logs for a specified IAM work request. For asynchronous operations in Identity and Access Management service, opc-work-request-id header values contains
-    # iam work request id that can be provided in this API to track the current status of the operation.
-    #
-    # - If workrequest exists, returns 202 ACCEPTED
-    # - If workrequest does not exist, returns 404 NOT FOUND
+    # Gets logs for a specified IAM work request. The workRequestID is returned in the opc-workrequest-id header for any asynchronous operation in the Identity and Access Management service.
     #
     # @param [String] iam_work_request_id The OCID of the IAM work request.
     # @param [Hash] opts the optional parameters
@@ -6505,10 +6593,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # List the IAM work requests in compartment
-    #
-    # - If IAM workrequest  details are retrieved sucessfully, return 202 ACCEPTED.
-    # - If any internal error occurs, return 500 INTERNAL SERVER ERROR.
+    # Lists the IAM work requests in compartment. The workRequestID is returned in the opc-workrequest-id header for any asynchronous operation in the Identity and Access Management service.
     #
     # @param [String] compartment_id The OCID of the compartment (remember that the tenancy is simply the root compartment).
     #
@@ -8069,7 +8154,7 @@ module OCI
     # **IMPORTANT**: After you move a compartment to a new parent compartment, the access policies of
     # the new parent take effect and the policies of the previous parent no longer apply. Ensure that you
     # are aware of the implications for the compartment contents before you move it. For more
-    # information, see [Moving a Compartment](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcompartments.htm#MoveCompartment).
+    # information, see [Moving a Compartment](https://docs.cloud.oracle.com/Content/Identity/compartments/managingcompartments.htm#MoveCompartment).
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [OCI::Identity::Models::MoveCompartmentDetails] move_compartment_details Request object for moving a compartment.
@@ -8189,6 +8274,151 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Identity::Models::Compartment'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Remove a resource lock from a tag default.
+    #
+    # @param [String] tag_default_id The OCID of the tag default.
+    # @param [OCI::Identity::Models::RemoveLockDetails] remove_lock_details Lock that is going to be removed from resource
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::TagDefault TagDefault}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/remove_tag_default_lock.rb.html) to see an example of how to use remove_tag_default_lock API.
+    def remove_tag_default_lock(tag_default_id, remove_lock_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#remove_tag_default_lock.' if logger
+
+      raise "Missing the required parameter 'tag_default_id' when calling remove_tag_default_lock." if tag_default_id.nil?
+      raise "Missing the required parameter 'remove_lock_details' when calling remove_tag_default_lock." if remove_lock_details.nil?
+      raise "Parameter value for 'tag_default_id' must not be blank" if OCI::Internal::Util.blank_string?(tag_default_id)
+
+      path = '/tagDefaults/{tagDefaultId}/actions/removeLock'.sub('{tagDefaultId}', tag_default_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(remove_lock_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#remove_tag_default_lock') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::TagDefault'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Remove a resource lock from a tag namespace.
+    #
+    # @param [String] tag_namespace_id The OCID of the tag namespace.
+    #
+    # @param [OCI::Identity::Models::RemoveLockDetails] remove_lock_details Lock that is going to be removed from resource
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (e.g., if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Identity::Models::TagNamespace TagNamespace}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/remove_tag_namespace_lock.rb.html) to see an example of how to use remove_tag_namespace_lock API.
+    def remove_tag_namespace_lock(tag_namespace_id, remove_lock_details, opts = {})
+      logger.debug 'Calling operation IdentityClient#remove_tag_namespace_lock.' if logger
+
+      raise "Missing the required parameter 'tag_namespace_id' when calling remove_tag_namespace_lock." if tag_namespace_id.nil?
+      raise "Missing the required parameter 'remove_lock_details' when calling remove_tag_namespace_lock." if remove_lock_details.nil?
+      raise "Parameter value for 'tag_namespace_id' must not be blank" if OCI::Internal::Util.blank_string?(tag_namespace_id)
+
+      path = '/tagNamespaces/{tagNamespaceId}/actions/removeLock'.sub('{tagNamespaceId}', tag_namespace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(remove_lock_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'IdentityClient#remove_tag_namespace_lock') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Identity::Models::TagNamespace'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -8376,7 +8606,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates authentication policy for the specified tenancy
+    # Updates authentication policy for the specified tenancy.
     #
     # @param [String] compartment_id The OCID of the compartment.
     # @param [OCI::Identity::Models::UpdateAuthenticationPolicyDetails] update_authentication_policy_details Request object for updating the authentication policy.
@@ -8498,7 +8728,7 @@ module OCI
     # Updates the specified secret key's description.
     #
     # @param [String] user_id The OCID of the user.
-    # @param [String] customer_secret_key_id The OCID of the secret key.
+    # @param [String] customer_secret_key_id The access token of the secret key.
     # @param [OCI::Identity::Models::UpdateCustomerSecretKeyDetails] update_customer_secret_key_details Request object for updating a secret key.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -8558,21 +8788,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates domain information and associated stripe. This is an asynchronous call where
-    # the associated stripe and domain are updated.
+    # (For tenancies that support identity domains) Updates identity domain information and the associated Identity Cloud Service (IDCS) stripe.
     #
-    # To track progress, HTTP GET on /iamWorkRequests/{iamWorkRequestsId} endpoint will provide
-    # the async operation's status.
+    # To track the progress of the request, submitting an HTTP GET on the /iamWorkRequests/{iamWorkRequestsId} endpoint retrieves
+    # the operation's status.
     #
-    # - If the {@code displayName} is not unique within the tenancy, returns 400 BAD REQUEST.
-    # - If any field other than {@code description} is requested to be updated for DEFAULT domain,
-    # returns 400 BAD REQUEST.
-    # - If Domain is not active or being updated, returns 400 BAD REQUEST.
-    # - If Domain {@code type} is DEFAULT or DEFAULT_LIGHTWEIGHT, return 400 BAD Request
-    # - If the domain doesn't exists, returns 404 NOT FOUND.
-    #
-    # @param [String] domain_id The OCID of the domain
-    # @param [OCI::Identity::Models::UpdateDomainDetails] update_domain_details Request object for updating the Domain.
+    # @param [String] domain_id The OCID of the identity domain.
+    # @param [OCI::Identity::Models::UpdateDomainDetails] update_domain_details Request object for updating the identity domain.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -8878,6 +9100,7 @@ module OCI
 
 
     # Updates the specified network source.
+    #
     # @param [String] network_source_id The OCID of the network source.
     # @param [OCI::Identity::Models::UpdateNetworkSourceDetails] update_network_source_details Request object for updating a network source.
     # @param [Hash] opts the optional parameters
@@ -9212,6 +9435,7 @@ module OCI
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
+    # @option opts [BOOLEAN] :is_lock_override Whether to override locks (if any exist). (default to false)
     # @return [Response] A Response object with data of type {OCI::Identity::Models::Tag Tag}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_tag.rb.html) to see an example of how to use update_tag API.
     def update_tag(tag_namespace_id, tag_name, update_tag_details, opts = {})
@@ -9229,6 +9453,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:isLockOverride] = opts[:is_lock_override] if !opts[:is_lock_override].nil?
 
       # Header Params
       header_params = {}
@@ -9275,6 +9500,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :is_lock_override Whether to override locks (if any exist). (default to false)
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
     #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
@@ -9297,6 +9523,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:isLockOverride] = opts[:is_lock_override] if !opts[:is_lock_override].nil?
 
       # Header Params
       header_params = {}
@@ -9330,7 +9557,6 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Updates the the specified tag namespace. You can't update the namespace name.
@@ -9339,7 +9565,7 @@ module OCI
     # namespace (changing `isRetired` from 'true' to 'false') does not reactivate tag definitions.
     # To reactivate the tag definitions, you must reactivate each one individually *after* you reactivate the namespace,
     # using {#update_tag update_tag}. For more information about retiring tag namespaces, see
-    # [Retiring Key Definitions and Namespace Definitions](https://docs.cloud.oracle.com/Content/Identity/Concepts/taggingoverview.htm#Retiring).
+    # [Retiring Key Definitions and Namespace Definitions](https://docs.cloud.oracle.com/Content/Tagging/Tasks/managingtagsandtagnamespaces.htm#retiringkeys).
     #
     # You can't add a namespace with the same name as a retired namespace in the same tenancy.
     #
@@ -9349,6 +9575,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :is_lock_override Whether to override locks (if any exist). (default to false)
     # @return [Response] A Response object with data of type {OCI::Identity::Models::TagNamespace TagNamespace}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/identity/update_tag_namespace.rb.html) to see an example of how to use update_tag_namespace API.
     def update_tag_namespace(tag_namespace_id, update_tag_namespace_details, opts = {})
@@ -9364,6 +9591,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
+      query_params[:isLockOverride] = opts[:is_lock_override] if !opts[:is_lock_override].nil?
 
       # Header Params
       header_params = {}
@@ -9391,7 +9619,6 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists

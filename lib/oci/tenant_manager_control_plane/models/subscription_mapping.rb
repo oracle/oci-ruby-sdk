@@ -35,7 +35,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_explicitly_assigned
 
-    # **[Required]** Lifecycle state of the subscription mapping.
+    # **[Required]** Lifecycle state of the subscriptionMapping.
     # @return [String]
     attr_reader :lifecycle_state
 

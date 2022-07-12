@@ -740,7 +740,7 @@ module OCI
 
 
     # Creates a new deployment stage.
-    # @param [OCI::Devops::Models::CreateDeployStageDetails] create_deploy_stage_details Details for the new DeployStage.
+    # @param [OCI::Devops::Models::CreateDeployStageDetails] create_deploy_stage_details Details for the new deployment stage.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -2238,7 +2238,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the line-by-line difference between files on different commits.
+    # Gets the line-by-line difference between file on different commits. This API will be deprecated on Wed, 29 Mar 2023 01:00:00 GMT as it does not get recognized when filePath has '/'. This will be replaced by \"/repositories/{repositoryId}/file/diffs\"
     #
     # @param [String] repository_id Unique repository identifier.
     # @param [String] file_path Path to a file within a repository.
@@ -2645,6 +2645,135 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets the line-by-line difference between file on different commits.
+    #
+    # @param [String] repository_id Unique repository identifier.
+    # @param [String] base_version The branch to compare changes against.
+    # @param [String] target_version The branch where changes are coming from.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :file_path A filter to return only commits that affect any of the specified paths.
+    # @option opts [BOOLEAN] :is_comparison_from_merge_base Boolean to indicate whether to use merge base or most recent revision.
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request.  If you need to contact Oracle about a particular request, provide the request ID.
+    # @return [Response] A Response object with data of type {OCI::Devops::Models::FileDiffResponse FileDiffResponse}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/devops/get_repo_file_diff.rb.html) to see an example of how to use get_repo_file_diff API.
+    def get_repo_file_diff(repository_id, base_version, target_version, opts = {})
+      logger.debug 'Calling operation DevopsClient#get_repo_file_diff.' if logger
+
+      raise "Missing the required parameter 'repository_id' when calling get_repo_file_diff." if repository_id.nil?
+      raise "Missing the required parameter 'base_version' when calling get_repo_file_diff." if base_version.nil?
+      raise "Missing the required parameter 'target_version' when calling get_repo_file_diff." if target_version.nil?
+      raise "Parameter value for 'repository_id' must not be blank" if OCI::Internal::Util.blank_string?(repository_id)
+
+      path = '/repositories/{repositoryId}/file/diffs'.sub('{repositoryId}', repository_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:baseVersion] = base_version
+      query_params[:targetVersion] = target_version
+      query_params[:filePath] = opts[:file_path] if opts[:file_path]
+      query_params[:isComparisonFromMergeBase] = opts[:is_comparison_from_merge_base] if !opts[:is_comparison_from_merge_base].nil?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DevopsClient#get_repo_file_diff') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Devops::Models::FileDiffResponse'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieve lines of a specified file. Supports starting line number and limit.
+    #
+    # @param [String] repository_id Unique repository identifier.
+    # @param [String] revision Retrieve file lines from specific revision.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :file_path A filter to return only commits that affect any of the specified paths.
+    # @option opts [Integer] :start_line_number Line number from where to start returning file lines. (default to 1)
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request.  If you need to contact Oracle about a particular request, provide the request ID.
+    # @return [Response] A Response object with data of type {OCI::Devops::Models::RepositoryFileLines RepositoryFileLines}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/devops/get_repo_file_lines.rb.html) to see an example of how to use get_repo_file_lines API.
+    def get_repo_file_lines(repository_id, revision, opts = {})
+      logger.debug 'Calling operation DevopsClient#get_repo_file_lines.' if logger
+
+      raise "Missing the required parameter 'repository_id' when calling get_repo_file_lines." if repository_id.nil?
+      raise "Missing the required parameter 'revision' when calling get_repo_file_lines." if revision.nil?
+      raise "Parameter value for 'repository_id' must not be blank" if OCI::Internal::Util.blank_string?(repository_id)
+
+      path = '/repositories/{repositoryId}/file/lines'.sub('{repositoryId}', repository_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:revision] = revision
+      query_params[:filePath] = opts[:file_path] if opts[:file_path]
+      query_params[:startLineNumber] = opts[:start_line_number] if opts[:start_line_number]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DevopsClient#get_repo_file_lines') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Devops::Models::RepositoryFileLines'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Retrieves a repository by identifier.
     # @param [String] repository_id Unique repository identifier.
     # @param [Hash] opts the optional parameters
@@ -2817,7 +2946,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Retrieve lines of a specified file. Supports starting line number and limit.
+    # Retrieve lines of a specified file. Supports starting line number and limit. This API will be deprecated on Wed, 29 Mar 2023 01:00:00 GMT as it does not get recognized when filePath has '/'. This will be replaced by \"/repositories/{repositoryId}/file/lines\"
     #
     # @param [String] repository_id Unique repository identifier.
     # @param [String] file_path Path to a file within a repository.

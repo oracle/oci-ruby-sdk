@@ -24,6 +24,7 @@ module OCI
       NODE_TYPE_EDGE = 'EDGE'.freeze,
       NODE_TYPE_UTILITY = 'UTILITY'.freeze,
       NODE_TYPE_WORKER = 'WORKER'.freeze,
+      NODE_TYPE_COMPUTE_ONLY_WORKER = 'COMPUTE_ONLY_WORKER'.freeze,
       NODE_TYPE_BURSTING = 'BURSTING'.freeze,
       NODE_TYPE_CLOUD_SQL = 'CLOUD_SQL'.freeze,
       NODE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
@@ -89,6 +90,14 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_updated
 
+    # The total number of OCPUs available to the node.
+    # @return [Integer]
+    attr_accessor :ocpus
+
+    # The total amount of memory available to the node, in gigabytes.
+    # @return [Integer]
+    attr_accessor :memory_in_gbs
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -107,7 +116,9 @@ module OCI
         'availability_domain': :'availabilityDomain',
         'fault_domain': :'faultDomain',
         'time_created': :'timeCreated',
-        'time_updated': :'timeUpdated'
+        'time_updated': :'timeUpdated',
+        'ocpus': :'ocpus',
+        'memory_in_gbs': :'memoryInGBs'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -130,7 +141,9 @@ module OCI
         'availability_domain': :'String',
         'fault_domain': :'String',
         'time_created': :'DateTime',
-        'time_updated': :'DateTime'
+        'time_updated': :'DateTime',
+        'ocpus': :'Integer',
+        'memory_in_gbs': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -156,6 +169,8 @@ module OCI
     # @option attributes [String] :fault_domain The value to assign to the {#fault_domain} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
+    # @option attributes [Integer] :ocpus The value to assign to the {#ocpus} property
+    # @option attributes [Integer] :memory_in_gbs The value to assign to the {#memory_in_gbs} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -243,6 +258,14 @@ module OCI
       raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
 
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
+      self.ocpus = attributes[:'ocpus'] if attributes[:'ocpus']
+
+      self.memory_in_gbs = attributes[:'memoryInGBs'] if attributes[:'memoryInGBs']
+
+      raise 'You cannot provide both :memoryInGBs and :memory_in_gbs' if attributes.key?(:'memoryInGBs') && attributes.key?(:'memory_in_gbs')
+
+      self.memory_in_gbs = attributes[:'memory_in_gbs'] if attributes[:'memory_in_gbs']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -296,7 +319,9 @@ module OCI
         availability_domain == other.availability_domain &&
         fault_domain == other.fault_domain &&
         time_created == other.time_created &&
-        time_updated == other.time_updated
+        time_updated == other.time_updated &&
+        ocpus == other.ocpus &&
+        memory_in_gbs == other.memory_in_gbs
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -312,7 +337,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [instance_id, display_name, lifecycle_state, node_type, shape, attached_block_volumes, subnet_id, ip_address, hostname, image_id, ssh_fingerprint, availability_domain, fault_domain, time_created, time_updated].hash
+      [instance_id, display_name, lifecycle_state, node_type, shape, attached_block_volumes, subnet_id, ip_address, hostname, image_id, ssh_fingerprint, availability_domain, fault_domain, time_created, time_updated, ocpus, memory_in_gbs].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

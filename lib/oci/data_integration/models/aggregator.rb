@@ -45,7 +45,7 @@ module OCI
         'description': :'String',
         'object_version': :'Integer',
         'input_ports': :'Array<OCI::DataIntegration::Models::InputPort>',
-        'output_ports': :'Array<OCI::DataIntegration::Models::OutputPort>',
+        'output_ports': :'Array<OCI::DataIntegration::Models::TypedObject>',
         'object_status': :'Integer',
         'identifier': :'String',
         'parameters': :'Array<OCI::DataIntegration::Models::Parameter>',
@@ -68,7 +68,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {OCI::DataIntegration::Models::Operator#description #description} proprety
     # @option attributes [Integer] :object_version The value to assign to the {OCI::DataIntegration::Models::Operator#object_version #object_version} proprety
     # @option attributes [Array<OCI::DataIntegration::Models::InputPort>] :input_ports The value to assign to the {OCI::DataIntegration::Models::Operator#input_ports #input_ports} proprety
-    # @option attributes [Array<OCI::DataIntegration::Models::OutputPort>] :output_ports The value to assign to the {OCI::DataIntegration::Models::Operator#output_ports #output_ports} proprety
+    # @option attributes [Array<OCI::DataIntegration::Models::TypedObject>] :output_ports The value to assign to the {OCI::DataIntegration::Models::Operator#output_ports #output_ports} proprety
     # @option attributes [Integer] :object_status The value to assign to the {OCI::DataIntegration::Models::Operator#object_status #object_status} proprety
     # @option attributes [String] :identifier The value to assign to the {OCI::DataIntegration::Models::Operator#identifier #identifier} proprety
     # @option attributes [Array<OCI::DataIntegration::Models::Parameter>] :parameters The value to assign to the {OCI::DataIntegration::Models::Operator#parameters #parameters} proprety

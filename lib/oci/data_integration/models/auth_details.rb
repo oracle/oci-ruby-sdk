@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Authentication type to be used for Generic REST invocation.
+  # Authentication type to be used for Generic REST invocation. This is deprecated.
   class DataIntegration::Models::AuthDetails
     MODEL_TYPE_ENUM = [
       MODEL_TYPE_NO_AUTH_DETAILS = 'NO_AUTH_DETAILS'.freeze,

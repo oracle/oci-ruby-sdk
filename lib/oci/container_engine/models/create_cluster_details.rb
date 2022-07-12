@@ -59,6 +59,10 @@ module OCI
     # @return [OCI::ContainerEngine::Models::CreateImagePolicyConfigDetails]
     attr_accessor :image_policy_config
 
+    # Available CNIs and network options for existing and new node pools of the cluster
+    # @return [Array<OCI::ContainerEngine::Models::ClusterPodNetworkOptionDetails>]
+    attr_accessor :cluster_pod_network_options
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -72,7 +76,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'options': :'options',
-        'image_policy_config': :'imagePolicyConfig'
+        'image_policy_config': :'imagePolicyConfig',
+        'cluster_pod_network_options': :'clusterPodNetworkOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -90,7 +95,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'options': :'OCI::ContainerEngine::Models::ClusterCreateOptions',
-        'image_policy_config': :'OCI::ContainerEngine::Models::CreateImagePolicyConfigDetails'
+        'image_policy_config': :'OCI::ContainerEngine::Models::CreateImagePolicyConfigDetails',
+        'cluster_pod_network_options': :'Array<OCI::ContainerEngine::Models::ClusterPodNetworkOptionDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -111,6 +117,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [OCI::ContainerEngine::Models::ClusterCreateOptions] :options The value to assign to the {#options} property
     # @option attributes [OCI::ContainerEngine::Models::CreateImagePolicyConfigDetails] :image_policy_config The value to assign to the {#image_policy_config} property
+    # @option attributes [Array<OCI::ContainerEngine::Models::ClusterPodNetworkOptionDetails>] :cluster_pod_network_options The value to assign to the {#cluster_pod_network_options} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -168,6 +175,12 @@ module OCI
       raise 'You cannot provide both :imagePolicyConfig and :image_policy_config' if attributes.key?(:'imagePolicyConfig') && attributes.key?(:'image_policy_config')
 
       self.image_policy_config = attributes[:'image_policy_config'] if attributes[:'image_policy_config']
+
+      self.cluster_pod_network_options = attributes[:'clusterPodNetworkOptions'] if attributes[:'clusterPodNetworkOptions']
+
+      raise 'You cannot provide both :clusterPodNetworkOptions and :cluster_pod_network_options' if attributes.key?(:'clusterPodNetworkOptions') && attributes.key?(:'cluster_pod_network_options')
+
+      self.cluster_pod_network_options = attributes[:'cluster_pod_network_options'] if attributes[:'cluster_pod_network_options']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -190,7 +203,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         options == other.options &&
-        image_policy_config == other.image_policy_config
+        image_policy_config == other.image_policy_config &&
+        cluster_pod_network_options == other.cluster_pod_network_options
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -206,7 +220,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, compartment_id, endpoint_config, vcn_id, kubernetes_version, kms_key_id, freeform_tags, defined_tags, options, image_policy_config].hash
+      [name, compartment_id, endpoint_config, vcn_id, kubernetes_version, kms_key_id, freeform_tags, defined_tags, options, image_policy_config, cluster_pod_network_options].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

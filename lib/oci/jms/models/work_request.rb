@@ -13,6 +13,8 @@ module OCI
       OPERATION_TYPE_DELETE_FLEET = 'DELETE_FLEET'.freeze,
       OPERATION_TYPE_MOVE_FLEET = 'MOVE_FLEET'.freeze,
       OPERATION_TYPE_UPDATE_FLEET = 'UPDATE_FLEET'.freeze,
+      OPERATION_TYPE_UPDATE_FLEET_AGENT_CONFIGURATION = 'UPDATE_FLEET_AGENT_CONFIGURATION'.freeze,
+      OPERATION_TYPE_DELETE_JAVA_INSTALLATION = 'DELETE_JAVA_INSTALLATION'.freeze,
       OPERATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -69,6 +71,22 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_finished
 
+    # @return [OCI::Jms::Models::Principal]
+    attr_accessor :created_by
+
+    # The date and time the work request percentage was last updated. (formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)).
+    #
+    # @return [DateTime]
+    attr_accessor :time_last_updated
+
+    # The total number of tasks to be executed for this work request.
+    # @return [Integer]
+    attr_accessor :total_task_count
+
+    # The number of tasks had been executed to a terminal state.
+    # @return [Integer]
+    attr_accessor :completed_task_count
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -81,7 +99,11 @@ module OCI
         'percent_complete': :'percentComplete',
         'time_accepted': :'timeAccepted',
         'time_started': :'timeStarted',
-        'time_finished': :'timeFinished'
+        'time_finished': :'timeFinished',
+        'created_by': :'createdBy',
+        'time_last_updated': :'timeLastUpdated',
+        'total_task_count': :'totalTaskCount',
+        'completed_task_count': :'completedTaskCount'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -98,7 +120,11 @@ module OCI
         'percent_complete': :'Float',
         'time_accepted': :'DateTime',
         'time_started': :'DateTime',
-        'time_finished': :'DateTime'
+        'time_finished': :'DateTime',
+        'created_by': :'OCI::Jms::Models::Principal',
+        'time_last_updated': :'DateTime',
+        'total_task_count': :'Integer',
+        'completed_task_count': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -118,6 +144,10 @@ module OCI
     # @option attributes [DateTime] :time_accepted The value to assign to the {#time_accepted} property
     # @option attributes [DateTime] :time_started The value to assign to the {#time_started} property
     # @option attributes [DateTime] :time_finished The value to assign to the {#time_finished} property
+    # @option attributes [OCI::Jms::Models::Principal] :created_by The value to assign to the {#created_by} property
+    # @option attributes [DateTime] :time_last_updated The value to assign to the {#time_last_updated} property
+    # @option attributes [Integer] :total_task_count The value to assign to the {#total_task_count} property
+    # @option attributes [Integer] :completed_task_count The value to assign to the {#completed_task_count} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -165,6 +195,30 @@ module OCI
       raise 'You cannot provide both :timeFinished and :time_finished' if attributes.key?(:'timeFinished') && attributes.key?(:'time_finished')
 
       self.time_finished = attributes[:'time_finished'] if attributes[:'time_finished']
+
+      self.created_by = attributes[:'createdBy'] if attributes[:'createdBy']
+
+      raise 'You cannot provide both :createdBy and :created_by' if attributes.key?(:'createdBy') && attributes.key?(:'created_by')
+
+      self.created_by = attributes[:'created_by'] if attributes[:'created_by']
+
+      self.time_last_updated = attributes[:'timeLastUpdated'] if attributes[:'timeLastUpdated']
+
+      raise 'You cannot provide both :timeLastUpdated and :time_last_updated' if attributes.key?(:'timeLastUpdated') && attributes.key?(:'time_last_updated')
+
+      self.time_last_updated = attributes[:'time_last_updated'] if attributes[:'time_last_updated']
+
+      self.total_task_count = attributes[:'totalTaskCount'] if attributes[:'totalTaskCount']
+
+      raise 'You cannot provide both :totalTaskCount and :total_task_count' if attributes.key?(:'totalTaskCount') && attributes.key?(:'total_task_count')
+
+      self.total_task_count = attributes[:'total_task_count'] if attributes[:'total_task_count']
+
+      self.completed_task_count = attributes[:'completedTaskCount'] if attributes[:'completedTaskCount']
+
+      raise 'You cannot provide both :completedTaskCount and :completed_task_count' if attributes.key?(:'completedTaskCount') && attributes.key?(:'completed_task_count')
+
+      self.completed_task_count = attributes[:'completed_task_count'] if attributes[:'completed_task_count']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -212,7 +266,11 @@ module OCI
         percent_complete == other.percent_complete &&
         time_accepted == other.time_accepted &&
         time_started == other.time_started &&
-        time_finished == other.time_finished
+        time_finished == other.time_finished &&
+        created_by == other.created_by &&
+        time_last_updated == other.time_last_updated &&
+        total_task_count == other.total_task_count &&
+        completed_task_count == other.completed_task_count
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -228,7 +286,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [operation_type, status, id, compartment_id, resources, percent_complete, time_accepted, time_started, time_finished].hash
+      [operation_type, status, id, compartment_id, resources, percent_complete, time_accepted, time_started, time_finished, created_by, time_last_updated, total_task_count, completed_task_count].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

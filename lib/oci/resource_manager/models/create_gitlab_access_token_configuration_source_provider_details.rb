@@ -28,6 +28,7 @@ module OCI
         'display_name': :'displayName',
         'description': :'description',
         'config_source_provider_type': :'configSourceProviderType',
+        'private_server_config_details': :'privateServerConfigDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'api_endpoint': :'apiEndpoint',
@@ -44,6 +45,7 @@ module OCI
         'display_name': :'String',
         'description': :'String',
         'config_source_provider_type': :'String',
+        'private_server_config_details': :'OCI::ResourceManager::Models::PrivateServerConfigDetails',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'api_endpoint': :'String',
@@ -61,6 +63,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {OCI::ResourceManager::Models::CreateConfigurationSourceProviderDetails#compartment_id #compartment_id} proprety
     # @option attributes [String] :display_name The value to assign to the {OCI::ResourceManager::Models::CreateConfigurationSourceProviderDetails#display_name #display_name} proprety
     # @option attributes [String] :description The value to assign to the {OCI::ResourceManager::Models::CreateConfigurationSourceProviderDetails#description #description} proprety
+    # @option attributes [OCI::ResourceManager::Models::PrivateServerConfigDetails] :private_server_config_details The value to assign to the {OCI::ResourceManager::Models::CreateConfigurationSourceProviderDetails#private_server_config_details #private_server_config_details} proprety
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::ResourceManager::Models::CreateConfigurationSourceProviderDetails#freeform_tags #freeform_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::ResourceManager::Models::CreateConfigurationSourceProviderDetails#defined_tags #defined_tags} proprety
     # @option attributes [String] :api_endpoint The value to assign to the {#api_endpoint} property
@@ -103,6 +106,7 @@ module OCI
         display_name == other.display_name &&
         description == other.description &&
         config_source_provider_type == other.config_source_provider_type &&
+        private_server_config_details == other.private_server_config_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         api_endpoint == other.api_endpoint &&
@@ -122,7 +126,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, description, config_source_provider_type, freeform_tags, defined_tags, api_endpoint, access_token].hash
+      [compartment_id, display_name, description, config_source_provider_type, private_server_config_details, freeform_tags, defined_tags, api_endpoint, access_token].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

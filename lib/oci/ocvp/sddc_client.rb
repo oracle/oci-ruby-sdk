@@ -622,6 +622,81 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists supported compute shapes for ESXi hosts.
+    #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #    (default to 10)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request. If you need to contact Oracle about a particular
+    #   request, please provide the request ID.
+    #
+    # @option opts [String] :name A filter to return only resources that match the given name exactly.
+    # @option opts [String] :sddc_type A filter to return only resources that match the given SDDC type exactly.
+    # @return [Response] A Response object with data of type {OCI::Ocvp::Models::SupportedHostShapeCollection SupportedHostShapeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/ocvp/list_supported_host_shapes.rb.html) to see an example of how to use list_supported_host_shapes API.
+    def list_supported_host_shapes(compartment_id, opts = {})
+      logger.debug 'Calling operation SddcClient#list_supported_host_shapes.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_supported_host_shapes." if compartment_id.nil?
+
+      if opts[:sddc_type] && !OCI::Ocvp::Models::SDDC_TYPES_ENUM.include?(opts[:sddc_type])
+        raise 'Invalid value for "sddc_type", must be one of the values in OCI::Ocvp::Models::SDDC_TYPES_ENUM.'
+      end
+
+      path = '/supportedHostShapes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:sddcType] = opts[:sddc_type] if opts[:sddc_type]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'SddcClient#list_supported_host_shapes') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Ocvp::Models::SupportedHostShapeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists supported SKUs.
     #
     # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment.

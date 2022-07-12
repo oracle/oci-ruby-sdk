@@ -26,7 +26,7 @@ module OCI
     # @return [Integer]
     attr_accessor :port
 
-    # **[Required]** Service name used for connection requests.
+    # **[Required]** Database service name used for connection requests.
     # @return [String]
     attr_accessor :service_name
 

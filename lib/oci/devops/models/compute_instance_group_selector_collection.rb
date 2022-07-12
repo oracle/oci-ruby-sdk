@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # A collection of selectors. The combination of instances matching the selectors are included in the instance group.
   class Devops::Models::ComputeInstanceGroupSelectorCollection
-    # **[Required]** A list of selectors for the instance group. UNION operator is used for combining the instances selected by each selector.
+    # **[Required]** A list of selectors for the instance group. Union operator is used for combining the instances selected by each selector.
     # @return [Array<OCI::Devops::Models::ComputeInstanceGroupSelector>]
     attr_accessor :items
 

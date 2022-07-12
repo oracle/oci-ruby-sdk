@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Domain replication replication log for all domains for a given region
+  # (For tenancies that support identity domains) The identity domain replication log for all identity domains for a given region.
   class Identity::Models::DomainReplicationStates
     STATE_ENUM = [
       STATE_ENABLING_REPLICATION = 'ENABLING_REPLICATION'.freeze,
@@ -15,16 +15,16 @@ module OCI
       STATE_DELETED = 'DELETED'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the domain
+    # **[Required]** The OCID of the identity domain.
     # @return [String]
     attr_accessor :domain_id
 
-    # **[Required]** The IDCS replicated region state
+    # **[Required]** The IDCS-replicated region state.
     #
     # @return [String]
     attr_reader :state
 
-    # **[Required]** The replica region for domain.
+    # **[Required]** The replica region for the identity domain.
     # @return [String]
     attr_accessor :replica_region
 

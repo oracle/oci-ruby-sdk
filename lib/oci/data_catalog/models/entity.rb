@@ -143,6 +143,10 @@ module OCI
     # @return [String]
     attr_accessor :uri
 
+    # URL of the data entity in the object store.
+    # @return [String]
+    attr_accessor :object_storage_url
+
     # The list of customized properties along with the values for this object
     # @return [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>]
     attr_accessor :custom_property_members
@@ -186,6 +190,7 @@ module OCI
         'last_job_key': :'lastJobKey',
         'type_key': :'typeKey',
         'uri': :'uri',
+        'object_storage_url': :'objectStorageUrl',
         'custom_property_members': :'customPropertyMembers',
         'properties': :'properties'
         # rubocop:enable Style/SymbolLiteral
@@ -222,6 +227,7 @@ module OCI
         'last_job_key': :'String',
         'type_key': :'String',
         'uri': :'String',
+        'object_storage_url': :'String',
         'custom_property_members': :'Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>',
         'properties': :'Hash<String, Hash<String, String>>'
         # rubocop:enable Style/SymbolLiteral
@@ -260,6 +266,7 @@ module OCI
     # @option attributes [String] :last_job_key The value to assign to the {#last_job_key} property
     # @option attributes [String] :type_key The value to assign to the {#type_key} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
+    # @option attributes [String] :object_storage_url The value to assign to the {#object_storage_url} property
     # @option attributes [Array<OCI::DataCatalog::Models::CustomPropertyGetUsage>] :custom_property_members The value to assign to the {#custom_property_members} property
     # @option attributes [Hash<String, Hash<String, String>>] :properties The value to assign to the {#properties} property
     def initialize(attributes = {})
@@ -408,6 +415,12 @@ module OCI
 
       self.uri = attributes[:'uri'] if attributes[:'uri']
 
+      self.object_storage_url = attributes[:'objectStorageUrl'] if attributes[:'objectStorageUrl']
+
+      raise 'You cannot provide both :objectStorageUrl and :object_storage_url' if attributes.key?(:'objectStorageUrl') && attributes.key?(:'object_storage_url')
+
+      self.object_storage_url = attributes[:'object_storage_url'] if attributes[:'object_storage_url']
+
       self.custom_property_members = attributes[:'customPropertyMembers'] if attributes[:'customPropertyMembers']
 
       raise 'You cannot provide both :customPropertyMembers and :custom_property_members' if attributes.key?(:'customPropertyMembers') && attributes.key?(:'custom_property_members')
@@ -480,6 +493,7 @@ module OCI
         last_job_key == other.last_job_key &&
         type_key == other.type_key &&
         uri == other.uri &&
+        object_storage_url == other.object_storage_url &&
         custom_property_members == other.custom_property_members &&
         properties == other.properties
     end
@@ -497,7 +511,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, business_name, description, time_created, time_updated, created_by_id, updated_by_id, lifecycle_state, external_key, pattern_key, realized_expression, time_external, time_harvested, object_relationships, time_status_updated, is_logical, is_partition, data_asset_key, folder_key, folder_name, path, harvest_status, last_job_key, type_key, uri, custom_property_members, properties].hash
+      [key, display_name, business_name, description, time_created, time_updated, created_by_id, updated_by_id, lifecycle_state, external_key, pattern_key, realized_expression, time_external, time_harvested, object_relationships, time_status_updated, is_logical, is_partition, data_asset_key, folder_key, folder_name, path, harvest_status, last_job_key, type_key, uri, object_storage_url, custom_property_members, properties].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -13,6 +13,12 @@ module OCI
       OPERATION_TYPE_UPDATE = 'UPDATE'.freeze,
       OPERATION_TYPE_REMOVE = 'REMOVE'.freeze,
       OPERATION_TYPE_UPDATEALL = 'UPDATEALL'.freeze,
+      OPERATION_TYPE_ENABLEMODULESTREAM = 'ENABLEMODULESTREAM'.freeze,
+      OPERATION_TYPE_DISABLEMODULESTREAM = 'DISABLEMODULESTREAM'.freeze,
+      OPERATION_TYPE_SWITCHMODULESTREAM = 'SWITCHMODULESTREAM'.freeze,
+      OPERATION_TYPE_INSTALLMODULESTREAMPROFILE = 'INSTALLMODULESTREAMPROFILE'.freeze,
+      OPERATION_TYPE_REMOVEMODULESTREAMPROFILE = 'REMOVEMODULESTREAMPROFILE'.freeze,
+      OPERATION_TYPE_COMPOUND = 'COMPOUND'.freeze,
       OPERATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -93,6 +99,14 @@ module OCI
     # @return [String]
     attr_reader :os_family
 
+    # The parent of this work request, if one exists.
+    # @return [String]
+    attr_accessor :parent_id
+
+    # A list of the IDs of any children of this work request
+    # @return [Array<String>]
+    attr_accessor :children_ids
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -109,7 +123,9 @@ module OCI
         'time_accepted': :'timeAccepted',
         'time_started': :'timeStarted',
         'time_finished': :'timeFinished',
-        'os_family': :'osFamily'
+        'os_family': :'osFamily',
+        'parent_id': :'parentId',
+        'children_ids': :'childrenIds'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -130,7 +146,9 @@ module OCI
         'time_accepted': :'DateTime',
         'time_started': :'DateTime',
         'time_finished': :'DateTime',
-        'os_family': :'String'
+        'os_family': :'String',
+        'parent_id': :'String',
+        'children_ids': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -154,6 +172,8 @@ module OCI
     # @option attributes [DateTime] :time_started The value to assign to the {#time_started} property
     # @option attributes [DateTime] :time_finished The value to assign to the {#time_finished} property
     # @option attributes [String] :os_family The value to assign to the {#os_family} property
+    # @option attributes [String] :parent_id The value to assign to the {#parent_id} property
+    # @option attributes [Array<String>] :children_ids The value to assign to the {#children_ids} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -217,6 +237,18 @@ module OCI
       raise 'You cannot provide both :osFamily and :os_family' if attributes.key?(:'osFamily') && attributes.key?(:'os_family')
 
       self.os_family = attributes[:'os_family'] if attributes[:'os_family']
+
+      self.parent_id = attributes[:'parentId'] if attributes[:'parentId']
+
+      raise 'You cannot provide both :parentId and :parent_id' if attributes.key?(:'parentId') && attributes.key?(:'parent_id')
+
+      self.parent_id = attributes[:'parent_id'] if attributes[:'parent_id']
+
+      self.children_ids = attributes[:'childrenIds'] if attributes[:'childrenIds']
+
+      raise 'You cannot provide both :childrenIds and :children_ids' if attributes.key?(:'childrenIds') && attributes.key?(:'children_ids')
+
+      self.children_ids = attributes[:'children_ids'] if attributes[:'children_ids']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -281,7 +313,9 @@ module OCI
         time_accepted == other.time_accepted &&
         time_started == other.time_started &&
         time_finished == other.time_finished &&
-        os_family == other.os_family
+        os_family == other.os_family &&
+        parent_id == other.parent_id &&
+        children_ids == other.children_ids
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -297,7 +331,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [operation_type, status, id, compartment_id, description, message, managed_instance_id, resources, percent_complete, time_accepted, time_started, time_finished, os_family].hash
+      [operation_type, status, id, compartment_id, description, message, managed_instance_id, resources, percent_complete, time_accepted, time_started, time_finished, os_family, parent_id, children_ids].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

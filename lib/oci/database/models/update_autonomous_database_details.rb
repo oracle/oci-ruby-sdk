@@ -48,7 +48,11 @@ module OCI
     # @return [Integer]
     attr_accessor :cpu_core_count
 
-    # The number of OCPU cores to be made available to the Autonomous Database. To provision less than 1 core, enter a fractional value in an increment of 0.1. To provision 1 or more cores, you must enter an integer between 1 and the maximum number of cores available to the infrastructure shape. For example, you can provision 0.3 or 0.4 cores, but not 0.35 cores. Likewise, you can provision 2 cores or 3 cores, but not 2.5 cores. The maximum number of cores is determined by the infrastructure shape. See [Characteristics of Infrastructure Shapes](https://www.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database&id=ATPFG-GUID-B0F033C1-CC5A-42F0-B2E7-3CECFEDA1FD1) for shape details.
+    # The number of OCPU cores to be made available to the Autonomous Database.
+    #
+    # For databases on dedicated Exadata infrastructure, you can specify a fractional value for this parameter. Fractional values are not supported for Autonomous Database on shared Exadata infrastructure.
+    #
+    # To provision less than 1 core, enter a fractional value in an increment of 0.1. To provision 1 or more cores, you must enter an integer between 1 and the maximum number of cores available to the infrastructure shape. For example, you can provision 0.3 or 0.4 cores, but not 0.35 cores. Likewise, you can provision 2 cores or 3 cores, but not 2.5 cores. The maximum number of cores is determined by the infrastructure shape. See [Characteristics of Infrastructure Shapes](https://www.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database&id=ATPFG-GUID-B0F033C1-CC5A-42F0-B2E7-3CECFEDA1FD1) for shape details.
     #
     # **Note:** This parameter cannot be used with the `cpuCoreCount` parameter.
     #
@@ -191,6 +195,16 @@ module OCI
     #
     # To enable cross-region Autonomous Data Guard on shared Exadata infrastructure, see {#create_cross_region_autonomous_database_data_guard_details create_cross_region_autonomous_database_data_guard_details}.
     #
+    # @return [BOOLEAN]
+    attr_accessor :is_local_data_guard_enabled
+
+    # ** Deprecated. ** Indicates whether the Autonomous Database has a local (in-region) standby database. Not applicable when creating a cross-region Autonomous Data Guard associations, or to
+    # Autonomous Databases using dedicated Exadata infrastructure or Exadata Cloud@Customer infrastructure.
+    #
+    # To create a local standby, set to `TRUE`. To delete a local standby, set to `FALSE`. For more information on using Autonomous Data Guard on shared Exadata infrastructure (local and cross-region) , see [About Standby Databases](https://docs.oracle.com/en/cloud/paas/autonomous-database/adbsa/autonomous-data-guard-about.html#GUID-045AD017-8120-4BDC-AF58-7430FFE28D2B)
+    #
+    # To enable cross-region Autonomous Data Guard on shared Exadata infrastructure, see {#create_cross_region_autonomous_database_data_guard_details create_cross_region_autonomous_database_data_guard_details}.
+    #
     # To delete a cross-region standby database, provide the `peerDbId` for the standby database in a remote region, and set `isDataGuardEnabled` to `FALSE`.
     #
     # @return [BOOLEAN]
@@ -233,9 +247,9 @@ module OCI
     # @return [String]
     attr_accessor :private_endpoint_label
 
-    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # The list of [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) for the network security groups (NSGs) to which this resource belongs. Setting this to an empty list removes all resources from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
     # **NsgIds restrictions:**
-    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
+    # - A network security group (NSG) is optional for Autonomous Databases with private access. The nsgIds list can be empty.
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
@@ -251,6 +265,21 @@ module OCI
     # list of scheduled operations
     # @return [Array<OCI::Database::Models::ScheduledOperationDetails>]
     attr_accessor :scheduled_operations
+
+    # Indicates if auto scaling is enabled for the Autonomous Database storage. The default value is `FALSE`.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_auto_scaling_for_storage_enabled
+
+    # The number of Max OCPU cores to be made available to the autonomous database with auto scaling of cpu enabled.
+    #
+    # @return [Integer]
+    attr_accessor :max_cpu_core_count
+
+    # The Oracle Database Edition that applies to the Autonomous databases.
+    #
+    # @return [String]
+    attr_accessor :database_edition
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -275,6 +304,7 @@ module OCI
         'is_auto_scaling_enabled': :'isAutoScalingEnabled',
         'is_refreshable_clone': :'isRefreshableClone',
         'refreshable_mode': :'refreshableMode',
+        'is_local_data_guard_enabled': :'isLocalDataGuardEnabled',
         'is_data_guard_enabled': :'isDataGuardEnabled',
         'peer_db_id': :'peerDbId',
         'db_version': :'dbVersion',
@@ -285,7 +315,10 @@ module OCI
         'nsg_ids': :'nsgIds',
         'customer_contacts': :'customerContacts',
         'is_mtls_connection_required': :'isMtlsConnectionRequired',
-        'scheduled_operations': :'scheduledOperations'
+        'scheduled_operations': :'scheduledOperations',
+        'is_auto_scaling_for_storage_enabled': :'isAutoScalingForStorageEnabled',
+        'max_cpu_core_count': :'maxCpuCoreCount',
+        'database_edition': :'databaseEdition'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -313,6 +346,7 @@ module OCI
         'is_auto_scaling_enabled': :'BOOLEAN',
         'is_refreshable_clone': :'BOOLEAN',
         'refreshable_mode': :'String',
+        'is_local_data_guard_enabled': :'BOOLEAN',
         'is_data_guard_enabled': :'BOOLEAN',
         'peer_db_id': :'String',
         'db_version': :'String',
@@ -323,7 +357,10 @@ module OCI
         'nsg_ids': :'Array<String>',
         'customer_contacts': :'Array<OCI::Database::Models::CustomerContact>',
         'is_mtls_connection_required': :'BOOLEAN',
-        'scheduled_operations': :'Array<OCI::Database::Models::ScheduledOperationDetails>'
+        'scheduled_operations': :'Array<OCI::Database::Models::ScheduledOperationDetails>',
+        'is_auto_scaling_for_storage_enabled': :'BOOLEAN',
+        'max_cpu_core_count': :'Integer',
+        'database_edition': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -353,6 +390,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_auto_scaling_enabled The value to assign to the {#is_auto_scaling_enabled} property
     # @option attributes [BOOLEAN] :is_refreshable_clone The value to assign to the {#is_refreshable_clone} property
     # @option attributes [String] :refreshable_mode The value to assign to the {#refreshable_mode} property
+    # @option attributes [BOOLEAN] :is_local_data_guard_enabled The value to assign to the {#is_local_data_guard_enabled} property
     # @option attributes [BOOLEAN] :is_data_guard_enabled The value to assign to the {#is_data_guard_enabled} property
     # @option attributes [String] :peer_db_id The value to assign to the {#peer_db_id} property
     # @option attributes [String] :db_version The value to assign to the {#db_version} property
@@ -364,6 +402,9 @@ module OCI
     # @option attributes [Array<OCI::Database::Models::CustomerContact>] :customer_contacts The value to assign to the {#customer_contacts} property
     # @option attributes [BOOLEAN] :is_mtls_connection_required The value to assign to the {#is_mtls_connection_required} property
     # @option attributes [Array<OCI::Database::Models::ScheduledOperationDetails>] :scheduled_operations The value to assign to the {#scheduled_operations} property
+    # @option attributes [BOOLEAN] :is_auto_scaling_for_storage_enabled The value to assign to the {#is_auto_scaling_for_storage_enabled} property
+    # @option attributes [Integer] :max_cpu_core_count The value to assign to the {#max_cpu_core_count} property
+    # @option attributes [String] :database_edition The value to assign to the {#database_edition} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -486,6 +527,12 @@ module OCI
 
       self.refreshable_mode = attributes[:'refreshable_mode'] if attributes[:'refreshable_mode']
 
+      self.is_local_data_guard_enabled = attributes[:'isLocalDataGuardEnabled'] unless attributes[:'isLocalDataGuardEnabled'].nil?
+
+      raise 'You cannot provide both :isLocalDataGuardEnabled and :is_local_data_guard_enabled' if attributes.key?(:'isLocalDataGuardEnabled') && attributes.key?(:'is_local_data_guard_enabled')
+
+      self.is_local_data_guard_enabled = attributes[:'is_local_data_guard_enabled'] unless attributes[:'is_local_data_guard_enabled'].nil?
+
       self.is_data_guard_enabled = attributes[:'isDataGuardEnabled'] unless attributes[:'isDataGuardEnabled'].nil?
 
       raise 'You cannot provide both :isDataGuardEnabled and :is_data_guard_enabled' if attributes.key?(:'isDataGuardEnabled') && attributes.key?(:'is_data_guard_enabled')
@@ -553,6 +600,24 @@ module OCI
       raise 'You cannot provide both :scheduledOperations and :scheduled_operations' if attributes.key?(:'scheduledOperations') && attributes.key?(:'scheduled_operations')
 
       self.scheduled_operations = attributes[:'scheduled_operations'] if attributes[:'scheduled_operations']
+
+      self.is_auto_scaling_for_storage_enabled = attributes[:'isAutoScalingForStorageEnabled'] unless attributes[:'isAutoScalingForStorageEnabled'].nil?
+
+      raise 'You cannot provide both :isAutoScalingForStorageEnabled and :is_auto_scaling_for_storage_enabled' if attributes.key?(:'isAutoScalingForStorageEnabled') && attributes.key?(:'is_auto_scaling_for_storage_enabled')
+
+      self.is_auto_scaling_for_storage_enabled = attributes[:'is_auto_scaling_for_storage_enabled'] unless attributes[:'is_auto_scaling_for_storage_enabled'].nil?
+
+      self.max_cpu_core_count = attributes[:'maxCpuCoreCount'] if attributes[:'maxCpuCoreCount']
+
+      raise 'You cannot provide both :maxCpuCoreCount and :max_cpu_core_count' if attributes.key?(:'maxCpuCoreCount') && attributes.key?(:'max_cpu_core_count')
+
+      self.max_cpu_core_count = attributes[:'max_cpu_core_count'] if attributes[:'max_cpu_core_count']
+
+      self.database_edition = attributes[:'databaseEdition'] if attributes[:'databaseEdition']
+
+      raise 'You cannot provide both :databaseEdition and :database_edition' if attributes.key?(:'databaseEdition') && attributes.key?(:'database_edition')
+
+      self.database_edition = attributes[:'database_edition'] if attributes[:'database_edition']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -625,6 +690,7 @@ module OCI
         is_auto_scaling_enabled == other.is_auto_scaling_enabled &&
         is_refreshable_clone == other.is_refreshable_clone &&
         refreshable_mode == other.refreshable_mode &&
+        is_local_data_guard_enabled == other.is_local_data_guard_enabled &&
         is_data_guard_enabled == other.is_data_guard_enabled &&
         peer_db_id == other.peer_db_id &&
         db_version == other.db_version &&
@@ -635,7 +701,10 @@ module OCI
         nsg_ids == other.nsg_ids &&
         customer_contacts == other.customer_contacts &&
         is_mtls_connection_required == other.is_mtls_connection_required &&
-        scheduled_operations == other.scheduled_operations
+        scheduled_operations == other.scheduled_operations &&
+        is_auto_scaling_for_storage_enabled == other.is_auto_scaling_for_storage_enabled &&
+        max_cpu_core_count == other.max_cpu_core_count &&
+        database_edition == other.database_edition
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -651,7 +720,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_core_count, ocpu_count, data_storage_size_in_tbs, data_storage_size_in_gbs, display_name, is_free_tier, admin_password, db_name, freeform_tags, defined_tags, db_workload, license_model, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_auto_scaling_enabled, is_refreshable_clone, refreshable_mode, is_data_guard_enabled, peer_db_id, db_version, open_mode, permission_level, subnet_id, private_endpoint_label, nsg_ids, customer_contacts, is_mtls_connection_required, scheduled_operations].hash
+      [cpu_core_count, ocpu_count, data_storage_size_in_tbs, data_storage_size_in_gbs, display_name, is_free_tier, admin_password, db_name, freeform_tags, defined_tags, db_workload, license_model, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_auto_scaling_enabled, is_refreshable_clone, refreshable_mode, is_local_data_guard_enabled, is_data_guard_enabled, peer_db_id, db_version, open_mode, permission_level, subnet_id, private_endpoint_label, nsg_ids, customer_contacts, is_mtls_connection_required, scheduled_operations, is_auto_scaling_for_storage_enabled, max_cpu_core_count, database_edition].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -10,7 +10,7 @@ module OCI
   #
   class ResourceManager::Models::ObjectStorageConfigSource < ResourceManager::Models::ConfigSource
     # **[Required]** The name of the bucket's region.
-    # Example: `PHX`
+    # Example: `us-phoenix-1`
     #
     # @return [String]
     attr_accessor :region

@@ -30,6 +30,10 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
+    # The shape of workloads in the node.
+    # @return [String]
+    attr_accessor :shape
+
     # Serial number of the node.
     # @return [String]
     attr_accessor :serial_number
@@ -139,6 +143,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'displayName',
+        'shape': :'shape',
         'serial_number': :'serialNumber',
         'customer_shipping_address': :'customerShippingAddress',
         'node_workloads': :'nodeWorkloads',
@@ -172,6 +177,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'display_name': :'String',
+        'shape': :'String',
         'serial_number': :'String',
         'customer_shipping_address': :'OCI::Rover::Models::ShippingAddress',
         'node_workloads': :'Array<OCI::Rover::Models::RoverWorkload>',
@@ -207,6 +213,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [String] :serial_number The value to assign to the {#serial_number} property
     # @option attributes [OCI::Rover::Models::ShippingAddress] :customer_shipping_address The value to assign to the {#customer_shipping_address} property
     # @option attributes [Array<OCI::Rover::Models::RoverWorkload>] :node_workloads The value to assign to the {#node_workloads} property
@@ -242,6 +249,8 @@ module OCI
       raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
 
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.shape = attributes[:'shape'] if attributes[:'shape']
 
       self.serial_number = attributes[:'serialNumber'] if attributes[:'serialNumber']
 
@@ -426,6 +435,7 @@ module OCI
 
       self.class == other.class &&
         display_name == other.display_name &&
+        shape == other.shape &&
         serial_number == other.serial_number &&
         customer_shipping_address == other.customer_shipping_address &&
         node_workloads == other.node_workloads &&
@@ -465,7 +475,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, serial_number, customer_shipping_address, node_workloads, super_user_password, unlock_passphrase, point_of_contact, point_of_contact_phone_number, oracle_shipping_tracking_url, shipping_preference, shipping_vendor, time_pickup_expected, lifecycle_state, enclosure_type, lifecycle_state_details, time_return_window_starts, time_return_window_ends, is_import_requested, import_compartment_id, import_file_bucket, data_validation_code, public_key, freeform_tags, defined_tags, system_tags].hash
+      [display_name, shape, serial_number, customer_shipping_address, node_workloads, super_user_password, unlock_passphrase, point_of_contact, point_of_contact_phone_number, oracle_shipping_tracking_url, shipping_preference, shipping_vendor, time_pickup_expected, lifecycle_state, enclosure_type, lifecycle_state_details, time_return_window_starts, time_return_window_ends, is_import_requested, import_compartment_id, import_file_bucket, data_validation_code, public_key, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

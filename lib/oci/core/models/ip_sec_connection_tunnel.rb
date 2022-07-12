@@ -6,8 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Information about a single tunnel in an IPSec connection. This object does not include the tunnel's
-  # shared secret (pre-shared key). That is in the
+  # Information about a single IPSec tunnel in an IPSec connection. This object does not include the tunnel's
+  # shared secret (pre-shared key), which is found in the
   # {IPSecConnectionTunnelSharedSecret} object.
   #
   class Core::Models::IPSecConnectionTunnel
@@ -68,14 +68,14 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # The IP address of Oracle's VPN headend.
+    # The IP address of the Oracle VPN headend for the connection.
     #
     # Example: `203.0.113.21`
     #
     # @return [String]
     attr_accessor :vpn_ip
 
-    # The IP address of the CPE's VPN headend.
+    # The IP address of the CPE device's VPN headend.
     #
     # Example: `203.0.113.22`
     #
@@ -107,38 +107,53 @@ module OCI
     # @return [OCI::Core::Models::EncryptionDomainConfig]
     attr_accessor :encryption_domain_config
 
-    # The type of routing used for this tunnel (either BGP dynamic routing or static routing).
+    # The type of routing used for this tunnel (BGP dynamic routing, static routing, or policy-based routing).
     #
     # @return [String]
     attr_reader :routing
 
-    # The date and time the IPSec connection tunnel was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # The date and time the IPSec tunnel was created, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # When the status of the tunnel last changed, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # When the status of the IPSec tunnel last changed, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_status_updated
 
-    # Indicates whether Oracle can either initiate the tunnel or respond, or respond only.
+    # Indicates whether Oracle can only respond to a request to start an IPSec tunnel from the CPE device, or both respond to and initiate requests.
+    #
     # @return [String]
     attr_reader :oracle_can_initiate
 
-    # Whether NAT-T Enabled on the tunnel
+    # By default (the `AUTO` setting), IKE sends packets with a source and destination port set to 500,
+    # and when it detects that the port used to forward packets has changed (most likely because a NAT device
+    # is between the CPE device and the Oracle VPN headend) it will try to negotiate the use of NAT-T.
+    #
+    # The `ENABLED` option sets the IKE protocol to use port 4500 instead of 500 and forces encapsulating traffic with the ESP protocol inside UDP packets.
+    #
+    # The `DISABLED` option directs IKE to completely refuse to negotiate NAT-T
+    # even if it senses there may be a NAT device in use.
+    #
+    #
+    # .
+    #
     # @return [String]
     attr_reader :nat_translation_enabled
 
-    # dpd mode
+    # Dead peer detection (DPD) mode set on the Oracle side of the connection.
+    # This mode sets whether Oracle can only respond to a request from the CPE device to start DPD,
+    # or both respond to and initiate requests.
+    #
     # @return [String]
     attr_reader :dpd_mode
 
-    # Dead peer detection (DPD) timeout in seconds.
+    # DPD timeout in seconds.
     # @return [Integer]
     attr_accessor :dpd_timeout_in_sec
 

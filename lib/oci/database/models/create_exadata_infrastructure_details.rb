@@ -82,6 +82,13 @@ module OCI
     # @return [Array<String>]
     attr_accessor :ntp_server
 
+    # Indicates whether cps offline diagnostic report is enabled for this Exadata infrastructure. This will allow a customer to quickly check status themselves and fix problems on their end, saving time and frustration
+    # for both Oracle and the customer when they find the CPS in a disconnected state.You can enable offline diagnostic report during Exadata infrastructure provisioning. You can also disable or enable it at any time
+    # using the UpdateExadatainfrastructure API.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_cps_offline_report_enabled
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -117,6 +124,7 @@ module OCI
         'compute_count': :'computeCount',
         'dns_server': :'dnsServer',
         'ntp_server': :'ntpServer',
+        'is_cps_offline_report_enabled': :'isCpsOfflineReportEnabled',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -144,6 +152,7 @@ module OCI
         'compute_count': :'Integer',
         'dns_server': :'Array<String>',
         'ntp_server': :'Array<String>',
+        'is_cps_offline_report_enabled': :'BOOLEAN',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -173,6 +182,7 @@ module OCI
     # @option attributes [Integer] :compute_count The value to assign to the {#compute_count} property
     # @option attributes [Array<String>] :dns_server The value to assign to the {#dns_server} property
     # @option attributes [Array<String>] :ntp_server The value to assign to the {#ntp_server} property
+    # @option attributes [BOOLEAN] :is_cps_offline_report_enabled The value to assign to the {#is_cps_offline_report_enabled} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -267,6 +277,12 @@ module OCI
 
       self.ntp_server = attributes[:'ntp_server'] if attributes[:'ntp_server']
 
+      self.is_cps_offline_report_enabled = attributes[:'isCpsOfflineReportEnabled'] unless attributes[:'isCpsOfflineReportEnabled'].nil?
+
+      raise 'You cannot provide both :isCpsOfflineReportEnabled and :is_cps_offline_report_enabled' if attributes.key?(:'isCpsOfflineReportEnabled') && attributes.key?(:'is_cps_offline_report_enabled')
+
+      self.is_cps_offline_report_enabled = attributes[:'is_cps_offline_report_enabled'] unless attributes[:'is_cps_offline_report_enabled'].nil?
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -308,6 +324,7 @@ module OCI
         compute_count == other.compute_count &&
         dns_server == other.dns_server &&
         ntp_server == other.ntp_server &&
+        is_cps_offline_report_enabled == other.is_cps_offline_report_enabled &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -325,7 +342,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, shape, time_zone, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, contacts, maintenance_window, storage_count, compute_count, dns_server, ntp_server, freeform_tags, defined_tags].hash
+      [compartment_id, display_name, shape, time_zone, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, contacts, maintenance_window, storage_count, compute_count, dns_server, ntp_server, is_cps_offline_report_enabled, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

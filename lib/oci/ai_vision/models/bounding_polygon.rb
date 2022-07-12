@@ -5,10 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Object bounding polygon box.
+  # The object-bounding polygon box.
   class AiVision::Models::BoundingPolygon
     # **[Required]** An array of normalized points defining the polygon's perimeter, with an implicit segment between subsequent points and between the first and last point.
-    # Rectangles are defined with four points, e.g. `[{\"x\": 0, \"y\": 0}, {\"x\": 1, \"y\": 0}, {\"x\": 1, \"y\": 0.5}, {\"x\": 0, \"y\": 0.5}]` represents the top half of an image.
+    # Rectangles are defined with four points. For example, `[{\"x\": 0, \"y\": 0}, {\"x\": 1, \"y\": 0}, {\"x\": 1, \"y\": 0.5}, {\"x\": 0, \"y\": 0.5}]` represents the top half of an image.
     #
     # @return [Array<OCI::AiVision::Models::NormalizedVertex>]
     attr_accessor :normalized_vertices

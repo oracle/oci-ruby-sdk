@@ -98,6 +98,66 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes the work request specified by an identifier.
+    # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the asynchronous work request.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   ETag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the ETag you
+    #   provide matches the resource's current ETag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/cancel_work_request.rb.html) to see an example of how to use cancel_work_request API.
+    def cancel_work_request(work_request_id, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#cancel_work_request.' if logger
+
+      raise "Missing the required parameter 'work_request_id' when calling cancel_work_request." if work_request_id.nil?
+      raise "Parameter value for 'work_request_id' must not be blank" if OCI::Internal::Util.blank_string?(work_request_id)
+
+      path = '/workRequests/{workRequestId}'.sub('{workRequestId}', work_request_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#cancel_work_request') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Move a specified Fleet into the compartment identified in the POST form. When provided, If-Match is checked against ETag values of the resource.
     #
     # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
@@ -169,6 +229,71 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Add a new record to the fleet blocklist.
+    #
+    # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
+    # @param [OCI::Jms::Models::CreateBlocklistDetails] create_blocklist_details Details for the new blocklist record.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::Jms::Models::Blocklist Blocklist}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/create_blocklist.rb.html) to see an example of how to use create_blocklist API.
+    def create_blocklist(fleet_id, create_blocklist_details, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#create_blocklist.' if logger
+
+      raise "Missing the required parameter 'fleet_id' when calling create_blocklist." if fleet_id.nil?
+      raise "Missing the required parameter 'create_blocklist_details' when calling create_blocklist." if create_blocklist_details.nil?
+      raise "Parameter value for 'fleet_id' must not be blank" if OCI::Internal::Util.blank_string?(fleet_id)
+
+      path = '/fleets/{fleetId}/blocklists'.sub('{fleetId}', fleet_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_blocklist_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#create_blocklist') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Jms::Models::Blocklist'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Create a new Fleet using the information provided.
     #
     # @param [OCI::Jms::Models::CreateFleetDetails] create_fleet_details Details for the new Fleet.
@@ -211,6 +336,69 @@ module OCI
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#create_fleet') do
         @api_client.call_api(
           :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the blocklist record specified by an identifier.
+    # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
+    # @param [String] blocklist_key The unique identifier of the blocklist record.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   ETag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the ETag you
+    #   provide matches the resource's current ETag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/delete_blocklist.rb.html) to see an example of how to use delete_blocklist API.
+    def delete_blocklist(fleet_id, blocklist_key, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#delete_blocklist.' if logger
+
+      raise "Missing the required parameter 'fleet_id' when calling delete_blocklist." if fleet_id.nil?
+      raise "Missing the required parameter 'blocklist_key' when calling delete_blocklist." if blocklist_key.nil?
+      raise "Parameter value for 'fleet_id' must not be blank" if OCI::Internal::Util.blank_string?(fleet_id)
+      raise "Parameter value for 'blocklist_key' must not be blank" if OCI::Internal::Util.blank_string?(blocklist_key)
+
+      path = '/fleets/{fleetId}/blocklists/{blocklistKey}'.sub('{fleetId}', fleet_id.to_s).sub('{blocklistKey}', blocklist_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#delete_blocklist') do
+        @api_client.call_api(
+          :DELETE,
           path,
           endpoint,
           header_params: header_params,
@@ -452,6 +640,88 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns a list of blocklist entities contained by a fleet.
+    #
+    # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :operation The operation type.
+    # @option opts [String] :managed_instance_id The Fleet-unique identifier of the related managed instance.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. The token is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field to sort blocklist records. Only one sort order may be provided.
+    #   Default order for _operation_ is **ascending**.
+    #   If no value is specified _operation_ is default.
+    #    (default to operation)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::Jms::Models::BlocklistCollection BlocklistCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/list_blocklists.rb.html) to see an example of how to use list_blocklists API.
+    def list_blocklists(fleet_id, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#list_blocklists.' if logger
+
+      raise "Missing the required parameter 'fleet_id' when calling list_blocklists." if fleet_id.nil?
+
+      if opts[:operation] && !OCI::Jms::Models::OPERATION_TYPE_ENUM.include?(opts[:operation])
+        raise 'Invalid value for "operation", must be one of the values in OCI::Jms::Models::OPERATION_TYPE_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::Jms::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Jms::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !OCI::Jms::Models::BLOCKLIST_SORT_BY_ENUM.include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of the values in OCI::Jms::Models::BLOCKLIST_SORT_BY_ENUM.'
+      end
+      raise "Parameter value for 'fleet_id' must not be blank" if OCI::Internal::Util.blank_string?(fleet_id)
+
+      path = '/fleets/{fleetId}/blocklists'.sub('{fleetId}', fleet_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:operation] = opts[:operation] if opts[:operation]
+      query_params[:managedInstanceId] = opts[:managed_instance_id] if opts[:managed_instance_id]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#list_blocklists') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Jms::Models::BlocklistCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of all the Fleets contained by a compartment. The query parameter `compartmentId`
     # is required unless the query parameter `id` is specified.
     #
@@ -539,6 +809,111 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # List Java installation sites in a Fleet filtered by query parameters.
+    # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :jre_vendor The vendor of the related Java Runtime.
+    # @option opts [String] :jre_distribution The distribution of the related Java Runtime.
+    # @option opts [String] :jre_version The version of the related Java Runtime.
+    # @option opts [String] :installation_path The file system path of the installation.
+    # @option opts [String] :application_id The Fleet-unique identifier of the related application.
+    # @option opts [String] :managed_instance_id The Fleet-unique identifier of the related managed instance.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. The token is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field to sort installation sites. Only one sort order may be provided.
+    #   Default order for _timeLastSeen_, and _jreVersion_, _approximateApplicationCount_ is **descending**.
+    #   Default order for _managedInstanceId_, _jreDistribution_, _jreVendor_ and _osName_ is **ascending**.
+    #   If no value is specified _managedInstanceId_ is default.
+    #    (default to managedInstanceId)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [Array<String>] :os_family The operating system type.
+    #   Allowed values are: LINUX, WINDOWS, MACOS, UNKNOWN
+    # @option opts [String] :jre_security_status The security status of the Java Runtime.
+    # @return [Response] A Response object with data of type {OCI::Jms::Models::InstallationSiteCollection InstallationSiteCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/list_installation_sites.rb.html) to see an example of how to use list_installation_sites API.
+    def list_installation_sites(fleet_id, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#list_installation_sites.' if logger
+
+      raise "Missing the required parameter 'fleet_id' when calling list_installation_sites." if fleet_id.nil?
+
+      if opts[:sort_order] && !OCI::Jms::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Jms::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !OCI::Jms::Models::INSTALLATION_SITE_SORT_BY_ENUM.include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of the values in OCI::Jms::Models::INSTALLATION_SITE_SORT_BY_ENUM.'
+      end
+
+
+      os_family_allowable_values = %w[LINUX WINDOWS MACOS UNKNOWN]
+      if opts[:os_family] && !opts[:os_family].empty?
+        opts[:os_family].each do |val_to_check|
+          unless os_family_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "os_family", must be one of LINUX, WINDOWS, MACOS, UNKNOWN.'
+          end
+        end
+      end
+
+      if opts[:jre_security_status] && !OCI::Jms::Models::JRE_SECURITY_STATUS_ENUM.include?(opts[:jre_security_status])
+        raise 'Invalid value for "jre_security_status", must be one of the values in OCI::Jms::Models::JRE_SECURITY_STATUS_ENUM.'
+      end
+      raise "Parameter value for 'fleet_id' must not be blank" if OCI::Internal::Util.blank_string?(fleet_id)
+
+      path = '/fleets/{fleetId}/installationSites'.sub('{fleetId}', fleet_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:jreVendor] = opts[:jre_vendor] if opts[:jre_vendor]
+      query_params[:jreDistribution] = opts[:jre_distribution] if opts[:jre_distribution]
+      query_params[:jreVersion] = opts[:jre_version] if opts[:jre_version]
+      query_params[:installationPath] = opts[:installation_path] if opts[:installation_path]
+      query_params[:applicationId] = opts[:application_id] if opts[:application_id]
+      query_params[:managedInstanceId] = opts[:managed_instance_id] if opts[:managed_instance_id]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:osFamily] = OCI::ApiClient.build_collection_params(opts[:os_family], :multi) if opts[:os_family] && !opts[:os_family].empty?
+      query_params[:jreSecurityStatus] = opts[:jre_security_status] if opts[:jre_security_status]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#list_installation_sites') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Jms::Models::InstallationSiteCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # List Java Runtime usage in a specified host filtered by query parameters.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -612,6 +987,65 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Jms::Models::JreUsageCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieve a (paginated) list of work items for a specified work request.
+    #
+    # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the asynchronous work request.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. The token is usually retrieved from a previous list call.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @return [Response] A Response object with data of type {OCI::Jms::Models::WorkItemCollection WorkItemCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/list_work_items.rb.html) to see an example of how to use list_work_items API.
+    def list_work_items(work_request_id, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#list_work_items.' if logger
+
+      raise "Missing the required parameter 'work_request_id' when calling list_work_items." if work_request_id.nil?
+      raise "Parameter value for 'work_request_id' must not be blank" if OCI::Internal::Util.blank_string?(work_request_id)
+
+      path = '/workRequests/{workRequestId}/workItems'.sub('{workRequestId}', work_request_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#list_work_items') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Jms::Models::WorkItemCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -743,7 +1177,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # List the work requests in a compartment. The query parameter `compartmentId` is required unless the query parameter `id` is specified.
+    # List the work requests in a compartment. The query parameter `compartmentId` is required unless the query parameter `id` or `fleetId` is specified.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -751,6 +1185,7 @@ module OCI
     # @option opts [String] :compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment in which to list resources.
     #
     # @option opts [String] :id The ID of an asynchronous work request.
+    # @option opts [String] :fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the fleet.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. The token is usually retrieved from a previous list call.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
@@ -768,6 +1203,7 @@ module OCI
       query_params = {}
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
       query_params[:id] = opts[:id] if opts[:id]
+      query_params[:fleetId] = opts[:fleet_id] if opts[:fleet_id]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
 
@@ -791,6 +1227,76 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Jms::Models::WorkRequestCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Remove Java installation sites in a Fleet.
+    # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
+    # @param [OCI::Jms::Models::RemoveFleetInstallationSitesDetails] remove_fleet_installation_sites_details List of installation sites to be deleted.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   ETag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the ETag you
+    #   provide matches the resource's current ETag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/remove_fleet_installation_sites.rb.html) to see an example of how to use remove_fleet_installation_sites API.
+    def remove_fleet_installation_sites(fleet_id, remove_fleet_installation_sites_details, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#remove_fleet_installation_sites.' if logger
+
+      raise "Missing the required parameter 'fleet_id' when calling remove_fleet_installation_sites." if fleet_id.nil?
+      raise "Missing the required parameter 'remove_fleet_installation_sites_details' when calling remove_fleet_installation_sites." if remove_fleet_installation_sites_details.nil?
+      raise "Parameter value for 'fleet_id' must not be blank" if OCI::Internal::Util.blank_string?(fleet_id)
+
+      path = '/fleets/{fleetId}/actions/removeInstallationSites'.sub('{fleetId}', fleet_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(remove_fleet_installation_sites_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#remove_fleet_installation_sites') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength

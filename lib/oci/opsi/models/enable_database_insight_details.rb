@@ -9,7 +9,8 @@ module OCI
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Opsi::Models::EnableDatabaseInsightDetails
     ENTITY_SOURCE_ENUM = [
-      ENTITY_SOURCE_EM_MANAGED_EXTERNAL_DATABASE = 'EM_MANAGED_EXTERNAL_DATABASE'.freeze
+      ENTITY_SOURCE_EM_MANAGED_EXTERNAL_DATABASE = 'EM_MANAGED_EXTERNAL_DATABASE'.freeze,
+      ENTITY_SOURCE_PE_COMANAGED_DATABASE = 'PE_COMANAGED_DATABASE'.freeze
     ].freeze
 
     # **[Required]** Source of the database entity.
@@ -43,6 +44,7 @@ module OCI
       type = object_hash[:'entitySource'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Opsi::Models::EnableEmManagedExternalDatabaseInsightDetails' if type == 'EM_MANAGED_EXTERNAL_DATABASE'
+      return 'OCI::Opsi::Models::EnablePeComanagedDatabaseInsightDetails' if type == 'PE_COMANAGED_DATABASE'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::Opsi::Models::EnableDatabaseInsightDetails'

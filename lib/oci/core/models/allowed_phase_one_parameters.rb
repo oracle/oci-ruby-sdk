@@ -5,17 +5,17 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Phase One Parameters
+  # Allowed phase one parameters.
   class Core::Models::AllowedPhaseOneParameters
-    # Phase One Encryption Algorithms
+    # Allowed phase one encryption algorithms.
     # @return [Array<String>]
     attr_accessor :encryption_algorithms
 
-    # Phase One Authentication Algorithms
+    # Allowed phase one authentication algorithms.
     # @return [Array<String>]
     attr_accessor :authentication_algorithms
 
-    # DH Groups
+    # Allowed phase one Diffie-Hellman groups.
     # @return [Array<String>]
     attr_accessor :dh_groups
 

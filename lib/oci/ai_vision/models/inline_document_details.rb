@@ -6,9 +6,9 @@ require_relative 'document_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Document incorporated in the request payload.
+  # The document incorporated in the request payload.
   class AiVision::Models::InlineDocumentDetails < AiVision::Models::DocumentDetails
-    # **[Required]** Document raw data.
+    # **[Required]** Raw document data.
     # @return [String]
     attr_accessor :data
 

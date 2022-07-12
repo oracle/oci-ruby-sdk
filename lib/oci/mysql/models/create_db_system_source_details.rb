@@ -12,6 +12,7 @@ module OCI
     SOURCE_TYPE_ENUM = [
       SOURCE_TYPE_NONE = 'NONE'.freeze,
       SOURCE_TYPE_BACKUP = 'BACKUP'.freeze,
+      SOURCE_TYPE_PITR = 'PITR'.freeze,
       SOURCE_TYPE_IMPORTURL = 'IMPORTURL'.freeze
     ].freeze
 
@@ -49,6 +50,7 @@ module OCI
       return 'OCI::Mysql::Models::CreateDbSystemSourceFromBackupDetails' if type == 'BACKUP'
       return 'OCI::Mysql::Models::CreateDbSystemSourceFromNoneDetails' if type == 'NONE'
       return 'OCI::Mysql::Models::CreateDbSystemSourceImportFromUrlDetails' if type == 'IMPORTURL'
+      return 'OCI::Mysql::Models::CreateDbSystemSourceFromPitrDetails' if type == 'PITR'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::Mysql::Models::CreateDbSystemSourceDetails'

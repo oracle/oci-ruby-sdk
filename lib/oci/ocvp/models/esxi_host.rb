@@ -110,14 +110,13 @@ module OCI
     # @return [DateTime]
     attr_accessor :billing_contract_end_date
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the esxi host that
-    # is failed.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the ESXi host that failed.
     #
     # @return [String]
     attr_accessor :failed_esxi_host_id
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the esxi host that
-    # is newly created to replace the failed node.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the ESXi host that
+    # is created to replace the failed host.
     #
     # @return [String]
     attr_accessor :replacement_esxi_host_id
@@ -133,6 +132,22 @@ module OCI
     #
     # @return [String]
     attr_accessor :compute_availability_domain
+
+    # **[Required]** The compute shape name of the ESXi host.
+    # {#list_supported_host_shapes list_supported_host_shapes}.
+    #
+    # @return [String]
+    attr_accessor :host_shape_name
+
+    # The OCPU count of the ESXi host.
+    #
+    # @return [Float]
+    attr_accessor :host_ocpu_count
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Capacity Reservation.
+    #
+    # @return [String]
+    attr_accessor :capacity_reservation_id
 
     # **[Required]** Free-form tags for this resource. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -169,6 +184,9 @@ module OCI
         'replacement_esxi_host_id': :'replacementEsxiHostId',
         'grace_period_end_date': :'gracePeriodEndDate',
         'compute_availability_domain': :'computeAvailabilityDomain',
+        'host_shape_name': :'hostShapeName',
+        'host_ocpu_count': :'hostOcpuCount',
+        'capacity_reservation_id': :'capacityReservationId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -194,6 +212,9 @@ module OCI
         'replacement_esxi_host_id': :'String',
         'grace_period_end_date': :'DateTime',
         'compute_availability_domain': :'String',
+        'host_shape_name': :'String',
+        'host_ocpu_count': :'Float',
+        'capacity_reservation_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -221,6 +242,9 @@ module OCI
     # @option attributes [String] :replacement_esxi_host_id The value to assign to the {#replacement_esxi_host_id} property
     # @option attributes [DateTime] :grace_period_end_date The value to assign to the {#grace_period_end_date} property
     # @option attributes [String] :compute_availability_domain The value to assign to the {#compute_availability_domain} property
+    # @option attributes [String] :host_shape_name The value to assign to the {#host_shape_name} property
+    # @option attributes [Float] :host_ocpu_count The value to assign to the {#host_ocpu_count} property
+    # @option attributes [String] :capacity_reservation_id The value to assign to the {#capacity_reservation_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -317,6 +341,24 @@ module OCI
 
       self.compute_availability_domain = attributes[:'compute_availability_domain'] if attributes[:'compute_availability_domain']
 
+      self.host_shape_name = attributes[:'hostShapeName'] if attributes[:'hostShapeName']
+
+      raise 'You cannot provide both :hostShapeName and :host_shape_name' if attributes.key?(:'hostShapeName') && attributes.key?(:'host_shape_name')
+
+      self.host_shape_name = attributes[:'host_shape_name'] if attributes[:'host_shape_name']
+
+      self.host_ocpu_count = attributes[:'hostOcpuCount'] if attributes[:'hostOcpuCount']
+
+      raise 'You cannot provide both :hostOcpuCount and :host_ocpu_count' if attributes.key?(:'hostOcpuCount') && attributes.key?(:'host_ocpu_count')
+
+      self.host_ocpu_count = attributes[:'host_ocpu_count'] if attributes[:'host_ocpu_count']
+
+      self.capacity_reservation_id = attributes[:'capacityReservationId'] if attributes[:'capacityReservationId']
+
+      raise 'You cannot provide both :capacityReservationId and :capacity_reservation_id' if attributes.key?(:'capacityReservationId') && attributes.key?(:'capacity_reservation_id')
+
+      self.capacity_reservation_id = attributes[:'capacity_reservation_id'] if attributes[:'capacity_reservation_id']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -395,6 +437,9 @@ module OCI
         replacement_esxi_host_id == other.replacement_esxi_host_id &&
         grace_period_end_date == other.grace_period_end_date &&
         compute_availability_domain == other.compute_availability_domain &&
+        host_shape_name == other.host_shape_name &&
+        host_ocpu_count == other.host_ocpu_count &&
+        capacity_reservation_id == other.capacity_reservation_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -412,7 +457,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, sddc_id, compartment_id, compute_instance_id, time_created, time_updated, lifecycle_state, current_sku, next_sku, billing_contract_end_date, failed_esxi_host_id, replacement_esxi_host_id, grace_period_end_date, compute_availability_domain, freeform_tags, defined_tags].hash
+      [id, display_name, sddc_id, compartment_id, compute_instance_id, time_created, time_updated, lifecycle_state, current_sku, next_sku, billing_contract_end_date, failed_esxi_host_id, replacement_esxi_host_id, grace_period_end_date, compute_availability_domain, host_shape_name, host_ocpu_count, capacity_reservation_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

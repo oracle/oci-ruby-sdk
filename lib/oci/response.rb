@@ -37,7 +37,7 @@ module OCI
       @data = data
 
       @next_page = @headers['opc-next-page'] if headers
-      @next_page = data.next_start_with if data.is_a?(OCI::ObjectStorage::Models::ListObjects)
+      @next_page = data.next_start_with if data.respond_to?(:next_start_with)
       @request_id = @headers['opc-request-id'] if headers
     end
 

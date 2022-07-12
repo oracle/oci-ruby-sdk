@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Oracle offers the ability to Bring Your Own IP (BYOIP), importing public IP addresses that you currently own to Oracle Cloud Infrastructure. A `ByoipRange` resource is a record of the imported address block (a BYOIP CIDR block) and also some associated metadata.
+  # Oracle offers the ability to Bring Your Own IP (BYOIP), importing public IP addresses or IPv6 addresses that you currently own to Oracle Cloud Infrastructure. A `ByoipRange` resource is a record of the imported address block (a BYOIP CIDR block) and also some associated metadata.
   # The process used to [Bring Your Own IP](https://docs.cloud.oracle.com/iaas/Content/Network/Concepts/BYOIP.htm) is explained in the documentation.
   class Core::Models::ByoipRange
     LIFECYCLE_DETAILS_ENUM = [
@@ -31,7 +31,12 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The public IPv4 CIDR block being imported from on-premises to the Oracle cloud.
+    # A list of `ByoipRangeVcnIpv6AllocationSummary` objects.
+    #
+    # @return [Array<OCI::Core::Models::ByoipRangeVcnIpv6AllocationSummary>]
+    attr_accessor :byoip_range_vcn_ipv6_allocations
+
+    # The public IPv4 CIDR block being imported from on-premises to the Oracle cloud.
     # @return [String]
     attr_accessor :cidr_block
 
@@ -65,6 +70,13 @@ module OCI
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the `ByoipRange` resource.
     # @return [String]
     attr_accessor :id
+
+    # The IPv6 CIDR block being imported to the Oracle cloud. This CIDR block must be /48 or larger, and can be subdivided into sub-ranges used
+    # across multiple VCNs. A BYOIPv6 prefix can be also assigned across multiple VCNs, and each VCN must be /64 or larger. You may specify
+    # a ULA or private IPv6 prefix of /64 or larger to use in the VCN. IPv6-enabled subnets will remain a fixed /64 in size.
+    #
+    # @return [String]
+    attr_accessor :ipv6_cidr_block
 
     # The `ByoipRange` resource's current status.
     # @return [String]
@@ -110,12 +122,14 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'byoip_range_vcn_ipv6_allocations': :'byoipRangeVcnIpv6Allocations',
         'cidr_block': :'cidrBlock',
         'compartment_id': :'compartmentId',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
         'id': :'id',
+        'ipv6_cidr_block': :'ipv6CidrBlock',
         'lifecycle_details': :'lifecycleDetails',
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
@@ -131,12 +145,14 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'byoip_range_vcn_ipv6_allocations': :'Array<OCI::Core::Models::ByoipRangeVcnIpv6AllocationSummary>',
         'cidr_block': :'String',
         'compartment_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
+        'ipv6_cidr_block': :'String',
         'lifecycle_details': :'String',
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
@@ -154,12 +170,14 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [Array<OCI::Core::Models::ByoipRangeVcnIpv6AllocationSummary>] :byoip_range_vcn_ipv6_allocations The value to assign to the {#byoip_range_vcn_ipv6_allocations} property
     # @option attributes [String] :cidr_block The value to assign to the {#cidr_block} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :ipv6_cidr_block The value to assign to the {#ipv6_cidr_block} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -172,6 +190,12 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.byoip_range_vcn_ipv6_allocations = attributes[:'byoipRangeVcnIpv6Allocations'] if attributes[:'byoipRangeVcnIpv6Allocations']
+
+      raise 'You cannot provide both :byoipRangeVcnIpv6Allocations and :byoip_range_vcn_ipv6_allocations' if attributes.key?(:'byoipRangeVcnIpv6Allocations') && attributes.key?(:'byoip_range_vcn_ipv6_allocations')
+
+      self.byoip_range_vcn_ipv6_allocations = attributes[:'byoip_range_vcn_ipv6_allocations'] if attributes[:'byoip_range_vcn_ipv6_allocations']
 
       self.cidr_block = attributes[:'cidrBlock'] if attributes[:'cidrBlock']
 
@@ -204,6 +228,12 @@ module OCI
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
       self.id = attributes[:'id'] if attributes[:'id']
+
+      self.ipv6_cidr_block = attributes[:'ipv6CidrBlock'] if attributes[:'ipv6CidrBlock']
+
+      raise 'You cannot provide both :ipv6CidrBlock and :ipv6_cidr_block' if attributes.key?(:'ipv6CidrBlock') && attributes.key?(:'ipv6_cidr_block')
+
+      self.ipv6_cidr_block = attributes[:'ipv6_cidr_block'] if attributes[:'ipv6_cidr_block']
 
       self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
 
@@ -285,12 +315,14 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        byoip_range_vcn_ipv6_allocations == other.byoip_range_vcn_ipv6_allocations &&
         cidr_block == other.cidr_block &&
         compartment_id == other.compartment_id &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
         id == other.id &&
+        ipv6_cidr_block == other.ipv6_cidr_block &&
         lifecycle_details == other.lifecycle_details &&
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
@@ -313,7 +345,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cidr_block, compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_details, lifecycle_state, time_created, time_validated, time_advertised, time_withdrawn, validation_token].hash
+      [byoip_range_vcn_ipv6_allocations, cidr_block, compartment_id, defined_tags, display_name, freeform_tags, id, ipv6_cidr_block, lifecycle_details, lifecycle_state, time_created, time_validated, time_advertised, time_withdrawn, validation_token].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

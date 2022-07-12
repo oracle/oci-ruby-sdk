@@ -73,6 +73,19 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # The OCID of the key container that is used as the master encryption key in database transparent data encryption (TDE) operations.
+    # @return [String]
+    attr_accessor :kms_key_id
+
+    # The OCID of the key container version that is used in database transparent data encryption (TDE) operations KMS Key can have multiple key versions. If none is specified, the current key version (latest) of the Key Id is used for the operation.
+    #
+    # @return [String]
+    attr_accessor :kms_key_version_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Oracle Cloud Infrastructure [vault](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm#concepts).
+    # @return [String]
+    attr_accessor :vault_id
+
     # Specifies a prefix for the `Oracle SID` of the database to be created.
     #
     # @return [String]
@@ -94,6 +107,9 @@ module OCI
         'db_backup_config': :'dbBackupConfig',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
+        'kms_key_id': :'kmsKeyId',
+        'kms_key_version_id': :'kmsKeyVersionId',
+        'vault_id': :'vaultId',
         'sid_prefix': :'sidPrefix'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -115,6 +131,9 @@ module OCI
         'db_backup_config': :'OCI::Database::Models::DbBackupConfig',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'kms_key_id': :'String',
+        'kms_key_version_id': :'String',
+        'vault_id': :'String',
         'sid_prefix': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -138,6 +157,9 @@ module OCI
     # @option attributes [OCI::Database::Models::DbBackupConfig] :db_backup_config The value to assign to the {#db_backup_config} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
+    # @option attributes [String] :kms_key_version_id The value to assign to the {#kms_key_version_id} property
+    # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
     # @option attributes [String] :sid_prefix The value to assign to the {#sid_prefix} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -217,6 +239,24 @@ module OCI
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
 
+      self.kms_key_id = attributes[:'kmsKeyId'] if attributes[:'kmsKeyId']
+
+      raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
+
+      self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
+      self.kms_key_version_id = attributes[:'kmsKeyVersionId'] if attributes[:'kmsKeyVersionId']
+
+      raise 'You cannot provide both :kmsKeyVersionId and :kms_key_version_id' if attributes.key?(:'kmsKeyVersionId') && attributes.key?(:'kms_key_version_id')
+
+      self.kms_key_version_id = attributes[:'kms_key_version_id'] if attributes[:'kms_key_version_id']
+
+      self.vault_id = attributes[:'vaultId'] if attributes[:'vaultId']
+
+      raise 'You cannot provide both :vaultId and :vault_id' if attributes.key?(:'vaultId') && attributes.key?(:'vault_id')
+
+      self.vault_id = attributes[:'vault_id'] if attributes[:'vault_id']
+
       self.sid_prefix = attributes[:'sidPrefix'] if attributes[:'sidPrefix']
 
       raise 'You cannot provide both :sidPrefix and :sid_prefix' if attributes.key?(:'sidPrefix') && attributes.key?(:'sid_prefix')
@@ -255,6 +295,9 @@ module OCI
         db_backup_config == other.db_backup_config &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
+        kms_key_id == other.kms_key_id &&
+        kms_key_version_id == other.kms_key_version_id &&
+        vault_id == other.vault_id &&
         sid_prefix == other.sid_prefix
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -271,7 +314,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [db_name, db_unique_name, database_software_image_id, pdb_name, admin_password, tde_wallet_password, character_set, ncharacter_set, db_workload, db_backup_config, freeform_tags, defined_tags, sid_prefix].hash
+      [db_name, db_unique_name, database_software_image_id, pdb_name, admin_password, tde_wallet_password, character_set, ncharacter_set, db_workload, db_backup_config, freeform_tags, defined_tags, kms_key_id, kms_key_version_id, vault_id, sid_prefix].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

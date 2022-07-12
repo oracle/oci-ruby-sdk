@@ -5,17 +5,17 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # It provides details about a product rewards and usage amount.
+  # Provides details about product rewards and the usage amount.
   class Usage::Models::ProductSummary
-    # The ratecard product number.
+    # The rate card product number.
     # @return [String]
     attr_accessor :product_number
 
-    # The ratecard product Name.
+    # The rate card product name.
     # @return [String]
     attr_accessor :product_name
 
-    # The ratecard product usage amount.
+    # The rate card product usage amount.
     # @return [Float]
     attr_accessor :usage_amount
 
@@ -23,7 +23,7 @@ module OCI
     # @return [Float]
     attr_accessor :earned_rewards
 
-    # The boolean flag to tell if the product is eligible for earning rewards.
+    # The boolean parameter to indicate if the product is eligible to earn rewards.
     # @return [BOOLEAN]
     attr_accessor :is_eligible_to_earn_rewards
 

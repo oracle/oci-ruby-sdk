@@ -19,6 +19,9 @@ module OCI
     # @return [OCI::Apigateway::Models::MutualTlsDetails]
     attr_accessor :mutual_tls
 
+    # @return [OCI::Apigateway::Models::UsagePlansPolicy]
+    attr_accessor :usage_plans
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -26,7 +29,8 @@ module OCI
         'authentication': :'authentication',
         'rate_limiting': :'rateLimiting',
         'cors': :'cors',
-        'mutual_tls': :'mutualTls'
+        'mutual_tls': :'mutualTls',
+        'usage_plans': :'usagePlans'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -38,7 +42,8 @@ module OCI
         'authentication': :'OCI::Apigateway::Models::AuthenticationPolicy',
         'rate_limiting': :'OCI::Apigateway::Models::RateLimitingPolicy',
         'cors': :'OCI::Apigateway::Models::CorsPolicy',
-        'mutual_tls': :'OCI::Apigateway::Models::MutualTlsDetails'
+        'mutual_tls': :'OCI::Apigateway::Models::MutualTlsDetails',
+        'usage_plans': :'OCI::Apigateway::Models::UsagePlansPolicy'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -53,6 +58,7 @@ module OCI
     # @option attributes [OCI::Apigateway::Models::RateLimitingPolicy] :rate_limiting The value to assign to the {#rate_limiting} property
     # @option attributes [OCI::Apigateway::Models::CorsPolicy] :cors The value to assign to the {#cors} property
     # @option attributes [OCI::Apigateway::Models::MutualTlsDetails] :mutual_tls The value to assign to the {#mutual_tls} property
+    # @option attributes [OCI::Apigateway::Models::UsagePlansPolicy] :usage_plans The value to assign to the {#usage_plans} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -74,6 +80,12 @@ module OCI
       raise 'You cannot provide both :mutualTls and :mutual_tls' if attributes.key?(:'mutualTls') && attributes.key?(:'mutual_tls')
 
       self.mutual_tls = attributes[:'mutual_tls'] if attributes[:'mutual_tls']
+
+      self.usage_plans = attributes[:'usagePlans'] if attributes[:'usagePlans']
+
+      raise 'You cannot provide both :usagePlans and :usage_plans' if attributes.key?(:'usagePlans') && attributes.key?(:'usage_plans')
+
+      self.usage_plans = attributes[:'usage_plans'] if attributes[:'usage_plans']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -90,7 +102,8 @@ module OCI
         authentication == other.authentication &&
         rate_limiting == other.rate_limiting &&
         cors == other.cors &&
-        mutual_tls == other.mutual_tls
+        mutual_tls == other.mutual_tls &&
+        usage_plans == other.usage_plans
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -106,7 +119,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [authentication, rate_limiting, cors, mutual_tls].hash
+      [authentication, rate_limiting, cors, mutual_tls, usage_plans].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

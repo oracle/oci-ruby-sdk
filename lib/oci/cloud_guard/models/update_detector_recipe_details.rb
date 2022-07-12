@@ -7,11 +7,17 @@ require 'date'
 module OCI
   # Update of detector recipe
   class CloudGuard::Models::UpdateDetectorRecipeDetails
-    # DisplayName of detector recipe
+    # Display name of detector recipe.
+    #
+    # Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :display_name
 
-    # Detector recipe description
+    # Detector recipe description.
+    #
+    # Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :description
 
@@ -21,6 +27,8 @@ module OCI
 
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
+    #
+    # Avoid entering confidential information.
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags

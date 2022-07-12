@@ -63,9 +63,9 @@ module OCI
     # @return [String]
     attr_accessor :backup_subnet_id
 
-    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # The list of [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) for the network security groups (NSGs) to which this resource belongs. Setting this to an empty list removes all resources from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
     # **NsgIds restrictions:**
-    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
+    # - A network security group (NSG) is optional for Autonomous Databases with private access. The nsgIds list can be empty.
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
@@ -237,6 +237,9 @@ module OCI
     # @return [Integer]
     attr_accessor :scan_listener_port_tcp_ssl
 
+    # @return [OCI::Database::Models::DataCollectionOptions]
+    attr_accessor :data_collection_options
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -280,7 +283,8 @@ module OCI
         'scan_dns_name': :'scanDnsName',
         'zone_id': :'zoneId',
         'scan_listener_port_tcp': :'scanListenerPortTcp',
-        'scan_listener_port_tcp_ssl': :'scanListenerPortTcpSsl'
+        'scan_listener_port_tcp_ssl': :'scanListenerPortTcpSsl',
+        'data_collection_options': :'dataCollectionOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -328,7 +332,8 @@ module OCI
         'scan_dns_name': :'String',
         'zone_id': :'String',
         'scan_listener_port_tcp': :'Integer',
-        'scan_listener_port_tcp_ssl': :'Integer'
+        'scan_listener_port_tcp_ssl': :'Integer',
+        'data_collection_options': :'OCI::Database::Models::DataCollectionOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -379,6 +384,7 @@ module OCI
     # @option attributes [String] :zone_id The value to assign to the {#zone_id} property
     # @option attributes [Integer] :scan_listener_port_tcp The value to assign to the {#scan_listener_port_tcp} property
     # @option attributes [Integer] :scan_listener_port_tcp_ssl The value to assign to the {#scan_listener_port_tcp_ssl} property
+    # @option attributes [OCI::Database::Models::DataCollectionOptions] :data_collection_options The value to assign to the {#data_collection_options} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -608,6 +614,12 @@ module OCI
       raise 'You cannot provide both :scanListenerPortTcpSsl and :scan_listener_port_tcp_ssl' if attributes.key?(:'scanListenerPortTcpSsl') && attributes.key?(:'scan_listener_port_tcp_ssl')
 
       self.scan_listener_port_tcp_ssl = attributes[:'scan_listener_port_tcp_ssl'] if attributes[:'scan_listener_port_tcp_ssl']
+
+      self.data_collection_options = attributes[:'dataCollectionOptions'] if attributes[:'dataCollectionOptions']
+
+      raise 'You cannot provide both :dataCollectionOptions and :data_collection_options' if attributes.key?(:'dataCollectionOptions') && attributes.key?(:'data_collection_options')
+
+      self.data_collection_options = attributes[:'data_collection_options'] if attributes[:'data_collection_options']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -699,7 +711,8 @@ module OCI
         scan_dns_name == other.scan_dns_name &&
         zone_id == other.zone_id &&
         scan_listener_port_tcp == other.scan_listener_port_tcp &&
-        scan_listener_port_tcp_ssl == other.scan_listener_port_tcp_ssl
+        scan_listener_port_tcp_ssl == other.scan_listener_port_tcp_ssl &&
+        data_collection_options == other.data_collection_options
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -715,7 +728,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, last_update_history_entry_id, shape, listener_port, lifecycle_state, node_count, storage_size_in_gbs, display_name, time_created, lifecycle_details, time_zone, hostname, domain, cpu_core_count, ocpu_count, cluster_name, data_storage_percentage, is_local_backup_enabled, cloud_exadata_infrastructure_id, is_sparse_diskgroup_enabled, gi_version, system_version, ssh_public_keys, license_model, disk_redundancy, scan_ip_ids, vip_ids, scan_dns_record_id, freeform_tags, defined_tags, scan_dns_name, zone_id, scan_listener_port_tcp, scan_listener_port_tcp_ssl].hash
+      [id, compartment_id, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, last_update_history_entry_id, shape, listener_port, lifecycle_state, node_count, storage_size_in_gbs, display_name, time_created, lifecycle_details, time_zone, hostname, domain, cpu_core_count, ocpu_count, cluster_name, data_storage_percentage, is_local_backup_enabled, cloud_exadata_infrastructure_id, is_sparse_diskgroup_enabled, gi_version, system_version, ssh_public_keys, license_model, disk_redundancy, scan_ip_ids, vip_ids, scan_dns_record_id, freeform_tags, defined_tags, scan_dns_name, zone_id, scan_listener_port_tcp, scan_listener_port_tcp_ssl, data_collection_options].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

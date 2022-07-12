@@ -15,7 +15,7 @@ module OCI
       DATASET_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Type of the dataset based on where it is stored.
+    # **[Required]** The dataset type, based on where it is stored.
     # @return [String]
     attr_reader :dataset_type
 

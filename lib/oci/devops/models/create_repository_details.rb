@@ -19,7 +19,7 @@ module OCI
     # @return [String]
     attr_accessor :default_branch
 
-    # Type of repository.
+    # **[Required]** Type of repository.
     # @return [String]
     attr_accessor :repository_type
 

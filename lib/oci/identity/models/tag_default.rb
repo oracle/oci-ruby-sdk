@@ -13,7 +13,7 @@ module OCI
   #
   # Tag defaults are inherited by child compartments. This means that if you set a tag default on the root compartment
   # for a tenancy, all resources that are created in the tenancy are tagged. For more information about
-  # using tag defaults, see [Managing Tag Defaults](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingtagdefaults.htm).
+  # using tag defaults, see [Managing Tag Defaults](https://docs.cloud.oracle.com/Content/Tagging/Tasks/managingtagdefaults.htm).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator.
@@ -78,6 +78,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_required
 
+    # Locks associated with this resource.
+    # @return [Array<OCI::Identity::Models::ResourceLock>]
+    attr_accessor :locks
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -90,7 +94,8 @@ module OCI
         'value': :'value',
         'time_created': :'timeCreated',
         'lifecycle_state': :'lifecycleState',
-        'is_required': :'isRequired'
+        'is_required': :'isRequired',
+        'locks': :'locks'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -107,7 +112,8 @@ module OCI
         'value': :'String',
         'time_created': :'DateTime',
         'lifecycle_state': :'String',
-        'is_required': :'BOOLEAN'
+        'is_required': :'BOOLEAN',
+        'locks': :'Array<OCI::Identity::Models::ResourceLock>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -127,6 +133,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [BOOLEAN] :is_required The value to assign to the {#is_required} property
+    # @option attributes [Array<OCI::Identity::Models::ResourceLock>] :locks The value to assign to the {#locks} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -178,6 +185,8 @@ module OCI
       raise 'You cannot provide both :isRequired and :is_required' if attributes.key?(:'isRequired') && attributes.key?(:'is_required')
 
       self.is_required = attributes[:'is_required'] unless attributes[:'is_required'].nil?
+
+      self.locks = attributes[:'locks'] if attributes[:'locks']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -212,7 +221,8 @@ module OCI
         value == other.value &&
         time_created == other.time_created &&
         lifecycle_state == other.lifecycle_state &&
-        is_required == other.is_required
+        is_required == other.is_required &&
+        locks == other.locks
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -228,7 +238,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, tag_namespace_id, tag_definition_id, tag_definition_name, value, time_created, lifecycle_state, is_required].hash
+      [id, compartment_id, tag_namespace_id, tag_definition_id, tag_definition_name, value, time_created, lifecycle_state, is_required, locks].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

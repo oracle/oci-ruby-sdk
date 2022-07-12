@@ -51,6 +51,9 @@ module OCI
     # @return [OCI::DataScience::Models::NotebookSessionConfigurationDetails]
     attr_accessor :notebook_session_configuration_details
 
+    # @return [OCI::DataScience::Models::NotebookSessionConfigDetails]
+    attr_accessor :notebook_session_config_details
+
     # The URL to interact with the notebook session.
     # @return [String]
     attr_accessor :notebook_session_url
@@ -86,6 +89,7 @@ module OCI
         'created_by': :'createdBy',
         'compartment_id': :'compartmentId',
         'notebook_session_configuration_details': :'notebookSessionConfigurationDetails',
+        'notebook_session_config_details': :'notebookSessionConfigDetails',
         'notebook_session_url': :'notebookSessionUrl',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
@@ -106,6 +110,7 @@ module OCI
         'created_by': :'String',
         'compartment_id': :'String',
         'notebook_session_configuration_details': :'OCI::DataScience::Models::NotebookSessionConfigurationDetails',
+        'notebook_session_config_details': :'OCI::DataScience::Models::NotebookSessionConfigDetails',
         'notebook_session_url': :'String',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
@@ -128,6 +133,7 @@ module OCI
     # @option attributes [String] :created_by The value to assign to the {#created_by} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [OCI::DataScience::Models::NotebookSessionConfigurationDetails] :notebook_session_configuration_details The value to assign to the {#notebook_session_configuration_details} property
+    # @option attributes [OCI::DataScience::Models::NotebookSessionConfigDetails] :notebook_session_config_details The value to assign to the {#notebook_session_config_details} property
     # @option attributes [String] :notebook_session_url The value to assign to the {#notebook_session_url} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
@@ -176,6 +182,12 @@ module OCI
       raise 'You cannot provide both :notebookSessionConfigurationDetails and :notebook_session_configuration_details' if attributes.key?(:'notebookSessionConfigurationDetails') && attributes.key?(:'notebook_session_configuration_details')
 
       self.notebook_session_configuration_details = attributes[:'notebook_session_configuration_details'] if attributes[:'notebook_session_configuration_details']
+
+      self.notebook_session_config_details = attributes[:'notebookSessionConfigDetails'] if attributes[:'notebookSessionConfigDetails']
+
+      raise 'You cannot provide both :notebookSessionConfigDetails and :notebook_session_config_details' if attributes.key?(:'notebookSessionConfigDetails') && attributes.key?(:'notebook_session_config_details')
+
+      self.notebook_session_config_details = attributes[:'notebook_session_config_details'] if attributes[:'notebook_session_config_details']
 
       self.notebook_session_url = attributes[:'notebookSessionUrl'] if attributes[:'notebookSessionUrl']
 
@@ -239,6 +251,7 @@ module OCI
         created_by == other.created_by &&
         compartment_id == other.compartment_id &&
         notebook_session_configuration_details == other.notebook_session_configuration_details &&
+        notebook_session_config_details == other.notebook_session_config_details &&
         notebook_session_url == other.notebook_session_url &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
@@ -259,7 +272,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, time_created, display_name, project_id, created_by, compartment_id, notebook_session_configuration_details, notebook_session_url, lifecycle_state, lifecycle_details, freeform_tags, defined_tags].hash
+      [id, time_created, display_name, project_id, created_by, compartment_id, notebook_session_configuration_details, notebook_session_config_details, notebook_session_url, lifecycle_state, lifecycle_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

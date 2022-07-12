@@ -28,7 +28,7 @@ module OCI
     # Calls {OCI::AiVision::AIServiceVisionClient#create_document_job} and then waits for the {OCI::AiVision::Models::DocumentJob} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::AiVision::Models::CreateDocumentJobDetails] create_document_job_details Details about the batch document analysis.
+    # @param [OCI::AiVision::Models::CreateDocumentJobDetails] create_document_job_details The details of the batch document analysis.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::AiVision::Models::DocumentJob#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::AiVision::AIServiceVisionClient#create_document_job}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -67,7 +67,7 @@ module OCI
     # Calls {OCI::AiVision::AIServiceVisionClient#create_image_job} and then waits for the {OCI::AiVision::Models::ImageJob} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::AiVision::Models::CreateImageJobDetails] create_image_job_details Details about the batch image analysis.
+    # @param [OCI::AiVision::Models::CreateImageJobDetails] create_image_job_details The details of the batch image analysis.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::AiVision::Models::ImageJob#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::AiVision::AIServiceVisionClient#create_image_job}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -106,7 +106,7 @@ module OCI
     # Calls {OCI::AiVision::AIServiceVisionClient#create_model} and then waits for the {OCI::AiVision::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::AiVision::Models::CreateModelDetails] create_model_details Metadata about the new model.
+    # @param [OCI::AiVision::Models::CreateModelDetails] create_model_details The metadata about the new model.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::AiVision::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::AiVision::AIServiceVisionClient#create_model}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -155,7 +155,7 @@ module OCI
     # Calls {OCI::AiVision::AIServiceVisionClient#create_project} and then waits for the {OCI::AiVision::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::AiVision::Models::CreateProjectDetails] create_project_details Details for the new Project.
+    # @param [OCI::AiVision::Models::CreateProjectDetails] create_project_details The new Project's details.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::AiVision::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::AiVision::AIServiceVisionClient#create_project}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -204,7 +204,7 @@ module OCI
     # Calls {OCI::AiVision::AIServiceVisionClient#delete_model} and then waits for the {OCI::AiVision::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] model_id unique model identifier.
+    # @param [String] model_id A unique model identifier.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::AiVision::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::AiVision::AIServiceVisionClient#delete_model}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -253,7 +253,7 @@ module OCI
     # Calls {OCI::AiVision::AIServiceVisionClient#delete_project} and then waits for the {OCI::AiVision::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] project_id unique project identifier.
+    # @param [String] project_id A unique project identifier.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::AiVision::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::AiVision::AIServiceVisionClient#delete_project}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -302,8 +302,8 @@ module OCI
     # Calls {OCI::AiVision::AIServiceVisionClient#update_model} and then waits for the {OCI::AiVision::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] model_id unique model identifier.
-    # @param [OCI::AiVision::Models::UpdateModelDetails] update_model_details Model metadata to be updated.
+    # @param [String] model_id A unique model identifier.
+    # @param [OCI::AiVision::Models::UpdateModelDetails] update_model_details The model metadata to be updated.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::AiVision::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::AiVision::AIServiceVisionClient#update_model}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -352,8 +352,8 @@ module OCI
     # Calls {OCI::AiVision::AIServiceVisionClient#update_project} and then waits for the {OCI::AiVision::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] project_id unique project identifier.
-    # @param [OCI::AiVision::Models::UpdateProjectDetails] update_project_details Project metadata to be updated.
+    # @param [String] project_id A unique project identifier.
+    # @param [OCI::AiVision::Models::UpdateProjectDetails] update_project_details The project metadata to be updated.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::AiVision::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::AiVision::AIServiceVisionClient#update_project}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:

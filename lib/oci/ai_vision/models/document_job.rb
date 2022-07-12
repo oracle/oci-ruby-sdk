@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Job details for a batch document analysis.
+  # The job details for a batch document analysis.
   class AiVision::Models::DocumentJob
     LANGUAGE_ENUM = [
       LANGUAGE_ENG = 'ENG'.freeze,
@@ -67,7 +67,7 @@ module OCI
       LIFECYCLE_DETAILS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Job id.
+    # **[Required]** The job id.
     # @return [String]
     attr_accessor :id
 
@@ -75,38 +75,38 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # Document job display name.
+    # The document job display name.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** List of document analysis types requested.
+    # **[Required]** The list of requested document analysis types.
     # @return [Array<OCI::AiVision::Models::DocumentFeature>]
     attr_accessor :features
 
-    # Language of the document, abbreviated according to ISO 639-2.
+    # The document language, abbreviated according to ISO 639-2.
     # @return [String]
     attr_reader :language
 
-    # The type of documents.
+    # The type of document.
     # @return [String]
     attr_reader :document_type
 
     # @return [OCI::AiVision::Models::InputLocation]
     attr_accessor :input_location
 
-    # **[Required]** Job accepted time.
+    # **[Required]** The job acceptance time.
     # @return [DateTime]
     attr_accessor :time_accepted
 
-    # Job started time.
+    # The job start time.
     # @return [DateTime]
     attr_accessor :time_started
 
-    # Job finished time.
+    # The job finish time.
     # @return [DateTime]
     attr_accessor :time_finished
 
-    # How much progress the operation has made, vs the total amount of work that must be performed.
+    # How much progress the operation has made, compared to the total amount of work to be performed.
     # @return [Float]
     attr_accessor :percent_complete
 
@@ -118,11 +118,11 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # Whether to generate a Zip file containing the results.
+    # Whether or not to generate a ZIP file containing the results.
     # @return [BOOLEAN]
     attr_accessor :is_zip_output_enabled
 
-    # Detailed status of FAILED state.
+    # The detailed status of FAILED state.
     # @return [String]
     attr_reader :lifecycle_details
 

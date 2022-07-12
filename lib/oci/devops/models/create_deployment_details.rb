@@ -65,6 +65,7 @@ module OCI
       return 'OCI::Devops::Models::CreateDeployPipelineRedeploymentDetails' if type == 'PIPELINE_REDEPLOYMENT'
       return 'OCI::Devops::Models::CreateDeployPipelineDeploymentDetails' if type == 'PIPELINE_DEPLOYMENT'
       return 'OCI::Devops::Models::CreateSingleDeployStageDeploymentDetails' if type == 'SINGLE_STAGE_DEPLOYMENT'
+      return 'OCI::Devops::Models::CreateSingleDeployStageRedeploymentDetails' if type == 'SINGLE_STAGE_REDEPLOYMENT'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::Devops::Models::CreateDeploymentDetails'

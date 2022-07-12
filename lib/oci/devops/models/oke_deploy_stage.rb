@@ -12,11 +12,11 @@ module OCI
     # @return [String]
     attr_accessor :oke_cluster_deploy_environment_id
 
-    # **[Required]** List of Kubernetes manifest artifact OCIDs, the manifests should not include any job resource.
+    # **[Required]** List of Kubernetes manifest artifact OCIDs.
     # @return [Array<String>]
     attr_accessor :kubernetes_manifest_deploy_artifact_ids
 
-    # **[Required]** Default Namespace to be used for Kubernetes deployment when not specified in the manifest.
+    # **[Required]** Default namespace to be used for Kubernetes deployment when not specified in the manifest.
     # @return [String]
     attr_accessor :namespace
 

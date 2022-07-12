@@ -34,6 +34,7 @@ module OCI
     DETECTOR_ID_ENUM = [
       DETECTOR_ID_IAAS_ACTIVITY_DETECTOR = 'IAAS_ACTIVITY_DETECTOR'.freeze,
       DETECTOR_ID_IAAS_CONFIGURATION_DETECTOR = 'IAAS_CONFIGURATION_DETECTOR'.freeze,
+      DETECTOR_ID_IAAS_THREAT_DETECTOR = 'IAAS_THREAT_DETECTOR'.freeze,
       DETECTOR_ID_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -60,6 +61,26 @@ module OCI
     # The Risk Level
     # @return [String]
     attr_reader :risk_level
+
+    # Risk Score for the problem
+    # @return [Float]
+    attr_accessor :risk_score
+
+    # The date and time for the peak risk score that is observed. Format defined by RFC3339.
+    # @return [String]
+    attr_accessor :peak_risk_score_date
+
+    # Peak risk score for the problem
+    # @return [Float]
+    attr_accessor :peak_risk_score
+
+    # The date and time when the problem will be auto resolved. Format defined by RFC3339.
+    # @return [String]
+    attr_accessor :auto_resolve_date
+
+    # Number of days for which peak score is calculated for the problem
+    # @return [Integer]
+    attr_accessor :peak_risk_score_lookup_period_in_days
 
     # Identifier of the Resource
     # @return [String]
@@ -127,6 +148,11 @@ module OCI
         'region': :'region',
         'regions': :'regions',
         'risk_level': :'riskLevel',
+        'risk_score': :'riskScore',
+        'peak_risk_score_date': :'peakRiskScoreDate',
+        'peak_risk_score': :'peakRiskScore',
+        'auto_resolve_date': :'autoResolveDate',
+        'peak_risk_score_lookup_period_in_days': :'peakRiskScoreLookupPeriodInDays',
         'resource_id': :'resourceId',
         'resource_name': :'resourceName',
         'resource_type': :'resourceType',
@@ -155,6 +181,11 @@ module OCI
         'region': :'String',
         'regions': :'Array<String>',
         'risk_level': :'String',
+        'risk_score': :'Float',
+        'peak_risk_score_date': :'String',
+        'peak_risk_score': :'Float',
+        'auto_resolve_date': :'String',
+        'peak_risk_score_lookup_period_in_days': :'Integer',
         'resource_id': :'String',
         'resource_name': :'String',
         'resource_type': :'String',
@@ -185,6 +216,11 @@ module OCI
     # @option attributes [String] :region The value to assign to the {#region} property
     # @option attributes [Array<String>] :regions The value to assign to the {#regions} property
     # @option attributes [String] :risk_level The value to assign to the {#risk_level} property
+    # @option attributes [Float] :risk_score The value to assign to the {#risk_score} property
+    # @option attributes [String] :peak_risk_score_date The value to assign to the {#peak_risk_score_date} property
+    # @option attributes [Float] :peak_risk_score The value to assign to the {#peak_risk_score} property
+    # @option attributes [String] :auto_resolve_date The value to assign to the {#auto_resolve_date} property
+    # @option attributes [Integer] :peak_risk_score_lookup_period_in_days The value to assign to the {#peak_risk_score_lookup_period_in_days} property
     # @option attributes [String] :resource_id The value to assign to the {#resource_id} property
     # @option attributes [String] :resource_name The value to assign to the {#resource_name} property
     # @option attributes [String] :resource_type The value to assign to the {#resource_type} property
@@ -228,6 +264,36 @@ module OCI
       raise 'You cannot provide both :riskLevel and :risk_level' if attributes.key?(:'riskLevel') && attributes.key?(:'risk_level')
 
       self.risk_level = attributes[:'risk_level'] if attributes[:'risk_level']
+
+      self.risk_score = attributes[:'riskScore'] if attributes[:'riskScore']
+
+      raise 'You cannot provide both :riskScore and :risk_score' if attributes.key?(:'riskScore') && attributes.key?(:'risk_score')
+
+      self.risk_score = attributes[:'risk_score'] if attributes[:'risk_score']
+
+      self.peak_risk_score_date = attributes[:'peakRiskScoreDate'] if attributes[:'peakRiskScoreDate']
+
+      raise 'You cannot provide both :peakRiskScoreDate and :peak_risk_score_date' if attributes.key?(:'peakRiskScoreDate') && attributes.key?(:'peak_risk_score_date')
+
+      self.peak_risk_score_date = attributes[:'peak_risk_score_date'] if attributes[:'peak_risk_score_date']
+
+      self.peak_risk_score = attributes[:'peakRiskScore'] if attributes[:'peakRiskScore']
+
+      raise 'You cannot provide both :peakRiskScore and :peak_risk_score' if attributes.key?(:'peakRiskScore') && attributes.key?(:'peak_risk_score')
+
+      self.peak_risk_score = attributes[:'peak_risk_score'] if attributes[:'peak_risk_score']
+
+      self.auto_resolve_date = attributes[:'autoResolveDate'] if attributes[:'autoResolveDate']
+
+      raise 'You cannot provide both :autoResolveDate and :auto_resolve_date' if attributes.key?(:'autoResolveDate') && attributes.key?(:'auto_resolve_date')
+
+      self.auto_resolve_date = attributes[:'auto_resolve_date'] if attributes[:'auto_resolve_date']
+
+      self.peak_risk_score_lookup_period_in_days = attributes[:'peakRiskScoreLookupPeriodInDays'] if attributes[:'peakRiskScoreLookupPeriodInDays']
+
+      raise 'You cannot provide both :peakRiskScoreLookupPeriodInDays and :peak_risk_score_lookup_period_in_days' if attributes.key?(:'peakRiskScoreLookupPeriodInDays') && attributes.key?(:'peak_risk_score_lookup_period_in_days')
+
+      self.peak_risk_score_lookup_period_in_days = attributes[:'peak_risk_score_lookup_period_in_days'] if attributes[:'peak_risk_score_lookup_period_in_days']
 
       self.resource_id = attributes[:'resourceId'] if attributes[:'resourceId']
 
@@ -367,6 +433,11 @@ module OCI
         region == other.region &&
         regions == other.regions &&
         risk_level == other.risk_level &&
+        risk_score == other.risk_score &&
+        peak_risk_score_date == other.peak_risk_score_date &&
+        peak_risk_score == other.peak_risk_score &&
+        auto_resolve_date == other.auto_resolve_date &&
+        peak_risk_score_lookup_period_in_days == other.peak_risk_score_lookup_period_in_days &&
         resource_id == other.resource_id &&
         resource_name == other.resource_name &&
         resource_type == other.resource_type &&
@@ -396,7 +467,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, detector_rule_id, region, regions, risk_level, resource_id, resource_name, resource_type, labels, time_last_detected, time_first_detected, lifecycle_state, lifecycle_detail, detector_id, target_id, additional_details, description, recommendation, comment].hash
+      [id, compartment_id, detector_rule_id, region, regions, risk_level, risk_score, peak_risk_score_date, peak_risk_score, auto_resolve_date, peak_risk_score_lookup_period_in_days, resource_id, resource_name, resource_type, labels, time_last_detected, time_first_detected, lifecycle_state, lifecycle_detail, detector_id, target_id, additional_details, description, recommendation, comment].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

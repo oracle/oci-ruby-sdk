@@ -9,7 +9,7 @@ module OCI
   # A text password that enables a user to sign in to the Console, the user interface for interacting with Oracle
   # Cloud Infrastructure.
   #
-  # For more information about user credentials, see [User Credentials](https://docs.cloud.oracle.com/Content/Identity/Concepts/usercredentials.htm).
+  # For more information about user credentials, see [User Credentials](https://docs.cloud.oracle.com/Content/Identity/usercred/usercredentials.htm).
   #
   class Identity::Models::UIPassword
     LIFECYCLE_STATE_ENUM = [

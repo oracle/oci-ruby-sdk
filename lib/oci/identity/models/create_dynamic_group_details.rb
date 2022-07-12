@@ -18,12 +18,15 @@ module OCI
     attr_accessor :name
 
     # **[Required]** The matching rule to dynamically match an instance certificate to this dynamic group.
-    # For rule syntax, see [Managing Dynamic Groups](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingdynamicgroups.htm).
+    # For rule syntax, see [Managing Dynamic Groups](https://docs.cloud.oracle.com/Content/Identity/dynamicgroups/managingdynamicgroups.htm).
     #
     # @return [String]
     attr_accessor :matching_rule
 
     # **[Required]** The description you assign to the group during creation. Does not have to be unique, and it's changeable.
+    #
+    # (For tenancies that support identity domains) You can have an empty description.
+    #
     # @return [String]
     attr_accessor :description
 

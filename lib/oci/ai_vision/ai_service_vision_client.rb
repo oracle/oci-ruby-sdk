@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of the VisionService API.
+  # Using Vision, you can upload images to detect and classify objects in them. If you have lots of images, you can process them in batch using asynchronous API endpoints. Vision&#39;s features are thematically split between Document AI for document-centric images, and Image Analysis for object and scene-based images. Pretrained models and custom models are supported.
   class AiVision::AIServiceVisionClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -100,7 +100,7 @@ module OCI
 
     # Perform different types of image analysis.
     #
-    # @param [OCI::AiVision::Models::AnalyzeDocumentDetails] analyze_document_details Details about how to analyze a document.
+    # @param [OCI::AiVision::Models::AnalyzeDocumentDetails] analyze_document_details The details of how to analyze a document.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -206,7 +206,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Cancel a batch document job.
+    # Cancel a document batch job.
     #
     # @param [String] document_job_id Document job id.
     # @param [Hash] opts the optional parameters
@@ -267,7 +267,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Cancel a batch image job.
+    # Cancel an image batch job.
     #
     # @param [String] image_job_id Image job id.
     # @param [Hash] opts the optional parameters
@@ -328,7 +328,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Cancel work request with the given ID.
+    # Cancel the work request with the given ID.
     # @param [String] work_request_id The ID of the asynchronous request.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -388,9 +388,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves a model from one compartment to another. When provided, If-Match is checked against ETag values of the resource.
-    # @param [String] model_id unique model identifier.
-    # @param [OCI::AiVision::Models::ChangeModelCompartmentDetails] change_model_compartment_details The deatils of the move.
+    # Moves a model from one compartment to another. When provided, If-Match is checked against the ETag values of the resource.
+    # @param [String] model_id A unique model identifier.
+    # @param [OCI::AiVision::Models::ChangeModelCompartmentDetails] change_model_compartment_details The details of the move.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -450,8 +450,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Moves a project from one compartment to another. When provided, If-Match is checked against ETag values of the resource.
-    # @param [String] project_id unique project identifier.
+    # Move a project from one compartment to another. When provided, If-Match is checked against the ETag values of the resource.
+    # @param [String] project_id A unique project identifier.
     # @param [OCI::AiVision::Models::ChangeProjectCompartmentDetails] change_project_compartment_details The deatils of the move.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -512,14 +512,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Create a batch document analysis job
+    # Create a document analysis batch job.
     #
-    # @param [OCI::AiVision::Models::CreateDocumentJobDetails] create_document_job_details Details about the batch document analysis.
+    # @param [OCI::AiVision::Models::CreateDocumentJobDetails] create_document_job_details The details of the batch document analysis.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   server error without the risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
@@ -574,14 +574,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Create a batch image analysis job.
+    # Create an image analysis batch job.
     #
-    # @param [OCI::AiVision::Models::CreateImageJobDetails] create_image_job_details Details about the batch image analysis.
+    # @param [OCI::AiVision::Models::CreateImageJobDetails] create_image_job_details The details of the batch image analysis.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   server error without the risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
@@ -636,14 +636,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new model.
+    # Create a new model.
     #
-    # @param [OCI::AiVision::Models::CreateModelDetails] create_model_details Metadata about the new model.
+    # @param [OCI::AiVision::Models::CreateModelDetails] create_model_details The metadata about the new model.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   server error without the risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
@@ -698,14 +698,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new project.
+    # Create a new project.
     #
-    # @param [OCI::AiVision::Models::CreateProjectDetails] create_project_details Details for the new Project.
+    # @param [OCI::AiVision::Models::CreateProjectDetails] create_project_details The new Project's details.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   server error without the risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
@@ -760,8 +760,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes a model by identifier.
-    # @param [String] model_id unique model identifier.
+    # Delete a model by identifier.
+    # @param [String] model_id A unique model identifier.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -820,8 +820,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes a project by identifier.
-    # @param [String] project_id unique project identifier.
+    # Delete a project by identifier.
+    # @param [String] project_id A unique project identifier.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -880,7 +880,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get details of a batch document job.
+    # Get details of a document batch job.
     #
     # @param [String] document_job_id Document job id.
     # @param [Hash] opts the optional parameters
@@ -935,7 +935,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get details of a batch image job.
+    # Get details of an image batch job.
     #
     # @param [String] image_job_id Image job id.
     # @param [Hash] opts the optional parameters
@@ -990,8 +990,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a model by identifier.
-    # @param [String] model_id unique model identifier.
+    # Get a model by identifier.
+    # @param [String] model_id A unique model identifier.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1044,8 +1044,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a project by identifier.
-    # @param [String] project_id unique project identifier.
+    # Get a project by identifier.
+    # @param [String] project_id A unique project identifier.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1159,13 +1159,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :compartment_id The ID of the compartment in which to list resources.
     # @option opts [String] :project_id The ID of the project for which to list the objects.
-    # @option opts [String] :lifecycle_state Filter to match models with the given lifecycleState.
+    # @option opts [String] :lifecycle_state The filter to match models with the given lifecycleState.
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
-    # @option opts [String] :id Filter to find the model with the given identifier.
+    # @option opts [String] :id The filter to find the model with the given identifier.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The position at which to start retrieving results. This must come from the `opc-next-page` header field of a previous response.
     # @option opts [String] :sort_order The sort order to use, either 'ASC' or 'DESC'.
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. The default order for timeCreated is descending. The default order for displayName is ascending.
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
@@ -1242,13 +1242,13 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :compartment_id The ID of the compartment in which to list resources.
-    # @option opts [String] :lifecycle_state Filter to match projects with the given lifecycleState.
+    # @option opts [String] :lifecycle_state The filter to match projects with the given lifecycleState.
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
-    # @option opts [String] :id Filter to find the project with the given identifier.
+    # @option opts [String] :id The filter to find the project with the given identifier.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The position at which to start retrieving results. This must come from the `opc-next-page` header field of a previous response.
     # @option opts [String] :sort_order The sort order to use, either 'ASC' or 'DESC'.
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. The default order for timeCreated is descending. The default order for displayName is ascending.
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
@@ -1318,7 +1318,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Return a (paginated) list of errors for a given work request.
+    # Returns a (paginated) list of errors for a given work request.
     #
     # @param [String] work_request_id The ID of the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -1327,7 +1327,7 @@ module OCI
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :page The position at which to start retrieving results. This must come from the `opc-next-page` header field of a previous response.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeAccepted is descending.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. The default order for timeAccepted is descending.
     #    (default to timeAccepted)
     #   Allowed values are: timeAccepted
     # @option opts [String] :sort_order The sort order to use, either 'ASC' or 'DESC'.
@@ -1400,7 +1400,7 @@ module OCI
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :page The position at which to start retrieving results. This must come from the `opc-next-page` header field of a previous response.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeAccepted is descending.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. The default order for timeAccepted is descending.
     #    (default to timeAccepted)
     #   Allowed values are: timeAccepted
     # @option opts [String] :sort_order The sort order to use, either 'ASC' or 'DESC'.
@@ -1471,13 +1471,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :compartment_id The ID of the compartment in which to list resources.
     # @option opts [String] :work_request_id The ID of the asynchronous work request.
-    # @option opts [String] :status A filter to return only resources their lifecycleState matches the given OperationStatus.
+    # @option opts [String] :status A filter to return only resources whose lifecycleState matches the given OperationStatus.
     # @option opts [String] :resource_id The ID of the resource affected by the work request.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :page The position at which to start retrieving results. This must come from the `opc-next-page` header field of a previous response.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :sort_order The sort order to use, either 'ASC' or 'DESC'.
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeAccepted is descending.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. The default order for timeAccepted is descending.
     #    (default to timeAccepted)
     #   Allowed values are: timeAccepted
     # @return [Response] A Response object with data of type {OCI::AiVision::Models::WorkRequestSummaryCollection WorkRequestSummaryCollection}
@@ -1546,9 +1546,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates model metadata.
-    # @param [String] model_id unique model identifier.
-    # @param [OCI::AiVision::Models::UpdateModelDetails] update_model_details Model metadata to be updated.
+    # Updates the model metadata.
+    # @param [String] model_id A unique model identifier.
+    # @param [OCI::AiVision::Models::UpdateModelDetails] update_model_details The model metadata to be updated.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -1608,9 +1608,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Updates project metadata.
-    # @param [String] project_id unique project identifier.
-    # @param [OCI::AiVision::Models::UpdateProjectDetails] update_project_details Project metadata to be updated.
+    # Update the project metadata.
+    # @param [String] project_id A unique project identifier.
+    # @param [OCI::AiVision::Models::UpdateProjectDetails] update_project_details The project metadata to be updated.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

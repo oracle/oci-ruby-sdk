@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Oracle Content and Experience is a cloud-based content hub to drive omni-channel content management and accelerate experience delivery
+  # Oracle Content Management is a cloud-based content hub to drive omni-channel content management and accelerate experience delivery
   class Oce::OceInstanceClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -416,7 +416,6 @@ module OCI
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :lifecycle_state Filter results on lifecycleState. (default to ACTIVE)
-    #   Allowed values are: CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type Array<{OCI::Oce::Models::OceInstanceSummary OceInstanceSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oce/list_oce_instances.rb.html) to see an example of how to use list_oce_instances API.
@@ -433,8 +432,8 @@ module OCI
         raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
       end
 
-      if opts[:lifecycle_state] && !%w[CREATING UPDATING ACTIVE DELETING DELETED FAILED].include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED.'
+      if opts[:lifecycle_state] && !OCI::Oce::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Oce::Models::LIFECYCLE_STATE_ENUM.'
       end
 
       path = '/oceInstances'

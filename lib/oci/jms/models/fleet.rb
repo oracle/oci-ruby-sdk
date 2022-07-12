@@ -15,6 +15,7 @@ module OCI
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_NEEDS_ATTENTION = 'NEEDS_ATTENTION'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
@@ -60,6 +61,12 @@ module OCI
     # @return [Integer]
     attr_accessor :approximate_managed_instance_count
 
+    # @return [OCI::Jms::Models::CustomLog]
+    attr_accessor :inventory_log
+
+    # @return [OCI::Jms::Models::CustomLog]
+    attr_accessor :operation_log
+
     # **[Required]** The creation date and time of the Fleet (formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)).
     #
     # @return [DateTime]
@@ -102,6 +109,8 @@ module OCI
         'approximate_installation_count': :'approximateInstallationCount',
         'approximate_application_count': :'approximateApplicationCount',
         'approximate_managed_instance_count': :'approximateManagedInstanceCount',
+        'inventory_log': :'inventoryLog',
+        'operation_log': :'operationLog',
         'time_created': :'timeCreated',
         'lifecycle_state': :'lifecycleState',
         'defined_tags': :'definedTags',
@@ -123,6 +132,8 @@ module OCI
         'approximate_installation_count': :'Integer',
         'approximate_application_count': :'Integer',
         'approximate_managed_instance_count': :'Integer',
+        'inventory_log': :'OCI::Jms::Models::CustomLog',
+        'operation_log': :'OCI::Jms::Models::CustomLog',
         'time_created': :'DateTime',
         'lifecycle_state': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -146,6 +157,8 @@ module OCI
     # @option attributes [Integer] :approximate_installation_count The value to assign to the {#approximate_installation_count} property
     # @option attributes [Integer] :approximate_application_count The value to assign to the {#approximate_application_count} property
     # @option attributes [Integer] :approximate_managed_instance_count The value to assign to the {#approximate_managed_instance_count} property
+    # @option attributes [OCI::Jms::Models::CustomLog] :inventory_log The value to assign to the {#inventory_log} property
+    # @option attributes [OCI::Jms::Models::CustomLog] :operation_log The value to assign to the {#operation_log} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -196,6 +209,18 @@ module OCI
       raise 'You cannot provide both :approximateManagedInstanceCount and :approximate_managed_instance_count' if attributes.key?(:'approximateManagedInstanceCount') && attributes.key?(:'approximate_managed_instance_count')
 
       self.approximate_managed_instance_count = attributes[:'approximate_managed_instance_count'] if attributes[:'approximate_managed_instance_count']
+
+      self.inventory_log = attributes[:'inventoryLog'] if attributes[:'inventoryLog']
+
+      raise 'You cannot provide both :inventoryLog and :inventory_log' if attributes.key?(:'inventoryLog') && attributes.key?(:'inventory_log')
+
+      self.inventory_log = attributes[:'inventory_log'] if attributes[:'inventory_log']
+
+      self.operation_log = attributes[:'operationLog'] if attributes[:'operationLog']
+
+      raise 'You cannot provide both :operationLog and :operation_log' if attributes.key?(:'operationLog') && attributes.key?(:'operation_log')
+
+      self.operation_log = attributes[:'operation_log'] if attributes[:'operation_log']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -260,6 +285,8 @@ module OCI
         approximate_installation_count == other.approximate_installation_count &&
         approximate_application_count == other.approximate_application_count &&
         approximate_managed_instance_count == other.approximate_managed_instance_count &&
+        inventory_log == other.inventory_log &&
+        operation_log == other.operation_log &&
         time_created == other.time_created &&
         lifecycle_state == other.lifecycle_state &&
         defined_tags == other.defined_tags &&
@@ -280,7 +307,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, description, compartment_id, approximate_jre_count, approximate_installation_count, approximate_application_count, approximate_managed_instance_count, time_created, lifecycle_state, defined_tags, freeform_tags, system_tags].hash
+      [id, display_name, description, compartment_id, approximate_jre_count, approximate_installation_count, approximate_application_count, approximate_managed_instance_count, inventory_log, operation_log, time_created, lifecycle_state, defined_tags, freeform_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

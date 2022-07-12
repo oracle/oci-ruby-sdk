@@ -7,19 +7,19 @@ require 'date'
 module OCI
   # A single cell in a table.
   class AiVision::Models::Cell
-    # **[Required]** Text recognized in the cell.
+    # **[Required]** The text recognized in the cell.
     # @return [String]
     attr_accessor :text
 
-    # **[Required]** Index of the cell inside the row.
+    # **[Required]** The index of the cell inside the row.
     # @return [Integer]
     attr_accessor :row_index
 
-    # **[Required]** Index of the cell inside the column.
+    # **[Required]** The index of the cell inside the column.
     # @return [Integer]
     attr_accessor :column_index
 
-    # **[Required]** Confidence score between 0 to 1.
+    # **[Required]** The confidence score between 0 and 1.
     # @return [Float]
     attr_accessor :confidence
 
@@ -27,7 +27,7 @@ module OCI
     # @return [OCI::AiVision::Models::BoundingPolygon]
     attr_accessor :bounding_polygon
 
-    # **[Required]** Words detected in the cell.
+    # **[Required]** The words detected in the cell.
     # @return [Array<Integer>]
     attr_accessor :word_indexes
 

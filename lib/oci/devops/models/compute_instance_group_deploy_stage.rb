@@ -6,7 +6,7 @@ require_relative 'deploy_stage'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the instance group rolling deployment stage.
+  # Specifies the Instance Group Rolling deployment stage.
   class Devops::Models::ComputeInstanceGroupDeployStage < Devops::Models::DeployStage
     # **[Required]** A compute instance group environment OCID for rolling deployment.
     # @return [String]

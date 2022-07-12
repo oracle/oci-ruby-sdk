@@ -6,7 +6,7 @@ require_relative 'compute_instance_group_selector'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the Compute instance group environment filtered by DSL expression of the compute instances.
+  # Specifies the Compute instance group environment filtered by the RQS query expression.
   class Devops::Models::ComputeInstanceGroupByQuerySelector < Devops::Models::ComputeInstanceGroupSelector
     # **[Required]** Region identifier referred by the deployment environment. Region identifiers are listed at https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm
     # @return [String]

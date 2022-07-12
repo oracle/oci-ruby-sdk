@@ -37,6 +37,7 @@ module OCI
       REGION_EU_MILAN_1 = 'eu-milan-1'.freeze,
       REGION_EU_STOCKHOLM_1 = 'eu-stockholm-1'.freeze,
       REGION_AF_JOHANNESBURG_1 = 'af-johannesburg-1'.freeze,
+      REGION_EU_PARIS_1 = 'eu-paris-1'.freeze,
       REGION_US_LANGLEY_1 = 'us-langley-1'.freeze,
       REGION_US_LUKE_1 = 'us-luke-1'.freeze,
       REGION_US_GOV_ASHBURN_1 = 'us-gov-ashburn-1'.freeze,
@@ -81,6 +82,7 @@ module OCI
       'lin': REGION_EU_MILAN_1,
       'arn': REGION_EU_STOCKHOLM_1,
       'jnb': REGION_AF_JOHANNESBURG_1,
+      'cdg': REGION_EU_PARIS_1,
       'lfi': REGION_US_LANGLEY_1,
       'luf': REGION_US_LUKE_1,
       'ric': REGION_US_GOV_ASHBURN_1,
@@ -126,6 +128,7 @@ module OCI
       'eu-milan-1': 'oc1'.freeze,
       'eu-stockholm-1': 'oc1'.freeze,
       'af-johannesburg-1': 'oc1'.freeze,
+      'eu-paris-1': 'oc1'.freeze,
 
       'us-langley-1': 'oc2'.freeze,
       'us-luke-1': 'oc2'.freeze,

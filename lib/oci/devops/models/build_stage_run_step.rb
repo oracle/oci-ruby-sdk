@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details about each step in a Build stage.
+  # The details about each step in a build stage.
   class Devops::Models::BuildStageRunStep
     STATE_ENUM = [
       STATE_WAITING = 'WAITING'.freeze,

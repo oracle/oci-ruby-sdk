@@ -525,6 +525,66 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # An asynchronous API to restore tenancy.
+    # @param [String] organization_tenancy_id OCID of the tenancy to be restored.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/tenantmanagercontrolplane/restore_organization_tenancy.rb.html) to see an example of how to use restore_organization_tenancy API.
+    def restore_organization_tenancy(organization_tenancy_id, opts = {})
+      logger.debug 'Calling operation OrganizationClient#restore_organization_tenancy.' if logger
+
+      raise "Missing the required parameter 'organization_tenancy_id' when calling restore_organization_tenancy." if organization_tenancy_id.nil?
+      raise "Parameter value for 'organization_tenancy_id' must not be blank" if OCI::Internal::Util.blank_string?(organization_tenancy_id)
+
+      path = '/organizationTenancies/{organizationTenancyId}/actions/restore'.sub('{organizationTenancyId}', organization_tenancy_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OrganizationClient#restore_organization_tenancy') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Cancel an organization's child tenancy for transfer.
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [String] organization_tenancy_id OCID of the child tenancy.

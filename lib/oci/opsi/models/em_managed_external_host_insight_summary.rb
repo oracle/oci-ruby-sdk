@@ -13,6 +13,7 @@ module OCI
       PLATFORM_TYPE_LINUX = 'LINUX'.freeze,
       PLATFORM_TYPE_SOLARIS = 'SOLARIS'.freeze,
       PLATFORM_TYPE_SUNOS = 'SUNOS'.freeze,
+      PLATFORM_TYPE_ZLINUX = 'ZLINUX'.freeze,
       PLATFORM_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -42,7 +43,7 @@ module OCI
 
     # Platform type.
     # Supported platformType(s) for MACS-managed external host insight: [LINUX].
-    # Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS].
+    # Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS, ZLINUX].
     #
     # @return [String]
     attr_reader :platform_type
@@ -65,6 +66,7 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'system_tags': :'systemTags',
+        'opsi_private_endpoint_id': :'opsiPrivateEndpointId',
         'status': :'status',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
@@ -96,6 +98,7 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'system_tags': :'Hash<String, Hash<String, Object>>',
+        'opsi_private_endpoint_id': :'String',
         'status': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
@@ -128,6 +131,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::Opsi::Models::HostInsightSummary#freeform_tags #freeform_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::Opsi::Models::HostInsightSummary#defined_tags #defined_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {OCI::Opsi::Models::HostInsightSummary#system_tags #system_tags} proprety
+    # @option attributes [String] :opsi_private_endpoint_id The value to assign to the {OCI::Opsi::Models::HostInsightSummary#opsi_private_endpoint_id #opsi_private_endpoint_id} proprety
     # @option attributes [String] :status The value to assign to the {OCI::Opsi::Models::HostInsightSummary#status #status} proprety
     # @option attributes [DateTime] :time_created The value to assign to the {OCI::Opsi::Models::HostInsightSummary#time_created #time_created} proprety
     # @option attributes [DateTime] :time_updated The value to assign to the {OCI::Opsi::Models::HostInsightSummary#time_updated #time_updated} proprety
@@ -234,6 +238,7 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         system_tags == other.system_tags &&
+        opsi_private_endpoint_id == other.opsi_private_endpoint_id &&
         status == other.status &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
@@ -262,7 +267,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [entity_source, id, compartment_id, host_name, host_display_name, host_type, processor_count, freeform_tags, defined_tags, system_tags, status, time_created, time_updated, lifecycle_state, lifecycle_details, enterprise_manager_identifier, enterprise_manager_entity_name, enterprise_manager_entity_type, enterprise_manager_entity_identifier, enterprise_manager_entity_display_name, enterprise_manager_bridge_id, platform_type, exadata_insight_id].hash
+      [entity_source, id, compartment_id, host_name, host_display_name, host_type, processor_count, freeform_tags, defined_tags, system_tags, opsi_private_endpoint_id, status, time_created, time_updated, lifecycle_state, lifecycle_details, enterprise_manager_identifier, enterprise_manager_entity_name, enterprise_manager_entity_type, enterprise_manager_entity_identifier, enterprise_manager_entity_display_name, enterprise_manager_bridge_id, platform_type, exadata_insight_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -13,6 +13,7 @@ module OCI
     CREDENTIAL_TYPE_ENUM = [
       CREDENTIAL_TYPE_NAME_REFERENCE = 'NAME_REFERENCE'.freeze,
       CREDENTIAL_TYPE_DETAILS = 'DETAILS'.freeze,
+      CREDENTIAL_TYPE_SSL_DETAILS = 'SSL_DETAILS'.freeze,
       CREDENTIAL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -47,6 +48,7 @@ module OCI
       type = object_hash[:'credentialType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Database::Models::DatabaseConnectionCredentailsByName' if type == 'NAME_REFERENCE'
+      return 'OCI::Database::Models::DatabaseSslConnectionCredentials' if type == 'SSL_DETAILS'
       return 'OCI::Database::Models::DatabaseConnectionCredentialsByDetails' if type == 'DETAILS'
 
       # TODO: Log a warning when the subtype is not found.

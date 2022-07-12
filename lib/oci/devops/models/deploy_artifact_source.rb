@@ -13,6 +13,7 @@ module OCI
       DEPLOY_ARTIFACT_SOURCE_TYPE_INLINE = 'INLINE'.freeze,
       DEPLOY_ARTIFACT_SOURCE_TYPE_OCIR = 'OCIR'.freeze,
       DEPLOY_ARTIFACT_SOURCE_TYPE_GENERIC_ARTIFACT = 'GENERIC_ARTIFACT'.freeze,
+      DEPLOY_ARTIFACT_SOURCE_TYPE_HELM_CHART = 'HELM_CHART'.freeze,
       DEPLOY_ARTIFACT_SOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -47,6 +48,7 @@ module OCI
       type = object_hash[:'deployArtifactSourceType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Devops::Models::GenericDeployArtifactSource' if type == 'GENERIC_ARTIFACT'
+      return 'OCI::Devops::Models::HelmRepositoryDeployArtifactSource' if type == 'HELM_CHART'
       return 'OCI::Devops::Models::OcirDeployArtifactSource' if type == 'OCIR'
       return 'OCI::Devops::Models::InlineDeployArtifactSource' if type == 'INLINE'
 

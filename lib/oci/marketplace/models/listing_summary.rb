@@ -21,6 +21,12 @@ module OCI
       PRICING_TYPES_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    COMPATIBLE_ARCHITECTURES_ENUM = [
+      COMPATIBLE_ARCHITECTURES_X86 = 'X86'.freeze,
+      COMPATIBLE_ARCHITECTURES_ARM = 'ARM'.freeze,
+      COMPATIBLE_ARCHITECTURES_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LISTING_TYPE_ENUM = [
       LISTING_TYPE_COMMUNITY = 'COMMUNITY'.freeze,
       LISTING_TYPE_PARTNER = 'PARTNER'.freeze,
@@ -59,6 +65,10 @@ module OCI
     # @return [Array<String>]
     attr_reader :pricing_types
 
+    # The list of compatible architectures supported by the listing
+    # @return [Array<String>]
+    attr_reader :compatible_architectures
+
     # The regions where you can deploy the listing. (Some listings have restrictions that limit their deployment to United States regions only.)
     #
     # @return [Array<OCI::Marketplace::Models::Region>]
@@ -95,6 +105,7 @@ module OCI
         'icon': :'icon',
         'package_type': :'packageType',
         'pricing_types': :'pricingTypes',
+        'compatible_architectures': :'compatibleArchitectures',
         'regions': :'regions',
         'is_featured': :'isFeatured',
         'categories': :'categories',
@@ -117,6 +128,7 @@ module OCI
         'icon': :'OCI::Marketplace::Models::UploadData',
         'package_type': :'String',
         'pricing_types': :'Array<String>',
+        'compatible_architectures': :'Array<String>',
         'regions': :'Array<OCI::Marketplace::Models::Region>',
         'is_featured': :'BOOLEAN',
         'categories': :'Array<String>',
@@ -141,6 +153,7 @@ module OCI
     # @option attributes [OCI::Marketplace::Models::UploadData] :icon The value to assign to the {#icon} property
     # @option attributes [String] :package_type The value to assign to the {#package_type} property
     # @option attributes [Array<String>] :pricing_types The value to assign to the {#pricing_types} property
+    # @option attributes [Array<String>] :compatible_architectures The value to assign to the {#compatible_architectures} property
     # @option attributes [Array<OCI::Marketplace::Models::Region>] :regions The value to assign to the {#regions} property
     # @option attributes [BOOLEAN] :is_featured The value to assign to the {#is_featured} property
     # @option attributes [Array<String>] :categories The value to assign to the {#categories} property
@@ -186,6 +199,12 @@ module OCI
       raise 'You cannot provide both :pricingTypes and :pricing_types' if attributes.key?(:'pricingTypes') && attributes.key?(:'pricing_types')
 
       self.pricing_types = attributes[:'pricing_types'] if attributes[:'pricing_types']
+
+      self.compatible_architectures = attributes[:'compatibleArchitectures'] if attributes[:'compatibleArchitectures']
+
+      raise 'You cannot provide both :compatibleArchitectures and :compatible_architectures' if attributes.key?(:'compatibleArchitectures') && attributes.key?(:'compatible_architectures')
+
+      self.compatible_architectures = attributes[:'compatible_architectures'] if attributes[:'compatible_architectures']
 
       self.regions = attributes[:'regions'] if attributes[:'regions']
 
@@ -248,6 +267,26 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] compatible_architectures Object to be assigned
+    def compatible_architectures=(compatible_architectures)
+      # rubocop:disable Style/ConditionalAssignment
+      if compatible_architectures.nil?
+        @compatible_architectures = nil
+      else
+        @compatible_architectures =
+          compatible_architectures.collect do |item|
+            if COMPATIBLE_ARCHITECTURES_ENUM.include?(item)
+              item
+            else
+              OCI.logger.debug("Unknown value for 'compatible_architectures' [#{item}]. Mapping to 'COMPATIBLE_ARCHITECTURES_UNKNOWN_ENUM_VALUE'") if OCI.logger
+              COMPATIBLE_ARCHITECTURES_UNKNOWN_ENUM_VALUE
+            end
+          end
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] listing_type Object to be assigned
     def listing_type=(listing_type)
       # rubocop:disable Style/ConditionalAssignment
@@ -277,6 +316,7 @@ module OCI
         icon == other.icon &&
         package_type == other.package_type &&
         pricing_types == other.pricing_types &&
+        compatible_architectures == other.compatible_architectures &&
         regions == other.regions &&
         is_featured == other.is_featured &&
         categories == other.categories &&
@@ -298,7 +338,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, short_description, is_rover_exportable, tagline, icon, package_type, pricing_types, regions, is_featured, categories, publisher, supported_operating_systems, listing_type].hash
+      [id, name, short_description, is_rover_exportable, tagline, icon, package_type, pricing_types, compatible_architectures, regions, is_featured, categories, publisher, supported_operating_systems, listing_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

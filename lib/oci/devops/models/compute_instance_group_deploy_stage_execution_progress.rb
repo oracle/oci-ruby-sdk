@@ -6,7 +6,7 @@ require_relative 'deploy_stage_execution_progress'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the execution details for the instance group rolling deployment stage.
+  # Specifies the execution details for the Instance Group Rolling deployment stage.
   class Devops::Models::ComputeInstanceGroupDeployStageExecutionProgress < Devops::Models::DeployStageExecutionProgress
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map

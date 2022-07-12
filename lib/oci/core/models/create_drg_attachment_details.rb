@@ -13,11 +13,11 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the DRG.
     # @return [String]
     attr_accessor :drg_id
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG route table that is assigned to this attachment.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the DRG route table that is assigned to this attachment.
     #
     # The DRG route table manages traffic inside the DRG.
     #
@@ -43,7 +43,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the route table used by the DRG attachment.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the route table used by the DRG attachment.
     #
     # If you don't specify a route table here, the DRG attachment is created without an associated route
     # table. The Networking service does NOT automatically associate the attached VCN's default route table
@@ -57,8 +57,8 @@ module OCI
     # @return [String]
     attr_accessor :route_table_id
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VCN.
-    # This field is deprecated. Instead, use the `networkDetails` field to specify the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the attached resource.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN.
+    # This field is deprecated. Instead, use the `networkDetails` field to specify the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the attached resource.
     #
     # @return [String]
     attr_accessor :vcn_id

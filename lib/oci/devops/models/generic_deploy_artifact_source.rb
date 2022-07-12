@@ -8,7 +8,7 @@ require_relative 'deploy_artifact_source'
 module OCI
   # Specifies the Artifact Registry source details.
   class Devops::Models::GenericDeployArtifactSource < Devops::Models::DeployArtifactSource
-    # **[Required]** The OCID of a repository
+    # **[Required]** The OCID of a repository.
     # @return [String]
     attr_accessor :repository_id
 

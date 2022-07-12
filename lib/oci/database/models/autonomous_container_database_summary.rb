@@ -73,7 +73,8 @@ module OCI
     # @return [String]
     attr_reader :service_level_agreement_type
 
-    # The OCID of the Autonomous Exadata Infrastructure.
+    # **No longer used.** For Autonomous Database on dedicated Exadata infrastructure, the container database is created within a specified `cloudAutonomousVmCluster`.
+    #
     # @return [String]
     attr_accessor :autonomous_exadata_infrastructure_id
 
@@ -180,6 +181,26 @@ module OCI
     # @return [String]
     attr_accessor :key_store_wallet_name
 
+    # The amount of memory (in GBs) enabled per each OCPU core in Autonomous VM Cluster.
+    # @return [Integer]
+    attr_accessor :memory_per_oracle_compute_unit_in_gbs
+
+    # Sum of OCPUs available on the Autonomous VM Cluster + Sum of fractional OCPUs available in the Autonomous Container Database.
+    # @return [Float]
+    attr_accessor :available_cpus
+
+    # The number of CPU cores allocated to the Autonomous VM cluster.
+    # @return [Integer]
+    attr_accessor :total_cpus
+
+    # CPU cores that continue to be included in the count of OCPUs available to the Autonomous Container Database even after one of its Autonomous Database is terminated or scaled down. You can release them to the available OCPUs at its parent AVMC level by restarting the Autonomous Container Database.
+    # @return [Float]
+    attr_accessor :reclaimable_cpus
+
+    # An array of CPU values that can be used to successfully provision a single Autonomous Database.
+    # @return [Array<Float>]
+    attr_accessor :provisionable_cpus
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -213,7 +234,12 @@ module OCI
         'db_version': :'dbVersion',
         'backup_config': :'backupConfig',
         'key_store_id': :'keyStoreId',
-        'key_store_wallet_name': :'keyStoreWalletName'
+        'key_store_wallet_name': :'keyStoreWalletName',
+        'memory_per_oracle_compute_unit_in_gbs': :'memoryPerOracleComputeUnitInGBs',
+        'available_cpus': :'availableCpus',
+        'total_cpus': :'totalCpus',
+        'reclaimable_cpus': :'reclaimableCpus',
+        'provisionable_cpus': :'provisionableCpus'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -251,7 +277,12 @@ module OCI
         'db_version': :'String',
         'backup_config': :'OCI::Database::Models::AutonomousContainerDatabaseBackupConfig',
         'key_store_id': :'String',
-        'key_store_wallet_name': :'String'
+        'key_store_wallet_name': :'String',
+        'memory_per_oracle_compute_unit_in_gbs': :'Integer',
+        'available_cpus': :'Float',
+        'total_cpus': :'Integer',
+        'reclaimable_cpus': :'Float',
+        'provisionable_cpus': :'Array<Float>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -292,6 +323,11 @@ module OCI
     # @option attributes [OCI::Database::Models::AutonomousContainerDatabaseBackupConfig] :backup_config The value to assign to the {#backup_config} property
     # @option attributes [String] :key_store_id The value to assign to the {#key_store_id} property
     # @option attributes [String] :key_store_wallet_name The value to assign to the {#key_store_wallet_name} property
+    # @option attributes [Integer] :memory_per_oracle_compute_unit_in_gbs The value to assign to the {#memory_per_oracle_compute_unit_in_gbs} property
+    # @option attributes [Float] :available_cpus The value to assign to the {#available_cpus} property
+    # @option attributes [Integer] :total_cpus The value to assign to the {#total_cpus} property
+    # @option attributes [Float] :reclaimable_cpus The value to assign to the {#reclaimable_cpus} property
+    # @option attributes [Array<Float>] :provisionable_cpus The value to assign to the {#provisionable_cpus} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -469,6 +505,36 @@ module OCI
       raise 'You cannot provide both :keyStoreWalletName and :key_store_wallet_name' if attributes.key?(:'keyStoreWalletName') && attributes.key?(:'key_store_wallet_name')
 
       self.key_store_wallet_name = attributes[:'key_store_wallet_name'] if attributes[:'key_store_wallet_name']
+
+      self.memory_per_oracle_compute_unit_in_gbs = attributes[:'memoryPerOracleComputeUnitInGBs'] if attributes[:'memoryPerOracleComputeUnitInGBs']
+
+      raise 'You cannot provide both :memoryPerOracleComputeUnitInGBs and :memory_per_oracle_compute_unit_in_gbs' if attributes.key?(:'memoryPerOracleComputeUnitInGBs') && attributes.key?(:'memory_per_oracle_compute_unit_in_gbs')
+
+      self.memory_per_oracle_compute_unit_in_gbs = attributes[:'memory_per_oracle_compute_unit_in_gbs'] if attributes[:'memory_per_oracle_compute_unit_in_gbs']
+
+      self.available_cpus = attributes[:'availableCpus'] if attributes[:'availableCpus']
+
+      raise 'You cannot provide both :availableCpus and :available_cpus' if attributes.key?(:'availableCpus') && attributes.key?(:'available_cpus')
+
+      self.available_cpus = attributes[:'available_cpus'] if attributes[:'available_cpus']
+
+      self.total_cpus = attributes[:'totalCpus'] if attributes[:'totalCpus']
+
+      raise 'You cannot provide both :totalCpus and :total_cpus' if attributes.key?(:'totalCpus') && attributes.key?(:'total_cpus')
+
+      self.total_cpus = attributes[:'total_cpus'] if attributes[:'total_cpus']
+
+      self.reclaimable_cpus = attributes[:'reclaimableCpus'] if attributes[:'reclaimableCpus']
+
+      raise 'You cannot provide both :reclaimableCpus and :reclaimable_cpus' if attributes.key?(:'reclaimableCpus') && attributes.key?(:'reclaimable_cpus')
+
+      self.reclaimable_cpus = attributes[:'reclaimable_cpus'] if attributes[:'reclaimable_cpus']
+
+      self.provisionable_cpus = attributes[:'provisionableCpus'] if attributes[:'provisionableCpus']
+
+      raise 'You cannot provide both :provisionableCpus and :provisionable_cpus' if attributes.key?(:'provisionableCpus') && attributes.key?(:'provisionable_cpus')
+
+      self.provisionable_cpus = attributes[:'provisionable_cpus'] if attributes[:'provisionable_cpus']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -576,7 +642,12 @@ module OCI
         db_version == other.db_version &&
         backup_config == other.backup_config &&
         key_store_id == other.key_store_id &&
-        key_store_wallet_name == other.key_store_wallet_name
+        key_store_wallet_name == other.key_store_wallet_name &&
+        memory_per_oracle_compute_unit_in_gbs == other.memory_per_oracle_compute_unit_in_gbs &&
+        available_cpus == other.available_cpus &&
+        total_cpus == other.total_cpus &&
+        reclaimable_cpus == other.reclaimable_cpus &&
+        provisionable_cpus == other.provisionable_cpus
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -592,7 +663,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, db_unique_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, autonomous_vm_cluster_id, infrastructure_type, cloud_autonomous_vm_cluster_id, kms_key_id, vault_id, kms_key_version_id, key_history_entry, lifecycle_state, lifecycle_details, time_created, patch_model, patch_id, last_maintenance_run_id, next_maintenance_run_id, maintenance_window, standby_maintenance_buffer_in_days, freeform_tags, defined_tags, role, availability_domain, db_version, backup_config, key_store_id, key_store_wallet_name].hash
+      [id, compartment_id, display_name, db_unique_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, autonomous_vm_cluster_id, infrastructure_type, cloud_autonomous_vm_cluster_id, kms_key_id, vault_id, kms_key_version_id, key_history_entry, lifecycle_state, lifecycle_details, time_created, patch_model, patch_id, last_maintenance_run_id, next_maintenance_run_id, maintenance_window, standby_maintenance_buffer_in_days, freeform_tags, defined_tags, role, availability_domain, db_version, backup_config, key_store_id, key_store_wallet_name, memory_per_oracle_compute_unit_in_gbs, available_cpus, total_cpus, reclaimable_cpus, provisionable_cpus].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

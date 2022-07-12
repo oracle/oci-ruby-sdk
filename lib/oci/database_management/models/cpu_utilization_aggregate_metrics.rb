@@ -10,11 +10,15 @@ module OCI
     # @return [OCI::DatabaseManagement::Models::MetricDataPoint]
     attr_accessor :cpu_utilization
 
+    # @return [OCI::DatabaseManagement::Models::MetricStatisticsDefinition]
+    attr_accessor :cpu_statistics
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'cpu_utilization': :'cpuUtilization'
+        'cpu_utilization': :'cpuUtilization',
+        'cpu_statistics': :'cpuStatistics'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -23,7 +27,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'cpu_utilization': :'OCI::DatabaseManagement::Models::MetricDataPoint'
+        'cpu_utilization': :'OCI::DatabaseManagement::Models::MetricDataPoint',
+        'cpu_statistics': :'OCI::DatabaseManagement::Models::MetricStatisticsDefinition'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -35,6 +40,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [OCI::DatabaseManagement::Models::MetricDataPoint] :cpu_utilization The value to assign to the {#cpu_utilization} property
+    # @option attributes [OCI::DatabaseManagement::Models::MetricStatisticsDefinition] :cpu_statistics The value to assign to the {#cpu_statistics} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -46,6 +52,12 @@ module OCI
       raise 'You cannot provide both :cpuUtilization and :cpu_utilization' if attributes.key?(:'cpuUtilization') && attributes.key?(:'cpu_utilization')
 
       self.cpu_utilization = attributes[:'cpu_utilization'] if attributes[:'cpu_utilization']
+
+      self.cpu_statistics = attributes[:'cpuStatistics'] if attributes[:'cpuStatistics']
+
+      raise 'You cannot provide both :cpuStatistics and :cpu_statistics' if attributes.key?(:'cpuStatistics') && attributes.key?(:'cpu_statistics')
+
+      self.cpu_statistics = attributes[:'cpu_statistics'] if attributes[:'cpu_statistics']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -59,7 +71,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        cpu_utilization == other.cpu_utilization
+        cpu_utilization == other.cpu_utilization &&
+        cpu_statistics == other.cpu_statistics
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -75,7 +88,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cpu_utilization].hash
+      [cpu_utilization, cpu_statistics].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

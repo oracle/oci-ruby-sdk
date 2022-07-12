@@ -121,6 +121,9 @@ module OCI
     # @return [OCI::Database::Models::DatabaseManagementConfig]
     attr_accessor :database_management_config
 
+    # @return [OCI::Database::Models::StackMonitoringConfig]
+    attr_accessor :stack_monitoring_config
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -143,7 +146,8 @@ module OCI
         'ncharacter_set': :'ncharacterSet',
         'db_packs': :'dbPacks',
         'database_configuration': :'databaseConfiguration',
-        'database_management_config': :'databaseManagementConfig'
+        'database_management_config': :'databaseManagementConfig',
+        'stack_monitoring_config': :'stackMonitoringConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -170,7 +174,8 @@ module OCI
         'ncharacter_set': :'String',
         'db_packs': :'String',
         'database_configuration': :'String',
-        'database_management_config': :'OCI::Database::Models::DatabaseManagementConfig'
+        'database_management_config': :'OCI::Database::Models::DatabaseManagementConfig',
+        'stack_monitoring_config': :'OCI::Database::Models::StackMonitoringConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -200,6 +205,7 @@ module OCI
     # @option attributes [String] :db_packs The value to assign to the {#db_packs} property
     # @option attributes [String] :database_configuration The value to assign to the {#database_configuration} property
     # @option attributes [OCI::Database::Models::DatabaseManagementConfig] :database_management_config The value to assign to the {#database_management_config} property
+    # @option attributes [OCI::Database::Models::StackMonitoringConfig] :stack_monitoring_config The value to assign to the {#stack_monitoring_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -315,6 +321,12 @@ module OCI
       raise 'You cannot provide both :databaseManagementConfig and :database_management_config' if attributes.key?(:'databaseManagementConfig') && attributes.key?(:'database_management_config')
 
       self.database_management_config = attributes[:'database_management_config'] if attributes[:'database_management_config']
+
+      self.stack_monitoring_config = attributes[:'stackMonitoringConfig'] if attributes[:'stackMonitoringConfig']
+
+      raise 'You cannot provide both :stackMonitoringConfig and :stack_monitoring_config' if attributes.key?(:'stackMonitoringConfig') && attributes.key?(:'stack_monitoring_config')
+
+      self.stack_monitoring_config = attributes[:'stack_monitoring_config'] if attributes[:'stack_monitoring_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -385,7 +397,8 @@ module OCI
         ncharacter_set == other.ncharacter_set &&
         db_packs == other.db_packs &&
         database_configuration == other.database_configuration &&
-        database_management_config == other.database_management_config
+        database_management_config == other.database_management_config &&
+        stack_monitoring_config == other.stack_monitoring_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -401,7 +414,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [operations_insights_config, compartment_id, freeform_tags, defined_tags, display_name, id, lifecycle_details, lifecycle_state, time_created, db_unique_name, db_id, database_version, database_edition, time_zone, character_set, ncharacter_set, db_packs, database_configuration, database_management_config].hash
+      [operations_insights_config, compartment_id, freeform_tags, defined_tags, display_name, id, lifecycle_details, lifecycle_state, time_created, db_unique_name, db_id, database_version, database_edition, time_zone, character_set, ncharacter_set, db_packs, database_configuration, database_management_config, stack_monitoring_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

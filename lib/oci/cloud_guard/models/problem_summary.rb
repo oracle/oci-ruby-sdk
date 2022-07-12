@@ -34,6 +34,7 @@ module OCI
     DETECTOR_ID_ENUM = [
       DETECTOR_ID_IAAS_ACTIVITY_DETECTOR = 'IAAS_ACTIVITY_DETECTOR'.freeze,
       DETECTOR_ID_IAAS_CONFIGURATION_DETECTOR = 'IAAS_CONFIGURATION_DETECTOR'.freeze,
+      DETECTOR_ID_IAAS_THREAT_DETECTOR = 'IAAS_THREAT_DETECTOR'.freeze,
       DETECTOR_ID_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -52,6 +53,10 @@ module OCI
     # The Risk Level
     # @return [String]
     attr_reader :risk_level
+
+    # Risk Score for the problem
+    # @return [Float]
+    attr_accessor :risk_score
 
     # Identifier of the Resource
     # @return [String]
@@ -109,6 +114,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'detector_rule_id': :'detectorRuleId',
         'risk_level': :'riskLevel',
+        'risk_score': :'riskScore',
         'resource_id': :'resourceId',
         'resource_name': :'resourceName',
         'resource_type': :'resourceType',
@@ -133,6 +139,7 @@ module OCI
         'compartment_id': :'String',
         'detector_rule_id': :'String',
         'risk_level': :'String',
+        'risk_score': :'Float',
         'resource_id': :'String',
         'resource_name': :'String',
         'resource_type': :'String',
@@ -159,6 +166,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :detector_rule_id The value to assign to the {#detector_rule_id} property
     # @option attributes [String] :risk_level The value to assign to the {#risk_level} property
+    # @option attributes [Float] :risk_score The value to assign to the {#risk_score} property
     # @option attributes [String] :resource_id The value to assign to the {#resource_id} property
     # @option attributes [String] :resource_name The value to assign to the {#resource_name} property
     # @option attributes [String] :resource_type The value to assign to the {#resource_type} property
@@ -196,6 +204,12 @@ module OCI
       raise 'You cannot provide both :riskLevel and :risk_level' if attributes.key?(:'riskLevel') && attributes.key?(:'risk_level')
 
       self.risk_level = attributes[:'risk_level'] if attributes[:'risk_level']
+
+      self.risk_score = attributes[:'riskScore'] if attributes[:'riskScore']
+
+      raise 'You cannot provide both :riskScore and :risk_score' if attributes.key?(:'riskScore') && attributes.key?(:'risk_score')
+
+      self.risk_score = attributes[:'risk_score'] if attributes[:'risk_score']
 
       self.resource_id = attributes[:'resourceId'] if attributes[:'resourceId']
 
@@ -325,6 +339,7 @@ module OCI
         compartment_id == other.compartment_id &&
         detector_rule_id == other.detector_rule_id &&
         risk_level == other.risk_level &&
+        risk_score == other.risk_score &&
         resource_id == other.resource_id &&
         resource_name == other.resource_name &&
         resource_type == other.resource_type &&
@@ -352,7 +367,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, detector_rule_id, risk_level, resource_id, resource_name, resource_type, labels, time_first_detected, time_last_detected, lifecycle_state, lifecycle_detail, detector_id, region, regions, target_id].hash
+      [id, compartment_id, detector_rule_id, risk_level, risk_score, resource_id, resource_name, resource_type, labels, time_first_detected, time_last_detected, lifecycle_state, lifecycle_detail, detector_id, region, regions, target_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

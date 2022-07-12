@@ -8,6 +8,13 @@ require 'logger'
 module OCI
   # Summary of the RoverNode.
   class Rover::Models::RoverNodeSummary
+    NODE_TYPE_ENUM = [
+      NODE_TYPE_STANDALONE = 'STANDALONE'.freeze,
+      NODE_TYPE_CLUSTERED = 'CLUSTERED'.freeze,
+      NODE_TYPE_STATION = 'STATION'.freeze,
+      NODE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
@@ -33,6 +40,14 @@ module OCI
     # Serial number of the node.
     # @return [String]
     attr_accessor :serial_number
+
+    # The type of node indicating if it belongs to a cluster
+    # @return [String]
+    attr_reader :node_type
+
+    # The shape of the node.
+    # @return [String]
+    attr_accessor :shape
 
     # A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
     # @return [String]
@@ -79,6 +94,8 @@ module OCI
         'compartment_id': :'compartmentId',
         'cluster_id': :'clusterId',
         'serial_number': :'serialNumber',
+        'node_type': :'nodeType',
+        'shape': :'shape',
         'display_name': :'displayName',
         'time_created': :'timeCreated',
         'lifecycle_state': :'lifecycleState',
@@ -98,6 +115,8 @@ module OCI
         'compartment_id': :'String',
         'cluster_id': :'String',
         'serial_number': :'String',
+        'node_type': :'String',
+        'shape': :'String',
         'display_name': :'String',
         'time_created': :'DateTime',
         'lifecycle_state': :'String',
@@ -119,6 +138,8 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :cluster_id The value to assign to the {#cluster_id} property
     # @option attributes [String] :serial_number The value to assign to the {#serial_number} property
+    # @option attributes [String] :node_type The value to assign to the {#node_type} property
+    # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -151,6 +172,14 @@ module OCI
       raise 'You cannot provide both :serialNumber and :serial_number' if attributes.key?(:'serialNumber') && attributes.key?(:'serial_number')
 
       self.serial_number = attributes[:'serial_number'] if attributes[:'serial_number']
+
+      self.node_type = attributes[:'nodeType'] if attributes[:'nodeType']
+
+      raise 'You cannot provide both :nodeType and :node_type' if attributes.key?(:'nodeType') && attributes.key?(:'node_type')
+
+      self.node_type = attributes[:'node_type'] if attributes[:'node_type']
+
+      self.shape = attributes[:'shape'] if attributes[:'shape']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -198,6 +227,19 @@ module OCI
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] node_type Object to be assigned
+    def node_type=(node_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if node_type && !NODE_TYPE_ENUM.include?(node_type)
+        OCI.logger.debug("Unknown value for 'node_type' [" + node_type + "]. Mapping to 'NODE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @node_type = NODE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @node_type = node_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -223,6 +265,8 @@ module OCI
         compartment_id == other.compartment_id &&
         cluster_id == other.cluster_id &&
         serial_number == other.serial_number &&
+        node_type == other.node_type &&
+        shape == other.shape &&
         display_name == other.display_name &&
         time_created == other.time_created &&
         lifecycle_state == other.lifecycle_state &&
@@ -245,7 +289,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, cluster_id, serial_number, display_name, time_created, lifecycle_state, lifecycle_state_details, freeform_tags, defined_tags, system_tags].hash
+      [id, compartment_id, cluster_id, serial_number, node_type, shape, display_name, time_created, lifecycle_state, lifecycle_state_details, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -302,7 +302,7 @@ module OCI
     # @param [Integer] sql_tuning_advisor_task_id The SQL tuning task identifier. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [Integer] sql_object_id The SQL object ID for the SQL tuning task. This is not the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @param [String] attribute The attribute of the SQL execution plan.
-    #   Allowed values are: ORIGINAL, ORIGINAL_WITH_ADJUSTED_COST, USING_SQL_PROFILE, USING_NEW_INDICES
+    #   Allowed values are: ORIGINAL, ORIGINAL_WITH_ADJUSTED_COST, USING_SQL_PROFILE, USING_NEW_INDICES, USING_PARALLEL_EXECUTION
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -316,8 +316,8 @@ module OCI
       raise "Missing the required parameter 'sql_tuning_advisor_task_id' when calling get_sql_execution_plan." if sql_tuning_advisor_task_id.nil?
       raise "Missing the required parameter 'sql_object_id' when calling get_sql_execution_plan." if sql_object_id.nil?
       raise "Missing the required parameter 'attribute' when calling get_sql_execution_plan." if attribute.nil?
-      unless %w[ORIGINAL ORIGINAL_WITH_ADJUSTED_COST USING_SQL_PROFILE USING_NEW_INDICES].include?(attribute)
-        raise "Invalid value for 'attribute', must be one of ORIGINAL, ORIGINAL_WITH_ADJUSTED_COST, USING_SQL_PROFILE, USING_NEW_INDICES."
+      unless %w[ORIGINAL ORIGINAL_WITH_ADJUSTED_COST USING_SQL_PROFILE USING_NEW_INDICES USING_PARALLEL_EXECUTION].include?(attribute)
+        raise "Invalid value for 'attribute', must be one of ORIGINAL, ORIGINAL_WITH_ADJUSTED_COST, USING_SQL_PROFILE, USING_NEW_INDICES, USING_PARALLEL_EXECUTION."
       end
       raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
       raise "Parameter value for 'sql_tuning_advisor_task_id' must not be blank" if OCI::Internal::Util.blank_string?(sql_tuning_advisor_task_id)
@@ -697,6 +697,84 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DatabaseManagement::Models::SqlTuningAdvisorTaskCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the SQL tuning sets for the specified Managed Database.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :owner The owner of the SQL tuning set.
+    # @option opts [String] :name_contains Allow searching the name of the SQL tuning set by partial matching. The search is case insensitive.
+    # @option opts [String] :sort_by The option to sort the SQL tuning set summary data. (default to NAME)
+    #   Allowed values are: NAME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Ascending order is the default order. (default to ASC)
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::SqlTuningSetCollection SqlTuningSetCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/list_sql_tuning_sets.rb.html) to see an example of how to use list_sql_tuning_sets API.
+    def list_sql_tuning_sets(managed_database_id, opts = {})
+      logger.debug 'Calling operation SqlTuningClient#list_sql_tuning_sets.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling list_sql_tuning_sets." if managed_database_id.nil?
+
+      if opts[:sort_by] && !%w[NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of NAME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/sqlTuningSets'.sub('{managedDatabaseId}', managed_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:owner] = opts[:owner] if opts[:owner]
+      query_params[:nameContains] = opts[:name_contains] if opts[:name_contains]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'SqlTuningClient#list_sql_tuning_sets') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::SqlTuningSetCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength

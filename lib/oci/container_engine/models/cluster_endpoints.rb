@@ -19,13 +19,20 @@ module OCI
     # @return [String]
     attr_accessor :private_endpoint
 
+    # The FQDN assigned to the Kubernetes API private endpoint.
+    # Example: 'https://yourVcnHostnameEndpoint'
+    #
+    # @return [String]
+    attr_accessor :vcn_hostname_endpoint
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'kubernetes': :'kubernetes',
         'public_endpoint': :'publicEndpoint',
-        'private_endpoint': :'privateEndpoint'
+        'private_endpoint': :'privateEndpoint',
+        'vcn_hostname_endpoint': :'vcnHostnameEndpoint'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,7 +43,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'kubernetes': :'String',
         'public_endpoint': :'String',
-        'private_endpoint': :'String'
+        'private_endpoint': :'String',
+        'vcn_hostname_endpoint': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -50,6 +58,7 @@ module OCI
     # @option attributes [String] :kubernetes The value to assign to the {#kubernetes} property
     # @option attributes [String] :public_endpoint The value to assign to the {#public_endpoint} property
     # @option attributes [String] :private_endpoint The value to assign to the {#private_endpoint} property
+    # @option attributes [String] :vcn_hostname_endpoint The value to assign to the {#vcn_hostname_endpoint} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -69,6 +78,12 @@ module OCI
       raise 'You cannot provide both :privateEndpoint and :private_endpoint' if attributes.key?(:'privateEndpoint') && attributes.key?(:'private_endpoint')
 
       self.private_endpoint = attributes[:'private_endpoint'] if attributes[:'private_endpoint']
+
+      self.vcn_hostname_endpoint = attributes[:'vcnHostnameEndpoint'] if attributes[:'vcnHostnameEndpoint']
+
+      raise 'You cannot provide both :vcnHostnameEndpoint and :vcn_hostname_endpoint' if attributes.key?(:'vcnHostnameEndpoint') && attributes.key?(:'vcn_hostname_endpoint')
+
+      self.vcn_hostname_endpoint = attributes[:'vcn_hostname_endpoint'] if attributes[:'vcn_hostname_endpoint']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -84,7 +99,8 @@ module OCI
       self.class == other.class &&
         kubernetes == other.kubernetes &&
         public_endpoint == other.public_endpoint &&
-        private_endpoint == other.private_endpoint
+        private_endpoint == other.private_endpoint &&
+        vcn_hostname_endpoint == other.vcn_hostname_endpoint
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -100,7 +116,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [kubernetes, public_endpoint, private_endpoint].hash
+      [kubernetes, public_endpoint, private_endpoint, vcn_hostname_endpoint].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

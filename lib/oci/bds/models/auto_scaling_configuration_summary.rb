@@ -19,7 +19,7 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_state
 
-    # **[Required]** A node type that is managed by an autoscale configuration. The only supported type is WORKER.
+    # **[Required]** A node type that is managed by an autoscale configuration. The only supported types are WORKER and COMPUTE_ONLY_WORKER.
     # @return [String]
     attr_accessor :node_type
 
@@ -36,6 +36,9 @@ module OCI
     # @return [OCI::Bds::Models::AutoScalePolicy]
     attr_accessor :policy
 
+    # @return [OCI::Bds::Models::AutoScalePolicyDetails]
+    attr_accessor :policy_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -46,7 +49,8 @@ module OCI
         'node_type': :'nodeType',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
-        'policy': :'policy'
+        'policy': :'policy',
+        'policy_details': :'policyDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -61,7 +65,8 @@ module OCI
         'node_type': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
-        'policy': :'OCI::Bds::Models::AutoScalePolicy'
+        'policy': :'OCI::Bds::Models::AutoScalePolicy',
+        'policy_details': :'OCI::Bds::Models::AutoScalePolicyDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -79,6 +84,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [OCI::Bds::Models::AutoScalePolicy] :policy The value to assign to the {#policy} property
+    # @option attributes [OCI::Bds::Models::AutoScalePolicyDetails] :policy_details The value to assign to the {#policy_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -118,6 +124,12 @@ module OCI
       self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
 
       self.policy = attributes[:'policy'] if attributes[:'policy']
+
+      self.policy_details = attributes[:'policyDetails'] if attributes[:'policyDetails']
+
+      raise 'You cannot provide both :policyDetails and :policy_details' if attributes.key?(:'policyDetails') && attributes.key?(:'policy_details')
+
+      self.policy_details = attributes[:'policy_details'] if attributes[:'policy_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -137,7 +149,8 @@ module OCI
         node_type == other.node_type &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
-        policy == other.policy
+        policy == other.policy &&
+        policy_details == other.policy_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -153,7 +166,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, lifecycle_state, node_type, time_created, time_updated, policy].hash
+      [id, display_name, lifecycle_state, node_type, time_created, time_updated, policy, policy_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

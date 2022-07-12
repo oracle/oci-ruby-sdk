@@ -25,6 +25,46 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::CloudGuard::CloudGuardClient#add_compartment} and then waits for the {OCI::CloudGuard::Models::SecurityZone} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] security_zone_id The unique identifier of the security zone (`SecurityZone`)
+    # @param [OCI::CloudGuard::Models::AddCompartmentDetails] add_compartment_details The compartment to add to the security zone.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::CloudGuard::Models::SecurityZone#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::CloudGuard::CloudGuardClient#add_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::CloudGuard::Models::SecurityZone}
+    def add_compartment_and_wait_for_state(security_zone_id, add_compartment_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.add_compartment(security_zone_id, add_compartment_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_security_zone(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::CloudGuard::CloudGuardClient#create_data_mask_rule} and then waits for the {OCI::CloudGuard::Models::DataMaskRule} acted upon
     # to enter the given state(s).
     #
@@ -163,6 +203,84 @@ module OCI
 
       begin
         waiter_result = @service_client.get_responder_recipe(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::CloudGuard::CloudGuardClient#create_security_recipe} and then waits for the {OCI::CloudGuard::Models::SecurityRecipe} acted upon
+    # to enter the given state(s).
+    #
+    # @param [OCI::CloudGuard::Models::CreateSecurityRecipeDetails] create_security_recipe_details Details for the new `SecurityRecipe`.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::CloudGuard::Models::SecurityRecipe#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::CloudGuard::CloudGuardClient#create_security_recipe}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::CloudGuard::Models::SecurityRecipe}
+    def create_security_recipe_and_wait_for_state(create_security_recipe_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_security_recipe(create_security_recipe_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_security_recipe(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::CloudGuard::CloudGuardClient#create_security_zone} and then waits for the {OCI::CloudGuard::Models::SecurityZone} acted upon
+    # to enter the given state(s).
+    #
+    # @param [OCI::CloudGuard::Models::CreateSecurityZoneDetails] create_security_zone_details Details for the new `SecurityZone`.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::CloudGuard::Models::SecurityZone#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::CloudGuard::CloudGuardClient#create_security_zone}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::CloudGuard::Models::SecurityZone}
+    def create_security_zone_and_wait_for_state(create_security_zone_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_security_zone(create_security_zone_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_security_zone(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
@@ -420,6 +538,86 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::CloudGuard::CloudGuardClient#delete_security_recipe} and then waits for the {OCI::CloudGuard::Models::SecurityRecipe} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] security_recipe_id The unique identifier of the security zone recipe (`SecurityRecipe`)
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::CloudGuard::Models::SecurityRecipe#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::CloudGuard::CloudGuardClient#delete_security_recipe}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    def delete_security_recipe_and_wait_for_state(security_recipe_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      initial_get_result = @service_client.get_security_recipe(security_recipe_id)
+      operation_result = @service_client.delete_security_recipe(security_recipe_id, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+
+      begin
+        waiter_result = initial_get_result.wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
+          succeed_on_not_found: true
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::CloudGuard::CloudGuardClient#delete_security_zone} and then waits for the {OCI::CloudGuard::Models::SecurityZone} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] security_zone_id The unique identifier of the security zone (`SecurityZone`)
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::CloudGuard::Models::SecurityZone#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::CloudGuard::CloudGuardClient#delete_security_zone}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    def delete_security_zone_and_wait_for_state(security_zone_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      initial_get_result = @service_client.get_security_zone(security_zone_id)
+      operation_result = @service_client.delete_security_zone(security_zone_id, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+
+      begin
+        waiter_result = initial_get_result.wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
+          succeed_on_not_found: true
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::CloudGuard::CloudGuardClient#delete_target} and then waits for the {OCI::CloudGuard::Models::Target} acted upon
     # to enter the given state(s).
     #
@@ -445,6 +643,46 @@ module OCI
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
           succeed_on_not_found: true
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::CloudGuard::CloudGuardClient#remove_compartment} and then waits for the {OCI::CloudGuard::Models::SecurityZone} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] security_zone_id The unique identifier of the security zone (`SecurityZone`)
+    # @param [OCI::CloudGuard::Models::RemoveCompartmentDetails] remove_compartment_details The compartment to remove from the security zone.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::CloudGuard::Models::SecurityZone#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::CloudGuard::CloudGuardClient#remove_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::CloudGuard::Models::SecurityZone}
+    def remove_compartment_and_wait_for_state(security_zone_id, remove_compartment_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.remove_compartment(security_zone_id, remove_compartment_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_security_zone(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
         )
         result_to_return = waiter_result
 
@@ -724,6 +962,86 @@ module OCI
 
       begin
         waiter_result = @service_client.get_responder_recipe_responder_rule(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::CloudGuard::CloudGuardClient#update_security_recipe} and then waits for the {OCI::CloudGuard::Models::SecurityRecipe} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] security_recipe_id The unique identifier of the security zone recipe (`SecurityRecipe`)
+    # @param [OCI::CloudGuard::Models::UpdateSecurityRecipeDetails] update_security_recipe_details The information to be updated in the security zone recipe.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::CloudGuard::Models::SecurityRecipe#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::CloudGuard::CloudGuardClient#update_security_recipe}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::CloudGuard::Models::SecurityRecipe}
+    def update_security_recipe_and_wait_for_state(security_recipe_id, update_security_recipe_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_security_recipe(security_recipe_id, update_security_recipe_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_security_recipe(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::CloudGuard::CloudGuardClient#update_security_zone} and then waits for the {OCI::CloudGuard::Models::SecurityZone} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] security_zone_id The unique identifier of the security zone (`SecurityZone`)
+    # @param [OCI::CloudGuard::Models::UpdateSecurityZoneDetails] update_security_zone_details The security zone information to be updated.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::CloudGuard::Models::SecurityZone#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::CloudGuard::CloudGuardClient#update_security_zone}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::CloudGuard::Models::SecurityZone}
+    def update_security_zone_and_wait_for_state(security_zone_id, update_security_zone_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_security_zone(security_zone_id, update_security_zone_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_security_zone(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200

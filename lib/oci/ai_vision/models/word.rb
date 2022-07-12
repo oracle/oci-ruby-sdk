@@ -7,11 +7,11 @@ require 'date'
 module OCI
   # A single word.
   class AiVision::Models::Word
-    # **[Required]** String of text characters in the word.
+    # **[Required]** The string of text characters in the word.
     # @return [String]
     attr_accessor :text
 
-    # **[Required]** Confidence score between 0 to 1.
+    # **[Required]** the confidence score between 0 and 1.
     # @return [Float]
     attr_accessor :confidence
 

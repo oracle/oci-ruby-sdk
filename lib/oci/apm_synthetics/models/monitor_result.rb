@@ -27,7 +27,7 @@ module OCI
     # @return [String]
     attr_accessor :monitor_id
 
-    # The name of the vantage point.
+    # The name of the public or dedicated vantage point.
     # @return [String]
     attr_accessor :vantage_point
 

@@ -13,7 +13,7 @@ module OCI
     # @return [OCI::DatabaseManagement::Models::MetricDataPoint]
     attr_accessor :storage_used
 
-    # A list of the storage metrics grouped by TableSpace for a specific database.
+    # A list of the storage metrics grouped by TableSpace for a specific Managed Database.
     # @return [Array<OCI::DatabaseManagement::Models::MetricDataPoint>]
     attr_accessor :storage_used_by_table_space
 

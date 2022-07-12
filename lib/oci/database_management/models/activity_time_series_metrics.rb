@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The response object representing activityMetric details for a specific database at a particular time.
+  # The response object representing activityMetric details for a specific Managed Database at a particular time.
   class DatabaseManagement::Models::ActivityTimeSeriesMetrics
     # The date and time the activity metric was created.
     # @return [DateTime]

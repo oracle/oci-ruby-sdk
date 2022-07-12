@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Properties for a region where a domain is replicated too.
+  # (For tenancies that support identity domains) Properties for a region where a replica for the identity domain exists.
   class Identity::Models::ReplicatedRegionDetails
     STATE_ENUM = [
       STATE_ENABLING_REPLICATION = 'ENABLING_REPLICATION'.freeze,
@@ -24,11 +24,11 @@ module OCI
     # @return [String]
     attr_accessor :region
 
-    # Region agnostic domain URL.
+    # Region-agnostic identity domain URL.
     # @return [String]
     attr_accessor :url
 
-    # The IDCS replicated region state
+    # The IDCS-replicated region state.
     #
     # @return [String]
     attr_reader :state

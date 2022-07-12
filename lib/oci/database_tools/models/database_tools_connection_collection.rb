@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # List of DatabaseToolsConnectionSummary items.
+  # List of `DatabaseToolsConnectionSummary` items.
   class DatabaseTools::Models::DatabaseToolsConnectionCollection
-    # **[Required]** Array of DatabaseToolsConnectionSummary.
+    # **[Required]** Array of `DatabaseToolsConnectionSummary` items.
     # @return [Array<OCI::DatabaseTools::Models::DatabaseToolsConnectionSummary>]
     attr_accessor :items
 

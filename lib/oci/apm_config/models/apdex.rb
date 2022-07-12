@@ -60,7 +60,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_apply_to_error_spans
 
-    # A user-friendly name that provides a short description of this rule.
+    # The name by which a configuration entity is displayed to the end user.
     # @return [String]
     attr_accessor :display_name
 

@@ -24,6 +24,11 @@ module OCI
     # @return [String]
     attr_reader :encryption_in_transit_type
 
+    # Whether to enable Oracle Cloud Agent to perform the iSCSI login and logout commands after the volume attach or detach operations for non multipath-enabled iSCSI attachments.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_agent_auto_iscsi_login_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -36,7 +41,8 @@ module OCI
         'type': :'type',
         'volume_id': :'volumeId',
         'use_chap': :'useChap',
-        'encryption_in_transit_type': :'encryptionInTransitType'
+        'encryption_in_transit_type': :'encryptionInTransitType',
+        'is_agent_auto_iscsi_login_enabled': :'isAgentAutoIscsiLoginEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -53,7 +59,8 @@ module OCI
         'type': :'String',
         'volume_id': :'String',
         'use_chap': :'BOOLEAN',
-        'encryption_in_transit_type': :'String'
+        'encryption_in_transit_type': :'String',
+        'is_agent_auto_iscsi_login_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -72,6 +79,7 @@ module OCI
     # @option attributes [String] :volume_id The value to assign to the {OCI::Core::Models::AttachVolumeDetails#volume_id #volume_id} proprety
     # @option attributes [BOOLEAN] :use_chap The value to assign to the {#use_chap} property
     # @option attributes [String] :encryption_in_transit_type The value to assign to the {#encryption_in_transit_type} property
+    # @option attributes [BOOLEAN] :is_agent_auto_iscsi_login_enabled The value to assign to the {#is_agent_auto_iscsi_login_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -95,6 +103,12 @@ module OCI
 
       self.encryption_in_transit_type = attributes[:'encryption_in_transit_type'] if attributes[:'encryption_in_transit_type']
       self.encryption_in_transit_type = "NONE" if encryption_in_transit_type.nil? && !attributes.key?(:'encryptionInTransitType') && !attributes.key?(:'encryption_in_transit_type') # rubocop:disable Style/StringLiterals
+
+      self.is_agent_auto_iscsi_login_enabled = attributes[:'isAgentAutoIscsiLoginEnabled'] unless attributes[:'isAgentAutoIscsiLoginEnabled'].nil?
+
+      raise 'You cannot provide both :isAgentAutoIscsiLoginEnabled and :is_agent_auto_iscsi_login_enabled' if attributes.key?(:'isAgentAutoIscsiLoginEnabled') && attributes.key?(:'is_agent_auto_iscsi_login_enabled')
+
+      self.is_agent_auto_iscsi_login_enabled = attributes[:'is_agent_auto_iscsi_login_enabled'] unless attributes[:'is_agent_auto_iscsi_login_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -124,7 +138,8 @@ module OCI
         type == other.type &&
         volume_id == other.volume_id &&
         use_chap == other.use_chap &&
-        encryption_in_transit_type == other.encryption_in_transit_type
+        encryption_in_transit_type == other.encryption_in_transit_type &&
+        is_agent_auto_iscsi_login_enabled == other.is_agent_auto_iscsi_login_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -140,7 +155,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [device, display_name, instance_id, is_read_only, is_shareable, type, volume_id, use_chap, encryption_in_transit_type].hash
+      [device, display_name, instance_id, is_read_only, is_shareable, type, volume_id, use_chap, encryption_in_transit_type, is_agent_auto_iscsi_login_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

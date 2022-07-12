@@ -15,9 +15,32 @@ module OCI
       PREFERENCE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    PATCHING_MODE_ENUM = [
+      PATCHING_MODE_ROLLING = 'ROLLING'.freeze,
+      PATCHING_MODE_NONROLLING = 'NONROLLING'.freeze,
+      PATCHING_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The maintenance window scheduling preference.
     # @return [String]
     attr_reader :preference
+
+    # Cloud Exadata infrastructure node patching method, either \"ROLLING\" or \"NONROLLING\". Default value is ROLLING.
+    #
+    # *IMPORTANT*: Non-rolling infrastructure patching involves system down time. See [Oracle-Managed Infrastructure Maintenance Updates](https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/examaintenance.htm#Oracle) for more information.
+    #
+    # @return [String]
+    attr_reader :patching_mode
+
+    # If true, enables the configuration of a custom action timeout (waiting period) between database server patching operations.
+    # @return [BOOLEAN]
+    attr_accessor :is_custom_action_timeout_enabled
+
+    # Determines the amount of time the system will wait before the start of each database server patching operation.
+    # Custom action timeout is in minutes and valid value is between 15 to 120 (inclusive).
+    #
+    # @return [Integer]
+    attr_accessor :custom_action_timeout_in_mins
 
     # Months during the year when maintenance should be performed.
     # @return [Array<OCI::Database::Models::Month>]
@@ -49,6 +72,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'preference': :'preference',
+        'patching_mode': :'patchingMode',
+        'is_custom_action_timeout_enabled': :'isCustomActionTimeoutEnabled',
+        'custom_action_timeout_in_mins': :'customActionTimeoutInMins',
         'months': :'months',
         'weeks_of_month': :'weeksOfMonth',
         'days_of_week': :'daysOfWeek',
@@ -63,6 +89,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'preference': :'String',
+        'patching_mode': :'String',
+        'is_custom_action_timeout_enabled': :'BOOLEAN',
+        'custom_action_timeout_in_mins': :'Integer',
         'months': :'Array<OCI::Database::Models::Month>',
         'weeks_of_month': :'Array<Integer>',
         'days_of_week': :'Array<OCI::Database::Models::DayOfWeek>',
@@ -79,6 +108,9 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :preference The value to assign to the {#preference} property
+    # @option attributes [String] :patching_mode The value to assign to the {#patching_mode} property
+    # @option attributes [BOOLEAN] :is_custom_action_timeout_enabled The value to assign to the {#is_custom_action_timeout_enabled} property
+    # @option attributes [Integer] :custom_action_timeout_in_mins The value to assign to the {#custom_action_timeout_in_mins} property
     # @option attributes [Array<OCI::Database::Models::Month>] :months The value to assign to the {#months} property
     # @option attributes [Array<Integer>] :weeks_of_month The value to assign to the {#weeks_of_month} property
     # @option attributes [Array<OCI::Database::Models::DayOfWeek>] :days_of_week The value to assign to the {#days_of_week} property
@@ -92,6 +124,24 @@ module OCI
 
       self.preference = attributes[:'preference'] if attributes[:'preference']
       self.preference = "NO_PREFERENCE" if preference.nil? && !attributes.key?(:'preference') # rubocop:disable Style/StringLiterals
+
+      self.patching_mode = attributes[:'patchingMode'] if attributes[:'patchingMode']
+
+      raise 'You cannot provide both :patchingMode and :patching_mode' if attributes.key?(:'patchingMode') && attributes.key?(:'patching_mode')
+
+      self.patching_mode = attributes[:'patching_mode'] if attributes[:'patching_mode']
+
+      self.is_custom_action_timeout_enabled = attributes[:'isCustomActionTimeoutEnabled'] unless attributes[:'isCustomActionTimeoutEnabled'].nil?
+
+      raise 'You cannot provide both :isCustomActionTimeoutEnabled and :is_custom_action_timeout_enabled' if attributes.key?(:'isCustomActionTimeoutEnabled') && attributes.key?(:'is_custom_action_timeout_enabled')
+
+      self.is_custom_action_timeout_enabled = attributes[:'is_custom_action_timeout_enabled'] unless attributes[:'is_custom_action_timeout_enabled'].nil?
+
+      self.custom_action_timeout_in_mins = attributes[:'customActionTimeoutInMins'] if attributes[:'customActionTimeoutInMins']
+
+      raise 'You cannot provide both :customActionTimeoutInMins and :custom_action_timeout_in_mins' if attributes.key?(:'customActionTimeoutInMins') && attributes.key?(:'custom_action_timeout_in_mins')
+
+      self.custom_action_timeout_in_mins = attributes[:'custom_action_timeout_in_mins'] if attributes[:'custom_action_timeout_in_mins']
 
       self.months = attributes[:'months'] if attributes[:'months']
 
@@ -135,6 +185,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] patching_mode Object to be assigned
+    def patching_mode=(patching_mode)
+      # rubocop:disable Style/ConditionalAssignment
+      if patching_mode && !PATCHING_MODE_ENUM.include?(patching_mode)
+        OCI.logger.debug("Unknown value for 'patching_mode' [" + patching_mode + "]. Mapping to 'PATCHING_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @patching_mode = PATCHING_MODE_UNKNOWN_ENUM_VALUE
+      else
+        @patching_mode = patching_mode
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -145,6 +208,9 @@ module OCI
 
       self.class == other.class &&
         preference == other.preference &&
+        patching_mode == other.patching_mode &&
+        is_custom_action_timeout_enabled == other.is_custom_action_timeout_enabled &&
+        custom_action_timeout_in_mins == other.custom_action_timeout_in_mins &&
         months == other.months &&
         weeks_of_month == other.weeks_of_month &&
         days_of_week == other.days_of_week &&
@@ -165,7 +231,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [preference, months, weeks_of_month, days_of_week, hours_of_day, lead_time_in_weeks].hash
+      [preference, patching_mode, is_custom_action_timeout_enabled, custom_action_timeout_in_mins, months, weeks_of_month, days_of_week, hours_of_day, lead_time_in_weeks].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

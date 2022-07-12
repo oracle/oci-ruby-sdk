@@ -22,13 +22,19 @@ module OCI
     # @return [OCI::DataIntegration::Models::ConfigValues]
     attr_accessor :config_values
 
-    # Reference to a typed object.
+    # Deprecated - Reference to a typed object.
     # @return [String]
     attr_accessor :source_typed_object
 
-    # Reference to a typed object
+    # Deprecated - Reference to a typed object
     # @return [String]
     attr_accessor :target_typed_object
+
+    # @return [OCI::DataIntegration::Models::ScopeReference]
+    attr_accessor :source_scope_reference
+
+    # @return [OCI::DataIntegration::Models::ScopeReference]
+    attr_accessor :target_scope_reference
 
     # The source field name.
     # @return [String]
@@ -54,6 +60,8 @@ module OCI
         'config_values': :'configValues',
         'source_typed_object': :'sourceTypedObject',
         'target_typed_object': :'targetTypedObject',
+        'source_scope_reference': :'sourceScopeReference',
+        'target_scope_reference': :'targetScopeReference',
         'source_field_name': :'sourceFieldName',
         'target_field_name': :'targetFieldName',
         'object_status': :'objectStatus'
@@ -73,6 +81,8 @@ module OCI
         'config_values': :'OCI::DataIntegration::Models::ConfigValues',
         'source_typed_object': :'String',
         'target_typed_object': :'String',
+        'source_scope_reference': :'OCI::DataIntegration::Models::ScopeReference',
+        'target_scope_reference': :'OCI::DataIntegration::Models::ScopeReference',
         'source_field_name': :'String',
         'target_field_name': :'String',
         'object_status': :'Integer'
@@ -93,6 +103,8 @@ module OCI
     # @option attributes [OCI::DataIntegration::Models::ConfigValues] :config_values The value to assign to the {#config_values} property
     # @option attributes [String] :source_typed_object The value to assign to the {#source_typed_object} property
     # @option attributes [String] :target_typed_object The value to assign to the {#target_typed_object} property
+    # @option attributes [OCI::DataIntegration::Models::ScopeReference] :source_scope_reference The value to assign to the {#source_scope_reference} property
+    # @option attributes [OCI::DataIntegration::Models::ScopeReference] :target_scope_reference The value to assign to the {#target_scope_reference} property
     # @option attributes [String] :source_field_name The value to assign to the {#source_field_name} property
     # @option attributes [String] :target_field_name The value to assign to the {#target_field_name} property
     # @option attributes [Integer] :object_status The value to assign to the {#object_status} property
@@ -138,6 +150,18 @@ module OCI
 
       self.target_typed_object = attributes[:'target_typed_object'] if attributes[:'target_typed_object']
 
+      self.source_scope_reference = attributes[:'sourceScopeReference'] if attributes[:'sourceScopeReference']
+
+      raise 'You cannot provide both :sourceScopeReference and :source_scope_reference' if attributes.key?(:'sourceScopeReference') && attributes.key?(:'source_scope_reference')
+
+      self.source_scope_reference = attributes[:'source_scope_reference'] if attributes[:'source_scope_reference']
+
+      self.target_scope_reference = attributes[:'targetScopeReference'] if attributes[:'targetScopeReference']
+
+      raise 'You cannot provide both :targetScopeReference and :target_scope_reference' if attributes.key?(:'targetScopeReference') && attributes.key?(:'target_scope_reference')
+
+      self.target_scope_reference = attributes[:'target_scope_reference'] if attributes[:'target_scope_reference']
+
       self.source_field_name = attributes[:'sourceFieldName'] if attributes[:'sourceFieldName']
 
       raise 'You cannot provide both :sourceFieldName and :source_field_name' if attributes.key?(:'sourceFieldName') && attributes.key?(:'source_field_name')
@@ -176,6 +200,8 @@ module OCI
         config_values == other.config_values &&
         source_typed_object == other.source_typed_object &&
         target_typed_object == other.target_typed_object &&
+        source_scope_reference == other.source_scope_reference &&
+        target_scope_reference == other.target_scope_reference &&
         source_field_name == other.source_field_name &&
         target_field_name == other.target_field_name &&
         object_status == other.object_status
@@ -194,7 +220,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, description, key, model_version, parent_ref, config_values, source_typed_object, target_typed_object, source_field_name, target_field_name, object_status].hash
+      [model_type, description, key, model_version, parent_ref, config_values, source_typed_object, target_typed_object, source_scope_reference, target_scope_reference, source_field_name, target_field_name, object_status].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -49,6 +49,11 @@ module OCI
     # @return [Array<OCI::ContainerEngine::Models::NodePoolPlacementConfigDetails>]
     attr_accessor :placement_configs
 
+    # The CNI related configuration of pods in the node pool.
+    #
+    # @return [OCI::ContainerEngine::Models::NodePoolPodNetworkOptionDetails]
+    attr_accessor :node_pool_pod_network_option_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -59,7 +64,8 @@ module OCI
         'is_pv_encryption_in_transit_enabled': :'isPvEncryptionInTransitEnabled',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'placement_configs': :'placementConfigs'
+        'placement_configs': :'placementConfigs',
+        'node_pool_pod_network_option_details': :'nodePoolPodNetworkOptionDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -74,7 +80,8 @@ module OCI
         'is_pv_encryption_in_transit_enabled': :'BOOLEAN',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'placement_configs': :'Array<OCI::ContainerEngine::Models::NodePoolPlacementConfigDetails>'
+        'placement_configs': :'Array<OCI::ContainerEngine::Models::NodePoolPlacementConfigDetails>',
+        'node_pool_pod_network_option_details': :'OCI::ContainerEngine::Models::NodePoolPodNetworkOptionDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -92,6 +99,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Array<OCI::ContainerEngine::Models::NodePoolPlacementConfigDetails>] :placement_configs The value to assign to the {#placement_configs} property
+    # @option attributes [OCI::ContainerEngine::Models::NodePoolPodNetworkOptionDetails] :node_pool_pod_network_option_details The value to assign to the {#node_pool_pod_network_option_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -137,6 +145,12 @@ module OCI
       raise 'You cannot provide both :placementConfigs and :placement_configs' if attributes.key?(:'placementConfigs') && attributes.key?(:'placement_configs')
 
       self.placement_configs = attributes[:'placement_configs'] if attributes[:'placement_configs']
+
+      self.node_pool_pod_network_option_details = attributes[:'nodePoolPodNetworkOptionDetails'] if attributes[:'nodePoolPodNetworkOptionDetails']
+
+      raise 'You cannot provide both :nodePoolPodNetworkOptionDetails and :node_pool_pod_network_option_details' if attributes.key?(:'nodePoolPodNetworkOptionDetails') && attributes.key?(:'node_pool_pod_network_option_details')
+
+      self.node_pool_pod_network_option_details = attributes[:'node_pool_pod_network_option_details'] if attributes[:'node_pool_pod_network_option_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -156,7 +170,8 @@ module OCI
         is_pv_encryption_in_transit_enabled == other.is_pv_encryption_in_transit_enabled &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        placement_configs == other.placement_configs
+        placement_configs == other.placement_configs &&
+        node_pool_pod_network_option_details == other.node_pool_pod_network_option_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -172,7 +187,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [size, nsg_ids, kms_key_id, is_pv_encryption_in_transit_enabled, freeform_tags, defined_tags, placement_configs].hash
+      [size, nsg_ids, kms_key_id, is_pv_encryption_in_transit_enabled, freeform_tags, defined_tags, placement_configs, node_pool_pod_network_option_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

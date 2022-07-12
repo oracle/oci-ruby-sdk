@@ -67,12 +67,23 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'deployStageType'] # rubocop:disable Style/SymbolLiteral
 
-      return 'OCI::Devops::Models::UpdateOkeDeployStageDetails' if type == 'OKE_DEPLOYMENT'
-      return 'OCI::Devops::Models::UpdateLoadBalancerTrafficShiftDeployStageDetails' if type == 'LOAD_BALANCER_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::UpdateOkeCanaryTrafficShiftDeployStageDetails' if type == 'OKE_CANARY_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::UpdateOkeCanaryDeployStageDetails' if type == 'OKE_CANARY_DEPLOYMENT'
+      return 'OCI::Devops::Models::UpdateOkeHelmChartDeployStageDetails' if type == 'OKE_HELM_CHART_DEPLOYMENT'
       return 'OCI::Devops::Models::UpdateComputeInstanceGroupDeployStageDetails' if type == 'COMPUTE_INSTANCE_GROUP_ROLLING_DEPLOYMENT'
+      return 'OCI::Devops::Models::UpdateOkeCanaryApprovalDeployStageDetails' if type == 'OKE_CANARY_APPROVAL'
+      return 'OCI::Devops::Models::UpdateOkeDeployStageDetails' if type == 'OKE_DEPLOYMENT'
+      return 'OCI::Devops::Models::UpdateComputeInstanceGroupCanaryApprovalDeployStageDetails' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_APPROVAL'
+      return 'OCI::Devops::Models::UpdateLoadBalancerTrafficShiftDeployStageDetails' if type == 'LOAD_BALANCER_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::UpdateOkeBlueGreenDeployStageDetails' if type == 'OKE_BLUE_GREEN_DEPLOYMENT'
       return 'OCI::Devops::Models::UpdateWaitDeployStageDetails' if type == 'WAIT'
+      return 'OCI::Devops::Models::UpdateOkeBlueGreenTrafficShiftDeployStageDetails' if type == 'OKE_BLUE_GREEN_TRAFFIC_SHIFT'
       return 'OCI::Devops::Models::UpdateManualApprovalDeployStageDetails' if type == 'MANUAL_APPROVAL'
+      return 'OCI::Devops::Models::UpdateComputeInstanceGroupBlueGreenDeployStageDetails' if type == 'COMPUTE_INSTANCE_GROUP_BLUE_GREEN_DEPLOYMENT'
+      return 'OCI::Devops::Models::UpdateComputeInstanceGroupCanaryDeployStageDetails' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_DEPLOYMENT'
       return 'OCI::Devops::Models::UpdateFunctionDeployStageDetails' if type == 'DEPLOY_FUNCTION'
+      return 'OCI::Devops::Models::UpdateComputeInstanceGroupBlueGreenTrafficShiftDeployStageDetails' if type == 'COMPUTE_INSTANCE_GROUP_BLUE_GREEN_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::UpdateComputeInstanceGroupCanaryTrafficShiftDeployStageDetails' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_TRAFFIC_SHIFT'
       return 'OCI::Devops::Models::UpdateInvokeFunctionDeployStageDetails' if type == 'INVOKE_FUNCTION'
 
       # TODO: Log a warning when the subtype is not found.

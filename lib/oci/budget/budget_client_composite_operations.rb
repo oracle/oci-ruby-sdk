@@ -28,7 +28,7 @@ module OCI
     # Calls {OCI::Budget::BudgetClient#create_alert_rule} and then waits for the {OCI::Budget::Models::AlertRule} acted upon
     # to enter the given state(s).
     #
-    # @param [String] budget_id The unique Budget OCID
+    # @param [String] budget_id The unique budget OCID.
     # @param [OCI::Budget::Models::CreateAlertRuleDetails] create_alert_rule_details Details for the new Alert Rule.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Budget::Models::AlertRule#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Budget::BudgetClient#create_alert_rule}
@@ -68,7 +68,7 @@ module OCI
     # Calls {OCI::Budget::BudgetClient#create_budget} and then waits for the {OCI::Budget::Models::Budget} acted upon
     # to enter the given state(s).
     #
-    # @param [OCI::Budget::Models::CreateBudgetDetails] create_budget_details Details for the new Budget.
+    # @param [OCI::Budget::Models::CreateBudgetDetails] create_budget_details Details for the new budget.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Budget::Models::Budget#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Budget::BudgetClient#create_budget}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -107,7 +107,7 @@ module OCI
     # Calls {OCI::Budget::BudgetClient#delete_budget} and then waits for the {OCI::Budget::Models::Budget} acted upon
     # to enter the given state(s).
     #
-    # @param [String] budget_id The unique Budget OCID
+    # @param [String] budget_id The unique budget OCID.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Budget::Models::Budget#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Budget::BudgetClient#delete_budget}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -147,8 +147,8 @@ module OCI
     # Calls {OCI::Budget::BudgetClient#update_alert_rule} and then waits for the {OCI::Budget::Models::AlertRule} acted upon
     # to enter the given state(s).
     #
-    # @param [String] budget_id The unique Budget OCID
-    # @param [String] alert_rule_id The unique Alert Rule OCID
+    # @param [String] budget_id The unique budget OCID.
+    # @param [String] alert_rule_id The unique Alert Rule OCID.
     # @param [OCI::Budget::Models::UpdateAlertRuleDetails] update_alert_rule_details The information to be updated.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Budget::Models::AlertRule#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Budget::BudgetClient#update_alert_rule}
@@ -188,7 +188,7 @@ module OCI
     # Calls {OCI::Budget::BudgetClient#update_budget} and then waits for the {OCI::Budget::Models::Budget} acted upon
     # to enter the given state(s).
     #
-    # @param [String] budget_id The unique Budget OCID
+    # @param [String] budget_id The unique budget OCID.
     # @param [OCI::Budget::Models::UpdateBudgetDetails] update_budget_details The information to be updated.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Budget::Models::Budget#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Budget::BudgetClient#update_budget}

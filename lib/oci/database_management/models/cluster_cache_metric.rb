@@ -9,7 +9,7 @@ module OCI
   # Oracle Real Application Clusters (Oracle RAC) database.
   #
   class DatabaseManagement::Models::ClusterCacheMetric
-    # **[Required]** A list of cluster cache metrics for a specific database.
+    # **[Required]** A list of cluster cache metrics for a specific Managed Database.
     # @return [Array<OCI::DatabaseManagement::Models::TimeSeriesMetricDefinition>]
     attr_accessor :cluster_cache_metrics
 

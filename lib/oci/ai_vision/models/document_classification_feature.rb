@@ -6,13 +6,13 @@ require_relative 'document_feature'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Identifying the type of the document.
+  # Identifying the document type.
   class AiVision::Models::DocumentClassificationFeature < AiVision::Models::DocumentFeature
     # The maximum number of results to return.
     # @return [Integer]
     attr_accessor :max_results
 
-    # Custom model id.
+    # The custom model ID.
     # @return [String]
     attr_accessor :model_id
 

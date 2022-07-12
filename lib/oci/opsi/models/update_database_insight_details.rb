@@ -11,7 +11,8 @@ module OCI
     ENTITY_SOURCE_ENUM = [
       ENTITY_SOURCE_AUTONOMOUS_DATABASE = 'AUTONOMOUS_DATABASE'.freeze,
       ENTITY_SOURCE_EM_MANAGED_EXTERNAL_DATABASE = 'EM_MANAGED_EXTERNAL_DATABASE'.freeze,
-      ENTITY_SOURCE_MACS_MANAGED_EXTERNAL_DATABASE = 'MACS_MANAGED_EXTERNAL_DATABASE'.freeze
+      ENTITY_SOURCE_MACS_MANAGED_EXTERNAL_DATABASE = 'MACS_MANAGED_EXTERNAL_DATABASE'.freeze,
+      ENTITY_SOURCE_PE_COMANAGED_DATABASE = 'PE_COMANAGED_DATABASE'.freeze
     ].freeze
 
     # **[Required]** Source of the database entity.
@@ -62,6 +63,7 @@ module OCI
 
       return 'OCI::Opsi::Models::UpdateMacsManagedExternalDatabaseInsightDetails' if type == 'MACS_MANAGED_EXTERNAL_DATABASE'
       return 'OCI::Opsi::Models::UpdateEmManagedExternalDatabaseInsightDetails' if type == 'EM_MANAGED_EXTERNAL_DATABASE'
+      return 'OCI::Opsi::Models::UpdatePeComanagedDatabaseInsightDetails' if type == 'PE_COMANAGED_DATABASE'
       return 'OCI::Opsi::Models::UpdateAutonomousDatabaseInsightDetails' if type == 'AUTONOMOUS_DATABASE'
 
       # TODO: Log a warning when the subtype is not found.

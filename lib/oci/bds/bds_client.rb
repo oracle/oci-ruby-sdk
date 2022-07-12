@@ -243,7 +243,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Adds block storage to existing worker nodes. The same amount of  storage will be added to all worker nodes. No change will be made  to storage that is already attached. Block storage cannot be removed.
+    # Adds block storage to existing worker/compute only worker nodes. The same amount of  storage will be added to all worker/compute only worker nodes. No change will be made to storage that is already attached. Block storage cannot be removed.
     #
     # @param [String] bds_instance_id The OCID of the cluster.
     # @param [OCI::Bds::Models::AddBlockStorageDetails] add_block_storage_details Details for the added block storage.
@@ -385,7 +385,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Increases the size (scales out) a cluster by adding worker nodes. The added worker nodes will have the same shape and will have the same amount of attached block storage as other worker nodes in the cluster.
+    # Increases the size (scales out) a cluster by adding worker nodes(data/compute). The added worker nodes will have the same shape and will have the same amount of attached block storage as other worker nodes in the cluster.
     #
     # @param [String] bds_instance_id The OCID of the cluster.
     # @param [OCI::Bds::Models::AddWorkerNodesDetails] add_worker_nodes_details Details for the newly added nodes.
@@ -1253,6 +1253,77 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Install the specified patch to this cluster.
+    #
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [OCI::Bds::Models::InstallPatchDetails] install_patch_details Details of the patch to be installed.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
+    #   hours but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/install_patch.rb.html) to see an example of how to use install_patch API.
+    def install_patch(bds_instance_id, install_patch_details, opts = {})
+      logger.debug 'Calling operation BdsClient#install_patch.' if logger
+
+      raise "Missing the required parameter 'bds_instance_id' when calling install_patch." if bds_instance_id.nil?
+      raise "Missing the required parameter 'install_patch_details' when calling install_patch." if install_patch_details.nil?
+      raise "Parameter value for 'bds_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(bds_instance_id)
+
+      path = '/bdsInstances/{bdsInstanceId}/actions/installPatch'.sub('{bdsInstanceId}', bds_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(install_patch_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#install_patch') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns information about the autoscaling configurations for a cluster.
     #
     # @param [String] compartment_id The OCID of the compartment.
@@ -1579,6 +1650,146 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Bds::Models::BdsMetastoreConfigurationSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List the patch history of this cluster.
+    #
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :lifecycle_state The status of the patch.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :patch_version The version of the patch
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
+    # @return [Response] A Response object with data of type Array<{OCI::Bds::Models::PatchHistorySummary PatchHistorySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/list_patch_histories.rb.html) to see an example of how to use list_patch_histories API.
+    def list_patch_histories(bds_instance_id, opts = {})
+      logger.debug 'Calling operation BdsClient#list_patch_histories.' if logger
+
+      raise "Missing the required parameter 'bds_instance_id' when calling list_patch_histories." if bds_instance_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::Bds::Models::PatchHistorySummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Bds::Models::PatchHistorySummary::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      if opts[:sort_order] && !OCI::Bds::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Bds::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'bds_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(bds_instance_id)
+
+      path = '/bdsInstances/{bdsInstanceId}/patchHistory'.sub('{bdsInstanceId}', bds_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:patchVersion] = opts[:patch_version] if opts[:patch_version]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#list_patch_histories') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Bds::Models::PatchHistorySummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List all the available patches for this cluster.
+    #
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
+    # @return [Response] A Response object with data of type Array<{OCI::Bds::Models::PatchSummary PatchSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/list_patches.rb.html) to see an example of how to use list_patches API.
+    def list_patches(bds_instance_id, opts = {})
+      logger.debug 'Calling operation BdsClient#list_patches.' if logger
+
+      raise "Missing the required parameter 'bds_instance_id' when calling list_patches." if bds_instance_id.nil?
+      raise "Parameter value for 'bds_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(bds_instance_id)
+
+      path = '/bdsInstances/{bdsInstanceId}/patches'.sub('{bdsInstanceId}', bds_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#list_patches') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Bds::Models::PatchSummary>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1937,6 +2148,69 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#remove_cloud_sql') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Remove a single node of a Big Data Service cluster
+    #
+    # @param [String] bds_instance_id The OCID of the cluster.
+    # @param [OCI::Bds::Models::RemoveNodeDetails] remove_node_details Details for the node to be removed.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/bds/remove_node.rb.html) to see an example of how to use remove_node API.
+    def remove_node(bds_instance_id, remove_node_details, opts = {})
+      logger.debug 'Calling operation BdsClient#remove_node.' if logger
+
+      raise "Missing the required parameter 'bds_instance_id' when calling remove_node." if bds_instance_id.nil?
+      raise "Missing the required parameter 'remove_node_details' when calling remove_node." if remove_node_details.nil?
+      raise "Parameter value for 'bds_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(bds_instance_id)
+
+      path = '/bdsInstances/{bdsInstanceId}/actions/removeNode'.sub('{bdsInstanceId}', bds_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(remove_node_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'BdsClient#remove_node') do
         @api_client.call_api(
           :POST,
           path,

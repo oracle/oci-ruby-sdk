@@ -8,6 +8,9 @@ module OCI
   # UpdateSwiftPasswordDetails model.
   class Identity::Models::UpdateSwiftPasswordDetails
     # The description you assign to the Swift password. Does not have to be unique, and it's changeable.
+    #
+    # (For tenancies that support identity domains) You can have an empty description.
+    #
     # @return [String]
     attr_accessor :description
 

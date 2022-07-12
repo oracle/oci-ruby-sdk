@@ -70,7 +70,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN the internet gateway belongs to.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the VCN the Internet Gateway belongs to.
     # @return [String]
     attr_accessor :vcn_id
 

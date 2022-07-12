@@ -19,7 +19,7 @@ module OCI
     # @return [String]
     attr_accessor :name
 
-    # **[Required]** The version of Kubernetes to install on the nodes in the node pool.
+    # The version of Kubernetes to install on the nodes in the node pool.
     # @return [String]
     attr_accessor :kubernetes_version
 
@@ -89,6 +89,9 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # @return [OCI::ContainerEngine::Models::NodeEvictionNodePoolSettings]
+    attr_accessor :node_eviction_node_pool_settings
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -108,7 +111,8 @@ module OCI
         'subnet_ids': :'subnetIds',
         'node_config_details': :'nodeConfigDetails',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'node_eviction_node_pool_settings': :'nodeEvictionNodePoolSettings'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -132,7 +136,8 @@ module OCI
         'subnet_ids': :'Array<String>',
         'node_config_details': :'OCI::ContainerEngine::Models::CreateNodePoolNodeConfigDetails',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'node_eviction_node_pool_settings': :'OCI::ContainerEngine::Models::NodeEvictionNodePoolSettings'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -159,6 +164,7 @@ module OCI
     # @option attributes [OCI::ContainerEngine::Models::CreateNodePoolNodeConfigDetails] :node_config_details The value to assign to the {#node_config_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [OCI::ContainerEngine::Models::NodeEvictionNodePoolSettings] :node_eviction_node_pool_settings The value to assign to the {#node_eviction_node_pool_settings} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -258,6 +264,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.node_eviction_node_pool_settings = attributes[:'nodeEvictionNodePoolSettings'] if attributes[:'nodeEvictionNodePoolSettings']
+
+      raise 'You cannot provide both :nodeEvictionNodePoolSettings and :node_eviction_node_pool_settings' if attributes.key?(:'nodeEvictionNodePoolSettings') && attributes.key?(:'node_eviction_node_pool_settings')
+
+      self.node_eviction_node_pool_settings = attributes[:'node_eviction_node_pool_settings'] if attributes[:'node_eviction_node_pool_settings']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -286,7 +298,8 @@ module OCI
         subnet_ids == other.subnet_ids &&
         node_config_details == other.node_config_details &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        node_eviction_node_pool_settings == other.node_eviction_node_pool_settings
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -302,7 +315,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, cluster_id, name, kubernetes_version, node_metadata, node_image_name, node_source_details, node_shape, node_shape_config, initial_node_labels, ssh_public_key, quantity_per_subnet, subnet_ids, node_config_details, freeform_tags, defined_tags].hash
+      [compartment_id, cluster_id, name, kubernetes_version, node_metadata, node_image_name, node_source_details, node_shape, node_shape_config, initial_node_labels, ssh_public_key, quantity_per_subnet, subnet_ids, node_config_details, freeform_tags, defined_tags, node_eviction_node_pool_settings].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

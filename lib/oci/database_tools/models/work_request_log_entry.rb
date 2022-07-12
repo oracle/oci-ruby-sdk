@@ -11,7 +11,7 @@ module OCI
     # @return [String]
     attr_accessor :message
 
-    # **[Required]** The time the log message was written. An RFC3339 formatted datetime string
+    # **[Required]** The time the log message was written. An RFC3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :timestamp
 

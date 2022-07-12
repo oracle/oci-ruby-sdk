@@ -175,7 +175,7 @@ module OCI
     # Starts an asynchronous job to create a Digital Assistant instance.
     #
     # To monitor the status of the job, take the `opc-work-request-id` response
-    # header value and use it to call `GET /workRequests/{workRequestID}`.
+    # header value and use it to call `GET /workRequests/{workRequestId}`.
     #
     # @param [OCI::Oda::Models::CreateOdaInstanceDetails] create_oda_instance_details Details for the new Digital Assistant instance.
     # @param [Hash] opts the optional parameters
@@ -238,8 +238,76 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Starts an asynchronous job to create a Digital Assistant instance attachment.
+    #
+    # To monitor the status of the job, take the `opc-work-request-id` response
+    # header value and use it to call `GET /workRequests/{workRequestId}`.
+    #
+    # @param [String] oda_instance_id Unique Digital Assistant instance identifier.
+    # @param [OCI::Oda::Models::CreateOdaInstanceAttachmentDetails] create_oda_instance_attachment_details Details for the new Digital Assistant instance attachment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing. This value is included in the opc-request-id response header.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so that you can retry the request if there's
+    #   a timeout or server error without the risk of executing that same action again.
+    #
+    #   Retry tokens expire after 24 hours, but they can become invalid before then if there are
+    #   conflicting operations. For example, if an instance was deleted and purged from the system,
+    #   then the service might reject a retry of the original creation request.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/create_oda_instance_attachment.rb.html) to see an example of how to use create_oda_instance_attachment API.
+    def create_oda_instance_attachment(oda_instance_id, create_oda_instance_attachment_details, opts = {})
+      logger.debug 'Calling operation OdaClient#create_oda_instance_attachment.' if logger
+
+      raise "Missing the required parameter 'oda_instance_id' when calling create_oda_instance_attachment." if oda_instance_id.nil?
+      raise "Missing the required parameter 'create_oda_instance_attachment_details' when calling create_oda_instance_attachment." if create_oda_instance_attachment_details.nil?
+      raise "Parameter value for 'oda_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(oda_instance_id)
+
+      path = '/odaInstances/{odaInstanceId}/attachments'.sub('{odaInstanceId}', oda_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_oda_instance_attachment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OdaClient#create_oda_instance_attachment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Starts an asynchronous job to delete the specified Digital Assistant instance.
-    # To monitor the status of the job, take the `opc-work-request-id` response header value and use it to call `GET /workRequests/{workRequestID}`.
+    # To monitor the status of the job, take the `opc-work-request-id` response header value and use it to call `GET /workRequests/{workRequestId}`.
     # @param [String] oda_instance_id Unique Digital Assistant instance identifier.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -279,6 +347,70 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OdaClient#delete_oda_instance') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Starts an asynchronous job to delete the specified Digital Assistant instance attachment.
+    # @param [String] oda_instance_id Unique Digital Assistant instance identifier.
+    # @param [String] attachment_id Unique Digital Assistant instance attachment identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control in a PUT or DELETE call for
+    #   a Digital Assistant instance, set the `if-match` query parameter
+    #   to the value of the `ETAG` header from a previous GET or POST
+    #   response for that instance. The service updates or deletes the
+    #   instance only if the etag that you provide matches the instance's
+    #   current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing. This value is included in the opc-request-id response header.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/delete_oda_instance_attachment.rb.html) to see an example of how to use delete_oda_instance_attachment API.
+    def delete_oda_instance_attachment(oda_instance_id, attachment_id, opts = {})
+      logger.debug 'Calling operation OdaClient#delete_oda_instance_attachment.' if logger
+
+      raise "Missing the required parameter 'oda_instance_id' when calling delete_oda_instance_attachment." if oda_instance_id.nil?
+      raise "Missing the required parameter 'attachment_id' when calling delete_oda_instance_attachment." if attachment_id.nil?
+      raise "Parameter value for 'oda_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(oda_instance_id)
+      raise "Parameter value for 'attachment_id' must not be blank" if OCI::Internal::Util.blank_string?(attachment_id)
+
+      path = '/odaInstances/{odaInstanceId}/attachments/{attachmentId}'.sub('{odaInstanceId}', oda_instance_id.to_s).sub('{attachmentId}', attachment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OdaClient#delete_oda_instance_attachment') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -354,6 +486,65 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets an ODA instance attachment by identifier
+    # @param [String] oda_instance_id Unique Digital Assistant instance identifier.
+    # @param [String] attachment_id Unique Digital Assistant instance attachment identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :include_owner_metadata Whether to send attachment owner info during get/list call. (default to false)
+    # @option opts [String] :opc_request_id The client request ID for tracing. This value is included in the opc-request-id response header.
+    # @return [Response] A Response object with data of type {OCI::Oda::Models::OdaInstanceAttachment OdaInstanceAttachment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/get_oda_instance_attachment.rb.html) to see an example of how to use get_oda_instance_attachment API.
+    def get_oda_instance_attachment(oda_instance_id, attachment_id, opts = {})
+      logger.debug 'Calling operation OdaClient#get_oda_instance_attachment.' if logger
+
+      raise "Missing the required parameter 'oda_instance_id' when calling get_oda_instance_attachment." if oda_instance_id.nil?
+      raise "Missing the required parameter 'attachment_id' when calling get_oda_instance_attachment." if attachment_id.nil?
+      raise "Parameter value for 'oda_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(oda_instance_id)
+      raise "Parameter value for 'attachment_id' must not be blank" if OCI::Internal::Util.blank_string?(attachment_id)
+
+      path = '/odaInstances/{odaInstanceId}/attachments/{attachmentId}'.sub('{odaInstanceId}', oda_instance_id.to_s).sub('{attachmentId}', attachment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:includeOwnerMetadata] = opts[:include_owner_metadata] if !opts[:include_owner_metadata].nil?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OdaClient#get_oda_instance_attachment') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Oda::Models::OdaInstanceAttachment'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets information about the work request with the specified ID, including its status.
     #
     # You can use this operation to monitor the status of jobs that you
@@ -399,6 +590,96 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Oda::Models::WorkRequest'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of ODA instance attachments
+    #
+    # @param [String] oda_instance_id Unique Digital Assistant instance identifier.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :include_owner_metadata Whether to send attachment owner info during get/list call. (default to false)
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 100)
+    # @option opts [String] :page The page at which to start retrieving results.
+    #
+    #   You get this value from the `opc-next-page` header in a previous list request.
+    #   To retireve the first page, omit this query parameter.
+    #
+    #   Example: `MToxMA==`
+    #
+    # @option opts [String] :lifecycle_state List only the ODA instance attachments that are in this lifecycle state.
+    #   Allowed values are: ATTACHING, ACTIVE, DETACHING, INACTIVE, FAILED
+    # @option opts [String] :sort_order Sort the results in this order, use either `ASC` (ascending) or `DESC` (descending).
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by Sort on this field. You can specify one sort order only. The default sort field is `TIMECREATED`.
+    #   The default sort order for `TIMECREATED` is descending.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED
+    # @option opts [String] :opc_request_id The client request ID for tracing. This value is included in the opc-request-id response header.
+    # @return [Response] A Response object with data of type {OCI::Oda::Models::OdaInstanceAttachmentCollection OdaInstanceAttachmentCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/list_oda_instance_attachments.rb.html) to see an example of how to use list_oda_instance_attachments API.
+    def list_oda_instance_attachments(oda_instance_id, opts = {})
+      logger.debug 'Calling operation OdaClient#list_oda_instance_attachments.' if logger
+
+      raise "Missing the required parameter 'oda_instance_id' when calling list_oda_instance_attachments." if oda_instance_id.nil?
+
+      if opts[:lifecycle_state] && !%w[ATTACHING ACTIVE DETACHING INACTIVE FAILED].include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of ATTACHING, ACTIVE, DETACHING, INACTIVE, FAILED.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED.'
+      end
+      raise "Parameter value for 'oda_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(oda_instance_id)
+
+      path = '/odaInstances/{odaInstanceId}/attachments'.sub('{odaInstanceId}', oda_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:includeOwnerMetadata] = opts[:include_owner_metadata] if !opts[:include_owner_metadata].nil?
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OdaClient#list_oda_instance_attachments') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Oda::Models::OdaInstanceAttachmentCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -967,6 +1248,72 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Oda::Models::OdaInstance'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the ODA instance attachment
+    # @param [String] oda_instance_id Unique Digital Assistant instance identifier.
+    # @param [String] attachment_id Unique Digital Assistant instance attachment identifier.
+    # @param [OCI::Oda::Models::UpdateOdaInstanceAttachmentDetails] update_oda_instance_attachment_details The information to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control in a PUT or DELETE call for
+    #   a Digital Assistant instance, set the `if-match` query parameter
+    #   to the value of the `ETAG` header from a previous GET or POST
+    #   response for that instance. The service updates or deletes the
+    #   instance only if the etag that you provide matches the instance's
+    #   current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing. This value is included in the opc-request-id response header.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/oda/update_oda_instance_attachment.rb.html) to see an example of how to use update_oda_instance_attachment API.
+    def update_oda_instance_attachment(oda_instance_id, attachment_id, update_oda_instance_attachment_details, opts = {})
+      logger.debug 'Calling operation OdaClient#update_oda_instance_attachment.' if logger
+
+      raise "Missing the required parameter 'oda_instance_id' when calling update_oda_instance_attachment." if oda_instance_id.nil?
+      raise "Missing the required parameter 'attachment_id' when calling update_oda_instance_attachment." if attachment_id.nil?
+      raise "Missing the required parameter 'update_oda_instance_attachment_details' when calling update_oda_instance_attachment." if update_oda_instance_attachment_details.nil?
+      raise "Parameter value for 'oda_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(oda_instance_id)
+      raise "Parameter value for 'attachment_id' must not be blank" if OCI::Internal::Util.blank_string?(attachment_id)
+
+      path = '/odaInstances/{odaInstanceId}/attachments/{attachmentId}'.sub('{odaInstanceId}', oda_instance_id.to_s).sub('{attachmentId}', attachment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_oda_instance_attachment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OdaClient#update_oda_instance_attachment') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength

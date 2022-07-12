@@ -6,7 +6,7 @@ require_relative 'dataset'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Dataset that resides in OCI Object Storage.
+  # The dataset that resides in Object Storage.
   class AiVision::Models::ObjectStorageDataset < AiVision::Models::Dataset
     # The namespace name of the Object Storage bucket that contains the input data file.
     # @return [String]

@@ -49,7 +49,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :database_software_image_one_off_patches
 
-    # output from lsinventory which will get passed as a string
+    # The output from the OPatch lsInventory command, which is passed as a string.
     # @return [String]
     attr_accessor :ls_inventory
 

@@ -17,11 +17,25 @@ module OCI
     # @return [String]
     attr_reader :model_type
 
+    # This map is used for passing extra metatdata configuration that is required by read / write operation.
+    # @return [Hash<String, String>]
+    attr_accessor :metadata_config_properties
+
+    # this map is used for passing BIP report parameter values.
+    # @return [Hash<String, String>]
+    attr_accessor :derived_attributes
+
+    # @return [OCI::DataIntegration::Models::BipCallAttribute]
+    attr_accessor :call_attribute
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'model_type': :'modelType'
+        'model_type': :'modelType',
+        'metadata_config_properties': :'metadataConfigProperties',
+        'derived_attributes': :'derivedAttributes',
+        'call_attribute': :'callAttribute'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -30,7 +44,10 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'model_type': :'String'
+        'model_type': :'String',
+        'metadata_config_properties': :'Hash<String, String>',
+        'derived_attributes': :'Hash<String, String>',
+        'call_attribute': :'OCI::DataIntegration::Models::BipCallAttribute'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -58,6 +75,9 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :model_type The value to assign to the {#model_type} property
+    # @option attributes [Hash<String, String>] :metadata_config_properties The value to assign to the {#metadata_config_properties} property
+    # @option attributes [Hash<String, String>] :derived_attributes The value to assign to the {#derived_attributes} property
+    # @option attributes [OCI::DataIntegration::Models::BipCallAttribute] :call_attribute The value to assign to the {#call_attribute} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -69,6 +89,24 @@ module OCI
       raise 'You cannot provide both :modelType and :model_type' if attributes.key?(:'modelType') && attributes.key?(:'model_type')
 
       self.model_type = attributes[:'model_type'] if attributes[:'model_type']
+
+      self.metadata_config_properties = attributes[:'metadataConfigProperties'] if attributes[:'metadataConfigProperties']
+
+      raise 'You cannot provide both :metadataConfigProperties and :metadata_config_properties' if attributes.key?(:'metadataConfigProperties') && attributes.key?(:'metadata_config_properties')
+
+      self.metadata_config_properties = attributes[:'metadata_config_properties'] if attributes[:'metadata_config_properties']
+
+      self.derived_attributes = attributes[:'derivedAttributes'] if attributes[:'derivedAttributes']
+
+      raise 'You cannot provide both :derivedAttributes and :derived_attributes' if attributes.key?(:'derivedAttributes') && attributes.key?(:'derived_attributes')
+
+      self.derived_attributes = attributes[:'derived_attributes'] if attributes[:'derived_attributes']
+
+      self.call_attribute = attributes[:'callAttribute'] if attributes[:'callAttribute']
+
+      raise 'You cannot provide both :callAttribute and :call_attribute' if attributes.key?(:'callAttribute') && attributes.key?(:'call_attribute')
+
+      self.call_attribute = attributes[:'call_attribute'] if attributes[:'call_attribute']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -90,7 +128,10 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        model_type == other.model_type
+        model_type == other.model_type &&
+        metadata_config_properties == other.metadata_config_properties &&
+        derived_attributes == other.derived_attributes &&
+        call_attribute == other.call_attribute
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -106,7 +147,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type].hash
+      [model_type, metadata_config_properties, derived_attributes, call_attribute].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

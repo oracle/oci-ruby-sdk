@@ -6,8 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API covering the [Registry](/iaas/Content/Registry/Concepts/registryoverview.htm) services.
-  # Use this API to manage resources such as container images and repositories.
+  # API covering the Artifacts and [Registry](/iaas/Content/Registry/Concepts/registryoverview.htm) services.
+  # Use this API to manage resources such as generic artifacts and container images.
   class Artifacts::ArtifactsClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]

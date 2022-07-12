@@ -11453,8 +11453,8 @@ module OCI
 
       raise "Missing the required parameter 'compartment_id' when calling list_target_databases." if compartment_id.nil?
 
-      if opts[:lifecycle_state] && !OCI::DataSafe::Models::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
-        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataSafe::Models::LIFECYCLE_STATE_ENUM.'
+      if opts[:lifecycle_state] && !OCI::DataSafe::Models::TARGET_DATABASE_LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataSafe::Models::TARGET_DATABASE_LIFECYCLE_STATE_ENUM.'
       end
 
       if opts[:database_type] && !OCI::DataSafe::Models::DATABASE_TYPE_ENUM.include?(opts[:database_type])
@@ -12079,9 +12079,9 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :operation_type A filter to return only work requests that match the specific operation type.
     # @option opts [String] :sort_by The field used for sorting. Only one sorting order (sortOrder) can be specified.
-    #   The default order for STARTTIME and FINISHTIME is descending.
+    #   The default order is descending.
     #    (default to STARTTIME)
-    #   Allowed values are: STARTTIME, FINISHTIME
+    #   Allowed values are: STARTTIME, FINISHTIME, ACCEPTEDTIME
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to DESC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :resource_id A filter to return only work requests that match the specified resource OCID.
@@ -12096,8 +12096,8 @@ module OCI
 
       raise "Missing the required parameter 'compartment_id' when calling list_work_requests." if compartment_id.nil?
 
-      if opts[:sort_by] && !%w[STARTTIME FINISHTIME].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of STARTTIME, FINISHTIME.'
+      if opts[:sort_by] && !%w[STARTTIME FINISHTIME ACCEPTEDTIME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of STARTTIME, FINISHTIME, ACCEPTEDTIME.'
       end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])

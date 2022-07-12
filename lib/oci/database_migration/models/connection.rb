@@ -16,6 +16,12 @@ module OCI
       DATABASE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    MANUAL_DATABASE_SUB_TYPE_ENUM = [
+      MANUAL_DATABASE_SUB_TYPE_ORACLE = 'ORACLE'.freeze,
+      MANUAL_DATABASE_SUB_TYPE_RDS_ORACLE = 'RDS_ORACLE'.freeze,
+      MANUAL_DATABASE_SUB_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
@@ -41,6 +47,16 @@ module OCI
     #
     # @return [String]
     attr_reader :database_type
+
+    # Database manual connection subtype. This value can only be specified for manual connections.
+    #
+    # @return [String]
+    attr_reader :manual_database_sub_type
+
+    # True if the Autonomous Connection is dedicated. Not provided for Non-Autonomous Connections.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_dedicated
 
     # **[Required]** Database Connection display name identifier.
     #
@@ -123,6 +139,8 @@ module OCI
         'id': :'id',
         'compartment_id': :'compartmentId',
         'database_type': :'databaseType',
+        'manual_database_sub_type': :'manualDatabaseSubType',
+        'is_dedicated': :'isDedicated',
         'display_name': :'displayName',
         'database_id': :'databaseId',
         'connect_descriptor': :'connectDescriptor',
@@ -150,6 +168,8 @@ module OCI
         'id': :'String',
         'compartment_id': :'String',
         'database_type': :'String',
+        'manual_database_sub_type': :'String',
+        'is_dedicated': :'BOOLEAN',
         'display_name': :'String',
         'database_id': :'String',
         'connect_descriptor': :'OCI::DatabaseMigration::Models::ConnectDescriptor',
@@ -179,6 +199,8 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :database_type The value to assign to the {#database_type} property
+    # @option attributes [String] :manual_database_sub_type The value to assign to the {#manual_database_sub_type} property
+    # @option attributes [BOOLEAN] :is_dedicated The value to assign to the {#is_dedicated} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :database_id The value to assign to the {#database_id} property
     # @option attributes [OCI::DatabaseMigration::Models::ConnectDescriptor] :connect_descriptor The value to assign to the {#connect_descriptor} property
@@ -214,6 +236,20 @@ module OCI
       raise 'You cannot provide both :databaseType and :database_type' if attributes.key?(:'databaseType') && attributes.key?(:'database_type')
 
       self.database_type = attributes[:'database_type'] if attributes[:'database_type']
+
+      self.manual_database_sub_type = attributes[:'manualDatabaseSubType'] if attributes[:'manualDatabaseSubType']
+      self.manual_database_sub_type = "ORACLE" if manual_database_sub_type.nil? && !attributes.key?(:'manualDatabaseSubType') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :manualDatabaseSubType and :manual_database_sub_type' if attributes.key?(:'manualDatabaseSubType') && attributes.key?(:'manual_database_sub_type')
+
+      self.manual_database_sub_type = attributes[:'manual_database_sub_type'] if attributes[:'manual_database_sub_type']
+      self.manual_database_sub_type = "ORACLE" if manual_database_sub_type.nil? && !attributes.key?(:'manualDatabaseSubType') && !attributes.key?(:'manual_database_sub_type') # rubocop:disable Style/StringLiterals
+
+      self.is_dedicated = attributes[:'isDedicated'] unless attributes[:'isDedicated'].nil?
+
+      raise 'You cannot provide both :isDedicated and :is_dedicated' if attributes.key?(:'isDedicated') && attributes.key?(:'is_dedicated')
+
+      self.is_dedicated = attributes[:'is_dedicated'] unless attributes[:'is_dedicated'].nil?
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -328,6 +364,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] manual_database_sub_type Object to be assigned
+    def manual_database_sub_type=(manual_database_sub_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if manual_database_sub_type && !MANUAL_DATABASE_SUB_TYPE_ENUM.include?(manual_database_sub_type)
+        OCI.logger.debug("Unknown value for 'manual_database_sub_type' [" + manual_database_sub_type + "]. Mapping to 'MANUAL_DATABASE_SUB_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @manual_database_sub_type = MANUAL_DATABASE_SUB_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @manual_database_sub_type = manual_database_sub_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -352,6 +401,8 @@ module OCI
         id == other.id &&
         compartment_id == other.compartment_id &&
         database_type == other.database_type &&
+        manual_database_sub_type == other.manual_database_sub_type &&
+        is_dedicated == other.is_dedicated &&
         display_name == other.display_name &&
         database_id == other.database_id &&
         connect_descriptor == other.connect_descriptor &&
@@ -383,7 +434,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, database_type, display_name, database_id, connect_descriptor, credentials_secret_id, certificate_tdn, ssh_details, admin_credentials, private_endpoint, vault_details, lifecycle_state, lifecycle_details, time_created, time_updated, freeform_tags, defined_tags, system_tags].hash
+      [id, compartment_id, database_type, manual_database_sub_type, is_dedicated, display_name, database_id, connect_descriptor, credentials_secret_id, certificate_tdn, ssh_details, admin_credentials, private_endpoint, vault_details, lifecycle_state, lifecycle_details, time_created, time_updated, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

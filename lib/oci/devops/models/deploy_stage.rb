@@ -12,11 +12,22 @@ module OCI
     DEPLOY_STAGE_TYPE_ENUM = [
       DEPLOY_STAGE_TYPE_WAIT = 'WAIT'.freeze,
       DEPLOY_STAGE_TYPE_COMPUTE_INSTANCE_GROUP_ROLLING_DEPLOYMENT = 'COMPUTE_INSTANCE_GROUP_ROLLING_DEPLOYMENT'.freeze,
+      DEPLOY_STAGE_TYPE_COMPUTE_INSTANCE_GROUP_BLUE_GREEN_DEPLOYMENT = 'COMPUTE_INSTANCE_GROUP_BLUE_GREEN_DEPLOYMENT'.freeze,
+      DEPLOY_STAGE_TYPE_COMPUTE_INSTANCE_GROUP_BLUE_GREEN_TRAFFIC_SHIFT = 'COMPUTE_INSTANCE_GROUP_BLUE_GREEN_TRAFFIC_SHIFT'.freeze,
+      DEPLOY_STAGE_TYPE_COMPUTE_INSTANCE_GROUP_CANARY_DEPLOYMENT = 'COMPUTE_INSTANCE_GROUP_CANARY_DEPLOYMENT'.freeze,
+      DEPLOY_STAGE_TYPE_COMPUTE_INSTANCE_GROUP_CANARY_TRAFFIC_SHIFT = 'COMPUTE_INSTANCE_GROUP_CANARY_TRAFFIC_SHIFT'.freeze,
+      DEPLOY_STAGE_TYPE_COMPUTE_INSTANCE_GROUP_CANARY_APPROVAL = 'COMPUTE_INSTANCE_GROUP_CANARY_APPROVAL'.freeze,
+      DEPLOY_STAGE_TYPE_OKE_BLUE_GREEN_DEPLOYMENT = 'OKE_BLUE_GREEN_DEPLOYMENT'.freeze,
+      DEPLOY_STAGE_TYPE_OKE_BLUE_GREEN_TRAFFIC_SHIFT = 'OKE_BLUE_GREEN_TRAFFIC_SHIFT'.freeze,
+      DEPLOY_STAGE_TYPE_OKE_CANARY_DEPLOYMENT = 'OKE_CANARY_DEPLOYMENT'.freeze,
+      DEPLOY_STAGE_TYPE_OKE_CANARY_TRAFFIC_SHIFT = 'OKE_CANARY_TRAFFIC_SHIFT'.freeze,
+      DEPLOY_STAGE_TYPE_OKE_CANARY_APPROVAL = 'OKE_CANARY_APPROVAL'.freeze,
       DEPLOY_STAGE_TYPE_OKE_DEPLOYMENT = 'OKE_DEPLOYMENT'.freeze,
       DEPLOY_STAGE_TYPE_DEPLOY_FUNCTION = 'DEPLOY_FUNCTION'.freeze,
       DEPLOY_STAGE_TYPE_INVOKE_FUNCTION = 'INVOKE_FUNCTION'.freeze,
       DEPLOY_STAGE_TYPE_LOAD_BALANCER_TRAFFIC_SHIFT = 'LOAD_BALANCER_TRAFFIC_SHIFT'.freeze,
       DEPLOY_STAGE_TYPE_MANUAL_APPROVAL = 'MANUAL_APPROVAL'.freeze,
+      DEPLOY_STAGE_TYPE_OKE_HELM_CHART_DEPLOYMENT = 'OKE_HELM_CHART_DEPLOYMENT'.freeze,
       DEPLOY_STAGE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -143,13 +154,24 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'deployStageType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::Devops::Models::ComputeInstanceGroupBlueGreenTrafficShiftDeployStage' if type == 'COMPUTE_INSTANCE_GROUP_BLUE_GREEN_TRAFFIC_SHIFT'
       return 'OCI::Devops::Models::LoadBalancerTrafficShiftDeployStage' if type == 'LOAD_BALANCER_TRAFFIC_SHIFT'
       return 'OCI::Devops::Models::InvokeFunctionDeployStage' if type == 'INVOKE_FUNCTION'
-      return 'OCI::Devops::Models::WaitDeployStage' if type == 'WAIT'
+      return 'OCI::Devops::Models::OkeCanaryDeployStage' if type == 'OKE_CANARY_DEPLOYMENT'
       return 'OCI::Devops::Models::OkeDeployStage' if type == 'OKE_DEPLOYMENT'
+      return 'OCI::Devops::Models::OkeCanaryTrafficShiftDeployStage' if type == 'OKE_CANARY_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::FunctionDeployStage' if type == 'DEPLOY_FUNCTION'
+      return 'OCI::Devops::Models::OkeBlueGreenDeployStage' if type == 'OKE_BLUE_GREEN_DEPLOYMENT'
+      return 'OCI::Devops::Models::OkeCanaryApprovalDeployStage' if type == 'OKE_CANARY_APPROVAL'
+      return 'OCI::Devops::Models::ComputeInstanceGroupCanaryTrafficShiftDeployStage' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_TRAFFIC_SHIFT'
+      return 'OCI::Devops::Models::ComputeInstanceGroupCanaryApprovalDeployStage' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_APPROVAL'
+      return 'OCI::Devops::Models::WaitDeployStage' if type == 'WAIT'
+      return 'OCI::Devops::Models::OkeHelmChartDeployStage' if type == 'OKE_HELM_CHART_DEPLOYMENT'
+      return 'OCI::Devops::Models::ComputeInstanceGroupBlueGreenDeployStage' if type == 'COMPUTE_INSTANCE_GROUP_BLUE_GREEN_DEPLOYMENT'
+      return 'OCI::Devops::Models::ComputeInstanceGroupCanaryDeployStage' if type == 'COMPUTE_INSTANCE_GROUP_CANARY_DEPLOYMENT'
+      return 'OCI::Devops::Models::OkeBlueGreenTrafficShiftDeployStage' if type == 'OKE_BLUE_GREEN_TRAFFIC_SHIFT'
       return 'OCI::Devops::Models::ManualApprovalDeployStage' if type == 'MANUAL_APPROVAL'
       return 'OCI::Devops::Models::ComputeInstanceGroupDeployStage' if type == 'COMPUTE_INSTANCE_GROUP_ROLLING_DEPLOYMENT'
-      return 'OCI::Devops::Models::FunctionDeployStage' if type == 'DEPLOY_FUNCTION'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::Devops::Models::DeployStage'

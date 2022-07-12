@@ -29,7 +29,7 @@ module OCI
     # to enter the given state(s).
     #
     # @param [OCI::TenantManagerControlPlane::Models::ActivateOrderDetails] activate_order_details The information needed to activate an order in a tenancy.
-    # @param [String] activation_token Activation Token containing an order id. JWT RFC 7519 formatted string.
+    # @param [String] activation_token Activation Token containing an order ID. A JWT RFC 7519 formatted string.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::TenantManagerControlPlane::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::TenantManagerControlPlane::OrdersClient#activate_order}

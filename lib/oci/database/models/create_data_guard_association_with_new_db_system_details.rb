@@ -11,6 +11,16 @@ module OCI
   # To create a Data Guard association for a database in a bare metal or Exadata DB system, use the {#create_data_guard_association_to_existing_db_system_details create_data_guard_association_to_existing_db_system_details} subtype instead.
   #
   class Database::Models::CreateDataGuardAssociationWithNewDbSystemDetails < Database::Models::CreateDataGuardAssociationDetails
+    STORAGE_VOLUME_PERFORMANCE_MODE_ENUM = [
+      STORAGE_VOLUME_PERFORMANCE_MODE_BALANCED = 'BALANCED'.freeze,
+      STORAGE_VOLUME_PERFORMANCE_MODE_HIGH_PERFORMANCE = 'HIGH_PERFORMANCE'.freeze
+    ].freeze
+
+    LICENSE_MODEL_ENUM = [
+      LICENSE_MODEL_LICENSE_INCLUDED = 'LICENSE_INCLUDED'.freeze,
+      LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze
+    ].freeze
+
     # The user-friendly name of the DB system that will contain the the standby database. The display name does not have to be unique.
     # @return [String]
     attr_accessor :display_name
@@ -27,6 +37,20 @@ module OCI
     # @return [String]
     attr_accessor :shape
 
+    # The number of OCPU cores available for AMD-based virtual machine DB systems.
+    # @return [Integer]
+    attr_accessor :cpu_core_count
+
+    # The block storage volume performance level. Valid values are `BALANCED` and `HIGH_PERFORMANCE`. See [Block Volume Performance](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumeperformance.htm) for more information.
+    #
+    # @return [String]
+    attr_reader :storage_volume_performance_mode
+
+    # The number of nodes to launch for the DB system of the standby in the Data Guard association. For a 2-node RAC virtual machine DB system, specify either 1 or 2. If you do not supply this parameter, the default is the node count of the primary DB system.
+    #
+    # @return [Integer]
+    attr_accessor :node_count
+
     # The OCID of the subnet the DB system is associated with.
     # **Subnet Restrictions:**
     # - For 1- and 2-node RAC DB systems, do not use a subnet that overlaps with 192.168.16.16/28
@@ -38,9 +62,9 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
-    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # The list of [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) for the network security groups (NSGs) to which this resource belongs. Setting this to an empty list removes all resources from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
     # **NsgIds restrictions:**
-    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
+    # - A network security group (NSG) is optional for Autonomous Databases with private access. The nsgIds list can be empty.
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
@@ -53,6 +77,70 @@ module OCI
     # The hostname for the DB node.
     # @return [String]
     attr_accessor :hostname
+
+    # The time zone of the dataguard standby DB system. For details, see [DB System Time Zones](https://docs.cloud.oracle.com/Content/Database/References/timezones.htm).
+    # @return [String]
+    attr_accessor :time_zone
+
+    # A Fault Domain is a grouping of hardware and infrastructure within an availability domain.
+    # Fault Domains let you distribute your instances so that they are not on the same physical
+    # hardware within a single availability domain. A hardware failure or maintenance
+    # that affects one Fault Domain does not affect DB systems in other Fault Domains.
+    #
+    # If you do not specify the Fault Domain, the system selects one for you. To change the Fault
+    # Domain for a DB system, terminate it and launch a new DB system in the preferred Fault Domain.
+    #
+    # If the node count is greater than 1, you can specify which Fault Domains these nodes will be distributed into.
+    # The system assigns your nodes automatically to the Fault Domains you specify so that
+    # no Fault Domain contains more than one node.
+    #
+    # To get a list of Fault Domains, use the
+    # {#list_fault_domains list_fault_domains} operation in the
+    # Identity and Access Management Service API.
+    #
+    # Example: `FAULT-DOMAIN-1`
+    #
+    # @return [Array<String>]
+    attr_accessor :fault_domains
+
+    # The IPv4 address from the provided OCI subnet which needs to be assigned to the VNIC. If not provided, it will
+    # be auto-assigned with an available IPv4 address from the subnet.
+    #
+    # @return [String]
+    attr_accessor :private_ip
+
+    # The Oracle license model that applies to all the databases on the dataguard standby DB system. The default is LICENSE_INCLUDED.
+    #
+    # @return [String]
+    attr_reader :license_model
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :db_system_freeform_tags
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :db_system_defined_tags
+
+    # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # Example: `{\"Department\": \"Finance\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :database_freeform_tags
+
+    # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :database_defined_tags
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -69,10 +157,21 @@ module OCI
         'display_name': :'displayName',
         'availability_domain': :'availabilityDomain',
         'shape': :'shape',
+        'cpu_core_count': :'cpuCoreCount',
+        'storage_volume_performance_mode': :'storageVolumePerformanceMode',
+        'node_count': :'nodeCount',
         'subnet_id': :'subnetId',
         'nsg_ids': :'nsgIds',
         'backup_network_nsg_ids': :'backupNetworkNsgIds',
-        'hostname': :'hostname'
+        'hostname': :'hostname',
+        'time_zone': :'timeZone',
+        'fault_domains': :'faultDomains',
+        'private_ip': :'privateIp',
+        'license_model': :'licenseModel',
+        'db_system_freeform_tags': :'dbSystemFreeformTags',
+        'db_system_defined_tags': :'dbSystemDefinedTags',
+        'database_freeform_tags': :'databaseFreeformTags',
+        'database_defined_tags': :'databaseDefinedTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -92,10 +191,21 @@ module OCI
         'display_name': :'String',
         'availability_domain': :'String',
         'shape': :'String',
+        'cpu_core_count': :'Integer',
+        'storage_volume_performance_mode': :'String',
+        'node_count': :'Integer',
         'subnet_id': :'String',
         'nsg_ids': :'Array<String>',
         'backup_network_nsg_ids': :'Array<String>',
-        'hostname': :'String'
+        'hostname': :'String',
+        'time_zone': :'String',
+        'fault_domains': :'Array<String>',
+        'private_ip': :'String',
+        'license_model': :'String',
+        'db_system_freeform_tags': :'Hash<String, String>',
+        'db_system_defined_tags': :'Hash<String, Hash<String, Object>>',
+        'database_freeform_tags': :'Hash<String, String>',
+        'database_defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -116,10 +226,21 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
+    # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
+    # @option attributes [String] :storage_volume_performance_mode The value to assign to the {#storage_volume_performance_mode} property
+    # @option attributes [Integer] :node_count The value to assign to the {#node_count} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [Array<String>] :backup_network_nsg_ids The value to assign to the {#backup_network_nsg_ids} property
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
+    # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
+    # @option attributes [Array<String>] :fault_domains The value to assign to the {#fault_domains} property
+    # @option attributes [String] :private_ip The value to assign to the {#private_ip} property
+    # @option attributes [String] :license_model The value to assign to the {#license_model} property
+    # @option attributes [Hash<String, String>] :db_system_freeform_tags The value to assign to the {#db_system_freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :db_system_defined_tags The value to assign to the {#db_system_defined_tags} property
+    # @option attributes [Hash<String, String>] :database_freeform_tags The value to assign to the {#database_freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :database_defined_tags The value to assign to the {#database_defined_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -144,6 +265,26 @@ module OCI
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
 
+      self.cpu_core_count = attributes[:'cpuCoreCount'] if attributes[:'cpuCoreCount']
+
+      raise 'You cannot provide both :cpuCoreCount and :cpu_core_count' if attributes.key?(:'cpuCoreCount') && attributes.key?(:'cpu_core_count')
+
+      self.cpu_core_count = attributes[:'cpu_core_count'] if attributes[:'cpu_core_count']
+
+      self.storage_volume_performance_mode = attributes[:'storageVolumePerformanceMode'] if attributes[:'storageVolumePerformanceMode']
+      self.storage_volume_performance_mode = "BALANCED" if storage_volume_performance_mode.nil? && !attributes.key?(:'storageVolumePerformanceMode') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :storageVolumePerformanceMode and :storage_volume_performance_mode' if attributes.key?(:'storageVolumePerformanceMode') && attributes.key?(:'storage_volume_performance_mode')
+
+      self.storage_volume_performance_mode = attributes[:'storage_volume_performance_mode'] if attributes[:'storage_volume_performance_mode']
+      self.storage_volume_performance_mode = "BALANCED" if storage_volume_performance_mode.nil? && !attributes.key?(:'storageVolumePerformanceMode') && !attributes.key?(:'storage_volume_performance_mode') # rubocop:disable Style/StringLiterals
+
+      self.node_count = attributes[:'nodeCount'] if attributes[:'nodeCount']
+
+      raise 'You cannot provide both :nodeCount and :node_count' if attributes.key?(:'nodeCount') && attributes.key?(:'node_count')
+
+      self.node_count = attributes[:'node_count'] if attributes[:'node_count']
+
       self.subnet_id = attributes[:'subnetId'] if attributes[:'subnetId']
 
       raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
@@ -163,9 +304,73 @@ module OCI
       self.backup_network_nsg_ids = attributes[:'backup_network_nsg_ids'] if attributes[:'backup_network_nsg_ids']
 
       self.hostname = attributes[:'hostname'] if attributes[:'hostname']
+
+      self.time_zone = attributes[:'timeZone'] if attributes[:'timeZone']
+
+      raise 'You cannot provide both :timeZone and :time_zone' if attributes.key?(:'timeZone') && attributes.key?(:'time_zone')
+
+      self.time_zone = attributes[:'time_zone'] if attributes[:'time_zone']
+
+      self.fault_domains = attributes[:'faultDomains'] if attributes[:'faultDomains']
+
+      raise 'You cannot provide both :faultDomains and :fault_domains' if attributes.key?(:'faultDomains') && attributes.key?(:'fault_domains')
+
+      self.fault_domains = attributes[:'fault_domains'] if attributes[:'fault_domains']
+
+      self.private_ip = attributes[:'privateIp'] if attributes[:'privateIp']
+
+      raise 'You cannot provide both :privateIp and :private_ip' if attributes.key?(:'privateIp') && attributes.key?(:'private_ip')
+
+      self.private_ip = attributes[:'private_ip'] if attributes[:'private_ip']
+
+      self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
+
+      raise 'You cannot provide both :licenseModel and :license_model' if attributes.key?(:'licenseModel') && attributes.key?(:'license_model')
+
+      self.license_model = attributes[:'license_model'] if attributes[:'license_model']
+
+      self.db_system_freeform_tags = attributes[:'dbSystemFreeformTags'] if attributes[:'dbSystemFreeformTags']
+
+      raise 'You cannot provide both :dbSystemFreeformTags and :db_system_freeform_tags' if attributes.key?(:'dbSystemFreeformTags') && attributes.key?(:'db_system_freeform_tags')
+
+      self.db_system_freeform_tags = attributes[:'db_system_freeform_tags'] if attributes[:'db_system_freeform_tags']
+
+      self.db_system_defined_tags = attributes[:'dbSystemDefinedTags'] if attributes[:'dbSystemDefinedTags']
+
+      raise 'You cannot provide both :dbSystemDefinedTags and :db_system_defined_tags' if attributes.key?(:'dbSystemDefinedTags') && attributes.key?(:'db_system_defined_tags')
+
+      self.db_system_defined_tags = attributes[:'db_system_defined_tags'] if attributes[:'db_system_defined_tags']
+
+      self.database_freeform_tags = attributes[:'databaseFreeformTags'] if attributes[:'databaseFreeformTags']
+
+      raise 'You cannot provide both :databaseFreeformTags and :database_freeform_tags' if attributes.key?(:'databaseFreeformTags') && attributes.key?(:'database_freeform_tags')
+
+      self.database_freeform_tags = attributes[:'database_freeform_tags'] if attributes[:'database_freeform_tags']
+
+      self.database_defined_tags = attributes[:'databaseDefinedTags'] if attributes[:'databaseDefinedTags']
+
+      raise 'You cannot provide both :databaseDefinedTags and :database_defined_tags' if attributes.key?(:'databaseDefinedTags') && attributes.key?(:'database_defined_tags')
+
+      self.database_defined_tags = attributes[:'database_defined_tags'] if attributes[:'database_defined_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] storage_volume_performance_mode Object to be assigned
+    def storage_volume_performance_mode=(storage_volume_performance_mode)
+      raise "Invalid value for 'storage_volume_performance_mode': this must be one of the values in STORAGE_VOLUME_PERFORMANCE_MODE_ENUM." if storage_volume_performance_mode && !STORAGE_VOLUME_PERFORMANCE_MODE_ENUM.include?(storage_volume_performance_mode)
+
+      @storage_volume_performance_mode = storage_volume_performance_mode
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] license_model Object to be assigned
+    def license_model=(license_model)
+      raise "Invalid value for 'license_model': this must be one of the values in LICENSE_MODEL_ENUM." if license_model && !LICENSE_MODEL_ENUM.include?(license_model)
+
+      @license_model = license_model
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -187,10 +392,21 @@ module OCI
         display_name == other.display_name &&
         availability_domain == other.availability_domain &&
         shape == other.shape &&
+        cpu_core_count == other.cpu_core_count &&
+        storage_volume_performance_mode == other.storage_volume_performance_mode &&
+        node_count == other.node_count &&
         subnet_id == other.subnet_id &&
         nsg_ids == other.nsg_ids &&
         backup_network_nsg_ids == other.backup_network_nsg_ids &&
-        hostname == other.hostname
+        hostname == other.hostname &&
+        time_zone == other.time_zone &&
+        fault_domains == other.fault_domains &&
+        private_ip == other.private_ip &&
+        license_model == other.license_model &&
+        db_system_freeform_tags == other.db_system_freeform_tags &&
+        db_system_defined_tags == other.db_system_defined_tags &&
+        database_freeform_tags == other.database_freeform_tags &&
+        database_defined_tags == other.database_defined_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -206,7 +422,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_software_image_id, database_admin_password, protection_mode, transport_type, creation_type, is_active_data_guard_enabled, peer_db_unique_name, peer_sid_prefix, display_name, availability_domain, shape, subnet_id, nsg_ids, backup_network_nsg_ids, hostname].hash
+      [database_software_image_id, database_admin_password, protection_mode, transport_type, creation_type, is_active_data_guard_enabled, peer_db_unique_name, peer_sid_prefix, display_name, availability_domain, shape, cpu_core_count, storage_volume_performance_mode, node_count, subnet_id, nsg_ids, backup_network_nsg_ids, hostname, time_zone, fault_domains, private_ip, license_model, db_system_freeform_tags, db_system_defined_tags, database_freeform_tags, database_defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

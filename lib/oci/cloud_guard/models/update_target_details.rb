@@ -17,7 +17,10 @@ module OCI
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze
     ].freeze
 
-    # DetectorTemplate Identifier
+    # DetectorTemplate identifier.
+    #
+    # Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :display_name
 
@@ -35,6 +38,8 @@ module OCI
 
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
+    #
+    # Avoid entering confidential information.
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags

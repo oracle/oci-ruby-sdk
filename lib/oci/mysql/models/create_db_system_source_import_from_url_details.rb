@@ -9,7 +9,11 @@ module OCI
   # An Object Storage PAR from which to import the DB System initial data.
   #
   class Mysql::Models::CreateDbSystemSourceImportFromUrlDetails < Mysql::Models::CreateDbSystemSourceDetails
-    # **[Required]** The Pre-Authenticated Request (PAR) URL of the file you want to import from Object Storage.
+    # **[Required]** The Pre-Authenticated Request (PAR) of a bucket/prefix or PAR of a @.manifest.json object from the Object Storage.
+    # Check [Using Pre-Authenticated Requests](https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/usingpreauthenticatedrequests.htm)
+    # for information related to PAR creation.
+    # Please create PAR with \"Permit object reads\" access type and \"Enable Object Listing\" permission when using a bucket/prefix PAR.
+    # Please create PAR with \"Permit object reads\" access type when using a @.manifest.json object PAR.
     #
     # @return [String]
     attr_accessor :source_url

@@ -13,7 +13,7 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG route table that is assigned to this attachment.
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the DRG route table that is assigned to this attachment.
     #
     # The DRG route table manages traffic inside the DRG.
     #
@@ -49,7 +49,7 @@ module OCI
     # @return [String]
     attr_accessor :export_drg_route_distribution_id
 
-    # This is the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the route table that is used to route the traffic as it enters a VCN through this attachment.
+    # This is the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the route table that is used to route the traffic as it enters a VCN through this attachment.
     #
     # For information about why you would associate a route table with a DRG attachment, see:
     #

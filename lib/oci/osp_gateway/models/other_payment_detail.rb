@@ -2,12 +2,44 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 require_relative 'payment_detail'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Other Payment related details
   class OspGateway::Models::OtherPaymentDetail < OspGateway::Models::PaymentDetail
+    CREDIT_CARD_TYPE_ENUM = [
+      CREDIT_CARD_TYPE_VISA = 'VISA'.freeze,
+      CREDIT_CARD_TYPE_AMEX = 'AMEX'.freeze,
+      CREDIT_CARD_TYPE_MASTERCARD = 'MASTERCARD'.freeze,
+      CREDIT_CARD_TYPE_DISCOVER = 'DISCOVER'.freeze,
+      CREDIT_CARD_TYPE_JCB = 'JCB'.freeze,
+      CREDIT_CARD_TYPE_DINER = 'DINER'.freeze,
+      CREDIT_CARD_TYPE_ELO = 'ELO'.freeze,
+      CREDIT_CARD_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # Last four routing digits of the card
+    # @return [String]
+    attr_accessor :echeck_routing
+
+    # Name on the echeck card
+    # @return [String]
+    attr_accessor :name_on_card
+
+    # Echeck card type
+    # @return [String]
+    attr_reader :credit_card_type
+
+    # Last four digits of the card
+    # @return [String]
+    attr_accessor :last_digits
+
+    # Expired date of the echeck card
+    # @return [DateTime]
+    attr_accessor :time_expiration
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -15,7 +47,12 @@ module OCI
         'time_paid_on': :'timePaidOn',
         'paid_by': :'paidBy',
         'payment_method': :'paymentMethod',
-        'amount_paid': :'amountPaid'
+        'amount_paid': :'amountPaid',
+        'echeck_routing': :'echeckRouting',
+        'name_on_card': :'nameOnCard',
+        'credit_card_type': :'creditCardType',
+        'last_digits': :'lastDigits',
+        'time_expiration': :'timeExpiration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -27,7 +64,12 @@ module OCI
         'time_paid_on': :'DateTime',
         'paid_by': :'String',
         'payment_method': :'String',
-        'amount_paid': :'Float'
+        'amount_paid': :'Float',
+        'echeck_routing': :'String',
+        'name_on_card': :'String',
+        'credit_card_type': :'String',
+        'last_digits': :'String',
+        'time_expiration': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -41,15 +83,66 @@ module OCI
     # @option attributes [DateTime] :time_paid_on The value to assign to the {OCI::OspGateway::Models::PaymentDetail#time_paid_on #time_paid_on} proprety
     # @option attributes [String] :paid_by The value to assign to the {OCI::OspGateway::Models::PaymentDetail#paid_by #paid_by} proprety
     # @option attributes [Float] :amount_paid The value to assign to the {OCI::OspGateway::Models::PaymentDetail#amount_paid #amount_paid} proprety
+    # @option attributes [String] :echeck_routing The value to assign to the {#echeck_routing} property
+    # @option attributes [String] :name_on_card The value to assign to the {#name_on_card} property
+    # @option attributes [String] :credit_card_type The value to assign to the {#credit_card_type} property
+    # @option attributes [String] :last_digits The value to assign to the {#last_digits} property
+    # @option attributes [DateTime] :time_expiration The value to assign to the {#time_expiration} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       attributes['paymentMethod'] = 'OTHER'
 
       super(attributes)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.echeck_routing = attributes[:'echeckRouting'] if attributes[:'echeckRouting']
+
+      raise 'You cannot provide both :echeckRouting and :echeck_routing' if attributes.key?(:'echeckRouting') && attributes.key?(:'echeck_routing')
+
+      self.echeck_routing = attributes[:'echeck_routing'] if attributes[:'echeck_routing']
+
+      self.name_on_card = attributes[:'nameOnCard'] if attributes[:'nameOnCard']
+
+      raise 'You cannot provide both :nameOnCard and :name_on_card' if attributes.key?(:'nameOnCard') && attributes.key?(:'name_on_card')
+
+      self.name_on_card = attributes[:'name_on_card'] if attributes[:'name_on_card']
+
+      self.credit_card_type = attributes[:'creditCardType'] if attributes[:'creditCardType']
+
+      raise 'You cannot provide both :creditCardType and :credit_card_type' if attributes.key?(:'creditCardType') && attributes.key?(:'credit_card_type')
+
+      self.credit_card_type = attributes[:'credit_card_type'] if attributes[:'credit_card_type']
+
+      self.last_digits = attributes[:'lastDigits'] if attributes[:'lastDigits']
+
+      raise 'You cannot provide both :lastDigits and :last_digits' if attributes.key?(:'lastDigits') && attributes.key?(:'last_digits')
+
+      self.last_digits = attributes[:'last_digits'] if attributes[:'last_digits']
+
+      self.time_expiration = attributes[:'timeExpiration'] if attributes[:'timeExpiration']
+
+      raise 'You cannot provide both :timeExpiration and :time_expiration' if attributes.key?(:'timeExpiration') && attributes.key?(:'time_expiration')
+
+      self.time_expiration = attributes[:'time_expiration'] if attributes[:'time_expiration']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] credit_card_type Object to be assigned
+    def credit_card_type=(credit_card_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if credit_card_type && !CREDIT_CARD_TYPE_ENUM.include?(credit_card_type)
+        OCI.logger.debug("Unknown value for 'credit_card_type' [" + credit_card_type + "]. Mapping to 'CREDIT_CARD_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @credit_card_type = CREDIT_CARD_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @credit_card_type = credit_card_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -63,7 +156,12 @@ module OCI
         time_paid_on == other.time_paid_on &&
         paid_by == other.paid_by &&
         payment_method == other.payment_method &&
-        amount_paid == other.amount_paid
+        amount_paid == other.amount_paid &&
+        echeck_routing == other.echeck_routing &&
+        name_on_card == other.name_on_card &&
+        credit_card_type == other.credit_card_type &&
+        last_digits == other.last_digits &&
+        time_expiration == other.time_expiration
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -79,7 +177,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [time_paid_on, paid_by, payment_method, amount_paid].hash
+      [time_paid_on, paid_by, payment_method, amount_paid, echeck_routing, name_on_card, credit_card_type, last_digits, time_expiration].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

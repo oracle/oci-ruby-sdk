@@ -13,6 +13,7 @@ module OCI
       ACTION_TYPE_UPDATED = 'UPDATED'.freeze,
       ACTION_TYPE_DELETED = 'DELETED'.freeze,
       ACTION_TYPE_IN_PROGRESS = 'IN_PROGRESS'.freeze,
+      ACTION_TYPE_FAILED = 'FAILED'.freeze,
       ACTION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 

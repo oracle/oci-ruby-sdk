@@ -8,15 +8,15 @@ require_relative 'document_details'
 module OCI
   # A document in OCI Object Storage.
   class AiVision::Models::ObjectStorageDocumentDetails < AiVision::Models::DocumentDetails
-    # **[Required]** Object Storage namespace.
+    # **[Required]** The Object Storage namespace.
     # @return [String]
     attr_accessor :namespace_name
 
-    # **[Required]** Object Storage bucket name.
+    # **[Required]** The Object Storage bucket name.
     # @return [String]
     attr_accessor :bucket_name
 
-    # **[Required]** Object Storage object name.
+    # **[Required]** The Object Storage object name.
     # @return [String]
     attr_accessor :object_name
 

@@ -77,6 +77,10 @@ module OCI
     # @return [String]
     attr_accessor :oracle_shipping_tracking_url
 
+    # ID provided to customer after successful subscription to Rover Stations.
+    # @return [String]
+    attr_accessor :subscription_id
+
     # Shipping vendor of choice for orace to customer shipping.
     # @return [String]
     attr_accessor :shipping_vendor
@@ -139,6 +143,7 @@ module OCI
         'point_of_contact_phone_number': :'pointOfContactPhoneNumber',
         'shipping_preference': :'shippingPreference',
         'oracle_shipping_tracking_url': :'oracleShippingTrackingUrl',
+        'subscription_id': :'subscriptionId',
         'shipping_vendor': :'shippingVendor',
         'time_pickup_expected': :'timePickupExpected',
         'is_import_requested': :'isImportRequested',
@@ -169,6 +174,7 @@ module OCI
         'point_of_contact_phone_number': :'String',
         'shipping_preference': :'String',
         'oracle_shipping_tracking_url': :'String',
+        'subscription_id': :'String',
         'shipping_vendor': :'String',
         'time_pickup_expected': :'DateTime',
         'is_import_requested': :'BOOLEAN',
@@ -201,6 +207,7 @@ module OCI
     # @option attributes [String] :point_of_contact_phone_number The value to assign to the {#point_of_contact_phone_number} property
     # @option attributes [String] :shipping_preference The value to assign to the {#shipping_preference} property
     # @option attributes [String] :oracle_shipping_tracking_url The value to assign to the {#oracle_shipping_tracking_url} property
+    # @option attributes [String] :subscription_id The value to assign to the {#subscription_id} property
     # @option attributes [String] :shipping_vendor The value to assign to the {#shipping_vendor} property
     # @option attributes [DateTime] :time_pickup_expected The value to assign to the {#time_pickup_expected} property
     # @option attributes [BOOLEAN] :is_import_requested The value to assign to the {#is_import_requested} property
@@ -295,6 +302,12 @@ module OCI
       raise 'You cannot provide both :oracleShippingTrackingUrl and :oracle_shipping_tracking_url' if attributes.key?(:'oracleShippingTrackingUrl') && attributes.key?(:'oracle_shipping_tracking_url')
 
       self.oracle_shipping_tracking_url = attributes[:'oracle_shipping_tracking_url'] if attributes[:'oracle_shipping_tracking_url']
+
+      self.subscription_id = attributes[:'subscriptionId'] if attributes[:'subscriptionId']
+
+      raise 'You cannot provide both :subscriptionId and :subscription_id' if attributes.key?(:'subscriptionId') && attributes.key?(:'subscription_id')
+
+      self.subscription_id = attributes[:'subscription_id'] if attributes[:'subscription_id']
 
       self.shipping_vendor = attributes[:'shippingVendor'] if attributes[:'shippingVendor']
 
@@ -399,6 +412,7 @@ module OCI
         point_of_contact_phone_number == other.point_of_contact_phone_number &&
         shipping_preference == other.shipping_preference &&
         oracle_shipping_tracking_url == other.oracle_shipping_tracking_url &&
+        subscription_id == other.subscription_id &&
         shipping_vendor == other.shipping_vendor &&
         time_pickup_expected == other.time_pickup_expected &&
         is_import_requested == other.is_import_requested &&
@@ -423,7 +437,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, cluster_size, customer_shipping_address, cluster_workloads, super_user_password, lifecycle_state, lifecycle_state_details, unlock_passphrase, enclosure_type, point_of_contact, point_of_contact_phone_number, shipping_preference, oracle_shipping_tracking_url, shipping_vendor, time_pickup_expected, is_import_requested, import_compartment_id, import_file_bucket, data_validation_code, freeform_tags, defined_tags, system_tags].hash
+      [display_name, cluster_size, customer_shipping_address, cluster_workloads, super_user_password, lifecycle_state, lifecycle_state_details, unlock_passphrase, enclosure_type, point_of_contact, point_of_contact_phone_number, shipping_preference, oracle_shipping_tracking_url, subscription_id, shipping_vendor, time_pickup_expected, is_import_requested, import_compartment_id, import_file_bucket, data_validation_code, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

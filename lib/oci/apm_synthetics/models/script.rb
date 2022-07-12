@@ -39,7 +39,7 @@ module OCI
     # @return [String]
     attr_accessor :content
 
-    # The time when the script was uploaded.
+    # The time the script was uploaded.
     # @return [DateTime]
     attr_accessor :time_uploaded
 

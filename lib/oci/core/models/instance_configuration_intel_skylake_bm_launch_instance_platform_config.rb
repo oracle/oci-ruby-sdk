@@ -6,7 +6,8 @@ require_relative 'instance_configuration_launch_instance_platform_config'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The platform configuration used when launching a bare metal instance with the Intel Skylake platform.
+  # The platform configuration used when launching a bare metal instance with one of the following
+  # shapes: BM.Standard2.52, BM.GPU2.2, BM.GPU3.8, or BM.DenseIO2.52 (the Intel Skylake platform).
   #
   class Core::Models::InstanceConfigurationIntelSkylakeBmLaunchInstancePlatformConfig < Core::Models::InstanceConfigurationLaunchInstancePlatformConfig
     # Attribute mapping from ruby-style variable name to JSON key.

@@ -13,6 +13,12 @@ module OCI
       RESET_PERIOD_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    PROCESSING_PERIOD_TYPE_ENUM = [
+      PROCESSING_PERIOD_TYPE_INVOICE = 'INVOICE'.freeze,
+      PROCESSING_PERIOD_TYPE_MONTH = 'MONTH'.freeze,
+      PROCESSING_PERIOD_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     TARGET_TYPE_ENUM = [
       TARGET_TYPE_COMPARTMENT = 'COMPARTMENT'.freeze,
       TARGET_TYPE_TAG = 'TAG'.freeze,
@@ -25,22 +31,22 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the budget
+    # **[Required]** The OCID of the budget.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the compartment
+    # **[Required]** The OCID of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 
-    # This is DEPRECATED. For backwards compatability, the property will be populated when
-    # targetType is \"COMPARTMENT\" AND targets contains EXACT ONE target compartment ocid.
+    # This is DEPRECATED. For backwards compatability, the property is populated when
+    # the targetType is \"COMPARTMENT\", and targets contain the specific target compartment OCID.
     # For all other scenarios, this property will be left empty.
     #
     # @return [String]
     attr_accessor :target_compartment_id
 
-    # **[Required]** The display name of the budget.
+    # **[Required]** The display name of the budget. Avoid entering confidential information.
     # @return [String]
     attr_accessor :display_name
 
@@ -62,14 +68,19 @@ module OCI
     # @return [Integer]
     attr_accessor :budget_processing_period_start_offset
 
+    # The type of the budget processing period. Valid values are INVOICE and MONTH.
+    #
+    # @return [String]
+    attr_reader :processing_period_type
+
     # The type of target on which the budget is applied.
     #
     # @return [String]
     attr_reader :target_type
 
     # The list of targets on which the budget is applied.
-    #   If targetType is \"COMPARTMENT\", targets contains list of compartment OCIDs.
-    #   If targetType is \"TAG\", targets contains list of cost tracking tag identifiers in the form of \"{tagNamespace}.{tagKey}.{tagValue}\".
+    #   If the targetType is \"COMPARTMENT\", the targets contain the list of compartment OCIDs.
+    #   If the targetType is \"TAG\", the targets contain the list of cost tracking tag identifiers in the form of \"{tagNamespace}.{tagKey}.{tagValue}\".
     #
     # @return [Array<String>]
     attr_accessor :targets
@@ -78,31 +89,31 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** Total number of alert rules in the budget
+    # **[Required]** The total number of alert rules in the budget.
     # @return [Integer]
     attr_accessor :alert_rule_count
 
-    # Version of the budget. Starts from 1 and increments by 1.
+    # The version of the budget. Starts from 1 and increments by 1.
     # @return [Integer]
     attr_accessor :version
 
-    # The actual spend in currency for the current budget cycle
+    # The actual spend in currency for the current budget cycle.
     # @return [Float]
     attr_accessor :actual_spend
 
-    # The forecasted spend in currency by the end of the current budget cycle
+    # The forecasted spend in currency by the end of the current budget cycle.
     # @return [Float]
     attr_accessor :forecasted_spend
 
-    # The time that the budget spend was last computed
+    # The time that the budget spend was last computed.
     # @return [DateTime]
     attr_accessor :time_spend_computed
 
-    # **[Required]** Time that budget was created
+    # **[Required]** The time that the budget was created.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** Time that budget was updated
+    # **[Required]** The time that the budget was updated.
     # @return [DateTime]
     attr_accessor :time_updated
 
@@ -134,6 +145,7 @@ module OCI
         'amount': :'amount',
         'reset_period': :'resetPeriod',
         'budget_processing_period_start_offset': :'budgetProcessingPeriodStartOffset',
+        'processing_period_type': :'processingPeriodType',
         'target_type': :'targetType',
         'targets': :'targets',
         'lifecycle_state': :'lifecycleState',
@@ -162,6 +174,7 @@ module OCI
         'amount': :'Float',
         'reset_period': :'String',
         'budget_processing_period_start_offset': :'Integer',
+        'processing_period_type': :'String',
         'target_type': :'String',
         'targets': :'Array<String>',
         'lifecycle_state': :'String',
@@ -192,6 +205,7 @@ module OCI
     # @option attributes [Float] :amount The value to assign to the {#amount} property
     # @option attributes [String] :reset_period The value to assign to the {#reset_period} property
     # @option attributes [Integer] :budget_processing_period_start_offset The value to assign to the {#budget_processing_period_start_offset} property
+    # @option attributes [String] :processing_period_type The value to assign to the {#processing_period_type} property
     # @option attributes [String] :target_type The value to assign to the {#target_type} property
     # @option attributes [Array<String>] :targets The value to assign to the {#targets} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -245,6 +259,12 @@ module OCI
       raise 'You cannot provide both :budgetProcessingPeriodStartOffset and :budget_processing_period_start_offset' if attributes.key?(:'budgetProcessingPeriodStartOffset') && attributes.key?(:'budget_processing_period_start_offset')
 
       self.budget_processing_period_start_offset = attributes[:'budget_processing_period_start_offset'] if attributes[:'budget_processing_period_start_offset']
+
+      self.processing_period_type = attributes[:'processingPeriodType'] if attributes[:'processingPeriodType']
+
+      raise 'You cannot provide both :processingPeriodType and :processing_period_type' if attributes.key?(:'processingPeriodType') && attributes.key?(:'processing_period_type')
+
+      self.processing_period_type = attributes[:'processing_period_type'] if attributes[:'processing_period_type']
 
       self.target_type = attributes[:'targetType'] if attributes[:'targetType']
 
@@ -327,6 +347,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] processing_period_type Object to be assigned
+    def processing_period_type=(processing_period_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if processing_period_type && !PROCESSING_PERIOD_TYPE_ENUM.include?(processing_period_type)
+        OCI.logger.debug("Unknown value for 'processing_period_type' [" + processing_period_type + "]. Mapping to 'PROCESSING_PERIOD_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @processing_period_type = PROCESSING_PERIOD_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @processing_period_type = processing_period_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] target_type Object to be assigned
     def target_type=(target_type)
       # rubocop:disable Style/ConditionalAssignment
@@ -369,6 +402,7 @@ module OCI
         amount == other.amount &&
         reset_period == other.reset_period &&
         budget_processing_period_start_offset == other.budget_processing_period_start_offset &&
+        processing_period_type == other.processing_period_type &&
         target_type == other.target_type &&
         targets == other.targets &&
         lifecycle_state == other.lifecycle_state &&
@@ -396,7 +430,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, target_compartment_id, display_name, description, amount, reset_period, budget_processing_period_start_offset, target_type, targets, lifecycle_state, alert_rule_count, version, actual_spend, forecasted_spend, time_spend_computed, time_created, time_updated, freeform_tags, defined_tags].hash
+      [id, compartment_id, target_compartment_id, display_name, description, amount, reset_period, budget_processing_period_start_offset, processing_period_type, target_type, targets, lifecycle_state, alert_rule_count, version, actual_spend, forecasted_spend, time_spend_computed, time_created, time_updated, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

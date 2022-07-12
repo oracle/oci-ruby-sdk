@@ -8,7 +8,7 @@ require_relative 'deploy_artifact_source'
 module OCI
   # Specifies the OCIR details.
   class Devops::Models::OcirDeployArtifactSource < Devops::Models::DeployArtifactSource
-    # **[Required]** Specifies OCIR Image Path - optionally include tag.
+    # **[Required]** Specifies OCIR image path - optionally include tag.
     # @return [String]
     attr_accessor :image_uri
 

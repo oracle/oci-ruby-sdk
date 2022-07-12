@@ -8,9 +8,12 @@ require_relative 'typed_object'
 module OCI
   # A proxy field.
   class DataIntegration::Models::ProxyField < DataIntegration::Models::TypedObject
-    # Reference to a typed object. This can be either a key value to an object within the document, a shall referenced to a `TypedObject`, or a full `TypedObject` definition.
+    # Deprecated - Reference to a typed object. This can be either a key value to an object within the document, a shall referenced to a `TypedObject`, or a full `TypedObject` definition.
     # @return [Object]
     attr_accessor :scope
+
+    # @return [OCI::DataIntegration::Models::ScopeReference]
+    attr_accessor :scope_reference
 
     # @return [OCI::DataIntegration::Models::BaseType]
     attr_accessor :type
@@ -32,6 +35,7 @@ module OCI
         'name': :'name',
         'description': :'description',
         'scope': :'scope',
+        'scope_reference': :'scopeReference',
         'type': :'type',
         'labels': :'labels'
         # rubocop:enable Style/SymbolLiteral
@@ -51,6 +55,7 @@ module OCI
         'name': :'String',
         'description': :'String',
         'scope': :'Object',
+        'scope_reference': :'OCI::DataIntegration::Models::ScopeReference',
         'type': :'OCI::DataIntegration::Models::BaseType',
         'labels': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
@@ -71,6 +76,7 @@ module OCI
     # @option attributes [String] :name The value to assign to the {OCI::DataIntegration::Models::TypedObject#name #name} proprety
     # @option attributes [String] :description The value to assign to the {OCI::DataIntegration::Models::TypedObject#description #description} proprety
     # @option attributes [Object] :scope The value to assign to the {#scope} property
+    # @option attributes [OCI::DataIntegration::Models::ScopeReference] :scope_reference The value to assign to the {#scope_reference} property
     # @option attributes [OCI::DataIntegration::Models::BaseType] :type The value to assign to the {#type} property
     # @option attributes [Array<String>] :labels The value to assign to the {#labels} property
     def initialize(attributes = {})
@@ -84,6 +90,12 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.scope = attributes[:'scope'] if attributes[:'scope']
+
+      self.scope_reference = attributes[:'scopeReference'] if attributes[:'scopeReference']
+
+      raise 'You cannot provide both :scopeReference and :scope_reference' if attributes.key?(:'scopeReference') && attributes.key?(:'scope_reference')
+
+      self.scope_reference = attributes[:'scope_reference'] if attributes[:'scope_reference']
 
       self.type = attributes[:'type'] if attributes[:'type']
 
@@ -110,6 +122,7 @@ module OCI
         name == other.name &&
         description == other.description &&
         scope == other.scope &&
+        scope_reference == other.scope_reference &&
         type == other.type &&
         labels == other.labels
     end
@@ -127,7 +140,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, parent_ref, config_values, object_status, name, description, scope, type, labels].hash
+      [model_type, key, model_version, parent_ref, config_values, object_status, name, description, scope, scope_reference, type, labels].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

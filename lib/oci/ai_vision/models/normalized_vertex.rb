@@ -10,11 +10,11 @@ module OCI
   # The bottom right corner is at (1, 1).
   #
   class AiVision::Models::NormalizedVertex
-    # **[Required]** X axis normalized coordinate.
+    # **[Required]** The X-axis normalized coordinate.
     # @return [Float]
     attr_accessor :x
 
-    # **[Required]** Y axis normalized coordinate.
+    # **[Required]** The Y-axis normalized coordinate.
     # @return [Float]
     attr_accessor :y
 

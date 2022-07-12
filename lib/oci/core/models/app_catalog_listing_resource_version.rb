@@ -39,8 +39,8 @@ module OCI
 
     # List of regions that this listing resource version is available.
     #
-    # For information about Regions, see
-    # [Regions](https://docs.cloud.oracle.com/#General/Concepts/regions.htm).
+    # For information about regions, see
+    # [Regions and Availability Domains](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm).
     #
     # Example: `[\"us-ashburn-1\", \"us-phoenix-1\"]`
     #
@@ -49,7 +49,7 @@ module OCI
 
     # Array of shapes compatible with this resource.
     #
-    # You may enumerate all available shapes by calling {#list_shapes list_shapes}.
+    # You can enumerate all available shapes by calling {#list_shapes list_shapes}.
     #
     # Example: `[\"VM.Standard1.1\", \"VM.Standard1.2\"]`
     #

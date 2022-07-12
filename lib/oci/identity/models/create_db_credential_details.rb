@@ -14,6 +14,8 @@ module OCI
 
     # **[Required]** The description you assign to the DB credentials during creation.
     #
+    # (For tenancies that support identity domains) You can have an empty description.
+    #
     # @return [String]
     attr_accessor :description
 

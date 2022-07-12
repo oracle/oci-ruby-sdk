@@ -2,6 +2,7 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
@@ -12,6 +13,12 @@ module OCI
   # see [Getting Started with Policies](https://docs.cloud.oracle.com/Content/Identity/Concepts/policygetstarted.htm).
   #
   class Database::Models::DbSystemShapeSummary
+    SHAPE_TYPE_ENUM = [
+      SHAPE_TYPE_AMD = 'AMD'.freeze,
+      SHAPE_TYPE_INTEL = 'INTEL'.freeze,
+      SHAPE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The name of the shape used for the DB system.
     # @return [String]
     attr_accessor :name
@@ -19,6 +26,10 @@ module OCI
     # The family of the shape used for the DB system.
     # @return [String]
     attr_accessor :shape_family
+
+    # The shape type for the virtual machine DB system. Shape type is determined by CPU hardware. Valid values are `AMD` and `INTEL`.
+    # @return [String]
+    attr_reader :shape_type
 
     # Deprecated. Use `name` instead of `shape`.
     # @return [String]
@@ -102,6 +113,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
         'shape_family': :'shapeFamily',
+        'shape_type': :'shapeType',
         'shape': :'shape',
         'available_core_count': :'availableCoreCount',
         'minimum_core_count': :'minimumCoreCount',
@@ -131,6 +143,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
         'shape_family': :'String',
+        'shape_type': :'String',
         'shape': :'String',
         'available_core_count': :'Integer',
         'minimum_core_count': :'Integer',
@@ -162,6 +175,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :shape_family The value to assign to the {#shape_family} property
+    # @option attributes [String] :shape_type The value to assign to the {#shape_type} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [Integer] :available_core_count The value to assign to the {#available_core_count} property
     # @option attributes [Integer] :minimum_core_count The value to assign to the {#minimum_core_count} property
@@ -194,6 +208,12 @@ module OCI
       raise 'You cannot provide both :shapeFamily and :shape_family' if attributes.key?(:'shapeFamily') && attributes.key?(:'shape_family')
 
       self.shape_family = attributes[:'shape_family'] if attributes[:'shape_family']
+
+      self.shape_type = attributes[:'shapeType'] if attributes[:'shapeType']
+
+      raise 'You cannot provide both :shapeType and :shape_type' if attributes.key?(:'shapeType') && attributes.key?(:'shape_type')
+
+      self.shape_type = attributes[:'shape_type'] if attributes[:'shape_type']
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
 
@@ -308,6 +328,19 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] shape_type Object to be assigned
+    def shape_type=(shape_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if shape_type && !SHAPE_TYPE_ENUM.include?(shape_type)
+        OCI.logger.debug("Unknown value for 'shape_type' [" + shape_type + "]. Mapping to 'SHAPE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @shape_type = SHAPE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @shape_type = shape_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -319,6 +352,7 @@ module OCI
       self.class == other.class &&
         name == other.name &&
         shape_family == other.shape_family &&
+        shape_type == other.shape_type &&
         shape == other.shape &&
         available_core_count == other.available_core_count &&
         minimum_core_count == other.minimum_core_count &&
@@ -353,7 +387,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, shape_family, shape, available_core_count, minimum_core_count, core_count_increment, min_storage_count, max_storage_count, available_data_storage_per_server_in_tbs, available_memory_per_node_in_gbs, available_db_node_per_node_in_gbs, min_core_count_per_node, available_memory_in_gbs, min_memory_per_node_in_g_bs, available_db_node_storage_in_g_bs, min_db_node_storage_per_node_in_g_bs, available_data_storage_in_t_bs, min_data_storage_in_t_bs, minimum_node_count, maximum_node_count, available_core_count_per_node].hash
+      [name, shape_family, shape_type, shape, available_core_count, minimum_core_count, core_count_increment, min_storage_count, max_storage_count, available_data_storage_per_server_in_tbs, available_memory_per_node_in_gbs, available_db_node_per_node_in_gbs, min_core_count_per_node, available_memory_in_gbs, min_memory_per_node_in_g_bs, available_db_node_storage_in_g_bs, min_db_node_storage_per_node_in_g_bs, available_data_storage_in_t_bs, min_data_storage_in_t_bs, minimum_node_count, maximum_node_count, available_core_count_per_node].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

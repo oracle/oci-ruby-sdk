@@ -16,7 +16,7 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** Defines the stage type, which is one of the following: Build, Deliver Artifacts, Wait, and Trigger Deployment.
+    # **[Required]** Defines the stage type, which is one of the following: BUILD, DELIVER_ARTIFACT, WAIT, and TRIGGER_DEPLOYMENT_PIPELINE.
     #
     # @return [String]
     attr_accessor :build_pipeline_stage_type

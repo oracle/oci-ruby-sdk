@@ -12,6 +12,7 @@ module OCI
     ENTITY_SOURCE_ENUM = [
       ENTITY_SOURCE_MACS_MANAGED_EXTERNAL_HOST = 'MACS_MANAGED_EXTERNAL_HOST'.freeze,
       ENTITY_SOURCE_EM_MANAGED_EXTERNAL_HOST = 'EM_MANAGED_EXTERNAL_HOST'.freeze,
+      ENTITY_SOURCE_PE_COMANAGED_HOST = 'PE_COMANAGED_HOST'.freeze,
       ENTITY_SOURCE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -19,6 +20,7 @@ module OCI
       PLATFORM_TYPE_LINUX = 'LINUX'.freeze,
       PLATFORM_TYPE_SOLARIS = 'SOLARIS'.freeze,
       PLATFORM_TYPE_SUNOS = 'SUNOS'.freeze,
+      PLATFORM_TYPE_ZLINUX = 'ZLINUX'.freeze,
       PLATFORM_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -40,7 +42,7 @@ module OCI
 
     # **[Required]** Platform type.
     # Supported platformType(s) for MACS-managed external host insight: [LINUX].
-    # Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS].
+    # Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS, ZLINUX].
     #
     # @return [String]
     attr_reader :platform_type
@@ -180,6 +182,7 @@ module OCI
       type = object_hash[:'entitySource'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Opsi::Models::MacsManagedExternalHostConfigurationSummary' if type == 'MACS_MANAGED_EXTERNAL_HOST'
+      return 'OCI::Opsi::Models::PeComanagedHostConfigurationSummary' if type == 'PE_COMANAGED_HOST'
       return 'OCI::Opsi::Models::EmManagedExternalHostConfigurationSummary' if type == 'EM_MANAGED_EXTERNAL_HOST'
 
       # TODO: Log a warning when the subtype is not found.

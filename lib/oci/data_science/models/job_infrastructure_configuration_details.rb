@@ -12,6 +12,7 @@ module OCI
   class DataScience::Models::JobInfrastructureConfigurationDetails
     JOB_INFRASTRUCTURE_TYPE_ENUM = [
       JOB_INFRASTRUCTURE_TYPE_STANDALONE = 'STANDALONE'.freeze,
+      JOB_INFRASTRUCTURE_TYPE_ME_STANDALONE = 'ME_STANDALONE'.freeze,
       JOB_INFRASTRUCTURE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -45,6 +46,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'jobInfrastructureType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::DataScience::Models::ManagedEgressStandaloneJobInfrastructureConfigurationDetails' if type == 'ME_STANDALONE'
       return 'OCI::DataScience::Models::StandaloneJobInfrastructureConfigurationDetails' if type == 'STANDALONE'
 
       # TODO: Log a warning when the subtype is not found.

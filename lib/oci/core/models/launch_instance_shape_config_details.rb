@@ -42,13 +42,19 @@ module OCI
     # @return [String]
     attr_reader :baseline_ocpu_utilization
 
+    # The number of NVMe drives to be used for storage. A single drive has 6.8 TB available.
+    #
+    # @return [Integer]
+    attr_accessor :nvmes
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'ocpus': :'ocpus',
         'memory_in_gbs': :'memoryInGBs',
-        'baseline_ocpu_utilization': :'baselineOcpuUtilization'
+        'baseline_ocpu_utilization': :'baselineOcpuUtilization',
+        'nvmes': :'nvmes'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -59,7 +65,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'ocpus': :'Float',
         'memory_in_gbs': :'Float',
-        'baseline_ocpu_utilization': :'String'
+        'baseline_ocpu_utilization': :'String',
+        'nvmes': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -73,6 +80,7 @@ module OCI
     # @option attributes [Float] :ocpus The value to assign to the {#ocpus} property
     # @option attributes [Float] :memory_in_gbs The value to assign to the {#memory_in_gbs} property
     # @option attributes [String] :baseline_ocpu_utilization The value to assign to the {#baseline_ocpu_utilization} property
+    # @option attributes [Integer] :nvmes The value to assign to the {#nvmes} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -92,6 +100,8 @@ module OCI
       raise 'You cannot provide both :baselineOcpuUtilization and :baseline_ocpu_utilization' if attributes.key?(:'baselineOcpuUtilization') && attributes.key?(:'baseline_ocpu_utilization')
 
       self.baseline_ocpu_utilization = attributes[:'baseline_ocpu_utilization'] if attributes[:'baseline_ocpu_utilization']
+
+      self.nvmes = attributes[:'nvmes'] if attributes[:'nvmes']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -115,7 +125,8 @@ module OCI
       self.class == other.class &&
         ocpus == other.ocpus &&
         memory_in_gbs == other.memory_in_gbs &&
-        baseline_ocpu_utilization == other.baseline_ocpu_utilization
+        baseline_ocpu_utilization == other.baseline_ocpu_utilization &&
+        nvmes == other.nvmes
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -131,7 +142,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [ocpus, memory_in_gbs, baseline_ocpu_utilization].hash
+      [ocpus, memory_in_gbs, baseline_ocpu_utilization, nvmes].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -34,6 +34,10 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_required
 
+    # Locks associated with this resource.
+    # @return [Array<OCI::Identity::Models::AddLockDetails>]
+    attr_accessor :locks
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -41,7 +45,8 @@ module OCI
         'compartment_id': :'compartmentId',
         'tag_definition_id': :'tagDefinitionId',
         'value': :'value',
-        'is_required': :'isRequired'
+        'is_required': :'isRequired',
+        'locks': :'locks'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -53,7 +58,8 @@ module OCI
         'compartment_id': :'String',
         'tag_definition_id': :'String',
         'value': :'String',
-        'is_required': :'BOOLEAN'
+        'is_required': :'BOOLEAN',
+        'locks': :'Array<OCI::Identity::Models::AddLockDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -68,6 +74,7 @@ module OCI
     # @option attributes [String] :tag_definition_id The value to assign to the {#tag_definition_id} property
     # @option attributes [String] :value The value to assign to the {#value} property
     # @option attributes [BOOLEAN] :is_required The value to assign to the {#is_required} property
+    # @option attributes [Array<OCI::Identity::Models::AddLockDetails>] :locks The value to assign to the {#locks} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -93,6 +100,8 @@ module OCI
       raise 'You cannot provide both :isRequired and :is_required' if attributes.key?(:'isRequired') && attributes.key?(:'is_required')
 
       self.is_required = attributes[:'is_required'] unless attributes[:'is_required'].nil?
+
+      self.locks = attributes[:'locks'] if attributes[:'locks']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -109,7 +118,8 @@ module OCI
         compartment_id == other.compartment_id &&
         tag_definition_id == other.tag_definition_id &&
         value == other.value &&
-        is_required == other.is_required
+        is_required == other.is_required &&
+        locks == other.locks
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -125,7 +135,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, tag_definition_id, value, is_required].hash
+      [compartment_id, tag_definition_id, value, is_required, locks].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

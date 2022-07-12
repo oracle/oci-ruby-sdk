@@ -7,7 +7,9 @@ require 'date'
 module OCI
   # Metadata for defining a stage's predecessor.
   class Devops::Models::BuildPipelineStagePredecessor
-    # **[Required]** The ID of the predecessor stage. If a stage is the first stage in the pipeline, then the ID is the pipeline's ID.
+    # **[Required]** The OCID of the predecessor stage. If a stage is the first stage in the pipeline, then
+    # the ID is the pipeline's OCID.
+    #
     # @return [String]
     attr_accessor :id
 

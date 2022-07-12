@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The response containing the CPU, Storage, Wait, DB Time, and Memory metrics for a specific database.
+  # The response containing the CPU, Storage, Wait, DB Time, and Memory metrics for a specific Managed Database.
   class DatabaseManagement::Models::DatabaseHomeMetricDefinition
-    # **[Required]** A list of the active session metrics for CPU and Wait time for a specific database.
+    # **[Required]** A list of the active session metrics for CPU and Wait time for a specific Managed Database.
     # @return [Array<OCI::DatabaseManagement::Models::ActivityTimeSeriesMetrics>]
     attr_accessor :activity_time_series_metrics
 

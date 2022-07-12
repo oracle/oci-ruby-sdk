@@ -60,6 +60,10 @@ module OCI
     # @return [String]
     attr_reader :harvest_status
 
+    # Type key of the object. Type keys can be found via the '/types' endpoint.
+    # @return [String]
+    attr_accessor :type_key
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -72,7 +76,8 @@ module OCI
         'parent_folder_key': :'parentFolderKey',
         'time_external': :'timeExternal',
         'last_job_key': :'lastJobKey',
-        'harvest_status': :'harvestStatus'
+        'harvest_status': :'harvestStatus',
+        'type_key': :'typeKey'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -89,7 +94,8 @@ module OCI
         'parent_folder_key': :'String',
         'time_external': :'DateTime',
         'last_job_key': :'String',
-        'harvest_status': :'String'
+        'harvest_status': :'String',
+        'type_key': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -109,6 +115,7 @@ module OCI
     # @option attributes [DateTime] :time_external The value to assign to the {#time_external} property
     # @option attributes [String] :last_job_key The value to assign to the {#last_job_key} property
     # @option attributes [String] :harvest_status The value to assign to the {#harvest_status} property
+    # @option attributes [String] :type_key The value to assign to the {#type_key} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -160,6 +167,12 @@ module OCI
       raise 'You cannot provide both :harvestStatus and :harvest_status' if attributes.key?(:'harvestStatus') && attributes.key?(:'harvest_status')
 
       self.harvest_status = attributes[:'harvest_status'] if attributes[:'harvest_status']
+
+      self.type_key = attributes[:'typeKey'] if attributes[:'typeKey']
+
+      raise 'You cannot provide both :typeKey and :type_key' if attributes.key?(:'typeKey') && attributes.key?(:'type_key')
+
+      self.type_key = attributes[:'type_key'] if attributes[:'type_key']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -189,7 +202,8 @@ module OCI
         parent_folder_key == other.parent_folder_key &&
         time_external == other.time_external &&
         last_job_key == other.last_job_key &&
-        harvest_status == other.harvest_status
+        harvest_status == other.harvest_status &&
+        type_key == other.type_key
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -205,7 +219,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, business_name, description, custom_property_members, properties, parent_folder_key, time_external, last_job_key, harvest_status].hash
+      [display_name, business_name, description, custom_property_members, properties, parent_folder_key, time_external, last_job_key, harvest_status, type_key].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

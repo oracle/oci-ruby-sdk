@@ -8,7 +8,7 @@ require_relative 'config'
 module OCI
   # A named setting that specifies the filter criteria to match a subset of the spans.
   class ApmConfig::Models::SpanFilter < ApmConfig::Models::Config
-    # The name by which the span filter is displayed to the end user.
+    # The name by which a configuration entity is displayed to the end user.
     # @return [String]
     attr_accessor :display_name
 

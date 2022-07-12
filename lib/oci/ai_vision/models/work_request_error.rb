@@ -14,7 +14,7 @@ module OCI
     # @return [String]
     attr_accessor :code
 
-    # **[Required]** A human readable description of the issue encountered.
+    # **[Required]** A human-readable description of the issue encountered.
     # @return [String]
     attr_accessor :message
 

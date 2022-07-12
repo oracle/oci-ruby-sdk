@@ -75,6 +75,137 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::DataIntegration::DataIntegrationClient#change_dis_application_compartment} and then waits for the {OCI::DataIntegration::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] dis_application_id The OCID of the DIS Application.
+    # @param [OCI::DataIntegration::Models::ChangeDisApplicationCompartmentDetails] change_dis_application_compartment_details The information needed to move a DIS Application to a specified compartment.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataIntegration::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataIntegration::DataIntegrationClient#change_dis_application_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::DataIntegration::Models::WorkRequest}
+    def change_dis_application_compartment_and_wait_for_state(workspace_id, dis_application_id, change_dis_application_compartment_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_dis_application_compartment(workspace_id, dis_application_id, change_dis_application_compartment_details, base_operation_opts)
+      use_util = OCI::DataIntegration::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::DataIntegration::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::DataIntegration::DataIntegrationClient#create_application} and then waits for the {OCI::DataIntegration::Models::Application} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [OCI::DataIntegration::Models::CreateApplicationDetails] create_application_details The details needed to create an application.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataIntegration::Models::Application#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataIntegration::DataIntegrationClient#create_application}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DataIntegration::Models::Application}
+    def create_application_and_wait_for_state(workspace_id, create_application_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_application(workspace_id, create_application_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_application(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::DataIntegration::DataIntegrationClient#create_dis_application} and then waits for the {OCI::DataIntegration::Models::DisApplication} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [OCI::DataIntegration::Models::CreateDisApplicationDetails] create_dis_application_details The details needed to create a DIS application.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataIntegration::Models::DisApplication#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataIntegration::DataIntegrationClient#create_dis_application}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DataIntegration::Models::DisApplication}
+    def create_dis_application_and_wait_for_state(workspace_id, create_dis_application_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_dis_application(workspace_id, create_dis_application_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_dis_application(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::DataIntegration::DataIntegrationClient#create_workspace} and then waits for the {OCI::DataIntegration::Models::WorkRequest}
     # to enter the given state(s).
     #
@@ -257,6 +388,88 @@ module OCI
             max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
           )
         end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::DataIntegration::DataIntegrationClient#update_application} and then waits for the {OCI::DataIntegration::Models::Application} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] application_key The application key.
+    # @param [OCI::DataIntegration::Models::UpdateApplicationDetails] update_application_details The details needed to update an application.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataIntegration::Models::Application#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataIntegration::DataIntegrationClient#update_application}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DataIntegration::Models::Application}
+    def update_application_and_wait_for_state(workspace_id, application_key, update_application_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_application(workspace_id, application_key, update_application_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_application(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::DataIntegration::DataIntegrationClient#update_dis_application} and then waits for the {OCI::DataIntegration::Models::DisApplication} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] dis_application_id The OCID of the DIS Application.
+    # @param [OCI::DataIntegration::Models::UpdateDisApplicationDetails] update_dis_application_details The details needed to update an application.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DataIntegration::Models::DisApplication#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DataIntegration::DataIntegrationClient#update_dis_application}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DataIntegration::Models::DisApplication}
+    def update_dis_application_and_wait_for_state(workspace_id, dis_application_id, update_dis_application_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_dis_application(workspace_id, dis_application_id, update_dis_application_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_dis_application(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
         result_to_return = waiter_result
 
         return result_to_return

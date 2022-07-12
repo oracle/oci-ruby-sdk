@@ -12,6 +12,7 @@ module OCI
   class Opsi::Models::CredentialDetails
     CREDENTIAL_TYPE_ENUM = [
       CREDENTIAL_TYPE_CREDENTIALS_BY_SOURCE = 'CREDENTIALS_BY_SOURCE'.freeze,
+      CREDENTIAL_TYPE_CREDENTIALS_BY_VAULT = 'CREDENTIALS_BY_VAULT'.freeze,
       CREDENTIAL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -52,6 +53,7 @@ module OCI
       type = object_hash[:'credentialType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Opsi::Models::CredentialsBySource' if type == 'CREDENTIALS_BY_SOURCE'
+      return 'OCI::Opsi::Models::CredentialByVault' if type == 'CREDENTIALS_BY_VAULT'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::Opsi::Models::CredentialDetails'

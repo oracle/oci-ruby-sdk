@@ -32,6 +32,7 @@ module OCI
       LIFECYCLE_STATE_ROLE_CHANGE_IN_PROGRESS = 'ROLE_CHANGE_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_UPGRADING = 'UPGRADING'.freeze,
       LIFECYCLE_STATE_INACCESSIBLE = 'INACCESSIBLE'.freeze,
+      LIFECYCLE_STATE_STANDBY = 'STANDBY'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -127,6 +128,12 @@ module OCI
       AUTONOMOUS_MAINTENANCE_SCHEDULE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    DATABASE_EDITION_ENUM = [
+      DATABASE_EDITION_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
+      DATABASE_EDITION_ENTERPRISE_EDITION = 'ENTERPRISE_EDITION'.freeze,
+      DATABASE_EDITION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Autonomous Database.
     # @return [String]
     attr_accessor :id
@@ -163,6 +170,19 @@ module OCI
     # **[Required]** The database name.
     # @return [String]
     attr_accessor :db_name
+
+    # The character set for the autonomous database.  The default is AL32UTF8. Allowed values are:
+    #
+    # AL32UTF8, AR8ADOS710, AR8ADOS720, AR8APTEC715, AR8ARABICMACS, AR8ASMO8X, AR8ISO8859P6, AR8MSWIN1256, AR8MUSSAD768, AR8NAFITHA711, AR8NAFITHA721, AR8SAKHR706, AR8SAKHR707, AZ8ISO8859P9E, BG8MSWIN, BG8PC437S, BLT8CP921, BLT8ISO8859P13, BLT8MSWIN1257, BLT8PC775, BN8BSCII, CDN8PC863, CEL8ISO8859P14, CL8ISO8859P5, CL8ISOIR111, CL8KOI8R, CL8KOI8U, CL8MACCYRILLICS, CL8MSWIN1251, EE8ISO8859P2, EE8MACCES, EE8MACCROATIANS, EE8MSWIN1250, EE8PC852, EL8DEC, EL8ISO8859P7, EL8MACGREEKS, EL8MSWIN1253, EL8PC437S, EL8PC851, EL8PC869, ET8MSWIN923, HU8ABMOD, HU8CWI2, IN8ISCII, IS8PC861, IW8ISO8859P8, IW8MACHEBREWS, IW8MSWIN1255, IW8PC1507, JA16EUC, JA16EUCTILDE, JA16SJIS, JA16SJISTILDE, JA16VMS, KO16KSC5601, KO16KSCCS, KO16MSWIN949, LA8ISO6937, LA8PASSPORT, LT8MSWIN921, LT8PC772, LT8PC774, LV8PC1117, LV8PC8LR, LV8RST104090, N8PC865, NE8ISO8859P10, NEE8ISO8859P4, RU8BESTA, RU8PC855, RU8PC866, SE8ISO8859P3, TH8MACTHAIS, TH8TISASCII, TR8DEC, TR8MACTURKISHS, TR8MSWIN1254, TR8PC857, US7ASCII, US8PC437, UTF8, VN8MSWIN1258, VN8VN3, WE8DEC, WE8DG, WE8ISO8859P1, WE8ISO8859P15, WE8ISO8859P9, WE8MACROMAN8S, WE8MSWIN1252, WE8NCR4970, WE8NEXTSTEP, WE8PC850, WE8PC858, WE8PC860, WE8ROMAN8, ZHS16CGB231280, ZHS16GBK, ZHT16BIG5, ZHT16CCDC, ZHT16DBT, ZHT16HKSCS, ZHT16MSWIN950, ZHT32EUC, ZHT32SOPS, ZHT32TRIS
+    #
+    # @return [String]
+    attr_accessor :character_set
+
+    # The national character set for the autonomous database.  The default is AL16UTF16. Allowed values are:
+    # AL16UTF16 or UTF8.
+    #
+    # @return [String]
+    attr_accessor :ncharacter_set
 
     # Indicates if this is an Always Free resource. The default value is false. Note that Always Free Autonomous Databases have 1 CPU and 20GB of memory. For Always Free databases, memory and CPU cannot be scaled.
     #
@@ -212,9 +232,17 @@ module OCI
     # @return [Float]
     attr_accessor :ocpu_count
 
+    # An array of CPU values that an Autonomous Database can be scaled to.
+    # @return [Array<Float>]
+    attr_accessor :provisionable_cpus
+
     # **[Required]** The quantity of data in the database, in terabytes.
     # @return [Integer]
     attr_accessor :data_storage_size_in_tbs
+
+    # The amount of memory (in GBs) enabled per each OCPU core in Autonomous VM Cluster.
+    # @return [Integer]
+    attr_accessor :memory_per_oracle_compute_unit_in_gbs
 
     # The quantity of data in the database, in gigabytes.
     # @return [Integer]
@@ -292,9 +320,9 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
-    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # The list of [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) for the network security groups (NSGs) to which this resource belongs. Setting this to an empty list removes all resources from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
     # **NsgIds restrictions:**
-    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
+    # - A network security group (NSG) is optional for Autonomous Databases with private access. The nsgIds list can be empty.
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
@@ -448,8 +476,7 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_of_last_failover
 
-    # Indicates whether the Autonomous Database has local (in-region) Data Guard enabled. Not applicable to cross-region Autonomous Data Guard associations, or to
-    # Autonomous Databases using dedicated Exadata infrastructure or Exadata Cloud@Customer infrastructure.
+    # **Deprecated.** Indicates whether the Autonomous Database has local (in-region) Data Guard enabled. Not applicable to cross-region Autonomous Data Guard associations, or to Autonomous Databases using dedicated Exadata infrastructure or Exadata Cloud@Customer infrastructure.
     #
     # @return [BOOLEAN]
     attr_accessor :is_data_guard_enabled
@@ -458,8 +485,21 @@ module OCI
     # @return [Integer]
     attr_accessor :failed_data_recovery_in_seconds
 
+    # **Deprecated** Autonomous Data Guard standby database details.
+    #
     # @return [OCI::Database::Models::AutonomousDatabaseStandbySummary]
     attr_accessor :standby_db
+
+    # Indicates whether the Autonomous Database has local (in-region) Data Guard enabled. Not applicable to cross-region Autonomous Data Guard associations, or to Autonomous Databases using dedicated Exadata infrastructure or Exadata Cloud@Customer infrastructure.
+    # @return [BOOLEAN]
+    attr_accessor :is_local_data_guard_enabled
+
+    # Indicates whether the Autonomous Database has Cross Region Data Guard enabled. Not applicable to Autonomous Databases using dedicated Exadata infrastructure or Exadata Cloud@Customer infrastructure.
+    # @return [BOOLEAN]
+    attr_accessor :is_remote_data_guard_enabled
+
+    # @return [OCI::Database::Models::AutonomousDatabaseStandbySummary]
+    attr_accessor :local_standby_db
 
     # The Data Guard role of the Autonomous Container Database or Autonomous Database, if Autonomous Data Guard is enabled.
     #
@@ -525,6 +565,33 @@ module OCI
     # @return [Array<OCI::Database::Models::ScheduledOperationDetails>]
     attr_accessor :scheduled_operations
 
+    # Indicates if auto scaling is enabled for the Autonomous Database storage. The default value is `FALSE`.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_auto_scaling_for_storage_enabled
+
+    # The amount of storage currently allocated for the database tables and billed for, rounded up. When auto-scaling is not enabled, this value is equal to the `dataStorageSizeInTBs` value. You can compare this value to the `actualUsedDataStorageSizeInTBs` value to determine if a manual shrink operation is appropriate for your allocated storage.
+    #
+    # **Note:** Auto-scaling does not automatically decrease allocated storage when data is deleted from the database.
+    #
+    # @return [Float]
+    attr_accessor :allocated_storage_size_in_tbs
+
+    # The current amount of storage in use for user and system data, in terabytes (TB).
+    #
+    # @return [Float]
+    attr_accessor :actual_used_data_storage_size_in_tbs
+
+    # The number of Max OCPU cores to be made available to the autonomous database with auto scaling of cpu enabled.
+    #
+    # @return [Integer]
+    attr_accessor :max_cpu_core_count
+
+    # The Oracle Database Edition that applies to the Autonomous databases.
+    #
+    # @return [String]
+    attr_reader :database_edition
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -538,6 +605,8 @@ module OCI
         'kms_key_lifecycle_details': :'kmsKeyLifecycleDetails',
         'kms_key_version_id': :'kmsKeyVersionId',
         'db_name': :'dbName',
+        'character_set': :'characterSet',
+        'ncharacter_set': :'ncharacterSet',
         'is_free_tier': :'isFreeTier',
         'system_tags': :'systemTags',
         'time_reclamation_of_free_autonomous_database': :'timeReclamationOfFreeAutonomousDatabase',
@@ -546,7 +615,9 @@ module OCI
         'key_history_entry': :'keyHistoryEntry',
         'cpu_core_count': :'cpuCoreCount',
         'ocpu_count': :'ocpuCount',
+        'provisionable_cpus': :'provisionableCpus',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
+        'memory_per_oracle_compute_unit_in_gbs': :'memoryPerOracleComputeUnitInGBs',
         'data_storage_size_in_gbs': :'dataStorageSizeInGBs',
         'infrastructure_type': :'infrastructureType',
         'is_dedicated': :'isDedicated',
@@ -593,6 +664,9 @@ module OCI
         'is_data_guard_enabled': :'isDataGuardEnabled',
         'failed_data_recovery_in_seconds': :'failedDataRecoveryInSeconds',
         'standby_db': :'standbyDb',
+        'is_local_data_guard_enabled': :'isLocalDataGuardEnabled',
+        'is_remote_data_guard_enabled': :'isRemoteDataGuardEnabled',
+        'local_standby_db': :'localStandbyDb',
         'role': :'role',
         'available_upgrade_versions': :'availableUpgradeVersions',
         'key_store_id': :'keyStoreId',
@@ -607,7 +681,12 @@ module OCI
         'is_reconnect_clone_enabled': :'isReconnectCloneEnabled',
         'time_until_reconnect_clone_enabled': :'timeUntilReconnectCloneEnabled',
         'autonomous_maintenance_schedule_type': :'autonomousMaintenanceScheduleType',
-        'scheduled_operations': :'scheduledOperations'
+        'scheduled_operations': :'scheduledOperations',
+        'is_auto_scaling_for_storage_enabled': :'isAutoScalingForStorageEnabled',
+        'allocated_storage_size_in_tbs': :'allocatedStorageSizeInTBs',
+        'actual_used_data_storage_size_in_tbs': :'actualUsedDataStorageSizeInTBs',
+        'max_cpu_core_count': :'maxCpuCoreCount',
+        'database_edition': :'databaseEdition'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -625,6 +704,8 @@ module OCI
         'kms_key_lifecycle_details': :'String',
         'kms_key_version_id': :'String',
         'db_name': :'String',
+        'character_set': :'String',
+        'ncharacter_set': :'String',
         'is_free_tier': :'BOOLEAN',
         'system_tags': :'Hash<String, Hash<String, Object>>',
         'time_reclamation_of_free_autonomous_database': :'DateTime',
@@ -633,7 +714,9 @@ module OCI
         'key_history_entry': :'Array<OCI::Database::Models::AutonomousDatabaseKeyHistoryEntry>',
         'cpu_core_count': :'Integer',
         'ocpu_count': :'Float',
+        'provisionable_cpus': :'Array<Float>',
         'data_storage_size_in_tbs': :'Integer',
+        'memory_per_oracle_compute_unit_in_gbs': :'Integer',
         'data_storage_size_in_gbs': :'Integer',
         'infrastructure_type': :'String',
         'is_dedicated': :'BOOLEAN',
@@ -680,6 +763,9 @@ module OCI
         'is_data_guard_enabled': :'BOOLEAN',
         'failed_data_recovery_in_seconds': :'Integer',
         'standby_db': :'OCI::Database::Models::AutonomousDatabaseStandbySummary',
+        'is_local_data_guard_enabled': :'BOOLEAN',
+        'is_remote_data_guard_enabled': :'BOOLEAN',
+        'local_standby_db': :'OCI::Database::Models::AutonomousDatabaseStandbySummary',
         'role': :'String',
         'available_upgrade_versions': :'Array<String>',
         'key_store_id': :'String',
@@ -694,7 +780,12 @@ module OCI
         'is_reconnect_clone_enabled': :'BOOLEAN',
         'time_until_reconnect_clone_enabled': :'DateTime',
         'autonomous_maintenance_schedule_type': :'String',
-        'scheduled_operations': :'Array<OCI::Database::Models::ScheduledOperationDetails>'
+        'scheduled_operations': :'Array<OCI::Database::Models::ScheduledOperationDetails>',
+        'is_auto_scaling_for_storage_enabled': :'BOOLEAN',
+        'allocated_storage_size_in_tbs': :'Float',
+        'actual_used_data_storage_size_in_tbs': :'Float',
+        'max_cpu_core_count': :'Integer',
+        'database_edition': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -714,6 +805,8 @@ module OCI
     # @option attributes [String] :kms_key_lifecycle_details The value to assign to the {#kms_key_lifecycle_details} property
     # @option attributes [String] :kms_key_version_id The value to assign to the {#kms_key_version_id} property
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
+    # @option attributes [String] :character_set The value to assign to the {#character_set} property
+    # @option attributes [String] :ncharacter_set The value to assign to the {#ncharacter_set} property
     # @option attributes [BOOLEAN] :is_free_tier The value to assign to the {#is_free_tier} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     # @option attributes [DateTime] :time_reclamation_of_free_autonomous_database The value to assign to the {#time_reclamation_of_free_autonomous_database} property
@@ -722,7 +815,9 @@ module OCI
     # @option attributes [Array<OCI::Database::Models::AutonomousDatabaseKeyHistoryEntry>] :key_history_entry The value to assign to the {#key_history_entry} property
     # @option attributes [Integer] :cpu_core_count The value to assign to the {#cpu_core_count} property
     # @option attributes [Float] :ocpu_count The value to assign to the {#ocpu_count} property
+    # @option attributes [Array<Float>] :provisionable_cpus The value to assign to the {#provisionable_cpus} property
     # @option attributes [Integer] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
+    # @option attributes [Integer] :memory_per_oracle_compute_unit_in_gbs The value to assign to the {#memory_per_oracle_compute_unit_in_gbs} property
     # @option attributes [Integer] :data_storage_size_in_gbs The value to assign to the {#data_storage_size_in_gbs} property
     # @option attributes [String] :infrastructure_type The value to assign to the {#infrastructure_type} property
     # @option attributes [BOOLEAN] :is_dedicated The value to assign to the {#is_dedicated} property
@@ -769,6 +864,9 @@ module OCI
     # @option attributes [BOOLEAN] :is_data_guard_enabled The value to assign to the {#is_data_guard_enabled} property
     # @option attributes [Integer] :failed_data_recovery_in_seconds The value to assign to the {#failed_data_recovery_in_seconds} property
     # @option attributes [OCI::Database::Models::AutonomousDatabaseStandbySummary] :standby_db The value to assign to the {#standby_db} property
+    # @option attributes [BOOLEAN] :is_local_data_guard_enabled The value to assign to the {#is_local_data_guard_enabled} property
+    # @option attributes [BOOLEAN] :is_remote_data_guard_enabled The value to assign to the {#is_remote_data_guard_enabled} property
+    # @option attributes [OCI::Database::Models::AutonomousDatabaseStandbySummary] :local_standby_db The value to assign to the {#local_standby_db} property
     # @option attributes [String] :role The value to assign to the {#role} property
     # @option attributes [Array<String>] :available_upgrade_versions The value to assign to the {#available_upgrade_versions} property
     # @option attributes [String] :key_store_id The value to assign to the {#key_store_id} property
@@ -784,6 +882,11 @@ module OCI
     # @option attributes [DateTime] :time_until_reconnect_clone_enabled The value to assign to the {#time_until_reconnect_clone_enabled} property
     # @option attributes [String] :autonomous_maintenance_schedule_type The value to assign to the {#autonomous_maintenance_schedule_type} property
     # @option attributes [Array<OCI::Database::Models::ScheduledOperationDetails>] :scheduled_operations The value to assign to the {#scheduled_operations} property
+    # @option attributes [BOOLEAN] :is_auto_scaling_for_storage_enabled The value to assign to the {#is_auto_scaling_for_storage_enabled} property
+    # @option attributes [Float] :allocated_storage_size_in_tbs The value to assign to the {#allocated_storage_size_in_tbs} property
+    # @option attributes [Float] :actual_used_data_storage_size_in_tbs The value to assign to the {#actual_used_data_storage_size_in_tbs} property
+    # @option attributes [Integer] :max_cpu_core_count The value to assign to the {#max_cpu_core_count} property
+    # @option attributes [String] :database_edition The value to assign to the {#database_edition} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -840,6 +943,18 @@ module OCI
 
       self.db_name = attributes[:'db_name'] if attributes[:'db_name']
 
+      self.character_set = attributes[:'characterSet'] if attributes[:'characterSet']
+
+      raise 'You cannot provide both :characterSet and :character_set' if attributes.key?(:'characterSet') && attributes.key?(:'character_set')
+
+      self.character_set = attributes[:'character_set'] if attributes[:'character_set']
+
+      self.ncharacter_set = attributes[:'ncharacterSet'] if attributes[:'ncharacterSet']
+
+      raise 'You cannot provide both :ncharacterSet and :ncharacter_set' if attributes.key?(:'ncharacterSet') && attributes.key?(:'ncharacter_set')
+
+      self.ncharacter_set = attributes[:'ncharacter_set'] if attributes[:'ncharacter_set']
+
       self.is_free_tier = attributes[:'isFreeTier'] unless attributes[:'isFreeTier'].nil?
       self.is_free_tier = false if is_free_tier.nil? && !attributes.key?(:'isFreeTier') # rubocop:disable Style/StringLiterals
 
@@ -890,11 +1005,23 @@ module OCI
 
       self.ocpu_count = attributes[:'ocpu_count'] if attributes[:'ocpu_count']
 
+      self.provisionable_cpus = attributes[:'provisionableCpus'] if attributes[:'provisionableCpus']
+
+      raise 'You cannot provide both :provisionableCpus and :provisionable_cpus' if attributes.key?(:'provisionableCpus') && attributes.key?(:'provisionable_cpus')
+
+      self.provisionable_cpus = attributes[:'provisionable_cpus'] if attributes[:'provisionable_cpus']
+
       self.data_storage_size_in_tbs = attributes[:'dataStorageSizeInTBs'] if attributes[:'dataStorageSizeInTBs']
 
       raise 'You cannot provide both :dataStorageSizeInTBs and :data_storage_size_in_tbs' if attributes.key?(:'dataStorageSizeInTBs') && attributes.key?(:'data_storage_size_in_tbs')
 
       self.data_storage_size_in_tbs = attributes[:'data_storage_size_in_tbs'] if attributes[:'data_storage_size_in_tbs']
+
+      self.memory_per_oracle_compute_unit_in_gbs = attributes[:'memoryPerOracleComputeUnitInGBs'] if attributes[:'memoryPerOracleComputeUnitInGBs']
+
+      raise 'You cannot provide both :memoryPerOracleComputeUnitInGBs and :memory_per_oracle_compute_unit_in_gbs' if attributes.key?(:'memoryPerOracleComputeUnitInGBs') && attributes.key?(:'memory_per_oracle_compute_unit_in_gbs')
+
+      self.memory_per_oracle_compute_unit_in_gbs = attributes[:'memory_per_oracle_compute_unit_in_gbs'] if attributes[:'memory_per_oracle_compute_unit_in_gbs']
 
       self.data_storage_size_in_gbs = attributes[:'dataStorageSizeInGBs'] if attributes[:'dataStorageSizeInGBs']
 
@@ -1172,6 +1299,24 @@ module OCI
 
       self.standby_db = attributes[:'standby_db'] if attributes[:'standby_db']
 
+      self.is_local_data_guard_enabled = attributes[:'isLocalDataGuardEnabled'] unless attributes[:'isLocalDataGuardEnabled'].nil?
+
+      raise 'You cannot provide both :isLocalDataGuardEnabled and :is_local_data_guard_enabled' if attributes.key?(:'isLocalDataGuardEnabled') && attributes.key?(:'is_local_data_guard_enabled')
+
+      self.is_local_data_guard_enabled = attributes[:'is_local_data_guard_enabled'] unless attributes[:'is_local_data_guard_enabled'].nil?
+
+      self.is_remote_data_guard_enabled = attributes[:'isRemoteDataGuardEnabled'] unless attributes[:'isRemoteDataGuardEnabled'].nil?
+
+      raise 'You cannot provide both :isRemoteDataGuardEnabled and :is_remote_data_guard_enabled' if attributes.key?(:'isRemoteDataGuardEnabled') && attributes.key?(:'is_remote_data_guard_enabled')
+
+      self.is_remote_data_guard_enabled = attributes[:'is_remote_data_guard_enabled'] unless attributes[:'is_remote_data_guard_enabled'].nil?
+
+      self.local_standby_db = attributes[:'localStandbyDb'] if attributes[:'localStandbyDb']
+
+      raise 'You cannot provide both :localStandbyDb and :local_standby_db' if attributes.key?(:'localStandbyDb') && attributes.key?(:'local_standby_db')
+
+      self.local_standby_db = attributes[:'local_standby_db'] if attributes[:'local_standby_db']
+
       self.role = attributes[:'role'] if attributes[:'role']
 
       self.available_upgrade_versions = attributes[:'availableUpgradeVersions'] if attributes[:'availableUpgradeVersions']
@@ -1259,6 +1404,36 @@ module OCI
       raise 'You cannot provide both :scheduledOperations and :scheduled_operations' if attributes.key?(:'scheduledOperations') && attributes.key?(:'scheduled_operations')
 
       self.scheduled_operations = attributes[:'scheduled_operations'] if attributes[:'scheduled_operations']
+
+      self.is_auto_scaling_for_storage_enabled = attributes[:'isAutoScalingForStorageEnabled'] unless attributes[:'isAutoScalingForStorageEnabled'].nil?
+
+      raise 'You cannot provide both :isAutoScalingForStorageEnabled and :is_auto_scaling_for_storage_enabled' if attributes.key?(:'isAutoScalingForStorageEnabled') && attributes.key?(:'is_auto_scaling_for_storage_enabled')
+
+      self.is_auto_scaling_for_storage_enabled = attributes[:'is_auto_scaling_for_storage_enabled'] unless attributes[:'is_auto_scaling_for_storage_enabled'].nil?
+
+      self.allocated_storage_size_in_tbs = attributes[:'allocatedStorageSizeInTBs'] if attributes[:'allocatedStorageSizeInTBs']
+
+      raise 'You cannot provide both :allocatedStorageSizeInTBs and :allocated_storage_size_in_tbs' if attributes.key?(:'allocatedStorageSizeInTBs') && attributes.key?(:'allocated_storage_size_in_tbs')
+
+      self.allocated_storage_size_in_tbs = attributes[:'allocated_storage_size_in_tbs'] if attributes[:'allocated_storage_size_in_tbs']
+
+      self.actual_used_data_storage_size_in_tbs = attributes[:'actualUsedDataStorageSizeInTBs'] if attributes[:'actualUsedDataStorageSizeInTBs']
+
+      raise 'You cannot provide both :actualUsedDataStorageSizeInTBs and :actual_used_data_storage_size_in_tbs' if attributes.key?(:'actualUsedDataStorageSizeInTBs') && attributes.key?(:'actual_used_data_storage_size_in_tbs')
+
+      self.actual_used_data_storage_size_in_tbs = attributes[:'actual_used_data_storage_size_in_tbs'] if attributes[:'actual_used_data_storage_size_in_tbs']
+
+      self.max_cpu_core_count = attributes[:'maxCpuCoreCount'] if attributes[:'maxCpuCoreCount']
+
+      raise 'You cannot provide both :maxCpuCoreCount and :max_cpu_core_count' if attributes.key?(:'maxCpuCoreCount') && attributes.key?(:'max_cpu_core_count')
+
+      self.max_cpu_core_count = attributes[:'max_cpu_core_count'] if attributes[:'max_cpu_core_count']
+
+      self.database_edition = attributes[:'databaseEdition'] if attributes[:'databaseEdition']
+
+      raise 'You cannot provide both :databaseEdition and :database_edition' if attributes.key?(:'databaseEdition') && attributes.key?(:'database_edition')
+
+      self.database_edition = attributes[:'database_edition'] if attributes[:'database_edition']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -1445,6 +1620,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] database_edition Object to be assigned
+    def database_edition=(database_edition)
+      # rubocop:disable Style/ConditionalAssignment
+      if database_edition && !DATABASE_EDITION_ENUM.include?(database_edition)
+        OCI.logger.debug("Unknown value for 'database_edition' [" + database_edition + "]. Mapping to 'DATABASE_EDITION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @database_edition = DATABASE_EDITION_UNKNOWN_ENUM_VALUE
+      else
+        @database_edition = database_edition
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -1463,6 +1651,8 @@ module OCI
         kms_key_lifecycle_details == other.kms_key_lifecycle_details &&
         kms_key_version_id == other.kms_key_version_id &&
         db_name == other.db_name &&
+        character_set == other.character_set &&
+        ncharacter_set == other.ncharacter_set &&
         is_free_tier == other.is_free_tier &&
         system_tags == other.system_tags &&
         time_reclamation_of_free_autonomous_database == other.time_reclamation_of_free_autonomous_database &&
@@ -1471,7 +1661,9 @@ module OCI
         key_history_entry == other.key_history_entry &&
         cpu_core_count == other.cpu_core_count &&
         ocpu_count == other.ocpu_count &&
+        provisionable_cpus == other.provisionable_cpus &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
+        memory_per_oracle_compute_unit_in_gbs == other.memory_per_oracle_compute_unit_in_gbs &&
         data_storage_size_in_gbs == other.data_storage_size_in_gbs &&
         infrastructure_type == other.infrastructure_type &&
         is_dedicated == other.is_dedicated &&
@@ -1518,6 +1710,9 @@ module OCI
         is_data_guard_enabled == other.is_data_guard_enabled &&
         failed_data_recovery_in_seconds == other.failed_data_recovery_in_seconds &&
         standby_db == other.standby_db &&
+        is_local_data_guard_enabled == other.is_local_data_guard_enabled &&
+        is_remote_data_guard_enabled == other.is_remote_data_guard_enabled &&
+        local_standby_db == other.local_standby_db &&
         role == other.role &&
         available_upgrade_versions == other.available_upgrade_versions &&
         key_store_id == other.key_store_id &&
@@ -1532,7 +1727,12 @@ module OCI
         is_reconnect_clone_enabled == other.is_reconnect_clone_enabled &&
         time_until_reconnect_clone_enabled == other.time_until_reconnect_clone_enabled &&
         autonomous_maintenance_schedule_type == other.autonomous_maintenance_schedule_type &&
-        scheduled_operations == other.scheduled_operations
+        scheduled_operations == other.scheduled_operations &&
+        is_auto_scaling_for_storage_enabled == other.is_auto_scaling_for_storage_enabled &&
+        allocated_storage_size_in_tbs == other.allocated_storage_size_in_tbs &&
+        actual_used_data_storage_size_in_tbs == other.actual_used_data_storage_size_in_tbs &&
+        max_cpu_core_count == other.max_cpu_core_count &&
+        database_edition == other.database_edition
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -1548,7 +1748,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, lifecycle_details, kms_key_id, vault_id, kms_key_lifecycle_details, kms_key_version_id, db_name, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, backup_config, key_history_entry, cpu_core_count, ocpu_count, data_storage_size_in_tbs, data_storage_size_in_gbs, infrastructure_type, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, subnet_id, nsg_ids, private_endpoint, private_endpoint_label, private_endpoint_ip, db_version, is_preview, db_workload, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, apex_details, is_auto_scaling_enabled, data_safe_status, operations_insights_status, database_management_status, time_maintenance_begin, time_maintenance_end, is_refreshable_clone, time_of_last_refresh, time_of_last_refresh_point, time_of_next_refresh, open_mode, refreshable_status, refreshable_mode, source_id, permission_level, time_of_last_switchover, time_of_last_failover, is_data_guard_enabled, failed_data_recovery_in_seconds, standby_db, role, available_upgrade_versions, key_store_id, key_store_wallet_name, supported_regions_to_clone_to, customer_contacts, time_local_data_guard_enabled, dataguard_region_type, time_data_guard_role_changed, peer_db_ids, is_mtls_connection_required, is_reconnect_clone_enabled, time_until_reconnect_clone_enabled, autonomous_maintenance_schedule_type, scheduled_operations].hash
+      [id, compartment_id, lifecycle_state, lifecycle_details, kms_key_id, vault_id, kms_key_lifecycle_details, kms_key_version_id, db_name, character_set, ncharacter_set, is_free_tier, system_tags, time_reclamation_of_free_autonomous_database, time_deletion_of_free_autonomous_database, backup_config, key_history_entry, cpu_core_count, ocpu_count, provisionable_cpus, data_storage_size_in_tbs, memory_per_oracle_compute_unit_in_gbs, data_storage_size_in_gbs, infrastructure_type, is_dedicated, autonomous_container_database_id, time_created, display_name, service_console_url, connection_strings, connection_urls, license_model, used_data_storage_size_in_tbs, freeform_tags, defined_tags, subnet_id, nsg_ids, private_endpoint, private_endpoint_label, private_endpoint_ip, db_version, is_preview, db_workload, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, apex_details, is_auto_scaling_enabled, data_safe_status, operations_insights_status, database_management_status, time_maintenance_begin, time_maintenance_end, is_refreshable_clone, time_of_last_refresh, time_of_last_refresh_point, time_of_next_refresh, open_mode, refreshable_status, refreshable_mode, source_id, permission_level, time_of_last_switchover, time_of_last_failover, is_data_guard_enabled, failed_data_recovery_in_seconds, standby_db, is_local_data_guard_enabled, is_remote_data_guard_enabled, local_standby_db, role, available_upgrade_versions, key_store_id, key_store_wallet_name, supported_regions_to_clone_to, customer_contacts, time_local_data_guard_enabled, dataguard_region_type, time_data_guard_role_changed, peer_db_ids, is_mtls_connection_required, is_reconnect_clone_enabled, time_until_reconnect_clone_enabled, autonomous_maintenance_schedule_type, scheduled_operations, is_auto_scaling_for_storage_enabled, allocated_storage_size_in_tbs, actual_used_data_storage_size_in_tbs, max_cpu_core_count, database_edition].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
