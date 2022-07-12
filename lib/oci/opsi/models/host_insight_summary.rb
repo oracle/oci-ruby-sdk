@@ -12,6 +12,7 @@ module OCI
     ENTITY_SOURCE_ENUM = [
       ENTITY_SOURCE_MACS_MANAGED_EXTERNAL_HOST = 'MACS_MANAGED_EXTERNAL_HOST'.freeze,
       ENTITY_SOURCE_EM_MANAGED_EXTERNAL_HOST = 'EM_MANAGED_EXTERNAL_HOST'.freeze,
+      ENTITY_SOURCE_PE_COMANAGED_HOST = 'PE_COMANAGED_HOST'.freeze,
       ENTITY_SOURCE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -79,6 +80,10 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :system_tags
 
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the OPSI private endpoint
+    # @return [String]
+    attr_accessor :opsi_private_endpoint_id
+
     # Indicates the status of a host insight in Operations Insights
     # @return [String]
     attr_reader :status
@@ -113,6 +118,7 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'system_tags': :'systemTags',
+        'opsi_private_endpoint_id': :'opsiPrivateEndpointId',
         'status': :'status',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
@@ -136,6 +142,7 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'system_tags': :'Hash<String, Hash<String, Object>>',
+        'opsi_private_endpoint_id': :'String',
         'status': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
@@ -177,6 +184,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
+    # @option attributes [String] :opsi_private_endpoint_id The value to assign to the {#opsi_private_endpoint_id} property
     # @option attributes [String] :status The value to assign to the {#status} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
@@ -243,6 +251,12 @@ module OCI
       raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
 
       self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
+
+      self.opsi_private_endpoint_id = attributes[:'opsiPrivateEndpointId'] if attributes[:'opsiPrivateEndpointId']
+
+      raise 'You cannot provide both :opsiPrivateEndpointId and :opsi_private_endpoint_id' if attributes.key?(:'opsiPrivateEndpointId') && attributes.key?(:'opsi_private_endpoint_id')
+
+      self.opsi_private_endpoint_id = attributes[:'opsi_private_endpoint_id'] if attributes[:'opsi_private_endpoint_id']
 
       self.status = attributes[:'status'] if attributes[:'status']
 
@@ -331,6 +345,7 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         system_tags == other.system_tags &&
+        opsi_private_endpoint_id == other.opsi_private_endpoint_id &&
         status == other.status &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
@@ -351,7 +366,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [entity_source, id, compartment_id, host_name, host_display_name, host_type, processor_count, freeform_tags, defined_tags, system_tags, status, time_created, time_updated, lifecycle_state, lifecycle_details].hash
+      [entity_source, id, compartment_id, host_name, host_display_name, host_type, processor_count, freeform_tags, defined_tags, system_tags, opsi_private_endpoint_id, status, time_created, time_updated, lifecycle_state, lifecycle_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -6,7 +6,7 @@ require_relative 'field_value'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Array of field values.
+  # The array of field values.
   class AiVision::Models::ValueArray < AiVision::Models::FieldValue
     # This attribute is required.
     # @return [Array<OCI::AiVision::Models::DocumentField>]

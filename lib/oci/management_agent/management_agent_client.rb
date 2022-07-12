@@ -6,7 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API for Management Agent Cloud Service
+  # Use the Management Agent API to manage your infrastructure&#39;s management agents, including their plugins and install keys.
+  # For more information, see [Management Agent](https://docs.cloud.oracle.com/iaas/management-agents/index.html).
   class ManagementAgent::ManagementAgentClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -736,7 +737,7 @@ module OCI
     #   Defaulted to current date.
     #   The date and time to be given as described in [RFC 3339](https://tools.ietf.org/rfc/rfc3339), section 14.29.
     #
-    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'ASC' or 'DESC'.
     #   Allowed values are: ASC, DESC
@@ -818,7 +819,7 @@ module OCI
     #   might be rejected.
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
-    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     #   Allowed values are: ASC, DESC
@@ -907,7 +908,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [BOOLEAN] :compartment_id_in_subtree if set to true then it fetches install key for all compartments where user has access to else only on the compartment specified. (default to false)
+    # @option opts [BOOLEAN] :compartment_id_in_subtree if set to true then it fetches resources for all compartments where user has access to else only on the compartment specified. (default to false)
     # @option opts [String] :access_level Value of this is always \"ACCESSIBLE\" and any other value is not supported. (default to ACCESSIBLE)
     # @option opts [String] :lifecycle_state Filter to return only Management Agents in the particular lifecycle state.
     # @option opts [String] :display_name The display name for which the Key needs to be listed.
@@ -992,7 +993,7 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :display_name Filter to return only Management Agent Plugins having the particular display name.
-    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     #   Allowed values are: ASC, DESC
@@ -1080,7 +1081,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns a list of Management Agent.
+    # Returns a list of Management Agents.
+    # If no explicit page size limit is specified, it will default to 5000.
     #
     # @param [String] compartment_id The OCID of the compartment to which a request will be scoped.
     # @param [Hash] opts the optional parameters
@@ -1096,7 +1098,7 @@ module OCI
     #   Allowed values are: LINUX, WINDOWS, SOLARIS
     # @option opts [BOOLEAN] :is_customer_deployed true, if the agent image is manually downloaded and installed. false, if the agent is deployed as a plugin in Oracle Cloud Agent.
     # @option opts [String] :install_type A filter to return either agents or gateway types depending upon install type selected by user. By default both install type will be returned.
-    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     #   Allowed values are: ASC, DESC
@@ -1203,7 +1205,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
-    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     #   Allowed values are: ASC, DESC
     # @option opts [String] :sort_by The field to sort by. Only one sort order may
@@ -1277,7 +1279,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
-    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
     #   Allowed values are: ASC, DESC
     # @option opts [String] :sort_by The field to sort by. Only one sort order may
@@ -1352,7 +1354,7 @@ module OCI
     # @option opts [String] :agent_id The ManagementAgentID of the agent from which the Management Agents to be filtered.
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
-    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [Integer] :limit The maximum number of items to return.
     # @option opts [String] :status The OperationStatus of the workRequest
     # @option opts [DateTime] :time_created_greater_than_or_equal_to Filter for items with timeCreated greater or equal to provided value.
     #   given `timeCreatedGreaterThanOrEqualTo` to the current time, in \"YYYY-MM-ddThh:mmZ\" format with a

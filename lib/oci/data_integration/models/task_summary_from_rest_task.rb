@@ -37,6 +37,9 @@ module OCI
     # @return [OCI::DataIntegration::Models::AuthDetails]
     attr_accessor :auth_details
 
+    # @return [OCI::DataIntegration::Models::AuthConfig]
+    attr_accessor :auth_config
+
     # @return [OCI::DataIntegration::Models::Expression]
     attr_accessor :endpoint
 
@@ -68,6 +71,9 @@ module OCI
     # @return [OCI::DataIntegration::Models::CancelRestCallConfig]
     attr_accessor :cancel_rest_call_config
 
+    # @return [OCI::DataIntegration::Models::PollRestCallConfig]
+    attr_accessor :poll_rest_call_config
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -89,6 +95,7 @@ module OCI
         'metadata': :'metadata',
         'key_map': :'keyMap',
         'auth_details': :'authDetails',
+        'auth_config': :'authConfig',
         'endpoint': :'endpoint',
         'method_type': :'methodType',
         'headers': :'headers',
@@ -97,7 +104,8 @@ module OCI
         'cancel_endpoint': :'cancelEndpoint',
         'cancel_method_type': :'cancelMethodType',
         'execute_rest_call_config': :'executeRestCallConfig',
-        'cancel_rest_call_config': :'cancelRestCallConfig'
+        'cancel_rest_call_config': :'cancelRestCallConfig',
+        'poll_rest_call_config': :'pollRestCallConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -123,6 +131,7 @@ module OCI
         'metadata': :'OCI::DataIntegration::Models::ObjectMetadata',
         'key_map': :'Hash<String, String>',
         'auth_details': :'OCI::DataIntegration::Models::AuthDetails',
+        'auth_config': :'OCI::DataIntegration::Models::AuthConfig',
         'endpoint': :'OCI::DataIntegration::Models::Expression',
         'method_type': :'String',
         'headers': :'Object',
@@ -131,7 +140,8 @@ module OCI
         'cancel_endpoint': :'OCI::DataIntegration::Models::Expression',
         'cancel_method_type': :'String',
         'execute_rest_call_config': :'OCI::DataIntegration::Models::ExecuteRestCallConfig',
-        'cancel_rest_call_config': :'OCI::DataIntegration::Models::CancelRestCallConfig'
+        'cancel_rest_call_config': :'OCI::DataIntegration::Models::CancelRestCallConfig',
+        'poll_rest_call_config': :'OCI::DataIntegration::Models::PollRestCallConfig'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -158,6 +168,7 @@ module OCI
     # @option attributes [OCI::DataIntegration::Models::ObjectMetadata] :metadata The value to assign to the {OCI::DataIntegration::Models::TaskSummary#metadata #metadata} proprety
     # @option attributes [Hash<String, String>] :key_map The value to assign to the {OCI::DataIntegration::Models::TaskSummary#key_map #key_map} proprety
     # @option attributes [OCI::DataIntegration::Models::AuthDetails] :auth_details The value to assign to the {#auth_details} property
+    # @option attributes [OCI::DataIntegration::Models::AuthConfig] :auth_config The value to assign to the {#auth_config} property
     # @option attributes [OCI::DataIntegration::Models::Expression] :endpoint The value to assign to the {#endpoint} property
     # @option attributes [String] :method_type The value to assign to the {#method_type} property
     # @option attributes [Object] :headers The value to assign to the {#headers} property
@@ -167,6 +178,7 @@ module OCI
     # @option attributes [String] :cancel_method_type The value to assign to the {#cancel_method_type} property
     # @option attributes [OCI::DataIntegration::Models::ExecuteRestCallConfig] :execute_rest_call_config The value to assign to the {#execute_rest_call_config} property
     # @option attributes [OCI::DataIntegration::Models::CancelRestCallConfig] :cancel_rest_call_config The value to assign to the {#cancel_rest_call_config} property
+    # @option attributes [OCI::DataIntegration::Models::PollRestCallConfig] :poll_rest_call_config The value to assign to the {#poll_rest_call_config} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -182,6 +194,12 @@ module OCI
       raise 'You cannot provide both :authDetails and :auth_details' if attributes.key?(:'authDetails') && attributes.key?(:'auth_details')
 
       self.auth_details = attributes[:'auth_details'] if attributes[:'auth_details']
+
+      self.auth_config = attributes[:'authConfig'] if attributes[:'authConfig']
+
+      raise 'You cannot provide both :authConfig and :auth_config' if attributes.key?(:'authConfig') && attributes.key?(:'auth_config')
+
+      self.auth_config = attributes[:'auth_config'] if attributes[:'auth_config']
 
       self.endpoint = attributes[:'endpoint'] if attributes[:'endpoint']
 
@@ -228,6 +246,12 @@ module OCI
       raise 'You cannot provide both :cancelRestCallConfig and :cancel_rest_call_config' if attributes.key?(:'cancelRestCallConfig') && attributes.key?(:'cancel_rest_call_config')
 
       self.cancel_rest_call_config = attributes[:'cancel_rest_call_config'] if attributes[:'cancel_rest_call_config']
+
+      self.poll_rest_call_config = attributes[:'pollRestCallConfig'] if attributes[:'pollRestCallConfig']
+
+      raise 'You cannot provide both :pollRestCallConfig and :poll_rest_call_config' if attributes.key?(:'pollRestCallConfig') && attributes.key?(:'poll_rest_call_config')
+
+      self.poll_rest_call_config = attributes[:'poll_rest_call_config'] if attributes[:'poll_rest_call_config']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -297,6 +321,7 @@ module OCI
         metadata == other.metadata &&
         key_map == other.key_map &&
         auth_details == other.auth_details &&
+        auth_config == other.auth_config &&
         endpoint == other.endpoint &&
         method_type == other.method_type &&
         headers == other.headers &&
@@ -305,7 +330,8 @@ module OCI
         cancel_endpoint == other.cancel_endpoint &&
         cancel_method_type == other.cancel_method_type &&
         execute_rest_call_config == other.execute_rest_call_config &&
-        cancel_rest_call_config == other.cancel_rest_call_config
+        cancel_rest_call_config == other.cancel_rest_call_config &&
+        poll_rest_call_config == other.poll_rest_call_config
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -321,7 +347,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, parent_ref, name, description, object_version, object_status, identifier, input_ports, output_ports, parameters, op_config_values, config_provider_delegate, metadata, key_map, auth_details, endpoint, method_type, headers, json_data, api_call_mode, cancel_endpoint, cancel_method_type, execute_rest_call_config, cancel_rest_call_config].hash
+      [model_type, key, model_version, parent_ref, name, description, object_version, object_status, identifier, input_ports, output_ports, parameters, op_config_values, config_provider_delegate, metadata, key_map, auth_details, auth_config, endpoint, method_type, headers, json_data, api_call_mode, cancel_endpoint, cancel_method_type, execute_rest_call_config, cancel_rest_call_config, poll_rest_call_config].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

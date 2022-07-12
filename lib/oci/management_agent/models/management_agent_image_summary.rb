@@ -15,6 +15,18 @@ module OCI
       PLATFORM_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    PACKAGE_TYPE_ENUM = [
+      PACKAGE_TYPE_RPM = 'RPM'.freeze,
+      PACKAGE_TYPE_ZIP = 'ZIP'.freeze,
+      PACKAGE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    PACKAGE_ARCHITECTURE_TYPE_ENUM = [
+      PACKAGE_ARCHITECTURE_TYPE_X86_64 = 'X86_64'.freeze,
+      PACKAGE_ARCHITECTURE_TYPE_SPARC = 'SPARC'.freeze,
+      PACKAGE_ARCHITECTURE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
@@ -38,6 +50,14 @@ module OCI
     # Agent image platform display name
     # @return [String]
     attr_accessor :platform_name
+
+    # The installation package type
+    # @return [String]
+    attr_reader :package_type
+
+    # The installation package target architecture type
+    # @return [String]
+    attr_reader :package_architecture_type
 
     # **[Required]** Agent image version
     # @return [String]
@@ -66,6 +86,8 @@ module OCI
         'id': :'id',
         'platform_type': :'platformType',
         'platform_name': :'platformName',
+        'package_type': :'packageType',
+        'package_architecture_type': :'packageArchitectureType',
         'version': :'version',
         'size': :'size',
         'checksum': :'checksum',
@@ -82,6 +104,8 @@ module OCI
         'id': :'String',
         'platform_type': :'String',
         'platform_name': :'String',
+        'package_type': :'String',
+        'package_architecture_type': :'String',
         'version': :'String',
         'size': :'Float',
         'checksum': :'String',
@@ -100,6 +124,8 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :platform_type The value to assign to the {#platform_type} property
     # @option attributes [String] :platform_name The value to assign to the {#platform_name} property
+    # @option attributes [String] :package_type The value to assign to the {#package_type} property
+    # @option attributes [String] :package_architecture_type The value to assign to the {#package_architecture_type} property
     # @option attributes [String] :version The value to assign to the {#version} property
     # @option attributes [Float] :size The value to assign to the {#size} property
     # @option attributes [String] :checksum The value to assign to the {#checksum} property
@@ -124,6 +150,18 @@ module OCI
       raise 'You cannot provide both :platformName and :platform_name' if attributes.key?(:'platformName') && attributes.key?(:'platform_name')
 
       self.platform_name = attributes[:'platform_name'] if attributes[:'platform_name']
+
+      self.package_type = attributes[:'packageType'] if attributes[:'packageType']
+
+      raise 'You cannot provide both :packageType and :package_type' if attributes.key?(:'packageType') && attributes.key?(:'package_type')
+
+      self.package_type = attributes[:'package_type'] if attributes[:'package_type']
+
+      self.package_architecture_type = attributes[:'packageArchitectureType'] if attributes[:'packageArchitectureType']
+
+      raise 'You cannot provide both :packageArchitectureType and :package_architecture_type' if attributes.key?(:'packageArchitectureType') && attributes.key?(:'package_architecture_type')
+
+      self.package_architecture_type = attributes[:'package_architecture_type'] if attributes[:'package_architecture_type']
 
       self.version = attributes[:'version'] if attributes[:'version']
 
@@ -160,6 +198,32 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] package_type Object to be assigned
+    def package_type=(package_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if package_type && !PACKAGE_TYPE_ENUM.include?(package_type)
+        OCI.logger.debug("Unknown value for 'package_type' [" + package_type + "]. Mapping to 'PACKAGE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @package_type = PACKAGE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @package_type = package_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] package_architecture_type Object to be assigned
+    def package_architecture_type=(package_architecture_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if package_architecture_type && !PACKAGE_ARCHITECTURE_TYPE_ENUM.include?(package_architecture_type)
+        OCI.logger.debug("Unknown value for 'package_architecture_type' [" + package_architecture_type + "]. Mapping to 'PACKAGE_ARCHITECTURE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @package_architecture_type = PACKAGE_ARCHITECTURE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @package_architecture_type = package_architecture_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -184,6 +248,8 @@ module OCI
         id == other.id &&
         platform_type == other.platform_type &&
         platform_name == other.platform_name &&
+        package_type == other.package_type &&
+        package_architecture_type == other.package_architecture_type &&
         version == other.version &&
         size == other.size &&
         checksum == other.checksum &&
@@ -204,7 +270,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, platform_type, platform_name, version, size, checksum, object_url, lifecycle_state].hash
+      [id, platform_type, platform_name, package_type, package_architecture_type, version, size, checksum, object_url, lifecycle_state].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

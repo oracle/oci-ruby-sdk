@@ -38,6 +38,14 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    LIFECYCLE_DETAILS_ENUM = [
+      LIFECYCLE_DETAILS_STANDBY = 'STANDBY'.freeze,
+      LIFECYCLE_DETAILS_FAILOVER = 'FAILOVER'.freeze,
+      LIFECYCLE_DETAILS_DOWN = 'DOWN'.freeze,
+      LIFECYCLE_DETAILS_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_DETAILS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Unique identifier that is immutable on creation
     # @return [String]
     attr_accessor :id
@@ -74,6 +82,10 @@ module OCI
     # @return [String]
     attr_reader :instance_usage_type
 
+    # a list of add-on features for the ocm instance
+    # @return [Array<String>]
+    attr_accessor :add_on_features
+
     # **[Required]** Object Storage Namespace of tenancy
     # @return [String]
     attr_accessor :object_storage_namespace
@@ -108,9 +120,13 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_updated
 
-    # The current state of the file system.
+    # The current state of the instance lifecycle.
     # @return [String]
     attr_reader :lifecycle_state
+
+    # Details of the current state of the instance lifecycle
+    # @return [String]
+    attr_reader :lifecycle_details
 
     # An message describing the current state in more detail. For example, can be used to provide actionable information for a resource in Failed state.
     # @return [String]
@@ -153,6 +169,7 @@ module OCI
         'idcs_tenancy': :'idcsTenancy',
         'tenancy_name': :'tenancyName',
         'instance_usage_type': :'instanceUsageType',
+        'add_on_features': :'addOnFeatures',
         'object_storage_namespace': :'objectStorageNamespace',
         'admin_email': :'adminEmail',
         'upgrade_schedule': :'upgradeSchedule',
@@ -162,6 +179,7 @@ module OCI
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
+        'lifecycle_details': :'lifecycleDetails',
         'state_message': :'stateMessage',
         'service': :'service',
         'freeform_tags': :'freeformTags',
@@ -184,6 +202,7 @@ module OCI
         'idcs_tenancy': :'String',
         'tenancy_name': :'String',
         'instance_usage_type': :'String',
+        'add_on_features': :'Array<String>',
         'object_storage_namespace': :'String',
         'admin_email': :'String',
         'upgrade_schedule': :'String',
@@ -193,6 +212,7 @@ module OCI
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
+        'lifecycle_details': :'String',
         'state_message': :'String',
         'service': :'Hash<String, Object>',
         'freeform_tags': :'Hash<String, String>',
@@ -217,6 +237,7 @@ module OCI
     # @option attributes [String] :idcs_tenancy The value to assign to the {#idcs_tenancy} property
     # @option attributes [String] :tenancy_name The value to assign to the {#tenancy_name} property
     # @option attributes [String] :instance_usage_type The value to assign to the {#instance_usage_type} property
+    # @option attributes [Array<String>] :add_on_features The value to assign to the {#add_on_features} property
     # @option attributes [String] :object_storage_namespace The value to assign to the {#object_storage_namespace} property
     # @option attributes [String] :admin_email The value to assign to the {#admin_email} property
     # @option attributes [String] :upgrade_schedule The value to assign to the {#upgrade_schedule} property
@@ -226,6 +247,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [String] :state_message The value to assign to the {#state_message} property
     # @option attributes [Hash<String, Object>] :service The value to assign to the {#service} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -274,6 +296,12 @@ module OCI
       raise 'You cannot provide both :instanceUsageType and :instance_usage_type' if attributes.key?(:'instanceUsageType') && attributes.key?(:'instance_usage_type')
 
       self.instance_usage_type = attributes[:'instance_usage_type'] if attributes[:'instance_usage_type']
+
+      self.add_on_features = attributes[:'addOnFeatures'] if attributes[:'addOnFeatures']
+
+      raise 'You cannot provide both :addOnFeatures and :add_on_features' if attributes.key?(:'addOnFeatures') && attributes.key?(:'add_on_features')
+
+      self.add_on_features = attributes[:'add_on_features'] if attributes[:'add_on_features']
 
       self.object_storage_namespace = attributes[:'objectStorageNamespace'] if attributes[:'objectStorageNamespace']
 
@@ -328,6 +356,12 @@ module OCI
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
+
+      raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
+
+      self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
 
       self.state_message = attributes[:'stateMessage'] if attributes[:'stateMessage']
 
@@ -410,6 +444,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_details Object to be assigned
+    def lifecycle_details=(lifecycle_details)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_details && !LIFECYCLE_DETAILS_ENUM.include?(lifecycle_details)
+        OCI.logger.debug("Unknown value for 'lifecycle_details' [" + lifecycle_details + "]. Mapping to 'LIFECYCLE_DETAILS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_details = LIFECYCLE_DETAILS_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_details = lifecycle_details
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -428,6 +475,7 @@ module OCI
         idcs_tenancy == other.idcs_tenancy &&
         tenancy_name == other.tenancy_name &&
         instance_usage_type == other.instance_usage_type &&
+        add_on_features == other.add_on_features &&
         object_storage_namespace == other.object_storage_namespace &&
         admin_email == other.admin_email &&
         upgrade_schedule == other.upgrade_schedule &&
@@ -437,6 +485,7 @@ module OCI
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
+        lifecycle_details == other.lifecycle_details &&
         state_message == other.state_message &&
         service == other.service &&
         freeform_tags == other.freeform_tags &&
@@ -457,7 +506,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, guid, description, compartment_id, name, tenancy_id, idcs_tenancy, tenancy_name, instance_usage_type, object_storage_namespace, admin_email, upgrade_schedule, waf_primary_domain, instance_access_type, instance_license_type, time_created, time_updated, lifecycle_state, state_message, service, freeform_tags, defined_tags, system_tags].hash
+      [id, guid, description, compartment_id, name, tenancy_id, idcs_tenancy, tenancy_name, instance_usage_type, add_on_features, object_storage_namespace, admin_email, upgrade_schedule, waf_primary_domain, instance_access_type, instance_license_type, time_created, time_updated, lifecycle_state, lifecycle_details, state_message, service, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

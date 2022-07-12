@@ -14,7 +14,8 @@ module OCI
       NAME_SPACY = 'SPACY'.freeze,
       NAME_COCO = 'COCO'.freeze,
       NAME_YOLO = 'YOLO'.freeze,
-      NAME_PASCAL_VOC = 'PASCAL_VOC'.freeze
+      NAME_PASCAL_VOC = 'PASCAL_VOC'.freeze,
+      NAME_JSONL_COMPACT_PLUS_CONTENT = 'JSONL_COMPACT_PLUS_CONTENT'.freeze
     ].freeze
 
     VERSION_ENUM = [

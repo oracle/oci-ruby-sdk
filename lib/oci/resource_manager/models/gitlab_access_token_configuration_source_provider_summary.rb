@@ -27,6 +27,7 @@ module OCI
         'time_created': :'timeCreated',
         'lifecycle_state': :'lifecycleState',
         'config_source_provider_type': :'configSourceProviderType',
+        'private_server_config_details': :'privateServerConfigDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'api_endpoint': :'apiEndpoint'
@@ -45,6 +46,7 @@ module OCI
         'time_created': :'DateTime',
         'lifecycle_state': :'String',
         'config_source_provider_type': :'String',
+        'private_server_config_details': :'OCI::ResourceManager::Models::PrivateServerConfigDetails',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'api_endpoint': :'String'
@@ -64,6 +66,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {OCI::ResourceManager::Models::ConfigurationSourceProviderSummary#description #description} proprety
     # @option attributes [DateTime] :time_created The value to assign to the {OCI::ResourceManager::Models::ConfigurationSourceProviderSummary#time_created #time_created} proprety
     # @option attributes [String] :lifecycle_state The value to assign to the {OCI::ResourceManager::Models::ConfigurationSourceProviderSummary#lifecycle_state #lifecycle_state} proprety
+    # @option attributes [OCI::ResourceManager::Models::PrivateServerConfigDetails] :private_server_config_details The value to assign to the {OCI::ResourceManager::Models::ConfigurationSourceProviderSummary#private_server_config_details #private_server_config_details} proprety
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::ResourceManager::Models::ConfigurationSourceProviderSummary#freeform_tags #freeform_tags} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::ResourceManager::Models::ConfigurationSourceProviderSummary#defined_tags #defined_tags} proprety
     # @option attributes [String] :api_endpoint The value to assign to the {#api_endpoint} property
@@ -102,6 +105,7 @@ module OCI
         time_created == other.time_created &&
         lifecycle_state == other.lifecycle_state &&
         config_source_provider_type == other.config_source_provider_type &&
+        private_server_config_details == other.private_server_config_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         api_endpoint == other.api_endpoint
@@ -120,7 +124,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, description, time_created, lifecycle_state, config_source_provider_type, freeform_tags, defined_tags, api_endpoint].hash
+      [id, compartment_id, display_name, description, time_created, lifecycle_state, config_source_provider_type, private_server_config_details, freeform_tags, defined_tags, api_endpoint].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

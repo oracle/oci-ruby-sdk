@@ -6,6 +6,7 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Properties for creating a network source object.
+  #
   class Identity::Models::CreateNetworkSourceDetails
     # **[Required]** The OCID of the tenancy (root compartment) containing the network source object.
     # @return [String]
@@ -28,9 +29,7 @@ module OCI
     # @return [Array<OCI::Identity::Models::NetworkSourcesVirtualSourceList>]
     attr_accessor :virtual_source_list
 
-    # A list of services allowed to make on-behalf-of requests. These requests can have different source IP addresses
-    # than those listed in the network source.
-    # Currently, only `all` and `none` are supported. The default is `all`.
+    # -- The services attribute has no effect and is reserved for use by Oracle. --
     #
     # @return [Array<String>]
     attr_accessor :services

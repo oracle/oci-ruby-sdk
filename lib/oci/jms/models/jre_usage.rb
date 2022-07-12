@@ -68,6 +68,10 @@ module OCI
     # @return [Integer]
     attr_accessor :approximate_managed_instance_count
 
+    # The approximate count of work requests working on this Java Runtime.
+    # @return [Integer]
+    attr_accessor :approximate_pending_work_request_count
+
     # Lower bound of the specified time period filter. JMS provides a view of the data that is _per day_. The query uses only the date element of the parameter.
     # @return [DateTime]
     attr_accessor :time_start
@@ -109,6 +113,7 @@ module OCI
         'approximate_installation_count': :'approximateInstallationCount',
         'approximate_application_count': :'approximateApplicationCount',
         'approximate_managed_instance_count': :'approximateManagedInstanceCount',
+        'approximate_pending_work_request_count': :'approximatePendingWorkRequestCount',
         'time_start': :'timeStart',
         'time_end': :'timeEnd',
         'time_first_seen': :'timeFirstSeen',
@@ -134,6 +139,7 @@ module OCI
         'approximate_installation_count': :'Integer',
         'approximate_application_count': :'Integer',
         'approximate_managed_instance_count': :'Integer',
+        'approximate_pending_work_request_count': :'Integer',
         'time_start': :'DateTime',
         'time_end': :'DateTime',
         'time_first_seen': :'DateTime',
@@ -161,6 +167,7 @@ module OCI
     # @option attributes [Integer] :approximate_installation_count The value to assign to the {#approximate_installation_count} property
     # @option attributes [Integer] :approximate_application_count The value to assign to the {#approximate_application_count} property
     # @option attributes [Integer] :approximate_managed_instance_count The value to assign to the {#approximate_managed_instance_count} property
+    # @option attributes [Integer] :approximate_pending_work_request_count The value to assign to the {#approximate_pending_work_request_count} property
     # @option attributes [DateTime] :time_start The value to assign to the {#time_start} property
     # @option attributes [DateTime] :time_end The value to assign to the {#time_end} property
     # @option attributes [DateTime] :time_first_seen The value to assign to the {#time_first_seen} property
@@ -233,6 +240,12 @@ module OCI
 
       self.approximate_managed_instance_count = attributes[:'approximate_managed_instance_count'] if attributes[:'approximate_managed_instance_count']
 
+      self.approximate_pending_work_request_count = attributes[:'approximatePendingWorkRequestCount'] if attributes[:'approximatePendingWorkRequestCount']
+
+      raise 'You cannot provide both :approximatePendingWorkRequestCount and :approximate_pending_work_request_count' if attributes.key?(:'approximatePendingWorkRequestCount') && attributes.key?(:'approximate_pending_work_request_count')
+
+      self.approximate_pending_work_request_count = attributes[:'approximate_pending_work_request_count'] if attributes[:'approximate_pending_work_request_count']
+
       self.time_start = attributes[:'timeStart'] if attributes[:'timeStart']
 
       raise 'You cannot provide both :timeStart and :time_start' if attributes.key?(:'timeStart') && attributes.key?(:'time_start')
@@ -295,6 +308,7 @@ module OCI
         approximate_installation_count == other.approximate_installation_count &&
         approximate_application_count == other.approximate_application_count &&
         approximate_managed_instance_count == other.approximate_managed_instance_count &&
+        approximate_pending_work_request_count == other.approximate_pending_work_request_count &&
         time_start == other.time_start &&
         time_end == other.time_end &&
         time_first_seen == other.time_first_seen &&
@@ -314,7 +328,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, fleet_id, managed_instance_id, security_status, release_date, end_of_support_life_date, vendor, distribution, version, operating_systems, approximate_installation_count, approximate_application_count, approximate_managed_instance_count, time_start, time_end, time_first_seen, time_last_seen].hash
+      [id, fleet_id, managed_instance_id, security_status, release_date, end_of_support_life_date, vendor, distribution, version, operating_systems, approximate_installation_count, approximate_application_count, approximate_managed_instance_count, approximate_pending_work_request_count, time_start, time_end, time_first_seen, time_last_seen].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

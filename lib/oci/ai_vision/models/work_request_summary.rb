@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary of the status of a work request.
+  # A summary of the status of a work request.
   class AiVision::Models::WorkRequestSummary
     OPERATION_TYPE_ENUM = [
       OPERATION_TYPE_CREATE_PROJECT = 'CREATE_PROJECT'.freeze,
@@ -31,22 +31,22 @@ module OCI
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Type of the work request.
+    # **[Required]** The type of the work request.
     # @return [String]
     attr_reader :operation_type
 
-    # **[Required]** Status of current work request.
+    # **[Required]** The status of the current work request.
     # @return [String]
     attr_reader :status
 
-    # **[Required]** The id of the work request.
+    # **[Required]** The ID of the work request.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The ocid of the compartment that contains the work request. Work requests should be scoped to
+    # **[Required]** The OCID of the compartment that contains the work request. Work requests should be scoped to
     # the same compartment as the resource the work request affects. If the work request affects multiple resources,
     # and those resources are not in the same compartment, it is up to the service team to pick the primary
-    # resource whose compartment should be used.
+    # resource whose compartment is used.
     #
     # @return [String]
     attr_accessor :compartment_id
@@ -55,7 +55,7 @@ module OCI
     # @return [Array<OCI::AiVision::Models::WorkRequestResource>]
     attr_accessor :resources
 
-    # **[Required]** Percentage of the request completed.
+    # **[Required]** The percentage of the request completed.
     # @return [Float]
     attr_accessor :percent_complete
 

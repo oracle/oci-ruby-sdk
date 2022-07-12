@@ -11,18 +11,18 @@ module OCI
     # @return [OCI::DatabaseTools::Models::DatabaseToolsRelatedResource]
     attr_accessor :related_resource
 
-    # Connect descriptor or Easy Connect Naming method to connect to the database.
+    # The connect descriptor or Easy Connect Naming method used to connect to the database.
     # @return [String]
     attr_accessor :connection_string
 
-    # Database user name.
+    # The database user name.
     # @return [String]
     attr_accessor :user_name
 
     # @return [OCI::DatabaseTools::Models::DatabaseToolsUserPasswordSummary]
     attr_accessor :user_password
 
-    # Advanced connection properties key-value pair (e.g., oracle.net.ssl_server_dn_match).
+    # The advanced connection properties key-value pair (e.g., `oracle.net.ssl_server_dn_match`).
     # @return [Hash<String, String>]
     attr_accessor :advanced_properties
 
@@ -32,7 +32,7 @@ module OCI
     # @return [Array<OCI::DatabaseTools::Models::DatabaseToolsKeyStoreSummary>]
     attr_accessor :key_stores
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DatabaseToolsPrivateEndpoint used to access the database in the Customer VCN.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the `DatabaseToolsPrivateEndpoint` used to access the database in the customer VCN.
     # @return [String]
     attr_accessor :private_endpoint_id
 

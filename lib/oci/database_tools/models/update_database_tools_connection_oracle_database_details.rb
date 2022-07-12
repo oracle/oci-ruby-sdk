@@ -6,23 +6,23 @@ require_relative 'update_database_tools_connection_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about new DatabaseToolsConnection for an Oracle Database.
+  # The update details for a Database Tools Oracle Database connection.
   class DatabaseTools::Models::UpdateDatabaseToolsConnectionOracleDatabaseDetails < DatabaseTools::Models::UpdateDatabaseToolsConnectionDetails
     # @return [OCI::DatabaseTools::Models::UpdateDatabaseToolsRelatedResourceDetails]
     attr_accessor :related_resource
 
-    # Connect descriptor or Easy Connect Naming method to connect to the database.
+    # The connect descriptor or Easy Connect Naming method used to connect to the database.
     # @return [String]
     attr_accessor :connection_string
 
-    # Database user name.
+    # The database user name.
     # @return [String]
     attr_accessor :user_name
 
     # @return [OCI::DatabaseTools::Models::DatabaseToolsUserPasswordDetails]
     attr_accessor :user_password
 
-    # Advanced connection properties key-value pair (e.g., oracle.net.ssl_server_dn_match).
+    # The advanced connection properties key-value pair (e.g., `oracle.net.ssl_server_dn_match`).
     # @return [Hash<String, String>]
     attr_accessor :advanced_properties
 

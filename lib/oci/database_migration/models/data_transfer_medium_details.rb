@@ -14,12 +14,16 @@ module OCI
     # @return [OCI::DatabaseMigration::Models::ObjectStoreBucket]
     attr_accessor :object_storage_details
 
+    # @return [OCI::DatabaseMigration::Models::AwsS3Details]
+    attr_accessor :aws_s3_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'database_link_details': :'databaseLinkDetails',
-        'object_storage_details': :'objectStorageDetails'
+        'object_storage_details': :'objectStorageDetails',
+        'aws_s3_details': :'awsS3Details'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -29,7 +33,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'database_link_details': :'OCI::DatabaseMigration::Models::DatabaseLinkDetails',
-        'object_storage_details': :'OCI::DatabaseMigration::Models::ObjectStoreBucket'
+        'object_storage_details': :'OCI::DatabaseMigration::Models::ObjectStoreBucket',
+        'aws_s3_details': :'OCI::DatabaseMigration::Models::AwsS3Details'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -42,6 +47,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [OCI::DatabaseMigration::Models::DatabaseLinkDetails] :database_link_details The value to assign to the {#database_link_details} property
     # @option attributes [OCI::DatabaseMigration::Models::ObjectStoreBucket] :object_storage_details The value to assign to the {#object_storage_details} property
+    # @option attributes [OCI::DatabaseMigration::Models::AwsS3Details] :aws_s3_details The value to assign to the {#aws_s3_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -59,6 +65,12 @@ module OCI
       raise 'You cannot provide both :objectStorageDetails and :object_storage_details' if attributes.key?(:'objectStorageDetails') && attributes.key?(:'object_storage_details')
 
       self.object_storage_details = attributes[:'object_storage_details'] if attributes[:'object_storage_details']
+
+      self.aws_s3_details = attributes[:'awsS3Details'] if attributes[:'awsS3Details']
+
+      raise 'You cannot provide both :awsS3Details and :aws_s3_details' if attributes.key?(:'awsS3Details') && attributes.key?(:'aws_s3_details')
+
+      self.aws_s3_details = attributes[:'aws_s3_details'] if attributes[:'aws_s3_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -73,7 +85,8 @@ module OCI
 
       self.class == other.class &&
         database_link_details == other.database_link_details &&
-        object_storage_details == other.object_storage_details
+        object_storage_details == other.object_storage_details &&
+        aws_s3_details == other.aws_s3_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -89,7 +102,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_link_details, object_storage_details].hash
+      [database_link_details, object_storage_details, aws_s3_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

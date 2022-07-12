@@ -600,7 +600,7 @@ module OCI
 
 
     # Creates a volume group backup copy in specified region. For general information about volume group backups,
-    # see [Overview of Block Volume Service Backups](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumebackups.htm)
+    # see [Overview of Block Volume Backups](https://docs.cloud.oracle.com/iaas/Content/Block/Concepts/blockvolumebackups.htm).
     #
     # @param [String] volume_group_backup_id The Oracle Cloud ID (OCID) that uniquely identifies the volume group backup.
     #

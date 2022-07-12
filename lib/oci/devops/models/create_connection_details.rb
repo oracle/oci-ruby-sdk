@@ -70,6 +70,7 @@ module OCI
       type = object_hash[:'connectionType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Devops::Models::CreateGithubAccessTokenConnectionDetails' if type == 'GITHUB_ACCESS_TOKEN'
+      return 'OCI::Devops::Models::CreateBitbucketCloudAppPasswordConnectionDetails' if type == 'BITBUCKET_CLOUD_APP_PASSWORD'
       return 'OCI::Devops::Models::CreateGitlabAccessTokenConnectionDetails' if type == 'GITLAB_ACCESS_TOKEN'
 
       # TODO: Log a warning when the subtype is not found.

@@ -6,7 +6,7 @@ require_relative 'deploy_stage_execution_progress'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the load balancer traffic shift stage execution details.
+  # Specifies the load balancer Traffic Shift stage execution details.
   class Devops::Models::LoadBalancerTrafficShiftDeployStageExecutionProgress < Devops::Models::DeployStageExecutionProgress
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map

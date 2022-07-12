@@ -235,6 +235,88 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Lists the metadata for each ADDM task who's end snapshot time falls within the provided start and end time. Details include
+    # the name of the ADDM task, description, user, status and creation date time.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [DateTime] time_start The beginning of the time range to search for ADDM tasks as defined by date-time RFC3339 format.
+    # @param [DateTime] time_end The end of the time range to search for ADDM tasks as defined by date-time RFC3339 format.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :page The page token representing the page from where the next set of paginated results
+    #   are retrieved. This is usually retrieved from a previous list call.
+    #
+    # @option opts [Integer] :limit The maximum number of records returned in the paginated response. (default to 10)
+    # @option opts [String] :sort_by The option to sort the list of ADDM tasks. (default to END_TIME)
+    #   Allowed values are: TASK_NAME, TASK_ID, DESCRIPTION, DB_USER, STATUS, TIME_CREATED, BEGIN_TIME, END_TIME
+    # @option opts [String] :sort_order The option to sort information in ascending (\u2018ASC\u2019) or descending (\u2018DESC\u2019) order. Descending order is the default order. (default to DESC)
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::AddmTasksCollection AddmTasksCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/addm_tasks.rb.html) to see an example of how to use addm_tasks API.
+    def addm_tasks(managed_database_id, time_start, time_end, opts = {})
+      logger.debug 'Calling operation DbManagementClient#addm_tasks.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling addm_tasks." if managed_database_id.nil?
+      raise "Missing the required parameter 'time_start' when calling addm_tasks." if time_start.nil?
+      raise "Missing the required parameter 'time_end' when calling addm_tasks." if time_end.nil?
+
+      if opts[:sort_by] && !%w[TASK_NAME TASK_ID DESCRIPTION DB_USER STATUS TIME_CREATED BEGIN_TIME END_TIME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TASK_NAME, TASK_ID, DESCRIPTION, DB_USER, STATUS, TIME_CREATED, BEGIN_TIME, END_TIME.'
+      end
+
+      if opts[:sort_order] && !OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::DatabaseManagement::Models::SORT_ORDERS_ENUM.'
+      end
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/addmTasks'.sub('{managedDatabaseId}', managed_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:timeStart] = time_start
+      query_params[:timeEnd] = time_end
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#addm_tasks') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::AddmTasksCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Changes database parameter values. There are two kinds of database
     # parameters:
     #
@@ -1017,6 +1099,70 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DatabaseManagement::Models::TablespaceAdminStatus'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates an AWR snapshot for the target database.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::SnapshotDetails SnapshotDetails}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/generate_awr_snapshot.rb.html) to see an example of how to use generate_awr_snapshot API.
+    def generate_awr_snapshot(managed_database_id, opts = {})
+      logger.debug 'Calling operation DbManagementClient#generate_awr_snapshot.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling generate_awr_snapshot." if managed_database_id.nil?
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/actions/generateAwrSnapshot'.sub('{managedDatabaseId}', managed_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#generate_awr_snapshot') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::SnapshotDetails'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -4209,6 +4355,73 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DatabaseManagement::Models::TablespaceAdminStatus'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates and executes a historic ADDM task using the specified AWR snapshot IDs. If an existing ADDM task
+    # uses the provided awr snapshot IDs, the existing task will be returned.
+    #
+    # @param [String] managed_database_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Managed Database.
+    # @param [OCI::DatabaseManagement::Models::RunHistoricAddmDetails] run_historic_addm_details The details of the ADDM task, which include the beginning and ending AWR snapshot IDs.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::DatabaseManagement::Models::HistoricAddmResult HistoricAddmResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/databasemanagement/run_historic_addm.rb.html) to see an example of how to use run_historic_addm API.
+    def run_historic_addm(managed_database_id, run_historic_addm_details, opts = {})
+      logger.debug 'Calling operation DbManagementClient#run_historic_addm.' if logger
+
+      raise "Missing the required parameter 'managed_database_id' when calling run_historic_addm." if managed_database_id.nil?
+      raise "Missing the required parameter 'run_historic_addm_details' when calling run_historic_addm." if run_historic_addm_details.nil?
+      raise "Parameter value for 'managed_database_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_database_id)
+
+      path = '/managedDatabases/{managedDatabaseId}/actions/runHistoricAddm'.sub('{managedDatabaseId}', managed_database_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(run_historic_addm_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DbManagementClient#run_historic_addm') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DatabaseManagement::Models::HistoricAddmResult'
         )
       end
       # rubocop:enable Metrics/BlockLength

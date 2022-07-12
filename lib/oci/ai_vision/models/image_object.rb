@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Detected object in image.
+  # The object detected in an image.
   class AiVision::Models::ImageObject
-    # **[Required]** Object category name. Every value returned by the pre-deployed model will be in English.
+    # **[Required]** The object category name. Every value returned by the pre-deployed model is in English.
     # @return [String]
     attr_accessor :name
 
-    # **[Required]** Confidence score between 0 to 1.
+    # **[Required]** The confidence score, between 0 and 1.
     # @return [Float]
     attr_accessor :confidence
 

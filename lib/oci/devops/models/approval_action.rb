@@ -22,12 +22,17 @@ module OCI
     # @return [String]
     attr_reader :action
 
+    # The reason for approving or rejecting the deployment.
+    # @return [String]
+    attr_accessor :reason
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'subject_id': :'subjectId',
-        'action': :'action'
+        'action': :'action',
+        'reason': :'reason'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,7 +42,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'subject_id': :'String',
-        'action': :'String'
+        'action': :'String',
+        'reason': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -50,6 +56,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :subject_id The value to assign to the {#subject_id} property
     # @option attributes [String] :action The value to assign to the {#action} property
+    # @option attributes [String] :reason The value to assign to the {#reason} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -63,6 +70,8 @@ module OCI
       self.subject_id = attributes[:'subject_id'] if attributes[:'subject_id']
 
       self.action = attributes[:'action'] if attributes[:'action']
+
+      self.reason = attributes[:'reason'] if attributes[:'reason']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -90,7 +99,8 @@ module OCI
 
       self.class == other.class &&
         subject_id == other.subject_id &&
-        action == other.action
+        action == other.action &&
+        reason == other.reason
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -106,7 +116,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [subject_id, action].hash
+      [subject_id, action, reason].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

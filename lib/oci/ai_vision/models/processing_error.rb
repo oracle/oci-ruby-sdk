@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Error in document processing.
+  # The error in document processing.
   class AiVision::Models::ProcessingError
-    # **[Required]** Error code.
+    # **[Required]** The error code.
     # @return [String]
     attr_accessor :code
 
-    # **[Required]** Error message.
+    # **[Required]** The error message.
     # @return [String]
     attr_accessor :message
 

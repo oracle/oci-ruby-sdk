@@ -7,11 +7,16 @@ require 'date'
 module OCI
   # The update budget details.
   class Budget::Models::UpdateBudgetDetails
+    PROCESSING_PERIOD_TYPE_ENUM = [
+      PROCESSING_PERIOD_TYPE_INVOICE = 'INVOICE'.freeze,
+      PROCESSING_PERIOD_TYPE_MONTH = 'MONTH'.freeze
+    ].freeze
+
     RESET_PERIOD_ENUM = [
       RESET_PERIOD_MONTHLY = 'MONTHLY'.freeze
     ].freeze
 
-    # The displayName of the budget.
+    # The displayName of the budget. Avoid entering confidential information.
     # @return [String]
     attr_accessor :display_name
 
@@ -27,6 +32,11 @@ module OCI
     # The number of days offset from the first day of the month, at which the budget processing period starts. In months that have fewer days than this value, processing will begin on the last day of that month. For example, for a value of 12, processing starts every month on the 12th at midnight.
     # @return [Integer]
     attr_accessor :budget_processing_period_start_offset
+
+    # The type of the budget processing period. Valid values are INVOICE and MONTH.
+    #
+    # @return [String]
+    attr_reader :processing_period_type
 
     # The reset period for the budget.
     #
@@ -57,6 +67,7 @@ module OCI
         'description': :'description',
         'amount': :'amount',
         'budget_processing_period_start_offset': :'budgetProcessingPeriodStartOffset',
+        'processing_period_type': :'processingPeriodType',
         'reset_period': :'resetPeriod',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
@@ -72,6 +83,7 @@ module OCI
         'description': :'String',
         'amount': :'Float',
         'budget_processing_period_start_offset': :'Integer',
+        'processing_period_type': :'String',
         'reset_period': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
@@ -89,6 +101,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [Float] :amount The value to assign to the {#amount} property
     # @option attributes [Integer] :budget_processing_period_start_offset The value to assign to the {#budget_processing_period_start_offset} property
+    # @option attributes [String] :processing_period_type The value to assign to the {#processing_period_type} property
     # @option attributes [String] :reset_period The value to assign to the {#reset_period} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -114,6 +127,12 @@ module OCI
 
       self.budget_processing_period_start_offset = attributes[:'budget_processing_period_start_offset'] if attributes[:'budget_processing_period_start_offset']
 
+      self.processing_period_type = attributes[:'processingPeriodType'] if attributes[:'processingPeriodType']
+
+      raise 'You cannot provide both :processingPeriodType and :processing_period_type' if attributes.key?(:'processingPeriodType') && attributes.key?(:'processing_period_type')
+
+      self.processing_period_type = attributes[:'processing_period_type'] if attributes[:'processing_period_type']
+
       self.reset_period = attributes[:'resetPeriod'] if attributes[:'resetPeriod']
 
       raise 'You cannot provide both :resetPeriod and :reset_period' if attributes.key?(:'resetPeriod') && attributes.key?(:'reset_period')
@@ -136,6 +155,14 @@ module OCI
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] processing_period_type Object to be assigned
+    def processing_period_type=(processing_period_type)
+      raise "Invalid value for 'processing_period_type': this must be one of the values in PROCESSING_PERIOD_TYPE_ENUM." if processing_period_type && !PROCESSING_PERIOD_TYPE_ENUM.include?(processing_period_type)
+
+      @processing_period_type = processing_period_type
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] reset_period Object to be assigned
     def reset_period=(reset_period)
       raise "Invalid value for 'reset_period': this must be one of the values in RESET_PERIOD_ENUM." if reset_period && !RESET_PERIOD_ENUM.include?(reset_period)
@@ -156,6 +183,7 @@ module OCI
         description == other.description &&
         amount == other.amount &&
         budget_processing_period_start_offset == other.budget_processing_period_start_offset &&
+        processing_period_type == other.processing_period_type &&
         reset_period == other.reset_period &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
@@ -174,7 +202,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, amount, budget_processing_period_start_offset, reset_period, freeform_tags, defined_tags].hash
+      [display_name, description, amount, budget_processing_period_start_offset, processing_period_type, reset_period, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

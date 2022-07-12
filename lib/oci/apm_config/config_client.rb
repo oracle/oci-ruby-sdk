@@ -323,6 +323,28 @@ module OCI
     #   and timeUpdated is ascending. The displayName sort by is case-sensitive.
     #    (default to displayName)
     #   Allowed values are: displayName, timeCreated, timeUpdated
+    # @option opts [String] :options_group A filter to return OPTIONS resources that match the given group.
+    # @option opts [Array<String>] :defined_tag_equals A list of tag filters to apply.  Only resources with a defined tag matching the value will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_equals A list of tag filters to apply.  Only resources with a freeform tag matching the value will be returned.
+    #   The key for each tag is \"{tagName}.{value}\".  All inputs are case-insensitive.
+    #   Multiple values for the same tag name are interpreted as \"OR\".  Values for different tag names are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :defined_tag_exists A list of tag existence filters to apply.  Only resources for which the specified defined tags exist will be returned.
+    #   Each item in the list has the format \"{namespace}.{tagName}.true\" (for checking existence of a defined tag)
+    #   or \"{namespace}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for the same key (i.e. same namespace and tag name) are interpreted as \"OR\".
+    #   Values for different keys (i.e. different namespaces, different tag names, or both) are interpreted as \"AND\".
+    #
+    # @option opts [Array<String>] :freeform_tag_exists A list of tag existence filters to apply.  Only resources for which the specified freeform tags exist the value will be returned.
+    #   The key for each tag is \"{tagName}.true\".  All inputs are case-insensitive.
+    #   Currently, only existence (\"true\" at the end) is supported. Absence (\"false\" at the end) is not supported.
+    #   Multiple values for different tag names are interpreted as \"AND\".
+    #
     # @return [Response] A Response object with data of type {OCI::ApmConfig::Models::ConfigCollection ConfigCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apmconfig/list_configs.rb.html) to see an example of how to use list_configs API.
     def list_configs(apm_domain_id, opts = {})
@@ -351,6 +373,11 @@ module OCI
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:optionsGroup] = opts[:options_group] if opts[:options_group]
+      query_params[:definedTagEquals] = OCI::ApiClient.build_collection_params(opts[:defined_tag_equals], :multi) if opts[:defined_tag_equals] && !opts[:defined_tag_equals].empty?
+      query_params[:freeformTagEquals] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_equals], :multi) if opts[:freeform_tag_equals] && !opts[:freeform_tag_equals].empty?
+      query_params[:definedTagExists] = OCI::ApiClient.build_collection_params(opts[:defined_tag_exists], :multi) if opts[:defined_tag_exists] && !opts[:defined_tag_exists].empty?
+      query_params[:freeformTagExists] = OCI::ApiClient.build_collection_params(opts[:freeform_tag_exists], :multi) if opts[:freeform_tag_exists] && !opts[:freeform_tag_exists].empty?
 
       # Header Params
       header_params = {}
@@ -372,6 +399,122 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::ApmConfig::Models::ConfigCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns all metrics associated with the specified namespace.
+    # @param [String] apm_domain_id The APM Domain ID the request is intended for.
+    #
+    # @param [OCI::ApmConfig::Models::RetrieveNamespaceMetricsDetails] retrieve_namespace_metrics_details The namespace to get the metrics for.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::ApmConfig::Models::NamespaceMetricCollection NamespaceMetricCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apmconfig/retrieve_namespace_metrics.rb.html) to see an example of how to use retrieve_namespace_metrics API.
+    def retrieve_namespace_metrics(apm_domain_id, retrieve_namespace_metrics_details, opts = {})
+      logger.debug 'Calling operation ConfigClient#retrieve_namespace_metrics.' if logger
+
+      raise "Missing the required parameter 'apm_domain_id' when calling retrieve_namespace_metrics." if apm_domain_id.nil?
+      raise "Missing the required parameter 'retrieve_namespace_metrics_details' when calling retrieve_namespace_metrics." if retrieve_namespace_metrics_details.nil?
+
+      path = '/actions/retrieveNamespaceMetrics'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:apmDomainId] = apm_domain_id
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(retrieve_namespace_metrics_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ConfigClient#retrieve_namespace_metrics') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ApmConfig::Models::NamespaceMetricCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns all namespaces available in APM.
+    # @param [String] apm_domain_id The APM Domain ID the request is intended for.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::ApmConfig::Models::NamespaceCollection NamespaceCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apmconfig/retrieve_namespaces.rb.html) to see an example of how to use retrieve_namespaces API.
+    def retrieve_namespaces(apm_domain_id, opts = {})
+      logger.debug 'Calling operation ConfigClient#retrieve_namespaces.' if logger
+
+      raise "Missing the required parameter 'apm_domain_id' when calling retrieve_namespaces." if apm_domain_id.nil?
+
+      path = '/actions/retrieveNamespaces'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:apmDomainId] = apm_domain_id
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ConfigClient#retrieve_namespaces') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::ApmConfig::Models::NamespaceCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -446,6 +589,66 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::ApmConfig::Models::Config'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Validates the Span Filter pattern (filterText) for syntactic correctness.
+    # Returns 204 on success, 422 when validation fails.
+    #
+    # @param [String] apm_domain_id The APM Domain ID the request is intended for.
+    #
+    # @param [OCI::ApmConfig::Models::ValidateSpanFilterPatternDetails] validate_span_filter_pattern_details The Span Filter pattern to validate.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apmconfig/validate_span_filter_pattern.rb.html) to see an example of how to use validate_span_filter_pattern API.
+    def validate_span_filter_pattern(apm_domain_id, validate_span_filter_pattern_details, opts = {})
+      logger.debug 'Calling operation ConfigClient#validate_span_filter_pattern.' if logger
+
+      raise "Missing the required parameter 'apm_domain_id' when calling validate_span_filter_pattern." if apm_domain_id.nil?
+      raise "Missing the required parameter 'validate_span_filter_pattern_details' when calling validate_span_filter_pattern." if validate_span_filter_pattern_details.nil?
+
+      path = '/actions/validateSpanFilterPattern'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:apmDomainId] = apm_domain_id
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(validate_span_filter_pattern_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ConfigClient#validate_span_filter_pattern') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength

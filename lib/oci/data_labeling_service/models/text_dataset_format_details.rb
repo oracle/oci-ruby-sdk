@@ -6,13 +6,17 @@ require_relative 'dataset_format_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Indicates the dataset is comprised of txt files.
+  # It indicates the dataset is comprised of TXT files.
   class DataLabelingService::Models::TextDatasetFormatDetails < DataLabelingService::Models::DatasetFormatDetails
+    # @return [OCI::DataLabelingService::Models::TextFileTypeMetadata]
+    attr_accessor :text_file_type_metadata
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'format_type': :'formatType'
+        'format_type': :'formatType',
+        'text_file_type_metadata': :'textFileTypeMetadata'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -21,7 +25,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'format_type': :'String'
+        'format_type': :'String',
+        'text_file_type_metadata': :'OCI::DataLabelingService::Models::TextFileTypeMetadata'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -32,12 +37,22 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [OCI::DataLabelingService::Models::TextFileTypeMetadata] :text_file_type_metadata The value to assign to the {#text_file_type_metadata} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       attributes['formatType'] = 'TEXT'
 
       super(attributes)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.text_file_type_metadata = attributes[:'textFileTypeMetadata'] if attributes[:'textFileTypeMetadata']
+
+      raise 'You cannot provide both :textFileTypeMetadata and :text_file_type_metadata' if attributes.key?(:'textFileTypeMetadata') && attributes.key?(:'text_file_type_metadata')
+
+      self.text_file_type_metadata = attributes[:'text_file_type_metadata'] if attributes[:'text_file_type_metadata']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -51,7 +66,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        format_type == other.format_type
+        format_type == other.format_type &&
+        text_file_type_metadata == other.text_file_type_metadata
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -67,7 +83,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [format_type].hash
+      [format_type, text_file_type_metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

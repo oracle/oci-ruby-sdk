@@ -40,6 +40,7 @@ module OCI
       type = object_hash[:'triggerSource'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Devops::Models::DevopsCodeRepositoryFilter' if type == 'DEVOPS_CODE_REPOSITORY'
+      return 'OCI::Devops::Models::BitbucketCloudFilter' if type == 'BITBUCKET_CLOUD'
       return 'OCI::Devops::Models::GitlabFilter' if type == 'GITLAB'
       return 'OCI::Devops::Models::GithubFilter' if type == 'GITHUB'
 

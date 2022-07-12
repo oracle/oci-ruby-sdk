@@ -25,6 +25,12 @@ module OCI
 
     CURRENCY_ENUM = [
       CURRENCY_USD = 'USD'.freeze,
+      CURRENCY_CAD = 'CAD'.freeze,
+      CURRENCY_INR = 'INR'.freeze,
+      CURRENCY_GBP = 'GBP'.freeze,
+      CURRENCY_BRL = 'BRL'.freeze,
+      CURRENCY_JPY = 'JPY'.freeze,
+      CURRENCY_OMR = 'OMR'.freeze,
       CURRENCY_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -44,6 +50,9 @@ module OCI
     # @return [Float]
     attr_accessor :rate
 
+    # @return [OCI::Marketplace::Models::InternationalMarketPrice]
+    attr_accessor :international_market_price
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -51,7 +60,8 @@ module OCI
         'type': :'type',
         'pay_go_strategy': :'payGoStrategy',
         'currency': :'currency',
-        'rate': :'rate'
+        'rate': :'rate',
+        'international_market_price': :'internationalMarketPrice'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -63,7 +73,8 @@ module OCI
         'type': :'String',
         'pay_go_strategy': :'String',
         'currency': :'String',
-        'rate': :'Float'
+        'rate': :'Float',
+        'international_market_price': :'OCI::Marketplace::Models::InternationalMarketPrice'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -78,6 +89,7 @@ module OCI
     # @option attributes [String] :pay_go_strategy The value to assign to the {#pay_go_strategy} property
     # @option attributes [String] :currency The value to assign to the {#currency} property
     # @option attributes [Float] :rate The value to assign to the {#rate} property
+    # @option attributes [OCI::Marketplace::Models::InternationalMarketPrice] :international_market_price The value to assign to the {#international_market_price} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -95,6 +107,12 @@ module OCI
       self.currency = attributes[:'currency'] if attributes[:'currency']
 
       self.rate = attributes[:'rate'] if attributes[:'rate']
+
+      self.international_market_price = attributes[:'internationalMarketPrice'] if attributes[:'internationalMarketPrice']
+
+      raise 'You cannot provide both :internationalMarketPrice and :international_market_price' if attributes.key?(:'internationalMarketPrice') && attributes.key?(:'international_market_price')
+
+      self.international_market_price = attributes[:'international_market_price'] if attributes[:'international_market_price']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -150,7 +168,8 @@ module OCI
         type == other.type &&
         pay_go_strategy == other.pay_go_strategy &&
         currency == other.currency &&
-        rate == other.rate
+        rate == other.rate &&
+        international_market_price == other.international_market_price
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -166,7 +185,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, pay_go_strategy, currency, rate].hash
+      [type, pay_go_strategy, currency, rate, international_market_price].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

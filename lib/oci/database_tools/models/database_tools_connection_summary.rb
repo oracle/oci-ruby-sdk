@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary of the DatabaseToolsConnection.
+  # Summary of the Database Tools connection.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class DatabaseTools::Models::DatabaseToolsConnectionSummary
     LIFECYCLE_STATE_ENUM = [
@@ -21,10 +21,11 @@ module OCI
 
     TYPE_ENUM = [
       TYPE_ORACLE_DATABASE = 'ORACLE_DATABASE'.freeze,
+      TYPE_MYSQL = 'MYSQL'.freeze,
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DatabaseToolsConnection.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the `DatabaseToolsConnection`.
     # @return [String]
     attr_accessor :id
 
@@ -32,11 +33,11 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the containing Compartment.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the Database Tools connection.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The current state of the DatabaseToolsConnection.
+    # **[Required]** The current state of the Database Tools connection.
     # @return [String]
     attr_reader :lifecycle_state
 
@@ -44,11 +45,11 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_details
 
-    # **[Required]** The time the DatabaseToolsConnection was created. An RFC3339 formatted datetime string
+    # **[Required]** The time the Database Tools connection was created. An RFC3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The time the DatabaseToolsConnection was updated. An RFC3339 formatted datetime string
+    # **[Required]** The time the Database Tools connection was updated. An RFC3339 formatted datetime string.
     # @return [DateTime]
     attr_accessor :time_updated
 
@@ -70,7 +71,7 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :system_tags
 
-    # **[Required]** The DatabaseToolsConnection type.
+    # **[Required]** The Database Tools connection type.
     # @return [String]
     attr_reader :type
 
@@ -121,6 +122,7 @@ module OCI
       type = object_hash[:'type'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::DatabaseTools::Models::DatabaseToolsConnectionOracleDatabaseSummary' if type == 'ORACLE_DATABASE'
+      return 'OCI::DatabaseTools::Models::DatabaseToolsConnectionMySqlSummary' if type == 'MYSQL'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::DatabaseTools::Models::DatabaseToolsConnectionSummary'

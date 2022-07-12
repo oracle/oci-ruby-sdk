@@ -24,6 +24,12 @@ module OCI
       ENCLOSURE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    CLUSTER_TYPE_ENUM = [
+      CLUSTER_TYPE_STANDALONE = 'STANDALONE'.freeze,
+      CLUSTER_TYPE_STATION = 'STATION'.freeze,
+      CLUSTER_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     SHIPPING_PREFERENCE_ENUM = [
       SHIPPING_PREFERENCE_ORACLE_SHIPPED = 'ORACLE_SHIPPED'.freeze,
       SHIPPING_PREFERENCE_CUSTOMER_PICKUP = 'CUSTOMER_PICKUP'.freeze,
@@ -84,6 +90,22 @@ module OCI
     # List of existing workloads that should be provisioned on the nodes.
     # @return [Array<OCI::Rover::Models::RoverWorkload>]
     attr_accessor :cluster_workloads
+
+    # Type of cluster.
+    # @return [String]
+    attr_reader :cluster_type
+
+    # ID provided to customer after successful subscription to Rover Stations.
+    # @return [String]
+    attr_accessor :subscription_id
+
+    # Service generated code for the exterior trailer door of the trailer.
+    # @return [String]
+    attr_accessor :exterior_door_code
+
+    # Service generated code to disarm the interior alarm of the trailer.
+    # @return [String]
+    attr_accessor :interior_alarm_disarm_code
 
     # Root password for the rover cluster.
     # @return [String]
@@ -149,6 +171,10 @@ module OCI
     # @return [String]
     attr_accessor :image_export_par
 
+    # Customer provided master key ID to encrypt secret information. If not provided, Rover's master key will be used for encryption.
+    # @return [String]
+    attr_accessor :master_key_id
+
     # The tags associated with tagSlug.
     #
     # @return [String]
@@ -193,6 +219,10 @@ module OCI
         'time_customer_returned': :'timeCustomerReturned',
         'delivery_tracking_info': :'deliveryTrackingInfo',
         'cluster_workloads': :'clusterWorkloads',
+        'cluster_type': :'clusterType',
+        'subscription_id': :'subscriptionId',
+        'exterior_door_code': :'exteriorDoorCode',
+        'interior_alarm_disarm_code': :'interiorAlarmDisarmCode',
         'super_user_password': :'superUserPassword',
         'unlock_passphrase': :'unlockPassphrase',
         'point_of_contact': :'pointOfContact',
@@ -209,6 +239,7 @@ module OCI
         'import_file_bucket': :'importFileBucket',
         'data_validation_code': :'dataValidationCode',
         'image_export_par': :'imageExportPar',
+        'master_key_id': :'masterKeyId',
         'tags': :'tags',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
@@ -235,6 +266,10 @@ module OCI
         'time_customer_returned': :'DateTime',
         'delivery_tracking_info': :'String',
         'cluster_workloads': :'Array<OCI::Rover::Models::RoverWorkload>',
+        'cluster_type': :'String',
+        'subscription_id': :'String',
+        'exterior_door_code': :'String',
+        'interior_alarm_disarm_code': :'String',
         'super_user_password': :'String',
         'unlock_passphrase': :'String',
         'point_of_contact': :'String',
@@ -251,6 +286,7 @@ module OCI
         'import_file_bucket': :'String',
         'data_validation_code': :'String',
         'image_export_par': :'String',
+        'master_key_id': :'String',
         'tags': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -279,6 +315,10 @@ module OCI
     # @option attributes [DateTime] :time_customer_returned The value to assign to the {#time_customer_returned} property
     # @option attributes [String] :delivery_tracking_info The value to assign to the {#delivery_tracking_info} property
     # @option attributes [Array<OCI::Rover::Models::RoverWorkload>] :cluster_workloads The value to assign to the {#cluster_workloads} property
+    # @option attributes [String] :cluster_type The value to assign to the {#cluster_type} property
+    # @option attributes [String] :subscription_id The value to assign to the {#subscription_id} property
+    # @option attributes [String] :exterior_door_code The value to assign to the {#exterior_door_code} property
+    # @option attributes [String] :interior_alarm_disarm_code The value to assign to the {#interior_alarm_disarm_code} property
     # @option attributes [String] :super_user_password The value to assign to the {#super_user_password} property
     # @option attributes [String] :unlock_passphrase The value to assign to the {#unlock_passphrase} property
     # @option attributes [String] :point_of_contact The value to assign to the {#point_of_contact} property
@@ -295,6 +335,7 @@ module OCI
     # @option attributes [String] :import_file_bucket The value to assign to the {#import_file_bucket} property
     # @option attributes [String] :data_validation_code The value to assign to the {#data_validation_code} property
     # @option attributes [String] :image_export_par The value to assign to the {#image_export_par} property
+    # @option attributes [String] :master_key_id The value to assign to the {#master_key_id} property
     # @option attributes [String] :tags The value to assign to the {#tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -380,6 +421,32 @@ module OCI
       raise 'You cannot provide both :clusterWorkloads and :cluster_workloads' if attributes.key?(:'clusterWorkloads') && attributes.key?(:'cluster_workloads')
 
       self.cluster_workloads = attributes[:'cluster_workloads'] if attributes[:'cluster_workloads']
+
+      self.cluster_type = attributes[:'clusterType'] if attributes[:'clusterType']
+      self.cluster_type = "STANDALONE" if cluster_type.nil? && !attributes.key?(:'clusterType') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :clusterType and :cluster_type' if attributes.key?(:'clusterType') && attributes.key?(:'cluster_type')
+
+      self.cluster_type = attributes[:'cluster_type'] if attributes[:'cluster_type']
+      self.cluster_type = "STANDALONE" if cluster_type.nil? && !attributes.key?(:'clusterType') && !attributes.key?(:'cluster_type') # rubocop:disable Style/StringLiterals
+
+      self.subscription_id = attributes[:'subscriptionId'] if attributes[:'subscriptionId']
+
+      raise 'You cannot provide both :subscriptionId and :subscription_id' if attributes.key?(:'subscriptionId') && attributes.key?(:'subscription_id')
+
+      self.subscription_id = attributes[:'subscription_id'] if attributes[:'subscription_id']
+
+      self.exterior_door_code = attributes[:'exteriorDoorCode'] if attributes[:'exteriorDoorCode']
+
+      raise 'You cannot provide both :exteriorDoorCode and :exterior_door_code' if attributes.key?(:'exteriorDoorCode') && attributes.key?(:'exterior_door_code')
+
+      self.exterior_door_code = attributes[:'exterior_door_code'] if attributes[:'exterior_door_code']
+
+      self.interior_alarm_disarm_code = attributes[:'interiorAlarmDisarmCode'] if attributes[:'interiorAlarmDisarmCode']
+
+      raise 'You cannot provide both :interiorAlarmDisarmCode and :interior_alarm_disarm_code' if attributes.key?(:'interiorAlarmDisarmCode') && attributes.key?(:'interior_alarm_disarm_code')
+
+      self.interior_alarm_disarm_code = attributes[:'interior_alarm_disarm_code'] if attributes[:'interior_alarm_disarm_code']
 
       self.super_user_password = attributes[:'superUserPassword'] if attributes[:'superUserPassword']
 
@@ -479,6 +546,12 @@ module OCI
 
       self.image_export_par = attributes[:'image_export_par'] if attributes[:'image_export_par']
 
+      self.master_key_id = attributes[:'masterKeyId'] if attributes[:'masterKeyId']
+
+      raise 'You cannot provide both :masterKeyId and :master_key_id' if attributes.key?(:'masterKeyId') && attributes.key?(:'master_key_id')
+
+      self.master_key_id = attributes[:'master_key_id'] if attributes[:'master_key_id']
+
       self.tags = attributes[:'tags'] if attributes[:'tags']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
@@ -529,6 +602,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] cluster_type Object to be assigned
+    def cluster_type=(cluster_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if cluster_type && !CLUSTER_TYPE_ENUM.include?(cluster_type)
+        OCI.logger.debug("Unknown value for 'cluster_type' [" + cluster_type + "]. Mapping to 'CLUSTER_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @cluster_type = CLUSTER_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @cluster_type = cluster_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] shipping_preference Object to be assigned
     def shipping_preference=(shipping_preference)
       # rubocop:disable Style/ConditionalAssignment
@@ -564,6 +650,10 @@ module OCI
         time_customer_returned == other.time_customer_returned &&
         delivery_tracking_info == other.delivery_tracking_info &&
         cluster_workloads == other.cluster_workloads &&
+        cluster_type == other.cluster_type &&
+        subscription_id == other.subscription_id &&
+        exterior_door_code == other.exterior_door_code &&
+        interior_alarm_disarm_code == other.interior_alarm_disarm_code &&
         super_user_password == other.super_user_password &&
         unlock_passphrase == other.unlock_passphrase &&
         point_of_contact == other.point_of_contact &&
@@ -580,6 +670,7 @@ module OCI
         import_file_bucket == other.import_file_bucket &&
         data_validation_code == other.data_validation_code &&
         image_export_par == other.image_export_par &&
+        master_key_id == other.master_key_id &&
         tags == other.tags &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
@@ -599,7 +690,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, cluster_size, time_created, lifecycle_state, lifecycle_state_details, customer_shipping_address, nodes, enclosure_type, time_customer_received, time_customer_returned, delivery_tracking_info, cluster_workloads, super_user_password, unlock_passphrase, point_of_contact, point_of_contact_phone_number, shipping_preference, oracle_shipping_tracking_url, shipping_vendor, time_pickup_expected, time_return_window_starts, time_return_window_ends, return_shipping_label_uri, is_import_requested, import_compartment_id, import_file_bucket, data_validation_code, image_export_par, tags, freeform_tags, defined_tags, system_tags].hash
+      [id, compartment_id, display_name, cluster_size, time_created, lifecycle_state, lifecycle_state_details, customer_shipping_address, nodes, enclosure_type, time_customer_received, time_customer_returned, delivery_tracking_info, cluster_workloads, cluster_type, subscription_id, exterior_door_code, interior_alarm_disarm_code, super_user_password, unlock_passphrase, point_of_contact, point_of_contact_phone_number, shipping_preference, oracle_shipping_tracking_url, shipping_vendor, time_pickup_expected, time_return_window_starts, time_return_window_ends, return_shipping_label_uri, is_import_requested, import_compartment_id, import_file_bucket, data_validation_code, image_export_par, master_key_id, tags, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

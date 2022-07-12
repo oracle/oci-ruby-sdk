@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Document information.
+  # The document information.
   class AiVision::Models::DocumentMetadata
-    # **[Required]** Number of pages in the document.
+    # **[Required]** Teh number of pages in the document.
     # @return [Integer]
     attr_accessor :page_count
 
-    # **[Required]** Result data format.
+    # **[Required]** The result data format.
     # @return [String]
     attr_accessor :mime_type
 

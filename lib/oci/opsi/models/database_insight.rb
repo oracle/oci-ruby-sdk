@@ -13,6 +13,7 @@ module OCI
       ENTITY_SOURCE_AUTONOMOUS_DATABASE = 'AUTONOMOUS_DATABASE'.freeze,
       ENTITY_SOURCE_EM_MANAGED_EXTERNAL_DATABASE = 'EM_MANAGED_EXTERNAL_DATABASE'.freeze,
       ENTITY_SOURCE_MACS_MANAGED_EXTERNAL_DATABASE = 'MACS_MANAGED_EXTERNAL_DATABASE'.freeze,
+      ENTITY_SOURCE_PE_COMANAGED_DATABASE = 'PE_COMANAGED_DATABASE'.freeze,
       ENTITY_SOURCE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -96,6 +97,10 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_details
 
+    # A message describing the status of the database connection of this resource. For example, it can be used to provide actionable information about the permission and content validity of the database connection.
+    # @return [String]
+    attr_accessor :database_connection_status_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -113,7 +118,8 @@ module OCI
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
-        'lifecycle_details': :'lifecycleDetails'
+        'lifecycle_details': :'lifecycleDetails',
+        'database_connection_status_details': :'databaseConnectionStatusDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -135,7 +141,8 @@ module OCI
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
-        'lifecycle_details': :'String'
+        'lifecycle_details': :'String',
+        'database_connection_status_details': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -150,6 +157,7 @@ module OCI
 
       return 'OCI::Opsi::Models::EmManagedExternalDatabaseInsight' if type == 'EM_MANAGED_EXTERNAL_DATABASE'
       return 'OCI::Opsi::Models::MacsManagedExternalDatabaseInsight' if type == 'MACS_MANAGED_EXTERNAL_DATABASE'
+      return 'OCI::Opsi::Models::PeComanagedDatabaseInsight' if type == 'PE_COMANAGED_DATABASE'
       return 'OCI::Opsi::Models::AutonomousDatabaseInsight' if type == 'AUTONOMOUS_DATABASE'
 
       # TODO: Log a warning when the subtype is not found.
@@ -177,6 +185,7 @@ module OCI
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
+    # @option attributes [String] :database_connection_status_details The value to assign to the {#database_connection_status_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -258,6 +267,12 @@ module OCI
       raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
 
       self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
+
+      self.database_connection_status_details = attributes[:'databaseConnectionStatusDetails'] if attributes[:'databaseConnectionStatusDetails']
+
+      raise 'You cannot provide both :databaseConnectionStatusDetails and :database_connection_status_details' if attributes.key?(:'databaseConnectionStatusDetails') && attributes.key?(:'database_connection_status_details')
+
+      self.database_connection_status_details = attributes[:'database_connection_status_details'] if attributes[:'database_connection_status_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -323,7 +338,8 @@ module OCI
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
-        lifecycle_details == other.lifecycle_details
+        lifecycle_details == other.lifecycle_details &&
+        database_connection_status_details == other.database_connection_status_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -339,7 +355,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [entity_source, id, compartment_id, status, database_type, database_version, processor_count, freeform_tags, defined_tags, system_tags, time_created, time_updated, lifecycle_state, lifecycle_details].hash
+      [entity_source, id, compartment_id, status, database_type, database_version, processor_count, freeform_tags, defined_tags, system_tags, time_created, time_updated, lifecycle_state, lifecycle_details, database_connection_status_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

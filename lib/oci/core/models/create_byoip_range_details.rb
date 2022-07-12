@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # The information used to create a `ByoipRange` resource.
   class Core::Models::CreateByoipRangeDetails
-    # **[Required]** The BYOIP CIDR block. You can assign some or all of it to a public IP pool after it is validated.
+    # The BYOIP CIDR block. You can assign some or all of it to a public IP pool after it is validated.
     # Example: `10.0.1.0/24`
     #
     # @return [String]
@@ -17,6 +17,11 @@ module OCI
     #
     # @return [String]
     attr_accessor :compartment_id
+
+    # The BYOIPv6 CIDR block. You can assign some or all of it to a VCN after it is validated.
+    #
+    # @return [String]
+    attr_accessor :ipv6_cidr_block
 
     # Defined tags for this resource. Each key is predefined and scoped to a
     # namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
@@ -46,6 +51,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'cidr_block': :'cidrBlock',
         'compartment_id': :'compartmentId',
+        'ipv6_cidr_block': :'ipv6CidrBlock',
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags'
@@ -59,6 +65,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'cidr_block': :'String',
         'compartment_id': :'String',
+        'ipv6_cidr_block': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>'
@@ -74,6 +81,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :cidr_block The value to assign to the {#cidr_block} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :ipv6_cidr_block The value to assign to the {#ipv6_cidr_block} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -94,6 +102,12 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.ipv6_cidr_block = attributes[:'ipv6CidrBlock'] if attributes[:'ipv6CidrBlock']
+
+      raise 'You cannot provide both :ipv6CidrBlock and :ipv6_cidr_block' if attributes.key?(:'ipv6CidrBlock') && attributes.key?(:'ipv6_cidr_block')
+
+      self.ipv6_cidr_block = attributes[:'ipv6_cidr_block'] if attributes[:'ipv6_cidr_block']
 
       self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
 
@@ -127,6 +141,7 @@ module OCI
       self.class == other.class &&
         cidr_block == other.cidr_block &&
         compartment_id == other.compartment_id &&
+        ipv6_cidr_block == other.ipv6_cidr_block &&
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags
@@ -145,7 +160,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [cidr_block, compartment_id, defined_tags, display_name, freeform_tags].hash
+      [cidr_block, compartment_id, ipv6_cidr_block, defined_tags, display_name, freeform_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

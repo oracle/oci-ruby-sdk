@@ -53,6 +53,10 @@ module OCI
     # @return [String]
     attr_accessor :exadata_insight_id
 
+    # The user-friendly name for the Exadata system. The name does not have to be unique.
+    # @return [String]
+    attr_accessor :exadata_display_name
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -62,7 +66,8 @@ module OCI
         'items': :'items',
         'usage_unit': :'usageUnit',
         'exadata_resource_metric': :'exadataResourceMetric',
-        'exadata_insight_id': :'exadataInsightId'
+        'exadata_insight_id': :'exadataInsightId',
+        'exadata_display_name': :'exadataDisplayName'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -76,7 +81,8 @@ module OCI
         'items': :'Array<OCI::Opsi::Models::ExadataInsightResourceStatisticsAggregation>',
         'usage_unit': :'String',
         'exadata_resource_metric': :'String',
-        'exadata_insight_id': :'String'
+        'exadata_insight_id': :'String',
+        'exadata_display_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -93,6 +99,7 @@ module OCI
     # @option attributes [String] :usage_unit The value to assign to the {#usage_unit} property
     # @option attributes [String] :exadata_resource_metric The value to assign to the {#exadata_resource_metric} property
     # @option attributes [String] :exadata_insight_id The value to assign to the {#exadata_insight_id} property
+    # @option attributes [String] :exadata_display_name The value to assign to the {#exadata_display_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -130,6 +137,12 @@ module OCI
       raise 'You cannot provide both :exadataInsightId and :exadata_insight_id' if attributes.key?(:'exadataInsightId') && attributes.key?(:'exadata_insight_id')
 
       self.exadata_insight_id = attributes[:'exadata_insight_id'] if attributes[:'exadata_insight_id']
+
+      self.exadata_display_name = attributes[:'exadataDisplayName'] if attributes[:'exadataDisplayName']
+
+      raise 'You cannot provide both :exadataDisplayName and :exadata_display_name' if attributes.key?(:'exadataDisplayName') && attributes.key?(:'exadata_display_name')
+
+      self.exadata_display_name = attributes[:'exadata_display_name'] if attributes[:'exadata_display_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -174,7 +187,8 @@ module OCI
         items == other.items &&
         usage_unit == other.usage_unit &&
         exadata_resource_metric == other.exadata_resource_metric &&
-        exadata_insight_id == other.exadata_insight_id
+        exadata_insight_id == other.exadata_insight_id &&
+        exadata_display_name == other.exadata_display_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -190,7 +204,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [time_interval_start, time_interval_end, items, usage_unit, exadata_resource_metric, exadata_insight_id].hash
+      [time_interval_start, time_interval_end, items, usage_unit, exadata_resource_metric, exadata_insight_id, exadata_display_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

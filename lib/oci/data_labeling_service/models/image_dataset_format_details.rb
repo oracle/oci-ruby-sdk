@@ -6,7 +6,7 @@ require_relative 'dataset_format_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Indicates the dataset is comprised of images.
+  # It indicates the dataset is comprised of images.
   class DataLabelingService::Models::ImageDatasetFormatDetails < DataLabelingService::Models::DatasetFormatDetails
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map

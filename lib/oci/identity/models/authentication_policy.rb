@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Authentication policy, currently set for the given compartment
+  # Authentication policy, currently set for the given compartment.
   #
   class Identity::Models::AuthenticationPolicy
     # @return [OCI::Identity::Models::PasswordPolicy]

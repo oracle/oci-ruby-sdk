@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details for adding a CIDR block to a VCN.
+  # Details used to add a CIDR block to a VCN.
   class Core::Models::AddVcnCidrDetails
     # **[Required]** The CIDR block to add.
     #

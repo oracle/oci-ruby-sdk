@@ -11,6 +11,7 @@ module OCI
   class Database::Models::DatabaseConnectionString
     PROTOCOL_ENUM = [
       PROTOCOL_TCP = 'TCP'.freeze,
+      PROTOCOL_TCPS = 'TCPS'.freeze,
       PROTOCOL_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 

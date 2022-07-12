@@ -5,30 +5,32 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Tunnel detail information specific to IPSec phase 2.
+  # IPsec tunnel detail information specific to phase two.
   class Core::Models::TunnelPhaseTwoDetails
     # Indicates whether custom phase two configuration is enabled.
+    # If this option is not enabled, default settings are proposed.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_custom_phase_two_config
 
-    # The total configured lifetime of an IKE security association.
+    # The total configured lifetime of the IKE security association.
     # @return [Integer]
     attr_accessor :lifetime
 
-    # The lifetime remaining before the key is refreshed.
+    # The remaining lifetime before the key is refreshed.
     # @return [Integer]
     attr_accessor :remaining_lifetime
 
-    # Phase Two authentication algorithm supported during tunnel negotiation.
+    # Phase two authentication algorithm proposed during tunnel negotiation.
     #
     # @return [String]
     attr_accessor :custom_authentication_algorithm
 
-    # The negotiated authentication algorithm.
+    # The negotiated phase two authentication algorithm.
     # @return [String]
     attr_accessor :negotiated_authentication_algorithm
 
-    # Custom Encryption Algorithm
+    # The proposed custom phase two encryption algorithm.
     #
     # @return [String]
     attr_accessor :custom_encryption_algorithm
@@ -37,7 +39,7 @@ module OCI
     # @return [String]
     attr_accessor :negotiated_encryption_algorithm
 
-    # Proposed Diffie-Hellman group.
+    # The proposed Diffie-Hellman group.
     #
     # @return [String]
     attr_accessor :dh_group
@@ -46,15 +48,15 @@ module OCI
     # @return [String]
     attr_accessor :negotiated_dh_group
 
-    # ESP Phase 2 established
+    # Indicates that ESP phase two is established.
     # @return [BOOLEAN]
     attr_accessor :is_esp_established
 
-    # Is PFS (perfect forward secrecy) enabled
+    # Indicates that PFS (perfect forward secrecy) is enabled.
     # @return [BOOLEAN]
     attr_accessor :is_pfs_enabled
 
-    # The date and time we retrieved the remaining lifetime, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # The date and time the remaining lifetime was last retrieved, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #

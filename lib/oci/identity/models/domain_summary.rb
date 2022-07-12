@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # As the name suggests, a `DomainSummary` object contains information about a `Domain`.
+  # (For tenancies that support identity domains) As the name suggests, a `DomainSummary` object contains information about a `Domain`.
   #
   class Identity::Models::DomainSummary
     TYPE_ENUM = [
@@ -30,53 +30,53 @@ module OCI
       LIFECYCLE_DETAILS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the domain
+    # **[Required]** The OCID of the identity domain.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the comparment containing the domain.
+    # **[Required]** The OCID of the compartment containing the identity domain.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The mutable display name of the domain
+    # **[Required]** The mutable display name of the identity domain.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The domain descripition
+    # **[Required]** The identity domain description. You can have an empty description.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** Region agnostic domain URL.
+    # **[Required]** Region-agnostic identity domain URL.
     # @return [String]
     attr_accessor :url
 
-    # **[Required]** Region specific domain URL.
+    # **[Required]** Region-specific identity domain URL.
     # @return [String]
     attr_accessor :home_region_url
 
-    # **[Required]** The home region for the domain.
+    # **[Required]** The home region for the identity domain.
     # @return [String]
     attr_accessor :home_region
 
-    # **[Required]** The regions domain is replicated to.
+    # **[Required]** The regions where replicas of the identity domain exist.
     # @return [Array<OCI::Identity::Models::ReplicatedRegionDetails>]
     attr_accessor :replica_regions
 
-    # **[Required]** The type of the domain.
+    # **[Required]** The type of the identity domain.
     #
     # @return [String]
     attr_reader :type
 
-    # **[Required]** The License type of Domain
+    # **[Required]** The license type of the identity domain.
     # @return [String]
     attr_accessor :license_type
 
-    # **[Required]** Indicates whether domain is hidden on login screen or not.
+    # **[Required]** Indicates whether the identity domain is hidden on the sign-in screen or not.
     #
     # @return [BOOLEAN]
     attr_accessor :is_hidden_on_login
 
-    # **[Required]** Date and time the domain was created, in the format defined by RFC3339.
+    # **[Required]** Date and time the identity domain was created, in the format defined by RFC3339.
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
@@ -88,7 +88,7 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # Any additional details about the current state of the Domain.
+    # Any additional details about the current state of the identity domain.
     #
     # @return [String]
     attr_reader :lifecycle_details

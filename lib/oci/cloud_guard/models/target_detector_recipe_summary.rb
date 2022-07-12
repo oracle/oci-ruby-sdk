@@ -17,6 +17,7 @@ module OCI
     DETECTOR_ENUM = [
       DETECTOR_IAAS_ACTIVITY_DETECTOR = 'IAAS_ACTIVITY_DETECTOR'.freeze,
       DETECTOR_IAAS_CONFIGURATION_DETECTOR = 'IAAS_CONFIGURATION_DETECTOR'.freeze,
+      DETECTOR_IAAS_THREAT_DETECTOR = 'IAAS_THREAT_DETECTOR'.freeze,
       DETECTOR_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -75,6 +76,10 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_details
 
+    # The number of days for which source data is retained
+    # @return [Integer]
+    attr_accessor :source_data_retention
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -89,7 +94,8 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
-        'lifecycle_details': :'lifecycleDetails'
+        'lifecycle_details': :'lifecycleDetails',
+        'source_data_retention': :'sourceDataRetention'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -108,7 +114,8 @@ module OCI
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
-        'lifecycle_details': :'String'
+        'lifecycle_details': :'String',
+        'source_data_retention': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -130,6 +137,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
+    # @option attributes [Integer] :source_data_retention The value to assign to the {#source_data_retention} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -185,6 +193,12 @@ module OCI
       raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
 
       self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
+
+      self.source_data_retention = attributes[:'sourceDataRetention'] if attributes[:'sourceDataRetention']
+
+      raise 'You cannot provide both :sourceDataRetention and :source_data_retention' if attributes.key?(:'sourceDataRetention') && attributes.key?(:'source_data_retention')
+
+      self.source_data_retention = attributes[:'source_data_retention'] if attributes[:'source_data_retention']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -247,7 +261,8 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
-        lifecycle_details == other.lifecycle_details
+        lifecycle_details == other.lifecycle_details &&
+        source_data_retention == other.source_data_retention
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -263,7 +278,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, description, owner, detector_recipe_id, detector, lifecycle_state, time_created, time_updated, lifecycle_details].hash
+      [id, compartment_id, display_name, description, owner, detector_recipe_id, detector, lifecycle_state, time_created, time_updated, lifecycle_details, source_data_retention].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

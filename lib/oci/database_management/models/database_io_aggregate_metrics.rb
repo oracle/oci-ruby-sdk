@@ -7,20 +7,30 @@ require 'date'
 module OCI
   # The database Input/Output metric details.
   class DatabaseManagement::Models::DatabaseIOAggregateMetrics
-    # A list of the Input/Output Operations Per Second metrics grouped by IOType for a specific database.
+    # The Input/Output Operations Per Second metrics grouped by IOType for a specific Managed Database.
     # @return [Array<OCI::DatabaseManagement::Models::MetricDataPoint>]
     attr_accessor :iops
 
-    # A list of the IOThroughput metrics grouped for a specific database.
+    # The IOThroughput metrics grouped by IOType for a specific Managed Database.
     # @return [Array<OCI::DatabaseManagement::Models::MetricDataPoint>]
     attr_accessor :io_throughput
+
+    # The Input/Output metric statistics such as min, max, mean, lowerQuartile, and upperQuartile.
+    # @return [Array<OCI::DatabaseManagement::Models::MetricStatisticsDefinition>]
+    attr_accessor :iops_statistics
+
+    # The IOThroughput metric statistics such as min, max, mean, lowerQuartile, and upperQuartile.
+    # @return [Array<OCI::DatabaseManagement::Models::MetricStatisticsDefinition>]
+    attr_accessor :io_throughput_statistics
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'iops': :'iops',
-        'io_throughput': :'ioThroughput'
+        'io_throughput': :'ioThroughput',
+        'iops_statistics': :'iopsStatistics',
+        'io_throughput_statistics': :'ioThroughputStatistics'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -30,7 +40,9 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'iops': :'Array<OCI::DatabaseManagement::Models::MetricDataPoint>',
-        'io_throughput': :'Array<OCI::DatabaseManagement::Models::MetricDataPoint>'
+        'io_throughput': :'Array<OCI::DatabaseManagement::Models::MetricDataPoint>',
+        'iops_statistics': :'Array<OCI::DatabaseManagement::Models::MetricStatisticsDefinition>',
+        'io_throughput_statistics': :'Array<OCI::DatabaseManagement::Models::MetricStatisticsDefinition>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -43,6 +55,8 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Array<OCI::DatabaseManagement::Models::MetricDataPoint>] :iops The value to assign to the {#iops} property
     # @option attributes [Array<OCI::DatabaseManagement::Models::MetricDataPoint>] :io_throughput The value to assign to the {#io_throughput} property
+    # @option attributes [Array<OCI::DatabaseManagement::Models::MetricStatisticsDefinition>] :iops_statistics The value to assign to the {#iops_statistics} property
+    # @option attributes [Array<OCI::DatabaseManagement::Models::MetricStatisticsDefinition>] :io_throughput_statistics The value to assign to the {#io_throughput_statistics} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -56,6 +70,18 @@ module OCI
       raise 'You cannot provide both :ioThroughput and :io_throughput' if attributes.key?(:'ioThroughput') && attributes.key?(:'io_throughput')
 
       self.io_throughput = attributes[:'io_throughput'] if attributes[:'io_throughput']
+
+      self.iops_statistics = attributes[:'iopsStatistics'] if attributes[:'iopsStatistics']
+
+      raise 'You cannot provide both :iopsStatistics and :iops_statistics' if attributes.key?(:'iopsStatistics') && attributes.key?(:'iops_statistics')
+
+      self.iops_statistics = attributes[:'iops_statistics'] if attributes[:'iops_statistics']
+
+      self.io_throughput_statistics = attributes[:'ioThroughputStatistics'] if attributes[:'ioThroughputStatistics']
+
+      raise 'You cannot provide both :ioThroughputStatistics and :io_throughput_statistics' if attributes.key?(:'ioThroughputStatistics') && attributes.key?(:'io_throughput_statistics')
+
+      self.io_throughput_statistics = attributes[:'io_throughput_statistics'] if attributes[:'io_throughput_statistics']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -70,7 +96,9 @@ module OCI
 
       self.class == other.class &&
         iops == other.iops &&
-        io_throughput == other.io_throughput
+        io_throughput == other.io_throughput &&
+        iops_statistics == other.iops_statistics &&
+        io_throughput_statistics == other.io_throughput_statistics
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -86,7 +114,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [iops, io_throughput].hash
+      [iops, io_throughput, iops_statistics, io_throughput_statistics].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

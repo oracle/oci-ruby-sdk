@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A collection of ASM properties for a specific database.
+  # A collection of ASM properties for a specific Managed Database.
   class DatabaseManagement::Models::AsmPropertyCollection
     # **[Required]** An array of AsmPropertySummary resources.
     # @return [Array<OCI::DatabaseManagement::Models::AsmPropertySummary>]

@@ -13,6 +13,8 @@ module OCI
     TYPE_ENUM = [
       TYPE_AMD_MILAN_BM = 'AMD_MILAN_BM'.freeze,
       TYPE_AMD_ROME_BM = 'AMD_ROME_BM'.freeze,
+      TYPE_AMD_ROME_BM_GPU = 'AMD_ROME_BM_GPU'.freeze,
+      TYPE_INTEL_ICELAKE_BM = 'INTEL_ICELAKE_BM'.freeze,
       TYPE_INTEL_SKYLAKE_BM = 'INTEL_SKYLAKE_BM'.freeze,
       TYPE_AMD_VM = 'AMD_VM'.freeze,
       TYPE_INTEL_VM = 'INTEL_VM'.freeze,
@@ -74,6 +76,8 @@ module OCI
       return 'OCI::Core::Models::AmdMilanBmPlatformConfig' if type == 'AMD_MILAN_BM'
       return 'OCI::Core::Models::AmdRomeBmPlatformConfig' if type == 'AMD_ROME_BM'
       return 'OCI::Core::Models::IntelSkylakeBmPlatformConfig' if type == 'INTEL_SKYLAKE_BM'
+      return 'OCI::Core::Models::AmdRomeBmGpuPlatformConfig' if type == 'AMD_ROME_BM_GPU'
+      return 'OCI::Core::Models::IntelIcelakeBmPlatformConfig' if type == 'INTEL_ICELAKE_BM'
       return 'OCI::Core::Models::AmdVmPlatformConfig' if type == 'AMD_VM'
       return 'OCI::Core::Models::IntelVmPlatformConfig' if type == 'INTEL_VM'
 

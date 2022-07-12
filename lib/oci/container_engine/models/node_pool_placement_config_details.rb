@@ -21,13 +21,19 @@ module OCI
     # @return [String]
     attr_accessor :capacity_reservation_id
 
+    # A list of fault domains in which to place nodes.
+    #
+    # @return [Array<String>]
+    attr_accessor :fault_domains
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'availabilityDomain',
         'subnet_id': :'subnetId',
-        'capacity_reservation_id': :'capacityReservationId'
+        'capacity_reservation_id': :'capacityReservationId',
+        'fault_domains': :'faultDomains'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -38,7 +44,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'availability_domain': :'String',
         'subnet_id': :'String',
-        'capacity_reservation_id': :'String'
+        'capacity_reservation_id': :'String',
+        'fault_domains': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -52,6 +59,7 @@ module OCI
     # @option attributes [String] :availability_domain The value to assign to the {#availability_domain} property
     # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [String] :capacity_reservation_id The value to assign to the {#capacity_reservation_id} property
+    # @option attributes [Array<String>] :fault_domains The value to assign to the {#fault_domains} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -75,6 +83,12 @@ module OCI
       raise 'You cannot provide both :capacityReservationId and :capacity_reservation_id' if attributes.key?(:'capacityReservationId') && attributes.key?(:'capacity_reservation_id')
 
       self.capacity_reservation_id = attributes[:'capacity_reservation_id'] if attributes[:'capacity_reservation_id']
+
+      self.fault_domains = attributes[:'faultDomains'] if attributes[:'faultDomains']
+
+      raise 'You cannot provide both :faultDomains and :fault_domains' if attributes.key?(:'faultDomains') && attributes.key?(:'fault_domains')
+
+      self.fault_domains = attributes[:'fault_domains'] if attributes[:'fault_domains']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -90,7 +104,8 @@ module OCI
       self.class == other.class &&
         availability_domain == other.availability_domain &&
         subnet_id == other.subnet_id &&
-        capacity_reservation_id == other.capacity_reservation_id
+        capacity_reservation_id == other.capacity_reservation_id &&
+        fault_domains == other.fault_domains
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -106,7 +121,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, subnet_id, capacity_reservation_id].hash
+      [availability_domain, subnet_id, capacity_reservation_id, fault_domains].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

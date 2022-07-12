@@ -14,6 +14,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'compartmentId',
+        'character_set': :'characterSet',
+        'ncharacter_set': :'ncharacterSet',
         'db_name': :'dbName',
         'cpu_core_count': :'cpuCoreCount',
         'ocpu_count': :'ocpuCount',
@@ -35,6 +37,7 @@ module OCI
         'are_primary_whitelisted_ips_used': :'arePrimaryWhitelistedIpsUsed',
         'standby_whitelisted_ips': :'standbyWhitelistedIps',
         'is_data_guard_enabled': :'isDataGuardEnabled',
+        'is_local_data_guard_enabled': :'isLocalDataGuardEnabled',
         'subnet_id': :'subnetId',
         'nsg_ids': :'nsgIds',
         'private_endpoint_label': :'privateEndpointLabel',
@@ -45,7 +48,10 @@ module OCI
         'customer_contacts': :'customerContacts',
         'is_mtls_connection_required': :'isMtlsConnectionRequired',
         'autonomous_maintenance_schedule_type': :'autonomousMaintenanceScheduleType',
-        'scheduled_operations': :'scheduledOperations'
+        'scheduled_operations': :'scheduledOperations',
+        'is_auto_scaling_for_storage_enabled': :'isAutoScalingForStorageEnabled',
+        'max_cpu_core_count': :'maxCpuCoreCount',
+        'database_edition': :'databaseEdition'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -55,6 +61,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'compartment_id': :'String',
+        'character_set': :'String',
+        'ncharacter_set': :'String',
         'db_name': :'String',
         'cpu_core_count': :'Integer',
         'ocpu_count': :'Float',
@@ -76,6 +84,7 @@ module OCI
         'are_primary_whitelisted_ips_used': :'BOOLEAN',
         'standby_whitelisted_ips': :'Array<String>',
         'is_data_guard_enabled': :'BOOLEAN',
+        'is_local_data_guard_enabled': :'BOOLEAN',
         'subnet_id': :'String',
         'nsg_ids': :'Array<String>',
         'private_endpoint_label': :'String',
@@ -86,7 +95,10 @@ module OCI
         'customer_contacts': :'Array<OCI::Database::Models::CustomerContact>',
         'is_mtls_connection_required': :'BOOLEAN',
         'autonomous_maintenance_schedule_type': :'String',
-        'scheduled_operations': :'Array<OCI::Database::Models::ScheduledOperationDetails>'
+        'scheduled_operations': :'Array<OCI::Database::Models::ScheduledOperationDetails>',
+        'is_auto_scaling_for_storage_enabled': :'BOOLEAN',
+        'max_cpu_core_count': :'Integer',
+        'database_edition': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -98,6 +110,8 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :compartment_id The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#compartment_id #compartment_id} proprety
+    # @option attributes [String] :character_set The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#character_set #character_set} proprety
+    # @option attributes [String] :ncharacter_set The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#ncharacter_set #ncharacter_set} proprety
     # @option attributes [String] :db_name The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#db_name #db_name} proprety
     # @option attributes [Integer] :cpu_core_count The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#cpu_core_count #cpu_core_count} proprety
     # @option attributes [Float] :ocpu_count The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#ocpu_count #ocpu_count} proprety
@@ -119,6 +133,7 @@ module OCI
     # @option attributes [BOOLEAN] :are_primary_whitelisted_ips_used The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#are_primary_whitelisted_ips_used #are_primary_whitelisted_ips_used} proprety
     # @option attributes [Array<String>] :standby_whitelisted_ips The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#standby_whitelisted_ips #standby_whitelisted_ips} proprety
     # @option attributes [BOOLEAN] :is_data_guard_enabled The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_data_guard_enabled #is_data_guard_enabled} proprety
+    # @option attributes [BOOLEAN] :is_local_data_guard_enabled The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_local_data_guard_enabled #is_local_data_guard_enabled} proprety
     # @option attributes [String] :subnet_id The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#subnet_id #subnet_id} proprety
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#nsg_ids #nsg_ids} proprety
     # @option attributes [String] :private_endpoint_label The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#private_endpoint_label #private_endpoint_label} proprety
@@ -129,6 +144,9 @@ module OCI
     # @option attributes [BOOLEAN] :is_mtls_connection_required The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_mtls_connection_required #is_mtls_connection_required} proprety
     # @option attributes [String] :autonomous_maintenance_schedule_type The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#autonomous_maintenance_schedule_type #autonomous_maintenance_schedule_type} proprety
     # @option attributes [Array<OCI::Database::Models::ScheduledOperationDetails>] :scheduled_operations The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#scheduled_operations #scheduled_operations} proprety
+    # @option attributes [BOOLEAN] :is_auto_scaling_for_storage_enabled The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#is_auto_scaling_for_storage_enabled #is_auto_scaling_for_storage_enabled} proprety
+    # @option attributes [Integer] :max_cpu_core_count The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#max_cpu_core_count #max_cpu_core_count} proprety
+    # @option attributes [String] :database_edition The value to assign to the {OCI::Database::Models::CreateAutonomousDatabaseBase#database_edition #database_edition} proprety
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -149,6 +167,8 @@ module OCI
 
       self.class == other.class &&
         compartment_id == other.compartment_id &&
+        character_set == other.character_set &&
+        ncharacter_set == other.ncharacter_set &&
         db_name == other.db_name &&
         cpu_core_count == other.cpu_core_count &&
         ocpu_count == other.ocpu_count &&
@@ -170,6 +190,7 @@ module OCI
         are_primary_whitelisted_ips_used == other.are_primary_whitelisted_ips_used &&
         standby_whitelisted_ips == other.standby_whitelisted_ips &&
         is_data_guard_enabled == other.is_data_guard_enabled &&
+        is_local_data_guard_enabled == other.is_local_data_guard_enabled &&
         subnet_id == other.subnet_id &&
         nsg_ids == other.nsg_ids &&
         private_endpoint_label == other.private_endpoint_label &&
@@ -180,7 +201,10 @@ module OCI
         customer_contacts == other.customer_contacts &&
         is_mtls_connection_required == other.is_mtls_connection_required &&
         autonomous_maintenance_schedule_type == other.autonomous_maintenance_schedule_type &&
-        scheduled_operations == other.scheduled_operations
+        scheduled_operations == other.scheduled_operations &&
+        is_auto_scaling_for_storage_enabled == other.is_auto_scaling_for_storage_enabled &&
+        max_cpu_core_count == other.max_cpu_core_count &&
+        database_edition == other.database_edition
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -196,7 +220,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, db_name, cpu_core_count, ocpu_count, db_workload, data_storage_size_in_tbs, data_storage_size_in_gbs, is_free_tier, kms_key_id, vault_id, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, customer_contacts, is_mtls_connection_required, autonomous_maintenance_schedule_type, scheduled_operations].hash
+      [compartment_id, character_set, ncharacter_set, db_name, cpu_core_count, ocpu_count, db_workload, data_storage_size_in_tbs, data_storage_size_in_gbs, is_free_tier, kms_key_id, vault_id, admin_password, display_name, license_model, is_preview_version_with_service_terms_accepted, is_auto_scaling_enabled, is_dedicated, autonomous_container_database_id, is_access_control_enabled, whitelisted_ips, are_primary_whitelisted_ips_used, standby_whitelisted_ips, is_data_guard_enabled, is_local_data_guard_enabled, subnet_id, nsg_ids, private_endpoint_label, freeform_tags, defined_tags, db_version, source, customer_contacts, is_mtls_connection_required, autonomous_maintenance_schedule_type, scheduled_operations, is_auto_scaling_for_storage_enabled, max_cpu_core_count, database_edition].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

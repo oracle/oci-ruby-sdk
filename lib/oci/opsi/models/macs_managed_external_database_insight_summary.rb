@@ -42,6 +42,7 @@ module OCI
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
+        'database_connection_status_details': :'databaseConnectionStatusDetails',
         'database_resource_type': :'databaseResourceType',
         'management_agent_id': :'managementAgentId',
         'connector_id': :'connectorId'
@@ -71,6 +72,7 @@ module OCI
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
+        'database_connection_status_details': :'String',
         'database_resource_type': :'String',
         'management_agent_id': :'String',
         'connector_id': :'String'
@@ -101,6 +103,7 @@ module OCI
     # @option attributes [DateTime] :time_updated The value to assign to the {OCI::Opsi::Models::DatabaseInsightSummary#time_updated #time_updated} proprety
     # @option attributes [String] :lifecycle_state The value to assign to the {OCI::Opsi::Models::DatabaseInsightSummary#lifecycle_state #lifecycle_state} proprety
     # @option attributes [String] :lifecycle_details The value to assign to the {OCI::Opsi::Models::DatabaseInsightSummary#lifecycle_details #lifecycle_details} proprety
+    # @option attributes [String] :database_connection_status_details The value to assign to the {OCI::Opsi::Models::DatabaseInsightSummary#database_connection_status_details #database_connection_status_details} proprety
     # @option attributes [String] :database_resource_type The value to assign to the {#database_resource_type} property
     # @option attributes [String] :management_agent_id The value to assign to the {#management_agent_id} property
     # @option attributes [String] :connector_id The value to assign to the {#connector_id} property
@@ -162,6 +165,7 @@ module OCI
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
+        database_connection_status_details == other.database_connection_status_details &&
         database_resource_type == other.database_resource_type &&
         management_agent_id == other.management_agent_id &&
         connector_id == other.connector_id
@@ -180,7 +184,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, database_id, compartment_id, database_name, database_display_name, database_type, database_version, database_host_names, freeform_tags, defined_tags, system_tags, entity_source, processor_count, status, time_created, time_updated, lifecycle_state, lifecycle_details, database_resource_type, management_agent_id, connector_id].hash
+      [id, database_id, compartment_id, database_name, database_display_name, database_type, database_version, database_host_names, freeform_tags, defined_tags, system_tags, entity_source, processor_count, status, time_created, time_updated, lifecycle_state, lifecycle_details, database_connection_status_details, database_resource_type, management_agent_id, connector_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

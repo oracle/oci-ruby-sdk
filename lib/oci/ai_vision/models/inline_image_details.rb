@@ -6,9 +6,9 @@ require_relative 'image_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Image incorporated in the request payload.
+  # The image incorporated in the request payload.
   class AiVision::Models::InlineImageDetails < AiVision::Models::ImageDetails
-    # **[Required]** Image raw data.
+    # **[Required]** Raw image data.
     # @return [String]
     attr_accessor :data
 

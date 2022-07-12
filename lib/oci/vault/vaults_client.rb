@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API for managing secrets.
+  # Use the Secret Management API to manage secrets and secret versions. For more information, see [Managing Secrets](/Content/KeyManagement/Tasks/managingsecrets.htm).
   class Vault::VaultsClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -512,7 +512,7 @@ module OCI
     #    (default to VERSION_NUMBER)
     #   Allowed values are: VERSION_NUMBER
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
-    #
+    #    (default to DESC)
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Vault::Models::SecretVersionSummary SecretVersionSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/vault/list_secret_versions.rb.html) to see an example of how to use list_secret_versions API.
@@ -594,7 +594,7 @@ module OCI
     #    (default to NAME)
     #   Allowed values are: TIMECREATED, NAME
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
-    #
+    #    (default to DESC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :vault_id The OCID of the vault.
     # @option opts [String] :lifecycle_state A filter that returns only resources that match the specified lifecycle state. The state value is case-insensitive.
@@ -806,7 +806,7 @@ module OCI
 
     # Updates the properties of a secret. Specifically, you can update the version number of the secret to make
     # that version number the current version. You can also update a secret's description, its free-form or defined tags, rules
-    # and the secret contents. Updating the secret content automatically creates a new secret version. You cannot, however, update the current secret version number and the secret contents and the rules at the
+    # and the secret contents. Updating the secret content automatically creates a new secret version. You cannot, however, update the current secret version number, secret contents, and secret rules at the
     # same time. Furthermore, the secret must in an `ACTIVE` lifecycle state to be updated.
     #
     # This operation is not supported by the Oracle Cloud Infrastructure Terraform Provider.

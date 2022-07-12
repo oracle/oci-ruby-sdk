@@ -6,13 +6,13 @@ require_relative 'deploy_stage_summary'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies the Kubernetes cluster deployment stage.
+  # Specifies the Container Engine for Kubernetes (OKE) cluster deployment stage.
   class Devops::Models::OkeDeployStageSummary < Devops::Models::DeployStageSummary
     # **[Required]** Kubernetes cluster environment OCID for deployment.
     # @return [String]
     attr_accessor :oke_cluster_deploy_environment_id
 
-    # **[Required]** List of Kubernetes manifest artifact OCIDs, the manifests should not include any job resource.
+    # **[Required]** List of Kubernetes manifest artifact OCIDs.
     # @return [Array<String>]
     attr_accessor :kubernetes_manifest_deploy_artifact_ids
 

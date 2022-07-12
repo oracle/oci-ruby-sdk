@@ -12,6 +12,9 @@ module OCI
       LICENSE_MODEL_BRING_YOUR_OWN_LICENSE = 'BRING_YOUR_OWN_LICENSE'.freeze
     ].freeze
 
+    # @return [OCI::Database::Models::MaintenanceWindow]
+    attr_accessor :maintenance_window_details
+
     # The Oracle license model that applies to the Autonomous VM cluster. The default is BRING_YOUR_OWN_LICENSE.
     #
     # @return [String]
@@ -35,6 +38,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'maintenance_window_details': :'maintenanceWindowDetails',
         'license_model': :'licenseModel',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
@@ -46,6 +50,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'maintenance_window_details': :'OCI::Database::Models::MaintenanceWindow',
         'license_model': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
@@ -59,6 +64,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window_details The value to assign to the {#maintenance_window_details} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -67,6 +73,12 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.maintenance_window_details = attributes[:'maintenanceWindowDetails'] if attributes[:'maintenanceWindowDetails']
+
+      raise 'You cannot provide both :maintenanceWindowDetails and :maintenance_window_details' if attributes.key?(:'maintenanceWindowDetails') && attributes.key?(:'maintenance_window_details')
+
+      self.maintenance_window_details = attributes[:'maintenance_window_details'] if attributes[:'maintenance_window_details']
 
       self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
 
@@ -106,6 +118,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        maintenance_window_details == other.maintenance_window_details &&
         license_model == other.license_model &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
@@ -124,7 +137,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [license_model, freeform_tags, defined_tags].hash
+      [maintenance_window_details, license_model, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

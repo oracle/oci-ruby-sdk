@@ -38,6 +38,10 @@ module OCI
     # @return [Array<String>]
     attr_accessor :statements
 
+    # Locks associated with this resource.
+    # @return [Array<OCI::Limits::Models::ResourceLock>]
+    attr_accessor :locks
+
     # **[Required]** The description you assign to the quota.
     # @return [String]
     attr_accessor :description
@@ -76,6 +80,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'name': :'name',
         'statements': :'statements',
+        'locks': :'locks',
         'description': :'description',
         'time_created': :'timeCreated',
         'lifecycle_state': :'lifecycleState',
@@ -93,6 +98,7 @@ module OCI
         'compartment_id': :'String',
         'name': :'String',
         'statements': :'Array<String>',
+        'locks': :'Array<OCI::Limits::Models::ResourceLock>',
         'description': :'String',
         'time_created': :'DateTime',
         'lifecycle_state': :'String',
@@ -112,6 +118,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [Array<String>] :statements The value to assign to the {#statements} property
+    # @option attributes [Array<OCI::Limits::Models::ResourceLock>] :locks The value to assign to the {#locks} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -134,6 +141,8 @@ module OCI
       self.name = attributes[:'name'] if attributes[:'name']
 
       self.statements = attributes[:'statements'] if attributes[:'statements']
+
+      self.locks = attributes[:'locks'] if attributes[:'locks']
 
       self.description = attributes[:'description'] if attributes[:'description']
 
@@ -190,6 +199,7 @@ module OCI
         compartment_id == other.compartment_id &&
         name == other.name &&
         statements == other.statements &&
+        locks == other.locks &&
         description == other.description &&
         time_created == other.time_created &&
         lifecycle_state == other.lifecycle_state &&
@@ -210,7 +220,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, name, statements, description, time_created, lifecycle_state, freeform_tags, defined_tags].hash
+      [id, compartment_id, name, statements, locks, description, time_created, lifecycle_state, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

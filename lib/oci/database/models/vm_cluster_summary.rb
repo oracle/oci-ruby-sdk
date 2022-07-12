@@ -140,6 +140,9 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # @return [OCI::Database::Models::DataCollectionOptions]
+    attr_accessor :data_collection_options
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -169,7 +172,8 @@ module OCI
         'license_model': :'licenseModel',
         'db_servers': :'dbServers',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'data_collection_options': :'dataCollectionOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -203,7 +207,8 @@ module OCI
         'license_model': :'String',
         'db_servers': :'Array<String>',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'data_collection_options': :'OCI::Database::Models::DataCollectionOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -240,6 +245,7 @@ module OCI
     # @option attributes [Array<String>] :db_servers The value to assign to the {#db_servers} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [OCI::Database::Models::DataCollectionOptions] :data_collection_options The value to assign to the {#data_collection_options} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -393,6 +399,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.data_collection_options = attributes[:'dataCollectionOptions'] if attributes[:'dataCollectionOptions']
+
+      raise 'You cannot provide both :dataCollectionOptions and :data_collection_options' if attributes.key?(:'dataCollectionOptions') && attributes.key?(:'data_collection_options')
+
+      self.data_collection_options = attributes[:'data_collection_options'] if attributes[:'data_collection_options']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -457,7 +469,8 @@ module OCI
         license_model == other.license_model &&
         db_servers == other.db_servers &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        data_collection_options == other.data_collection_options
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -473,7 +486,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, last_patch_history_entry_id, lifecycle_state, display_name, time_created, lifecycle_details, time_zone, is_local_backup_enabled, exadata_infrastructure_id, is_sparse_diskgroup_enabled, vm_cluster_network_id, cpus_enabled, ocpus_enabled, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, data_storage_size_in_gbs, shape, gi_version, system_version, ssh_public_keys, license_model, db_servers, freeform_tags, defined_tags].hash
+      [id, compartment_id, last_patch_history_entry_id, lifecycle_state, display_name, time_created, lifecycle_details, time_zone, is_local_backup_enabled, exadata_infrastructure_id, is_sparse_diskgroup_enabled, vm_cluster_network_id, cpus_enabled, ocpus_enabled, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, data_storage_size_in_gbs, shape, gi_version, system_version, ssh_public_keys, license_model, db_servers, freeform_tags, defined_tags, data_collection_options].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

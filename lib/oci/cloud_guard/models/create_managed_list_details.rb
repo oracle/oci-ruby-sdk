@@ -22,7 +22,10 @@ module OCI
       LIST_TYPE_GENERIC = 'GENERIC'.freeze
     ].freeze
 
-    # **[Required]** ManagedList display name
+    # **[Required]** Managed list display name.
+    #
+    # Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :display_name
 
@@ -34,7 +37,10 @@ module OCI
     # @return [String]
     attr_accessor :source_managed_list_id
 
-    # ManagedList description
+    # Managed list description.
+    #
+    # Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :description
 
@@ -48,6 +54,8 @@ module OCI
 
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
+    #
+    # Avoid entering confidential information.
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags

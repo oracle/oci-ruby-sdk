@@ -6,13 +6,13 @@ require_relative 'image_feature'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Object detection parameters.
+  # The object detection parameters.
   class AiVision::Models::ImageObjectDetectionFeature < AiVision::Models::ImageFeature
     # The maximum number of results to return.
     # @return [Integer]
     attr_accessor :max_results
 
-    # Custom model id.
+    # The custom model ID.
     # @return [String]
     attr_accessor :model_id
 

@@ -33,6 +33,9 @@ module OCI
     # @return [Array<OCI::DatabaseMigration::Models::MetadataRemap>]
     attr_accessor :metadata_remaps
 
+    # @return [OCI::DatabaseMigration::Models::TargetTypeTablespaceDetails]
+    attr_accessor :tablespace_details
+
     # @return [OCI::DatabaseMigration::Models::DirectoryObject]
     attr_accessor :export_directory_object
 
@@ -46,6 +49,7 @@ module OCI
         'job_mode': :'jobMode',
         'data_pump_parameters': :'dataPumpParameters',
         'metadata_remaps': :'metadataRemaps',
+        'tablespace_details': :'tablespaceDetails',
         'export_directory_object': :'exportDirectoryObject',
         'import_directory_object': :'importDirectoryObject'
         # rubocop:enable Style/SymbolLiteral
@@ -59,6 +63,7 @@ module OCI
         'job_mode': :'String',
         'data_pump_parameters': :'OCI::DatabaseMigration::Models::DataPumpParameters',
         'metadata_remaps': :'Array<OCI::DatabaseMigration::Models::MetadataRemap>',
+        'tablespace_details': :'OCI::DatabaseMigration::Models::TargetTypeTablespaceDetails',
         'export_directory_object': :'OCI::DatabaseMigration::Models::DirectoryObject',
         'import_directory_object': :'OCI::DatabaseMigration::Models::DirectoryObject'
         # rubocop:enable Style/SymbolLiteral
@@ -74,6 +79,7 @@ module OCI
     # @option attributes [String] :job_mode The value to assign to the {#job_mode} property
     # @option attributes [OCI::DatabaseMigration::Models::DataPumpParameters] :data_pump_parameters The value to assign to the {#data_pump_parameters} property
     # @option attributes [Array<OCI::DatabaseMigration::Models::MetadataRemap>] :metadata_remaps The value to assign to the {#metadata_remaps} property
+    # @option attributes [OCI::DatabaseMigration::Models::TargetTypeTablespaceDetails] :tablespace_details The value to assign to the {#tablespace_details} property
     # @option attributes [OCI::DatabaseMigration::Models::DirectoryObject] :export_directory_object The value to assign to the {#export_directory_object} property
     # @option attributes [OCI::DatabaseMigration::Models::DirectoryObject] :import_directory_object The value to assign to the {#import_directory_object} property
     def initialize(attributes = {})
@@ -99,6 +105,12 @@ module OCI
       raise 'You cannot provide both :metadataRemaps and :metadata_remaps' if attributes.key?(:'metadataRemaps') && attributes.key?(:'metadata_remaps')
 
       self.metadata_remaps = attributes[:'metadata_remaps'] if attributes[:'metadata_remaps']
+
+      self.tablespace_details = attributes[:'tablespaceDetails'] if attributes[:'tablespaceDetails']
+
+      raise 'You cannot provide both :tablespaceDetails and :tablespace_details' if attributes.key?(:'tablespaceDetails') && attributes.key?(:'tablespace_details')
+
+      self.tablespace_details = attributes[:'tablespace_details'] if attributes[:'tablespace_details']
 
       self.export_directory_object = attributes[:'exportDirectoryObject'] if attributes[:'exportDirectoryObject']
 
@@ -140,6 +152,7 @@ module OCI
         job_mode == other.job_mode &&
         data_pump_parameters == other.data_pump_parameters &&
         metadata_remaps == other.metadata_remaps &&
+        tablespace_details == other.tablespace_details &&
         export_directory_object == other.export_directory_object &&
         import_directory_object == other.import_directory_object
     end
@@ -157,7 +170,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [job_mode, data_pump_parameters, metadata_remaps, export_directory_object, import_directory_object].hash
+      [job_mode, data_pump_parameters, metadata_remaps, tablespace_details, export_directory_object, import_directory_object].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

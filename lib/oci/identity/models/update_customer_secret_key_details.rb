@@ -8,6 +8,9 @@ module OCI
   # UpdateCustomerSecretKeyDetails model.
   class Identity::Models::UpdateCustomerSecretKeyDetails
     # The description you assign to the secret key. Does not have to be unique, and it's changeable.
+    #
+    # (For tenancies that support identity domains) You can have an empty description.
+    #
     # @return [String]
     attr_accessor :display_name
 

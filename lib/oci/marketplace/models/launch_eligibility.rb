@@ -2,11 +2,26 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Tenant eligibility and other information for launching a PIC image
   class Marketplace::Models::LaunchEligibility
+    INELIGIBILITY_REASON_ENUM = [
+      INELIGIBILITY_REASON_INELIGIBLE_ACCOUNT_COUNTRY = 'INELIGIBLE_ACCOUNT_COUNTRY'.freeze,
+      INELIGIBILITY_REASON_INELIGIBLE_REGION = 'INELIGIBLE_REGION'.freeze,
+      INELIGIBILITY_REASON_INELIGIBLE_ACCOUNT_BLACKLISTED = 'INELIGIBLE_ACCOUNT_BLACKLISTED'.freeze,
+      INELIGIBILITY_REASON_INELIGIBLE_ACCOUNT_FEATURE_DISABLED = 'INELIGIBLE_ACCOUNT_FEATURE_DISABLED'.freeze,
+      INELIGIBILITY_REASON_INELIGIBLE_ACCOUNT_CURRENCY = 'INELIGIBLE_ACCOUNT_CURRENCY'.freeze,
+      INELIGIBILITY_REASON_INELIGIBLE_ACCOUNT_NOT_PAID = 'INELIGIBLE_ACCOUNT_NOT_PAID'.freeze,
+      INELIGIBILITY_REASON_INELIGIBLE_ACCOUNT_INTERNAL = 'INELIGIBLE_ACCOUNT_INTERNAL'.freeze,
+      INELIGIBILITY_REASON_INELIGIBLE_ACCOUNT_GOV_SUBSCRIPTION = 'INELIGIBLE_ACCOUNT_GOV_SUBSCRIPTION'.freeze,
+      INELIGIBILITY_REASON_INELIGIBLE_PAID_LISTING_THROTTLED = 'INELIGIBLE_PAID_LISTING_THROTTLED'.freeze,
+      INELIGIBILITY_REASON_NOT_AUTHORIZED = 'NOT_AUTHORIZED'.freeze,
+      INELIGIBILITY_REASON_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** PIC Image ID
     # @return [String]
     attr_accessor :image_id
@@ -19,13 +34,18 @@ module OCI
     # @return [String]
     attr_accessor :meters
 
+    # Reason the account is ineligible to launch paid listings
+    # @return [String]
+    attr_reader :ineligibility_reason
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'image_id': :'imageId',
         'is_launch_allowed': :'isLaunchAllowed',
-        'meters': :'meters'
+        'meters': :'meters',
+        'ineligibility_reason': :'ineligibilityReason'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,7 +56,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'image_id': :'String',
         'is_launch_allowed': :'BOOLEAN',
-        'meters': :'String'
+        'meters': :'String',
+        'ineligibility_reason': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -50,6 +71,7 @@ module OCI
     # @option attributes [String] :image_id The value to assign to the {#image_id} property
     # @option attributes [BOOLEAN] :is_launch_allowed The value to assign to the {#is_launch_allowed} property
     # @option attributes [String] :meters The value to assign to the {#meters} property
+    # @option attributes [String] :ineligibility_reason The value to assign to the {#ineligibility_reason} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -69,9 +91,28 @@ module OCI
       self.is_launch_allowed = attributes[:'is_launch_allowed'] unless attributes[:'is_launch_allowed'].nil?
 
       self.meters = attributes[:'meters'] if attributes[:'meters']
+
+      self.ineligibility_reason = attributes[:'ineligibilityReason'] if attributes[:'ineligibilityReason']
+
+      raise 'You cannot provide both :ineligibilityReason and :ineligibility_reason' if attributes.key?(:'ineligibilityReason') && attributes.key?(:'ineligibility_reason')
+
+      self.ineligibility_reason = attributes[:'ineligibility_reason'] if attributes[:'ineligibility_reason']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] ineligibility_reason Object to be assigned
+    def ineligibility_reason=(ineligibility_reason)
+      # rubocop:disable Style/ConditionalAssignment
+      if ineligibility_reason && !INELIGIBILITY_REASON_ENUM.include?(ineligibility_reason)
+        OCI.logger.debug("Unknown value for 'ineligibility_reason' [" + ineligibility_reason + "]. Mapping to 'INELIGIBILITY_REASON_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @ineligibility_reason = INELIGIBILITY_REASON_UNKNOWN_ENUM_VALUE
+      else
+        @ineligibility_reason = ineligibility_reason
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -84,7 +125,8 @@ module OCI
       self.class == other.class &&
         image_id == other.image_id &&
         is_launch_allowed == other.is_launch_allowed &&
-        meters == other.meters
+        meters == other.meters &&
+        ineligibility_reason == other.ineligibility_reason
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -100,7 +142,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [image_id, is_launch_allowed, meters].hash
+      [image_id, is_launch_allowed, meters, ineligibility_reason].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

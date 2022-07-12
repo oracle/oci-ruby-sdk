@@ -22,6 +22,9 @@ module OCI
     # @return [OCI::Bds::Models::AutoScalePolicy]
     attr_accessor :policy
 
+    # @return [OCI::Bds::Models::UpdateAutoScalePolicyDetails]
+    attr_accessor :policy_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -29,7 +32,8 @@ module OCI
         'display_name': :'displayName',
         'is_enabled': :'isEnabled',
         'cluster_admin_password': :'clusterAdminPassword',
-        'policy': :'policy'
+        'policy': :'policy',
+        'policy_details': :'policyDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -41,7 +45,8 @@ module OCI
         'display_name': :'String',
         'is_enabled': :'BOOLEAN',
         'cluster_admin_password': :'String',
-        'policy': :'OCI::Bds::Models::AutoScalePolicy'
+        'policy': :'OCI::Bds::Models::AutoScalePolicy',
+        'policy_details': :'OCI::Bds::Models::UpdateAutoScalePolicyDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -56,6 +61,7 @@ module OCI
     # @option attributes [BOOLEAN] :is_enabled The value to assign to the {#is_enabled} property
     # @option attributes [String] :cluster_admin_password The value to assign to the {#cluster_admin_password} property
     # @option attributes [OCI::Bds::Models::AutoScalePolicy] :policy The value to assign to the {#policy} property
+    # @option attributes [OCI::Bds::Models::UpdateAutoScalePolicyDetails] :policy_details The value to assign to the {#policy_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -81,6 +87,12 @@ module OCI
       self.cluster_admin_password = attributes[:'cluster_admin_password'] if attributes[:'cluster_admin_password']
 
       self.policy = attributes[:'policy'] if attributes[:'policy']
+
+      self.policy_details = attributes[:'policyDetails'] if attributes[:'policyDetails']
+
+      raise 'You cannot provide both :policyDetails and :policy_details' if attributes.key?(:'policyDetails') && attributes.key?(:'policy_details')
+
+      self.policy_details = attributes[:'policy_details'] if attributes[:'policy_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -97,7 +109,8 @@ module OCI
         display_name == other.display_name &&
         is_enabled == other.is_enabled &&
         cluster_admin_password == other.cluster_admin_password &&
-        policy == other.policy
+        policy == other.policy &&
+        policy_details == other.policy_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -113,7 +126,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, is_enabled, cluster_admin_password, policy].hash
+      [display_name, is_enabled, cluster_admin_password, policy, policy_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

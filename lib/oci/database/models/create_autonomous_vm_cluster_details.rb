@@ -43,6 +43,25 @@ module OCI
     # @return [String]
     attr_reader :license_model
 
+    # The total number of Autonomous Container Databases that can be created.
+    # @return [Integer]
+    attr_accessor :total_container_databases
+
+    # The number of OCPU cores to enable per VM cluster node.
+    # @return [Integer]
+    attr_accessor :cpu_core_count_per_node
+
+    # The amount of memory (in GBs) to be enabled per each OCPU core.
+    # @return [Integer]
+    attr_accessor :memory_per_oracle_compute_unit_in_gbs
+
+    # The data disk group size to be allocated for Autonomous Databases, in TBs.
+    # @return [Float]
+    attr_accessor :autonomous_data_storage_size_in_tbs
+
+    # @return [OCI::Database::Models::MaintenanceWindow]
+    attr_accessor :maintenance_window_details
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -68,6 +87,11 @@ module OCI
         'time_zone': :'timeZone',
         'is_local_backup_enabled': :'isLocalBackupEnabled',
         'license_model': :'licenseModel',
+        'total_container_databases': :'totalContainerDatabases',
+        'cpu_core_count_per_node': :'cpuCoreCountPerNode',
+        'memory_per_oracle_compute_unit_in_gbs': :'memoryPerOracleComputeUnitInGBs',
+        'autonomous_data_storage_size_in_tbs': :'autonomousDataStorageSizeInTBs',
+        'maintenance_window_details': :'maintenanceWindowDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -85,6 +109,11 @@ module OCI
         'time_zone': :'String',
         'is_local_backup_enabled': :'BOOLEAN',
         'license_model': :'String',
+        'total_container_databases': :'Integer',
+        'cpu_core_count_per_node': :'Integer',
+        'memory_per_oracle_compute_unit_in_gbs': :'Integer',
+        'autonomous_data_storage_size_in_tbs': :'Float',
+        'maintenance_window_details': :'OCI::Database::Models::MaintenanceWindow',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -104,6 +133,11 @@ module OCI
     # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
     # @option attributes [BOOLEAN] :is_local_backup_enabled The value to assign to the {#is_local_backup_enabled} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
+    # @option attributes [Integer] :total_container_databases The value to assign to the {#total_container_databases} property
+    # @option attributes [Integer] :cpu_core_count_per_node The value to assign to the {#cpu_core_count_per_node} property
+    # @option attributes [Integer] :memory_per_oracle_compute_unit_in_gbs The value to assign to the {#memory_per_oracle_compute_unit_in_gbs} property
+    # @option attributes [Float] :autonomous_data_storage_size_in_tbs The value to assign to the {#autonomous_data_storage_size_in_tbs} property
+    # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window_details The value to assign to the {#maintenance_window_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -154,6 +188,36 @@ module OCI
 
       self.license_model = attributes[:'license_model'] if attributes[:'license_model']
 
+      self.total_container_databases = attributes[:'totalContainerDatabases'] if attributes[:'totalContainerDatabases']
+
+      raise 'You cannot provide both :totalContainerDatabases and :total_container_databases' if attributes.key?(:'totalContainerDatabases') && attributes.key?(:'total_container_databases')
+
+      self.total_container_databases = attributes[:'total_container_databases'] if attributes[:'total_container_databases']
+
+      self.cpu_core_count_per_node = attributes[:'cpuCoreCountPerNode'] if attributes[:'cpuCoreCountPerNode']
+
+      raise 'You cannot provide both :cpuCoreCountPerNode and :cpu_core_count_per_node' if attributes.key?(:'cpuCoreCountPerNode') && attributes.key?(:'cpu_core_count_per_node')
+
+      self.cpu_core_count_per_node = attributes[:'cpu_core_count_per_node'] if attributes[:'cpu_core_count_per_node']
+
+      self.memory_per_oracle_compute_unit_in_gbs = attributes[:'memoryPerOracleComputeUnitInGBs'] if attributes[:'memoryPerOracleComputeUnitInGBs']
+
+      raise 'You cannot provide both :memoryPerOracleComputeUnitInGBs and :memory_per_oracle_compute_unit_in_gbs' if attributes.key?(:'memoryPerOracleComputeUnitInGBs') && attributes.key?(:'memory_per_oracle_compute_unit_in_gbs')
+
+      self.memory_per_oracle_compute_unit_in_gbs = attributes[:'memory_per_oracle_compute_unit_in_gbs'] if attributes[:'memory_per_oracle_compute_unit_in_gbs']
+
+      self.autonomous_data_storage_size_in_tbs = attributes[:'autonomousDataStorageSizeInTBs'] if attributes[:'autonomousDataStorageSizeInTBs']
+
+      raise 'You cannot provide both :autonomousDataStorageSizeInTBs and :autonomous_data_storage_size_in_tbs' if attributes.key?(:'autonomousDataStorageSizeInTBs') && attributes.key?(:'autonomous_data_storage_size_in_tbs')
+
+      self.autonomous_data_storage_size_in_tbs = attributes[:'autonomous_data_storage_size_in_tbs'] if attributes[:'autonomous_data_storage_size_in_tbs']
+
+      self.maintenance_window_details = attributes[:'maintenanceWindowDetails'] if attributes[:'maintenanceWindowDetails']
+
+      raise 'You cannot provide both :maintenanceWindowDetails and :maintenance_window_details' if attributes.key?(:'maintenanceWindowDetails') && attributes.key?(:'maintenance_window_details')
+
+      self.maintenance_window_details = attributes[:'maintenance_window_details'] if attributes[:'maintenance_window_details']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -193,6 +257,11 @@ module OCI
         time_zone == other.time_zone &&
         is_local_backup_enabled == other.is_local_backup_enabled &&
         license_model == other.license_model &&
+        total_container_databases == other.total_container_databases &&
+        cpu_core_count_per_node == other.cpu_core_count_per_node &&
+        memory_per_oracle_compute_unit_in_gbs == other.memory_per_oracle_compute_unit_in_gbs &&
+        autonomous_data_storage_size_in_tbs == other.autonomous_data_storage_size_in_tbs &&
+        maintenance_window_details == other.maintenance_window_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -210,7 +279,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, exadata_infrastructure_id, vm_cluster_network_id, time_zone, is_local_backup_enabled, license_model, freeform_tags, defined_tags].hash
+      [compartment_id, display_name, exadata_infrastructure_id, vm_cluster_network_id, time_zone, is_local_backup_enabled, license_model, total_container_databases, cpu_core_count_per_node, memory_per_oracle_compute_unit_in_gbs, autonomous_data_storage_size_in_tbs, maintenance_window_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

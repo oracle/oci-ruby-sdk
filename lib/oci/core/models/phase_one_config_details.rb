@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Phase 1 Configuration Details
+  # Configuration details for IKE phase one (ISAKMP) configuration parameters.
   class Core::Models::PhaseOneConfigDetails
     AUTHENTICATION_ALGORITHM_ENUM = [
       AUTHENTICATION_ALGORITHM_SHA2_384 = 'SHA2_384'.freeze,
@@ -28,26 +28,27 @@ module OCI
       DIFFIE_HELMAN_GROUP_GROUP24 = 'GROUP24'.freeze
     ].freeze
 
-    # Indicates whether custom phase one configuration is enabled.
+    # Indicates whether custom configuration is enabled for phase one options.
     # @return [BOOLEAN]
     attr_accessor :is_custom_phase_one_config
 
-    # Phase one authentication algorithm supported during tunnel negotiation.
+    # The custom authentication algorithm proposed during phase one tunnel negotiation.
     #
     # @return [String]
     attr_reader :authentication_algorithm
 
-    # Phase one encryption algorithm supported during tunnel negotiation.
+    # The custom encryption algorithm proposed during phase one tunnel negotiation.
     #
     # @return [String]
     attr_reader :encryption_algorithm
 
-    # Phase One Diffie Hellman group supported during tunnel negotiation.
+    # The custom Diffie-Hellman group proposed during phase one tunnel negotiation.
     #
     # @return [String]
     attr_reader :diffie_helman_group
 
-    # IKE session key lifetime in seconds for IPSec phase one.
+    # Internet key association (IKE) session key lifetime in seconds for IPSec phase one. The default is 28800 which is equivalent to 8 hours.
+    #
     # @return [Integer]
     attr_accessor :lifetime_in_seconds
 

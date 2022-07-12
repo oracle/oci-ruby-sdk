@@ -55,6 +55,10 @@ module OCI
     # @return [String]
     attr_reader :instance_usage_type
 
+    # a list of add-on features for the ocm instance
+    # @return [Array<String>]
+    attr_accessor :add_on_features
+
     # **[Required]** Object Storage Namespace of Tenancy
     # @return [String]
     attr_accessor :object_storage_namespace
@@ -105,6 +109,7 @@ module OCI
         'identity_stripe': :'identityStripe',
         'tenancy_name': :'tenancyName',
         'instance_usage_type': :'instanceUsageType',
+        'add_on_features': :'addOnFeatures',
         'object_storage_namespace': :'objectStorageNamespace',
         'admin_email': :'adminEmail',
         'upgrade_schedule': :'upgradeSchedule',
@@ -129,6 +134,7 @@ module OCI
         'identity_stripe': :'OCI::Oce::Models::IdentityStripeDetails',
         'tenancy_name': :'String',
         'instance_usage_type': :'String',
+        'add_on_features': :'Array<String>',
         'object_storage_namespace': :'String',
         'admin_email': :'String',
         'upgrade_schedule': :'String',
@@ -155,6 +161,7 @@ module OCI
     # @option attributes [OCI::Oce::Models::IdentityStripeDetails] :identity_stripe The value to assign to the {#identity_stripe} property
     # @option attributes [String] :tenancy_name The value to assign to the {#tenancy_name} property
     # @option attributes [String] :instance_usage_type The value to assign to the {#instance_usage_type} property
+    # @option attributes [Array<String>] :add_on_features The value to assign to the {#add_on_features} property
     # @option attributes [String] :object_storage_namespace The value to assign to the {#object_storage_namespace} property
     # @option attributes [String] :admin_email The value to assign to the {#admin_email} property
     # @option attributes [String] :upgrade_schedule The value to assign to the {#upgrade_schedule} property
@@ -208,6 +215,12 @@ module OCI
       raise 'You cannot provide both :instanceUsageType and :instance_usage_type' if attributes.key?(:'instanceUsageType') && attributes.key?(:'instance_usage_type')
 
       self.instance_usage_type = attributes[:'instance_usage_type'] if attributes[:'instance_usage_type']
+
+      self.add_on_features = attributes[:'addOnFeatures'] if attributes[:'addOnFeatures']
+
+      raise 'You cannot provide both :addOnFeatures and :add_on_features' if attributes.key?(:'addOnFeatures') && attributes.key?(:'add_on_features')
+
+      self.add_on_features = attributes[:'add_on_features'] if attributes[:'add_on_features']
 
       self.object_storage_namespace = attributes[:'objectStorageNamespace'] if attributes[:'objectStorageNamespace']
 
@@ -301,6 +314,7 @@ module OCI
         identity_stripe == other.identity_stripe &&
         tenancy_name == other.tenancy_name &&
         instance_usage_type == other.instance_usage_type &&
+        add_on_features == other.add_on_features &&
         object_storage_namespace == other.object_storage_namespace &&
         admin_email == other.admin_email &&
         upgrade_schedule == other.upgrade_schedule &&
@@ -324,7 +338,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [description, compartment_id, name, tenancy_id, idcs_access_token, identity_stripe, tenancy_name, instance_usage_type, object_storage_namespace, admin_email, upgrade_schedule, waf_primary_domain, instance_access_type, instance_license_type, freeform_tags, defined_tags].hash
+      [description, compartment_id, name, tenancy_id, idcs_access_token, identity_stripe, tenancy_name, instance_usage_type, add_on_features, object_storage_namespace, admin_email, upgrade_schedule, waf_primary_domain, instance_access_type, instance_license_type, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

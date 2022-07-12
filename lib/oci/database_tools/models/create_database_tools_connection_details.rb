@@ -5,18 +5,19 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about new DatabaseToolsConnection.
+  # Details for the new Database Tools connection.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class DatabaseTools::Models::CreateDatabaseToolsConnectionDetails
     TYPE_ENUM = [
-      TYPE_ORACLE_DATABASE = 'ORACLE_DATABASE'.freeze
+      TYPE_ORACLE_DATABASE = 'ORACLE_DATABASE'.freeze,
+      TYPE_MYSQL = 'MYSQL'.freeze
     ].freeze
 
     # **[Required]** A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the containing Compartment.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the Database Tools connection.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -70,6 +71,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'type'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionMySqlDetails' if type == 'MYSQL'
       return 'OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionOracleDatabaseDetails' if type == 'ORACLE_DATABASE'
 
       # TODO: Log a warning when the subtype is not found.

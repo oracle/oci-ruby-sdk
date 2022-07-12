@@ -27,7 +27,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** Subscription id.
+    # **[Required]** Subscription ID.
     # @return [String]
     attr_accessor :classic_subscription_id
 
@@ -47,13 +47,45 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # List of sku linked to the subscription.
+    # List of SKUs linked to the subscription.
     # @return [Array<OCI::TenantManagerControlPlane::Models::SubscriptionSku>]
     attr_accessor :skus
 
     # List of subscription order OCIDs that contributed to this subscription.
     # @return [Array<String>]
     attr_accessor :order_ids
+
+    # Denotes any program that is associated with the subscription.
+    # @return [String]
+    attr_accessor :program_type
+
+    # The country code for the customer associated with the subscription.
+    # @return [String]
+    attr_accessor :customer_country_code
+
+    # The currency code for the customer associated with the subscription.
+    # @return [String]
+    attr_accessor :cloud_amount_currency
+
+    # Customer service identifier for the customer associated with the subscription.
+    # @return [String]
+    attr_accessor :csi_number
+
+    # Tier for the subscription, such as if it is a free promotion subscription or a paid subscription.
+    # @return [String]
+    attr_accessor :subscription_tier
+
+    # Denotes if the subscription is a government subscription or not.
+    # @return [BOOLEAN]
+    attr_accessor :is_government_subscription
+
+    # List of promotions related to the subscription.
+    # @return [Array<OCI::TenantManagerControlPlane::Models::Promotion>]
+    attr_accessor :promotion
+
+    # Purchase entitlement id associated with the subscription.
+    # @return [String]
+    attr_accessor :purchase_entitlement_id
 
     # Subscription start time.
     # @return [DateTime]
@@ -84,6 +116,14 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'skus': :'skus',
         'order_ids': :'orderIds',
+        'program_type': :'programType',
+        'customer_country_code': :'customerCountryCode',
+        'cloud_amount_currency': :'cloudAmountCurrency',
+        'csi_number': :'csiNumber',
+        'subscription_tier': :'subscriptionTier',
+        'is_government_subscription': :'isGovernmentSubscription',
+        'promotion': :'promotion',
+        'purchase_entitlement_id': :'purchaseEntitlementId',
         'start_date': :'startDate',
         'end_date': :'endDate',
         'time_updated': :'timeUpdated',
@@ -105,6 +145,14 @@ module OCI
         'lifecycle_state': :'String',
         'skus': :'Array<OCI::TenantManagerControlPlane::Models::SubscriptionSku>',
         'order_ids': :'Array<String>',
+        'program_type': :'String',
+        'customer_country_code': :'String',
+        'cloud_amount_currency': :'String',
+        'csi_number': :'String',
+        'subscription_tier': :'String',
+        'is_government_subscription': :'BOOLEAN',
+        'promotion': :'Array<OCI::TenantManagerControlPlane::Models::Promotion>',
+        'purchase_entitlement_id': :'String',
         'start_date': :'DateTime',
         'end_date': :'DateTime',
         'time_updated': :'DateTime',
@@ -128,6 +176,14 @@ module OCI
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Array<OCI::TenantManagerControlPlane::Models::SubscriptionSku>] :skus The value to assign to the {#skus} property
     # @option attributes [Array<String>] :order_ids The value to assign to the {#order_ids} property
+    # @option attributes [String] :program_type The value to assign to the {#program_type} property
+    # @option attributes [String] :customer_country_code The value to assign to the {#customer_country_code} property
+    # @option attributes [String] :cloud_amount_currency The value to assign to the {#cloud_amount_currency} property
+    # @option attributes [String] :csi_number The value to assign to the {#csi_number} property
+    # @option attributes [String] :subscription_tier The value to assign to the {#subscription_tier} property
+    # @option attributes [BOOLEAN] :is_government_subscription The value to assign to the {#is_government_subscription} property
+    # @option attributes [Array<OCI::TenantManagerControlPlane::Models::Promotion>] :promotion The value to assign to the {#promotion} property
+    # @option attributes [String] :purchase_entitlement_id The value to assign to the {#purchase_entitlement_id} property
     # @option attributes [DateTime] :start_date The value to assign to the {#start_date} property
     # @option attributes [DateTime] :end_date The value to assign to the {#end_date} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
@@ -185,6 +241,52 @@ module OCI
       raise 'You cannot provide both :orderIds and :order_ids' if attributes.key?(:'orderIds') && attributes.key?(:'order_ids')
 
       self.order_ids = attributes[:'order_ids'] if attributes[:'order_ids']
+
+      self.program_type = attributes[:'programType'] if attributes[:'programType']
+
+      raise 'You cannot provide both :programType and :program_type' if attributes.key?(:'programType') && attributes.key?(:'program_type')
+
+      self.program_type = attributes[:'program_type'] if attributes[:'program_type']
+
+      self.customer_country_code = attributes[:'customerCountryCode'] if attributes[:'customerCountryCode']
+
+      raise 'You cannot provide both :customerCountryCode and :customer_country_code' if attributes.key?(:'customerCountryCode') && attributes.key?(:'customer_country_code')
+
+      self.customer_country_code = attributes[:'customer_country_code'] if attributes[:'customer_country_code']
+
+      self.cloud_amount_currency = attributes[:'cloudAmountCurrency'] if attributes[:'cloudAmountCurrency']
+
+      raise 'You cannot provide both :cloudAmountCurrency and :cloud_amount_currency' if attributes.key?(:'cloudAmountCurrency') && attributes.key?(:'cloud_amount_currency')
+
+      self.cloud_amount_currency = attributes[:'cloud_amount_currency'] if attributes[:'cloud_amount_currency']
+
+      self.csi_number = attributes[:'csiNumber'] if attributes[:'csiNumber']
+
+      raise 'You cannot provide both :csiNumber and :csi_number' if attributes.key?(:'csiNumber') && attributes.key?(:'csi_number')
+
+      self.csi_number = attributes[:'csi_number'] if attributes[:'csi_number']
+
+      self.subscription_tier = attributes[:'subscriptionTier'] if attributes[:'subscriptionTier']
+
+      raise 'You cannot provide both :subscriptionTier and :subscription_tier' if attributes.key?(:'subscriptionTier') && attributes.key?(:'subscription_tier')
+
+      self.subscription_tier = attributes[:'subscription_tier'] if attributes[:'subscription_tier']
+
+      self.is_government_subscription = attributes[:'isGovernmentSubscription'] unless attributes[:'isGovernmentSubscription'].nil?
+      self.is_government_subscription = false if is_government_subscription.nil? && !attributes.key?(:'isGovernmentSubscription') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isGovernmentSubscription and :is_government_subscription' if attributes.key?(:'isGovernmentSubscription') && attributes.key?(:'is_government_subscription')
+
+      self.is_government_subscription = attributes[:'is_government_subscription'] unless attributes[:'is_government_subscription'].nil?
+      self.is_government_subscription = false if is_government_subscription.nil? && !attributes.key?(:'isGovernmentSubscription') && !attributes.key?(:'is_government_subscription') # rubocop:disable Style/StringLiterals
+
+      self.promotion = attributes[:'promotion'] if attributes[:'promotion']
+
+      self.purchase_entitlement_id = attributes[:'purchaseEntitlementId'] if attributes[:'purchaseEntitlementId']
+
+      raise 'You cannot provide both :purchaseEntitlementId and :purchase_entitlement_id' if attributes.key?(:'purchaseEntitlementId') && attributes.key?(:'purchase_entitlement_id')
+
+      self.purchase_entitlement_id = attributes[:'purchase_entitlement_id'] if attributes[:'purchase_entitlement_id']
 
       self.start_date = attributes[:'startDate'] if attributes[:'startDate']
 
@@ -244,6 +346,14 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         skus == other.skus &&
         order_ids == other.order_ids &&
+        program_type == other.program_type &&
+        customer_country_code == other.customer_country_code &&
+        cloud_amount_currency == other.cloud_amount_currency &&
+        csi_number == other.csi_number &&
+        subscription_tier == other.subscription_tier &&
+        is_government_subscription == other.is_government_subscription &&
+        promotion == other.promotion &&
+        purchase_entitlement_id == other.purchase_entitlement_id &&
         start_date == other.start_date &&
         end_date == other.end_date &&
         time_updated == other.time_updated &&
@@ -263,7 +373,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, classic_subscription_id, service_name, is_classic_subscription, region_assignment, lifecycle_state, skus, order_ids, start_date, end_date, time_updated, time_created].hash
+      [id, compartment_id, classic_subscription_id, service_name, is_classic_subscription, region_assignment, lifecycle_state, skus, order_ids, program_type, customer_country_code, cloud_amount_currency, csi_number, subscription_tier, is_government_subscription, promotion, purchase_entitlement_id, start_date, end_date, time_updated, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

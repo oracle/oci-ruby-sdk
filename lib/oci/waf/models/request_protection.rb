@@ -8,16 +8,37 @@ module OCI
   # Module that allows to enable OCI-managed protection capabilities for incoming HTTP requests.
   class Waf::Models::RequestProtection
     # Ordered list of ProtectionRules. Rules are executed in order of appearance in this array.
-    # ProtectionRules in this array can only use protection cCapabilities of REQUEST_PROTECTION_CAPABILITY type.
+    # ProtectionRules in this array can only use protection Capabilities of REQUEST_PROTECTION_CAPABILITY type.
     #
     # @return [Array<OCI::Waf::Models::ProtectionRule>]
     attr_accessor :rules
+
+    # Maximum size of inspected HTTP message body in bytes. Actions to take if this limit is exceeded are defined in `bodyInspectionSizeLimitExceededActionName`.
+    #
+    # Body inspection maximum size allowed is defined with per-tenancy limit: 8192 bytes.
+    #
+    # @return [Integer]
+    attr_accessor :body_inspection_size_limit_in_bytes
+
+    # References action by name from actions defined in WebAppFirewallPolicy. Executed if HTTP message
+    # body size exceeds limit set in field `bodyInspectionSizeLimitInBytes`.
+    #
+    # If this field is `null` HTTP message body will inspected up to `bodyInspectionSizeLimitInBytes` and the rest
+    # will not be inspected by Protection Capabilities.
+    #
+    # Allowed action types:
+    # * **RETURN_HTTP_RESPONSE** terminates further execution of modules and rules and returns defined HTTP response.
+    #
+    # @return [String]
+    attr_accessor :body_inspection_size_limit_exceeded_action_name
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'rules': :'rules'
+        'rules': :'rules',
+        'body_inspection_size_limit_in_bytes': :'bodyInspectionSizeLimitInBytes',
+        'body_inspection_size_limit_exceeded_action_name': :'bodyInspectionSizeLimitExceededActionName'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -26,7 +47,9 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'rules': :'Array<OCI::Waf::Models::ProtectionRule>'
+        'rules': :'Array<OCI::Waf::Models::ProtectionRule>',
+        'body_inspection_size_limit_in_bytes': :'Integer',
+        'body_inspection_size_limit_exceeded_action_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -38,6 +61,8 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Array<OCI::Waf::Models::ProtectionRule>] :rules The value to assign to the {#rules} property
+    # @option attributes [Integer] :body_inspection_size_limit_in_bytes The value to assign to the {#body_inspection_size_limit_in_bytes} property
+    # @option attributes [String] :body_inspection_size_limit_exceeded_action_name The value to assign to the {#body_inspection_size_limit_exceeded_action_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -45,6 +70,18 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.rules = attributes[:'rules'] if attributes[:'rules']
+
+      self.body_inspection_size_limit_in_bytes = attributes[:'bodyInspectionSizeLimitInBytes'] if attributes[:'bodyInspectionSizeLimitInBytes']
+
+      raise 'You cannot provide both :bodyInspectionSizeLimitInBytes and :body_inspection_size_limit_in_bytes' if attributes.key?(:'bodyInspectionSizeLimitInBytes') && attributes.key?(:'body_inspection_size_limit_in_bytes')
+
+      self.body_inspection_size_limit_in_bytes = attributes[:'body_inspection_size_limit_in_bytes'] if attributes[:'body_inspection_size_limit_in_bytes']
+
+      self.body_inspection_size_limit_exceeded_action_name = attributes[:'bodyInspectionSizeLimitExceededActionName'] if attributes[:'bodyInspectionSizeLimitExceededActionName']
+
+      raise 'You cannot provide both :bodyInspectionSizeLimitExceededActionName and :body_inspection_size_limit_exceeded_action_name' if attributes.key?(:'bodyInspectionSizeLimitExceededActionName') && attributes.key?(:'body_inspection_size_limit_exceeded_action_name')
+
+      self.body_inspection_size_limit_exceeded_action_name = attributes[:'body_inspection_size_limit_exceeded_action_name'] if attributes[:'body_inspection_size_limit_exceeded_action_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -58,7 +95,9 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        rules == other.rules
+        rules == other.rules &&
+        body_inspection_size_limit_in_bytes == other.body_inspection_size_limit_in_bytes &&
+        body_inspection_size_limit_exceeded_action_name == other.body_inspection_size_limit_exceeded_action_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -74,7 +113,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [rules].hash
+      [rules, body_inspection_size_limit_in_bytes, body_inspection_size_limit_exceeded_action_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

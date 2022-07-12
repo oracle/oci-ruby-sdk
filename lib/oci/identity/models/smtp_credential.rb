@@ -13,7 +13,7 @@ module OCI
   # **Note:** The credential set is always an Oracle-generated SMTP user name and password pair;
   # you cannot designate the SMTP user name or the SMTP password.
   #
-  # For more information, see [Managing User Credentials](https://docs.cloud.oracle.com/Content/Identity/Tasks/managingcredentials.htm#SMTP).
+  # For more information, see [Managing User Credentials](https://docs.cloud.oracle.com/Content/Identity/access/managing-user-credentials.htm#SMTP).
   #
   class Identity::Models::SmtpCredential
     LIFECYCLE_STATE_ENUM = [
@@ -44,6 +44,9 @@ module OCI
     attr_accessor :user_id
 
     # The description you assign to the SMTP credential. Does not have to be unique, and it's changeable.
+    #
+    # (For tenancies that support identity domains) You can have an empty description.
+    #
     # @return [String]
     attr_accessor :description
 

@@ -9,7 +9,8 @@ module OCI
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class DatabaseTools::Models::UpdateDatabaseToolsConnectionDetails
     TYPE_ENUM = [
-      TYPE_ORACLE_DATABASE = 'ORACLE_DATABASE'.freeze
+      TYPE_ORACLE_DATABASE = 'ORACLE_DATABASE'.freeze,
+      TYPE_MYSQL = 'MYSQL'.freeze
     ].freeze
 
     # A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
@@ -28,7 +29,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # **[Required]** The DatabaseToolsConnection type.
+    # **[Required]** The `DatabaseToolsConnection` type.
     # @return [String]
     attr_reader :type
 
@@ -64,6 +65,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'type'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::DatabaseTools::Models::UpdateDatabaseToolsConnectionMySqlDetails' if type == 'MYSQL'
       return 'OCI::DatabaseTools::Models::UpdateDatabaseToolsConnectionOracleDatabaseDetails' if type == 'ORACLE_DATABASE'
 
       # TODO: Log a warning when the subtype is not found.

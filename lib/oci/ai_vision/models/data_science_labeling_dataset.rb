@@ -6,7 +6,7 @@ require_relative 'dataset'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Dataset created by the Data Labeling Service.
+  # The dataset created by the Data Labeling Service.
   class AiVision::Models::DataScienceLabelingDataset < AiVision::Models::Dataset
     # OCID of the Data Labeling dataset.
     # @return [String]

@@ -7,15 +7,15 @@ require 'date'
 module OCI
   # Images and ImageObjects can be labeled with an OntologyClass.
   class AiVision::Models::OntologyClass
-    # **[Required]** Name of the label.
+    # **[Required]** The label name.
     # @return [String]
     attr_accessor :name
 
-    # Parents of the label.
+    # The label parents.
     # @return [Array<String>]
     attr_accessor :parent_names
 
-    # Synonyms of the label.
+    # The label synonyms.
     # @return [Array<String>]
     attr_accessor :synonym_names
 

@@ -111,6 +111,11 @@ module OCI
     # @return [String]
     attr_reader :ipv6_bgp_status
 
+    # The FastConnect device that terminates the logical connection.
+    #
+    # @return [String]
+    attr_accessor :oci_logical_device_name
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -123,7 +128,8 @@ module OCI
         'oracle_bgp_peering_ipv6': :'oracleBgpPeeringIpv6',
         'vlan': :'vlan',
         'ipv4_bgp_status': :'ipv4BgpStatus',
-        'ipv6_bgp_status': :'ipv6BgpStatus'
+        'ipv6_bgp_status': :'ipv6BgpStatus',
+        'oci_logical_device_name': :'ociLogicalDeviceName'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -140,7 +146,8 @@ module OCI
         'oracle_bgp_peering_ipv6': :'String',
         'vlan': :'Integer',
         'ipv4_bgp_status': :'String',
-        'ipv6_bgp_status': :'String'
+        'ipv6_bgp_status': :'String',
+        'oci_logical_device_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -160,6 +167,7 @@ module OCI
     # @option attributes [Integer] :vlan The value to assign to the {#vlan} property
     # @option attributes [String] :ipv4_bgp_status The value to assign to the {#ipv4_bgp_status} property
     # @option attributes [String] :ipv6_bgp_status The value to assign to the {#ipv6_bgp_status} property
+    # @option attributes [String] :oci_logical_device_name The value to assign to the {#oci_logical_device_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -215,6 +223,12 @@ module OCI
       raise 'You cannot provide both :ipv6BgpStatus and :ipv6_bgp_status' if attributes.key?(:'ipv6BgpStatus') && attributes.key?(:'ipv6_bgp_status')
 
       self.ipv6_bgp_status = attributes[:'ipv6_bgp_status'] if attributes[:'ipv6_bgp_status']
+
+      self.oci_logical_device_name = attributes[:'ociLogicalDeviceName'] if attributes[:'ociLogicalDeviceName']
+
+      raise 'You cannot provide both :ociLogicalDeviceName and :oci_logical_device_name' if attributes.key?(:'ociLogicalDeviceName') && attributes.key?(:'oci_logical_device_name')
+
+      self.oci_logical_device_name = attributes[:'oci_logical_device_name'] if attributes[:'oci_logical_device_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -262,7 +276,8 @@ module OCI
         oracle_bgp_peering_ipv6 == other.oracle_bgp_peering_ipv6 &&
         vlan == other.vlan &&
         ipv4_bgp_status == other.ipv4_bgp_status &&
-        ipv6_bgp_status == other.ipv6_bgp_status
+        ipv6_bgp_status == other.ipv6_bgp_status &&
+        oci_logical_device_name == other.oci_logical_device_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -278,7 +293,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bgp_md5_auth_key, cross_connect_or_cross_connect_group_id, customer_bgp_peering_ip, oracle_bgp_peering_ip, customer_bgp_peering_ipv6, oracle_bgp_peering_ipv6, vlan, ipv4_bgp_status, ipv6_bgp_status].hash
+      [bgp_md5_auth_key, cross_connect_or_cross_connect_group_id, customer_bgp_peering_ip, oracle_bgp_peering_ip, customer_bgp_peering_ipv6, oracle_bgp_peering_ipv6, vlan, ipv4_bgp_status, ipv6_bgp_status, oci_logical_device_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

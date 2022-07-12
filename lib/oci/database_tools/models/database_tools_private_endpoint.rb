@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Description of DatabaseToolsPrivateEndpoint.
+  # Description of Database Tools private endpoint.
   class DatabaseTools::Models::DatabaseToolsPrivateEndpoint
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
@@ -18,7 +18,7 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the containing Compartment.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the Database Tools private endpoint.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -44,23 +44,23 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # A description of the DatabaseToolsPrivateEndpoint.
+    # A description of the Database Tools private endpoint.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DatabaseToolsPrivateEndpoint.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Tools private endpoint.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DatabaseToolsEndpointService.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Tools Endpoint Service.
     # @return [String]
     attr_accessor :endpoint_service_id
 
-    # **[Required]** The time the DatabaseToolsPrivateEndpoint was created. An RFC3339 formatted datetime string
+    # **[Required]** The time the Database Tools private endpoint was created. An RFC3339 formatted datetime string
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The time the DatabaseToolsPrivateEndpoint was updated. An RFC3339 formatted datetime string
+    # **[Required]** The time the Database Tools private endpoint was updated. An RFC3339 formatted datetime string
     # @return [DateTime]
     attr_accessor :time_updated
 
@@ -88,7 +88,7 @@ module OCI
     # @return [Array<String>]
     attr_accessor :additional_fqdns
 
-    # **[Required]** The current state of the DatabaseToolsPrivateEndpoint.
+    # **[Required]** The current state of the Database Tools private endpoint.
     # @return [String]
     attr_reader :lifecycle_state
 

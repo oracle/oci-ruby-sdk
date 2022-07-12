@@ -12,8 +12,17 @@ module OCI
     # @return [String]
     attr_accessor :service_url
 
-    # @return [OCI::DataIntegration::Models::CreateConnectionFromBICC]
+    # @return [OCI::DataIntegration::Models::CreateConnectionDetails]
     attr_accessor :default_connection
+
+    # @return [OCI::DataIntegration::Models::DataAssetSummaryFromObjectStorage]
+    attr_accessor :staging_data_asset
+
+    # @return [OCI::DataIntegration::Models::ConnectionSummaryFromObjectStorage]
+    attr_accessor :staging_connection
+
+    # @return [OCI::DataIntegration::Models::Schema]
+    attr_accessor :bucket_schema
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -30,7 +39,10 @@ module OCI
         'asset_properties': :'assetProperties',
         'registry_metadata': :'registryMetadata',
         'service_url': :'serviceUrl',
-        'default_connection': :'defaultConnection'
+        'default_connection': :'defaultConnection',
+        'staging_data_asset': :'stagingDataAsset',
+        'staging_connection': :'stagingConnection',
+        'bucket_schema': :'bucketSchema'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -50,7 +62,10 @@ module OCI
         'asset_properties': :'Hash<String, String>',
         'registry_metadata': :'OCI::DataIntegration::Models::RegistryMetadata',
         'service_url': :'String',
-        'default_connection': :'OCI::DataIntegration::Models::CreateConnectionFromBICC'
+        'default_connection': :'OCI::DataIntegration::Models::CreateConnectionDetails',
+        'staging_data_asset': :'OCI::DataIntegration::Models::DataAssetSummaryFromObjectStorage',
+        'staging_connection': :'OCI::DataIntegration::Models::ConnectionSummaryFromObjectStorage',
+        'bucket_schema': :'OCI::DataIntegration::Models::Schema'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -71,7 +86,10 @@ module OCI
     # @option attributes [Hash<String, String>] :asset_properties The value to assign to the {OCI::DataIntegration::Models::CreateDataAssetDetails#asset_properties #asset_properties} proprety
     # @option attributes [OCI::DataIntegration::Models::RegistryMetadata] :registry_metadata The value to assign to the {OCI::DataIntegration::Models::CreateDataAssetDetails#registry_metadata #registry_metadata} proprety
     # @option attributes [String] :service_url The value to assign to the {#service_url} property
-    # @option attributes [OCI::DataIntegration::Models::CreateConnectionFromBICC] :default_connection The value to assign to the {#default_connection} property
+    # @option attributes [OCI::DataIntegration::Models::CreateConnectionDetails] :default_connection The value to assign to the {#default_connection} property
+    # @option attributes [OCI::DataIntegration::Models::DataAssetSummaryFromObjectStorage] :staging_data_asset The value to assign to the {#staging_data_asset} property
+    # @option attributes [OCI::DataIntegration::Models::ConnectionSummaryFromObjectStorage] :staging_connection The value to assign to the {#staging_connection} property
+    # @option attributes [OCI::DataIntegration::Models::Schema] :bucket_schema The value to assign to the {#bucket_schema} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -93,6 +111,24 @@ module OCI
       raise 'You cannot provide both :defaultConnection and :default_connection' if attributes.key?(:'defaultConnection') && attributes.key?(:'default_connection')
 
       self.default_connection = attributes[:'default_connection'] if attributes[:'default_connection']
+
+      self.staging_data_asset = attributes[:'stagingDataAsset'] if attributes[:'stagingDataAsset']
+
+      raise 'You cannot provide both :stagingDataAsset and :staging_data_asset' if attributes.key?(:'stagingDataAsset') && attributes.key?(:'staging_data_asset')
+
+      self.staging_data_asset = attributes[:'staging_data_asset'] if attributes[:'staging_data_asset']
+
+      self.staging_connection = attributes[:'stagingConnection'] if attributes[:'stagingConnection']
+
+      raise 'You cannot provide both :stagingConnection and :staging_connection' if attributes.key?(:'stagingConnection') && attributes.key?(:'staging_connection')
+
+      self.staging_connection = attributes[:'staging_connection'] if attributes[:'staging_connection']
+
+      self.bucket_schema = attributes[:'bucketSchema'] if attributes[:'bucketSchema']
+
+      raise 'You cannot provide both :bucketSchema and :bucket_schema' if attributes.key?(:'bucketSchema') && attributes.key?(:'bucket_schema')
+
+      self.bucket_schema = attributes[:'bucket_schema'] if attributes[:'bucket_schema']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -117,7 +153,10 @@ module OCI
         asset_properties == other.asset_properties &&
         registry_metadata == other.registry_metadata &&
         service_url == other.service_url &&
-        default_connection == other.default_connection
+        default_connection == other.default_connection &&
+        staging_data_asset == other.staging_data_asset &&
+        staging_connection == other.staging_connection &&
+        bucket_schema == other.bucket_schema
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -133,7 +172,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [model_type, key, model_version, name, description, object_status, identifier, external_key, asset_properties, registry_metadata, service_url, default_connection].hash
+      [model_type, key, model_version, name, description, object_status, identifier, external_key, asset_properties, registry_metadata, service_url, default_connection, staging_data_asset, staging_connection, bucket_schema].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -12,7 +12,7 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_certificate_validation_enabled
 
-    # Verify all the search strings present in response.
+    # Verifies all the search strings present in the response.
     # If any search string is not present in the response, then it will be considered as a failure.
     #
     # @return [Array<OCI::ApmSynthetics::Models::VerifyText>]

@@ -6,29 +6,29 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Table extracted from a document.
+  # The table extracted from a document.
   class AiVision::Models::Table
-    # **[Required]** Number of rows.
+    # **[Required]** The number of rows.
     # @return [Integer]
     attr_accessor :row_count
 
-    # **[Required]** Number of columns.
+    # **[Required]** The number of columns.
     # @return [Integer]
     attr_accessor :column_count
 
-    # **[Required]** Header rows.
+    # **[Required]** The header rows.
     # @return [Array<OCI::AiVision::Models::TableRow>]
     attr_accessor :header_rows
 
-    # **[Required]** Body rows.
+    # **[Required]** The body rows.
     # @return [Array<OCI::AiVision::Models::TableRow>]
     attr_accessor :body_rows
 
-    # **[Required]** Footer rows.
+    # **[Required]** the footer rows.
     # @return [Array<OCI::AiVision::Models::TableRow>]
     attr_accessor :footer_rows
 
-    # **[Required]** Confidence score between 0 to 1.
+    # **[Required]** The confidence score between 0 and 1.
     # @return [Float]
     attr_accessor :confidence
 

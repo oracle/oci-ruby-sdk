@@ -275,6 +275,106 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Opsi::OperationsInsightsClient#change_operations_insights_private_endpoint_compartment} and then waits for the {OCI::Opsi::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] operations_insights_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Operation Insights private endpoint.
+    # @param [OCI::Opsi::Models::ChangeOperationsInsightsPrivateEndpointCompartmentDetails] change_operations_insights_private_endpoint_compartment_details The details used to change the compartment of a private endpoint
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Opsi::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Opsi::OperationsInsightsClient#change_operations_insights_private_endpoint_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Opsi::Models::WorkRequest}
+    def change_operations_insights_private_endpoint_compartment_and_wait_for_state(operations_insights_private_endpoint_id, change_operations_insights_private_endpoint_compartment_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_operations_insights_private_endpoint_compartment(operations_insights_private_endpoint_id, change_operations_insights_private_endpoint_compartment_details, base_operation_opts)
+      use_util = OCI::Opsi::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Opsi::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Opsi::OperationsInsightsClient#change_pe_comanaged_database_insight} and then waits for the {OCI::Opsi::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] database_insight_id Unique database insight identifier
+    # @param [OCI::Opsi::Models::ChangePeComanagedDatabaseInsightDetails] change_pe_comanaged_database_insight_details The information to be updated.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Opsi::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Opsi::OperationsInsightsClient#change_pe_comanaged_database_insight}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Opsi::Models::WorkRequest}
+    def change_pe_comanaged_database_insight_and_wait_for_state(database_insight_id, change_pe_comanaged_database_insight_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_pe_comanaged_database_insight(database_insight_id, change_pe_comanaged_database_insight_details, base_operation_opts)
+      use_util = OCI::Opsi::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Opsi::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Opsi::OperationsInsightsClient#create_awr_hub} and then waits for the {OCI::Opsi::Models::WorkRequest}
     # to enter the given state(s).
     #
@@ -484,6 +584,55 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Opsi::Models::WorkRequest}
     def create_host_insight_and_wait_for_state(create_host_insight_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.create_host_insight(create_host_insight_details, base_operation_opts)
+      use_util = OCI::Opsi::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Opsi::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Opsi::OperationsInsightsClient#create_operations_insights_private_endpoint} and then waits for the {OCI::Opsi::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::Opsi::Models::CreateOperationsInsightsPrivateEndpointDetails] create_operations_insights_private_endpoint_details Details to create a new private endpoint.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Opsi::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Opsi::OperationsInsightsClient#create_operations_insights_private_endpoint}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Opsi::Models::WorkRequest}
+    def create_operations_insights_private_endpoint_and_wait_for_state(create_operations_insights_private_endpoint_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_operations_insights_private_endpoint(create_operations_insights_private_endpoint_details, base_operation_opts)
       use_util = OCI::Opsi::Util.respond_to?(:wait_on_work_request)
 
       return operation_result if wait_for_states.empty? && !use_util
@@ -827,6 +976,55 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Opsi::Models::WorkRequest}
     def delete_host_insight_and_wait_for_state(host_insight_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.delete_host_insight(host_insight_id, base_operation_opts)
+      use_util = OCI::Opsi::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Opsi::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Opsi::OperationsInsightsClient#delete_operations_insights_private_endpoint} and then waits for the {OCI::Opsi::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] operations_insights_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Operation Insights private endpoint.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Opsi::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Opsi::OperationsInsightsClient#delete_operations_insights_private_endpoint}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Opsi::Models::WorkRequest}
+    def delete_operations_insights_private_endpoint_and_wait_for_state(operations_insights_private_endpoint_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.delete_operations_insights_private_endpoint(operations_insights_private_endpoint_id, base_operation_opts)
       use_util = OCI::Opsi::Util.respond_to?(:wait_on_work_request)
 
       return operation_result if wait_for_states.empty? && !use_util
@@ -1521,6 +1719,56 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Opsi::Models::WorkRequest}
     def update_host_insight_and_wait_for_state(host_insight_id, update_host_insight_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.update_host_insight(host_insight_id, update_host_insight_details, base_operation_opts)
+      use_util = OCI::Opsi::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Opsi::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Opsi::OperationsInsightsClient#update_operations_insights_private_endpoint} and then waits for the {OCI::Opsi::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] operations_insights_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Operation Insights private endpoint.
+    # @param [OCI::Opsi::Models::UpdateOperationsInsightsPrivateEndpointDetails] update_operations_insights_private_endpoint_details The details used to update a private endpoint.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Opsi::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Opsi::OperationsInsightsClient#update_operations_insights_private_endpoint}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Opsi::Models::WorkRequest}
+    def update_operations_insights_private_endpoint_and_wait_for_state(operations_insights_private_endpoint_id, update_operations_insights_private_endpoint_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_operations_insights_private_endpoint(operations_insights_private_endpoint_id, update_operations_insights_private_endpoint_details, base_operation_opts)
       use_util = OCI::Opsi::Util.respond_to?(:wait_on_work_request)
 
       return operation_result if wait_for_states.empty? && !use_util

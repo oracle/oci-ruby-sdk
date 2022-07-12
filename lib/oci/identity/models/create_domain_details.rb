@@ -5,17 +5,17 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Create a domain details
+  # (For tenancies that support identity domains) Details for creating an identity domain.
   class Identity::Models::CreateDomainDetails
-    # **[Required]** The OCID of the Compartment where domain is created
+    # **[Required]** The OCID of the compartment where the identity domain is created.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The mutable display name of the domain.
+    # **[Required]** The mutable display name of the identity domain.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** Domain entity description
+    # **[Required]** The identity domain description. You can have an empty description.
     # @return [String]
     attr_accessor :description
 
@@ -27,40 +27,38 @@ module OCI
     # @return [String]
     attr_accessor :home_region
 
-    # **[Required]** The License type of Domain
+    # **[Required]** The license type of the identity domain.
     # @return [String]
     attr_accessor :license_type
 
-    # Indicates whether domain is hidden on login screen or not.
+    # Indicates whether the identity domain is hidden on the sign-in screen or not.
     #
     # @return [BOOLEAN]
     attr_accessor :is_hidden_on_login
 
-    # The admin first name
+    # The administrator's first name.
     # @return [String]
     attr_accessor :admin_first_name
 
-    # The admin last name
+    # The administrator's last name.
     # @return [String]
     attr_accessor :admin_last_name
 
-    # The admin user name
+    # The administrator's user name.
     # @return [String]
     attr_accessor :admin_user_name
 
-    # The admin email address
+    # The administrator's email address.
     # @return [String]
     attr_accessor :admin_email
 
-    # Indicates if admin user created in IDCS stripe would like to receive notification like welcome email
-    # or not.
-    # Required field only if admin information is provided, otherwise optional.
+    # Indicates whether or not the administrator user created in the IDCS stripe would like to receive notifications like a welcome email.
+    # This field is required only if admin information is provided. This field is otherwise optional.
     #
     # @return [BOOLEAN]
     attr_accessor :is_notification_bypassed
 
-    # Optional field to indicate whether users in the domain are required to have a primary email address or not
-    # Defaults to true
+    # Optional field to indicate whether users in the identity domain are required to have a primary email address or not. The default is true.
     #
     # @return [BOOLEAN]
     attr_accessor :is_primary_email_required

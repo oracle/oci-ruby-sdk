@@ -5,9 +5,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # List of DatabaseToolsEndpointServiceSummary items.
+  # List of `DatabaseToolsEndpointServiceSummary` items.
   class DatabaseTools::Models::DatabaseToolsEndpointServiceCollection
-    # **[Required]** Array of DatabaseToolsEndpointServiceSummary.
+    # **[Required]** Array of `DatabaseToolsEndpointServiceSummary` items.
     # @return [Array<OCI::DatabaseTools::Models::DatabaseToolsEndpointServiceSummary>]
     attr_accessor :items
 

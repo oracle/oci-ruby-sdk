@@ -23,7 +23,7 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # A description of the DatabaseToolsPrivateEndpoint.
+    # A description of the Database Tools private endpoint.
     # @return [String]
     attr_accessor :description
 

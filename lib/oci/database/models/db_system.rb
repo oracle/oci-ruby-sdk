@@ -8,6 +8,12 @@ require 'logger'
 module OCI
   # DbSystem model.
   class Database::Models::DbSystem
+    STORAGE_VOLUME_PERFORMANCE_MODE_ENUM = [
+      STORAGE_VOLUME_PERFORMANCE_MODE_BALANCED = 'BALANCED'.freeze,
+      STORAGE_VOLUME_PERFORMANCE_MODE_HIGH_PERFORMANCE = 'HIGH_PERFORMANCE'.freeze,
+      STORAGE_VOLUME_PERFORMANCE_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     DATABASE_EDITION_ENUM = [
       DATABASE_EDITION_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
       DATABASE_EDITION_ENTERPRISE_EDITION = 'ENTERPRISE_EDITION'.freeze,
@@ -26,6 +32,7 @@ module OCI
       LIFECYCLE_STATE_MIGRATED = 'MIGRATED'.freeze,
       LIFECYCLE_STATE_MAINTENANCE_IN_PROGRESS = 'MAINTENANCE_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_NEEDS_ATTENTION = 'NEEDS_ATTENTION'.freeze,
+      LIFECYCLE_STATE_UPGRADING = 'UPGRADING'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -84,9 +91,9 @@ module OCI
     # @return [String]
     attr_accessor :backup_subnet_id
 
-    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # The list of [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) for the network security groups (NSGs) to which this resource belongs. Setting this to an empty list removes all resources from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
     # **NsgIds restrictions:**
-    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
+    # - A network security group (NSG) is optional for Autonomous Databases with private access. The nsgIds list can be empty.
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
@@ -95,6 +102,15 @@ module OCI
     #
     # @return [Array<String>]
     attr_accessor :backup_network_nsg_ids
+
+    # Memory allocated to the DB system, in gigabytes.
+    # @return [Integer]
+    attr_accessor :memory_size_in_gbs
+
+    # The block storage volume performance level. Valid values are `BALANCED` and `HIGH_PERFORMANCE`. See [Block Volume Performance](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumeperformance.htm) for more information.
+    #
+    # @return [String]
+    attr_reader :storage_volume_performance_mode
 
     # **[Required]** The shape of the DB system. The shape determines resources to allocate to the DB system.
     # - For virtual machine shapes, the number of CPU cores and memory
@@ -282,6 +298,8 @@ module OCI
         'backup_subnet_id': :'backupSubnetId',
         'nsg_ids': :'nsgIds',
         'backup_network_nsg_ids': :'backupNetworkNsgIds',
+        'memory_size_in_gbs': :'memorySizeInGBs',
+        'storage_volume_performance_mode': :'storageVolumePerformanceMode',
         'shape': :'shape',
         'db_system_options': :'dbSystemOptions',
         'ssh_public_keys': :'sshPublicKeys',
@@ -335,6 +353,8 @@ module OCI
         'backup_subnet_id': :'String',
         'nsg_ids': :'Array<String>',
         'backup_network_nsg_ids': :'Array<String>',
+        'memory_size_in_gbs': :'Integer',
+        'storage_volume_performance_mode': :'String',
         'shape': :'String',
         'db_system_options': :'OCI::Database::Models::DbSystemOptions',
         'ssh_public_keys': :'Array<String>',
@@ -390,6 +410,8 @@ module OCI
     # @option attributes [String] :backup_subnet_id The value to assign to the {#backup_subnet_id} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [Array<String>] :backup_network_nsg_ids The value to assign to the {#backup_network_nsg_ids} property
+    # @option attributes [Integer] :memory_size_in_gbs The value to assign to the {#memory_size_in_gbs} property
+    # @option attributes [String] :storage_volume_performance_mode The value to assign to the {#storage_volume_performance_mode} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [OCI::Database::Models::DbSystemOptions] :db_system_options The value to assign to the {#db_system_options} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
@@ -486,6 +508,20 @@ module OCI
       raise 'You cannot provide both :backupNetworkNsgIds and :backup_network_nsg_ids' if attributes.key?(:'backupNetworkNsgIds') && attributes.key?(:'backup_network_nsg_ids')
 
       self.backup_network_nsg_ids = attributes[:'backup_network_nsg_ids'] if attributes[:'backup_network_nsg_ids']
+
+      self.memory_size_in_gbs = attributes[:'memorySizeInGBs'] if attributes[:'memorySizeInGBs']
+
+      raise 'You cannot provide both :memorySizeInGBs and :memory_size_in_gbs' if attributes.key?(:'memorySizeInGBs') && attributes.key?(:'memory_size_in_gbs')
+
+      self.memory_size_in_gbs = attributes[:'memory_size_in_gbs'] if attributes[:'memory_size_in_gbs']
+
+      self.storage_volume_performance_mode = attributes[:'storageVolumePerformanceMode'] if attributes[:'storageVolumePerformanceMode']
+      self.storage_volume_performance_mode = "BALANCED" if storage_volume_performance_mode.nil? && !attributes.key?(:'storageVolumePerformanceMode') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :storageVolumePerformanceMode and :storage_volume_performance_mode' if attributes.key?(:'storageVolumePerformanceMode') && attributes.key?(:'storage_volume_performance_mode')
+
+      self.storage_volume_performance_mode = attributes[:'storage_volume_performance_mode'] if attributes[:'storage_volume_performance_mode']
+      self.storage_volume_performance_mode = "BALANCED" if storage_volume_performance_mode.nil? && !attributes.key?(:'storageVolumePerformanceMode') && !attributes.key?(:'storage_volume_performance_mode') # rubocop:disable Style/StringLiterals
 
       self.shape = attributes[:'shape'] if attributes[:'shape']
 
@@ -685,6 +721,19 @@ module OCI
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] storage_volume_performance_mode Object to be assigned
+    def storage_volume_performance_mode=(storage_volume_performance_mode)
+      # rubocop:disable Style/ConditionalAssignment
+      if storage_volume_performance_mode && !STORAGE_VOLUME_PERFORMANCE_MODE_ENUM.include?(storage_volume_performance_mode)
+        OCI.logger.debug("Unknown value for 'storage_volume_performance_mode' [" + storage_volume_performance_mode + "]. Mapping to 'STORAGE_VOLUME_PERFORMANCE_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @storage_volume_performance_mode = STORAGE_VOLUME_PERFORMANCE_MODE_UNKNOWN_ENUM_VALUE
+      else
+        @storage_volume_performance_mode = storage_volume_performance_mode
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] database_edition Object to be assigned
     def database_edition=(database_edition)
       # rubocop:disable Style/ConditionalAssignment
@@ -755,6 +804,8 @@ module OCI
         backup_subnet_id == other.backup_subnet_id &&
         nsg_ids == other.nsg_ids &&
         backup_network_nsg_ids == other.backup_network_nsg_ids &&
+        memory_size_in_gbs == other.memory_size_in_gbs &&
+        storage_volume_performance_mode == other.storage_volume_performance_mode &&
         shape == other.shape &&
         db_system_options == other.db_system_options &&
         ssh_public_keys == other.ssh_public_keys &&
@@ -805,7 +856,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [iorm_config_cache, id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, db_system_options, ssh_public_keys, time_zone, hostname, domain, kms_key_id, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, scan_dns_name, zone_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, maintenance_window, last_maintenance_run_id, next_maintenance_run_id, freeform_tags, defined_tags, source_db_system_id, point_in_time_data_disk_clone_timestamp].hash
+      [iorm_config_cache, id, compartment_id, display_name, availability_domain, fault_domains, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, memory_size_in_gbs, storage_volume_performance_mode, shape, db_system_options, ssh_public_keys, time_zone, hostname, domain, kms_key_id, version, cpu_core_count, cluster_name, data_storage_percentage, database_edition, last_patch_history_entry_id, listener_port, lifecycle_state, time_created, lifecycle_details, disk_redundancy, sparse_diskgroup, scan_ip_ids, vip_ids, scan_dns_record_id, scan_dns_name, zone_id, data_storage_size_in_gbs, reco_storage_size_in_gb, node_count, license_model, maintenance_window, last_maintenance_run_id, next_maintenance_run_id, freeform_tags, defined_tags, source_db_system_id, point_in_time_data_disk_clone_timestamp].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

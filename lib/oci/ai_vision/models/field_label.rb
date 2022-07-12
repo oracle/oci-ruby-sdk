@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Label in a field.
+  # The label in a field.
   class AiVision::Models::FieldLabel
-    # **[Required]** Name of the field label.
+    # **[Required]** The name of the field label.
     # @return [String]
     attr_accessor :name
 
-    # Confidence score between 0 to 1.
+    # The confidence score between 0 and 1.
     # @return [Float]
     attr_accessor :confidence
 

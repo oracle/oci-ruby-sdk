@@ -36,11 +36,13 @@ module OCI
     # @return [String]
     attr_reader :service_level_agreement_type
 
-    # The OCID of the Autonomous Exadata Infrastructure.
+    # **No longer used.** This parameter is no longer used for Autonomous Database on dedicated Exadata infrasture. Specify a `cloudAutonomousVmClusterId` instead. Using this parameter will cause the operation to fail.
+    #
     # @return [String]
     attr_accessor :autonomous_exadata_infrastructure_id
 
-    # The OCID of the peer Autonomous Exadata Infrastructure for Autonomous Data Guard.
+    # *No longer used.* This parameter is no longer used for Autonomous Database on dedicated Exadata infrasture. Specify a `peerCloudAutonomousVmClusterId` instead. Using this parameter will cause the operation to fail.
+    #
     # @return [String]
     attr_accessor :peer_autonomous_exadata_infrastructure_id
 

@@ -33,13 +33,13 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment the DRG is in. The DRG route table
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment the DRG is in. The DRG route table
     # is always in the same compartment as the DRG.
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DRG the DRG that contains this route table.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the DRG the DRG that contains this route table.
     #
     # @return [String]
     attr_accessor :drg_id
@@ -77,7 +77,7 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the import route distribution used to specify how incoming route advertisements from
+    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the import route distribution used to specify how incoming route advertisements from
     # referenced attachments are inserted into the DRG route table.
     #
     # @return [String]

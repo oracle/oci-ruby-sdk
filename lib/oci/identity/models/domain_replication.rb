@@ -5,17 +5,17 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Domain replication states.
+  # (For tenancies that support identity domains) Identity domain replication states.
   class Identity::Models::DomainReplication
-    # **[Required]** Version number indicating the value of kievTxnId, starting from which, the domain replication events need to be returned.
+    # **[Required]** The version number indicating the value of kievTxnId, starting from which the identity domain replication events need to be returned.
     # @return [Float]
     attr_accessor :opc_water_mark
 
-    # **[Required]** Custom value defining the order of records with same kievTxnId
+    # **[Required]** A custom value defining the order of records with the same kievTxnId.
     # @return [Float]
     attr_accessor :txn_seq_number
 
-    # **[Required]** The domain's replication state
+    # **[Required]** The identity domain's replication state.
     # @return [Array<OCI::Identity::Models::DomainReplicationStates>]
     attr_accessor :domain_replication_states
 

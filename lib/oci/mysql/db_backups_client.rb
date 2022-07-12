@@ -484,7 +484,7 @@ module OCI
     #   contact Oracle about a specific request, please provide the request
     #   ID that you supplied in this header with the request.
     #
-    # @return [Response] A Response object with data of type nil
+    # @return [Response] A Response object with data of type {OCI::Mysql::Models::Backup Backup}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/mysql/update_backup.rb.html) to see an example of how to use update_backup API.
     def update_backup(backup_id, update_backup_details, opts = {})
       logger.debug 'Calling operation DbBackupsClient#update_backup.' if logger
@@ -519,7 +519,8 @@ module OCI
           header_params: header_params,
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
-          body: post_body
+          body: post_body,
+          return_type: 'OCI::Mysql::Models::Backup'
         )
       end
       # rubocop:enable Metrics/BlockLength

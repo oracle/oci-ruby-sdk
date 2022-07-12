@@ -13,6 +13,7 @@ module OCI
       PLATFORM_TYPE_LINUX = 'LINUX'.freeze,
       PLATFORM_TYPE_SOLARIS = 'SOLARIS'.freeze,
       PLATFORM_TYPE_SUNOS = 'SUNOS'.freeze,
+      PLATFORM_TYPE_ZLINUX = 'ZLINUX'.freeze,
       PLATFORM_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -42,7 +43,7 @@ module OCI
 
     # Platform type.
     # Supported platformType(s) for MACS-managed external host insight: [LINUX].
-    # Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS].
+    # Supported platformType(s) for EM-managed external host insight: [LINUX, SOLARIS, SUNOS, ZLINUX].
     #
     # @return [String]
     attr_reader :platform_type

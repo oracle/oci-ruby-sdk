@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies how to process the data. Supported formats include DOCUMENT, IMAGE and TEXT.
+  # It specifies how to process the data. Supported formats include DOCUMENT, IMAGE, and TEXT.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class DataLabelingService::Models::DatasetFormatDetails
     FORMAT_TYPE_ENUM = [
@@ -16,7 +16,7 @@ module OCI
       FORMAT_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Format type. DOCUMENT format is for record contents that are PDFs or TIFFs. IMAGE format is for record contents that are JPEGs or PNGs. TEXT format is for record contents that are txt files.
+    # **[Required]** The format type. DOCUMENT format is for record contents that are PDFs or TIFFs. IMAGE format is for record contents that are JPEGs or PNGs. TEXT format is for record contents that are TXT files.
     # @return [String]
     attr_reader :format_type
 

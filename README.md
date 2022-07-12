@@ -1,6 +1,8 @@
 # Oracle Cloud Infrastructure Ruby SDK
 
-This is Oracle Cloud Infrastructure SDK for Ruby. This project is open source, in active development and maintained by Oracle Corp. The home page for the project is <a href="https://docs.cloud.oracle.com/en-us/iaas/Content/API/SDKDocs/rubysdk.htm">here</a>.
+This is Oracle Cloud Infrastructure SDK for Ruby. This project is open source and maintained by Oracle Corp. The home page for the project is <a href="https://docs.cloud.oracle.com/en-us/iaas/Content/API/SDKDocs/rubysdk.htm">here</a>.
+
+This project is no longer being actively developed by Oracle. We will continue to address security vulnerabilities for the foreseeable future, and will respond to questions on github, but have no plans to introduce any new functionality, and may not be able to address any non-security related issues. We encourage developers to migrate to other OCI SDKs, and developers may fork this project and enhance it as they desire.
 
 **Version 2.17.0**
 
@@ -15,8 +17,10 @@ The Ruby SDK supports the following services:
 * Announcements
 * AI Anomaly Detection service
 * AI Language service
+* AI Speech service
 * AI Vision
 * API Gateway
+* Application Dependency Management
 * Application Management service
 * Application Migration
 * Application Performance Monitoring
@@ -36,6 +40,7 @@ The Ruby SDK supports the following services:
 * Content and Experience
 * Core Services (which includes Networking, Compute, and Block Volume)
 * Data Catalog
+* Data Connectivity Management service
 * Data Flow
 * Data Labeling service
 * Database Migration
@@ -55,12 +60,14 @@ The Ruby SDK supports the following services:
 * Functions
 * Generic Artifacts service
 * Golden Gate
+* Governance Rules service
 * Health Checks
 * Identity and Access Management
 * Incident Management
 * Integration Cloud
 * Java Management Service
 * Key Management
+* License Manager
 * Limits
 * Load Balancing
 * Logging
@@ -72,10 +79,13 @@ The Ruby SDK supports the following services:
 * Marketplace
 * Monitoring
 * MySQL Database service
+* Network Firewall
 * Network Load Balancing
+* Network Monitoring
 * Networking Topology
 * Notification
 * OCI Registry
+* OneSubscription service
 * Oracle Content and Experience
 * Oracle Roving Edge Infrastructure
 * Object Storage
@@ -87,8 +97,10 @@ The Ruby SDK supports the following services:
 * Search
 * Service Catalog service
 * Secret Management (for the Vault service)
+* Service Mesh
 * Service Connector Hub
 * Source Code Management service
+* Stack Monitoring
 * Streaming
 * Support Management
 * Threat Intelligence

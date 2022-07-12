@@ -5,17 +5,17 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # OCI Object Storage Location.
+  # The Object Storage Location.
   class AiVision::Models::OutputLocation
-    # **[Required]** Object Storage namespace.
+    # **[Required]** The Object Storage namespace.
     # @return [String]
     attr_accessor :namespace_name
 
-    # **[Required]** Object Storage bucket name.
+    # **[Required]** The Object Storage bucket name.
     # @return [String]
     attr_accessor :bucket_name
 
-    # **[Required]** Object Storage folder name.
+    # **[Required]** The Object Storage folder name.
     # @return [String]
     attr_accessor :prefix
 

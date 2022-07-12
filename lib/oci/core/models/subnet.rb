@@ -101,6 +101,11 @@ module OCI
     # @return [String]
     attr_accessor :ipv6_cidr_block
 
+    # The list of all IPv6 CIDR blocks (Oracle allocated IPv6 GUA, ULA or private IPv6 CIDR blocks, BYOIPv6 CIDR blocks) for the subnet.
+    #
+    # @return [Array<String>]
+    attr_accessor :ipv6_cidr_blocks
+
     # For an IPv6-enabled subnet, this is the IPv6 address of the virtual router.
     #
     # Example: `2001:0db8:0123:1111:89ab:cdef:1234:5678`
@@ -205,6 +210,7 @@ module OCI
         'freeform_tags': :'freeformTags',
         'id': :'id',
         'ipv6_cidr_block': :'ipv6CidrBlock',
+        'ipv6_cidr_blocks': :'ipv6CidrBlocks',
         'ipv6_virtual_router_ip': :'ipv6VirtualRouterIp',
         'lifecycle_state': :'lifecycleState',
         'prohibit_internet_ingress': :'prohibitInternetIngress',
@@ -234,6 +240,7 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'id': :'String',
         'ipv6_cidr_block': :'String',
+        'ipv6_cidr_blocks': :'Array<String>',
         'ipv6_virtual_router_ip': :'String',
         'lifecycle_state': :'String',
         'prohibit_internet_ingress': :'BOOLEAN',
@@ -265,6 +272,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :ipv6_cidr_block The value to assign to the {#ipv6_cidr_block} property
+    # @option attributes [Array<String>] :ipv6_cidr_blocks The value to assign to the {#ipv6_cidr_blocks} property
     # @option attributes [String] :ipv6_virtual_router_ip The value to assign to the {#ipv6_virtual_router_ip} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [BOOLEAN] :prohibit_internet_ingress The value to assign to the {#prohibit_internet_ingress} property
@@ -337,6 +345,12 @@ module OCI
       raise 'You cannot provide both :ipv6CidrBlock and :ipv6_cidr_block' if attributes.key?(:'ipv6CidrBlock') && attributes.key?(:'ipv6_cidr_block')
 
       self.ipv6_cidr_block = attributes[:'ipv6_cidr_block'] if attributes[:'ipv6_cidr_block']
+
+      self.ipv6_cidr_blocks = attributes[:'ipv6CidrBlocks'] if attributes[:'ipv6CidrBlocks']
+
+      raise 'You cannot provide both :ipv6CidrBlocks and :ipv6_cidr_blocks' if attributes.key?(:'ipv6CidrBlocks') && attributes.key?(:'ipv6_cidr_blocks')
+
+      self.ipv6_cidr_blocks = attributes[:'ipv6_cidr_blocks'] if attributes[:'ipv6_cidr_blocks']
 
       self.ipv6_virtual_router_ip = attributes[:'ipv6VirtualRouterIp'] if attributes[:'ipv6VirtualRouterIp']
 
@@ -439,6 +453,7 @@ module OCI
         freeform_tags == other.freeform_tags &&
         id == other.id &&
         ipv6_cidr_block == other.ipv6_cidr_block &&
+        ipv6_cidr_blocks == other.ipv6_cidr_blocks &&
         ipv6_virtual_router_ip == other.ipv6_virtual_router_ip &&
         lifecycle_state == other.lifecycle_state &&
         prohibit_internet_ingress == other.prohibit_internet_ingress &&
@@ -465,7 +480,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, cidr_block, compartment_id, defined_tags, dhcp_options_id, display_name, dns_label, freeform_tags, id, ipv6_cidr_block, ipv6_virtual_router_ip, lifecycle_state, prohibit_internet_ingress, prohibit_public_ip_on_vnic, route_table_id, security_list_ids, subnet_domain_name, time_created, vcn_id, virtual_router_ip, virtual_router_mac].hash
+      [availability_domain, cidr_block, compartment_id, defined_tags, dhcp_options_id, display_name, dns_label, freeform_tags, id, ipv6_cidr_block, ipv6_cidr_blocks, ipv6_virtual_router_ip, lifecycle_state, prohibit_internet_ingress, prohibit_public_ip_on_vnic, route_table_id, security_list_ids, subnet_domain_name, time_created, vcn_id, virtual_router_ip, virtual_router_mac].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

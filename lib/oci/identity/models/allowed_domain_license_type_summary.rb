@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The 'AllowedDomainLicenseTypeSummary' object contains information about the 'Domain License type'.
+  # (For tenancies that support identity domains) The 'AllowedDomainLicenseTypeSummary' object contains information about the license type of the identity domain.
   #
   class Identity::Models::AllowedDomainLicenseTypeSummary
     # **[Required]** The license type name.

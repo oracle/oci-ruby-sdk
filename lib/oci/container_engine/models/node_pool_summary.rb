@@ -2,14 +2,35 @@
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'date'
+require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # The properties that define a node pool summary.
   class ContainerEngine::Models::NodePoolSummary
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
+      LIFECYCLE_STATE_NEEDS_ATTENTION = 'NEEDS_ATTENTION'.freeze,
+      LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # The OCID of the node pool.
     # @return [String]
     attr_accessor :id
+
+    # The state of the nodepool.
+    # @return [String]
+    attr_reader :lifecycle_state
+
+    # Details about the state of the nodepool.
+    # @return [String]
+    attr_accessor :lifecycle_details
 
     # The OCID of the compartment in which the node pool exists.
     # @return [String]
@@ -93,11 +114,16 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :system_tags
 
+    # @return [OCI::ContainerEngine::Models::NodeEvictionNodePoolSettings]
+    attr_accessor :node_eviction_node_pool_settings
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'id': :'id',
+        'lifecycle_state': :'lifecycleState',
+        'lifecycle_details': :'lifecycleDetails',
         'compartment_id': :'compartmentId',
         'cluster_id': :'clusterId',
         'name': :'name',
@@ -115,7 +141,8 @@ module OCI
         'node_config_details': :'nodeConfigDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'system_tags': :'systemTags'
+        'system_tags': :'systemTags',
+        'node_eviction_node_pool_settings': :'nodeEvictionNodePoolSettings'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -125,6 +152,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'id': :'String',
+        'lifecycle_state': :'String',
+        'lifecycle_details': :'String',
         'compartment_id': :'String',
         'cluster_id': :'String',
         'name': :'String',
@@ -142,7 +171,8 @@ module OCI
         'node_config_details': :'OCI::ContainerEngine::Models::NodePoolNodeConfigDetails',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'system_tags': :'Hash<String, Hash<String, Object>>'
+        'system_tags': :'Hash<String, Hash<String, Object>>',
+        'node_eviction_node_pool_settings': :'OCI::ContainerEngine::Models::NodeEvictionNodePoolSettings'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -154,6 +184,8 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :id The value to assign to the {#id} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :cluster_id The value to assign to the {#cluster_id} property
     # @option attributes [String] :name The value to assign to the {#name} property
@@ -172,6 +204,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
+    # @option attributes [OCI::ContainerEngine::Models::NodeEvictionNodePoolSettings] :node_eviction_node_pool_settings The value to assign to the {#node_eviction_node_pool_settings} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -179,6 +212,18 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.id = attributes[:'id'] if attributes[:'id']
+
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.lifecycle_details = attributes[:'lifecycleDetails'] if attributes[:'lifecycleDetails']
+
+      raise 'You cannot provide both :lifecycleDetails and :lifecycle_details' if attributes.key?(:'lifecycleDetails') && attributes.key?(:'lifecycle_details')
+
+      self.lifecycle_details = attributes[:'lifecycle_details'] if attributes[:'lifecycle_details']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -283,9 +328,28 @@ module OCI
       raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
 
       self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
+
+      self.node_eviction_node_pool_settings = attributes[:'nodeEvictionNodePoolSettings'] if attributes[:'nodeEvictionNodePoolSettings']
+
+      raise 'You cannot provide both :nodeEvictionNodePoolSettings and :node_eviction_node_pool_settings' if attributes.key?(:'nodeEvictionNodePoolSettings') && attributes.key?(:'node_eviction_node_pool_settings')
+
+      self.node_eviction_node_pool_settings = attributes[:'node_eviction_node_pool_settings'] if attributes[:'node_eviction_node_pool_settings']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_state' [" + lifecycle_state + "]. Mapping to 'LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -297,6 +361,8 @@ module OCI
 
       self.class == other.class &&
         id == other.id &&
+        lifecycle_state == other.lifecycle_state &&
+        lifecycle_details == other.lifecycle_details &&
         compartment_id == other.compartment_id &&
         cluster_id == other.cluster_id &&
         name == other.name &&
@@ -314,7 +380,8 @@ module OCI
         node_config_details == other.node_config_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        system_tags == other.system_tags
+        system_tags == other.system_tags &&
+        node_eviction_node_pool_settings == other.node_eviction_node_pool_settings
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -330,7 +397,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, cluster_id, name, kubernetes_version, node_image_id, node_image_name, node_shape_config, node_source, node_source_details, node_shape, initial_node_labels, ssh_public_key, quantity_per_subnet, subnet_ids, node_config_details, freeform_tags, defined_tags, system_tags].hash
+      [id, lifecycle_state, lifecycle_details, compartment_id, cluster_id, name, kubernetes_version, node_image_id, node_image_name, node_shape_config, node_source, node_source_details, node_shape, initial_node_labels, ssh_public_key, quantity_per_subnet, subnet_ids, node_config_details, freeform_tags, defined_tags, system_tags, node_eviction_node_pool_settings].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

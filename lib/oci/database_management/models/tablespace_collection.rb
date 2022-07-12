@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A collection of tablespaces for a specific database.
+  # A collection of tablespaces for a specific Managed Database.
   class DatabaseManagement::Models::TablespaceCollection
     # **[Required]** An array of TablespaceSummary resources.
     # @return [Array<OCI::DatabaseManagement::Models::TablespaceSummary>]

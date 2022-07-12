@@ -5,24 +5,24 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Metadata which can be edited after model creation.
+  # The metadata which can be edited after model creation.
   class AiVision::Models::UpdateModelDetails
-    # Human-friendly name of the model, which can be changed.
+    # A human-friendly name of the model, which can be changed.
     # @return [String]
     attr_accessor :display_name
 
-    # Optional description of the model.
+    # An optional description of the model.
     # @return [String]
     attr_accessor :description
 
-    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # A simple key-value pair that is applied without any predefined name, type, or scope. It exists for cross-compatibility only.
+    # For example: `{\"bar-key\": \"value\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    # For example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags

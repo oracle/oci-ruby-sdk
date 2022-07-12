@@ -96,6 +96,14 @@ module OCI
     # @return [String]
     attr_reader :consumption_model
 
+    # @return [OCI::VisualBuilder::Models::IdcsInfoDetails]
+    attr_accessor :idcs_info
+
+    # A list of associated attachments to other services
+    #
+    # @return [Array<OCI::VisualBuilder::Models::AttachmentDetails>]
+    attr_accessor :attachments
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -115,7 +123,9 @@ module OCI
         'is_visual_builder_enabled': :'isVisualBuilderEnabled',
         'custom_endpoint': :'customEndpoint',
         'alternate_custom_endpoints': :'alternateCustomEndpoints',
-        'consumption_model': :'consumptionModel'
+        'consumption_model': :'consumptionModel',
+        'idcs_info': :'idcsInfo',
+        'attachments': :'attachments'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -139,7 +149,9 @@ module OCI
         'is_visual_builder_enabled': :'BOOLEAN',
         'custom_endpoint': :'OCI::VisualBuilder::Models::CustomEndpointDetails',
         'alternate_custom_endpoints': :'Array<OCI::VisualBuilder::Models::CustomEndpointDetails>',
-        'consumption_model': :'String'
+        'consumption_model': :'String',
+        'idcs_info': :'OCI::VisualBuilder::Models::IdcsInfoDetails',
+        'attachments': :'Array<OCI::VisualBuilder::Models::AttachmentDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -166,6 +178,8 @@ module OCI
     # @option attributes [OCI::VisualBuilder::Models::CustomEndpointDetails] :custom_endpoint The value to assign to the {#custom_endpoint} property
     # @option attributes [Array<OCI::VisualBuilder::Models::CustomEndpointDetails>] :alternate_custom_endpoints The value to assign to the {#alternate_custom_endpoints} property
     # @option attributes [String] :consumption_model The value to assign to the {#consumption_model} property
+    # @option attributes [OCI::VisualBuilder::Models::IdcsInfoDetails] :idcs_info The value to assign to the {#idcs_info} property
+    # @option attributes [Array<OCI::VisualBuilder::Models::AttachmentDetails>] :attachments The value to assign to the {#attachments} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -263,6 +277,14 @@ module OCI
       raise 'You cannot provide both :consumptionModel and :consumption_model' if attributes.key?(:'consumptionModel') && attributes.key?(:'consumption_model')
 
       self.consumption_model = attributes[:'consumption_model'] if attributes[:'consumption_model']
+
+      self.idcs_info = attributes[:'idcsInfo'] if attributes[:'idcsInfo']
+
+      raise 'You cannot provide both :idcsInfo and :idcs_info' if attributes.key?(:'idcsInfo') && attributes.key?(:'idcs_info')
+
+      self.idcs_info = attributes[:'idcs_info'] if attributes[:'idcs_info']
+
+      self.attachments = attributes[:'attachments'] if attributes[:'attachments']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -317,7 +339,9 @@ module OCI
         is_visual_builder_enabled == other.is_visual_builder_enabled &&
         custom_endpoint == other.custom_endpoint &&
         alternate_custom_endpoints == other.alternate_custom_endpoints &&
-        consumption_model == other.consumption_model
+        consumption_model == other.consumption_model &&
+        idcs_info == other.idcs_info &&
+        attachments == other.attachments
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -333,7 +357,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, time_created, time_updated, lifecycle_state, state_message, freeform_tags, defined_tags, system_tags, instance_url, node_count, is_visual_builder_enabled, custom_endpoint, alternate_custom_endpoints, consumption_model].hash
+      [id, display_name, compartment_id, time_created, time_updated, lifecycle_state, state_message, freeform_tags, defined_tags, system_tags, instance_url, node_count, is_visual_builder_enabled, custom_endpoint, alternate_custom_endpoints, consumption_model, idcs_info, attachments].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

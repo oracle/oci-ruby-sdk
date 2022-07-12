@@ -47,6 +47,7 @@ module OCI
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
+        'database_connection_status_details': :'databaseConnectionStatusDetails',
         'database_id': :'databaseId',
         'database_name': :'databaseName',
         'database_display_name': :'databaseDisplayName',
@@ -74,6 +75,7 @@ module OCI
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
+        'database_connection_status_details': :'String',
         'database_id': :'String',
         'database_name': :'String',
         'database_display_name': :'String',
@@ -102,6 +104,7 @@ module OCI
     # @option attributes [DateTime] :time_updated The value to assign to the {OCI::Opsi::Models::DatabaseInsight#time_updated #time_updated} proprety
     # @option attributes [String] :lifecycle_state The value to assign to the {OCI::Opsi::Models::DatabaseInsight#lifecycle_state #lifecycle_state} proprety
     # @option attributes [String] :lifecycle_details The value to assign to the {OCI::Opsi::Models::DatabaseInsight#lifecycle_details #lifecycle_details} proprety
+    # @option attributes [String] :database_connection_status_details The value to assign to the {OCI::Opsi::Models::DatabaseInsight#database_connection_status_details #database_connection_status_details} proprety
     # @option attributes [String] :database_id The value to assign to the {#database_id} property
     # @option attributes [String] :database_name The value to assign to the {#database_name} property
     # @option attributes [String] :database_display_name The value to assign to the {#database_display_name} property
@@ -173,6 +176,7 @@ module OCI
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
+        database_connection_status_details == other.database_connection_status_details &&
         database_id == other.database_id &&
         database_name == other.database_name &&
         database_display_name == other.database_display_name &&
@@ -193,7 +197,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [entity_source, id, compartment_id, status, database_type, database_version, processor_count, freeform_tags, defined_tags, system_tags, time_created, time_updated, lifecycle_state, lifecycle_details, database_id, database_name, database_display_name, database_resource_type, db_additional_details].hash
+      [entity_source, id, compartment_id, status, database_type, database_version, processor_count, freeform_tags, defined_tags, system_tags, time_created, time_updated, lifecycle_state, lifecycle_details, database_connection_status_details, database_id, database_name, database_display_name, database_resource_type, db_additional_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

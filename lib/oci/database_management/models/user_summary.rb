@@ -51,7 +51,11 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The User resource profile name.
+    # The date the account was locked, if the status of the account is LOCKED.
+    # @return [DateTime]
+    attr_accessor :time_locked
+
+    # **[Required]** The profile name of the user.
     # @return [String]
     attr_accessor :profile
 
@@ -65,6 +69,7 @@ module OCI
         'default_tablespace': :'defaultTablespace',
         'temp_tablespace': :'tempTablespace',
         'time_created': :'timeCreated',
+        'time_locked': :'timeLocked',
         'profile': :'profile'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -80,6 +85,7 @@ module OCI
         'default_tablespace': :'String',
         'temp_tablespace': :'String',
         'time_created': :'DateTime',
+        'time_locked': :'DateTime',
         'profile': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -97,6 +103,7 @@ module OCI
     # @option attributes [String] :default_tablespace The value to assign to the {#default_tablespace} property
     # @option attributes [String] :temp_tablespace The value to assign to the {#temp_tablespace} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [DateTime] :time_locked The value to assign to the {#time_locked} property
     # @option attributes [String] :profile The value to assign to the {#profile} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -132,6 +139,12 @@ module OCI
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
+      self.time_locked = attributes[:'timeLocked'] if attributes[:'timeLocked']
+
+      raise 'You cannot provide both :timeLocked and :time_locked' if attributes.key?(:'timeLocked') && attributes.key?(:'time_locked')
+
+      self.time_locked = attributes[:'time_locked'] if attributes[:'time_locked']
+
       self.profile = attributes[:'profile'] if attributes[:'profile']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -165,6 +178,7 @@ module OCI
         default_tablespace == other.default_tablespace &&
         temp_tablespace == other.temp_tablespace &&
         time_created == other.time_created &&
+        time_locked == other.time_locked &&
         profile == other.profile
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -181,7 +195,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, status, time_expiring, default_tablespace, temp_tablespace, time_created, profile].hash
+      [name, status, time_expiring, default_tablespace, temp_tablespace, time_created, time_locked, profile].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -13,6 +13,7 @@ module OCI
     SOURCE_TYPE_ENUM = [
       SOURCE_TYPE_NONE = 'NONE'.freeze,
       SOURCE_TYPE_BACKUP = 'BACKUP'.freeze,
+      SOURCE_TYPE_PITR = 'PITR'.freeze,
       SOURCE_TYPE_IMPORTURL = 'IMPORTURL'.freeze,
       SOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
@@ -49,6 +50,7 @@ module OCI
       type = object_hash[:'sourceType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::Mysql::Models::DbSystemSourceFromBackup' if type == 'BACKUP'
+      return 'OCI::Mysql::Models::DbSystemSourceFromPitr' if type == 'PITR'
       return 'OCI::Mysql::Models::DbSystemSourceFromNone' if type == 'NONE'
       return 'OCI::Mysql::Models::DbSystemSourceImportFromUrl' if type == 'IMPORTURL'
 

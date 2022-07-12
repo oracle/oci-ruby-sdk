@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # The memory aggregate metric details.
   class DatabaseManagement::Models::MemoryAggregateMetrics
-    # A list of the memory usage metrics grouped by memorypool for a specific database.
+    # The Memory Usage metrics grouped by memorypool for a specific Managed Database.
     # @return [Array<OCI::DatabaseManagement::Models::MetricDataPoint>]
     attr_accessor :memory_usage
 

@@ -6,23 +6,23 @@ require_relative 'create_database_tools_connection_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The information about new DatabaseToolsConnection for an Oracle Database
+  # Details of the new Database Tools connection for an Oracle Database.
   class DatabaseTools::Models::CreateDatabaseToolsConnectionOracleDatabaseDetails < DatabaseTools::Models::CreateDatabaseToolsConnectionDetails
     # @return [OCI::DatabaseTools::Models::CreateDatabaseToolsRelatedResourceDetails]
     attr_accessor :related_resource
 
-    # Connect descriptor or Easy Connect Naming method to connect to the database.
+    # The connect descriptor or Easy Connect Naming method use to connect to the database.
     # @return [String]
     attr_accessor :connection_string
 
-    # Database user name.
+    # The database user name.
     # @return [String]
     attr_accessor :user_name
 
     # @return [OCI::DatabaseTools::Models::DatabaseToolsUserPasswordDetails]
     attr_accessor :user_password
 
-    # Advanced connection properties key-value pair (e.g., oracle.net.ssl_server_dn_match).
+    # The advanced connection properties key-value pair (e.g., `oracle.net.ssl_server_dn_match`).
     # @return [Hash<String, String>]
     attr_accessor :advanced_properties
 
@@ -32,7 +32,7 @@ module OCI
     # @return [Array<OCI::DatabaseTools::Models::DatabaseToolsKeyStoreDetails>]
     attr_accessor :key_stores
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DatabaseToolsPrivateEndpoint used to access the database in the Customer VCN.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Tools private endpoint used to access the database in the customer VCN.
     # @return [String]
     attr_accessor :private_endpoint_id
 

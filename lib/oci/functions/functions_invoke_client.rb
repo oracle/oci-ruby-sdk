@@ -110,8 +110,8 @@ module OCI
     # @option opts [String] :fn_intent An optional intent header that indicates to the FDK the way the event should be interpreted. E.g. 'httprequest', 'cloudevent'.
     #
     #   Allowed values are: httprequest, cloudevent
-    # @option opts [String] :fn_invoke_type Indicates whether the functions platform should execute the request directly and return the result ('sync') or
-    #   whether the platform should enqueue the request for later processing and acknowledge that it has been processed ('detached').
+    # @option opts [String] :fn_invoke_type Indicates whether Oracle Functions should execute the request and return the result ('sync') of the execution,
+    #   or whether Oracle Functions should return as soon as processing has begun ('detached') and leave result handling to the function.
     #    (default to sync)
     #   Allowed values are: detached, sync
     # @option opts [String] :opc_request_id The unique Oracle-assigned identifier for the request. If you need to contact Oracle about a

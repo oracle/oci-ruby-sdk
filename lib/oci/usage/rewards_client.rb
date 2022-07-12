@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A description of the UsageApi API.
+  # Use the Usage Proxy API to list Oracle Support Rewards, view related detailed usage information, and manage users who redeem rewards. For more information, see [Oracle Support Rewards Overview](/iaas/Content/Billing/Concepts/supportrewardsoverview.htm).
   class Usage::RewardsClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -98,16 +98,16 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Add list of redeemable user email ids for a subscription Id
+    # Adds the list of redeemable user email IDs for a subscription ID.
     #
     # @param [OCI::Usage::Models::CreateRedeemableUserDetails] create_redeemable_user_details CreateRedeemableUserDetails inforamtion.
     #
     # @param [String] tenancy_id The OCID of the tenancy.
-    # @param [String] subscription_id The subscriptionId for which rewards information is requested for.
+    # @param [String] subscription_id The subscription ID for which rewards information is requested for.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :user_id The user Id of the person whose email we cc
+    # @option opts [String] :user_id The user ID of the person to send a copy of an email.
     # @option opts [String] :opc_request_id Unique, Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
     #   for a resource, set the `if-match` parameter to the value of the
@@ -176,11 +176,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Delete list of redeemable user email ids for a subscription Id
+    # Deletes the list of redeemable user email IDs for a subscription ID.
     #
-    # @param [String] email_id The EmailId that needs to be deleted
+    # @param [String] email_id The email ID that needs to be deleted.
     # @param [String] tenancy_id The OCID of the tenancy.
-    # @param [String] subscription_id The subscriptionId for which rewards information is requested for.
+    # @param [String] subscription_id The subscription ID for which rewards information is requested for.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -243,10 +243,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # This API provides usage period specific product and its usage details.
+    # Provides product information that is specific to a reward usage period and its usage details.
     #
     # @param [String] tenancy_id The OCID of the tenancy.
-    # @param [String] subscription_id The subscriptionId for which rewards information is requested for.
+    # @param [String] subscription_id The subscription ID for which rewards information is requested for.
     # @param [String] usage_period_key The SPM Identifier for the usage period.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -254,9 +254,9 @@ module OCI
     # @option opts [String] :opc_request_id Unique, Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @option opts [String] :page The value of the 'opc-next-page' response header from the previous call.
     # @option opts [Integer] :limit The maximum number of items to return in the paginated response. (default to 50)
-    # @option opts [String] :sort_order The sort order to use, can be ascending (ASC) or descending (DESC). (default to DESC)
+    # @option opts [String] :sort_order The sort order to use, which can be ascending (ASC) or descending (DESC). (default to DESC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by, supports one sort Order. (default to TIMECREATED)
+    # @option opts [String] :sort_by The field to sort by. Supports one sort order. (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, TIMESTART
     # @option opts [String] :producttype The field to specify the type of product. (default to ALL)
     #   Allowed values are: ALL, ELIGIBLE, INELIGIBLE
@@ -329,19 +329,19 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Provides emailids of redeemable users for the given subscriptionId
+    # Provides the email IDs of users that can redeem rewards for the given subscription ID.
     #
     # @param [String] tenancy_id The OCID of the tenancy.
-    # @param [String] subscription_id The subscriptionId for which rewards information is requested for.
+    # @param [String] subscription_id The subscription ID for which rewards information is requested for.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :opc_request_id Unique, Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request, please provide the request ID.
     # @option opts [String] :page The value of the 'opc-next-page' response header from the previous call.
     # @option opts [Integer] :limit The maximum number of items to return in the paginated response. (default to 50)
-    # @option opts [String] :sort_order The sort order to use, can be ascending (ASC) or descending (DESC). (default to DESC)
+    # @option opts [String] :sort_order The sort order to use, which can be ascending (ASC) or descending (DESC). (default to DESC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by, supports one sort Order. (default to TIMECREATED)
+    # @option opts [String] :sort_by The field to sort by. Supports one sort order. (default to TIMECREATED)
     #   Allowed values are: TIMECREATED, TIMESTART
     # @return [Response] A Response object with data of type {OCI::Usage::Models::RedeemableUserCollection RedeemableUserCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/usage/list_redeemable_users.rb.html) to see an example of how to use list_redeemable_users API.
@@ -405,10 +405,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # This API returns list of rewards for a subscription Id
+    # Returns the list of rewards for a subscription ID.
     #
     # @param [String] tenancy_id The OCID of the tenancy.
-    # @param [String] subscription_id The subscriptionId for which rewards information is requested for.
+    # @param [String] subscription_id The subscription ID for which rewards information is requested for.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry

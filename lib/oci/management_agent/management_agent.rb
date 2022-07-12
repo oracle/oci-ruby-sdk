@@ -12,6 +12,7 @@ end
 
 # Require models
 require 'oci/management_agent/models/action_types'
+require 'oci/management_agent/models/architecture_types'
 require 'oci/management_agent/models/auto_upgradable_config'
 require 'oci/management_agent/models/availability_history_summary'
 require 'oci/management_agent/models/availability_status'
@@ -41,6 +42,7 @@ require 'oci/management_agent/models/management_agent_plugin_summary'
 require 'oci/management_agent/models/management_agent_summary'
 require 'oci/management_agent/models/operation_status'
 require 'oci/management_agent/models/operation_types'
+require 'oci/management_agent/models/package_types'
 require 'oci/management_agent/models/platform_types'
 require 'oci/management_agent/models/set_auto_upgradable_config_details'
 require 'oci/management_agent/models/update_management_agent_details'
@@ -51,6 +53,7 @@ require 'oci/management_agent/models/work_request_error'
 require 'oci/management_agent/models/work_request_log_entry'
 require 'oci/management_agent/models/work_request_resource'
 require 'oci/management_agent/models/work_request_summary'
+require 'oci/management_agent/models/work_submission_key'
 
 # Require generated clients
 require 'oci/management_agent/management_agent_client'

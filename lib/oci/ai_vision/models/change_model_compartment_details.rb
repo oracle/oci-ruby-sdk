@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Which compartment the model should be moved to.
+  # The compartment the model should be moved to.
   class AiVision::Models::ChangeModelCompartmentDetails
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment
     # into which the model should be moved.

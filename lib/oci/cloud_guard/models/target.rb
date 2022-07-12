@@ -12,6 +12,7 @@ module OCI
       TARGET_RESOURCE_TYPE_COMPARTMENT = 'COMPARTMENT'.freeze,
       TARGET_RESOURCE_TYPE_ERPCLOUD = 'ERPCLOUD'.freeze,
       TARGET_RESOURCE_TYPE_HCMCLOUD = 'HCMCLOUD'.freeze,
+      TARGET_RESOURCE_TYPE_SECURITY_ZONE = 'SECURITY_ZONE'.freeze,
       TARGET_RESOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -26,11 +27,11 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Unique identifier that is immutable on creation
+    # **[Required]** Unique identifier that is immutable on creation.
     # @return [String]
     attr_accessor :id
 
-    # Target Identifier, can be renamed
+    # Target display name, can be renamed.
     # @return [String]
     attr_accessor :display_name
 
@@ -62,6 +63,9 @@ module OCI
     # @return [Array<OCI::CloudGuard::Models::TargetResponderRecipe>]
     attr_accessor :target_responder_recipes
 
+    # @return [OCI::CloudGuard::Models::TargetDetails]
+    attr_accessor :target_details
+
     # List of inherited compartments
     # @return [Array<String>]
     attr_accessor :inherited_by_compartments
@@ -84,6 +88,8 @@ module OCI
 
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
+    #
+    # Avoid entering confidential information.
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
@@ -116,6 +122,7 @@ module OCI
         'recipe_count': :'recipeCount',
         'target_detector_recipes': :'targetDetectorRecipes',
         'target_responder_recipes': :'targetResponderRecipes',
+        'target_details': :'targetDetails',
         'inherited_by_compartments': :'inheritedByCompartments',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
@@ -141,6 +148,7 @@ module OCI
         'recipe_count': :'Integer',
         'target_detector_recipes': :'Array<OCI::CloudGuard::Models::TargetDetectorRecipe>',
         'target_responder_recipes': :'Array<OCI::CloudGuard::Models::TargetResponderRecipe>',
+        'target_details': :'OCI::CloudGuard::Models::TargetDetails',
         'inherited_by_compartments': :'Array<String>',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
@@ -168,6 +176,7 @@ module OCI
     # @option attributes [Integer] :recipe_count The value to assign to the {#recipe_count} property
     # @option attributes [Array<OCI::CloudGuard::Models::TargetDetectorRecipe>] :target_detector_recipes The value to assign to the {#target_detector_recipes} property
     # @option attributes [Array<OCI::CloudGuard::Models::TargetResponderRecipe>] :target_responder_recipes The value to assign to the {#target_responder_recipes} property
+    # @option attributes [OCI::CloudGuard::Models::TargetDetails] :target_details The value to assign to the {#target_details} property
     # @option attributes [Array<String>] :inherited_by_compartments The value to assign to the {#inherited_by_compartments} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
@@ -227,6 +236,12 @@ module OCI
       raise 'You cannot provide both :targetResponderRecipes and :target_responder_recipes' if attributes.key?(:'targetResponderRecipes') && attributes.key?(:'target_responder_recipes')
 
       self.target_responder_recipes = attributes[:'target_responder_recipes'] if attributes[:'target_responder_recipes']
+
+      self.target_details = attributes[:'targetDetails'] if attributes[:'targetDetails']
+
+      raise 'You cannot provide both :targetDetails and :target_details' if attributes.key?(:'targetDetails') && attributes.key?(:'target_details')
+
+      self.target_details = attributes[:'target_details'] if attributes[:'target_details']
 
       self.inherited_by_compartments = attributes[:'inheritedByCompartments'] if attributes[:'inheritedByCompartments']
 
@@ -323,6 +338,7 @@ module OCI
         recipe_count == other.recipe_count &&
         target_detector_recipes == other.target_detector_recipes &&
         target_responder_recipes == other.target_responder_recipes &&
+        target_details == other.target_details &&
         inherited_by_compartments == other.inherited_by_compartments &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
@@ -346,7 +362,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, description, target_resource_type, target_resource_id, recipe_count, target_detector_recipes, target_responder_recipes, inherited_by_compartments, time_created, time_updated, lifecycle_state, lifecyle_details, freeform_tags, defined_tags, system_tags].hash
+      [id, display_name, compartment_id, description, target_resource_type, target_resource_id, recipe_count, target_detector_recipes, target_responder_recipes, target_details, inherited_by_compartments, time_created, time_updated, lifecycle_state, lifecyle_details, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -7,7 +7,7 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Use the Application Performance Monitoring Control Plane API to perform operations such as creating, updating,
-  # deleting and listing APM domains and monitoring the progress of these operations using the work request APIs.
+  # deleting and listing APM domains and monitoring the progress of these operations using the work request APIs. For more information, see [Application Performance Monitoring](/iaas/application-performance-monitoring/index.html).
   class ApmControlPlane::ApmDomainClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -100,7 +100,7 @@ module OCI
 
 
     # Moves an APM domain into a different compartment. When provided, If-Match is checked against ETag values of the APM domain.
-    # @param [String] apm_domain_id The OCID of the APM domain
+    # @param [String] apm_domain_id The OCID of the APM domain.
     # @param [OCI::ApmControlPlane::Models::ChangeApmDomainCompartmentDetails] change_apm_domain_compartment_details The information to be used in changing compartment.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -111,7 +111,7 @@ module OCI
     #   provide matches the resource's current etag value.
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
-    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request therefore it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
@@ -174,7 +174,7 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request therefore it can be retried in case of a timeout or
     #   server error without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
@@ -233,7 +233,7 @@ module OCI
     # accepting any operation requests. All resources associated with the APM domain are eventually recovered. Use the
     # returned work request ID to track the progress of the background activity to complete deleting the APM domain.
     #
-    # @param [String] apm_domain_id The OCID of the APM domain
+    # @param [String] apm_domain_id The OCID of the APM domain.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -295,7 +295,7 @@ module OCI
     # types. These will be added to the existing set of Data Keys for the specified APM domain.
     #
     # @param [Array<OCI::ApmControlPlane::Models::OCI::ApmControlPlane::Models::GenerateDataKeyDetails>] generate_data_keys_list_details List of new Data Keys to be generated.
-    # @param [String] apm_domain_id The OCID of the APM domain
+    # @param [String] apm_domain_id The OCID of the APM domain.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -355,7 +355,7 @@ module OCI
 
 
     # Gets the details of the APM domain specified by OCID.
-    # @param [String] apm_domain_id The OCID of the APM domain
+    # @param [String] apm_domain_id The OCID of the APM domain.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -464,7 +464,7 @@ module OCI
 
     # Returns a (paginated) list of work requests related to a specific APM domain.
     #
-    # @param [String] apm_domain_id The OCID of the APM domain
+    # @param [String] apm_domain_id The OCID of the APM domain.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -532,7 +532,7 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to ASC)
-    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified, timeCreated is default.
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
@@ -605,7 +605,7 @@ module OCI
     # Lists all Data Keys for the specified APM domain. The caller may filter the list by specifying the 'dataKeyType'
     # query parameter.
     #
-    # @param [String] apm_domain_id The OCID of the APM domain
+    # @param [String] apm_domain_id The OCID of the APM domain.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -844,7 +844,7 @@ module OCI
     # Removes the set of specified Data Keys from the specified APM domain. Agents would no longer
     # be able to use these data keys to upload to the APM domain once this operation is completed.
     #
-    # @param [String] apm_domain_id The OCID of the APM domain
+    # @param [String] apm_domain_id The OCID of the APM domain.
     # @param [Array<OCI::ApmControlPlane::Models::OCI::ApmControlPlane::Models::RemoveDataKeyDetails>] remove_data_keys_list_details List of Data Keys to be removed.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -905,7 +905,7 @@ module OCI
 
 
     # Updates the APM domain.
-    # @param [String] apm_domain_id The OCID of the APM domain
+    # @param [String] apm_domain_id The OCID of the APM domain.
     # @param [OCI::ApmControlPlane::Models::UpdateApmDomainDetails] update_apm_domain_details The information to be updated for the APM domain.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level

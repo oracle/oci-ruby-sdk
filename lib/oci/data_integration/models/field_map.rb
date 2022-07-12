@@ -14,6 +14,9 @@ module OCI
       MODEL_TYPE_COMPOSITE_FIELD_MAP = 'COMPOSITE_FIELD_MAP'.freeze,
       MODEL_TYPE_DIRECT_FIELD_MAP = 'DIRECT_FIELD_MAP'.freeze,
       MODEL_TYPE_RULE_BASED_FIELD_MAP = 'RULE_BASED_FIELD_MAP'.freeze,
+      MODEL_TYPE_CONDITIONAL_COMPOSITE_FIELD_MAP = 'CONDITIONAL_COMPOSITE_FIELD_MAP'.freeze,
+      MODEL_TYPE_NAMED_ENTITY_MAP = 'NAMED_ENTITY_MAP'.freeze,
+      MODEL_TYPE_RULE_BASED_ENTITY_MAP = 'RULE_BASED_ENTITY_MAP'.freeze,
       MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -54,8 +57,11 @@ module OCI
       type = object_hash[:'modelType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::DataIntegration::Models::RuleBasedFieldMap' if type == 'RULE_BASED_FIELD_MAP'
+      return 'OCI::DataIntegration::Models::RuleBasedEntityMap' if type == 'RULE_BASED_ENTITY_MAP'
+      return 'OCI::DataIntegration::Models::NamedEntityMap' if type == 'NAMED_ENTITY_MAP'
       return 'OCI::DataIntegration::Models::DirectFieldMap' if type == 'DIRECT_FIELD_MAP'
       return 'OCI::DataIntegration::Models::CompositeFieldMap' if type == 'COMPOSITE_FIELD_MAP'
+      return 'OCI::DataIntegration::Models::ConditionalCompositeFieldMap' if type == 'CONDITIONAL_COMPOSITE_FIELD_MAP'
       return 'OCI::DataIntegration::Models::DirectNamedFieldMap' if type == 'DIRECT_NAMED_FIELD_MAP'
 
       # TODO: Log a warning when the subtype is not found.

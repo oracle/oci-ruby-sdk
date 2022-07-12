@@ -26,6 +26,10 @@ module OCI
     # @return [Array<String>]
     attr_accessor :statements
 
+    # Locks associated with this resource.
+    # @return [Array<OCI::Limits::Models::AddLockDetails>]
+    attr_accessor :locks
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Department\": \"Finance\"}`
@@ -48,6 +52,7 @@ module OCI
         'description': :'description',
         'name': :'name',
         'statements': :'statements',
+        'locks': :'locks',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -62,6 +67,7 @@ module OCI
         'description': :'String',
         'name': :'String',
         'statements': :'Array<String>',
+        'locks': :'Array<OCI::Limits::Models::AddLockDetails>',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -78,6 +84,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [Array<String>] :statements The value to assign to the {#statements} property
+    # @option attributes [Array<OCI::Limits::Models::AddLockDetails>] :locks The value to assign to the {#locks} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -97,6 +104,8 @@ module OCI
       self.name = attributes[:'name'] if attributes[:'name']
 
       self.statements = attributes[:'statements'] if attributes[:'statements']
+
+      self.locks = attributes[:'locks'] if attributes[:'locks']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -126,6 +135,7 @@ module OCI
         description == other.description &&
         name == other.name &&
         statements == other.statements &&
+        locks == other.locks &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -143,7 +153,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, description, name, statements, freeform_tags, defined_tags].hash
+      [compartment_id, description, name, statements, locks, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

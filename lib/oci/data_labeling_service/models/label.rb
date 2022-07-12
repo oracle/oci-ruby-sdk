@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Represents a label.
+  # It represents a label.
   class DataLabelingService::Models::Label
     # An unique name for a label within its dataset.
     # @return [String]

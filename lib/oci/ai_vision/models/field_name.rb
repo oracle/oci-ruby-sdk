@@ -5,20 +5,20 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Name of a form field.
+  # The name of a form field.
   class AiVision::Models::FieldName
-    # **[Required]** Name of the field.
+    # **[Required]** The name of the field.
     # @return [String]
     attr_accessor :name
 
-    # Confidence score between 0 to 1.
+    # The confidence score between 0 and 1.
     # @return [Float]
     attr_accessor :confidence
 
     # @return [OCI::AiVision::Models::BoundingPolygon]
     attr_accessor :bounding_polygon
 
-    # Indexes of the words in the field name.
+    # The indexes of the words in the field name.
     # @return [Array<Integer>]
     attr_accessor :word_indexes
 

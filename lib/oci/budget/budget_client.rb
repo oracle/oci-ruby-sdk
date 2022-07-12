@@ -100,13 +100,13 @@ module OCI
 
     # Creates a new Alert Rule.
     #
-    # @param [String] budget_id The unique Budget OCID
+    # @param [String] budget_id The unique budget OCID.
     # @param [OCI::Budget::Models::CreateAlertRuleDetails] create_alert_rule_details Details for the new Alert Rule.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried, in case of a timeout or
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
@@ -163,14 +163,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new Budget.
+    # Creates a new budget.
     #
-    # @param [OCI::Budget::Models::CreateBudgetDetails] create_budget_details Details for the new Budget.
+    # @param [OCI::Budget::Models::CreateBudgetDetails] create_budget_details Details for the new budget.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
-    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried, in case of a timeout or
+    #   server error, without risk of executing that same action again. Retry tokens expire after 24
     #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
     #   has been deleted and purged from the system, then a retry of the original creation request
     #   might be rejected.
@@ -226,8 +226,8 @@ module OCI
 
 
     # Deletes a specified Alert Rule resource.
-    # @param [String] budget_id The unique Budget OCID
-    # @param [String] alert_rule_id The unique Alert Rule OCID
+    # @param [String] budget_id The unique budget OCID.
+    # @param [String] alert_rule_id The unique Alert Rule OCID.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -288,8 +288,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Deletes a specified Budget resource
-    # @param [String] budget_id The unique Budget OCID
+    # Deletes a specified budget resource.
+    # @param [String] budget_id The unique budget OCID.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -348,9 +348,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets an Alert Rule for a specified Budget.
-    # @param [String] budget_id The unique Budget OCID
-    # @param [String] alert_rule_id The unique Alert Rule OCID
+    # Gets an Alert Rule for a specified budget.
+    # @param [String] budget_id The unique budget OCID.
+    # @param [String] alert_rule_id The unique Alert Rule OCID.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -405,8 +405,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a Budget by identifier
-    # @param [String] budget_id The unique Budget OCID
+    # Gets a budget by the identifier.
+    # @param [String] budget_id The unique budget OCID.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -459,9 +459,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns a list of Alert Rules for a specified Budget.
+    # Returns a list of Alert Rules for a specified budget.
     #
-    # @param [String] budget_id The unique Budget OCID
+    # @param [String] budget_id The unique budget OCID.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -473,7 +473,7 @@ module OCI
     #   The default sort order for displayName is ASC in alphanumeric order.
     #    (default to timeCreated)
     # @option opts [String] :lifecycle_state The current state of the resource to filter by.
-    # @option opts [String] :display_name A user-friendly name. Does not have to be unique, and it's changeable.
+    # @option opts [String] :display_name A user-friendly name. This does not have to be unique, and it's changeable.
     #
     #   Example: `My new resource`
     #
@@ -544,16 +544,14 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of Budgets in a compartment.
+    # Gets a list of budgets in a compartment.
     #
-    # By default, ListBudgets returns budgets of 'COMPARTMENT' target type and the budget records with only ONE target compartment OCID.
+    # By default, ListBudgets returns budgets of the 'COMPARTMENT' target type, and the budget records with only one target compartment OCID.
     #
-    # To list ALL budgets, set the targetType query parameter to ALL.
-    # Example:
-    #   'targetType=ALL'
+    # To list all budgets, set the targetType query parameter to ALL (for example: 'targetType=ALL').
     #
-    # Additional targetTypes would be available in future releases. Clients should ignore new targetType
-    # or upgrade to latest version of client SDK to handle new targetType.
+    # Additional targetTypes would be available in future releases. Clients should ignore new targetTypes,
+    # or upgrade to the latest version of the client SDK to handle new targetTypes.
     #
     # @param [String] compartment_id The ID of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
@@ -567,11 +565,11 @@ module OCI
     #   The default sort order for displayName is ASC in alphanumeric order.
     #    (default to timeCreated)
     # @option opts [String] :lifecycle_state The current state of the resource to filter by.
-    # @option opts [String] :display_name A user-friendly name. Does not have to be unique, and it's changeable.
+    # @option opts [String] :display_name A user-friendly name. This does not have to be unique, and it's changeable.
     #
     #   Example: `My new resource`
     #
-    # @option opts [String] :target_type The type of target to filter by.
+    # @option opts [String] :target_type The type of target to filter by:
     #     * ALL - List all budgets
     #     * COMPARTMENT - List all budgets with targetType == \"COMPARTMENT\"
     #     * TAG - List all budgets with targetType == \"TAG\"
@@ -650,8 +648,8 @@ module OCI
 
 
     # Update an Alert Rule for the budget identified by the OCID.
-    # @param [String] budget_id The unique Budget OCID
-    # @param [String] alert_rule_id The unique Alert Rule OCID
+    # @param [String] budget_id The unique budget OCID.
+    # @param [String] alert_rule_id The unique Alert Rule OCID.
     # @param [OCI::Budget::Models::UpdateAlertRuleDetails] update_alert_rule_details The information to be updated.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -715,8 +713,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Update a Budget identified by the OCID
-    # @param [String] budget_id The unique Budget OCID
+    # Update a budget identified by the OCID.
+    # @param [String] budget_id The unique budget OCID.
     # @param [OCI::Budget::Models::UpdateBudgetDetails] update_budget_details The information to be updated.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level

@@ -108,6 +108,15 @@ module OCI
     # @return [String]
     attr_accessor :kms_key_id
 
+    # The OCID of the key container version that is used in database transparent data encryption (TDE) operations KMS Key can have multiple key versions. If none is specified, the current key version (latest) of the Key Id is used for the operation.
+    #
+    # @return [String]
+    attr_accessor :kms_key_version_id
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Oracle Cloud Infrastructure [vault](https://docs.cloud.oracle.com/Content/KeyManagement/Concepts/keyoverview.htm#concepts).
+    # @return [String]
+    attr_accessor :vault_id
+
     # Point in time recovery timeStamp of the source database at which cloned database system is cloned from the source database system, as described in [RFC 3339](https://tools.ietf.org/rfc/rfc3339)
     # @return [DateTime]
     attr_accessor :source_database_point_in_time_recovery_timestamp
@@ -152,6 +161,8 @@ module OCI
         'defined_tags': :'definedTags',
         'connection_strings': :'connectionStrings',
         'kms_key_id': :'kmsKeyId',
+        'kms_key_version_id': :'kmsKeyVersionId',
+        'vault_id': :'vaultId',
         'source_database_point_in_time_recovery_timestamp': :'sourceDatabasePointInTimeRecoveryTimestamp',
         'database_software_image_id': :'databaseSoftwareImageId',
         'is_cdb': :'isCdb',
@@ -185,6 +196,8 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'connection_strings': :'OCI::Database::Models::DatabaseConnectionStrings',
         'kms_key_id': :'String',
+        'kms_key_version_id': :'String',
+        'vault_id': :'String',
         'source_database_point_in_time_recovery_timestamp': :'DateTime',
         'database_software_image_id': :'String',
         'is_cdb': :'BOOLEAN',
@@ -220,6 +233,8 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [OCI::Database::Models::DatabaseConnectionStrings] :connection_strings The value to assign to the {#connection_strings} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
+    # @option attributes [String] :kms_key_version_id The value to assign to the {#kms_key_version_id} property
+    # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
     # @option attributes [DateTime] :source_database_point_in_time_recovery_timestamp The value to assign to the {#source_database_point_in_time_recovery_timestamp} property
     # @option attributes [String] :database_software_image_id The value to assign to the {#database_software_image_id} property
     # @option attributes [BOOLEAN] :is_cdb The value to assign to the {#is_cdb} property
@@ -344,6 +359,18 @@ module OCI
 
       self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
 
+      self.kms_key_version_id = attributes[:'kmsKeyVersionId'] if attributes[:'kmsKeyVersionId']
+
+      raise 'You cannot provide both :kmsKeyVersionId and :kms_key_version_id' if attributes.key?(:'kmsKeyVersionId') && attributes.key?(:'kms_key_version_id')
+
+      self.kms_key_version_id = attributes[:'kms_key_version_id'] if attributes[:'kms_key_version_id']
+
+      self.vault_id = attributes[:'vaultId'] if attributes[:'vaultId']
+
+      raise 'You cannot provide both :vaultId and :vault_id' if attributes.key?(:'vaultId') && attributes.key?(:'vault_id')
+
+      self.vault_id = attributes[:'vault_id'] if attributes[:'vault_id']
+
       self.source_database_point_in_time_recovery_timestamp = attributes[:'sourceDatabasePointInTimeRecoveryTimestamp'] if attributes[:'sourceDatabasePointInTimeRecoveryTimestamp']
 
       raise 'You cannot provide both :sourceDatabasePointInTimeRecoveryTimestamp and :source_database_point_in_time_recovery_timestamp' if attributes.key?(:'sourceDatabasePointInTimeRecoveryTimestamp') && attributes.key?(:'source_database_point_in_time_recovery_timestamp')
@@ -419,6 +446,8 @@ module OCI
         defined_tags == other.defined_tags &&
         connection_strings == other.connection_strings &&
         kms_key_id == other.kms_key_id &&
+        kms_key_version_id == other.kms_key_version_id &&
+        vault_id == other.vault_id &&
         source_database_point_in_time_recovery_timestamp == other.source_database_point_in_time_recovery_timestamp &&
         database_software_image_id == other.database_software_image_id &&
         is_cdb == other.is_cdb &&
@@ -439,7 +468,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, character_set, ncharacter_set, db_home_id, db_system_id, vm_cluster_id, db_name, pdb_name, db_workload, db_unique_name, lifecycle_details, lifecycle_state, time_created, last_backup_timestamp, db_backup_config, freeform_tags, defined_tags, connection_strings, kms_key_id, source_database_point_in_time_recovery_timestamp, database_software_image_id, is_cdb, database_management_config, sid_prefix].hash
+      [id, compartment_id, character_set, ncharacter_set, db_home_id, db_system_id, vm_cluster_id, db_name, pdb_name, db_workload, db_unique_name, lifecycle_details, lifecycle_state, time_created, last_backup_timestamp, db_backup_config, freeform_tags, defined_tags, connection_strings, kms_key_id, kms_key_version_id, vault_id, source_database_point_in_time_recovery_timestamp, database_software_image_id, is_cdb, database_management_config, sid_prefix].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

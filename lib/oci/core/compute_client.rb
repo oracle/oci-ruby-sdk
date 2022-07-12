@@ -2997,7 +2997,8 @@ module OCI
     # After waiting 15 minutes for the OS to shut down, the instance is powered off and
     # then powered back on.
     #
-    # - **SENDDIAGNOSTICINTERRUPT** - For advanced users. **Warning: Sending a diagnostic interrupt to a live system can
+    #
+    # - **SENDDIAGNOSTICINTERRUPT** - For advanced users. **Caution: Sending a diagnostic interrupt to a live system can
     # cause data corruption or system failure.** Sends a diagnostic interrupt that causes the instance's
     # OS to crash and then reboot. Before you send a diagnostic interrupt, you must configure the instance to generate a
     # crash dump file when it crashes. The crash dump captures information about the state of the OS at the time of
@@ -3006,13 +3007,22 @@ module OCI
     #
     #
     #
+    # - **DIAGNOSTICREBOOT** - Powers off the instance, rebuilds it, and then powers it back on.
+    # Before you send a diagnostic reboot, restart the instance's OS, confirm that the instance and networking settings are configured
+    # correctly, and try other [troubleshooting steps](https://docs.cloud.oracle.com/iaas/Content/Compute/References/troubleshooting-compute-instances.htm).
+    # Use diagnostic reboot as a final attempt to troubleshoot an unreachable instance. For virtual machine (VM) instances only.
+    # For more information, see [Performing a Diagnostic Reboot](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/diagnostic-reboot.htm).
+    #
+    #
+    # - **REBOOTMIGRATE** - Powers off the instance, moves it to new hardware, and then powers it back on.
+    #
     #
     # For more information about managing instance lifecycle states, see
     # [Stopping and Starting an Instance](https://docs.cloud.oracle.com/iaas/Content/Compute/Tasks/restartinginstance.htm).
     #
     # @param [String] instance_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the instance.
     # @param [String] action The action to perform on the instance.
-    #   Allowed values are: STOP, START, SOFTRESET, RESET, SOFTSTOP, SENDDIAGNOSTICINTERRUPT
+    #   Allowed values are: STOP, START, SOFTRESET, RESET, SOFTSTOP, SENDDIAGNOSTICINTERRUPT, DIAGNOSTICREBOOT, REBOOTMIGRATE
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -3026,6 +3036,7 @@ module OCI
     #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
     #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
     #
+    # @option opts [OCI::Core::Models::InstancePowerActionDetails] :instance_power_action_details Instance Power Action details
     # @return [Response] A Response object with data of type {OCI::Core::Models::Instance Instance}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/instance_action.rb.html) to see an example of how to use instance_action API.
     def instance_action(instance_id, action, opts = {})
@@ -3033,8 +3044,8 @@ module OCI
 
       raise "Missing the required parameter 'instance_id' when calling instance_action." if instance_id.nil?
       raise "Missing the required parameter 'action' when calling instance_action." if action.nil?
-      unless %w[STOP START SOFTRESET RESET SOFTSTOP SENDDIAGNOSTICINTERRUPT].include?(action)
-        raise "Invalid value for 'action', must be one of STOP, START, SOFTRESET, RESET, SOFTSTOP, SENDDIAGNOSTICINTERRUPT."
+      unless %w[STOP START SOFTRESET RESET SOFTSTOP SENDDIAGNOSTICINTERRUPT DIAGNOSTICREBOOT REBOOTMIGRATE].include?(action)
+        raise "Invalid value for 'action', must be one of STOP, START, SOFTRESET, RESET, SOFTSTOP, SENDDIAGNOSTICINTERRUPT, DIAGNOSTICREBOOT, REBOOTMIGRATE."
       end
       raise "Parameter value for 'instance_id' must not be blank" if OCI::Internal::Util.blank_string?(instance_id)
 
@@ -3055,7 +3066,7 @@ module OCI
       # rubocop:enable Style/NegatedIf
       header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
 
-      post_body = nil
+      post_body = @api_client.object_to_http_body(opts[:instance_power_action_details])
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ComputeClient#instance_action') do
@@ -5333,7 +5344,7 @@ module OCI
     #
     # @option opts [BOOLEAN] :preserve_boot_volume Specifies whether to delete or preserve the boot volume when terminating an instance.
     #   When set to `true`, the boot volume is preserved. The default value is `false`.
-    #
+    #    (default to false)
     # @return [Response] A Response object with data of type nil
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/terminate_instance.rb.html) to see an example of how to use terminate_instance API.
     def terminate_instance(instance_id, opts = {})

@@ -11,6 +11,10 @@ module OCI
     # @return [String]
     attr_accessor :exadata_insight_id
 
+    # The user-friendly name for the Exadata system. The name does not have to be unique.
+    # @return [String]
+    attr_accessor :exadata_display_name
+
     # **[Required]** Current utilization
     # @return [Float]
     attr_accessor :current_utilization
@@ -32,6 +36,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'exadata_insight_id': :'exadataInsightId',
+        'exadata_display_name': :'exadataDisplayName',
         'current_utilization': :'currentUtilization',
         'projected_utilization': :'projectedUtilization',
         'days_to_reach_high_utilization': :'daysToReachHighUtilization',
@@ -45,6 +50,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'exadata_insight_id': :'String',
+        'exadata_display_name': :'String',
         'current_utilization': :'Float',
         'projected_utilization': :'Float',
         'days_to_reach_high_utilization': :'Integer',
@@ -60,6 +66,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :exadata_insight_id The value to assign to the {#exadata_insight_id} property
+    # @option attributes [String] :exadata_display_name The value to assign to the {#exadata_display_name} property
     # @option attributes [Float] :current_utilization The value to assign to the {#current_utilization} property
     # @option attributes [Float] :projected_utilization The value to assign to the {#projected_utilization} property
     # @option attributes [Integer] :days_to_reach_high_utilization The value to assign to the {#days_to_reach_high_utilization} property
@@ -75,6 +82,12 @@ module OCI
       raise 'You cannot provide both :exadataInsightId and :exadata_insight_id' if attributes.key?(:'exadataInsightId') && attributes.key?(:'exadata_insight_id')
 
       self.exadata_insight_id = attributes[:'exadata_insight_id'] if attributes[:'exadata_insight_id']
+
+      self.exadata_display_name = attributes[:'exadataDisplayName'] if attributes[:'exadataDisplayName']
+
+      raise 'You cannot provide both :exadataDisplayName and :exadata_display_name' if attributes.key?(:'exadataDisplayName') && attributes.key?(:'exadata_display_name')
+
+      self.exadata_display_name = attributes[:'exadata_display_name'] if attributes[:'exadata_display_name']
 
       self.current_utilization = attributes[:'currentUtilization'] if attributes[:'currentUtilization']
 
@@ -113,6 +126,7 @@ module OCI
 
       self.class == other.class &&
         exadata_insight_id == other.exadata_insight_id &&
+        exadata_display_name == other.exadata_display_name &&
         current_utilization == other.current_utilization &&
         projected_utilization == other.projected_utilization &&
         days_to_reach_high_utilization == other.days_to_reach_high_utilization &&
@@ -132,7 +146,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [exadata_insight_id, current_utilization, projected_utilization, days_to_reach_high_utilization, days_to_reach_low_utilization].hash
+      [exadata_insight_id, exadata_display_name, current_utilization, projected_utilization, days_to_reach_high_utilization, days_to_reach_low_utilization].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

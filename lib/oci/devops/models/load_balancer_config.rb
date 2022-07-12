@@ -5,7 +5,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Specifies config for load balancer traffic shift stages.
+  # Specifies configuration for load balancer traffic shift stages.
+  # The load balancer specified here should be an Application load balancer type.
+  # Network load balancers are not supported.
+  #
   class Devops::Models::LoadBalancerConfig
     # **[Required]** The OCID of the load balancer.
     # @return [String]

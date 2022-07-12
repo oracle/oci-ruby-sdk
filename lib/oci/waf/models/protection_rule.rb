@@ -14,7 +14,8 @@ module OCI
   #
   class Waf::Models::ProtectionRule < Waf::Models::WebAppFirewallPolicyRule
     # **[Required]** An ordered list that references OCI-managed protection capabilities.
-    # Referenced protection capabilities are executed in order of appearance.
+    # Referenced protection capabilities are not necessarily executed in order of appearance. Their execution order
+    # is decided at runtime for improved performance.
     # The array cannot contain entries with the same pair of capability key and version more than once.
     #
     # @return [Array<OCI::Waf::Models::ProtectionCapability>]
@@ -22,6 +23,13 @@ module OCI
 
     # @return [OCI::Waf::Models::ProtectionCapabilitySettings]
     attr_accessor :protection_capability_settings
+
+    # Enables/disables body inspection for this protection rule.
+    # Only Protection Rules in RequestProtection can have this option enabled. Response body inspection will
+    # be available at a later date.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_body_inspection_enabled
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -33,7 +41,8 @@ module OCI
         'condition': :'condition',
         'action_name': :'actionName',
         'protection_capabilities': :'protectionCapabilities',
-        'protection_capability_settings': :'protectionCapabilitySettings'
+        'protection_capability_settings': :'protectionCapabilitySettings',
+        'is_body_inspection_enabled': :'isBodyInspectionEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -48,7 +57,8 @@ module OCI
         'condition': :'String',
         'action_name': :'String',
         'protection_capabilities': :'Array<OCI::Waf::Models::ProtectionCapability>',
-        'protection_capability_settings': :'OCI::Waf::Models::ProtectionCapabilitySettings'
+        'protection_capability_settings': :'OCI::Waf::Models::ProtectionCapabilitySettings',
+        'is_body_inspection_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -65,6 +75,7 @@ module OCI
     # @option attributes [String] :action_name The value to assign to the {OCI::Waf::Models::WebAppFirewallPolicyRule#action_name #action_name} proprety
     # @option attributes [Array<OCI::Waf::Models::ProtectionCapability>] :protection_capabilities The value to assign to the {#protection_capabilities} property
     # @option attributes [OCI::Waf::Models::ProtectionCapabilitySettings] :protection_capability_settings The value to assign to the {#protection_capability_settings} property
+    # @option attributes [BOOLEAN] :is_body_inspection_enabled The value to assign to the {#is_body_inspection_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -86,6 +97,14 @@ module OCI
       raise 'You cannot provide both :protectionCapabilitySettings and :protection_capability_settings' if attributes.key?(:'protectionCapabilitySettings') && attributes.key?(:'protection_capability_settings')
 
       self.protection_capability_settings = attributes[:'protection_capability_settings'] if attributes[:'protection_capability_settings']
+
+      self.is_body_inspection_enabled = attributes[:'isBodyInspectionEnabled'] unless attributes[:'isBodyInspectionEnabled'].nil?
+      self.is_body_inspection_enabled = false if is_body_inspection_enabled.nil? && !attributes.key?(:'isBodyInspectionEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isBodyInspectionEnabled and :is_body_inspection_enabled' if attributes.key?(:'isBodyInspectionEnabled') && attributes.key?(:'is_body_inspection_enabled')
+
+      self.is_body_inspection_enabled = attributes[:'is_body_inspection_enabled'] unless attributes[:'is_body_inspection_enabled'].nil?
+      self.is_body_inspection_enabled = false if is_body_inspection_enabled.nil? && !attributes.key?(:'isBodyInspectionEnabled') && !attributes.key?(:'is_body_inspection_enabled') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -105,7 +124,8 @@ module OCI
         condition == other.condition &&
         action_name == other.action_name &&
         protection_capabilities == other.protection_capabilities &&
-        protection_capability_settings == other.protection_capability_settings
+        protection_capability_settings == other.protection_capability_settings &&
+        is_body_inspection_enabled == other.is_body_inspection_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -121,7 +141,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, name, condition_language, condition, action_name, protection_capabilities, protection_capability_settings].hash
+      [type, name, condition_language, condition, action_name, protection_capabilities, protection_capability_settings, is_body_inspection_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

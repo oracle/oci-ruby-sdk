@@ -28,8 +28,7 @@ module OCI
     # @return [String]
     attr_reader :shape_name
 
-    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for
-    # cross-compatibility only.
+    # Simple key-value pair that is applied without any predefined name, type, or scope.
     # Example: `{\"bar-key\": \"value\"}`
     #
     # @return [Hash<String, String>]
@@ -41,6 +40,14 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # Should this Digital Assistant instance use role-based authorization via an identity domain (true) or use the default policy-based authorization via IAM policies (false)
+    # @return [BOOLEAN]
+    attr_accessor :is_role_based_access
+
+    # If isRoleBasedAccess is set to true, this property specifies the identity domain that is to be used to implement this type of authorzation. Digital Assistant will create an Identity Application instance and Application Roles within this identity domain. The caller may then perform and user roll mappings they like to grant access to users within the identity domain.
+    # @return [String]
+    attr_accessor :identity_domain
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -50,7 +57,9 @@ module OCI
         'compartment_id': :'compartmentId',
         'shape_name': :'shapeName',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'is_role_based_access': :'isRoleBasedAccess',
+        'identity_domain': :'identityDomain'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -64,7 +73,9 @@ module OCI
         'compartment_id': :'String',
         'shape_name': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'is_role_based_access': :'BOOLEAN',
+        'identity_domain': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -81,6 +92,8 @@ module OCI
     # @option attributes [String] :shape_name The value to assign to the {#shape_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [BOOLEAN] :is_role_based_access The value to assign to the {#is_role_based_access} property
+    # @option attributes [String] :identity_domain The value to assign to the {#identity_domain} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -118,6 +131,20 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.is_role_based_access = attributes[:'isRoleBasedAccess'] unless attributes[:'isRoleBasedAccess'].nil?
+      self.is_role_based_access = false if is_role_based_access.nil? && !attributes.key?(:'isRoleBasedAccess') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isRoleBasedAccess and :is_role_based_access' if attributes.key?(:'isRoleBasedAccess') && attributes.key?(:'is_role_based_access')
+
+      self.is_role_based_access = attributes[:'is_role_based_access'] unless attributes[:'is_role_based_access'].nil?
+      self.is_role_based_access = false if is_role_based_access.nil? && !attributes.key?(:'isRoleBasedAccess') && !attributes.key?(:'is_role_based_access') # rubocop:disable Style/StringLiterals
+
+      self.identity_domain = attributes[:'identityDomain'] if attributes[:'identityDomain']
+
+      raise 'You cannot provide both :identityDomain and :identity_domain' if attributes.key?(:'identityDomain') && attributes.key?(:'identity_domain')
+
+      self.identity_domain = attributes[:'identity_domain'] if attributes[:'identity_domain']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -144,7 +171,9 @@ module OCI
         compartment_id == other.compartment_id &&
         shape_name == other.shape_name &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        is_role_based_access == other.is_role_based_access &&
+        identity_domain == other.identity_domain
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -160,7 +189,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, compartment_id, shape_name, freeform_tags, defined_tags].hash
+      [display_name, description, compartment_id, shape_name, freeform_tags, defined_tags, is_role_based_access, identity_domain].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

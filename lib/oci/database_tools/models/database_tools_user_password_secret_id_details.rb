@@ -8,7 +8,7 @@ require_relative 'database_tools_user_password_details'
 module OCI
   # The user password.
   class DatabaseTools::Models::DatabaseToolsUserPasswordSecretIdDetails < DatabaseTools::Models::DatabaseToolsUserPasswordDetails
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the secret containing the user password.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the secret containing the user password.
     # @return [String]
     attr_accessor :secret_id
 

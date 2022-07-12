@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Detected document type.
+  # The detected document type.
   class AiVision::Models::DetectedDocumentType
-    # **[Required]** Type of the document.
+    # **[Required]** The document type.
     # @return [String]
     attr_accessor :document_type
 
-    # **[Required]** Confidence score between 0 to 1.
+    # **[Required]** The confidence score between 0 and 1.
     # @return [Float]
     attr_accessor :confidence
 

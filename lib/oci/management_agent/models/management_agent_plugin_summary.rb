@@ -8,6 +8,13 @@ require 'logger'
 module OCI
   # Summary of the ManagementAgentPlugin.
   class ManagementAgent::Models::ManagementAgentPluginSummary
+    SUPPORTED_PLATFORM_TYPES_ENUM = [
+      SUPPORTED_PLATFORM_TYPES_LINUX = 'LINUX'.freeze,
+      SUPPORTED_PLATFORM_TYPES_WINDOWS = 'WINDOWS'.freeze,
+      SUPPORTED_PLATFORM_TYPES_SOLARIS = 'SOLARIS'.freeze,
+      SUPPORTED_PLATFORM_TYPES_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
@@ -33,8 +40,8 @@ module OCI
     attr_accessor :version
 
     # Supported Platform Types
-    # @return [Array<OCI::ManagementAgent::Models::PlatformTypes>]
-    attr_accessor :supported_platform_types
+    # @return [Array<String>]
+    attr_reader :supported_platform_types
 
     # Management Agent Plugin Display Name
     # @return [String]
@@ -75,7 +82,7 @@ module OCI
         'id': :'String',
         'name': :'String',
         'version': :'Integer',
-        'supported_platform_types': :'Array<OCI::ManagementAgent::Models::PlatformTypes>',
+        'supported_platform_types': :'Array<String>',
         'display_name': :'String',
         'description': :'String',
         'is_console_deployable': :'BOOLEAN',
@@ -93,7 +100,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [Integer] :version The value to assign to the {#version} property
-    # @option attributes [Array<OCI::ManagementAgent::Models::PlatformTypes>] :supported_platform_types The value to assign to the {#supported_platform_types} property
+    # @option attributes [Array<String>] :supported_platform_types The value to assign to the {#supported_platform_types} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [BOOLEAN] :is_console_deployable The value to assign to the {#is_console_deployable} property
@@ -140,6 +147,26 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] supported_platform_types Object to be assigned
+    def supported_platform_types=(supported_platform_types)
+      # rubocop:disable Style/ConditionalAssignment
+      if supported_platform_types.nil?
+        @supported_platform_types = nil
+      else
+        @supported_platform_types =
+          supported_platform_types.collect do |item|
+            if SUPPORTED_PLATFORM_TYPES_ENUM.include?(item)
+              item
+            else
+              OCI.logger.debug("Unknown value for 'supported_platform_types' [#{item}]. Mapping to 'SUPPORTED_PLATFORM_TYPES_UNKNOWN_ENUM_VALUE'") if OCI.logger
+              SUPPORTED_PLATFORM_TYPES_UNKNOWN_ENUM_VALUE
+            end
+          end
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned

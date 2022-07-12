@@ -73,9 +73,18 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # The date and time the folder was last updated, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339). Example: 2019-03-25T21:10:29.600Z
+    #
+    # @return [DateTime]
+    attr_accessor :time_updated
+
     # URI of the folder resource within the data catalog API.
     # @return [String]
     attr_accessor :uri
+
+    # URL of the folder in the object store.
+    # @return [String]
+    attr_accessor :object_storage_url
 
     # State of the folder.
     # @return [String]
@@ -96,7 +105,9 @@ module OCI
         'external_key': :'externalKey',
         'time_external': :'timeExternal',
         'time_created': :'timeCreated',
+        'time_updated': :'timeUpdated',
         'uri': :'uri',
+        'object_storage_url': :'objectStorageUrl',
         'lifecycle_state': :'lifecycleState'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -117,7 +128,9 @@ module OCI
         'external_key': :'String',
         'time_external': :'DateTime',
         'time_created': :'DateTime',
+        'time_updated': :'DateTime',
         'uri': :'String',
+        'object_storage_url': :'String',
         'lifecycle_state': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -140,7 +153,9 @@ module OCI
     # @option attributes [String] :external_key The value to assign to the {#external_key} property
     # @option attributes [DateTime] :time_external The value to assign to the {#time_external} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :uri The value to assign to the {#uri} property
+    # @option attributes [String] :object_storage_url The value to assign to the {#object_storage_url} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -202,7 +217,19 @@ module OCI
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
+      self.time_updated = attributes[:'timeUpdated'] if attributes[:'timeUpdated']
+
+      raise 'You cannot provide both :timeUpdated and :time_updated' if attributes.key?(:'timeUpdated') && attributes.key?(:'time_updated')
+
+      self.time_updated = attributes[:'time_updated'] if attributes[:'time_updated']
+
       self.uri = attributes[:'uri'] if attributes[:'uri']
+
+      self.object_storage_url = attributes[:'objectStorageUrl'] if attributes[:'objectStorageUrl']
+
+      raise 'You cannot provide both :objectStorageUrl and :object_storage_url' if attributes.key?(:'objectStorageUrl') && attributes.key?(:'object_storage_url')
+
+      self.object_storage_url = attributes[:'object_storage_url'] if attributes[:'object_storage_url']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -246,7 +273,9 @@ module OCI
         external_key == other.external_key &&
         time_external == other.time_external &&
         time_created == other.time_created &&
+        time_updated == other.time_updated &&
         uri == other.uri &&
+        object_storage_url == other.object_storage_url &&
         lifecycle_state == other.lifecycle_state
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -263,7 +292,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, display_name, business_name, description, data_asset_key, parent_folder_key, type_key, path, external_key, time_external, time_created, uri, lifecycle_state].hash
+      [key, display_name, business_name, description, data_asset_key, parent_folder_key, type_key, path, external_key, time_external, time_created, time_updated, uri, object_storage_url, lifecycle_state].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

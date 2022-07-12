@@ -6,7 +6,8 @@ module OCI
     CONFIG_TYPES_ENUM = [
       CONFIG_TYPES_SPAN_FILTER = 'SPAN_FILTER'.freeze,
       CONFIG_TYPES_METRIC_GROUP = 'METRIC_GROUP'.freeze,
-      CONFIG_TYPES_APDEX = 'APDEX'.freeze
+      CONFIG_TYPES_APDEX = 'APDEX'.freeze,
+      CONFIG_TYPES_OPTIONS = 'OPTIONS'.freeze
     ].freeze
   end
 end

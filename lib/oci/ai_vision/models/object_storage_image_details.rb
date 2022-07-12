@@ -6,17 +6,17 @@ require_relative 'image_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Image residing in OCI Object Storage.
+  # The image residing in OCI Object Storage.
   class AiVision::Models::ObjectStorageImageDetails < AiVision::Models::ImageDetails
-    # **[Required]** Object Storage namespace.
+    # **[Required]** The Object Storage namespace.
     # @return [String]
     attr_accessor :namespace_name
 
-    # **[Required]** Object Storage bucket name.
+    # **[Required]** The Object Storage bucket name.
     # @return [String]
     attr_accessor :bucket_name
 
-    # **[Required]** Object Storage object name.
+    # **[Required]** The Object Storage object name.
     # @return [String]
     attr_accessor :object_name
 

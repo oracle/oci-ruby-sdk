@@ -7,6 +7,15 @@ require 'date'
 module OCI
   # Properties used in application create operations.
   class DataIntegration::Models::UpdateApplicationDetails
+    LIFECYCLE_STATE_ENUM = [
+      LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
+      LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
+      LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
+      LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze
+    ].freeze
+
     # **[Required]** Generated key that can be used in API calls to identify application.
     # @return [String]
     attr_accessor :key
@@ -49,6 +58,26 @@ module OCI
     # @return [OCI::DataIntegration::Models::ObjectMetadata]
     attr_accessor :metadata
 
+    # Free form text without any restriction on permitted characters. Name can have letters, numbers, and special characters. The value is editable and is restricted to 1000 characters.
+    # @return [String]
+    attr_accessor :display_name
+
+    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    # Example: `{\"bar-key\": \"value\"}`
+    #
+    # @return [Hash<String, String>]
+    attr_accessor :freeform_tags
+
+    # Usage of predefined tag keys. These predefined keys are scoped to namespaces.
+    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :defined_tags
+
+    # The current state of the workspace.
+    # @return [String]
+    attr_reader :lifecycle_state
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -63,7 +92,11 @@ module OCI
         'identifier': :'identifier',
         'parent_ref': :'parentRef',
         'object_version': :'objectVersion',
-        'metadata': :'metadata'
+        'metadata': :'metadata',
+        'display_name': :'displayName',
+        'freeform_tags': :'freeformTags',
+        'defined_tags': :'definedTags',
+        'lifecycle_state': :'lifecycleState'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -82,7 +115,11 @@ module OCI
         'identifier': :'String',
         'parent_ref': :'OCI::DataIntegration::Models::ParentReference',
         'object_version': :'Integer',
-        'metadata': :'OCI::DataIntegration::Models::ObjectMetadata'
+        'metadata': :'OCI::DataIntegration::Models::ObjectMetadata',
+        'display_name': :'String',
+        'freeform_tags': :'Hash<String, String>',
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'lifecycle_state': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -104,6 +141,10 @@ module OCI
     # @option attributes [OCI::DataIntegration::Models::ParentReference] :parent_ref The value to assign to the {#parent_ref} property
     # @option attributes [Integer] :object_version The value to assign to the {#object_version} property
     # @option attributes [OCI::DataIntegration::Models::ObjectMetadata] :metadata The value to assign to the {#metadata} property
+    # @option attributes [String] :display_name The value to assign to the {#display_name} property
+    # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -152,9 +193,41 @@ module OCI
       self.object_version = attributes[:'object_version'] if attributes[:'object_version']
 
       self.metadata = attributes[:'metadata'] if attributes[:'metadata']
+
+      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
+
+      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
+
+      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
+
+      self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
+
+      raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
+
+      self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.defined_tags = attributes[:'definedTags'] if attributes[:'definedTags']
+
+      raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
+
+      self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
+
+      raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
+
+      self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_state Object to be assigned
+    def lifecycle_state=(lifecycle_state)
+      raise "Invalid value for 'lifecycle_state': this must be one of the values in LIFECYCLE_STATE_ENUM." if lifecycle_state && !LIFECYCLE_STATE_ENUM.include?(lifecycle_state)
+
+      @lifecycle_state = lifecycle_state
+    end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -175,7 +248,11 @@ module OCI
         identifier == other.identifier &&
         parent_ref == other.parent_ref &&
         object_version == other.object_version &&
-        metadata == other.metadata
+        metadata == other.metadata &&
+        display_name == other.display_name &&
+        freeform_tags == other.freeform_tags &&
+        defined_tags == other.defined_tags &&
+        lifecycle_state == other.lifecycle_state
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -191,7 +268,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [key, model_type, model_version, name, description, application_version, object_status, identifier, parent_ref, object_version, metadata].hash
+      [key, model_type, model_version, name, description, application_version, object_status, identifier, parent_ref, object_version, metadata, display_name, freeform_tags, defined_tags, lifecycle_state].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

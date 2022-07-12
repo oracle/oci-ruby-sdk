@@ -18,6 +18,7 @@ module OCI
       MODEL_TYPE_GENERIC_JDBC_CONNECTION = 'GENERIC_JDBC_CONNECTION'.freeze,
       MODEL_TYPE_BICC_CONNECTION = 'BICC_CONNECTION'.freeze,
       MODEL_TYPE_AMAZON_S3_CONNECTION = 'AMAZON_S3_CONNECTION'.freeze,
+      MODEL_TYPE_BIP_CONNECTION = 'BIP_CONNECTION'.freeze,
       MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -133,6 +134,7 @@ module OCI
       return 'OCI::DataIntegration::Models::ConnectionSummaryFromAmazonS3' if type == 'AMAZON_S3_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionSummaryFromAdwc' if type == 'ORACLE_ADWC_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionSummaryFromMySQL' if type == 'MYSQL_CONNECTION'
+      return 'OCI::DataIntegration::Models::ConnectionSummaryFromBIP' if type == 'BIP_CONNECTION'
       return 'OCI::DataIntegration::Models::ConnectionSummaryFromObjectStorage' if type == 'ORACLE_OBJECT_STORAGE_CONNECTION'
 
       # TODO: Log a warning when the subtype is not found.

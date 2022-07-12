@@ -7,7 +7,7 @@ require 'date'
 module OCI
   # A log message from the execution of a work request.
   class AiVision::Models::WorkRequestLogEntry
-    # **[Required]** Human-readable log message.
+    # **[Required]** A human-readable log message.
     # @return [String]
     attr_accessor :message
 

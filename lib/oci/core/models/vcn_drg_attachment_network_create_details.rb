@@ -8,7 +8,7 @@ require_relative 'drg_attachment_network_create_details'
 module OCI
   # Specifies the VCN Attachment
   class Core::Models::VcnDrgAttachmentNetworkCreateDetails < Core::Models::DrgAttachmentNetworkCreateDetails
-    # This is the [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the route table that is used to route the traffic as it enters a VCN through this attachment.
+    # This is the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the route table that is used to route the traffic as it enters a VCN through this attachment.
     #
     # For information about why you would associate a route table with a DRG attachment, see
     # [Advanced Scenario: Transit Routing](https://docs.cloud.oracle.com/iaas/Content/Network/Tasks/transitrouting.htm).
@@ -20,13 +20,20 @@ module OCI
     # @return [String]
     attr_accessor :route_table_id
 
+    # Indicates whether the VCN CIDRs or the individual subnet CIDRs are imported from the attachment.
+    # Routes from the VCN ingress route table are always imported.
+    #
+    # @return [String]
+    attr_accessor :vcn_route_type
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'type': :'type',
         'id': :'id',
-        'route_table_id': :'routeTableId'
+        'route_table_id': :'routeTableId',
+        'vcn_route_type': :'vcnRouteType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,7 +44,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'type': :'String',
         'id': :'String',
-        'route_table_id': :'String'
+        'route_table_id': :'String',
+        'vcn_route_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -50,6 +58,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :id The value to assign to the {OCI::Core::Models::DrgAttachmentNetworkCreateDetails#id #id} proprety
     # @option attributes [String] :route_table_id The value to assign to the {#route_table_id} property
+    # @option attributes [String] :vcn_route_type The value to assign to the {#vcn_route_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -65,6 +74,14 @@ module OCI
       raise 'You cannot provide both :routeTableId and :route_table_id' if attributes.key?(:'routeTableId') && attributes.key?(:'route_table_id')
 
       self.route_table_id = attributes[:'route_table_id'] if attributes[:'route_table_id']
+
+      self.vcn_route_type = attributes[:'vcnRouteType'] if attributes[:'vcnRouteType']
+      self.vcn_route_type = "SUBNET_CIDRS" if vcn_route_type.nil? && !attributes.key?(:'vcnRouteType') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :vcnRouteType and :vcn_route_type' if attributes.key?(:'vcnRouteType') && attributes.key?(:'vcn_route_type')
+
+      self.vcn_route_type = attributes[:'vcn_route_type'] if attributes[:'vcn_route_type']
+      self.vcn_route_type = "SUBNET_CIDRS" if vcn_route_type.nil? && !attributes.key?(:'vcnRouteType') && !attributes.key?(:'vcn_route_type') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -80,7 +97,8 @@ module OCI
       self.class == other.class &&
         type == other.type &&
         id == other.id &&
-        route_table_id == other.route_table_id
+        route_table_id == other.route_table_id &&
+        vcn_route_type == other.vcn_route_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -96,7 +114,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [type, id, route_table_id].hash
+      [type, id, route_table_id, vcn_route_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

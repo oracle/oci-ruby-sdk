@@ -6,7 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Detailed Tunnel SA
+  # A summary of the IPSec tunnel security association details.
+  #
   class Core::Models::TunnelSecurityAssociationSummary
     TUNNEL_SA_STATUS_ENUM = [
       TUNNEL_SA_STATUS_INITIATING = 'INITIATING'.freeze,
@@ -18,23 +19,24 @@ module OCI
       TUNNEL_SA_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # IP and mask of the Partner Subnet for Policy Based VPNs or Static Routes
+    # The IP address and mask of the partner subnet used in policy based VPNs or static routes.
     # @return [String]
     attr_accessor :cpe_subnet
 
-    # IP and mask of the Local Subnet for Policy Based VPNs or Static Routes
+    # The IP address and mask of the local subnet used in policy based VPNs or static routes.
     # @return [String]
     attr_accessor :oracle_subnet
 
-    # Phase 1 Status of the Tunnel
+    # The IPSec tunnel's phase one status.
     # @return [String]
     attr_reader :tunnel_sa_status
 
-    # Current state if status is not up, including phase1/phase2 and possible reason for tunnel not up
+    # Current state if the IPSec tunnel status is not `UP`, including phase one and phase two details and a possible reason the tunnel is not `UP`.
+    #
     # @return [String]
     attr_accessor :tunnel_sa_error_info
 
-    # Seconds in current state
+    # Time in the current state, in seconds.
     # @return [String]
     attr_accessor :time
 

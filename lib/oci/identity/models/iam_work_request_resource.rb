@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A IAM work request resource entry
+  # (For tenancies that support identity domains) A IAM work request resource entry.
   class Identity::Models::IamWorkRequestResource
     ACTION_TYPE_ENUM = [
       ACTION_TYPE_CREATED = 'CREATED'.freeze,

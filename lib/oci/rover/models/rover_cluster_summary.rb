@@ -8,6 +8,12 @@ require 'logger'
 module OCI
   # Summary of the RoverCluster.
   class Rover::Models::RoverClusterSummary
+    CLUSTER_TYPE_ENUM = [
+      CLUSTER_TYPE_STANDALONE = 'STANDALONE'.freeze,
+      CLUSTER_TYPE_STATION = 'STATION'.freeze,
+      CLUSTER_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
@@ -37,6 +43,14 @@ module OCI
     # The nodes that are part of this cluster.
     # @return [Array<String>]
     attr_accessor :nodes
+
+    # Size of the cluster.
+    # @return [Integer]
+    attr_accessor :cluster_size
+
+    # Type of cluster.
+    # @return [String]
+    attr_reader :cluster_type
 
     # **[Required]** The current state of the RoverCluster.
     # @return [String]
@@ -76,6 +90,8 @@ module OCI
         'display_name': :'displayName',
         'time_created': :'timeCreated',
         'nodes': :'nodes',
+        'cluster_size': :'clusterSize',
+        'cluster_type': :'clusterType',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_state_details': :'lifecycleStateDetails',
         'freeform_tags': :'freeformTags',
@@ -94,6 +110,8 @@ module OCI
         'display_name': :'String',
         'time_created': :'DateTime',
         'nodes': :'Array<String>',
+        'cluster_size': :'Integer',
+        'cluster_type': :'String',
         'lifecycle_state': :'String',
         'lifecycle_state_details': :'String',
         'freeform_tags': :'Hash<String, String>',
@@ -114,6 +132,8 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [Array<String>] :nodes The value to assign to the {#nodes} property
+    # @option attributes [Integer] :cluster_size The value to assign to the {#cluster_size} property
+    # @option attributes [String] :cluster_type The value to assign to the {#cluster_type} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_state_details The value to assign to the {#lifecycle_state_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -146,6 +166,18 @@ module OCI
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
       self.nodes = attributes[:'nodes'] if attributes[:'nodes']
+
+      self.cluster_size = attributes[:'clusterSize'] if attributes[:'clusterSize']
+
+      raise 'You cannot provide both :clusterSize and :cluster_size' if attributes.key?(:'clusterSize') && attributes.key?(:'cluster_size')
+
+      self.cluster_size = attributes[:'cluster_size'] if attributes[:'cluster_size']
+
+      self.cluster_type = attributes[:'clusterType'] if attributes[:'clusterType']
+
+      raise 'You cannot provide both :clusterType and :cluster_type' if attributes.key?(:'clusterType') && attributes.key?(:'cluster_type')
+
+      self.cluster_type = attributes[:'cluster_type'] if attributes[:'cluster_type']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -181,6 +213,19 @@ module OCI
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] cluster_type Object to be assigned
+    def cluster_type=(cluster_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if cluster_type && !CLUSTER_TYPE_ENUM.include?(cluster_type)
+        OCI.logger.debug("Unknown value for 'cluster_type' [" + cluster_type + "]. Mapping to 'CLUSTER_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @cluster_type = CLUSTER_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @cluster_type = cluster_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -207,6 +252,8 @@ module OCI
         display_name == other.display_name &&
         time_created == other.time_created &&
         nodes == other.nodes &&
+        cluster_size == other.cluster_size &&
+        cluster_type == other.cluster_type &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_state_details == other.lifecycle_state_details &&
         freeform_tags == other.freeform_tags &&
@@ -227,7 +274,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, time_created, nodes, lifecycle_state, lifecycle_state_details, freeform_tags, defined_tags, system_tags].hash
+      [id, compartment_id, display_name, time_created, nodes, cluster_size, cluster_type, lifecycle_state, lifecycle_state_details, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

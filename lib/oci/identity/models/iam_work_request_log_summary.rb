@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The log entity for a IAM work request.
+  # (For tenancies that support identity domains) The log entity for a IAM work request.
   #
   class Identity::Models::IamWorkRequestLogSummary
     # **[Required]** A human-readable error string.

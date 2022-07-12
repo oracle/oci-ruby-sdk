@@ -5,13 +5,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A label describing an image. Every label returned by the pre-deployed model will be in English.
+  # A label describing an image. Every label returned by the pre-deployed model is in English.
   class AiVision::Models::Label
-    # **[Required]** Classification catagory label name.
+    # **[Required]** The classification catagory label name.
     # @return [String]
     attr_accessor :name
 
-    # **[Required]** Confidence score between 0 to 1.
+    # **[Required]** The confidence score between 0 and 1.
     # @return [Float]
     attr_accessor :confidence
 

@@ -165,11 +165,20 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_upgrade_required
 
-    # The type of deployment, the value determines the exact 'type' of service executed in the Deployment. NOTE: Use of the value OGG is maintained for backward compatibility purposes.  Its use is discouraged
-    #       in favor of the equivalent DATABASE_ORACLE value.
+    # The deployment type.
     #
     # @return [String]
     attr_reader :deployment_type
+
+    # The amount of storage being utilized (in bytes)
+    #
+    # @return [Integer]
+    attr_accessor :storage_utilization_in_bytes
+
+    # Indicator will be true if the amount of storage being utilized exceeds the allowable storage utilization limit.  Exceeding the limit may be an indication of a misconfiguration of the deployment's GoldenGate service.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_storage_utilization_limit_exceeded
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -198,7 +207,9 @@ module OCI
         'system_tags': :'systemTags',
         'is_latest_version': :'isLatestVersion',
         'time_upgrade_required': :'timeUpgradeRequired',
-        'deployment_type': :'deploymentType'
+        'deployment_type': :'deploymentType',
+        'storage_utilization_in_bytes': :'storageUtilizationInBytes',
+        'is_storage_utilization_limit_exceeded': :'isStorageUtilizationLimitExceeded'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -230,7 +241,9 @@ module OCI
         'system_tags': :'Hash<String, Hash<String, Object>>',
         'is_latest_version': :'BOOLEAN',
         'time_upgrade_required': :'DateTime',
-        'deployment_type': :'String'
+        'deployment_type': :'String',
+        'storage_utilization_in_bytes': :'Integer',
+        'is_storage_utilization_limit_exceeded': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -265,6 +278,8 @@ module OCI
     # @option attributes [BOOLEAN] :is_latest_version The value to assign to the {#is_latest_version} property
     # @option attributes [DateTime] :time_upgrade_required The value to assign to the {#time_upgrade_required} property
     # @option attributes [String] :deployment_type The value to assign to the {#deployment_type} property
+    # @option attributes [Integer] :storage_utilization_in_bytes The value to assign to the {#storage_utilization_in_bytes} property
+    # @option attributes [BOOLEAN] :is_storage_utilization_limit_exceeded The value to assign to the {#is_storage_utilization_limit_exceeded} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -402,6 +417,18 @@ module OCI
       raise 'You cannot provide both :deploymentType and :deployment_type' if attributes.key?(:'deploymentType') && attributes.key?(:'deployment_type')
 
       self.deployment_type = attributes[:'deployment_type'] if attributes[:'deployment_type']
+
+      self.storage_utilization_in_bytes = attributes[:'storageUtilizationInBytes'] if attributes[:'storageUtilizationInBytes']
+
+      raise 'You cannot provide both :storageUtilizationInBytes and :storage_utilization_in_bytes' if attributes.key?(:'storageUtilizationInBytes') && attributes.key?(:'storage_utilization_in_bytes')
+
+      self.storage_utilization_in_bytes = attributes[:'storage_utilization_in_bytes'] if attributes[:'storage_utilization_in_bytes']
+
+      self.is_storage_utilization_limit_exceeded = attributes[:'isStorageUtilizationLimitExceeded'] unless attributes[:'isStorageUtilizationLimitExceeded'].nil?
+
+      raise 'You cannot provide both :isStorageUtilizationLimitExceeded and :is_storage_utilization_limit_exceeded' if attributes.key?(:'isStorageUtilizationLimitExceeded') && attributes.key?(:'is_storage_utilization_limit_exceeded')
+
+      self.is_storage_utilization_limit_exceeded = attributes[:'is_storage_utilization_limit_exceeded'] unless attributes[:'is_storage_utilization_limit_exceeded'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -490,7 +517,9 @@ module OCI
         system_tags == other.system_tags &&
         is_latest_version == other.is_latest_version &&
         time_upgrade_required == other.time_upgrade_required &&
-        deployment_type == other.deployment_type
+        deployment_type == other.deployment_type &&
+        storage_utilization_in_bytes == other.storage_utilization_in_bytes &&
+        is_storage_utilization_limit_exceeded == other.is_storage_utilization_limit_exceeded
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -506,7 +535,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, description, compartment_id, time_created, time_updated, lifecycle_state, lifecycle_sub_state, lifecycle_details, freeform_tags, defined_tags, subnet_id, license_model, fqdn, cpu_core_count, is_auto_scaling_enabled, is_public, public_ip_address, private_ip_address, deployment_url, system_tags, is_latest_version, time_upgrade_required, deployment_type].hash
+      [id, display_name, description, compartment_id, time_created, time_updated, lifecycle_state, lifecycle_sub_state, lifecycle_details, freeform_tags, defined_tags, subnet_id, license_model, fqdn, cpu_core_count, is_auto_scaling_enabled, is_public, public_ip_address, private_ip_address, deployment_url, system_tags, is_latest_version, time_upgrade_required, deployment_type, storage_utilization_in_bytes, is_storage_utilization_limit_exceeded].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

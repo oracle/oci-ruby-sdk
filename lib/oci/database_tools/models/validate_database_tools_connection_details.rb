@@ -9,10 +9,11 @@ module OCI
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class DatabaseTools::Models::ValidateDatabaseToolsConnectionDetails
     TYPE_ENUM = [
-      TYPE_ORACLE_DATABASE = 'ORACLE_DATABASE'.freeze
+      TYPE_ORACLE_DATABASE = 'ORACLE_DATABASE'.freeze,
+      TYPE_MYSQL = 'MYSQL'.freeze
     ].freeze
 
-    # **[Required]** The DatabaseToolsConnection type.
+    # **[Required]** The `DatabaseToolsConnection` type.
     # @return [String]
     attr_reader :type
 
@@ -43,6 +44,7 @@ module OCI
       type = object_hash[:'type'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::DatabaseTools::Models::ValidateDatabaseToolsConnectionOracleDatabaseDetails' if type == 'ORACLE_DATABASE'
+      return 'OCI::DatabaseTools::Models::ValidateDatabaseToolsConnectionMySqlDetails' if type == 'MYSQL'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::DatabaseTools::Models::ValidateDatabaseToolsConnectionDetails'

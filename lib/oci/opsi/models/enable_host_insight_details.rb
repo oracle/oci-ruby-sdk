@@ -10,7 +10,8 @@ module OCI
   class Opsi::Models::EnableHostInsightDetails
     ENTITY_SOURCE_ENUM = [
       ENTITY_SOURCE_MACS_MANAGED_EXTERNAL_HOST = 'MACS_MANAGED_EXTERNAL_HOST'.freeze,
-      ENTITY_SOURCE_EM_MANAGED_EXTERNAL_HOST = 'EM_MANAGED_EXTERNAL_HOST'.freeze
+      ENTITY_SOURCE_EM_MANAGED_EXTERNAL_HOST = 'EM_MANAGED_EXTERNAL_HOST'.freeze,
+      ENTITY_SOURCE_PE_COMANAGED_HOST = 'PE_COMANAGED_HOST'.freeze
     ].freeze
 
     # **[Required]** Source of the host entity.

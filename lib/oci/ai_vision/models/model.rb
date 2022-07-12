@@ -24,19 +24,19 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Unique identifier that is immutable after creation.
+    # **[Required]** A unique identifier that is immutable after creation.
     # @return [String]
     attr_accessor :id
 
-    # Human-friendly name for the model, which can be changed.
+    # A human-friendly name for the model, which can be changed.
     # @return [String]
     attr_accessor :display_name
 
-    # Optional description of the model.
+    # An optional description of the model.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** Compartment identifier.
+    # **[Required]** The compartment identifier.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -44,15 +44,15 @@ module OCI
     # @return [String]
     attr_reader :model_type
 
-    # Set to true when experimenting with a new model type or dataset so model training is quick, with a predefined low number of passes through the training data.
+    # Set to true when experimenting with a new model type or dataset, so model training is quick, with a predefined low number of passes through the training data.
     # @return [BOOLEAN]
     attr_accessor :is_quick_mode
 
-    # Maximum model training duration in hours, expressed as a decimal fraction.
+    # The maximum model training duration in hours, expressed as a decimal fraction.
     # @return [Float]
     attr_accessor :max_training_duration_in_hours
 
-    # Total hours actually used for model training.
+    # The total hours actually used for model training.
     # @return [Float]
     attr_accessor :trained_duration_in_hours
 
@@ -70,7 +70,7 @@ module OCI
     # @return [String]
     attr_accessor :model_version
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the project which contains the model.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the project that contains the model.
     # @return [String]
     attr_accessor :project_id
 
@@ -82,15 +82,15 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_updated
 
-    # **[Required]** Current state of the model.
+    # **[Required]** The current state of the model.
     # @return [String]
     attr_reader :lifecycle_state
 
-    # A message describing the current state in more detail which can provide actionable information if training failed.
+    # A message describing the current state in more detail, that can provide actionable information if training failed.
     # @return [String]
     attr_accessor :lifecycle_details
 
-    # Precision of the trained model.
+    # The precision of the trained model.
     # @return [Float]
     attr_accessor :precision
 
@@ -98,40 +98,40 @@ module OCI
     # @return [Float]
     attr_accessor :recall
 
-    # Mean average precision of the trained model.
+    # The mean average precision of the trained model.
     # @return [Float]
     attr_accessor :average_precision
 
-    # Intersection over union threshold used for calculating precision and recall.
+    # The intersection over the union threshold used for calculating precision and recall.
     # @return [Float]
     attr_accessor :confidence_threshold
 
-    # Number of images in the dataset used to train, validate, and test the model.
+    # The number of images in the dataset used to train, validate, and test the model.
     # @return [Integer]
     attr_accessor :total_image_count
 
-    # Number of images set aside for evaluating model performance metrics after training.
+    # The number of images set aside for evaluating model performance metrics after training.
     # @return [Integer]
     attr_accessor :test_image_count
 
-    # Complete set of per-label metrics for successfully trained model.
+    # The complete set of per-label metrics for successfully trained models.
     # @return [String]
     attr_accessor :metrics
 
-    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # A simple key-value pair that is applied without any predefined name, type, or scope. It exists for cross-compatibility only.
+    # For example: `{\"bar-key\": \"value\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    # For example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
     # Usage of system tag keys. These predefined keys are scoped to namespaces.
-    # Example: `{\"orcl-cloud\": {\"free-tier-retained\": \"true\"}}`
+    # For example: `{\"orcl-cloud\": {\"free-tier-retained\": \"true\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :system_tags

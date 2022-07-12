@@ -11,6 +11,11 @@ module OCI
   #
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Database::Models::LaunchDbSystemBase
+    STORAGE_VOLUME_PERFORMANCE_MODE_ENUM = [
+      STORAGE_VOLUME_PERFORMANCE_MODE_BALANCED = 'BALANCED'.freeze,
+      STORAGE_VOLUME_PERFORMANCE_MODE_HIGH_PERFORMANCE = 'HIGH_PERFORMANCE'.freeze
+    ].freeze
+
     SOURCE_ENUM = [
       SOURCE_NONE = 'NONE'.freeze,
       SOURCE_DB_BACKUP = 'DB_BACKUP'.freeze,
@@ -71,9 +76,9 @@ module OCI
     # @return [String]
     attr_accessor :backup_subnet_id
 
-    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # The list of [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) for the network security groups (NSGs) to which this resource belongs. Setting this to an empty list removes all resources from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
     # **NsgIds restrictions:**
-    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
+    # - A network security group (NSG) is optional for Autonomous Databases with private access. The nsgIds list can be empty.
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
@@ -98,6 +103,11 @@ module OCI
 
     # @return [OCI::Database::Models::DbSystemOptions]
     attr_accessor :db_system_options
+
+    # The block storage volume performance level. Valid values are `BALANCED` and `HIGH_PERFORMANCE`. See [Block Volume Performance](https://docs.cloud.oracle.com/Content/Block/Concepts/blockvolumeperformance.htm) for more information.
+    #
+    # @return [String]
+    attr_reader :storage_volume_performance_mode
 
     # If true, Sparse Diskgroup is configured for Exadata dbsystem. If False, Sparse diskgroup is not configured.
     #
@@ -126,7 +136,7 @@ module OCI
     # @return [String]
     attr_accessor :domain
 
-    # **[Required]** The number of CPU cores to enable for a bare metal or Exadata DB system. The valid values depend on the specified shape:
+    # **[Required]** The number of CPU cores to enable for a bare metal or Exadata DB system or AMD VMDB Systems. The valid values depend on the specified shape:
     #
     # - BM.DenseIO1.36 - Specify a multiple of 2, from 2 to 36.
     # - BM.DenseIO2.52 - Specify a multiple of 2, from 2 to 52.
@@ -137,8 +147,9 @@ module OCI
     # - Exadata.Quarter2.92 - Specify a multiple of 2, from 0 to 92.
     # - Exadata.Half2.184 - Specify a multiple of 4, from 0 to 184.
     # - Exadata.Full2.368 - Specify a multiple of 8, from 0 to 368.
+    # - VM.Standard.E4.Flex - Specify any thing from 1 to 64.
     #
-    # This parameter is not used for virtual machine DB systems because virtual machine DB systems have a set number of cores for each shape.
+    # This parameter is not used for INTEL virtual machine DB systems because virtual machine DB systems have a set number of cores for each shape.
     # For information about the number of cores for a virtual machine DB system shape, see [Virtual Machine DB Systems](https://docs.cloud.oracle.com/Content/Database/Concepts/overview.htm#virtualmachine)
     #
     # @return [Integer]
@@ -217,6 +228,7 @@ module OCI
         'shape': :'shape',
         'time_zone': :'timeZone',
         'db_system_options': :'dbSystemOptions',
+        'storage_volume_performance_mode': :'storageVolumePerformanceMode',
         'sparse_diskgroup': :'sparseDiskgroup',
         'ssh_public_keys': :'sshPublicKeys',
         'hostname': :'hostname',
@@ -251,6 +263,7 @@ module OCI
         'shape': :'String',
         'time_zone': :'String',
         'db_system_options': :'OCI::Database::Models::DbSystemOptions',
+        'storage_volume_performance_mode': :'String',
         'sparse_diskgroup': :'BOOLEAN',
         'ssh_public_keys': :'Array<String>',
         'hostname': :'String',
@@ -305,6 +318,7 @@ module OCI
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
     # @option attributes [OCI::Database::Models::DbSystemOptions] :db_system_options The value to assign to the {#db_system_options} property
+    # @option attributes [String] :storage_volume_performance_mode The value to assign to the {#storage_volume_performance_mode} property
     # @option attributes [BOOLEAN] :sparse_diskgroup The value to assign to the {#sparse_diskgroup} property
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {#ssh_public_keys} property
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
@@ -387,6 +401,14 @@ module OCI
       raise 'You cannot provide both :dbSystemOptions and :db_system_options' if attributes.key?(:'dbSystemOptions') && attributes.key?(:'db_system_options')
 
       self.db_system_options = attributes[:'db_system_options'] if attributes[:'db_system_options']
+
+      self.storage_volume_performance_mode = attributes[:'storageVolumePerformanceMode'] if attributes[:'storageVolumePerformanceMode']
+      self.storage_volume_performance_mode = "BALANCED" if storage_volume_performance_mode.nil? && !attributes.key?(:'storageVolumePerformanceMode') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :storageVolumePerformanceMode and :storage_volume_performance_mode' if attributes.key?(:'storageVolumePerformanceMode') && attributes.key?(:'storage_volume_performance_mode')
+
+      self.storage_volume_performance_mode = attributes[:'storage_volume_performance_mode'] if attributes[:'storage_volume_performance_mode']
+      self.storage_volume_performance_mode = "BALANCED" if storage_volume_performance_mode.nil? && !attributes.key?(:'storageVolumePerformanceMode') && !attributes.key?(:'storage_volume_performance_mode') # rubocop:disable Style/StringLiterals
 
       self.sparse_diskgroup = attributes[:'sparseDiskgroup'] unless attributes[:'sparseDiskgroup'].nil?
 
@@ -471,6 +493,14 @@ module OCI
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] storage_volume_performance_mode Object to be assigned
+    def storage_volume_performance_mode=(storage_volume_performance_mode)
+      raise "Invalid value for 'storage_volume_performance_mode': this must be one of the values in STORAGE_VOLUME_PERFORMANCE_MODE_ENUM." if storage_volume_performance_mode && !STORAGE_VOLUME_PERFORMANCE_MODE_ENUM.include?(storage_volume_performance_mode)
+
+      @storage_volume_performance_mode = storage_volume_performance_mode
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] source Object to be assigned
     def source=(source)
       raise "Invalid value for 'source': this must be one of the values in SOURCE_ENUM." if source && !SOURCE_ENUM.include?(source)
@@ -498,6 +528,7 @@ module OCI
         shape == other.shape &&
         time_zone == other.time_zone &&
         db_system_options == other.db_system_options &&
+        storage_volume_performance_mode == other.storage_volume_performance_mode &&
         sparse_diskgroup == other.sparse_diskgroup &&
         ssh_public_keys == other.ssh_public_keys &&
         hostname == other.hostname &&
@@ -528,7 +559,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, db_system_options, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, kms_key_id, kms_key_version_id, node_count, freeform_tags, defined_tags, source, private_ip].hash
+      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, db_system_options, storage_volume_performance_mode, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, kms_key_id, kms_key_version_id, node_count, freeform_tags, defined_tags, source, private_ip].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

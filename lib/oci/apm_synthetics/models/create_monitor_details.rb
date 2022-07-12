@@ -28,8 +28,8 @@ module OCI
     # @return [String]
     attr_reader :monitor_type
 
-    # **[Required]** A list of vantage points from which to execute the monitor.
-    # Use /publicVantagePoints to fetch public vantage points.
+    # **[Required]** A list of public and dedicated vantage points from which to execute the monitor.
+    # Use /publicVantagePoints to fetch public vantage points, and /dedicatedVantagePoints to fetch dedicated vantage points.
     #
     # @return [Array<String>]
     attr_accessor :vantage_points
@@ -45,7 +45,7 @@ module OCI
     attr_reader :status
 
     # **[Required]** Interval in seconds after the start time when the job should be repeated.
-    # Minimum repeatIntervalInSeconds should be 300 seconds.
+    # Minimum repeatIntervalInSeconds should be 300 seconds for Scripted REST, Scripted Browser and Browser monitors, and 60 seconds for REST monitor.
     #
     # @return [Integer]
     attr_accessor :repeat_interval_in_seconds
@@ -55,7 +55,8 @@ module OCI
     attr_accessor :is_run_once
 
     # Timeout in seconds. Timeout cannot be more than 30% of repeatIntervalInSeconds time for monitors.
-    # Also, timeoutInSeconds should be a multiple of 60. Monitor will be allowed to run only for timeoutInSeconds time. It would be terminated after that.
+    # Also, timeoutInSeconds should be a multiple of 60 for Scripted REST, Scripted Browser and Browser monitors.
+    # Monitor will be allowed to run only for timeoutInSeconds time. It would be terminated after that.
     #
     # @return [Integer]
     attr_accessor :timeout_in_seconds

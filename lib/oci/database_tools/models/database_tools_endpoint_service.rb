@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Description of DatabaseToolsEndpointService.
+  # Description of Database Tools Endpoint Service.
   class DatabaseTools::Models::DatabaseToolsEndpointService
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
@@ -18,7 +18,7 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the DatabaseToolsEndpointService.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Database Tools Endpoint Service.
     # @return [String]
     attr_accessor :id
 
@@ -30,7 +30,7 @@ module OCI
     # @return [String]
     attr_accessor :name
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the containing Compartment.
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment containing the Database Tools Endpoint Service.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -52,15 +52,15 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :system_tags
 
-    # **[Required]** The time the DatabaseToolsEndpointService was created. An RFC3339 formatted datetime string
+    # **[Required]** The time the Database Tools Endpoint Service was created. An RFC3339 formatted datetime string
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The time the DatabaseToolsEndpointService was updated. An RFC3339 formatted datetime string
+    # The time the Database Tools Endpoint Service was updated. An RFC3339 formatted datetime string
     # @return [DateTime]
     attr_accessor :time_updated
 
-    # **[Required]** The current state of the DatabaseToolsEndpointService.
+    # **[Required]** The current state of the Database Tools Endpoint Service.
     # @return [String]
     attr_reader :lifecycle_state
 
@@ -68,7 +68,7 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_details
 
-    # A description of the DatabaseToolsEndpointService.
+    # A description of the Database Tools Endpoint Service.
     # @return [String]
     attr_accessor :description
 

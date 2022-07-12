@@ -65,7 +65,7 @@ module OCI
     #
     # The example contains two `SecRules` each having distinct regex expression to match the `Cookie` header value during the second input analysis phase.
     #
-    # For more information about custom protection rules, see [Custom Protection Rules](https://docs.cloud.oracle.com/Content/WAF/tasks/customprotectionrules.htm).
+    # For more information about custom protection rules, see [Custom Protection Rules](https://docs.cloud.oracle.com/Content/WAF/Tasks/customprotectionrules.htm).
     #
     # For more information about ModSecurity syntax, see [Making Rules: The Basic Syntax](https://www.modsecurity.org/CRS/Documentation/making.html).
     #

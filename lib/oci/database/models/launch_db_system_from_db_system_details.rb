@@ -42,6 +42,7 @@ module OCI
         'shape': :'shape',
         'time_zone': :'timeZone',
         'db_system_options': :'dbSystemOptions',
+        'storage_volume_performance_mode': :'storageVolumePerformanceMode',
         'sparse_diskgroup': :'sparseDiskgroup',
         'ssh_public_keys': :'sshPublicKeys',
         'hostname': :'hostname',
@@ -79,6 +80,7 @@ module OCI
         'shape': :'String',
         'time_zone': :'String',
         'db_system_options': :'OCI::Database::Models::DbSystemOptions',
+        'storage_volume_performance_mode': :'String',
         'sparse_diskgroup': :'BOOLEAN',
         'ssh_public_keys': :'Array<String>',
         'hostname': :'String',
@@ -118,6 +120,7 @@ module OCI
     # @option attributes [String] :shape The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#shape #shape} proprety
     # @option attributes [String] :time_zone The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#time_zone #time_zone} proprety
     # @option attributes [OCI::Database::Models::DbSystemOptions] :db_system_options The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#db_system_options #db_system_options} proprety
+    # @option attributes [String] :storage_volume_performance_mode The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#storage_volume_performance_mode #storage_volume_performance_mode} proprety
     # @option attributes [BOOLEAN] :sparse_diskgroup The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#sparse_diskgroup #sparse_diskgroup} proprety
     # @option attributes [Array<String>] :ssh_public_keys The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#ssh_public_keys #ssh_public_keys} proprety
     # @option attributes [String] :hostname The value to assign to the {OCI::Database::Models::LaunchDbSystemBase#hostname #hostname} proprety
@@ -194,6 +197,7 @@ module OCI
         shape == other.shape &&
         time_zone == other.time_zone &&
         db_system_options == other.db_system_options &&
+        storage_volume_performance_mode == other.storage_volume_performance_mode &&
         sparse_diskgroup == other.sparse_diskgroup &&
         ssh_public_keys == other.ssh_public_keys &&
         hostname == other.hostname &&
@@ -227,7 +231,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, db_system_options, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, kms_key_id, kms_key_version_id, node_count, freeform_tags, defined_tags, source, private_ip, source_db_system_id, db_home, license_model].hash
+      [compartment_id, fault_domains, display_name, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, shape, time_zone, db_system_options, storage_volume_performance_mode, sparse_diskgroup, ssh_public_keys, hostname, domain, cpu_core_count, cluster_name, data_storage_percentage, initial_data_storage_size_in_gb, kms_key_id, kms_key_version_id, node_count, freeform_tags, defined_tags, source, private_ip, source_db_system_id, db_home, license_model].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

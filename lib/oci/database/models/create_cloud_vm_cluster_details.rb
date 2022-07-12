@@ -114,9 +114,9 @@ module OCI
     # @return [Integer]
     attr_accessor :scan_listener_port_tcp_ssl
 
-    # A list of the [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the network security groups (NSGs) that this resource belongs to. Setting this to an empty array after the list is created removes the resource from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
+    # The list of [OCIDs](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) for the network security groups (NSGs) to which this resource belongs. Setting this to an empty list removes all resources from all NSGs. For more information about NSGs, see [Security Rules](https://docs.cloud.oracle.com/Content/Network/Concepts/securityrules.htm).
     # **NsgIds restrictions:**
-    # - Autonomous Databases with private access require at least 1 Network Security Group (NSG). The nsgIds array cannot be empty.
+    # - A network security group (NSG) is optional for Autonomous Databases with private access. The nsgIds list can be empty.
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
@@ -144,6 +144,9 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # @return [OCI::Database::Models::DataCollectionOptions]
+    attr_accessor :data_collection_options
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -170,7 +173,8 @@ module OCI
         'backup_network_nsg_ids': :'backupNetworkNsgIds',
         'gi_version': :'giVersion',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'data_collection_options': :'dataCollectionOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -201,7 +205,8 @@ module OCI
         'backup_network_nsg_ids': :'Array<String>',
         'gi_version': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'data_collection_options': :'OCI::Database::Models::DataCollectionOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -235,6 +240,7 @@ module OCI
     # @option attributes [String] :gi_version The value to assign to the {#gi_version} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [OCI::Database::Models::DataCollectionOptions] :data_collection_options The value to assign to the {#data_collection_options} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -370,6 +376,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.data_collection_options = attributes[:'dataCollectionOptions'] if attributes[:'dataCollectionOptions']
+
+      raise 'You cannot provide both :dataCollectionOptions and :data_collection_options' if attributes.key?(:'dataCollectionOptions') && attributes.key?(:'data_collection_options')
+
+      self.data_collection_options = attributes[:'data_collection_options'] if attributes[:'data_collection_options']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -413,7 +425,8 @@ module OCI
         backup_network_nsg_ids == other.backup_network_nsg_ids &&
         gi_version == other.gi_version &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        data_collection_options == other.data_collection_options
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -429,7 +442,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, subnet_id, backup_subnet_id, cpu_core_count, ocpu_count, cluster_name, data_storage_percentage, display_name, cloud_exadata_infrastructure_id, hostname, domain, ssh_public_keys, license_model, is_sparse_diskgroup_enabled, is_local_backup_enabled, time_zone, scan_listener_port_tcp, scan_listener_port_tcp_ssl, nsg_ids, backup_network_nsg_ids, gi_version, freeform_tags, defined_tags].hash
+      [compartment_id, subnet_id, backup_subnet_id, cpu_core_count, ocpu_count, cluster_name, data_storage_percentage, display_name, cloud_exadata_infrastructure_id, hostname, domain, ssh_public_keys, license_model, is_sparse_diskgroup_enabled, is_local_backup_enabled, time_zone, scan_listener_port_tcp, scan_listener_port_tcp_ssl, nsg_ids, backup_network_nsg_ids, gi_version, freeform_tags, defined_tags, data_collection_options].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -96,6 +96,10 @@ module OCI
     # @return [OCI::ContainerEngine::Models::ImagePolicyConfig]
     attr_accessor :image_policy_config
 
+    # Available CNIs and network options for existing and new node pools of the cluster
+    # @return [Array<OCI::ContainerEngine::Models::ClusterPodNetworkOptionDetails>]
+    attr_accessor :cluster_pod_network_options
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -116,7 +120,8 @@ module OCI
         'lifecycle_details': :'lifecycleDetails',
         'endpoints': :'endpoints',
         'available_kubernetes_upgrades': :'availableKubernetesUpgrades',
-        'image_policy_config': :'imagePolicyConfig'
+        'image_policy_config': :'imagePolicyConfig',
+        'cluster_pod_network_options': :'clusterPodNetworkOptions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -141,7 +146,8 @@ module OCI
         'lifecycle_details': :'String',
         'endpoints': :'OCI::ContainerEngine::Models::ClusterEndpoints',
         'available_kubernetes_upgrades': :'Array<String>',
-        'image_policy_config': :'OCI::ContainerEngine::Models::ImagePolicyConfig'
+        'image_policy_config': :'OCI::ContainerEngine::Models::ImagePolicyConfig',
+        'cluster_pod_network_options': :'Array<OCI::ContainerEngine::Models::ClusterPodNetworkOptionDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -169,6 +175,7 @@ module OCI
     # @option attributes [OCI::ContainerEngine::Models::ClusterEndpoints] :endpoints The value to assign to the {#endpoints} property
     # @option attributes [Array<String>] :available_kubernetes_upgrades The value to assign to the {#available_kubernetes_upgrades} property
     # @option attributes [OCI::ContainerEngine::Models::ImagePolicyConfig] :image_policy_config The value to assign to the {#image_policy_config} property
+    # @option attributes [Array<OCI::ContainerEngine::Models::ClusterPodNetworkOptionDetails>] :cluster_pod_network_options The value to assign to the {#cluster_pod_network_options} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -256,6 +263,12 @@ module OCI
       raise 'You cannot provide both :imagePolicyConfig and :image_policy_config' if attributes.key?(:'imagePolicyConfig') && attributes.key?(:'image_policy_config')
 
       self.image_policy_config = attributes[:'image_policy_config'] if attributes[:'image_policy_config']
+
+      self.cluster_pod_network_options = attributes[:'clusterPodNetworkOptions'] if attributes[:'clusterPodNetworkOptions']
+
+      raise 'You cannot provide both :clusterPodNetworkOptions and :cluster_pod_network_options' if attributes.key?(:'clusterPodNetworkOptions') && attributes.key?(:'cluster_pod_network_options')
+
+      self.cluster_pod_network_options = attributes[:'cluster_pod_network_options'] if attributes[:'cluster_pod_network_options']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -298,7 +311,8 @@ module OCI
         lifecycle_details == other.lifecycle_details &&
         endpoints == other.endpoints &&
         available_kubernetes_upgrades == other.available_kubernetes_upgrades &&
-        image_policy_config == other.image_policy_config
+        image_policy_config == other.image_policy_config &&
+        cluster_pod_network_options == other.cluster_pod_network_options
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -314,7 +328,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, compartment_id, endpoint_config, vcn_id, kubernetes_version, kms_key_id, freeform_tags, defined_tags, system_tags, options, metadata, lifecycle_state, lifecycle_details, endpoints, available_kubernetes_upgrades, image_policy_config].hash
+      [id, name, compartment_id, endpoint_config, vcn_id, kubernetes_version, kms_key_id, freeform_tags, defined_tags, system_tags, options, metadata, lifecycle_state, lifecycle_details, endpoints, available_kubernetes_upgrades, image_policy_config, cluster_pod_network_options].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

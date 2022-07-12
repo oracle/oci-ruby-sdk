@@ -66,6 +66,9 @@ module OCI
     # @return [Integer]
     attr_accessor :timeout_in_seconds
 
+    # @return [OCI::Functions::Models::FunctionProvisionedConcurrencyConfig]
+    attr_accessor :provisioned_concurrency_config
+
     # @return [OCI::Functions::Models::FunctionTraceConfig]
     attr_accessor :trace_config
 
@@ -118,6 +121,7 @@ module OCI
         'image_digest': :'imageDigest',
         'memory_in_m_bs': :'memoryInMBs',
         'timeout_in_seconds': :'timeoutInSeconds',
+        'provisioned_concurrency_config': :'provisionedConcurrencyConfig',
         'trace_config': :'traceConfig',
         'freeform_tags': :'freeformTags',
         'invoke_endpoint': :'invokeEndpoint',
@@ -141,6 +145,7 @@ module OCI
         'image_digest': :'String',
         'memory_in_m_bs': :'Integer',
         'timeout_in_seconds': :'Integer',
+        'provisioned_concurrency_config': :'OCI::Functions::Models::FunctionProvisionedConcurrencyConfig',
         'trace_config': :'OCI::Functions::Models::FunctionTraceConfig',
         'freeform_tags': :'Hash<String, String>',
         'invoke_endpoint': :'String',
@@ -166,6 +171,7 @@ module OCI
     # @option attributes [String] :image_digest The value to assign to the {#image_digest} property
     # @option attributes [Integer] :memory_in_m_bs The value to assign to the {#memory_in_m_bs} property
     # @option attributes [Integer] :timeout_in_seconds The value to assign to the {#timeout_in_seconds} property
+    # @option attributes [OCI::Functions::Models::FunctionProvisionedConcurrencyConfig] :provisioned_concurrency_config The value to assign to the {#provisioned_concurrency_config} property
     # @option attributes [OCI::Functions::Models::FunctionTraceConfig] :trace_config The value to assign to the {#trace_config} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :invoke_endpoint The value to assign to the {#invoke_endpoint} property
@@ -225,6 +231,12 @@ module OCI
 
       self.timeout_in_seconds = attributes[:'timeout_in_seconds'] if attributes[:'timeout_in_seconds']
       self.timeout_in_seconds = 30 if timeout_in_seconds.nil? && !attributes.key?(:'timeoutInSeconds') && !attributes.key?(:'timeout_in_seconds') # rubocop:disable Style/StringLiterals
+
+      self.provisioned_concurrency_config = attributes[:'provisionedConcurrencyConfig'] if attributes[:'provisionedConcurrencyConfig']
+
+      raise 'You cannot provide both :provisionedConcurrencyConfig and :provisioned_concurrency_config' if attributes.key?(:'provisionedConcurrencyConfig') && attributes.key?(:'provisioned_concurrency_config')
+
+      self.provisioned_concurrency_config = attributes[:'provisioned_concurrency_config'] if attributes[:'provisioned_concurrency_config']
 
       self.trace_config = attributes[:'traceConfig'] if attributes[:'traceConfig']
 
@@ -296,6 +308,7 @@ module OCI
         image_digest == other.image_digest &&
         memory_in_m_bs == other.memory_in_m_bs &&
         timeout_in_seconds == other.timeout_in_seconds &&
+        provisioned_concurrency_config == other.provisioned_concurrency_config &&
         trace_config == other.trace_config &&
         freeform_tags == other.freeform_tags &&
         invoke_endpoint == other.invoke_endpoint &&
@@ -317,7 +330,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, application_id, compartment_id, lifecycle_state, image, image_digest, memory_in_m_bs, timeout_in_seconds, trace_config, freeform_tags, invoke_endpoint, defined_tags, time_created, time_updated].hash
+      [id, display_name, application_id, compartment_id, lifecycle_state, image, image_digest, memory_in_m_bs, timeout_in_seconds, provisioned_concurrency_config, trace_config, freeform_tags, invoke_endpoint, defined_tags, time_created, time_updated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

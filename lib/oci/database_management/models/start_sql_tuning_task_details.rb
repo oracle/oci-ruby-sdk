@@ -41,15 +41,21 @@ module OCI
     # @return [Integer]
     attr_accessor :statement_time_limit_in_minutes
 
-    # **[Required]** The array of the details of SQL statement on which tuning is performed.
+    # @return [OCI::DatabaseManagement::Models::SqlTuningSetInput]
+    attr_accessor :sql_tuning_set
+
+    # The details of the SQL statement on which tuning is performed.
+    # To obtain the details of the SQL statement, you must provide either the sqlTuningSet
+    # or the tuple of sqlDetails/timeStarted/timeEnded.
+    #
     # @return [Array<OCI::DatabaseManagement::Models::SqlTuningTaskSqlDetail>]
     attr_accessor :sql_details
 
-    # **[Required]** The start time of the period in which SQL statements are running.
+    # The start time of the period in which SQL statements are running.
     # @return [DateTime]
     attr_accessor :time_started
 
-    # **[Required]** The end time of the period in which SQL statements are running.
+    # The end time of the period in which SQL statements are running.
     # @return [DateTime]
     attr_accessor :time_ended
 
@@ -63,6 +69,7 @@ module OCI
         'total_time_limit_in_minutes': :'totalTimeLimitInMinutes',
         'scope': :'scope',
         'statement_time_limit_in_minutes': :'statementTimeLimitInMinutes',
+        'sql_tuning_set': :'sqlTuningSet',
         'sql_details': :'sqlDetails',
         'time_started': :'timeStarted',
         'time_ended': :'timeEnded'
@@ -80,6 +87,7 @@ module OCI
         'total_time_limit_in_minutes': :'Integer',
         'scope': :'String',
         'statement_time_limit_in_minutes': :'Integer',
+        'sql_tuning_set': :'OCI::DatabaseManagement::Models::SqlTuningSetInput',
         'sql_details': :'Array<OCI::DatabaseManagement::Models::SqlTuningTaskSqlDetail>',
         'time_started': :'DateTime',
         'time_ended': :'DateTime'
@@ -99,6 +107,7 @@ module OCI
     # @option attributes [Integer] :total_time_limit_in_minutes The value to assign to the {#total_time_limit_in_minutes} property
     # @option attributes [String] :scope The value to assign to the {#scope} property
     # @option attributes [Integer] :statement_time_limit_in_minutes The value to assign to the {#statement_time_limit_in_minutes} property
+    # @option attributes [OCI::DatabaseManagement::Models::SqlTuningSetInput] :sql_tuning_set The value to assign to the {#sql_tuning_set} property
     # @option attributes [Array<OCI::DatabaseManagement::Models::SqlTuningTaskSqlDetail>] :sql_details The value to assign to the {#sql_details} property
     # @option attributes [DateTime] :time_started The value to assign to the {#time_started} property
     # @option attributes [DateTime] :time_ended The value to assign to the {#time_ended} property
@@ -139,6 +148,12 @@ module OCI
       raise 'You cannot provide both :statementTimeLimitInMinutes and :statement_time_limit_in_minutes' if attributes.key?(:'statementTimeLimitInMinutes') && attributes.key?(:'statement_time_limit_in_minutes')
 
       self.statement_time_limit_in_minutes = attributes[:'statement_time_limit_in_minutes'] if attributes[:'statement_time_limit_in_minutes']
+
+      self.sql_tuning_set = attributes[:'sqlTuningSet'] if attributes[:'sqlTuningSet']
+
+      raise 'You cannot provide both :sqlTuningSet and :sql_tuning_set' if attributes.key?(:'sqlTuningSet') && attributes.key?(:'sql_tuning_set')
+
+      self.sql_tuning_set = attributes[:'sql_tuning_set'] if attributes[:'sql_tuning_set']
 
       self.sql_details = attributes[:'sqlDetails'] if attributes[:'sqlDetails']
 
@@ -184,6 +199,7 @@ module OCI
         total_time_limit_in_minutes == other.total_time_limit_in_minutes &&
         scope == other.scope &&
         statement_time_limit_in_minutes == other.statement_time_limit_in_minutes &&
+        sql_tuning_set == other.sql_tuning_set &&
         sql_details == other.sql_details &&
         time_started == other.time_started &&
         time_ended == other.time_ended
@@ -202,7 +218,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [task_name, task_description, credential_details, total_time_limit_in_minutes, scope, statement_time_limit_in_minutes, sql_details, time_started, time_ended].hash
+      [task_name, task_description, credential_details, total_time_limit_in_minutes, scope, statement_time_limit_in_minutes, sql_tuning_set, sql_details, time_started, time_ended].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

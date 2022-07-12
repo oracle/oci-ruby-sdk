@@ -75,6 +75,14 @@ module OCI
     # @return [String]
     attr_accessor :ipv6_cidr_block
 
+    # The list of all IPv6 CIDR blocks (Oracle allocated IPv6 GUA, ULA or private IPv6 CIDR blocks, BYOIPv6 CIDR blocks) for the subnet that meets the following criteria:
+    # - The CIDR blocks must be valid.
+    # - Multiple CIDR blocks must not overlap each other or the on-premises network CIDR block.
+    # - The number of CIDR blocks must not exceed the limit of IPv6 CIDR blocks allowed to a subnet.
+    #
+    # @return [Array<String>]
+    attr_accessor :ipv6_cidr_blocks
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -86,7 +94,8 @@ module OCI
         'route_table_id': :'routeTableId',
         'security_list_ids': :'securityListIds',
         'cidr_block': :'cidrBlock',
-        'ipv6_cidr_block': :'ipv6CidrBlock'
+        'ipv6_cidr_block': :'ipv6CidrBlock',
+        'ipv6_cidr_blocks': :'ipv6CidrBlocks'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -102,7 +111,8 @@ module OCI
         'route_table_id': :'String',
         'security_list_ids': :'Array<String>',
         'cidr_block': :'String',
-        'ipv6_cidr_block': :'String'
+        'ipv6_cidr_block': :'String',
+        'ipv6_cidr_blocks': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -121,6 +131,7 @@ module OCI
     # @option attributes [Array<String>] :security_list_ids The value to assign to the {#security_list_ids} property
     # @option attributes [String] :cidr_block The value to assign to the {#cidr_block} property
     # @option attributes [String] :ipv6_cidr_block The value to assign to the {#ipv6_cidr_block} property
+    # @option attributes [Array<String>] :ipv6_cidr_blocks The value to assign to the {#ipv6_cidr_blocks} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -174,6 +185,12 @@ module OCI
       raise 'You cannot provide both :ipv6CidrBlock and :ipv6_cidr_block' if attributes.key?(:'ipv6CidrBlock') && attributes.key?(:'ipv6_cidr_block')
 
       self.ipv6_cidr_block = attributes[:'ipv6_cidr_block'] if attributes[:'ipv6_cidr_block']
+
+      self.ipv6_cidr_blocks = attributes[:'ipv6CidrBlocks'] if attributes[:'ipv6CidrBlocks']
+
+      raise 'You cannot provide both :ipv6CidrBlocks and :ipv6_cidr_blocks' if attributes.key?(:'ipv6CidrBlocks') && attributes.key?(:'ipv6_cidr_blocks')
+
+      self.ipv6_cidr_blocks = attributes[:'ipv6_cidr_blocks'] if attributes[:'ipv6_cidr_blocks']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -194,7 +211,8 @@ module OCI
         route_table_id == other.route_table_id &&
         security_list_ids == other.security_list_ids &&
         cidr_block == other.cidr_block &&
-        ipv6_cidr_block == other.ipv6_cidr_block
+        ipv6_cidr_block == other.ipv6_cidr_block &&
+        ipv6_cidr_blocks == other.ipv6_cidr_blocks
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -210,7 +228,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, dhcp_options_id, display_name, freeform_tags, route_table_id, security_list_ids, cidr_block, ipv6_cidr_block].hash
+      [defined_tags, dhcp_options_id, display_name, freeform_tags, route_table_id, security_list_ids, cidr_block, ipv6_cidr_block, ipv6_cidr_blocks].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

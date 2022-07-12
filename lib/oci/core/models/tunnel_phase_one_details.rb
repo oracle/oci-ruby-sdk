@@ -5,22 +5,23 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Tunnel detail information specific to IPSec phase 1.
+  # IPSec tunnel details specific to ISAKMP phase one.
   class Core::Models::TunnelPhaseOneDetails
     # Indicates whether custom phase one configuration is enabled.
+    # If this option is not enabled, default settings are proposed.
+    #
     # @return [BOOLEAN]
     attr_accessor :is_custom_phase_one_config
 
-    # The total configured lifetime of an IKE security association.
+    # The total configured lifetime of the IKE security association.
     # @return [Integer]
     attr_accessor :lifetime
 
-    # The lifetime remaining before the key is refreshed.
+    # The remaining lifetime before the key is refreshed.
     # @return [Integer]
     attr_accessor :remaining_lifetime
 
-    # Custom authentication algorithm
-    #
+    # The proposed custom authentication algorithm.
     # @return [String]
     attr_accessor :custom_authentication_algorithm
 
@@ -28,8 +29,7 @@ module OCI
     # @return [String]
     attr_accessor :negotiated_authentication_algorithm
 
-    # Custom encryption algorithm.
-    #
+    # The proposed custom encryption algorithm.
     # @return [String]
     attr_accessor :custom_encryption_algorithm
 
@@ -37,8 +37,7 @@ module OCI
     # @return [String]
     attr_accessor :negotiated_encryption_algorithm
 
-    # Custom Diffie-Hellman group.
-    #
+    # The proposed custom Diffie-Hellman group.
     # @return [String]
     attr_accessor :custom_dh_group
 
@@ -46,7 +45,7 @@ module OCI
     # @return [String]
     attr_accessor :negotiated_dh_group
 
-    # Indicates whether IKE Phase 1 is established.
+    # Indicates whether IKE phase one is established.
     # @return [BOOLEAN]
     attr_accessor :is_ike_established
 

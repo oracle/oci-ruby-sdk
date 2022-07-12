@@ -9,7 +9,7 @@ module OCI
   # Updates property details for the Object Storage bucket that contains Terraform configuration files.
   class ResourceManager::Models::UpdateObjectStorageConfigSourceDetails < ResourceManager::Models::UpdateConfigSourceDetails
     # The name of the bucket's region.
-    # Example: `PHX`
+    # Example: `us-phoenix-1`
     #
     # @return [String]
     attr_accessor :region

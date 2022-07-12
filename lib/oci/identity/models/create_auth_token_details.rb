@@ -9,6 +9,8 @@ module OCI
   class Identity::Models::CreateAuthTokenDetails
     # **[Required]** The description you assign to the auth token during creation. Does not have to be unique, and it's changeable.
     #
+    # (For tenancies that support identity domains) You can have an empty description.
+    #
     # @return [String]
     attr_accessor :description
 

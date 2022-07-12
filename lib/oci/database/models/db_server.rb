@@ -81,6 +81,9 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_created
 
+    # @return [OCI::Database::Models::DbServerPatchingDetails]
+    attr_accessor :db_server_patching_details
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -114,6 +117,7 @@ module OCI
         'max_memory_in_gbs': :'maxMemoryInGBs',
         'max_db_node_storage_in_gbs': :'maxDbNodeStorageInGBs',
         'time_created': :'timeCreated',
+        'db_server_patching_details': :'dbServerPatchingDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -139,6 +143,7 @@ module OCI
         'max_memory_in_gbs': :'Integer',
         'max_db_node_storage_in_gbs': :'Integer',
         'time_created': :'DateTime',
+        'db_server_patching_details': :'OCI::Database::Models::DbServerPatchingDetails',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -166,6 +171,7 @@ module OCI
     # @option attributes [Integer] :max_memory_in_gbs The value to assign to the {#max_memory_in_gbs} property
     # @option attributes [Integer] :max_db_node_storage_in_gbs The value to assign to the {#max_db_node_storage_in_gbs} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
+    # @option attributes [OCI::Database::Models::DbServerPatchingDetails] :db_server_patching_details The value to assign to the {#db_server_patching_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -257,6 +263,12 @@ module OCI
 
       self.time_created = attributes[:'time_created'] if attributes[:'time_created']
 
+      self.db_server_patching_details = attributes[:'dbServerPatchingDetails'] if attributes[:'dbServerPatchingDetails']
+
+      raise 'You cannot provide both :dbServerPatchingDetails and :db_server_patching_details' if attributes.key?(:'dbServerPatchingDetails') && attributes.key?(:'db_server_patching_details')
+
+      self.db_server_patching_details = attributes[:'db_server_patching_details'] if attributes[:'db_server_patching_details']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -309,6 +321,7 @@ module OCI
         max_memory_in_gbs == other.max_memory_in_gbs &&
         max_db_node_storage_in_gbs == other.max_db_node_storage_in_gbs &&
         time_created == other.time_created &&
+        db_server_patching_details == other.db_server_patching_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -326,7 +339,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, exadata_infrastructure_id, cpu_core_count, memory_size_in_gbs, db_node_storage_size_in_gbs, vm_cluster_ids, db_node_ids, lifecycle_state, lifecycle_details, max_cpu_count, max_memory_in_gbs, max_db_node_storage_in_gbs, time_created, freeform_tags, defined_tags].hash
+      [id, display_name, compartment_id, exadata_infrastructure_id, cpu_core_count, memory_size_in_gbs, db_node_storage_size_in_gbs, vm_cluster_ids, db_node_ids, lifecycle_state, lifecycle_details, max_cpu_count, max_memory_in_gbs, max_db_node_storage_in_gbs, time_created, db_server_patching_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

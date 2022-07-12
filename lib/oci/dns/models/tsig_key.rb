@@ -7,7 +7,6 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A TSIG key.
-  #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Dns::Models::TsigKey

@@ -1042,7 +1042,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Array<String>] :name The name of the listing.
     # @option opts [String] :listing_id The unique identifier for the listing.
-    # @option opts [String] :image_id Image ID of the listing
+    # @option opts [String] :image_id The image identifier of the listing.
     # @option opts [String] :publisher_id Limit results to just this publisher.
     # @option opts [String] :package_type A filter to return only packages that match the given package type exactly.
     #

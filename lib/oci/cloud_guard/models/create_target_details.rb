@@ -10,7 +10,8 @@ module OCI
     TARGET_RESOURCE_TYPE_ENUM = [
       TARGET_RESOURCE_TYPE_COMPARTMENT = 'COMPARTMENT'.freeze,
       TARGET_RESOURCE_TYPE_ERPCLOUD = 'ERPCLOUD'.freeze,
-      TARGET_RESOURCE_TYPE_HCMCLOUD = 'HCMCLOUD'.freeze
+      TARGET_RESOURCE_TYPE_HCMCLOUD = 'HCMCLOUD'.freeze,
+      TARGET_RESOURCE_TYPE_SECURITY_ZONE = 'SECURITY_ZONE'.freeze
     ].freeze
 
     LIFECYCLE_STATE_ENUM = [
@@ -23,7 +24,10 @@ module OCI
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze
     ].freeze
 
-    # **[Required]** DetectorTemplate Identifier
+    # **[Required]** DetectorTemplate identifier.
+    #
+    # Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :display_name
 
@@ -32,6 +36,9 @@ module OCI
     attr_accessor :compartment_id
 
     # The target description.
+    #
+    # Avoid entering confidential information.
+    #
     # @return [String]
     attr_accessor :description
 
@@ -57,6 +64,8 @@ module OCI
 
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
+    #
+    # Avoid entering confidential information.
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags

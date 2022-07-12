@@ -12,6 +12,7 @@ module OCI
     CONNECTION_TYPE_ENUM = [
       CONNECTION_TYPE_GITHUB_ACCESS_TOKEN = 'GITHUB_ACCESS_TOKEN'.freeze,
       CONNECTION_TYPE_GITLAB_ACCESS_TOKEN = 'GITLAB_ACCESS_TOKEN'.freeze,
+      CONNECTION_TYPE_BITBUCKET_CLOUD_APP_PASSWORD = 'BITBUCKET_CLOUD_APP_PASSWORD'.freeze,
       CONNECTION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -118,6 +119,7 @@ module OCI
 
       return 'OCI::Devops::Models::GitlabAccessTokenConnection' if type == 'GITLAB_ACCESS_TOKEN'
       return 'OCI::Devops::Models::GithubAccessTokenConnection' if type == 'GITHUB_ACCESS_TOKEN'
+      return 'OCI::Devops::Models::BitbucketCloudAppPasswordConnection' if type == 'BITBUCKET_CLOUD_APP_PASSWORD'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::Devops::Models::Connection'

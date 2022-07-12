@@ -5,18 +5,21 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # DPD Configuration Details
+  # These configuration details are used for dead peer detection (DPD). DPD periodically checks the stability of the connection to the customer premises (CPE), and may be used to detect that the link to the CPE has gone down.
+  #
   class Core::Models::DpdConfig
     DPD_MODE_ENUM = [
       DPD_MODE_INITIATE_AND_RESPOND = 'INITIATE_AND_RESPOND'.freeze,
       DPD_MODE_RESPOND_ONLY = 'RESPOND_ONLY'.freeze
     ].freeze
 
-    # dpd mode
+    # This option defines whether DPD can be initiated from the Oracle side of the connection.
+    #
     # @return [String]
     attr_reader :dpd_mode
 
-    # DPD Timeout in seconds.
+    # DPD timeout in seconds. This sets the longest interval between CPE device health messages before the IPSec connection indicates it has lost contact with the CPE. The default is 20 seconds.
+    #
     # @return [Integer]
     attr_accessor :dpd_timeout_in_sec
 

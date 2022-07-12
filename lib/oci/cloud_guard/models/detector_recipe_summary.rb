@@ -17,6 +17,7 @@ module OCI
     DETECTOR_ENUM = [
       DETECTOR_IAAS_ACTIVITY_DETECTOR = 'IAAS_ACTIVITY_DETECTOR'.freeze,
       DETECTOR_IAAS_CONFIGURATION_DETECTOR = 'IAAS_CONFIGURATION_DETECTOR'.freeze,
+      DETECTOR_IAAS_THREAT_DETECTOR = 'IAAS_THREAT_DETECTOR'.freeze,
       DETECTOR_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -75,8 +76,14 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # The number of days for which source data is retained
+    # @return [Integer]
+    attr_accessor :source_data_retention
+
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
+    #
+    # Avoid entering confidential information.
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
@@ -111,6 +118,7 @@ module OCI
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
+        'source_data_retention': :'sourceDataRetention',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'system_tags': :'systemTags'
@@ -133,6 +141,7 @@ module OCI
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
+        'source_data_retention': :'Integer',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'system_tags': :'Hash<String, Hash<String, Object>>'
@@ -157,6 +166,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [Integer] :source_data_retention The value to assign to the {#source_data_retention} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
@@ -215,6 +225,12 @@ module OCI
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.source_data_retention = attributes[:'sourceDataRetention'] if attributes[:'sourceDataRetention']
+
+      raise 'You cannot provide both :sourceDataRetention and :source_data_retention' if attributes.key?(:'sourceDataRetention') && attributes.key?(:'source_data_retention')
+
+      self.source_data_retention = attributes[:'source_data_retention'] if attributes[:'source_data_retention']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -296,6 +312,7 @@ module OCI
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
+        source_data_retention == other.source_data_retention &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         system_tags == other.system_tags
@@ -314,7 +331,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, description, compartment_id, source_detector_recipe_id, owner, detector, detector_rules, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags, system_tags].hash
+      [id, display_name, description, compartment_id, source_detector_recipe_id, owner, detector, detector_rules, time_created, time_updated, lifecycle_state, source_data_retention, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

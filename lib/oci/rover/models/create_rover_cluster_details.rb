@@ -7,6 +7,11 @@ require 'date'
 module OCI
   # The information required to create a RoverCluster.
   class Rover::Models::CreateRoverClusterDetails
+    CLUSTER_TYPE_ENUM = [
+      CLUSTER_TYPE_STANDALONE = 'STANDALONE'.freeze,
+      CLUSTER_TYPE_STATION = 'STATION'.freeze
+    ].freeze
+
     ENCLOSURE_TYPE_ENUM = [
       ENCLOSURE_TYPE_RUGGADIZED = 'RUGGADIZED'.freeze,
       ENCLOSURE_TYPE_NON_RUGGADIZED = 'NON_RUGGADIZED'.freeze
@@ -45,6 +50,10 @@ module OCI
     # @return [Array<OCI::Rover::Models::RoverWorkload>]
     attr_accessor :cluster_workloads
 
+    # Type of cluster.
+    # @return [String]
+    attr_reader :cluster_type
+
     # Root password for the rover cluster.
     # @return [String]
     attr_accessor :super_user_password
@@ -81,6 +90,10 @@ module OCI
     # @return [String]
     attr_accessor :oracle_shipping_tracking_url
 
+    # ID provided to customer after successful subscription to Rover Stations.
+    # @return [String]
+    attr_accessor :subscription_id
+
     # The current state of the RoverCluster.
     # @return [String]
     attr_reader :lifecycle_state
@@ -104,6 +117,10 @@ module OCI
     # Validation code returned by data validation tool. Required for return shipping label generation if data import was requested.
     # @return [String]
     attr_accessor :data_validation_code
+
+    # Customer provided master key ID to encrypt secret information. If not provided, Rover's master key will be used for encryption.
+    # @return [String]
+    attr_accessor :master_key_id
 
     # The freeform tags associated with this resource, if any. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
@@ -135,6 +152,7 @@ module OCI
         'cluster_size': :'clusterSize',
         'customer_shipping_address': :'customerShippingAddress',
         'cluster_workloads': :'clusterWorkloads',
+        'cluster_type': :'clusterType',
         'super_user_password': :'superUserPassword',
         'enclosure_type': :'enclosureType',
         'unlock_passphrase': :'unlockPassphrase',
@@ -144,12 +162,14 @@ module OCI
         'shipping_vendor': :'shippingVendor',
         'time_pickup_expected': :'timePickupExpected',
         'oracle_shipping_tracking_url': :'oracleShippingTrackingUrl',
+        'subscription_id': :'subscriptionId',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_state_details': :'lifecycleStateDetails',
         'is_import_requested': :'isImportRequested',
         'import_compartment_id': :'importCompartmentId',
         'import_file_bucket': :'importFileBucket',
         'data_validation_code': :'dataValidationCode',
+        'master_key_id': :'masterKeyId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'system_tags': :'systemTags'
@@ -166,6 +186,7 @@ module OCI
         'cluster_size': :'Integer',
         'customer_shipping_address': :'OCI::Rover::Models::ShippingAddress',
         'cluster_workloads': :'Array<OCI::Rover::Models::RoverWorkload>',
+        'cluster_type': :'String',
         'super_user_password': :'String',
         'enclosure_type': :'String',
         'unlock_passphrase': :'String',
@@ -175,12 +196,14 @@ module OCI
         'shipping_vendor': :'String',
         'time_pickup_expected': :'DateTime',
         'oracle_shipping_tracking_url': :'String',
+        'subscription_id': :'String',
         'lifecycle_state': :'String',
         'lifecycle_state_details': :'String',
         'is_import_requested': :'BOOLEAN',
         'import_compartment_id': :'String',
         'import_file_bucket': :'String',
         'data_validation_code': :'String',
+        'master_key_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'system_tags': :'Hash<String, Hash<String, Object>>'
@@ -199,6 +222,7 @@ module OCI
     # @option attributes [Integer] :cluster_size The value to assign to the {#cluster_size} property
     # @option attributes [OCI::Rover::Models::ShippingAddress] :customer_shipping_address The value to assign to the {#customer_shipping_address} property
     # @option attributes [Array<OCI::Rover::Models::RoverWorkload>] :cluster_workloads The value to assign to the {#cluster_workloads} property
+    # @option attributes [String] :cluster_type The value to assign to the {#cluster_type} property
     # @option attributes [String] :super_user_password The value to assign to the {#super_user_password} property
     # @option attributes [String] :enclosure_type The value to assign to the {#enclosure_type} property
     # @option attributes [String] :unlock_passphrase The value to assign to the {#unlock_passphrase} property
@@ -208,12 +232,14 @@ module OCI
     # @option attributes [String] :shipping_vendor The value to assign to the {#shipping_vendor} property
     # @option attributes [DateTime] :time_pickup_expected The value to assign to the {#time_pickup_expected} property
     # @option attributes [String] :oracle_shipping_tracking_url The value to assign to the {#oracle_shipping_tracking_url} property
+    # @option attributes [String] :subscription_id The value to assign to the {#subscription_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_state_details The value to assign to the {#lifecycle_state_details} property
     # @option attributes [BOOLEAN] :is_import_requested The value to assign to the {#is_import_requested} property
     # @option attributes [String] :import_compartment_id The value to assign to the {#import_compartment_id} property
     # @option attributes [String] :import_file_bucket The value to assign to the {#import_file_bucket} property
     # @option attributes [String] :data_validation_code The value to assign to the {#data_validation_code} property
+    # @option attributes [String] :master_key_id The value to assign to the {#master_key_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
@@ -252,6 +278,12 @@ module OCI
       raise 'You cannot provide both :clusterWorkloads and :cluster_workloads' if attributes.key?(:'clusterWorkloads') && attributes.key?(:'cluster_workloads')
 
       self.cluster_workloads = attributes[:'cluster_workloads'] if attributes[:'cluster_workloads']
+
+      self.cluster_type = attributes[:'clusterType'] if attributes[:'clusterType']
+
+      raise 'You cannot provide both :clusterType and :cluster_type' if attributes.key?(:'clusterType') && attributes.key?(:'cluster_type')
+
+      self.cluster_type = attributes[:'cluster_type'] if attributes[:'cluster_type']
 
       self.super_user_password = attributes[:'superUserPassword'] if attributes[:'superUserPassword']
 
@@ -309,6 +341,12 @@ module OCI
 
       self.oracle_shipping_tracking_url = attributes[:'oracle_shipping_tracking_url'] if attributes[:'oracle_shipping_tracking_url']
 
+      self.subscription_id = attributes[:'subscriptionId'] if attributes[:'subscriptionId']
+
+      raise 'You cannot provide both :subscriptionId and :subscription_id' if attributes.key?(:'subscriptionId') && attributes.key?(:'subscription_id')
+
+      self.subscription_id = attributes[:'subscription_id'] if attributes[:'subscription_id']
+
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
@@ -345,6 +383,12 @@ module OCI
 
       self.data_validation_code = attributes[:'data_validation_code'] if attributes[:'data_validation_code']
 
+      self.master_key_id = attributes[:'masterKeyId'] if attributes[:'masterKeyId']
+
+      raise 'You cannot provide both :masterKeyId and :master_key_id' if attributes.key?(:'masterKeyId') && attributes.key?(:'master_key_id')
+
+      self.master_key_id = attributes[:'master_key_id'] if attributes[:'master_key_id']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -365,6 +409,14 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] cluster_type Object to be assigned
+    def cluster_type=(cluster_type)
+      raise "Invalid value for 'cluster_type': this must be one of the values in CLUSTER_TYPE_ENUM." if cluster_type && !CLUSTER_TYPE_ENUM.include?(cluster_type)
+
+      @cluster_type = cluster_type
+    end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] enclosure_type Object to be assigned
@@ -404,6 +456,7 @@ module OCI
         cluster_size == other.cluster_size &&
         customer_shipping_address == other.customer_shipping_address &&
         cluster_workloads == other.cluster_workloads &&
+        cluster_type == other.cluster_type &&
         super_user_password == other.super_user_password &&
         enclosure_type == other.enclosure_type &&
         unlock_passphrase == other.unlock_passphrase &&
@@ -413,12 +466,14 @@ module OCI
         shipping_vendor == other.shipping_vendor &&
         time_pickup_expected == other.time_pickup_expected &&
         oracle_shipping_tracking_url == other.oracle_shipping_tracking_url &&
+        subscription_id == other.subscription_id &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_state_details == other.lifecycle_state_details &&
         is_import_requested == other.is_import_requested &&
         import_compartment_id == other.import_compartment_id &&
         import_file_bucket == other.import_file_bucket &&
         data_validation_code == other.data_validation_code &&
+        master_key_id == other.master_key_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         system_tags == other.system_tags
@@ -437,7 +492,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, compartment_id, cluster_size, customer_shipping_address, cluster_workloads, super_user_password, enclosure_type, unlock_passphrase, point_of_contact, point_of_contact_phone_number, shipping_preference, shipping_vendor, time_pickup_expected, oracle_shipping_tracking_url, lifecycle_state, lifecycle_state_details, is_import_requested, import_compartment_id, import_file_bucket, data_validation_code, freeform_tags, defined_tags, system_tags].hash
+      [display_name, compartment_id, cluster_size, customer_shipping_address, cluster_workloads, cluster_type, super_user_password, enclosure_type, unlock_passphrase, point_of_contact, point_of_contact_phone_number, shipping_preference, shipping_vendor, time_pickup_expected, oracle_shipping_tracking_url, subscription_id, lifecycle_state, lifecycle_state_details, is_import_requested, import_compartment_id, import_file_bucket, data_validation_code, master_key_id, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

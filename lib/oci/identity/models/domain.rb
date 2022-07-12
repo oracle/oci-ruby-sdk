@@ -6,7 +6,8 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Properties for a Domain
+  # (For tenancies that support identity domains) Properties for an identity domain. An identity domain is used to manage users and groups, integration standards, external identities, and secure application integration through Oracle Single Sign-on (SSO) configuration.
+  #
   class Identity::Models::Domain
     TYPE_ENUM = [
       TYPE_DEFAULT = 'DEFAULT'.freeze,
@@ -29,31 +30,31 @@ module OCI
       LIFECYCLE_DETAILS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the domain
+    # **[Required]** The OCID of the identity domain.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the compartment containing the domain.
+    # **[Required]** The OCID of the compartment containing the identity domain.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The mutable display name of the domain
+    # **[Required]** The mutable display name of the identity domain.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The domain descripition
+    # **[Required]** The identity domain description. You can have an empty description.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** Region agnostic domain URL.
+    # **[Required]** Region-agnostic identity domain URL.
     # @return [String]
     attr_accessor :url
 
-    # **[Required]** Region specific domain URL.
+    # **[Required]** Region-specific identity domain URL.
     # @return [String]
     attr_accessor :home_region_url
 
-    # **[Required]** The home region for the domain.
+    # **[Required]** The home region for the identity domain.
     # See [Regions and Availability Domains](https://docs.cloud.oracle.com/Content/General/Concepts/regions.htm)
     # for the full list of supported region names.
     #
@@ -62,7 +63,7 @@ module OCI
     # @return [String]
     attr_accessor :home_region
 
-    # **[Required]** The regions domain is replication to.
+    # **[Required]** The regions where replicas of the identity domain exist.
     # @return [Array<OCI::Identity::Models::ReplicatedRegionDetails>]
     attr_accessor :replica_regions
 
@@ -71,16 +72,16 @@ module OCI
     # @return [String]
     attr_reader :type
 
-    # **[Required]** The License type of Domain
+    # **[Required]** The license type of the identity domain.
     # @return [String]
     attr_accessor :license_type
 
-    # **[Required]** Indicates whether domain is hidden on login screen or not.
+    # **[Required]** Indicates whether the identity domain is hidden on the sign-in screen or not.
     #
     # @return [BOOLEAN]
     attr_accessor :is_hidden_on_login
 
-    # **[Required]** Date and time the domain was created, in the format defined by RFC3339.
+    # **[Required]** Date and time the identity domain was created, in the format defined by RFC3339.
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
@@ -92,7 +93,7 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # Any additional details about the current state of the Domain.
+    # Any additional details about the current state of the identity domain.
     #
     # @return [String]
     attr_reader :lifecycle_details

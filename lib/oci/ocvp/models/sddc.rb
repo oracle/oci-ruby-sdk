@@ -417,6 +417,27 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # **[Required]** The initial compute shape of the SDDC's ESXi hosts.
+    # {#list_supported_host_shapes list_supported_host_shapes}.
+    #
+    # @return [String]
+    attr_accessor :initial_host_shape_name
+
+    # The initial OCPU count of the SDDC's ESXi hosts.
+    #
+    # @return [Float]
+    attr_accessor :initial_host_ocpu_count
+
+    # Indicates whether shielded instance is enabled at the SDDC level.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_shielded_instance_enabled
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Capacity Reservation.
+    #
+    # @return [String]
+    attr_accessor :capacity_reservation_id
+
     # **[Required]** Free-form tags for this resource. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -481,6 +502,10 @@ module OCI
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
+        'initial_host_shape_name': :'initialHostShapeName',
+        'initial_host_ocpu_count': :'initialHostOcpuCount',
+        'is_shielded_instance_enabled': :'isShieldedInstanceEnabled',
+        'capacity_reservation_id': :'capacityReservationId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -535,6 +560,10 @@ module OCI
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
+        'initial_host_shape_name': :'String',
+        'initial_host_ocpu_count': :'Float',
+        'is_shielded_instance_enabled': :'BOOLEAN',
+        'capacity_reservation_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -591,6 +620,10 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :initial_host_shape_name The value to assign to the {#initial_host_shape_name} property
+    # @option attributes [Float] :initial_host_ocpu_count The value to assign to the {#initial_host_ocpu_count} property
+    # @option attributes [BOOLEAN] :is_shielded_instance_enabled The value to assign to the {#is_shielded_instance_enabled} property
+    # @option attributes [String] :capacity_reservation_id The value to assign to the {#capacity_reservation_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -865,6 +898,32 @@ module OCI
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
+      self.initial_host_shape_name = attributes[:'initialHostShapeName'] if attributes[:'initialHostShapeName']
+
+      raise 'You cannot provide both :initialHostShapeName and :initial_host_shape_name' if attributes.key?(:'initialHostShapeName') && attributes.key?(:'initial_host_shape_name')
+
+      self.initial_host_shape_name = attributes[:'initial_host_shape_name'] if attributes[:'initial_host_shape_name']
+
+      self.initial_host_ocpu_count = attributes[:'initialHostOcpuCount'] if attributes[:'initialHostOcpuCount']
+
+      raise 'You cannot provide both :initialHostOcpuCount and :initial_host_ocpu_count' if attributes.key?(:'initialHostOcpuCount') && attributes.key?(:'initial_host_ocpu_count')
+
+      self.initial_host_ocpu_count = attributes[:'initial_host_ocpu_count'] if attributes[:'initial_host_ocpu_count']
+
+      self.is_shielded_instance_enabled = attributes[:'isShieldedInstanceEnabled'] unless attributes[:'isShieldedInstanceEnabled'].nil?
+      self.is_shielded_instance_enabled = false if is_shielded_instance_enabled.nil? && !attributes.key?(:'isShieldedInstanceEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isShieldedInstanceEnabled and :is_shielded_instance_enabled' if attributes.key?(:'isShieldedInstanceEnabled') && attributes.key?(:'is_shielded_instance_enabled')
+
+      self.is_shielded_instance_enabled = attributes[:'is_shielded_instance_enabled'] unless attributes[:'is_shielded_instance_enabled'].nil?
+      self.is_shielded_instance_enabled = false if is_shielded_instance_enabled.nil? && !attributes.key?(:'isShieldedInstanceEnabled') && !attributes.key?(:'is_shielded_instance_enabled') # rubocop:disable Style/StringLiterals
+
+      self.capacity_reservation_id = attributes[:'capacityReservationId'] if attributes[:'capacityReservationId']
+
+      raise 'You cannot provide both :capacityReservationId and :capacity_reservation_id' if attributes.key?(:'capacityReservationId') && attributes.key?(:'capacity_reservation_id')
+
+      self.capacity_reservation_id = attributes[:'capacity_reservation_id'] if attributes[:'capacity_reservation_id']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -959,6 +1018,10 @@ module OCI
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
+        initial_host_shape_name == other.initial_host_shape_name &&
+        initial_host_ocpu_count == other.initial_host_ocpu_count &&
+        is_shielded_instance_enabled == other.is_shielded_instance_enabled &&
+        capacity_reservation_id == other.capacity_reservation_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -976,7 +1039,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compute_availability_domain, display_name, instance_display_name_prefix, vmware_software_version, compartment_id, esxi_hosts_count, initial_sku, vcenter_fqdn, nsx_manager_fqdn, vcenter_private_ip_id, nsx_manager_private_ip_id, vcenter_initial_password, nsx_manager_initial_password, vcenter_username, nsx_manager_username, ssh_authorized_keys, workload_network_cidr, nsx_overlay_segment_name, nsx_edge_uplink_ip_id, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, replication_vlan_id, provisioning_vlan_id, hcx_private_ip_id, hcx_fqdn, hcx_initial_password, hcx_vlan_id, is_hcx_enabled, hcx_on_prem_key, is_hcx_enterprise_enabled, is_hcx_pending_downgrade, hcx_on_prem_licenses, time_hcx_billing_cycle_end, time_hcx_license_status_updated, time_created, time_updated, lifecycle_state, freeform_tags, defined_tags].hash
+      [id, compute_availability_domain, display_name, instance_display_name_prefix, vmware_software_version, compartment_id, esxi_hosts_count, initial_sku, vcenter_fqdn, nsx_manager_fqdn, vcenter_private_ip_id, nsx_manager_private_ip_id, vcenter_initial_password, nsx_manager_initial_password, vcenter_username, nsx_manager_username, ssh_authorized_keys, workload_network_cidr, nsx_overlay_segment_name, nsx_edge_uplink_ip_id, provisioning_subnet_id, vsphere_vlan_id, vmotion_vlan_id, vsan_vlan_id, nsx_v_tep_vlan_id, nsx_edge_v_tep_vlan_id, nsx_edge_uplink1_vlan_id, nsx_edge_uplink2_vlan_id, replication_vlan_id, provisioning_vlan_id, hcx_private_ip_id, hcx_fqdn, hcx_initial_password, hcx_vlan_id, is_hcx_enabled, hcx_on_prem_key, is_hcx_enterprise_enabled, is_hcx_pending_downgrade, hcx_on_prem_licenses, time_hcx_billing_cycle_end, time_hcx_license_status_updated, time_created, time_updated, lifecycle_state, initial_host_shape_name, initial_host_ocpu_count, is_shielded_instance_enabled, capacity_reservation_id, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

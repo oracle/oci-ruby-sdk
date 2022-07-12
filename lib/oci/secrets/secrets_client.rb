@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # API for retrieving secrets from vaults.
+  # Use the Secret Retrieval API to retrieve secrets and secret versions from vaults. For more information, see [Managing Secrets](/Content/KeyManagement/Tasks/managingsecrets.htm).
   class Secrets::SecretsClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -248,11 +248,11 @@ module OCI
     #   pagination, see [List Pagination](https://docs.cloud.oracle.com/#API/Concepts/usingapi.htm#List_Pagination).
     #
     # @option opts [String] :sort_by The field to sort by. You can specify only one sort order. The default
-    #   order for `VERSION_NUMBER` is ascending.
+    #   order for `VERSION_NUMBER` is descending.
     #    (default to VERSION_NUMBER)
     #   Allowed values are: VERSION_NUMBER
     # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
-    #    (default to ASC)
+    #    (default to DESC)
     #   Allowed values are: ASC, DESC
     # @return [Response] A Response object with data of type Array<{OCI::Secrets::Models::SecretBundleVersionSummary SecretBundleVersionSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/secrets/list_secret_bundle_versions.rb.html) to see an example of how to use list_secret_bundle_versions API.

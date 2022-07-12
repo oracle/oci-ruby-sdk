@@ -164,6 +164,14 @@ module OCI
     # @return [OCI::Database::Models::MaintenanceWindow]
     attr_accessor :maintenance_window
 
+    # The software version of the storage servers (cells) in the Exadata infrastructure.
+    # @return [String]
+    attr_accessor :storage_server_version
+
+    # The software version of the database servers (dom0) in the Exadata infrastructure.
+    # @return [String]
+    attr_accessor :db_server_version
+
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the last maintenance run.
     # @return [String]
     attr_accessor :last_maintenance_run_id
@@ -171,6 +179,13 @@ module OCI
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the next maintenance run.
     # @return [String]
     attr_accessor :next_maintenance_run_id
+
+    # Indicates whether cps offline diagnostic report is enabled for this Exadata infrastructure. This will allow a customer to quickly check status themselves and fix problems on their end, saving time and frustration
+    # for both Oracle and the customer when they find the CPS in a disconnected state.You can enable offline diagnostic report during Exadata infrastructure provisioning. You can also disable or enable it at any time
+    # using the UpdateExadatainfrastructure API.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_cps_offline_report_enabled
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
@@ -223,8 +238,11 @@ module OCI
         'contacts': :'contacts',
         'maintenance_slo_status': :'maintenanceSLOStatus',
         'maintenance_window': :'maintenanceWindow',
+        'storage_server_version': :'storageServerVersion',
+        'db_server_version': :'dbServerVersion',
         'last_maintenance_run_id': :'lastMaintenanceRunId',
         'next_maintenance_run_id': :'nextMaintenanceRunId',
+        'is_cps_offline_report_enabled': :'isCpsOfflineReportEnabled',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -268,8 +286,11 @@ module OCI
         'contacts': :'Array<OCI::Database::Models::ExadataInfrastructureContact>',
         'maintenance_slo_status': :'String',
         'maintenance_window': :'OCI::Database::Models::MaintenanceWindow',
+        'storage_server_version': :'String',
+        'db_server_version': :'String',
         'last_maintenance_run_id': :'String',
         'next_maintenance_run_id': :'String',
+        'is_cps_offline_report_enabled': :'BOOLEAN',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -315,8 +336,11 @@ module OCI
     # @option attributes [Array<OCI::Database::Models::ExadataInfrastructureContact>] :contacts The value to assign to the {#contacts} property
     # @option attributes [String] :maintenance_slo_status The value to assign to the {#maintenance_slo_status} property
     # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window The value to assign to the {#maintenance_window} property
+    # @option attributes [String] :storage_server_version The value to assign to the {#storage_server_version} property
+    # @option attributes [String] :db_server_version The value to assign to the {#db_server_version} property
     # @option attributes [String] :last_maintenance_run_id The value to assign to the {#last_maintenance_run_id} property
     # @option attributes [String] :next_maintenance_run_id The value to assign to the {#next_maintenance_run_id} property
+    # @option attributes [BOOLEAN] :is_cps_offline_report_enabled The value to assign to the {#is_cps_offline_report_enabled} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -503,6 +527,18 @@ module OCI
 
       self.maintenance_window = attributes[:'maintenance_window'] if attributes[:'maintenance_window']
 
+      self.storage_server_version = attributes[:'storageServerVersion'] if attributes[:'storageServerVersion']
+
+      raise 'You cannot provide both :storageServerVersion and :storage_server_version' if attributes.key?(:'storageServerVersion') && attributes.key?(:'storage_server_version')
+
+      self.storage_server_version = attributes[:'storage_server_version'] if attributes[:'storage_server_version']
+
+      self.db_server_version = attributes[:'dbServerVersion'] if attributes[:'dbServerVersion']
+
+      raise 'You cannot provide both :dbServerVersion and :db_server_version' if attributes.key?(:'dbServerVersion') && attributes.key?(:'db_server_version')
+
+      self.db_server_version = attributes[:'db_server_version'] if attributes[:'db_server_version']
+
       self.last_maintenance_run_id = attributes[:'lastMaintenanceRunId'] if attributes[:'lastMaintenanceRunId']
 
       raise 'You cannot provide both :lastMaintenanceRunId and :last_maintenance_run_id' if attributes.key?(:'lastMaintenanceRunId') && attributes.key?(:'last_maintenance_run_id')
@@ -514,6 +550,12 @@ module OCI
       raise 'You cannot provide both :nextMaintenanceRunId and :next_maintenance_run_id' if attributes.key?(:'nextMaintenanceRunId') && attributes.key?(:'next_maintenance_run_id')
 
       self.next_maintenance_run_id = attributes[:'next_maintenance_run_id'] if attributes[:'next_maintenance_run_id']
+
+      self.is_cps_offline_report_enabled = attributes[:'isCpsOfflineReportEnabled'] unless attributes[:'isCpsOfflineReportEnabled'].nil?
+
+      raise 'You cannot provide both :isCpsOfflineReportEnabled and :is_cps_offline_report_enabled' if attributes.key?(:'isCpsOfflineReportEnabled') && attributes.key?(:'is_cps_offline_report_enabled')
+
+      self.is_cps_offline_report_enabled = attributes[:'is_cps_offline_report_enabled'] unless attributes[:'is_cps_offline_report_enabled'].nil?
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -598,8 +640,11 @@ module OCI
         contacts == other.contacts &&
         maintenance_slo_status == other.maintenance_slo_status &&
         maintenance_window == other.maintenance_window &&
+        storage_server_version == other.storage_server_version &&
+        db_server_version == other.db_server_version &&
         last_maintenance_run_id == other.last_maintenance_run_id &&
         next_maintenance_run_id == other.next_maintenance_run_id &&
+        is_cps_offline_report_enabled == other.is_cps_offline_report_enabled &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -617,7 +662,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, lifecycle_state, display_name, shape, time_zone, cpus_enabled, max_cpu_count, memory_size_in_gbs, max_memory_in_gbs, db_node_storage_size_in_gbs, max_db_node_storage_in_g_bs, data_storage_size_in_tbs, max_data_storage_in_t_bs, storage_count, additional_storage_count, activated_storage_count, compute_count, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, dns_server, ntp_server, time_created, lifecycle_details, csi_number, contacts, maintenance_slo_status, maintenance_window, last_maintenance_run_id, next_maintenance_run_id, freeform_tags, defined_tags].hash
+      [id, compartment_id, lifecycle_state, display_name, shape, time_zone, cpus_enabled, max_cpu_count, memory_size_in_gbs, max_memory_in_gbs, db_node_storage_size_in_gbs, max_db_node_storage_in_g_bs, data_storage_size_in_tbs, max_data_storage_in_t_bs, storage_count, additional_storage_count, activated_storage_count, compute_count, cloud_control_plane_server1, cloud_control_plane_server2, netmask, gateway, admin_network_cidr, infini_band_network_cidr, corporate_proxy, dns_server, ntp_server, time_created, lifecycle_details, csi_number, contacts, maintenance_slo_status, maintenance_window, storage_server_version, db_server_version, last_maintenance_run_id, next_maintenance_run_id, is_cps_offline_report_enabled, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

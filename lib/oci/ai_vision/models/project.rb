@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A Vision Project which contains models.
+  # A Vision Project containing models.
   class AiVision::Models::Project
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
@@ -18,19 +18,19 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Unique identifier that is immutable after creation.
+    # **[Required]** A unique identifier that is immutable after creation.
     # @return [String]
     attr_accessor :id
 
-    # Human-friendly name for the project, which can be changed.
+    # A human-friendly name for the project, which can be changed.
     # @return [String]
     attr_accessor :display_name
 
-    # Optional description of the project.
+    # An optional description of the project.
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** Compartment identifier.
+    # **[Required]** A compartment identifier.
     # @return [String]
     attr_accessor :compartment_id
 
@@ -46,24 +46,24 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
-    # A message describing the current state in more detail which can provide actionable information if creation failed.
+    # A message describing the current state in more detail, that can provide actionable information if creation failed.
     # @return [String]
     attr_accessor :lifecycle_details
 
-    # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # A simple key-value pair that is applied without any predefined name, type, or scope. It exists for cross-compatibility only.
+    # For example: `{\"bar-key\": \"value\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    # For example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
     # Usage of system tag keys. These predefined keys are scoped to namespaces.
-    # Example: `{\"orcl-cloud\": {\"free-tier-retained\": \"true\"}}`
+    # For example: `{\"orcl-cloud\": {\"free-tier-retained\": \"true\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :system_tags

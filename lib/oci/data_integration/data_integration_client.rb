@@ -166,6 +166,77 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a DIS Application to a specified compartment.
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] dis_application_id The OCID of the DIS Application.
+    # @param [OCI::DataIntegration::Models::ChangeDisApplicationCompartmentDetails] change_dis_application_compartment_details The information needed to move a DIS Application to a specified compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the `etag` from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the `etag` you provide matches the resource's current `etag` value.
+    #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/change_dis_application_compartment.rb.html) to see an example of how to use change_dis_application_compartment API.
+    def change_dis_application_compartment(workspace_id, dis_application_id, change_dis_application_compartment_details, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#change_dis_application_compartment.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling change_dis_application_compartment." if workspace_id.nil?
+      raise "Missing the required parameter 'dis_application_id' when calling change_dis_application_compartment." if dis_application_id.nil?
+      raise "Missing the required parameter 'change_dis_application_compartment_details' when calling change_dis_application_compartment." if change_dis_application_compartment_details.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'dis_application_id' must not be blank" if OCI::Internal::Util.blank_string?(dis_application_id)
+
+      path = '/workspaces/{workspaceId}/disApplications/{disApplicationId}/actions/changeCompartment'.sub('{workspaceId}', workspace_id.to_s).sub('{disApplicationId}', dis_application_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_dis_application_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#change_dis_application_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates an application.
     #
     # @param [String] workspace_id The workspace ID.
@@ -534,6 +605,70 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataIntegration::Models::DataFlowValidation'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a DIS Application.
+    #
+    # @param [String] workspace_id The workspace ID.
+    # @param [OCI::DataIntegration::Models::CreateDisApplicationDetails] create_dis_application_details The details needed to create a DIS application.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without risk of executing that same action again.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DisApplication DisApplication}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/create_dis_application.rb.html) to see an example of how to use create_dis_application API.
+    def create_dis_application(workspace_id, create_dis_application_details, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#create_dis_application.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling create_dis_application." if workspace_id.nil?
+      raise "Missing the required parameter 'create_dis_application_details' when calling create_dis_application." if create_dis_application_details.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+
+      path = '/workspaces/{workspaceId}/disApplications'.sub('{workspaceId}', workspace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_dis_application_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#create_dis_application') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::DisApplication'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2017,6 +2152,70 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#delete_data_flow_validation') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Removes a DIS application using the specified identifier.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] dis_application_id The OCID of the DIS Application.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the `etag` from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the `etag` you provide matches the resource's current `etag` value.
+    #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/delete_dis_application.rb.html) to see an example of how to use delete_dis_application API.
+    def delete_dis_application(workspace_id, dis_application_id, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#delete_dis_application.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling delete_dis_application." if workspace_id.nil?
+      raise "Missing the required parameter 'dis_application_id' when calling delete_dis_application." if dis_application_id.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'dis_application_id' must not be blank" if OCI::Internal::Util.blank_string?(dis_application_id)
+
+      path = '/workspaces/{workspaceId}/disApplications/{disApplicationId}'.sub('{workspaceId}', workspace_id.to_s).sub('{disApplicationId}', dis_application_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#delete_dis_application') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -3623,6 +3822,66 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataIntegration::Models::DependentObject'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves an application using the specified OCID.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] dis_application_id The OCID of the DIS Application.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DisApplication DisApplication}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/get_dis_application.rb.html) to see an example of how to use get_dis_application API.
+    def get_dis_application(workspace_id, dis_application_id, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#get_dis_application.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling get_dis_application." if workspace_id.nil?
+      raise "Missing the required parameter 'dis_application_id' when calling get_dis_application." if dis_application_id.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'dis_application_id' must not be blank" if OCI::Internal::Util.blank_string?(dis_application_id)
+
+      path = '/workspaces/{workspaceId}/disApplications/{disApplicationId}'.sub('{workspaceId}', workspace_id.to_s).sub('{disApplicationId}', dis_application_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#get_dis_application') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::DisApplication'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -5579,6 +5838,93 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataIntegration::Models::DependentObjectSummaryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves a list of DIS Applications in a compartment and provides options to filter the list.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] compartment_id OCID of the compartment for which the list of DIS Applications is to be retrieved.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :name Used to filter by the name of the object.
+    # @option opts [String] :name_contains This parameter can be used to filter objects by the names that match partially or fully with the given value.
+    # @option opts [Array<String>] :identifier Used to filter by the identifier of the published object.
+    #    (default to [])
+    # @option opts [Array<String>] :fields Specifies the fields to get for an object. (default to [])
+    # @option opts [Integer] :limit Sets the maximum number of results per page, or items to return in a paginated `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine). (default to 20)
+    # @option opts [String] :page For list pagination. The value for this parameter is the `opc-next-page` or the `opc-prev-page` response header from the previous `List` call. See [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine). (default to 1)
+    # @option opts [String] :sort_order Specifies sort order to use, either `ASC` (ascending) or `DESC` (descending). (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by Specifies the field to sort by. Accepts only one field. By default, when you sort by time fields, results are shown in descending order. All other fields default to ascending order. Sorting related parameters are ignored when parameter `query` is present (search operation and sorting order is by relevance score in descending order). (default to TIME_CREATED)
+    #   Allowed values are: TIME_CREATED, DISPLAY_NAME
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DisApplicationSummaryCollection DisApplicationSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/list_dis_applications.rb.html) to see an example of how to use list_dis_applications API.
+    def list_dis_applications(workspace_id, compartment_id, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#list_dis_applications.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling list_dis_applications." if workspace_id.nil?
+      raise "Missing the required parameter 'compartment_id' when calling list_dis_applications." if compartment_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIME_CREATED DISPLAY_NAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIME_CREATED, DISPLAY_NAME.'
+      end
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+
+      path = '/workspaces/{workspaceId}/disApplications'.sub('{workspaceId}', workspace_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:nameContains] = opts[:name_contains] if opts[:name_contains]
+      query_params[:identifier] = OCI::ApiClient.build_collection_params(opts[:identifier], :multi) if opts[:identifier] && !opts[:identifier].empty?
+      query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#list_dis_applications') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::DisApplicationSummaryCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -8019,6 +8365,73 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataIntegration::Models::DataFlow'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates a DIS Application.
+    # @param [String] workspace_id The workspace ID.
+    # @param [String] dis_application_id The OCID of the DIS Application.
+    # @param [OCI::DataIntegration::Models::UpdateDisApplicationDetails] update_dis_application_details The details needed to update an application.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match` parameter to the value of the `etag` from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the `etag` you provide matches the resource's current `etag` value.
+    #   When 'if-match' is provided and its value does not exactly match the 'etag' of the resource on the server, the request fails with the 412 response code.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If
+    #   you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataIntegration::Models::DisApplication DisApplication}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/dataintegration/update_dis_application.rb.html) to see an example of how to use update_dis_application API.
+    def update_dis_application(workspace_id, dis_application_id, update_dis_application_details, opts = {})
+      logger.debug 'Calling operation DataIntegrationClient#update_dis_application.' if logger
+
+      raise "Missing the required parameter 'workspace_id' when calling update_dis_application." if workspace_id.nil?
+      raise "Missing the required parameter 'dis_application_id' when calling update_dis_application." if dis_application_id.nil?
+      raise "Missing the required parameter 'update_dis_application_details' when calling update_dis_application." if update_dis_application_details.nil?
+      raise "Parameter value for 'workspace_id' must not be blank" if OCI::Internal::Util.blank_string?(workspace_id)
+      raise "Parameter value for 'dis_application_id' must not be blank" if OCI::Internal::Util.blank_string?(dis_application_id)
+
+      path = '/workspaces/{workspaceId}/disApplications/{disApplicationId}'.sub('{workspaceId}', workspace_id.to_s).sub('{disApplicationId}', dis_application_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_dis_application_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataIntegrationClient#update_dis_application') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataIntegration::Models::DisApplication'
         )
       end
       # rubocop:enable Metrics/BlockLength

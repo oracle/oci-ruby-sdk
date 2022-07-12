@@ -6,7 +6,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Language detected in a document.
+  # The language detected in a document.
   class AiVision::Models::DetectedLanguage
     LANGUAGE_CODE_ENUM = [
       LANGUAGE_CODE_ENG = 'ENG'.freeze,
@@ -37,11 +37,11 @@ module OCI
       LANGUAGE_CODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** Language of the document, abbreviated according to ISO 639-2.
+    # **[Required]** The language of the document, abbreviated according to ISO 639-2.
     # @return [String]
     attr_reader :language_code
 
-    # **[Required]** Confidence score between 0 to 1.
+    # **[Required]** The confidence score between 0 and 1.
     # @return [Float]
     attr_accessor :confidence
 

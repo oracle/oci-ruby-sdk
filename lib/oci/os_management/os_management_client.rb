@@ -1143,6 +1143,165 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Disables a module stream on a managed instance.  After the stream is
+    # disabled, it is no longer possible to install the profiles that are
+    # contained by the stream.  All installed profiles must be removed prior
+    # to disabling a module stream.
+    #
+    # @param [String] managed_instance_id OCID for the managed instance
+    # @param [String] module_name The name of a module.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :stream_name The name of the stream of the containing module.  This parameter
+    #   is required if a profileName is specified.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/disable_module_stream_on_managed_instance.rb.html) to see an example of how to use disable_module_stream_on_managed_instance API.
+    def disable_module_stream_on_managed_instance(managed_instance_id, module_name, opts = {})
+      logger.debug 'Calling operation OsManagementClient#disable_module_stream_on_managed_instance.' if logger
+
+      raise "Missing the required parameter 'managed_instance_id' when calling disable_module_stream_on_managed_instance." if managed_instance_id.nil?
+      raise "Missing the required parameter 'module_name' when calling disable_module_stream_on_managed_instance." if module_name.nil?
+      raise "Parameter value for 'managed_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_instance_id)
+
+      path = '/managedInstances/{managedInstanceId}/actions/moduleStreams/disable'.sub('{managedInstanceId}', managed_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:moduleName] = module_name
+      query_params[:streamName] = opts[:stream_name] if opts[:stream_name]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#disable_module_stream_on_managed_instance') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Enables a module stream on a managed instance.  After the stream is
+    # enabled, it is possible to install the profiles that are contained
+    # by the stream.  Enabling a stream that is already enabled will
+    # succeed.  Attempting to enable a different stream for a module that
+    # already has a stream enabled results in an error.
+    #
+    # @param [String] managed_instance_id OCID for the managed instance
+    # @param [String] module_name The name of a module.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :stream_name The name of the stream of the containing module.  This parameter
+    #   is required if a profileName is specified.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/enable_module_stream_on_managed_instance.rb.html) to see an example of how to use enable_module_stream_on_managed_instance API.
+    def enable_module_stream_on_managed_instance(managed_instance_id, module_name, opts = {})
+      logger.debug 'Calling operation OsManagementClient#enable_module_stream_on_managed_instance.' if logger
+
+      raise "Missing the required parameter 'managed_instance_id' when calling enable_module_stream_on_managed_instance." if managed_instance_id.nil?
+      raise "Missing the required parameter 'module_name' when calling enable_module_stream_on_managed_instance." if module_name.nil?
+      raise "Parameter value for 'managed_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_instance_id)
+
+      path = '/managedInstances/{managedInstanceId}/actions/moduleStreams/enable'.sub('{managedInstanceId}', managed_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:moduleName] = module_name
+      query_params[:streamName] = opts[:stream_name] if opts[:stream_name]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#enable_module_stream_on_managed_instance') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a specific erratum.
     #
     # @param [String] erratum_id The OCID of the erratum.
@@ -1295,6 +1454,131 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::OsManagement::Models::ManagedInstanceGroup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieve a detailed description of a module stream from a software source.
+    #
+    # @param [String] software_source_id The OCID of the software source.
+    # @param [String] module_name The name of the module
+    # @param [String] stream_name The name of the stream of the containing module
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::OsManagement::Models::ModuleStream ModuleStream}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/get_module_stream.rb.html) to see an example of how to use get_module_stream API.
+    def get_module_stream(software_source_id, module_name, stream_name, opts = {})
+      logger.debug 'Calling operation OsManagementClient#get_module_stream.' if logger
+
+      raise "Missing the required parameter 'software_source_id' when calling get_module_stream." if software_source_id.nil?
+      raise "Missing the required parameter 'module_name' when calling get_module_stream." if module_name.nil?
+      raise "Missing the required parameter 'stream_name' when calling get_module_stream." if stream_name.nil?
+      raise "Parameter value for 'software_source_id' must not be blank" if OCI::Internal::Util.blank_string?(software_source_id)
+      raise "Parameter value for 'module_name' must not be blank" if OCI::Internal::Util.blank_string?(module_name)
+      raise "Parameter value for 'stream_name' must not be blank" if OCI::Internal::Util.blank_string?(stream_name)
+
+      path = '/softwareSources/{softwareSourceId}/modules/{moduleName}/streams/{streamName}'.sub('{softwareSourceId}', software_source_id.to_s).sub('{moduleName}', module_name.to_s).sub('{streamName}', stream_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#get_module_stream') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::OsManagement::Models::ModuleStream'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieve a detailed description of a module stream profile from a software source.
+    #
+    # @param [String] software_source_id The OCID of the software source.
+    # @param [String] module_name The name of the module
+    # @param [String] stream_name The name of the stream of the containing module
+    # @param [String] profile_name The name of the profile of the containing module stream
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::OsManagement::Models::ModuleStreamProfile ModuleStreamProfile}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/get_module_stream_profile.rb.html) to see an example of how to use get_module_stream_profile API.
+    def get_module_stream_profile(software_source_id, module_name, stream_name, profile_name, opts = {})
+      logger.debug 'Calling operation OsManagementClient#get_module_stream_profile.' if logger
+
+      raise "Missing the required parameter 'software_source_id' when calling get_module_stream_profile." if software_source_id.nil?
+      raise "Missing the required parameter 'module_name' when calling get_module_stream_profile." if module_name.nil?
+      raise "Missing the required parameter 'stream_name' when calling get_module_stream_profile." if stream_name.nil?
+      raise "Missing the required parameter 'profile_name' when calling get_module_stream_profile." if profile_name.nil?
+      raise "Parameter value for 'software_source_id' must not be blank" if OCI::Internal::Util.blank_string?(software_source_id)
+      raise "Parameter value for 'module_name' must not be blank" if OCI::Internal::Util.blank_string?(module_name)
+      raise "Parameter value for 'stream_name' must not be blank" if OCI::Internal::Util.blank_string?(stream_name)
+      raise "Parameter value for 'profile_name' must not be blank" if OCI::Internal::Util.blank_string?(profile_name)
+
+      path = '/softwareSources/{softwareSourceId}/modules/{moduleName}/streams/{streamName}/profiles/{profileName}'.sub('{softwareSourceId}', software_source_id.to_s).sub('{moduleName}', module_name.to_s).sub('{streamName}', stream_name.to_s).sub('{profileName}', profile_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#get_module_stream_profile') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::OsManagement::Models::ModuleStreamProfile'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1768,6 +2052,86 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#install_all_windows_updates_on_managed_instance') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Installs a profile for an module stream.  The stream must be
+    # enabled before a profile can be installed.  If a module stream
+    # defines multiple profiles, each one can be installed independently.
+    #
+    # @param [String] managed_instance_id OCID for the managed instance
+    # @param [String] module_name The name of a module.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :stream_name The name of the stream of the containing module.  This parameter
+    #   is required if a profileName is specified.
+    #
+    # @option opts [String] :profile_name The name of the profile of the containing module stream
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/install_module_stream_profile_on_managed_instance.rb.html) to see an example of how to use install_module_stream_profile_on_managed_instance API.
+    def install_module_stream_profile_on_managed_instance(managed_instance_id, module_name, opts = {})
+      logger.debug 'Calling operation OsManagementClient#install_module_stream_profile_on_managed_instance.' if logger
+
+      raise "Missing the required parameter 'managed_instance_id' when calling install_module_stream_profile_on_managed_instance." if managed_instance_id.nil?
+      raise "Missing the required parameter 'module_name' when calling install_module_stream_profile_on_managed_instance." if module_name.nil?
+      raise "Parameter value for 'managed_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_instance_id)
+
+      path = '/managedInstances/{managedInstanceId}/actions/streamProfiles/install'.sub('{managedInstanceId}', managed_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:moduleName] = module_name
+      query_params[:streamName] = opts[:stream_name] if opts[:stream_name]
+      query_params[:profileName] = opts[:profile_name] if opts[:profile_name]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#install_module_stream_profile_on_managed_instance') do
         @api_client.call_api(
           :POST,
           path,
@@ -2664,6 +3028,452 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Retrieve a list of module stream profiles from a software source.
+    # Filters may be applied to select a subset of module stream profiles
+    # based on the filter criteria.
+    #
+    # The \"moduleName\", \"streamName\", and \"profileName\" attributes combine
+    # to form a set of filters on the list of module stream profiles.  If
+    # a \"moduleName\" is provided, only profiles that belong to that module
+    # are returned.  If both a \"moduleName\" and \"streamName\" are given,
+    # only profiles belonging to that module stream are returned.  Finally,
+    # if all three are given then only the particular profile indicated
+    # by the triple is returned.  It is not valid to supply a \"streamName\"
+    # without a \"moduleName\".  It is also not valid to supply a \"profileName\"
+    # without a \"streamName\".
+    #
+    # @param [String] software_source_id The OCID of the software source.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :compartment_id The ID of the compartment in which to list resources. This parameter is optional and in some cases may have no effect.
+    # @option opts [String] :module_name The name of a module.  This parameter is required if a
+    #   streamName is specified.
+    #
+    # @option opts [String] :stream_name The name of the stream of the containing module.  This parameter
+    #   is required if a profileName is specified.
+    #
+    # @option opts [String] :profile_name The name of the profile of the containing module stream
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::ModuleStreamProfileSummary ModuleStreamProfileSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_module_stream_profiles.rb.html) to see an example of how to use list_module_stream_profiles API.
+    def list_module_stream_profiles(software_source_id, opts = {})
+      logger.debug 'Calling operation OsManagementClient#list_module_stream_profiles.' if logger
+
+      raise "Missing the required parameter 'software_source_id' when calling list_module_stream_profiles." if software_source_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+      raise "Parameter value for 'software_source_id' must not be blank" if OCI::Internal::Util.blank_string?(software_source_id)
+
+      path = '/softwareSources/{softwareSourceId}/streamProfiles'.sub('{softwareSourceId}', software_source_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:moduleName] = opts[:module_name] if opts[:module_name]
+      query_params[:streamName] = opts[:stream_name] if opts[:stream_name]
+      query_params[:profileName] = opts[:profile_name] if opts[:profile_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#list_module_stream_profiles') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::OsManagement::Models::ModuleStreamProfileSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieve a list of module stream profiles, along with a summary of their
+    # of their status, from a managed instance.  Filters may be applied to
+    # select a subset of profiles based on the filter criteria.
+    #
+    # The \"moduleName\", \"streamName\", and \"profileName\" attributes combine
+    # to form a set of filters on the list of module stream profiles.  If
+    # a \"modulName\" is provided, only profiles that belong to that module
+    # are returned.  If both a \"moduleName\" and \"streamName\" are given,
+    # only profiles belonging to that module stream are returned.  Finally,
+    # if all three are given then only the particular profile indicated
+    # by the triple is returned.  It is not valid to supply a \"streamName\"
+    # without a \"moduleName\".  It is also not valid to supply a \"profileName\"
+    # without a \"streamName\".
+    #
+    # The \"status\" attribute filters against the state of a module stream
+    # profile.  Valid values are \"INSTALLED\" and \"AVAILABLE\".  If the
+    # attribute is set to \"INSTALLED\", only module stream profiles that
+    # are installed are included in the result set.  If the attribute is
+    # set to \"AVAILABLE\", only module stream profiles that are not
+    # installed are included in the result set.  If the attribute is not
+    # defined, the request is not subject to this filter.
+    #
+    # When sorting by display name, the result set is sorted first by
+    # module name, then by stream name, and finally by profile name.
+    #
+    # @param [String] managed_instance_id OCID for the managed instance
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :compartment_id The ID of the compartment in which to list resources. This parameter is optional and in some cases may have no effect.
+    # @option opts [String] :module_name The name of a module.  This parameter is required if a
+    #   streamName is specified.
+    #
+    # @option opts [String] :stream_name The name of the stream of the containing module.  This parameter
+    #   is required if a profileName is specified.
+    #
+    # @option opts [String] :profile_name The name of the profile of the containing module stream
+    # @option opts [String] :profile_status The status of the profile.
+    #
+    #   A profile with the \"INSTALLED\" status indicates that the
+    #   profile has been installed.
+    #
+    #   A profile with the \"AVAILABLE\" status indicates that the
+    #   profile is not installed, but can be.
+    #
+    #   Allowed values are: INSTALLED, AVAILABLE
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::ModuleStreamProfileOnManagedInstanceSummary ModuleStreamProfileOnManagedInstanceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_module_stream_profiles_on_managed_instance.rb.html) to see an example of how to use list_module_stream_profiles_on_managed_instance API.
+    def list_module_stream_profiles_on_managed_instance(managed_instance_id, opts = {})
+      logger.debug 'Calling operation OsManagementClient#list_module_stream_profiles_on_managed_instance.' if logger
+
+      raise "Missing the required parameter 'managed_instance_id' when calling list_module_stream_profiles_on_managed_instance." if managed_instance_id.nil?
+
+      if opts[:profile_status] && !%w[INSTALLED AVAILABLE].include?(opts[:profile_status])
+        raise 'Invalid value for "profile_status", must be one of INSTALLED, AVAILABLE.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+      raise "Parameter value for 'managed_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_instance_id)
+
+      path = '/managedInstances/{managedInstanceId}/streamProfiles'.sub('{managedInstanceId}', managed_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:moduleName] = opts[:module_name] if opts[:module_name]
+      query_params[:streamName] = opts[:stream_name] if opts[:stream_name]
+      query_params[:profileName] = opts[:profile_name] if opts[:profile_name]
+      query_params[:profileStatus] = opts[:profile_status] if opts[:profile_status]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#list_module_stream_profiles_on_managed_instance') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::OsManagement::Models::ModuleStreamProfileOnManagedInstanceSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieve a list of module streams from a software source.
+    # Filters may be applied to select a subset of module streams
+    # based on the filter criteria.
+    #
+    # The 'moduleName' attribute filters against the name of a module.
+    # It accepts strings of the format \"<module>\".  If this attribute
+    # is defined, only streams that belong to the specified module are
+    # included in the result set.  If it is not defined, the request is
+    # not subject to this filter.  The 'streamName' attribute filters
+    # against the name of a stream of a module.  If this attribute is
+    # defined, only the particular module stream that matches both the
+    # module and stream names is included in the result set.  It is
+    # not valid to supply 'streamName' without also supplying a
+    # 'moduleName'.
+    #
+    # When sorting by display name, the result set is sorted first by
+    # module name, then by stream name.
+    #
+    # @param [String] software_source_id The OCID of the software source.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :compartment_id The ID of the compartment in which to list resources. This parameter is optional and in some cases may have no effect.
+    # @option opts [String] :module_name The name of a module.  This parameter is required if a
+    #   streamName is specified.
+    #
+    # @option opts [String] :stream_name The name of the stream of the containing module.  This parameter
+    #   is required if a profileName is specified.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::ModuleStreamSummary ModuleStreamSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_module_streams.rb.html) to see an example of how to use list_module_streams API.
+    def list_module_streams(software_source_id, opts = {})
+      logger.debug 'Calling operation OsManagementClient#list_module_streams.' if logger
+
+      raise "Missing the required parameter 'software_source_id' when calling list_module_streams." if software_source_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+      raise "Parameter value for 'software_source_id' must not be blank" if OCI::Internal::Util.blank_string?(software_source_id)
+
+      path = '/softwareSources/{softwareSourceId}/moduleStreams'.sub('{softwareSourceId}', software_source_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:moduleName] = opts[:module_name] if opts[:module_name]
+      query_params[:streamName] = opts[:stream_name] if opts[:stream_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#list_module_streams') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::OsManagement::Models::ModuleStreamSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieve a list of module streams, along with a summary of their
+    # status, from a managed instance.  Filters may be applied to select
+    # a subset of module streams based on the filter criteria.
+    #
+    # The 'moduleName' attribute filters against the name of a module.
+    # It accepts strings of the format \"<module>\".  If this attribute
+    # is defined, only streams that belong to the specified module are
+    # included in the result set.  If it is not defined, the request is
+    # not subject to this filter.
+    #
+    # The \"status\" attribute filters against the state of a module stream.
+    # Valid values are \"ENABLED\", \"DISABLED\", and \"ACTIVE\".  If the
+    # attribute is set to \"ENABLED\", only module streams that are enabled
+    # are included in the result set.  If the attribute is set to \"DISABLED\",
+    # only module streams that are not enabled are included in the result
+    # set.  If the attribute is set to \"ACTIVE\", only module streams that
+    # are active are included in the result set.  If the attribute is not
+    # defined, the request is not subject to this filter.
+    #
+    # When sorting by the display name, the result set is sorted first
+    # by the module name and then by the stream name.
+    #
+    # @param [String] managed_instance_id OCID for the managed instance
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :compartment_id The ID of the compartment in which to list resources. This parameter is optional and in some cases may have no effect.
+    # @option opts [String] :module_name The name of a module.  This parameter is required if a
+    #   streamName is specified.
+    #
+    # @option opts [String] :stream_name The name of the stream of the containing module.  This parameter
+    #   is required if a profileName is specified.
+    #
+    # @option opts [String] :stream_status The status of the stream
+    #
+    #   A stream with the \"ENABLED\" status can be used as a source for installing
+    #   profiles.  Streams with this status are also \"ACTIVE\".
+    #
+    #   A stream with the \"DISABLED\" status cannot be the source for installing
+    #   profiles.  To install profiles and packages from this stream, it must be
+    #   enabled.
+    #
+    #   A stream with the \"ACTIVE\" status can be used as a source for installing
+    #   profiles.  The packages that comprise the stream are also used when a
+    #   matching package is installed directly.  In general, a stream can have
+    #   this status if it is the default stream for the module and no stream has
+    #   been explicitly enabled.
+    #
+    #   Allowed values are: ENABLED, DISABLED, ACTIVE
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'. (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for TIMECREATED is descending. Default order for DISPLAYNAME is ascending. If no value is specified TIMECREATED is default.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type Array<{OCI::OsManagement::Models::ModuleStreamOnManagedInstanceSummary ModuleStreamOnManagedInstanceSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/list_module_streams_on_managed_instance.rb.html) to see an example of how to use list_module_streams_on_managed_instance API.
+    def list_module_streams_on_managed_instance(managed_instance_id, opts = {})
+      logger.debug 'Calling operation OsManagementClient#list_module_streams_on_managed_instance.' if logger
+
+      raise "Missing the required parameter 'managed_instance_id' when calling list_module_streams_on_managed_instance." if managed_instance_id.nil?
+
+      if opts[:stream_status] && !%w[ENABLED DISABLED ACTIVE].include?(opts[:stream_status])
+        raise 'Invalid value for "stream_status", must be one of ENABLED, DISABLED, ACTIVE.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+      raise "Parameter value for 'managed_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_instance_id)
+
+      path = '/managedInstances/{managedInstanceId}/moduleStreams'.sub('{managedInstanceId}', managed_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:moduleName] = opts[:module_name] if opts[:module_name]
+      query_params[:streamName] = opts[:stream_name] if opts[:stream_name]
+      query_params[:streamStatus] = opts[:stream_status] if opts[:stream_status]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#list_module_streams_on_managed_instance') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::OsManagement::Models::ModuleStreamOnManagedInstanceSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of installed packages on the Managed Instance.
     #
     # @param [String] managed_instance_id OCID for the managed instance
@@ -3507,6 +4317,216 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Perform an operation involving modules, streams, and profiles on a
+    # managed instance.  Each operation may enable or disable an arbitrary
+    # amount of module streams, and install or remove an arbitrary number
+    # of module stream profiles.  When the operation is complete, the
+    # state of the modules, streams, and profiles on the managed instance
+    # will match the state indicated in the operation.
+    #
+    # Each module stream specified in the list of module streams to enable
+    # will be in the \"ENABLED\" state upon completion of the operation.
+    # If there was already a stream of that module enabled, any work
+    # required to switch from the current stream to the new stream is
+    # performed implicitly.
+    #
+    # Each module stream specified in the list of module streams to disable
+    # will be in the \"DISABLED\" state upon completion of the operation.
+    # Any profiles that are installed for the module stream will be removed
+    # as part of the operation.
+    #
+    # Each module stream profile specified in the list of profiles to install
+    # will be in the \"INSTALLED\" state upon completion of the operation,
+    # indicating that any packages that are part of the profile are installed
+    # on the managed instance.  If the module stream containing the profile
+    # is not enabled, it will be enabled as part of the operation.  There
+    # is an exception when attempting to install a stream of a profile when
+    # another stream of the same module is enabled.  It is an error to attempt
+    # to install a profile of another module stream, unless enabling the
+    # new module stream is explicitly included in this operation.
+    #
+    # Each module stream profile specified in the list of profiles to remove
+    # will be in the \"AVAILABLE\" state upon completion of the operation.
+    # The status of packages within the profile after the operation is
+    # complete is defined by the package manager on the managed instance.
+    #
+    # Operations that contain one or more elements that are not allowed
+    # are rejected.
+    #
+    # The result of this request is a WorkRequest object.  The returned
+    # WorkRequest is the parent of a structure of other WorkRequests.  Taken
+    # as a whole, this structure indicates the entire set of work to be
+    # performed to complete the operation.
+    #
+    # This interface can also be used to perform a dry run of the operation
+    # rather than committing it to a managed instance.  If a dry run is
+    # requested, the OS Management Service will evaluate the operation
+    # against the current module, stream, and profile state on the managed
+    # instance.  It will calculate the impact of the operation on all
+    # modules, streams, and profiles on the managed instance, including those
+    # that are implicitly impacted by the operation.
+    #
+    # The WorkRequest resulting from a dry run behaves differently than
+    # a WorkRequest resulting from a committable operation.  Dry run
+    # WorkRequests are always singletons and never have children.  The
+    # impact of the operation is returned using the log and error
+    # facilities of WorkRequests.  The impact of operations that are
+    # allowed by the OS Management Service are communicated as one or
+    # more work request log entries.  Operations that are not allowed
+    # by the OS Management Service are communicated as one or more
+    # work requst error entries.  Each entry, for either logs or errors,
+    # contains a structured message containing the results of one
+    # or more operations.
+    #
+    # @param [String] managed_instance_id OCID for the managed instance
+    # @param [OCI::OsManagement::Models::ManageModuleStreamsOnManagedInstanceDetails] manage_module_streams_on_managed_instance_details A description of an operation to perform against the modules, streams, and profiles of a managed instance
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/manage_module_streams_on_managed_instance.rb.html) to see an example of how to use manage_module_streams_on_managed_instance API.
+    def manage_module_streams_on_managed_instance(managed_instance_id, manage_module_streams_on_managed_instance_details, opts = {})
+      logger.debug 'Calling operation OsManagementClient#manage_module_streams_on_managed_instance.' if logger
+
+      raise "Missing the required parameter 'managed_instance_id' when calling manage_module_streams_on_managed_instance." if managed_instance_id.nil?
+      raise "Missing the required parameter 'manage_module_streams_on_managed_instance_details' when calling manage_module_streams_on_managed_instance." if manage_module_streams_on_managed_instance_details.nil?
+      raise "Parameter value for 'managed_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_instance_id)
+
+      path = '/managedInstances/{managedInstanceId}/actions/moduleStreams/manage'.sub('{managedInstanceId}', managed_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(manage_module_streams_on_managed_instance_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#manage_module_streams_on_managed_instance') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Removes a profile for a module stream that is installed on a managed instance.
+    # If a module stream is provided, rather than a fully qualified profile, all
+    # profiles that have been installed for the module stream will be removed.
+    #
+    # @param [String] managed_instance_id OCID for the managed instance
+    # @param [String] module_name The name of a module.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :stream_name The name of the stream of the containing module.  This parameter
+    #   is required if a profileName is specified.
+    #
+    # @option opts [String] :profile_name The name of the profile of the containing module stream
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/remove_module_stream_profile_from_managed_instance.rb.html) to see an example of how to use remove_module_stream_profile_from_managed_instance API.
+    def remove_module_stream_profile_from_managed_instance(managed_instance_id, module_name, opts = {})
+      logger.debug 'Calling operation OsManagementClient#remove_module_stream_profile_from_managed_instance.' if logger
+
+      raise "Missing the required parameter 'managed_instance_id' when calling remove_module_stream_profile_from_managed_instance." if managed_instance_id.nil?
+      raise "Missing the required parameter 'module_name' when calling remove_module_stream_profile_from_managed_instance." if module_name.nil?
+      raise "Parameter value for 'managed_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_instance_id)
+
+      path = '/managedInstances/{managedInstanceId}/actions/streamProfiles/remove'.sub('{managedInstanceId}', managed_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:moduleName] = module_name
+      query_params[:streamName] = opts[:stream_name] if opts[:stream_name]
+      query_params[:profileName] = opts[:profile_name] if opts[:profile_name]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#remove_module_stream_profile_from_managed_instance') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Removes an installed package from a managed instance.
     #
     # @param [String] managed_instance_id OCID for the managed instance
@@ -3830,6 +4850,85 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#skip_next_scheduled_job_execution') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Enables a new stream for a module that already has a stream enabled.
+    # If any profiles or packages from the original module are installed,
+    # switching to a new stream will remove the existing packages and
+    # install their counterparts in the new stream.
+    #
+    # @param [String] managed_instance_id OCID for the managed instance
+    # @param [String] module_name The name of a module.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :stream_name The name of the stream of the containing module.  This parameter
+    #   is required if a profileName is specified.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/osmanagement/switch_module_stream_on_managed_instance.rb.html) to see an example of how to use switch_module_stream_on_managed_instance API.
+    def switch_module_stream_on_managed_instance(managed_instance_id, module_name, opts = {})
+      logger.debug 'Calling operation OsManagementClient#switch_module_stream_on_managed_instance.' if logger
+
+      raise "Missing the required parameter 'managed_instance_id' when calling switch_module_stream_on_managed_instance." if managed_instance_id.nil?
+      raise "Missing the required parameter 'module_name' when calling switch_module_stream_on_managed_instance." if module_name.nil?
+      raise "Parameter value for 'managed_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(managed_instance_id)
+
+      path = '/managedInstances/{managedInstanceId}/actions/moduleStreams/switch'.sub('{managedInstanceId}', managed_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:moduleName] = module_name
+      query_params[:streamName] = opts[:stream_name] if opts[:stream_name]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OsManagementClient#switch_module_stream_on_managed_instance') do
         @api_client.call_api(
           :POST,
           path,

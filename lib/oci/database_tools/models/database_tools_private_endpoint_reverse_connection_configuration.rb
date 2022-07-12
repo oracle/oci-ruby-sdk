@@ -5,7 +5,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Reverse connection configuration details of Private Endpoint.
+  # Reverse connection configuration details of the private endpoint.
   class DatabaseTools::Models::DatabaseToolsPrivateEndpointReverseConnectionConfiguration
     # A list of IP addresses in the customer VCN to be used as the source IPs for reverse connection packets
     # traveling from the service's VCN to the customer's VCN.

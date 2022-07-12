@@ -13,10 +13,12 @@ end
 # Require models
 require 'oci/visual_builder/models/application_summary'
 require 'oci/visual_builder/models/application_summary_collection'
+require 'oci/visual_builder/models/attachment_details'
 require 'oci/visual_builder/models/change_vb_instance_compartment_details'
 require 'oci/visual_builder/models/create_custom_endpoint_details'
 require 'oci/visual_builder/models/create_vb_instance_details'
 require 'oci/visual_builder/models/custom_endpoint_details'
+require 'oci/visual_builder/models/idcs_info_details'
 require 'oci/visual_builder/models/request_summarized_applications_details'
 require 'oci/visual_builder/models/update_custom_endpoint_details'
 require 'oci/visual_builder/models/update_vb_instance_details'

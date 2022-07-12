@@ -16,18 +16,22 @@ module OCI
       MODEL_TYPE_AGGREGATOR_OPERATOR = 'AGGREGATOR_OPERATOR'.freeze,
       MODEL_TYPE_PROJECTION_OPERATOR = 'PROJECTION_OPERATOR'.freeze,
       MODEL_TYPE_TARGET_OPERATOR = 'TARGET_OPERATOR'.freeze,
+      MODEL_TYPE_FLATTEN_OPERATOR = 'FLATTEN_OPERATOR'.freeze,
       MODEL_TYPE_DISTINCT_OPERATOR = 'DISTINCT_OPERATOR'.freeze,
       MODEL_TYPE_SORT_OPERATOR = 'SORT_OPERATOR'.freeze,
       MODEL_TYPE_UNION_OPERATOR = 'UNION_OPERATOR'.freeze,
       MODEL_TYPE_INTERSECT_OPERATOR = 'INTERSECT_OPERATOR'.freeze,
       MODEL_TYPE_MINUS_OPERATOR = 'MINUS_OPERATOR'.freeze,
       MODEL_TYPE_MERGE_OPERATOR = 'MERGE_OPERATOR'.freeze,
+      MODEL_TYPE_FUNCTION_OPERATOR = 'FUNCTION_OPERATOR'.freeze,
+      MODEL_TYPE_SPLIT_OPERATOR = 'SPLIT_OPERATOR'.freeze,
       MODEL_TYPE_START_OPERATOR = 'START_OPERATOR'.freeze,
       MODEL_TYPE_END_OPERATOR = 'END_OPERATOR'.freeze,
       MODEL_TYPE_PIPELINE_OPERATOR = 'PIPELINE_OPERATOR'.freeze,
       MODEL_TYPE_TASK_OPERATOR = 'TASK_OPERATOR'.freeze,
       MODEL_TYPE_EXPRESSION_OPERATOR = 'EXPRESSION_OPERATOR'.freeze,
       MODEL_TYPE_LOOKUP_OPERATOR = 'LOOKUP_OPERATOR'.freeze,
+      MODEL_TYPE_PIVOT_OPERATOR = 'PIVOT_OPERATOR'.freeze,
       MODEL_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -63,7 +67,7 @@ module OCI
     attr_accessor :input_ports
 
     # An array of output ports.
-    # @return [Array<OCI::DataIntegration::Models::OutputPort>]
+    # @return [Array<OCI::DataIntegration::Models::TypedObject>]
     attr_accessor :output_ports
 
     # The status of an object that can be set to value 1 for shallow references across objects, other values reserved.
@@ -114,7 +118,7 @@ module OCI
         'description': :'String',
         'object_version': :'Integer',
         'input_ports': :'Array<OCI::DataIntegration::Models::InputPort>',
-        'output_ports': :'Array<OCI::DataIntegration::Models::OutputPort>',
+        'output_ports': :'Array<OCI::DataIntegration::Models::TypedObject>',
         'object_status': :'Integer',
         'identifier': :'String',
         'parameters': :'Array<OCI::DataIntegration::Models::Parameter>',
@@ -133,6 +137,7 @@ module OCI
 
       return 'OCI::DataIntegration::Models::Joiner' if type == 'JOINER_OPERATOR'
       return 'OCI::DataIntegration::Models::TaskOperator' if type == 'TASK_OPERATOR'
+      return 'OCI::DataIntegration::Models::Flatten' if type == 'FLATTEN_OPERATOR'
       return 'OCI::DataIntegration::Models::Aggregator' if type == 'AGGREGATOR_OPERATOR'
       return 'OCI::DataIntegration::Models::SortOper' if type == 'SORT_OPERATOR'
       return 'OCI::DataIntegration::Models::Projection' if type == 'PROJECTION_OPERATOR'
@@ -140,13 +145,16 @@ module OCI
       return 'OCI::DataIntegration::Models::Source' if type == 'SOURCE_OPERATOR'
       return 'OCI::DataIntegration::Models::Union' if type == 'UNION_OPERATOR'
       return 'OCI::DataIntegration::Models::ExpressionOperator' if type == 'EXPRESSION_OPERATOR'
+      return 'OCI::DataIntegration::Models::Function' if type == 'FUNCTION_OPERATOR'
       return 'OCI::DataIntegration::Models::Intersect' if type == 'INTERSECT_OPERATOR'
       return 'OCI::DataIntegration::Models::Target' if type == 'TARGET_OPERATOR'
       return 'OCI::DataIntegration::Models::Distinct' if type == 'DISTINCT_OPERATOR'
       return 'OCI::DataIntegration::Models::Filter' if type == 'FILTER_OPERATOR'
       return 'OCI::DataIntegration::Models::Lookup' if type == 'LOOKUP_OPERATOR'
+      return 'OCI::DataIntegration::Models::Pivot' if type == 'PIVOT_OPERATOR'
       return 'OCI::DataIntegration::Models::StartOperator' if type == 'START_OPERATOR'
       return 'OCI::DataIntegration::Models::MergeOperator' if type == 'MERGE_OPERATOR'
+      return 'OCI::DataIntegration::Models::Split' if type == 'SPLIT_OPERATOR'
       return 'OCI::DataIntegration::Models::Minus' if type == 'MINUS_OPERATOR'
 
       # TODO: Log a warning when the subtype is not found.
@@ -168,7 +176,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [Integer] :object_version The value to assign to the {#object_version} property
     # @option attributes [Array<OCI::DataIntegration::Models::InputPort>] :input_ports The value to assign to the {#input_ports} property
-    # @option attributes [Array<OCI::DataIntegration::Models::OutputPort>] :output_ports The value to assign to the {#output_ports} property
+    # @option attributes [Array<OCI::DataIntegration::Models::TypedObject>] :output_ports The value to assign to the {#output_ports} property
     # @option attributes [Integer] :object_status The value to assign to the {#object_status} property
     # @option attributes [String] :identifier The value to assign to the {#identifier} property
     # @option attributes [Array<OCI::DataIntegration::Models::Parameter>] :parameters The value to assign to the {#parameters} property
