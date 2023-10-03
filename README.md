@@ -4,7 +4,7 @@ This is Oracle Cloud Infrastructure SDK for Ruby. This project is open source an
 
 This project is no longer being actively developed by Oracle. We will continue to address security vulnerabilities for the foreseeable future, and will respond to questions on github, but have no plans to introduce any new functionality, and may not be able to address any non-security related issues. We encourage developers to migrate to other OCI SDKs, and developers may fork this project and enhance it as they desire.
 
-**Version 2.17.0**
+**Version 2.19.0**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -12,6 +12,7 @@ This topic describes how to install, configure, and use the Oracle Cloud Infrast
 
 The Ruby SDK supports the following services:
 
+* Access Governance
 * Account Management
 * Analytics Cloud 
 * Announcements
@@ -25,6 +26,7 @@ The Ruby SDK supports the following services:
 * Application Migration
 * Application Performance Monitoring
 * Audit
+* Autonomous recovery
 * Autoscaling (Compute)
 * Bastion service
 * Big Data
@@ -32,15 +34,19 @@ The Ruby SDK supports the following services:
 * Budgets
 * Build service
 * Certificates service
+* Classic Migration
+* Cloud Bridge
 * Cloud Guard
+* Cloud Migrations
+* Compute Cloud@Customer
 * Compute Instance Agent
 * Compute Autoscaling
+* Connector Hub
 * Console Dashboard service
 * Container Engine
 * Content and Experience
 * Core Services (which includes Networking, Compute, and Block Volume)
 * Data Catalog
-* Data Connectivity Management service
 * Data Flow
 * Data Labeling service
 * Database Migration
@@ -53,16 +59,23 @@ The Ruby SDK supports the following services:
 * Database Management
 * DevOps service
 * Digital Assistant
+* Disaster Recovery
+* Digital Media
+* Document Understanding
 * Domain Name System
 * Email
+* Enterprise Manager Warehouse
 * Events
+* Exadata Fleet Update
 * File Storage
 * Functions
+* Fusion Apps as a Service
 * Generic Artifacts service
 * Golden Gate
 * Governance Rules service
 * Health Checks
 * Identity and Access Management
+* Identity Domains
 * Incident Management
 * Integration Cloud
 * Java Management Service
@@ -84,14 +97,21 @@ The Ruby SDK supports the following services:
 * Network Monitoring
 * Networking Topology
 * Notification
+* OCI Control Center
 * OCI Registry
 * OneSubscription service
+* Operations Insights
+* Optimizer
+* Organizations
+* OS Management Hub
 * Oracle Content and Experience
 * Oracle Roving Edge Infrastructure
 * Object Storage
 * Operator Access Control service
 * Oracle NoSQL Database Cloud
 * OS Management
+* Process Automation
+* Queue Service
 * Quotas
 * Resource Manager
 * Search
@@ -258,7 +278,13 @@ However, in some cases, if you're only using limited number of OCI services, imp
 To use any of the APIs, you must supply a {OCI::Config Config} object. You can create the object directly in code, or you can create one in a config file. The configuration includes:
 
 * Required credentials and settings: See [SDK and Tool Configuration](https://docs.cloud.oracle.com/Content/API/Concepts/sdkconfig.htm) in the User Guide.
-* Optional SDK-specific settings: See the {OCI::Config Config} object for the full list of config options.
+* Optional SDK-specific settings: See the {OCI::Config Config} object for the full list of config options. Samples for setting the config through code.
+
+
+    config = OCI::Config.new
+    config.tenancy = 'ocid1.tenancy.oc1..aa'  # Directly setting the tenancy OCID
+    config.user = ENV['oci_user/or_some_other_name'] # Setting the user OCID from an environment variable
+
 
 Note that the Ruby SDK does not support parsing custom attributes in the configuration file.
 
