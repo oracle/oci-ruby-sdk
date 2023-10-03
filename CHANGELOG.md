@@ -3,6 +3,389 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.19.0 - 2023-10-03
+### Added
+- Support for calling Oracle Cloud Infrastructure services in the mx-queretaro-1 region
+- Support for the Process Automation service
+- Support for the Managed Access service
+- Support for extending maintenance reboot due dates on virtual machines in the Compute service
+- Support for ingress routing tables on NAT gateways and internet gateways in the Networking service
+- Support for container database and pluggable database discovery in the Stack Monitoring service
+- Support for displaying rack serial numbers for Exadata infrastructure resources in the Database service
+- Support for grace periods for wallet rotation on autonomous databases in the Database service
+- Support for hosting models on flexible compute shapes with customizable OCPUs and memory in the Data Science service
+- Support for the Fusion Apps as a Service service
+- Support for the Digital Media service
+- Support for accessing all Terraform providers from Hashicorp Registry, as well as bringing your own providers, in the Resource Manager service
+- Support for runtime configurations in notebook sessions in the Data Science service
+- Support for compartmentIdInSubtree and accessLevel filters when listing management agents in the Management Agent Cloud service
+- Support for filtering by type when listing work requests in the Management Agent Cloud service
+- Support for filtering by agent id when listing management agent plugins in the Management Agent Cloud service
+- Support for specifying size preference when requesting a data transfer appliance in the Data Transfer service
+- Support for encryption of boot and block volumes associated with a cluster using customer-specified KMS keys in the Big Data service
+- Support for the VM.Standard.E4.Flex shape for Cloud SQL (CSQL) nodes in the Big Data service
+- Support for listing block and boot volumes, as well as block and boot volume replicas, within a volume group in the Block Volume service
+- Support for dedicated autonomous databases in the Operator Access Control service
+- Support for viewing automatic workload repository (AWR) data for databases added to AWRHub in the Operations Insights service
+- Support for ports, protocols, roles, and SSL secrets when enabling or modifying database management in the Database service
+- Support for monthly security maintenance runs in the Database service
+- Support for monthly infrastructure patching for Exadata Cloud at Customer resources in the Database service
+- Support for OpenSearch in the Search service
+- Support for child tables in the NoSQL Database Cloud service
+- Support for private repositories in the DevOps service
+- Support for single-host software-defined data centers in the VMWare Solution service
+- Support for Java download and installation in the Java Management service
+- Support for lifecycle management for Windows in the Java Management service
+- Support for installation scripts in the Java Management service
+- Support for unlimited-installation keys in the Java Management service
+- Support for configuring automatic usage tracking in the Java Management service
+- Support for STANDARDX and ENTERPRISEX instance types in Integration service
+- Support for additional languages and multimedia formats in transcription jobs in the AI Speech service
+- Support for maintenance run history for Exadata Cloud at Customer in the Database service
+- Support for Optimizer statistics monitoring and management on various database administration operations in the Database Management service
+- Support for OCI Compute instances in the Operations Insights service
+- Support for moving resources in the Console Dashboard service
+- Support for round-robin alerting in the Application Performance Monitoring service
+- Support for aggregated network data of synthetic monitors in the Application Performance Monitoring service
+- Support for etags on operations in the Load Balancing service
+- Support for Logging Analytics as a streaming source target in the Service Connector Hub service
+- Support for data sources for logging query registration in the Cloud Guard service
+- Support for custom detector rules on insight detector recipes in the Cloud Guard service
+- Support for fetching data source events and problem entities in the Cloud Guard service
+- Support for E3, E4, Standard3, and Optimized3 flexible compute shapes on notebooks, model deployment, and jobs in the Data Science service
+- Support for streaming application logs to the Logging service in the Data Flow service
+- Support for the Enterprise Manager Warehouse service
+- Support for additional configuration variables in the MySQL Database service
+- Support for file filters in the DevOps service
+- Support for support rewards redemption summaries in the Usage service
+- Support for the parent tenancy of an organization to view child tenancy categories, recommendations, and resource actions in the Optimizer service
+- Support for choosing prior versions during infrastructure maintenance on Exadata Cloud at Customer in the Database service
+- Support for opting out of guest VM event collection, health metrics, diagnostics logs, and traces in the Database service
+- Support for in-place upgrades for software-defined data centers in the VMWare Solution service
+- Support for single-client access name protocol as a data source for private access channels in the Analytics Cloud service
+- Support for network security groups, egress control on public datasources, and GitHub access in the Analytics Cloud service
+- Support for performance-based autotuning of block and boot volumes in the Block Storage service
+- Support for generic REST, OCI Streaming service, and Lake House connectors in the Data Connectivity Management service
+- Support for connecting to the Data Catalog service in the Data Connectivity Management service
+- Support for Kerberos and SSL for HDFS operations in the Data Connectivity Management service
+- Support for excel-formatted data and default columns in the Data Connectivity Management service
+- Support for reporting connector usage in the Data Connectivity Management service
+- Support for preferred credentials for performing privileged operations in the Database Management service
+- Support for passing a content encoding when posting metrics in the Monitoring service
+- Support for Session Token authentication
+- Support for calling Oracle Cloud Infrastructure services in the eu-madrid-1 region
+- Support for exporting and importing larger model artifacts in the model catalog in the Data Science service
+- Support for Request Based Authorization in the API Gateway service
+- Support for Dynamic Authentication in the API Gateway service
+- Support for Dynamic Routing Backend in the API Gateway service
+- Support for the Cloud Bridge service
+- Support for the Cloud Migrations service
+- Support for display banners, trails, and sizes in the GoldenGate service
+- Support for generic REST data assets, flattening of data in Data Flow, and runtime information on pipelines in the Data Integration service
+- Support for expanded search functionality in the Threat Intelligence service
+- Support for ingest-time rules and specifying logsets and query strings during recalls in the Logging Analytics service
+- Support for repository mirroring from Visual Builder Studio in the DevOps service
+- Support for running a managed build stage with the source code hosted in a Visual Builder Studio repository in the DevOps service
+- Support for triggering a build run based on an event in a Visual Builder Studio repository in the DevOps service
+- Support for additional parameters during cost management scheduling in the Usage service
+- Support for search capabilities for monitored resources in the Stack Monitoring service
+- Support for deleting monitored resources with their members in the Stack Monitoring service
+- Support for creating host-type monitored resources in the Stack Monitoring service
+- Support for associating external resources during creation of monitored resources in the Stack Monitoring service
+- Support for uploading bulk data in the NoSQL Database Cloud service
+- Support for examining query execution plans in the NoSQL Database Cloud service
+- Support for starting and stopping clusters in the Big Data service
+- Support for additional compute shapes in the Big Data service
+- Support for backwards pagination in the Search service
+- Support for cross-region replication in the File Storage service
+- Support for elastic compute for Exadata Cloud at Customer in the Database service
+- Support for calling Oracle Cloud Infrastructure services in the eu-dcc-milan-1 region
+- Support for target host identification and SOCKS support on dynamic port forwarding sessions in the Bastion service
+- Support for viewing top processes running at a particular point of time in the Operations Insights service
+- Support for filtering top processes by a single process to view that process's trend over time in the Operations Insights service
+- Support for creating Enterprise Manager-based Windows host targets in the Operations Insights service
+- Support for creating Management Agent Cloud-based Windows and Solaris host targets in the Operations Insights service
+- Support for the Disaster Recovery service
+- Support for running code interactively with session applications using statements in the Data Flow service
+- Support for language custom models and language translation in the AI Language service
+- Support for cloning from a backup from the last available timestamp in the Database service
+- Support for third-party scanning using Qualys in the Vulnerability Scanning service
+- Support for customer-provided encryption keys in the Logging Analytics service
+- Support for connections for database resources in the GoldenGate service
+- Support for listing local and cross-region refreshable clones in the Database service
+- Support for adding multiple cloud VM clusters in the Database service
+- Support for creating rollback jobs in the Resource Manager service
+- Support for edge nodes in the Big Data service
+- Support for Single Client Access Name (SCAN) in the Data Flow service
+- Support for additional filters when listing application dependencies in the Application Dependency Management service
+- Support for additional properties when reading Vulnerability Audit resources in the Application Dependency Management service
+- Support for optionally passing compartment IDs when creating Vulnerability Audit resources in the Application Dependency Management service
+- Support for mTLS authentication with listeners during Autonomous VM Cluster creation on Exadata Cloud at Customer in the Database service
+- Support for providing custom values for TLS and non-TLS ports during Autonomous VM Cluster creation on Exadata Cloud at Customer in the Database service
+- Support for creating multiple Autonomous VM Clusters in the same Exadata infrastructure in the Database service
+- Support for listing resources associated with a job in the Resource Manager service
+- Support for listing resources associated with a stack in the Resource Manager service
+- Support for listing outputs associated with a job in the Resource Manager service
+- Support for the Oracle distribution of Apache Hadoop 2.0 in the Big Data service
+- Support for the Container Instances service
+- Support for the Document Understanding service
+- Support for creating stacks from OCI DevOps service and Bitbucket Cloud/Server as source control management in the Resource Manager service
+- Support for deployment stage level parameters in the DevOps service
+- Support for PeopleSoft discovery in the Stack Monitoring service
+- Support for Apache Tomcat discovery in the Stack Monitoring service
+- Support for SQL Server discovery in the Stack Monitoring service
+- Support for OpenId Connect in the API Gateway service
+- Support for returning compartment ids when listing backups in the MySQL Database service
+- Support for adding a load balancer endpoint to a DB system in the MySQL Database service
+- Support for managed read replicas in the MySQL Database service
+- Support for setting replication filters on channels in the MySQL Database service
+- Support for replicating from a source configured without global transaction identifiers into a channel in the MySQL Database service
+- Support for time zone and language preferences in the Announcements service
+- Support for adding report schedules for activity auditing and alerts reports in the Data Safe service
+- Support for bulk operations on alerts in the Data Safe service
+- Support for Java server usage reporting in the Java Management service
+- Support for Java library usage reporting in the Java Management service
+- Support for cryptographic roadmap impact analysis in the Java Management service
+- Support for Java Flight Recorder recordings in the Java Management service
+- Support for post-installation steps in the Java Management service
+- Support for restricting management of advanced functionality in the Java Management service
+- Support for plugin improvements in the Java Management service
+- Support for collecting diagnostics on deployments in the GoldenGate service
+- Support for onboarding Exadata Public Cloud (ExaCS) targets to the Operations Insights service
+- Support for the Queue service
+- Support for Intel X9 shapes when launching VM database systems in the Database service
+- Support for enabling, disabling, and editing Database Management service connections on pluggable databases in the Database service
+- Support for availability configurations and maintenance window schedules on synthetic monitors in the Application Performance Monitoring service
+- Support for scheduling cascading deletes on a project in the DevOps service
+- Support for cancelling a scheduled cascading delete on a project in the DevOps service
+- Support for issue and action fields on job phases of validation and migration processes in the Database Migration service
+- Support for cluster profiles in the Big Data service
+- Support for egress-only services in the Service Mesh service
+- Support for optional listeners and service discovery metadata on virtual deployments in the Service Mesh service
+- Support for canceling work requests in the accepted state in the Service Mesh service
+- Support for filtering work requests on associated resource id and operation status in the Service Mesh service
+- Support for sorting while listing work requests, listing work request logs, and listing work request errors in the Service Mesh service
+- Support for Oracle Managed Access integration in the Fusion Apps as a Service service
+- Support for refresh scheduling in the Fusion Apps as a Service service
+- Support for additional connections types on database resources in the GoldenGate service
+- Support for calling Oracle Cloud Infrastructure services in the us-chicago-1 region
+- Support for cross-region replication in the File Storage service
+- Support for setting up private DNS on ExaCS systems during provisioning in the Database service
+- Support for elastic storage expansion on infrastructure resources for Exadata Cloud at Customer in the Database service
+- Support for target versions during infrastructure patching on Cloud Exadata infrastructure in the Database service
+- Support for creating model version sets in the model catalog in the Data Science service
+- Support for associating a model with a model version set in the Data Science service
+- Support for custom key/value annotations on documents in the Data Labeling service
+- Support for configurable timeouts in the Service Mesh service
+- Support for the Cloud Migrations service
+- Support for setting up custom private IPs while creating private endpoints in the Database service
+- Support for machine learning pipelines in the Data Science service
+- Support for personally identifiable information detection in the AI Language service
+- Support for ECPU billing for autonomous databases and dedicated autonomous databases on Exadata Cloud at Customer in the Database service
+- Support for providing a vault secret ID when creating or updating autonomous shared databases in the Database service
+- Support for including machine learning notebook, ORDS, and database transform URLs as autonomous database connections in the Database service
+- Support for role-based access control on OpenSearch clusters in the Search service
+- Support for managed shell stages on deployments in the DevOps service
+- Support for memory encryption on confidential VMs in the Compute service
+- Support for configuration items, and reporting ownership of configuration items, in the Application Performance Monitoring service
+- Support for changing an instance's Data Guard role in the Database service
+- Support for listing autonomous container database versions in the Database service
+- Support for specifying a database version when creating or updating an autonomous container database in the Database service
+- Support for specifying an eCPU count when creating or updating autonomous shared databases in the Database service
+- Support for Helm attestation and Helm arguments on deploy operations in the DevOps service
+- Support for uploading master key wallets for deployments in the GoldenGate service
+- Support for custom configurations in the Operations Insights service
+- Support for refreshing the session token in SessionTokenAuthenticationDetailsProvider
+- Support for the Visual Builder Studio service
+- Support for the Autonomous Recovery service
+- Support for retries by default on operations of the Compute service
+- Support for selecting specific database servers when creating autonomous VM clusters in the Database service
+- Support for creating autonomous VMs during the creation of autonomous VM clusters in the Database service
+- Support for async jobs in the AI Anomaly Detection service
+- Support for specifying algorithm hints and windows sizes during model training in the AI Anomaly Detection service
+- Support for specifying a sensitivity value during model detection in the AI Anomaly Detection service
+- Support for discovery and monitoring of external Oracle database infrastructure components in the Database Management service
+- Support for calling Oracle Cloud Infrastructure services in the eu-dcc-rating-1, eu-dcc-rating-2, eu-dcc-dublin-1, eu-dcc-dublin-2, and eu-dcc-milan-2 regions
+- Support for on-demand bootstrap script execution in the Big Data Service
+- Support for creating and updating autonomous database long-term backup schedules in the Database service
+- Support for creating, updating, and deleting autonomous database long-term backups in the Database service
+- Support for model deployment resources to use customized container images containing runtime dependencies of ML models and custom web servers to handle inference requests in the Data Science service
+- Support for using the compartmentIdInSubtree parameter when summarizing management agent counts in the Management Agent Cloud service
+- Support for getting agent property details in the Management Agent Cloud service
+- Support for filtering by gateway ID when listing agents in the Management Agent Cloud service
+- Support for the Hebrew and Greek languages during AI language text translation in the AI Language service
+- Support for auto-detection when analyzing text with pre-trained models in the AI Language service
+- Support for specifying update operation constraints when updating an instance in the Compute Service
+- Support for disaster recovery in the Content Management service
+- Support for advanced autonomous databases insights in the Operations Insights service
+- Support for the Identity Domains service
+- Support for long-term backups for autonomous databases on Exadata Cloud at Customer in the Database service
+- Support for database OS patching in the Database service
+- Support for managing enhanced clusters, cluster add-ons, and serverless virtual node pools in the Container Engine for Kubernetes service
+- Support for templates and copy object requests in the Data Integration service
+- Support for maintenance features in the GoldenGate service
+- Support for `AMD_MILAN_BM_GPU` configuration type on instances in the Compute service
+- Support for host storage metrics and network metrics as part of host capacity planning in the Operations Insights service
+- Support for backup automation integration with the Database Recovery service in the Database service
+- Support for changing the disaster recovery configuration of an autonomous database in remote regions of its disaster recovery association in the Database service
+- Support for creating a remote disaster recovery association clone of an autonomous database in the Database service
+- Support for managed build stages to be configured to use custom shape build runners in the DevOps service
+- Support for listing pre-built functions and creating functions from pre-built functions in the Functions service
+- Support for connections types for database resources of type Amazon S3, HDFS, SQL Server, Java Messaging service, Mongo DB, Oracle NoSQL, and Snowflake in the GoldenGate service
+- Support for ACD and OKV wallet naming for autonomous databases and dedicated autonomous databases on Exadata Cloud at Customer in the Database service
+- Support for validating the credentials of a connection in the DevOps service
+- Support for GoldenGate Replicat performance profiles when creating a migration in the Database Migration service
+- Support for connection diagnostics on registered databases in the Database Migration service
+- Support for launching bare metal instances in an RDMA network in the Compute service
+- Support for pre-emptible worker nodes in the Container Engine for Kubernetes service
+- Support for larger data storage (now up to 128TB) in the MySQL Database service
+- Support for HTTP health checks for HTTPS backend sets in the Load Balancer service
+- Support for rotation of certificates on autonomous VM clusters on Exadata Cloud at Customer in the Database service
+- Support for ACD and OKV wallet naming for autonomous databases and dedicated autonomous databases on Exadata Cloud at Customer in the Database service
+- Support for Exadata cloud service application virtual IPs (VIPs) in the Database service
+- Support for additional manageability features for large sensitive data models and masking policies in the Data Safe service
+- Support for getting user profile details and assignments for databases and fleets in the Data Safe service
+- Support for enabling ADDM spotlight for databases in the Operations Insights service
+- Support for private endpoints in the Digital Assistant service
+- Support for canceling backups in the Database service
+- Support for improved labeling of key/value pairs in the Data Labeling service
+- Support for enabling mTLS authentication with Listener and for providing custom value for TLS port and Non-TLS Port during AVM Cluster Creation in Database service
+- Support for usedDataStorageSizeInGbs property for autonomous database in the Database service
+- Support for csiNumber organization in Tenant Manager Control Plane service
+- Support for creating and updating an infrastructure with LACP support in Database service
+- Support for changePrivateEndpointOutboundConnection operation in Integration Cloud service
+- Support for Enable Process in Integration Cloud service
+- Support for Disaster Recovery, DR enablement, switchover, and failover feature in Fusion Apps service
+- Support for discovery and monitoring of External Exadata infrastructure in Database Management Service
+- Support for calling Oracle Cloud Infrastructure services in the `eu-jovanovac-1` region
+- Support for bring-your-own-license TLS and ORDS certificates in the Database service
+- Support for tags in the Stack Monitoring service
+- Support for GPU shapes for model deployments in the Data Science service
+- Support for returning networking details of instances in the Visual Builder service
+- Support for high-memory VMs in the Compute service
+- Support for integrating with the Integration Cloud service in the Process Automation service
+- Support for managing on-demand node upgrades in node pools in the Container Engine for Kubernetes service
+- Support for the Access Governance service
+- Support for creating, updating, listing and downloading one-off patches in the Database service
+- Support for changing disaster recovery configurations of remote autonomous databases in the Database service
+- Support for scheduling automatic backups in the Database service
+- Support for provisioning Software-Defined Data Centers (SDDCs) using standard bare metal shapes, with Block Storage as the datastore, in the VMWare Solution service
+- Support for parity with the configuration options of the Compute service in the Compute Autoscaling service
+- Support for self-service integration in the Fusion Apps as a Service service
+- Support for CRI-O parsing in the Logging service
+- Support for retrieving the resource availability domain when getting Exadata infrastructure or VM clusters in the Database service
+- Support for specifying database servers when creating dedicated autonomous databases in the Database service
+- Support for secondary egress zones in the DNS service
+- Support for policy-based snapshots in the File Storage service
+- Support for creating and updating a VM cluster network with disaster recovery network support in the Database service
+- Support for setting a management dashboard or saved search to be shared across OCI Observability & Management services in the Management Dashboard service
+- Support for calling Oracle Cloud Infrastructure services in the `eu-madrid-2` region
+- Support for bulk include/exclude of migration objects in the Database Migration service
+- Support for Kafka cluster profiles, including dedicated Kafka broker nodes, in the Big Data service
+- Support for MySQL HeatWave Lakehouse in the MySQL Database service
+- Support for capacity reports in the Compute service
+- Support for the OCI Control Center service
+- Support for resource quotas and limits in the Usage service
+- Support for allowing users to select the billing interval of deleted ESXi hosts while adding new ESXi hosts in the VMWare Solution service
+- Support for custom key/value pairs and custom document classification in the AI Document service
+- Support for namespace-prefixed domains in the Object Storage service
+- Support for getting the full path to a pre-authenticated request in the Object Storage service
+- Support for Java migration analysis, performance tuning recommendations, and JDK LCM customization in the Java Management service
+- Support for the TCPS protocol for cloud databases in the Operations Insights service
+- Support for AIX hosts that are monitored via Enterprise Manager in the Operations Insights service
+- Support for serial console access in the Database service
+- Support for an increased storage size limit of up to 384 TBs in the Database service
+- Support for network security group (NSG) support for private database registrations / private endpoints in the Database Migration service
+- Support for document classification on documents of more than one page in the Data Labeling service
+- Support for importing datasets in the Data Labeling service
+- Support for specifying a shape when creating applications in the Functions service
+- Support for creating and managing pools in the Data Flow service
+- Support for specifying certificate parameters when creating or updating a node in the Roving Edge Infrastructure service
+- Support for certificate management in the Roving Edge Infrastructure service
+- Support for upgrade bundle management in the Roving Edge Infrastructure service
+- Support for calling Oracle Cloud Infrastructure services in the eu-frankfurt-2 region
+- Support for the OS Management Hub service
+- Support for changing the key store type, and rotating keys, on Exadata Cloud at Customer in the Database service
+- Support for launching VM database systems using Ampere A1 shapes in the Database service
+- Support for additional currencies and countries on paid listings in the Marketplace service
+- Support for ECPU integration in the License Manager service
+- Support for freeform and defined tags on resources in the Generic Artifacts service
+- Support for SQL endpoints in the Data Flow service
+- Support for setting replication delays on channels in the MySQL Database service
+- Support for setting how channels handle replicated tables with no primary key in the MySQL Database service
+- Support for SQL Plan Management (SPM) in Database Management service
+- Support for specifying default snapshot enablement, verified response codes, client certificate details, and request authentication schemes when creating or updating synthetic monitors in the Application Performance Monitoring service
+- Support for address rules, address verification, and requesting addresses in the OSP Gateway service
+- Support for synchronous operations in the Document Understanding service
+- Support for migration without SSH to database hosts (DMS) in the Database Migration service
+- Support for processing workload mappings in the Container Engine for Kubernetes service
+- Support for Salesforce, MySQL HeatWave, and Oracle EBS, Sieble, and PeopleSoft connectors in the Data Integration service
+- Support for updating the envelope key of a volume backup in the Block Volume service
+- Support for calling Oracle Cloud Infrastructure services in the mx-monterrey-1 region
+- Support for Kerberos and LDAP with NFSv3 in the File Storage service
+- Support for capacity reservation checks for movable compute instances in the Disaster Recovery service
+- Support for Oracle MFT monitoring in the Stack Monitoring service
+- Support for OS patching in the Big Data service
+- Support for master and utility nodes in the Big Data service
+- Support for connectivity testing in the GoldenGate service
+- Support for composing multiple document service custom key value models into one single model in Document Understanding Service
+- Support for custom hostname in the Compute service
+- Support for cloud subscription in the Organizations service
+- Support for automatic backup download in the GoldenGate service
+- Support for creating single use (non-recurring) budgets in the Budgets service
+- Support for the Exadata Fleet Update service
+- Support for REST-based log collection, multi-conditional labels, and collection properties in the Logging Analytics service
+- Support for Kubernetes cluster credential rotation in the Container Engine for Kubernetes service
+- Support for zero-downtime features in the Fusion Apps as a Service service
+- Support for news reports in the Operations Insights service
+- Support for backup retention on autonomous database create operations in the Database service
+- Support for exclude tables for replication in the Database Migration service
+- Support for adding and updating auto failover maximum data loss limits for local autonomous data guards in the Database service
+- Support for limiting networking diagram ingestion in the Networking Monitoring service
+- Support for new operations for deployment upgrades in the GoldenGate service
+- Support for getting model type information and base model versions while creating language custom models in the AI Language service
+- Support for support field in class metric in the AI Language service
+- Support for Compute Cloud at Customer resource type in the Operator Access Control service
+- Support for managing account management info, account recovery settings, app roles, apps, app status changers, grants, identity propagation trusts and settings, request-able groups, requests, security questions, OAuth tokens, and user attribute settings in the Identity Domains service
+- Support for credential stores, including Single Sign-On support, for deployments in the GoldenGate service
+- Support for container security contexts in the Container Instances service
+- Support for placement constraints and cluster configurations on cluster networks in the Compute service
+- Support for Compute Cloud at Customer service
+- Support for warehouse data objects in the Operations Insights service
+- Support for standard queries on operations insights data objects in the Operations Insights service
+- Support for database in memory on autonomous database create operations in the Database service
+- Support for creating and updating network monitors in the Application Performance Monitoring Synthetics service
+- Support for integration of GoldenGate service for replication in the Database Migration Service
+- Support for displaying resource usage information on autonomous container database and cloud autonomous vm cluster get operations in the Database service
+- Support for FastConnect Media Access Control Security (MACSec) fail open option in the Network Monitoring service
+- Support for generic bare metal types and configuration maps in compute instance platform configuration in the Compute service
+- Support for encrypted FastConnect in the Network Monitoring service
+- Support for new parameters on customer premises equipment and virtual circuit create operations in the Network Monitoring service
+- Support for virtual circuit associated tunnels in the Network Monitoring service
+- Support for additional parameters on dynamic routing gateway create and update operations in the Network Monitoring service
+- Support for assigning an IPv6 address to a compute instance during instance launch or secondary VNIC attach in the Compute service
+- Support for queue channels in the Queue Service
+- Support for entity lineage retrieval and asynchronous glossary export in the Data Catalog service
+- Support for filtering and sorting while listing work requests in the Container Instances service
+- Support for the ability to create support requests for various support ticket types (TECH, LIMIT, ACCOUNT) in the Customer Incident Management Service
+- Endpoint changed from https://incidentmanagement.{region}.{domainAndTopLevelDomain} to https://incidentmanagement.{region}.oci.{domainAndTopLevelDomain} (e.g. https://incidentmanagement.us-phoenix-1.oraclecloud.com to https://incidentmanagement.us-phoenix-1.oci.oraclecloud.com) in the Customer Incident Management Service
+- Support for SQL tuning sets in Database Management service
+- Support for announcement chaining in Announcements service
+- Support for automatic promotion of hosts in Stack Monitoring service
+- Support for face detection in AI Vision service
+- Support for change parameters on list character sets operation in Database Management service
+- Support for displaying software sources attached to a managed instance group in OS Management service
+- Support for listing compute performances and storage performances in Database service
+- Support for private endpoints for external key managers in Key Management service
+- Support for additional parameters in vaults and keys for external key managers in Key Management service
+- Support for domains while creating integration instances in Oracle Integration Cloud service
+- Support for elastic resource pools in the Database service
+- Support for private endpoints in the Data Science service
+- Support for File System Service (FSS) as transfer medium for data export and import in the Database Migration service
+- Support for new optional parameters on replica create, update and list operations in the MySQL Heatwave service
+- Support for OKE workload auth
+
+
 ## 2.18.0 - 2022-07-12
 ### Added
 - Support for the Data Connectivity Management service

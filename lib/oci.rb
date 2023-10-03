@@ -1,7 +1,8 @@
-# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2023, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'oci/common'
+require 'oci/auth/auth'
 
 # Top level module for the Oracle Cloud Infrastructure SDK
 module OCI
@@ -60,7 +61,6 @@ module OCI
   autoload :OsubOrganizationSubscription, 'oci/osub_organization_subscription/osub_organization_subscription'
   autoload :ServiceManagerProxy, 'oci/service_manager_proxy/service_manager_proxy'
   autoload :StackMonitoring, 'oci/stack_monitoring/stack_monitoring'
-  autoload :DataConnectivity, 'oci/data_connectivity/data_connectivity'
   autoload :ResourceManager, 'oci/resource_manager/resource_manager'
   autoload :VisualBuilder, 'oci/visual_builder/visual_builder'
   autoload :Certificates, 'oci/certificates/certificates'
@@ -118,6 +118,25 @@ module OCI
   autoload :NetworkFirewall, 'oci/network_firewall/network_firewall'
   autoload :EmWarehouse, 'oci/em_warehouse/em_warehouse'
   autoload :VnMonitoring, 'oci/vn_monitoring/vn_monitoring'
+  autoload :Lockbox, 'oci/lockbox/lockbox'
+  autoload :MediaServices, 'oci/media_services/media_services'
+  autoload :Opa, 'oci/opa/opa'
+  autoload :FusionApps, 'oci/fusion_apps/fusion_apps'
+  autoload :Opensearch, 'oci/opensearch/opensearch'
+  autoload :CloudMigrations, 'oci/cloud_migrations/cloud_migrations'
+  autoload :CloudBridge, 'oci/cloud_bridge/cloud_bridge'
+  autoload :DisasterRecovery, 'oci/disaster_recovery/disaster_recovery'
+  autoload :ContainerInstances, 'oci/container_instances/container_instances'
+  autoload :AiDocument, 'oci/ai_document/ai_document'
+  autoload :Queue, 'oci/queue/queue'
+  autoload :VbsInst, 'oci/vbs_inst/vbs_inst'
+  autoload :Recovery, 'oci/recovery/recovery'
+  autoload :IdentityDomains, 'oci/identity_domains/identity_domains'
+  autoload :AccessGovernanceCp, 'oci/access_governance_cp/access_governance_cp'
+  autoload :OciControlCenter, 'oci/oci_control_center/oci_control_center'
+  autoload :OsManagementHub, 'oci/os_management_hub/os_management_hub'
+  autoload :FleetSoftwareUpdate, 'oci/fleet_software_update/fleet_software_update'
+  autoload :ComputeCloudAtCustomer, 'oci/compute_cloud_at_customer/compute_cloud_at_customer'
 
   require 'oci/object_storage/transfer/transfer'
   class << self
