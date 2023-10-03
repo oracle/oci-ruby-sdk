@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2023, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'oci/base_signer'
@@ -15,6 +15,12 @@ module OCI
       OCI_RESOURCE_PRINCIPAL_PRIVATE_PEM = 'OCI_RESOURCE_PRINCIPAL_PRIVATE_PEM'.freeze
       OCI_RESOURCE_PRINCIPAL_PRIVATE_PEM_PASSPHRASE = 'OCI_RESOURCE_PRINCIPAL_PRIVATE_PEM_PASSPHRASE'.freeze
       OCI_RESOURCE_PRINCIPAL_REGION = 'OCI_RESOURCE_PRINCIPAL_REGION'.freeze
+
+      OCI_KUBERNETES_SERVICE_ACCOUNT_TOKEN_PATH = '/var/run/secrets/kubernetes.io/serviceaccount/token'.freeze
+      DEFAULT_OCI_KUBERNETES_SERVICE_ACCOUNT_CERT_PATH = '/var/run/secrets/kubernetes.io/serviceaccount/ca.crt'.freeze
+      OCI_KUBERNETES_SERVICE_ACCOUNT_CERT_PATH = 'OCI_KUBERNETES_SERVICE_ACCOUNT_CERT_PATH'.freeze
+      OCI_KUBERNETES_PROXYMUX_SERVICE_PORT = '12250'.freeze
+      KUBERNETES_SERVICE_HOST = 'KUBERNETES_SERVICE_HOST'.freeze
 
       def self.resource_principals_signer(resource_principal_token_path_provider: nil)
         rp_version = ENV[OCI_RESOURCE_PRINCIPAL_VERSION]
@@ -50,6 +56,29 @@ module OCI
         else
           raise Exception("Unsupported #{OCI_RESOURCE_PRINCIPAL_VERSION}: #{rp_version}")
         end
+      end
+
+      def self.oke_workload_resource_principal_signer(service_account_token_path: nil, service_account_token: nil)
+        sa_cert_path = ENV[OCI_KUBERNETES_SERVICE_ACCOUNT_CERT_PATH]
+        sa_cert_path = DEFAULT_OCI_KUBERNETES_SERVICE_ACCOUNT_CERT_PATH if sa_cert_path.nil?
+
+        if service_account_token.nil?
+          sa_token_provider = OCI::Auth::Signers::ServiceAccountTokenProvider::DefaultServiceAccountTokenProvider.new
+          sa_token_provider.override_sa_token_path(service_account_token_path) unless service_account_token_path.nil?
+        else
+          sa_token_provider = OCI::Auth::Signers::ServiceAccountTokenProvider::SuppliedServiceAccountTokenProvider.new(service_account_token)
+        end
+
+        service_host = ENV[KUBERNETES_SERVICE_HOST]
+        region = ENV[OCI_RESOURCE_PRINCIPAL_REGION]
+
+        OCI::Auth::Signers::OkeWorkloadIdentityResourcePrincipalSigner.new(
+          sa_token_provider,
+          sa_cert_path,
+          service_host,
+          OCI_KUBERNETES_PROXYMUX_SERVICE_PORT,
+          region: region
+        )
       end
     end
     # rubocop:enable Metrics/AbcSize

@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2022, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2023, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 module OCI
@@ -38,6 +38,10 @@ module OCI
       REGION_EU_STOCKHOLM_1 = 'eu-stockholm-1'.freeze,
       REGION_AF_JOHANNESBURG_1 = 'af-johannesburg-1'.freeze,
       REGION_EU_PARIS_1 = 'eu-paris-1'.freeze,
+      REGION_MX_QUERETARO_1 = 'mx-queretaro-1'.freeze,
+      REGION_EU_MADRID_1 = 'eu-madrid-1'.freeze,
+      REGION_US_CHICAGO_1 = 'us-chicago-1'.freeze,
+      REGION_MX_MONTERREY_1 = 'mx-monterrey-1'.freeze,
       REGION_US_LANGLEY_1 = 'us-langley-1'.freeze,
       REGION_US_LUKE_1 = 'us-luke-1'.freeze,
       REGION_US_GOV_ASHBURN_1 = 'us-gov-ashburn-1'.freeze,
@@ -48,7 +52,16 @@ module OCI
       REGION_AP_CHIYODA_1 = 'ap-chiyoda-1'.freeze,
       REGION_AP_IBARAKI_1 = 'ap-ibaraki-1'.freeze,
       REGION_ME_DCC_MUSCAT_1 = 'me-dcc-muscat-1'.freeze,
-      REGION_AP_DCC_CANBERRA_1 = 'ap-dcc-canberra-1'.freeze
+      REGION_AP_DCC_CANBERRA_1 = 'ap-dcc-canberra-1'.freeze,
+      REGION_EU_DCC_MILAN_1 = 'eu-dcc-milan-1'.freeze,
+      REGION_EU_DCC_MILAN_2 = 'eu-dcc-milan-2'.freeze,
+      REGION_EU_DCC_DUBLIN_2 = 'eu-dcc-dublin-2'.freeze,
+      REGION_EU_DCC_RATING_2 = 'eu-dcc-rating-2'.freeze,
+      REGION_EU_DCC_RATING_1 = 'eu-dcc-rating-1'.freeze,
+      REGION_EU_DCC_DUBLIN_1 = 'eu-dcc-dublin-1'.freeze,
+      REGION_EU_MADRID_2 = 'eu-madrid-2'.freeze,
+      REGION_EU_FRANKFURT_2 = 'eu-frankfurt-2'.freeze,
+      REGION_EU_JOVANOVAC_1 = 'eu-jovanovac-1'.freeze
     ]
 
     REGION_SHORT_NAMES_TO_LONG_NAMES = {
@@ -83,6 +96,10 @@ module OCI
       'arn': REGION_EU_STOCKHOLM_1,
       'jnb': REGION_AF_JOHANNESBURG_1,
       'cdg': REGION_EU_PARIS_1,
+      'qro': REGION_MX_QUERETARO_1,
+      'mad': REGION_EU_MADRID_1,
+      'ord': REGION_US_CHICAGO_1,
+      'mty': REGION_MX_MONTERREY_1,
       'lfi': REGION_US_LANGLEY_1,
       'luf': REGION_US_LUKE_1,
       'ric': REGION_US_GOV_ASHBURN_1,
@@ -93,7 +110,16 @@ module OCI
       'nja': REGION_AP_CHIYODA_1,
       'ukb': REGION_AP_IBARAKI_1,
       'mct': REGION_ME_DCC_MUSCAT_1,
-      'wga': REGION_AP_DCC_CANBERRA_1
+      'wga': REGION_AP_DCC_CANBERRA_1,
+      'bgy': REGION_EU_DCC_MILAN_1,
+      'mxp': REGION_EU_DCC_MILAN_2,
+      'snn': REGION_EU_DCC_DUBLIN_2,
+      'dtm': REGION_EU_DCC_RATING_2,
+      'dus': REGION_EU_DCC_RATING_1,
+      'ork': REGION_EU_DCC_DUBLIN_1,
+      'vll': REGION_EU_MADRID_2,
+      'str': REGION_EU_FRANKFURT_2,
+      'beg': REGION_EU_JOVANOVAC_1
     }
 
     # --- Start of region realm mapping ---
@@ -129,6 +155,10 @@ module OCI
       'eu-stockholm-1': 'oc1'.freeze,
       'af-johannesburg-1': 'oc1'.freeze,
       'eu-paris-1': 'oc1'.freeze,
+      'mx-queretaro-1': 'oc1'.freeze,
+      'eu-madrid-1': 'oc1'.freeze,
+      'us-chicago-1': 'oc1'.freeze,
+      'mx-monterrey-1': 'oc1'.freeze,
 
       'us-langley-1': 'oc2'.freeze,
       'us-luke-1': 'oc2'.freeze,
@@ -145,7 +175,19 @@ module OCI
 
       'me-dcc-muscat-1': 'oc9'.freeze,
 
-      'ap-dcc-canberra-1': 'oc10'.freeze
+      'ap-dcc-canberra-1': 'oc10'.freeze,
+
+      'eu-dcc-milan-1': 'oc14'.freeze,
+      'eu-dcc-milan-2': 'oc14'.freeze,
+      'eu-dcc-dublin-2': 'oc14'.freeze,
+      'eu-dcc-rating-2': 'oc14'.freeze,
+      'eu-dcc-rating-1': 'oc14'.freeze,
+      'eu-dcc-dublin-1': 'oc14'.freeze,
+
+      'eu-madrid-2': 'oc19'.freeze,
+      'eu-frankfurt-2': 'oc19'.freeze,
+
+      'eu-jovanovac-1': 'oc20'.freeze
     }
     # ---  end of region realm mapping  ---
 
@@ -157,7 +199,10 @@ module OCI
       'oc4': 'oraclegovcloud.uk'.freeze,
       'oc8': 'oraclecloud8.com'.freeze,
       'oc9': 'oraclecloud9.com'.freeze,
-      'oc10': 'oraclecloud10.com'.freeze
+      'oc10': 'oraclecloud10.com'.freeze,
+      'oc14': 'oraclecloud14.com'.freeze,
+      'oc19': 'oraclecloud.eu'.freeze,
+      'oc20': 'oraclecloud20.com'.freeze
     }
     # ---  end of realm domain mapping  ---
   end
