@@ -709,9 +709,7 @@ See [CHANGELOG](https://github.com/oracle/oci-ruby-sdk/blob/master/CHANGELOG.md)
 
 ## Contributing
 
-oci-ruby-sdk is an open source project. See [CONTRIBUTING](https://github.com/oracle/oci-ruby-sdk/blob/master/CONTRIBUTING.md) for details.
-
-Oracle gratefully acknowledges the contributions to oci-ruby-sdk that have been made by the community.
+This project welcomes contributions from the community. Before submitting a pull request, please [review our contribution guide](./CONTRIBUTING.md)
 
 ## Notifications
 To be notified when a new version of the Ruby SDK is released, subscribe to the [Atom feed](https://rubygems.org/gems/oci/versions.atom).
@@ -729,9 +727,13 @@ Addtional ways to get in touch:
 * [Developer Tools section](https://community.oracle.com/community/cloud_computing/bare-metal/content?filterID=contentstatus%5Bpublished%5D~category%5Bdeveloper-tools%5D&filterID=contentstatus%5Bpublished%5D~objecttype~objecttype%5Bthread%5D) of the Oracle Cloud forums
 * [My Oracle Support](https://support.oracle.com)
 
+## Security
+
+Please consult the [security guide](./SECURITY.md) for our responsible security vulnerability disclosure process
+
 ## License
 
-Copyright (c) 2016, 2021, Oracle and/or its affiliates.  All rights reserved.
+Copyright (c) 2016, 2023 Oracle and/or its affiliates.  All rights reserved.
 
 This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl
 or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
