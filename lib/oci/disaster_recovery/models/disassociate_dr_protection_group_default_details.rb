@@ -7,7 +7,7 @@ require_relative 'disassociate_dr_protection_group_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The default type (required for forward compatibility).
+  # The default type.
   class DisasterRecovery::Models::DisassociateDrProtectionGroupDefaultDetails < DisasterRecovery::Models::DisassociateDrProtectionGroupDetails
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map

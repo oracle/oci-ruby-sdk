@@ -7,7 +7,9 @@ module OCI
   module Marketplace::Models
     PACKAGE_TYPE_ENUM_ENUM = [
       PACKAGE_TYPE_ENUM_ORCHESTRATION = 'ORCHESTRATION'.freeze,
-      PACKAGE_TYPE_ENUM_IMAGE = 'IMAGE'.freeze
+      PACKAGE_TYPE_ENUM_IMAGE = 'IMAGE'.freeze,
+      PACKAGE_TYPE_ENUM_CONTAINER = 'CONTAINER'.freeze,
+      PACKAGE_TYPE_ENUM_KUBERNETES = 'KUBERNETES'.freeze
     ].freeze
   end
 end

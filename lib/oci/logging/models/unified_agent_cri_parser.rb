@@ -9,11 +9,11 @@ require_relative 'unified_agent_parser'
 module OCI
   # CRI parser.
   class Logging::Models::UnifiedAgentCriParser < Logging::Models::UnifiedAgentParser
-    # If you don't need stream/logtag fields, set this to false.
+    # If you don't need stream or logtag fields, set this to false.
     # @return [BOOLEAN]
     attr_accessor :is_merge_cri_fields
 
-    # Optional nested JSON Parser for CRI Parser. Supported fields are fieldTimeKey, timeFormat, and isKeepTimeKey.
+    # Optional nested JSON Parser for CRI. Supported fields are fieldTimeKey, timeFormat, and isKeepTimeKey.
     # @return [OCI::Logging::Models::UnifiedJSONParser]
     attr_accessor :nested_parser
 

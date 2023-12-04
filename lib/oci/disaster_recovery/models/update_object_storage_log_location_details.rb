@@ -6,16 +6,16 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Information about updating an Object Storage log location for a DR Protection Group.
+  # The details for updating an object storage log location for a DR protection group.
   class DisasterRecovery::Models::UpdateObjectStorageLogLocationDetails
-    # **[Required]** The namespace in Object Storage (Note - this is usually the tenancy name).
+    # **[Required]** The namespace in object storage (Note - this is usually the tenancy name).
     #
     # Example: `myocitenancy`
     #
     # @return [String]
     attr_accessor :namespace
 
-    # **[Required]** The bucket name inside the Object Storage namespace.
+    # **[Required]** The bucket name inside the object storage namespace.
     #
     # Example: `operation_logs`
     #

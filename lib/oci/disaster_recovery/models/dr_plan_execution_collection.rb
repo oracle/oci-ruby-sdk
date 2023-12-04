@@ -6,11 +6,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Results of a DR Plan Execution search. Contains both DR Plan Execution summary items
-  # and other information, such as metadata.
+  # A list of DR plan execution summaries.
   #
   class DisasterRecovery::Models::DrPlanExecutionCollection
-    # **[Required]** A list of all DR Plan Execution summary objects.
+    # **[Required]** A list of DR plan execution summaries.
     #
     # @return [Array<OCI::DisasterRecovery::Models::DrPlanExecutionSummary>]
     attr_accessor :items

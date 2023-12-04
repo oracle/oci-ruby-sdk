@@ -72,8 +72,8 @@ module OCI
         'defined_tags': :'definedTags',
         'vault_id': :'vaultId',
         'key_id': :'keyId',
-        'subnet_id': :'subnetId',
         'nsg_ids': :'nsgIds',
+        'subnet_id': :'subnetId',
         'technology_type': :'technologyType',
         'username': :'username',
         'password': :'password',
@@ -98,8 +98,8 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'vault_id': :'String',
         'key_id': :'String',
-        'subnet_id': :'String',
         'nsg_ids': :'Array<String>',
+        'subnet_id': :'String',
         'technology_type': :'String',
         'username': :'String',
         'password': :'String',
@@ -125,8 +125,8 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::GoldenGate::Models::CreateConnectionDetails#defined_tags #defined_tags} proprety
     # @option attributes [String] :vault_id The value to assign to the {OCI::GoldenGate::Models::CreateConnectionDetails#vault_id #vault_id} proprety
     # @option attributes [String] :key_id The value to assign to the {OCI::GoldenGate::Models::CreateConnectionDetails#key_id #key_id} proprety
-    # @option attributes [String] :subnet_id The value to assign to the {OCI::GoldenGate::Models::CreateConnectionDetails#subnet_id #subnet_id} proprety
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {OCI::GoldenGate::Models::CreateConnectionDetails#nsg_ids #nsg_ids} proprety
+    # @option attributes [String] :subnet_id The value to assign to the {OCI::GoldenGate::Models::CreateConnectionDetails#subnet_id #subnet_id} proprety
     # @option attributes [String] :technology_type The value to assign to the {#technology_type} property
     # @option attributes [String] :username The value to assign to the {#username} property
     # @option attributes [String] :password The value to assign to the {#password} property
@@ -203,8 +203,8 @@ module OCI
         defined_tags == other.defined_tags &&
         vault_id == other.vault_id &&
         key_id == other.key_id &&
-        subnet_id == other.subnet_id &&
         nsg_ids == other.nsg_ids &&
+        subnet_id == other.subnet_id &&
         technology_type == other.technology_type &&
         username == other.username &&
         password == other.password &&
@@ -228,7 +228,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [connection_type, display_name, description, compartment_id, freeform_tags, defined_tags, vault_id, key_id, subnet_id, nsg_ids, technology_type, username, password, connection_string, wallet, session_mode, private_ip, database_id].hash
+      [connection_type, display_name, description, compartment_id, freeform_tags, defined_tags, vault_id, key_id, nsg_ids, subnet_id, technology_type, username, password, connection_string, wallet, session_mode, private_ip, database_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

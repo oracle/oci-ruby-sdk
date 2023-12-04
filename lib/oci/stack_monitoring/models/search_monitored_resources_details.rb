@@ -17,6 +17,11 @@ module OCI
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze
     ].freeze
 
+    LICENSE_ENUM = [
+      LICENSE_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
+      LICENSE_ENTERPRISE_EDITION = 'ENTERPRISE_EDITION'.freeze
+    ].freeze
+
     SORT_ORDER_ENUM = [
       SORT_ORDER_ASC = 'ASC'.freeze,
       SORT_ORDER_DESC = 'DESC'.freeze
@@ -71,6 +76,10 @@ module OCI
     # A filter to return resources with matching lifecycle state.
     # @return [String]
     attr_reader :lifecycle_state
+
+    # License edition of the monitored resource.
+    # @return [String]
+    attr_reader :license
 
     # Search for resources that were created within a specific date range,
     # using this parameter to specify the earliest creation date for the
@@ -154,6 +163,7 @@ module OCI
         'host_name_contains': :'hostNameContains',
         'management_agent_id': :'managementAgentId',
         'lifecycle_state': :'lifecycleState',
+        'license': :'license',
         'time_created_greater_than_or_equal_to': :'timeCreatedGreaterThanOrEqualTo',
         'time_created_less_than': :'timeCreatedLessThan',
         'time_updated_greater_than_or_equal_to': :'timeUpdatedGreaterThanOrEqualTo',
@@ -179,6 +189,7 @@ module OCI
         'host_name_contains': :'String',
         'management_agent_id': :'String',
         'lifecycle_state': :'String',
+        'license': :'String',
         'time_created_greater_than_or_equal_to': :'DateTime',
         'time_created_less_than': :'DateTime',
         'time_updated_greater_than_or_equal_to': :'DateTime',
@@ -206,6 +217,7 @@ module OCI
     # @option attributes [String] :host_name_contains The value to assign to the {#host_name_contains} property
     # @option attributes [String] :management_agent_id The value to assign to the {#management_agent_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :license The value to assign to the {#license} property
     # @option attributes [DateTime] :time_created_greater_than_or_equal_to The value to assign to the {#time_created_greater_than_or_equal_to} property
     # @option attributes [DateTime] :time_created_less_than The value to assign to the {#time_created_less_than} property
     # @option attributes [DateTime] :time_updated_greater_than_or_equal_to The value to assign to the {#time_updated_greater_than_or_equal_to} property
@@ -265,6 +277,8 @@ module OCI
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
+
+      self.license = attributes[:'license'] if attributes[:'license']
 
       self.time_created_greater_than_or_equal_to = attributes[:'timeCreatedGreaterThanOrEqualTo'] if attributes[:'timeCreatedGreaterThanOrEqualTo']
 
@@ -330,6 +344,14 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] license Object to be assigned
+    def license=(license)
+      raise "Invalid value for 'license': this must be one of the values in LICENSE_ENUM." if license && !LICENSE_ENUM.include?(license)
+
+      @license = license
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] sort_order Object to be assigned
     def sort_order=(sort_order)
       raise "Invalid value for 'sort_order': this must be one of the values in SORT_ORDER_ENUM." if sort_order && !SORT_ORDER_ENUM.include?(sort_order)
@@ -363,6 +385,7 @@ module OCI
         host_name_contains == other.host_name_contains &&
         management_agent_id == other.management_agent_id &&
         lifecycle_state == other.lifecycle_state &&
+        license == other.license &&
         time_created_greater_than_or_equal_to == other.time_created_greater_than_or_equal_to &&
         time_created_less_than == other.time_created_less_than &&
         time_updated_greater_than_or_equal_to == other.time_updated_greater_than_or_equal_to &&
@@ -386,7 +409,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, name, name_contains, type, host_name, external_id, host_name_contains, management_agent_id, lifecycle_state, time_created_greater_than_or_equal_to, time_created_less_than, time_updated_greater_than_or_equal_to, time_updated_less_than, resource_time_zone, sort_order, sort_by, property_equals].hash
+      [compartment_id, name, name_contains, type, host_name, external_id, host_name_contains, management_agent_id, lifecycle_state, license, time_created_greater_than_or_equal_to, time_created_less_than, time_updated_greater_than_or_equal_to, time_updated_less_than, resource_time_zone, sort_order, sort_by, property_equals].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

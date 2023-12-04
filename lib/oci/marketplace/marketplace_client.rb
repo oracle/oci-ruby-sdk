@@ -420,6 +420,74 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Exports container images or helm chart from marketplace to customer's registry.
+    # @param [String] listing_id The unique identifier for the listing.
+    # @param [String] package_version The version of the package. Package versions are unique within a listing.
+    # @param [OCI::Marketplace::Models::ExportPackageDetails] export_package_details The details for exporting container images or helm chart.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or server error without
+    #   risk of executing that same action again. Retry tokens expire after 24 hours, but can be invalidated before
+    #   then due to conflicting operations (for example, if a resource has been deleted and purged from the system,
+    #   then a retry of the original creation request might be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Marketplace::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/export_listing.rb.html) to see an example of how to use export_listing API.
+    def export_listing(listing_id, package_version, export_package_details, opts = {})
+      logger.debug 'Calling operation MarketplaceClient#export_listing.' if logger
+
+      raise "Missing the required parameter 'listing_id' when calling export_listing." if listing_id.nil?
+      raise "Missing the required parameter 'package_version' when calling export_listing." if package_version.nil?
+      raise "Missing the required parameter 'export_package_details' when calling export_listing." if export_package_details.nil?
+      raise "Parameter value for 'listing_id' must not be blank" if OCI::Internal::Util.blank_string?(listing_id)
+      raise "Parameter value for 'package_version' must not be blank" if OCI::Internal::Util.blank_string?(package_version)
+
+      path = '/listings/{listingId}/packages/{packageVersion}/actions/export'.sub('{listingId}', listing_id.to_s).sub('{packageVersion}', package_version.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(export_package_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#export_listing') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Marketplace::Models::WorkRequest'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the details of a specific, previously accepted terms of use agreement.
     #
     # @param [String] accepted_agreement_id The unique identifier for the accepted terms of use agreement.
@@ -793,6 +861,62 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Marketplace::Models::PublicationPackage'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the details of the specified work request
+    # @param [String] work_request_id The OCID of the work request.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Marketplace::Models::WorkRequest WorkRequest}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/get_work_request.rb.html) to see an example of how to use get_work_request API.
+    def get_work_request(work_request_id, opts = {})
+      logger.debug 'Calling operation MarketplaceClient#get_work_request.' if logger
+
+      raise "Missing the required parameter 'work_request_id' when calling get_work_request." if work_request_id.nil?
+      raise "Parameter value for 'work_request_id' must not be blank" if OCI::Internal::Util.blank_string?(work_request_id)
+
+      path = '/workRequests/{workRequestId}'.sub('{workRequestId}', work_request_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#get_work_request') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Marketplace::Models::WorkRequest'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1667,6 +1791,242 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Marketplace::Models::TaxSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List all errors for a work request
+    # @param [String] work_request_id The OCID of the work request.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [Integer] :limit How many records to return. Specify a value greater than zero and less than or equal to 1000. The default is 30.
+    #    (default to 30)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :sort_order The sort order to use, either `ASC` or `DESC`. (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated
+    # @return [Response] A Response object with data of type {OCI::Marketplace::Models::WorkRequestErrorCollection WorkRequestErrorCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/list_work_request_errors.rb.html) to see an example of how to use list_work_request_errors API.
+    def list_work_request_errors(work_request_id, opts = {})
+      logger.debug 'Calling operation MarketplaceClient#list_work_request_errors.' if logger
+
+      raise "Missing the required parameter 'work_request_id' when calling list_work_request_errors." if work_request_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated.'
+      end
+      raise "Parameter value for 'work_request_id' must not be blank" if OCI::Internal::Util.blank_string?(work_request_id)
+
+      path = '/workRequests/{workRequestId}/errors'.sub('{workRequestId}', work_request_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#list_work_request_errors') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Marketplace::Models::WorkRequestErrorCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List all logs for a work request
+    # @param [String] work_request_id The OCID of the work request.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [Integer] :limit How many records to return. Specify a value greater than zero and less than or equal to 1000. The default is 30.
+    #    (default to 30)
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @option opts [String] :sort_order The sort order to use, either `ASC` or `DESC`. (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated
+    # @return [Response] A Response object with data of type {OCI::Marketplace::Models::WorkRequestLogEntryCollection WorkRequestLogEntryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/list_work_request_logs.rb.html) to see an example of how to use list_work_request_logs API.
+    def list_work_request_logs(work_request_id, opts = {})
+      logger.debug 'Calling operation MarketplaceClient#list_work_request_logs.' if logger
+
+      raise "Missing the required parameter 'work_request_id' when calling list_work_request_logs." if work_request_id.nil?
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated.'
+      end
+      raise "Parameter value for 'work_request_id' must not be blank" if OCI::Internal::Util.blank_string?(work_request_id)
+
+      path = '/workRequests/{workRequestId}/logs'.sub('{workRequestId}', work_request_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#list_work_request_logs') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Marketplace::Models::WorkRequestLogEntryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List all work requests in a compartment
+    # @param [String] compartment_id The unique identifier for the compartment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :work_request_id The OCID of the work request.
+    # @option opts [String] :status A filter to return only resources whose status matches the given OperationStatus.
+    # @option opts [String] :page The value of the `opc-next-page` response header from the previous \"List\" call.
+    # @option opts [Integer] :limit How many records to return. Specify a value greater than zero and less than or equal to 1000. The default is 30.
+    #    (default to 30)
+    # @option opts [String] :sort_order The sort order to use, either `ASC` or `DESC`. (default to DESC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeAccepted is descending.
+    #    (default to timeAccepted)
+    #   Allowed values are: timeAccepted
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a particular request,
+    #   please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Marketplace::Models::WorkRequestCollection WorkRequestCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/marketplace/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
+    def list_work_requests(compartment_id, opts = {})
+      logger.debug 'Calling operation MarketplaceClient#list_work_requests.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_work_requests." if compartment_id.nil?
+
+      if opts[:status] && !OCI::Marketplace::Models::OPERATION_STATUS_ENUM.include?(opts[:status])
+        raise 'Invalid value for "status", must be one of the values in OCI::Marketplace::Models::OPERATION_STATUS_ENUM.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[timeAccepted].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeAccepted.'
+      end
+
+      path = '/workRequests'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:workRequestId] = opts[:work_request_id] if opts[:work_request_id]
+      query_params[:status] = opts[:status] if opts[:status]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'MarketplaceClient#list_work_requests') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Marketplace::Models::WorkRequestCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength

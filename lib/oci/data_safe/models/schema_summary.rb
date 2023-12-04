@@ -6,7 +6,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of a schema fetched from the database.
+  # The details of a schema fetched from the database.
   class DataSafe::Models::SchemaSummary
     # **[Required]** Name of the schema.
     # @return [String]

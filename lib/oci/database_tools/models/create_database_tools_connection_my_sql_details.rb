@@ -12,14 +12,15 @@ module OCI
     # @return [OCI::DatabaseTools::Models::CreateDatabaseToolsRelatedResourceMySqlDetails]
     attr_accessor :related_resource
 
-    # The connection string used to connect to the MySQL Server.
+    # **[Required]** The connection string used to connect to the MySQL Server.
     # @return [String]
     attr_accessor :connection_string
 
-    # The user name.
+    # **[Required]** The user name.
     # @return [String]
     attr_accessor :user_name
 
+    # This attribute is required.
     # @return [OCI::DatabaseTools::Models::DatabaseToolsUserPasswordDetails]
     attr_accessor :user_password
 
@@ -45,7 +46,9 @@ module OCI
         'compartment_id': :'compartmentId',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags',
+        'locks': :'locks',
         'type': :'type',
+        'runtime_support': :'runtimeSupport',
         'related_resource': :'relatedResource',
         'connection_string': :'connectionString',
         'user_name': :'userName',
@@ -65,7 +68,9 @@ module OCI
         'compartment_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>',
+        'locks': :'Array<OCI::DatabaseTools::Models::ResourceLock>',
         'type': :'String',
+        'runtime_support': :'String',
         'related_resource': :'OCI::DatabaseTools::Models::CreateDatabaseToolsRelatedResourceMySqlDetails',
         'connection_string': :'String',
         'user_name': :'String',
@@ -87,6 +92,8 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionDetails#compartment_id #compartment_id} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionDetails#defined_tags #defined_tags} proprety
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionDetails#freeform_tags #freeform_tags} proprety
+    # @option attributes [Array<OCI::DatabaseTools::Models::ResourceLock>] :locks The value to assign to the {OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionDetails#locks #locks} proprety
+    # @option attributes [String] :runtime_support The value to assign to the {OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionDetails#runtime_support #runtime_support} proprety
     # @option attributes [OCI::DatabaseTools::Models::CreateDatabaseToolsRelatedResourceMySqlDetails] :related_resource The value to assign to the {#related_resource} property
     # @option attributes [String] :connection_string The value to assign to the {#connection_string} property
     # @option attributes [String] :user_name The value to assign to the {#user_name} property
@@ -162,7 +169,9 @@ module OCI
         compartment_id == other.compartment_id &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags &&
+        locks == other.locks &&
         type == other.type &&
+        runtime_support == other.runtime_support &&
         related_resource == other.related_resource &&
         connection_string == other.connection_string &&
         user_name == other.user_name &&
@@ -185,7 +194,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, compartment_id, defined_tags, freeform_tags, type, related_resource, connection_string, user_name, user_password, advanced_properties, key_stores, private_endpoint_id].hash
+      [display_name, compartment_id, defined_tags, freeform_tags, locks, type, runtime_support, related_resource, connection_string, user_name, user_password, advanced_properties, key_stores, private_endpoint_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

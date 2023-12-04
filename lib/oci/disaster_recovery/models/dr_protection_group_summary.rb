@@ -7,7 +7,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary information about a DR Protection Group.
+  # The summary of a DR protection group.
   class DisasterRecovery::Models::DrProtectionGroupSummary
     ROLE_ENUM = [
       ROLE_PRIMARY = 'PRIMARY'.freeze,
@@ -20,6 +20,7 @@ module OCI
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
       LIFECYCLE_STATE_NEEDS_ATTENTION = 'NEEDS_ATTENTION'.freeze,
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
@@ -27,83 +28,96 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the DR Protection Group.
+    LIFECYCLE_SUB_STATE_ENUM = [
+      LIFECYCLE_SUB_STATE_DR_DRILL_IN_PROGRESS = 'DR_DRILL_IN_PROGRESS'.freeze,
+      LIFECYCLE_SUB_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    # **[Required]** The OCID of the DR protection group.
     #
-    # Example: `ocid1.drprotectiongroup.oc1.phx.&lt;unique_id&gt;`
+    # Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the compartment containing the DR Protection Group.
+    # **[Required]** The OCID of the compartment containing the DR protection group.
     #
-    # Example: `ocid1.compartment.oc1..&lt;unique_id&gt;`
+    # Example: `ocid1.compartment.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The display name of the DR Protection Group.
+    # **[Required]** The display name of the DR protection group.
     #
-    # Example: `EBS PHX DRPG`
+    # Example: `EBS PHX Group`
     #
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The role of the DR Protection Group.
+    # **[Required]** The role of the DR protection group.
     #
     # @return [String]
     attr_reader :role
 
-    # The OCID of the peer (remote) DR Protection Group.
+    # The OCID of the peer DR protection group.
     #
-    # Example: `ocid1.drprotectiongroup.oc1.iad.&lt;unique_id&gt;`
+    # Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :peer_id
 
-    # The region of the peer (remote) DR Protection Group.
+    # The region of the peer DR protection group.
     #
     # Example: `us-ashburn-1`
     #
     # @return [String]
     attr_accessor :peer_region
 
-    # **[Required]** The date and time the DR Protection Group was created. An RFC3339 formatted datetime string.
+    # **[Required]** The date and time the DR protection group was created. An RFC3339 formatted datetime string.
     #
     # Example: `2019-03-29T09:36:42Z`
     #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The date and time the DR Protection Group was updated. An RFC3339 formatted datetime string.
+    # **[Required]** The date and time the DR protection group was updated. An RFC3339 formatted datetime string.
     #
     # Example: `2019-03-29T09:36:42Z`
     #
     # @return [DateTime]
     attr_accessor :time_updated
 
-    # **[Required]** The current state of the DR Protection Group.
+    # **[Required]** The current state of the DR protection group.
     #
     # @return [String]
     attr_reader :lifecycle_state
 
-    # A message describing the DR Protection Group's current state in more detail.
+    # A message describing the DR protection group's current state in more detail.
     #
     # @return [String]
     attr_accessor :life_cycle_details
 
+    # The current sub-state of the DR protection group.
+    #
+    # @return [String]
+    attr_reader :lifecycle_sub_state
+
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
     # Usage of system tag keys. These predefined keys are scoped to namespaces.
+    #
     # Example: `{\"orcl-cloud\": {\"free-tier-retained\": \"true\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
@@ -123,6 +137,7 @@ module OCI
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
         'life_cycle_details': :'lifeCycleDetails',
+        'lifecycle_sub_state': :'lifecycleSubState',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'system_tags': :'systemTags'
@@ -144,6 +159,7 @@ module OCI
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
         'life_cycle_details': :'String',
+        'lifecycle_sub_state': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'system_tags': :'Hash<String, Hash<String, Object>>'
@@ -167,6 +183,7 @@ module OCI
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :life_cycle_details The value to assign to the {#life_cycle_details} property
+    # @option attributes [String] :lifecycle_sub_state The value to assign to the {#lifecycle_sub_state} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
@@ -228,6 +245,12 @@ module OCI
 
       self.life_cycle_details = attributes[:'life_cycle_details'] if attributes[:'life_cycle_details']
 
+      self.lifecycle_sub_state = attributes[:'lifecycleSubState'] if attributes[:'lifecycleSubState']
+
+      raise 'You cannot provide both :lifecycleSubState and :lifecycle_sub_state' if attributes.key?(:'lifecycleSubState') && attributes.key?(:'lifecycle_sub_state')
+
+      self.lifecycle_sub_state = attributes[:'lifecycle_sub_state'] if attributes[:'lifecycle_sub_state']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -275,6 +298,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] lifecycle_sub_state Object to be assigned
+    def lifecycle_sub_state=(lifecycle_sub_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if lifecycle_sub_state && !LIFECYCLE_SUB_STATE_ENUM.include?(lifecycle_sub_state)
+        OCI.logger.debug("Unknown value for 'lifecycle_sub_state' [" + lifecycle_sub_state + "]. Mapping to 'LIFECYCLE_SUB_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @lifecycle_sub_state = LIFECYCLE_SUB_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @lifecycle_sub_state = lifecycle_sub_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -294,6 +330,7 @@ module OCI
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
         life_cycle_details == other.life_cycle_details &&
+        lifecycle_sub_state == other.lifecycle_sub_state &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         system_tags == other.system_tags
@@ -312,7 +349,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, role, peer_id, peer_region, time_created, time_updated, lifecycle_state, life_cycle_details, freeform_tags, defined_tags, system_tags].hash
+      [id, compartment_id, display_name, role, peer_id, peer_region, time_created, time_updated, lifecycle_state, life_cycle_details, lifecycle_sub_state, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -137,6 +137,10 @@ module OCI
   autoload :OsManagementHub, 'oci/os_management_hub/os_management_hub'
   autoload :FleetSoftwareUpdate, 'oci/fleet_software_update/fleet_software_update'
   autoload :ComputeCloudAtCustomer, 'oci/compute_cloud_at_customer/compute_cloud_at_customer'
+  autoload :Redis, 'oci/redis/redis'
+  autoload :MarketplacePublisher, 'oci/marketplace_publisher/marketplace_publisher'
+  autoload :JmsJavaDownloads, 'oci/jms_java_downloads/jms_java_downloads'
+  autoload :Psql, 'oci/psql/psql'
 
   require 'oci/object_storage/transfer/transfer'
   class << self

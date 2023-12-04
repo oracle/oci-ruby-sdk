@@ -28,7 +28,7 @@ module OCI
     # @return [String]
     attr_accessor :profile_name
 
-    # The number of users having a given profile.
+    # The number of users that have a given profile.
     # @return [Integer]
     attr_accessor :user_count
 

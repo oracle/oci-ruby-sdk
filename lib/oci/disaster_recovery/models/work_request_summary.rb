@@ -7,7 +7,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A summary of a work request.
+  # The summary of a work request.
   class DisasterRecovery::Models::WorkRequestSummary
     OPERATION_TYPE_ENUM = [
       OPERATION_TYPE_CREATE_DR_PROTECTION_GROUP = 'CREATE_DR_PROTECTION_GROUP'.freeze,
@@ -53,9 +53,9 @@ module OCI
     # @return [String]
     attr_reader :status
 
-    # **[Required]** The ID (OCID) of the work request.
+    # **[Required]** The OCID of the work request.
     #
-    # Example: `ocid1.workrequest.oc1.phx.&lt;unique_id&gt;`
+    # Example: `ocid1.workrequest.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :id
@@ -65,7 +65,7 @@ module OCI
     # and those resources are not in the same compartment, it is up to the service team to pick the primary
     # resource whose compartment should be used.
     #
-    # Example: `ocid1.compartment.oc1..&lt;unique_id&gt;`
+    # Example: `ocid1.compartment.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :compartment_id

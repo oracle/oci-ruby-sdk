@@ -6,7 +6,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Create properties for a member in a DR Protection Group.
+  # Create properties for a member in a DR protection group.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class DisasterRecovery::Models::CreateDrProtectionGroupMemberDetails
     MEMBER_TYPE_ENUM = [
@@ -15,12 +15,15 @@ module OCI
       MEMBER_TYPE_COMPUTE_INSTANCE_NON_MOVABLE = 'COMPUTE_INSTANCE_NON_MOVABLE'.freeze,
       MEMBER_TYPE_VOLUME_GROUP = 'VOLUME_GROUP'.freeze,
       MEMBER_TYPE_DATABASE = 'DATABASE'.freeze,
-      MEMBER_TYPE_AUTONOMOUS_DATABASE = 'AUTONOMOUS_DATABASE'.freeze
+      MEMBER_TYPE_AUTONOMOUS_DATABASE = 'AUTONOMOUS_DATABASE'.freeze,
+      MEMBER_TYPE_LOAD_BALANCER = 'LOAD_BALANCER'.freeze,
+      MEMBER_TYPE_NETWORK_LOAD_BALANCER = 'NETWORK_LOAD_BALANCER'.freeze,
+      MEMBER_TYPE_FILE_SYSTEM = 'FILE_SYSTEM'.freeze
     ].freeze
 
     # **[Required]** The OCID of the member.
     #
-    # Example: `ocid1.instance.oc1.phx.&lt;unique_id&gt;`
+    # Example: `ocid1.instance.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :member_id
@@ -63,7 +66,10 @@ module OCI
       return 'OCI::DisasterRecovery::Models::CreateDrProtectionGroupMemberComputeInstanceDetails' if type == 'COMPUTE_INSTANCE'
       return 'OCI::DisasterRecovery::Models::CreateDrProtectionGroupMemberDatabaseDetails' if type == 'DATABASE'
       return 'OCI::DisasterRecovery::Models::CreateDrProtectionGroupMemberAutonomousDatabaseDetails' if type == 'AUTONOMOUS_DATABASE'
+      return 'OCI::DisasterRecovery::Models::CreateDrProtectionGroupMemberNetworkLoadBalancerDetails' if type == 'NETWORK_LOAD_BALANCER'
       return 'OCI::DisasterRecovery::Models::CreateDrProtectionGroupMemberVolumeGroupDetails' if type == 'VOLUME_GROUP'
+      return 'OCI::DisasterRecovery::Models::CreateDrProtectionGroupMemberFileSystemDetails' if type == 'FILE_SYSTEM'
+      return 'OCI::DisasterRecovery::Models::CreateDrProtectionGroupMemberLoadBalancerDetails' if type == 'LOAD_BALANCER'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::DisasterRecovery::Models::CreateDrProtectionGroupMemberDetails'

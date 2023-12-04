@@ -7,7 +7,9 @@ module OCI
   module DatabaseTools::Models
     CONNECTION_TYPE_ENUM = [
       CONNECTION_TYPE_ORACLE_DATABASE = 'ORACLE_DATABASE'.freeze,
-      CONNECTION_TYPE_MYSQL = 'MYSQL'.freeze
+      CONNECTION_TYPE_MYSQL = 'MYSQL'.freeze,
+      CONNECTION_TYPE_POSTGRESQL = 'POSTGRESQL'.freeze,
+      CONNECTION_TYPE_GENERIC_JDBC = 'GENERIC_JDBC'.freeze
     ].freeze
   end
 end

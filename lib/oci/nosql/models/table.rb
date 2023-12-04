@@ -20,6 +20,12 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    SCHEMA_STATE_ENUM = [
+      SCHEMA_STATE_MUTABLE = 'MUTABLE'.freeze,
+      SCHEMA_STATE_FROZEN = 'FROZEN'.freeze,
+      SCHEMA_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Unique identifier that is immutable.
     # @return [String]
     attr_accessor :id
@@ -74,6 +80,28 @@ module OCI
     # @return [String]
     attr_accessor :ddl_statement
 
+    # The current state of this table's schema. Available states are
+    # MUTABLE - The schema can be changed. The table is not eligible for replication.
+    # FROZEN - The schema is immutable. The table is eligible for replication.
+    #
+    # @return [String]
+    attr_reader :schema_state
+
+    # True if this table is currently a member of a replication set.
+    # @return [BOOLEAN]
+    attr_accessor :is_multi_region
+
+    # If this table is in a replication set, this value represents
+    # the progress of the initialization of the replica's data.  A
+    # value of 100 indicates that initialization has completed.
+    #
+    # @return [Integer]
+    attr_accessor :local_replica_initialization_in_percent
+
+    # An array of Replica listing this table's replicas, if any
+    # @return [Array<OCI::Nosql::Models::Replica>]
+    attr_accessor :replicas
+
     # Simple key-value pair that is applied without any predefined
     # name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
@@ -113,6 +141,10 @@ module OCI
         'lifecycle_details': :'lifecycleDetails',
         'schema': :'schema',
         'ddl_statement': :'ddlStatement',
+        'schema_state': :'schemaState',
+        'is_multi_region': :'isMultiRegion',
+        'local_replica_initialization_in_percent': :'localReplicaInitializationInPercent',
+        'replicas': :'replicas',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'system_tags': :'systemTags'
@@ -136,6 +168,10 @@ module OCI
         'lifecycle_details': :'String',
         'schema': :'OCI::Nosql::Models::Schema',
         'ddl_statement': :'String',
+        'schema_state': :'String',
+        'is_multi_region': :'BOOLEAN',
+        'local_replica_initialization_in_percent': :'Integer',
+        'replicas': :'Array<OCI::Nosql::Models::Replica>',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'system_tags': :'Hash<String, Hash<String, Object>>'
@@ -161,6 +197,10 @@ module OCI
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [OCI::Nosql::Models::Schema] :schema The value to assign to the {#schema} property
     # @option attributes [String] :ddl_statement The value to assign to the {#ddl_statement} property
+    # @option attributes [String] :schema_state The value to assign to the {#schema_state} property
+    # @option attributes [BOOLEAN] :is_multi_region The value to assign to the {#is_multi_region} property
+    # @option attributes [Integer] :local_replica_initialization_in_percent The value to assign to the {#local_replica_initialization_in_percent} property
+    # @option attributes [Array<OCI::Nosql::Models::Replica>] :replicas The value to assign to the {#replicas} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
@@ -230,6 +270,26 @@ module OCI
 
       self.ddl_statement = attributes[:'ddl_statement'] if attributes[:'ddl_statement']
 
+      self.schema_state = attributes[:'schemaState'] if attributes[:'schemaState']
+
+      raise 'You cannot provide both :schemaState and :schema_state' if attributes.key?(:'schemaState') && attributes.key?(:'schema_state')
+
+      self.schema_state = attributes[:'schema_state'] if attributes[:'schema_state']
+
+      self.is_multi_region = attributes[:'isMultiRegion'] unless attributes[:'isMultiRegion'].nil?
+
+      raise 'You cannot provide both :isMultiRegion and :is_multi_region' if attributes.key?(:'isMultiRegion') && attributes.key?(:'is_multi_region')
+
+      self.is_multi_region = attributes[:'is_multi_region'] unless attributes[:'is_multi_region'].nil?
+
+      self.local_replica_initialization_in_percent = attributes[:'localReplicaInitializationInPercent'] if attributes[:'localReplicaInitializationInPercent']
+
+      raise 'You cannot provide both :localReplicaInitializationInPercent and :local_replica_initialization_in_percent' if attributes.key?(:'localReplicaInitializationInPercent') && attributes.key?(:'local_replica_initialization_in_percent')
+
+      self.local_replica_initialization_in_percent = attributes[:'local_replica_initialization_in_percent'] if attributes[:'local_replica_initialization_in_percent']
+
+      self.replicas = attributes[:'replicas'] if attributes[:'replicas']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -264,6 +324,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] schema_state Object to be assigned
+    def schema_state=(schema_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if schema_state && !SCHEMA_STATE_ENUM.include?(schema_state)
+        OCI.logger.debug("Unknown value for 'schema_state' [" + schema_state + "]. Mapping to 'SCHEMA_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @schema_state = SCHEMA_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @schema_state = schema_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -285,6 +358,10 @@ module OCI
         lifecycle_details == other.lifecycle_details &&
         schema == other.schema &&
         ddl_statement == other.ddl_statement &&
+        schema_state == other.schema_state &&
+        is_multi_region == other.is_multi_region &&
+        local_replica_initialization_in_percent == other.local_replica_initialization_in_percent &&
+        replicas == other.replicas &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         system_tags == other.system_tags
@@ -303,7 +380,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, compartment_id, time_created, time_updated, table_limits, lifecycle_state, is_auto_reclaimable, time_of_expiration, lifecycle_details, schema, ddl_statement, freeform_tags, defined_tags, system_tags].hash
+      [id, name, compartment_id, time_created, time_updated, table_limits, lifecycle_state, is_auto_reclaimable, time_of_expiration, lifecycle_details, schema, ddl_statement, schema_state, is_multi_region, local_replica_initialization_in_percent, replicas, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -87,6 +87,16 @@ module OCI
     # @return [Array<String>]
     attr_reader :artifact_content_types
 
+    # List of My Oracle Support(MoS) patches available for this release.
+    # This information is only available for `BPR` release type.
+    #
+    # @return [Array<OCI::Jms::Models::PatchDetail>]
+    attr_accessor :mos_patches
+
+    # The number of days since this release has been under the security baseline.
+    # @return [Integer]
+    attr_accessor :days_under_security_baseline
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -102,7 +112,9 @@ module OCI
         'license_details': :'licenseDetails',
         'release_date': :'releaseDate',
         'release_notes_url': :'releaseNotesUrl',
-        'artifact_content_types': :'artifactContentTypes'
+        'artifact_content_types': :'artifactContentTypes',
+        'mos_patches': :'mosPatches',
+        'days_under_security_baseline': :'daysUnderSecurityBaseline'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -122,7 +134,9 @@ module OCI
         'license_details': :'OCI::Jms::Models::JavaLicense',
         'release_date': :'DateTime',
         'release_notes_url': :'String',
-        'artifact_content_types': :'Array<String>'
+        'artifact_content_types': :'Array<String>',
+        'mos_patches': :'Array<OCI::Jms::Models::PatchDetail>',
+        'days_under_security_baseline': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -145,6 +159,8 @@ module OCI
     # @option attributes [DateTime] :release_date The value to assign to the {#release_date} property
     # @option attributes [String] :release_notes_url The value to assign to the {#release_notes_url} property
     # @option attributes [Array<String>] :artifact_content_types The value to assign to the {#artifact_content_types} property
+    # @option attributes [Array<OCI::Jms::Models::PatchDetail>] :mos_patches The value to assign to the {#mos_patches} property
+    # @option attributes [Integer] :days_under_security_baseline The value to assign to the {#days_under_security_baseline} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -218,6 +234,18 @@ module OCI
       raise 'You cannot provide both :artifactContentTypes and :artifact_content_types' if attributes.key?(:'artifactContentTypes') && attributes.key?(:'artifact_content_types')
 
       self.artifact_content_types = attributes[:'artifact_content_types'] if attributes[:'artifact_content_types']
+
+      self.mos_patches = attributes[:'mosPatches'] if attributes[:'mosPatches']
+
+      raise 'You cannot provide both :mosPatches and :mos_patches' if attributes.key?(:'mosPatches') && attributes.key?(:'mos_patches')
+
+      self.mos_patches = attributes[:'mos_patches'] if attributes[:'mos_patches']
+
+      self.days_under_security_baseline = attributes[:'daysUnderSecurityBaseline'] if attributes[:'daysUnderSecurityBaseline']
+
+      raise 'You cannot provide both :daysUnderSecurityBaseline and :days_under_security_baseline' if attributes.key?(:'daysUnderSecurityBaseline') && attributes.key?(:'days_under_security_baseline')
+
+      self.days_under_security_baseline = attributes[:'days_under_security_baseline'] if attributes[:'days_under_security_baseline']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -301,7 +329,9 @@ module OCI
         license_details == other.license_details &&
         release_date == other.release_date &&
         release_notes_url == other.release_notes_url &&
-        artifact_content_types == other.artifact_content_types
+        artifact_content_types == other.artifact_content_types &&
+        mos_patches == other.mos_patches &&
+        days_under_security_baseline == other.days_under_security_baseline
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -317,7 +347,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [artifacts, release_version, family_version, parent_release_version, security_status, release_type, license_type, family_details, license_details, release_date, release_notes_url, artifact_content_types].hash
+      [artifacts, release_version, family_version, parent_release_version, security_status, release_type, license_type, family_details, license_details, release_date, release_notes_url, artifact_content_types, mos_patches, days_under_security_baseline].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

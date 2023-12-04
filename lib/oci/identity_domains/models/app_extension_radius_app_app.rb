@@ -53,6 +53,22 @@ module OCI
     # @return [String]
     attr_accessor :secret_key
 
+    # Secret key used to secure communication between RADIUS Proxy and RADIUS client. This will be available only for few releases for an internal migration requirement. Use secretKey attribute instead of this attribute for all other requirements.
+    #
+    # **Added In:** 2306131901
+    #
+    # **SCIM++ Properties:**
+    #  - caseExact: true
+    #  - idcsSearchable: false
+    #  - idcsSensitive: encrypt
+    #  - multiValued: false
+    #  - mutability: readWrite
+    #  - required: false
+    #  - returned: never
+    #  - type: string
+    # @return [String]
+    attr_accessor :secret_key_temporary
+
     # **[Required]** Indicates to include groups in RADIUS response
     #
     # **Added In:** 20.1.3
@@ -239,6 +255,7 @@ module OCI
         'client_ip': :'clientIP',
         'port': :'port',
         'secret_key': :'secretKey',
+        'secret_key_temporary': :'secretKeyTemporary',
         'include_group_in_response': :'includeGroupInResponse',
         'capture_client_ip': :'captureClientIp',
         'type_of_radius_app': :'typeOfRadiusApp',
@@ -262,6 +279,7 @@ module OCI
         'client_ip': :'String',
         'port': :'String',
         'secret_key': :'String',
+        'secret_key_temporary': :'String',
         'include_group_in_response': :'BOOLEAN',
         'capture_client_ip': :'BOOLEAN',
         'type_of_radius_app': :'String',
@@ -287,6 +305,7 @@ module OCI
     # @option attributes [String] :client_ip The value to assign to the {#client_ip} property
     # @option attributes [String] :port The value to assign to the {#port} property
     # @option attributes [String] :secret_key The value to assign to the {#secret_key} property
+    # @option attributes [String] :secret_key_temporary The value to assign to the {#secret_key_temporary} property
     # @option attributes [BOOLEAN] :include_group_in_response The value to assign to the {#include_group_in_response} property
     # @option attributes [BOOLEAN] :capture_client_ip The value to assign to the {#capture_client_ip} property
     # @option attributes [String] :type_of_radius_app The value to assign to the {#type_of_radius_app} property
@@ -318,6 +337,12 @@ module OCI
       raise 'You cannot provide both :secretKey and :secret_key' if attributes.key?(:'secretKey') && attributes.key?(:'secret_key')
 
       self.secret_key = attributes[:'secret_key'] if attributes[:'secret_key']
+
+      self.secret_key_temporary = attributes[:'secretKeyTemporary'] if attributes[:'secretKeyTemporary']
+
+      raise 'You cannot provide both :secretKeyTemporary and :secret_key_temporary' if attributes.key?(:'secretKeyTemporary') && attributes.key?(:'secret_key_temporary')
+
+      self.secret_key_temporary = attributes[:'secret_key_temporary'] if attributes[:'secret_key_temporary']
 
       self.include_group_in_response = attributes[:'includeGroupInResponse'] unless attributes[:'includeGroupInResponse'].nil?
 
@@ -406,6 +431,7 @@ module OCI
         client_ip == other.client_ip &&
         port == other.port &&
         secret_key == other.secret_key &&
+        secret_key_temporary == other.secret_key_temporary &&
         include_group_in_response == other.include_group_in_response &&
         capture_client_ip == other.capture_client_ip &&
         type_of_radius_app == other.type_of_radius_app &&
@@ -433,7 +459,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [client_ip, port, secret_key, include_group_in_response, capture_client_ip, type_of_radius_app, end_user_ip_attribute, radius_vendor_specific_id, country_code_response_attribute_id, group_membership_radius_attribute, response_format, response_format_delimiter, group_name_format, password_and_otp_together, group_membership_to_return].hash
+      [client_ip, port, secret_key, secret_key_temporary, include_group_in_response, capture_client_ip, type_of_radius_app, end_user_ip_attribute, radius_vendor_specific_id, country_code_response_attribute_id, group_membership_radius_attribute, response_format, response_format_delimiter, group_name_format, password_and_otp_together, group_membership_to_return].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

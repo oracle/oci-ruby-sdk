@@ -189,6 +189,19 @@ module OCI
     # @return [String]
     attr_reader :type
 
+    # Specifies the token to be removed
+    #
+    # **SCIM++ Properties:**
+    #  - type: string
+    #  - multiValued: false
+    #  - required: false
+    #  - mutability: readWrite
+    #  - returned: request
+    #  - uniqueness: none
+    #  - idcsSearchable: false
+    # @return [String]
+    attr_accessor :token
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -207,7 +220,8 @@ module OCI
         'compartment_ocid': :'compartmentOcid',
         'tenancy_ocid': :'tenancyOcid',
         'user': :'user',
-        'type': :'type'
+        'type': :'type',
+        'token': :'token'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -230,7 +244,8 @@ module OCI
         'compartment_ocid': :'String',
         'tenancy_ocid': :'String',
         'user': :'OCI::IdentityDomains::Models::AuthenticationFactorsRemoverUser',
-        'type': :'String'
+        'type': :'String',
+        'token': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -256,6 +271,7 @@ module OCI
     # @option attributes [String] :tenancy_ocid The value to assign to the {#tenancy_ocid} property
     # @option attributes [OCI::IdentityDomains::Models::AuthenticationFactorsRemoverUser] :user The value to assign to the {#user} property
     # @option attributes [String] :type The value to assign to the {#type} property
+    # @option attributes [String] :token The value to assign to the {#token} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -323,6 +339,8 @@ module OCI
       self.user = attributes[:'user'] if attributes[:'user']
 
       self.type = attributes[:'type'] if attributes[:'type']
+
+      self.token = attributes[:'token'] if attributes[:'token']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -383,7 +401,8 @@ module OCI
         compartment_ocid == other.compartment_ocid &&
         tenancy_ocid == other.tenancy_ocid &&
         user == other.user &&
-        type == other.type
+        type == other.type &&
+        token == other.token
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -399,7 +418,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, ocid, schemas, meta, idcs_created_by, idcs_last_modified_by, idcs_prevented_operations, tags, delete_in_progress, idcs_last_upgraded_in_release, domain_ocid, compartment_ocid, tenancy_ocid, user, type].hash
+      [id, ocid, schemas, meta, idcs_created_by, idcs_last_modified_by, idcs_prevented_operations, tags, delete_in_progress, idcs_last_upgraded_in_release, domain_ocid, compartment_ocid, tenancy_ocid, user, type, token].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

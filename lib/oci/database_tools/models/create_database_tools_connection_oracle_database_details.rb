@@ -12,14 +12,15 @@ module OCI
     # @return [OCI::DatabaseTools::Models::CreateDatabaseToolsRelatedResourceDetails]
     attr_accessor :related_resource
 
-    # The connect descriptor or Easy Connect Naming method use to connect to the database.
+    # **[Required]** The connect descriptor or Easy Connect Naming method use to connect to the database.
     # @return [String]
     attr_accessor :connection_string
 
-    # The database user name.
+    # **[Required]** The database user name.
     # @return [String]
     attr_accessor :user_name
 
+    # This attribute is required.
     # @return [OCI::DatabaseTools::Models::DatabaseToolsUserPasswordDetails]
     attr_accessor :user_password
 
@@ -37,6 +38,9 @@ module OCI
     # @return [String]
     attr_accessor :private_endpoint_id
 
+    # @return [OCI::DatabaseTools::Models::DatabaseToolsConnectionOracleDatabaseProxyClientDetails]
+    attr_accessor :proxy_client
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -45,14 +49,17 @@ module OCI
         'compartment_id': :'compartmentId',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags',
+        'locks': :'locks',
         'type': :'type',
+        'runtime_support': :'runtimeSupport',
         'related_resource': :'relatedResource',
         'connection_string': :'connectionString',
         'user_name': :'userName',
         'user_password': :'userPassword',
         'advanced_properties': :'advancedProperties',
         'key_stores': :'keyStores',
-        'private_endpoint_id': :'privateEndpointId'
+        'private_endpoint_id': :'privateEndpointId',
+        'proxy_client': :'proxyClient'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -65,14 +72,17 @@ module OCI
         'compartment_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>',
+        'locks': :'Array<OCI::DatabaseTools::Models::ResourceLock>',
         'type': :'String',
+        'runtime_support': :'String',
         'related_resource': :'OCI::DatabaseTools::Models::CreateDatabaseToolsRelatedResourceDetails',
         'connection_string': :'String',
         'user_name': :'String',
         'user_password': :'OCI::DatabaseTools::Models::DatabaseToolsUserPasswordDetails',
         'advanced_properties': :'Hash<String, String>',
         'key_stores': :'Array<OCI::DatabaseTools::Models::DatabaseToolsKeyStoreDetails>',
-        'private_endpoint_id': :'String'
+        'private_endpoint_id': :'String',
+        'proxy_client': :'OCI::DatabaseTools::Models::DatabaseToolsConnectionOracleDatabaseProxyClientDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -87,6 +97,8 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionDetails#compartment_id #compartment_id} proprety
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionDetails#defined_tags #defined_tags} proprety
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionDetails#freeform_tags #freeform_tags} proprety
+    # @option attributes [Array<OCI::DatabaseTools::Models::ResourceLock>] :locks The value to assign to the {OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionDetails#locks #locks} proprety
+    # @option attributes [String] :runtime_support The value to assign to the {OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionDetails#runtime_support #runtime_support} proprety
     # @option attributes [OCI::DatabaseTools::Models::CreateDatabaseToolsRelatedResourceDetails] :related_resource The value to assign to the {#related_resource} property
     # @option attributes [String] :connection_string The value to assign to the {#connection_string} property
     # @option attributes [String] :user_name The value to assign to the {#user_name} property
@@ -94,6 +106,7 @@ module OCI
     # @option attributes [Hash<String, String>] :advanced_properties The value to assign to the {#advanced_properties} property
     # @option attributes [Array<OCI::DatabaseTools::Models::DatabaseToolsKeyStoreDetails>] :key_stores The value to assign to the {#key_stores} property
     # @option attributes [String] :private_endpoint_id The value to assign to the {#private_endpoint_id} property
+    # @option attributes [OCI::DatabaseTools::Models::DatabaseToolsConnectionOracleDatabaseProxyClientDetails] :proxy_client The value to assign to the {#proxy_client} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -145,6 +158,12 @@ module OCI
       raise 'You cannot provide both :privateEndpointId and :private_endpoint_id' if attributes.key?(:'privateEndpointId') && attributes.key?(:'private_endpoint_id')
 
       self.private_endpoint_id = attributes[:'private_endpoint_id'] if attributes[:'private_endpoint_id']
+
+      self.proxy_client = attributes[:'proxyClient'] if attributes[:'proxyClient']
+
+      raise 'You cannot provide both :proxyClient and :proxy_client' if attributes.key?(:'proxyClient') && attributes.key?(:'proxy_client')
+
+      self.proxy_client = attributes[:'proxy_client'] if attributes[:'proxy_client']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -162,14 +181,17 @@ module OCI
         compartment_id == other.compartment_id &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags &&
+        locks == other.locks &&
         type == other.type &&
+        runtime_support == other.runtime_support &&
         related_resource == other.related_resource &&
         connection_string == other.connection_string &&
         user_name == other.user_name &&
         user_password == other.user_password &&
         advanced_properties == other.advanced_properties &&
         key_stores == other.key_stores &&
-        private_endpoint_id == other.private_endpoint_id
+        private_endpoint_id == other.private_endpoint_id &&
+        proxy_client == other.proxy_client
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -185,7 +207,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, compartment_id, defined_tags, freeform_tags, type, related_resource, connection_string, user_name, user_password, advanced_properties, key_stores, private_endpoint_id].hash
+      [display_name, compartment_id, defined_tags, freeform_tags, locks, type, runtime_support, related_resource, connection_string, user_name, user_password, advanced_properties, key_stores, private_endpoint_id, proxy_client].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

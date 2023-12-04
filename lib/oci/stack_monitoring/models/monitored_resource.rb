@@ -22,6 +22,12 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    LICENSE_ENUM = [
+      LICENSE_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
+      LICENSE_ENTERPRISE_EDITION = 'ENTERPRISE_EDITION'.freeze,
+      LICENSE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Monitored resource identifier [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # @return [String]
@@ -86,6 +92,10 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # License edition of the monitored resource.
+    # @return [String]
+    attr_reader :license
+
     # List of monitored resource properties.
     #
     # @return [Array<OCI::StackMonitoring::Models::MonitoredResourceProperty>]
@@ -135,6 +145,7 @@ module OCI
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
+        'license': :'license',
         'properties': :'properties',
         'database_connection_details': :'databaseConnectionDetails',
         'credentials': :'credentials',
@@ -163,6 +174,7 @@ module OCI
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
+        'license': :'String',
         'properties': :'Array<OCI::StackMonitoring::Models::MonitoredResourceProperty>',
         'database_connection_details': :'OCI::StackMonitoring::Models::ConnectionDetails',
         'credentials': :'OCI::StackMonitoring::Models::MonitoredResourceCredential',
@@ -193,6 +205,7 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :license The value to assign to the {#license} property
     # @option attributes [Array<OCI::StackMonitoring::Models::MonitoredResourceProperty>] :properties The value to assign to the {#properties} property
     # @option attributes [OCI::StackMonitoring::Models::ConnectionDetails] :database_connection_details The value to assign to the {#database_connection_details} property
     # @option attributes [OCI::StackMonitoring::Models::MonitoredResourceCredential] :credentials The value to assign to the {#credentials} property
@@ -274,6 +287,8 @@ module OCI
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
+      self.license = attributes[:'license'] if attributes[:'license']
+
       self.properties = attributes[:'properties'] if attributes[:'properties']
 
       self.database_connection_details = attributes[:'databaseConnectionDetails'] if attributes[:'databaseConnectionDetails']
@@ -320,6 +335,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] license Object to be assigned
+    def license=(license)
+      # rubocop:disable Style/ConditionalAssignment
+      if license && !LICENSE_ENUM.include?(license)
+        OCI.logger.debug("Unknown value for 'license' [" + license + "]. Mapping to 'LICENSE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @license = LICENSE_UNKNOWN_ENUM_VALUE
+      else
+        @license = license
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -342,6 +370,7 @@ module OCI
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
+        license == other.license &&
         properties == other.properties &&
         database_connection_details == other.database_connection_details &&
         credentials == other.credentials &&
@@ -364,7 +393,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, display_name, type, compartment_id, tenant_id, host_name, external_id, management_agent_id, resource_time_zone, time_created, time_updated, lifecycle_state, properties, database_connection_details, credentials, aliases, freeform_tags, defined_tags, system_tags].hash
+      [id, name, display_name, type, compartment_id, tenant_id, host_name, external_id, management_agent_id, resource_time_zone, time_created, time_updated, lifecycle_state, license, properties, database_connection_details, credentials, aliases, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

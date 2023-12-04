@@ -244,6 +244,77 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves an AwrHubSource resource from one compartment to another. When provided, If-Match is checked against ETag values of the resource.
+    # @param [String] awr_hub_source_id Unique Awr Hub Source identifier
+    # @param [OCI::Opsi::Models::ChangeAwrHubSourceCompartmentDetails] change_awr_hub_source_compartment_details The information to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match Used for optimistic concurrency control. In the update or delete call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous get, create, or update response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request that can be retried in case of a timeout or
+    #   server error without risk of executing the same action again. Retry tokens expire after 24
+    #   hours.
+    #
+    #   *Note:* Retry tokens can be invalidated before the 24 hour time limit due to conflicting
+    #   operations, such as a resource being deleted or purged from the system.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/change_awr_hub_source_compartment.rb.html) to see an example of how to use change_awr_hub_source_compartment API.
+    def change_awr_hub_source_compartment(awr_hub_source_id, change_awr_hub_source_compartment_details, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#change_awr_hub_source_compartment.' if logger
+
+      raise "Missing the required parameter 'awr_hub_source_id' when calling change_awr_hub_source_compartment." if awr_hub_source_id.nil?
+      raise "Missing the required parameter 'change_awr_hub_source_compartment_details' when calling change_awr_hub_source_compartment." if change_awr_hub_source_compartment_details.nil?
+      raise "Parameter value for 'awr_hub_source_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_hub_source_id)
+
+      path = '/awrHubSources/{awrHubSourceId}/actions/changeCompartment'.sub('{awrHubSourceId}', awr_hub_source_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_awr_hub_source_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#change_awr_hub_source_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves a DatabaseInsight resource from one compartment identifier to another. When provided, If-Match is checked against ETag values of the resource.
     # @param [String] database_insight_id Unique database insight identifier
     # @param [OCI::Opsi::Models::ChangeDatabaseInsightCompartmentDetails] change_database_insight_compartment_details The information to be updated.
@@ -661,6 +732,77 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a Operations Insights Warehouse resource from one compartment to another. When provided, If-Match is checked against ETag values of the resource.
+    # @param [String] operations_insights_warehouse_id Unique Operations Insights Warehouse identifier
+    # @param [OCI::Opsi::Models::ChangeOperationsInsightsWarehouseCompartmentDetails] change_operations_insights_warehouse_compartment_details The information to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match Used for optimistic concurrency control. In the update or delete call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous get, create, or update response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request that can be retried in case of a timeout or
+    #   server error without risk of executing the same action again. Retry tokens expire after 24
+    #   hours.
+    #
+    #   *Note:* Retry tokens can be invalidated before the 24 hour time limit due to conflicting
+    #   operations, such as a resource being deleted or purged from the system.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/change_operations_insights_warehouse_compartment.rb.html) to see an example of how to use change_operations_insights_warehouse_compartment API.
+    def change_operations_insights_warehouse_compartment(operations_insights_warehouse_id, change_operations_insights_warehouse_compartment_details, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#change_operations_insights_warehouse_compartment.' if logger
+
+      raise "Missing the required parameter 'operations_insights_warehouse_id' when calling change_operations_insights_warehouse_compartment." if operations_insights_warehouse_id.nil?
+      raise "Missing the required parameter 'change_operations_insights_warehouse_compartment_details' when calling change_operations_insights_warehouse_compartment." if change_operations_insights_warehouse_compartment_details.nil?
+      raise "Parameter value for 'operations_insights_warehouse_id' must not be blank" if OCI::Internal::Util.blank_string?(operations_insights_warehouse_id)
+
+      path = '/operationsInsightsWarehouses/{operationsInsightsWarehouseId}/actions/changeCompartment'.sub('{operationsInsightsWarehouseId}', operations_insights_warehouse_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_operations_insights_warehouse_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#change_operations_insights_warehouse_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves an OpsiConfiguration resource from one compartment to another.
     # @param [String] opsi_configuration_id [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of OPSI configuration resource.
     #
@@ -857,6 +999,71 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Opsi::Models::AwrHub'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Register Awr Hub source
+    #
+    # @param [OCI::Opsi::Models::CreateAwrHubSourceDetails] create_awr_hub_source_details Payload containing details to register the source database
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request that can be retried in case of a timeout or
+    #   server error without risk of executing the same action again. Retry tokens expire after 24
+    #   hours.
+    #
+    #   *Note:* Retry tokens can be invalidated before the 24 hour time limit due to conflicting
+    #   operations, such as a resource being deleted or purged from the system.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Opsi::Models::AwrHubSource AwrHubSource}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/create_awr_hub_source.rb.html) to see an example of how to use create_awr_hub_source API.
+    def create_awr_hub_source(create_awr_hub_source_details, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#create_awr_hub_source.' if logger
+
+      raise "Missing the required parameter 'create_awr_hub_source_details' when calling create_awr_hub_source." if create_awr_hub_source_details.nil?
+
+      path = '/awrHubSources'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_awr_hub_source_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#create_awr_hub_source') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Opsi::Models::AwrHubSource'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1564,6 +1771,129 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes an Awr Hub object.
+    # @param [String] awr_hub_source_id Unique Awr Hub Source identifier
+    # @param [String] object_name Unique Awr Hub Object identifier
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match Used for optimistic concurrency control. In the update or delete call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous get, create, or update response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/delete_awr_hub_object.rb.html) to see an example of how to use delete_awr_hub_object API.
+    def delete_awr_hub_object(awr_hub_source_id, object_name, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#delete_awr_hub_object.' if logger
+
+      raise "Missing the required parameter 'awr_hub_source_id' when calling delete_awr_hub_object." if awr_hub_source_id.nil?
+      raise "Missing the required parameter 'object_name' when calling delete_awr_hub_object." if object_name.nil?
+      raise "Parameter value for 'awr_hub_source_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_hub_source_id)
+      raise "Parameter value for 'object_name' must not be blank" if OCI::Internal::Util.blank_string?(object_name)
+
+      path = '/awrHubObjects/awrHubSources/{awrHubSourceId}/o/{objectName}'.sub('{awrHubSourceId}', awr_hub_source_id.to_s).sub('{objectName}', object_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#delete_awr_hub_object') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes an Awr Hub source object.
+    # @param [String] awr_hub_source_id Unique Awr Hub Source identifier
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match Used for optimistic concurrency control. In the update or delete call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous get, create, or update response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/delete_awr_hub_source.rb.html) to see an example of how to use delete_awr_hub_source API.
+    def delete_awr_hub_source(awr_hub_source_id, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#delete_awr_hub_source.' if logger
+
+      raise "Missing the required parameter 'awr_hub_source_id' when calling delete_awr_hub_source." if awr_hub_source_id.nil?
+      raise "Parameter value for 'awr_hub_source_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_hub_source_id)
+
+      path = '/awrHubSources/{awrHubSourceId}'.sub('{awrHubSourceId}', awr_hub_source_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#delete_awr_hub_source') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes a database insight. The database insight will be deleted and cannot be enabled again.
     # @param [String] database_insight_id Unique database insight identifier
     # @param [Hash] opts the optional parameters
@@ -2178,6 +2508,75 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Disables a Awr Hub source database in Operations Insights. This will stop the Awr data flow for the given Awr Hub source.
+    # @param [String] awr_hub_source_id Unique Awr Hub Source identifier
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match Used for optimistic concurrency control. In the update or delete call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous get, create, or update response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request that can be retried in case of a timeout or
+    #   server error without risk of executing the same action again. Retry tokens expire after 24
+    #   hours.
+    #
+    #   *Note:* Retry tokens can be invalidated before the 24 hour time limit due to conflicting
+    #   operations, such as a resource being deleted or purged from the system.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/disable_awr_hub_source.rb.html) to see an example of how to use disable_awr_hub_source API.
+    def disable_awr_hub_source(awr_hub_source_id, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#disable_awr_hub_source.' if logger
+
+      raise "Missing the required parameter 'awr_hub_source_id' when calling disable_awr_hub_source." if awr_hub_source_id.nil?
+      raise "Parameter value for 'awr_hub_source_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_hub_source_id)
+
+      path = '/awrHubSources/{awrHubSourceId}/actions/disable'.sub('{awrHubSourceId}', awr_hub_source_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#disable_awr_hub_source') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Disables a database in Operations Insights. Database metric collection and analysis will be stopped.
     # @param [String] database_insight_id Unique database insight identifier
     # @param [Hash] opts the optional parameters
@@ -2548,6 +2947,75 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#enable_autonomous_database_insight_advanced_features') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Enables a Awr Hub source database in Operations Insights. This will resume the Awr data flow for the given Awr Hub source if it was stopped earlier.
+    # @param [String] awr_hub_source_id Unique Awr Hub Source identifier
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match Used for optimistic concurrency control. In the update or delete call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous get, create, or update response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request that can be retried in case of a timeout or
+    #   server error without risk of executing the same action again. Retry tokens expire after 24
+    #   hours.
+    #
+    #   *Note:* Retry tokens can be invalidated before the 24 hour time limit due to conflicting
+    #   operations, such as a resource being deleted or purged from the system.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/enable_awr_hub_source.rb.html) to see an example of how to use enable_awr_hub_source API.
+    def enable_awr_hub_source(awr_hub_source_id, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#enable_awr_hub_source.' if logger
+
+      raise "Missing the required parameter 'awr_hub_source_id' when calling enable_awr_hub_source." if awr_hub_source_id.nil?
+      raise "Parameter value for 'awr_hub_source_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_hub_source_id)
+
+      path = '/awrHubSources/{awrHubSourceId}/actions/enable'.sub('{awrHubSourceId}', awr_hub_source_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#enable_awr_hub_source') do
         @api_client.call_api(
           :POST,
           path,
@@ -3004,6 +3472,167 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Opsi::Models::AwrHub'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the Awr Hub object metadata and body.
+    # @param [String] awr_hub_source_id Unique Awr Hub Source identifier
+    # @param [String] object_name Unique Awr Hub Object identifier
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
+    # @option [Block] &block Streaming http body to the block
+    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/get_awr_hub_object.rb.html) to see an example of how to use get_awr_hub_object API.
+    def get_awr_hub_object(awr_hub_source_id, object_name, opts = {}, &block)
+      logger.debug 'Calling operation OperationsInsightsClient#get_awr_hub_object.' if logger
+
+      raise "Missing the required parameter 'awr_hub_source_id' when calling get_awr_hub_object." if awr_hub_source_id.nil?
+      raise "Missing the required parameter 'object_name' when calling get_awr_hub_object." if object_name.nil?
+      raise "Parameter value for 'awr_hub_source_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_hub_source_id)
+      raise "Parameter value for 'object_name' must not be blank" if OCI::Internal::Util.blank_string?(object_name)
+
+      path = '/awrHubObjects/awrHubSources/{awrHubSourceId}/o/{objectName}'.sub('{awrHubSourceId}', awr_hub_source_id.to_s).sub('{objectName}', object_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = opts[:accept] if opts[:accept]
+      header_params[:accept] ||= 'application/octet-stream'
+      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#get_awr_hub_object') do
+        if !block.nil?
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'Stream',
+            &block
+          )
+        elsif opts[:response_target]
+          if opts[:response_target].respond_to? :write
+            @api_client.call_api(
+              :GET,
+              path,
+              endpoint,
+              header_params: header_params,
+              query_params: query_params,
+              operation_signing_strategy: operation_signing_strategy,
+              body: post_body,
+              return_type: 'Stream',
+              &proc { |chunk, _response| opts[:response_target].write(chunk) }
+            )
+          elsif opts[:response_target].is_a?(String)
+            File.open(opts[:response_target], 'wb') do |output|
+              return @api_client.call_api(
+                :GET,
+                path,
+                endpoint,
+                header_params: header_params,
+                query_params: query_params,
+                operation_signing_strategy: operation_signing_strategy,
+                body: post_body,
+                return_type: 'Stream',
+                &proc { |chunk, _response| output.write(chunk) }
+              )
+            end
+          end
+        else
+          @api_client.call_api(
+            :GET,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'String'
+          )
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the Awr Hub source object.
+    # @param [String] awr_hub_source_id Unique Awr Hub Source identifier
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Opsi::Models::AwrHubSource AwrHubSource}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/get_awr_hub_source.rb.html) to see an example of how to use get_awr_hub_source API.
+    def get_awr_hub_source(awr_hub_source_id, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#get_awr_hub_source.' if logger
+
+      raise "Missing the required parameter 'awr_hub_source_id' when calling get_awr_hub_source." if awr_hub_source_id.nil?
+      raise "Parameter value for 'awr_hub_source_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_hub_source_id)
+
+      path = '/awrHubSources/{awrHubSourceId}'.sub('{awrHubSourceId}', awr_hub_source_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#get_awr_hub_source') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Opsi::Models::AwrHubSource'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -3755,6 +4384,65 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Opsi::Models::WorkRequest'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the Awr Hub object's user-defined metadata and entity tag (ETag).
+    #
+    # @param [String] awr_hub_source_id Unique Awr Hub Source identifier
+    # @param [String] object_name Unique Awr Hub Object identifier
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/head_awr_hub_object.rb.html) to see an example of how to use head_awr_hub_object API.
+    def head_awr_hub_object(awr_hub_source_id, object_name, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#head_awr_hub_object.' if logger
+
+      raise "Missing the required parameter 'awr_hub_source_id' when calling head_awr_hub_object." if awr_hub_source_id.nil?
+      raise "Missing the required parameter 'object_name' when calling head_awr_hub_object." if object_name.nil?
+      raise "Parameter value for 'awr_hub_source_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_hub_source_id)
+      raise "Parameter value for 'object_name' must not be blank" if OCI::Internal::Util.blank_string?(object_name)
+
+      path = '/awrHubObjects/awrHubSources/{awrHubSourceId}/o/{objectName}'.sub('{awrHubSourceId}', awr_hub_source_id.to_s).sub('{objectName}', object_name.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/octet-stream'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#head_awr_hub_object') do
+        @api_client.call_api(
+          :HEAD,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -5330,6 +6018,231 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Opsi::Models::AwrDatabaseCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of Awr Hub objects. Awr Hub id needs to specified.
+    #
+    # @param [String] awr_hub_source_id Unique Awr Hub Source identifier
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :prefix The string to use for matching against the start of object names in a Awr Hub list objects query.
+    # @option opts [String] :start Object names returned by Awr Hub list objects query must be greater or equal to this parameter.
+    # @option opts [String] :_end Object names returned by Awr Hub list objects query must be strictly less than this parameter.
+    # @option opts [String] :delimiter When this parameter is set, only objects whose names do not contain the delimiter character
+    #   (after an optionally specified prefix) are returned in the Awr Hub list objects key of the response body.
+    #   Scanned objects whose names contain the delimiter have the part of their name up to the first
+    #   occurrence of the delimiter (including the optional prefix) returned as a set of prefixes.
+    #   Note that only '/' is a supported delimiter character at this time.
+    #
+    # @option opts [String] :start_after Awr Hub Object name after which remaining objects are listed
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from
+    #   the previous \"List\" call. For important details about how pagination works,
+    #   see [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to
+    #   return in a paginated \"List\" call.
+    #   For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
+    #   Example: `50`
+    #    (default to 50)
+    # @option opts [String] :fields By default all the fields are returned. Use this parameter to fetch specific fields 'size', 'etag', 'md5',
+    #   'timeCreated', 'timeModified', 'storageTier' and 'archivalState' fields. List the names of those fields
+    #   in a comma-separated, case-insensitive list as the value of this parameter.
+    #   For example: 'name,etag,timeCreated,md5,timeModified,storageTier,archivalState'.
+    #
+    #   Allowed values are: name, size, etag, timeCreated, md5, archivalState, timeModified, storageTier
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Opsi::Models::ListObjects ListObjects}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/list_awr_hub_objects.rb.html) to see an example of how to use list_awr_hub_objects API.
+    def list_awr_hub_objects(awr_hub_source_id, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#list_awr_hub_objects.' if logger
+
+      raise "Missing the required parameter 'awr_hub_source_id' when calling list_awr_hub_objects." if awr_hub_source_id.nil?
+
+      if opts[:fields] && !%w[name size etag timeCreated md5 archivalState timeModified storageTier].include?(opts[:fields])
+        raise 'Invalid value for "fields", must be one of name, size, etag, timeCreated, md5, archivalState, timeModified, storageTier.'
+      end
+      raise "Parameter value for 'awr_hub_source_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_hub_source_id)
+
+      path = '/awrHubObjects/awrHubSources/{awrHubSourceId}/o'.sub('{awrHubSourceId}', awr_hub_source_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:prefix] = opts[:prefix] if opts[:prefix]
+      query_params[:start] = opts[:start] if opts[:start]
+      query_params[:end] = opts[:_end] if opts[:_end]
+      query_params[:delimiter] = opts[:delimiter] if opts[:delimiter]
+      query_params[:startAfter] = opts[:start_after] if opts[:start_after]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:fields] = opts[:fields] if opts[:fields]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#list_awr_hub_objects') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Opsi::Models::ListObjects'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of Awr Hub source objects.
+    # @param [String] awr_hub_id Unique Awr Hub identifier
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # @option opts [String] :awr_hub_source_id Awr Hub source identifier
+    # @option opts [Array<String>] :source_type Filter by one or more database type.
+    #   Possible values are ADW-S, ATP-S, ADW-D, ATP-D, EXTERNAL-PDB, EXTERNAL-NONCDB.
+    #
+    #   Allowed values are: ADW_S, ATP_S, ADW_D, ATP_D, EXTERNAL_PDB, EXTERNAL_NONCDB, COMANAGED_VM_CDB, COMANAGED_VM_PDB, COMANAGED_VM_NONCDB, COMANAGED_BM_CDB, COMANAGED_BM_PDB, COMANAGED_BM_NONCDB, COMANAGED_EXACS_CDB, COMANAGED_EXACS_PDB, COMANAGED_EXACS_NONCDB, UNDEFINED
+    # @option opts [String] :name Awr Hub source database name
+    # @option opts [Array<String>] :status Resource Status (default to [])
+    #   Allowed values are: ACCEPTING, NOT_ACCEPTING, NOT_REGISTERED, TERMINATED
+    # @option opts [Array<String>] :lifecycle_state Lifecycle states
+    #   Allowed values are: CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to
+    #   return in a paginated \"List\" call.
+    #   For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
+    #   Example: `50`
+    #    (default to 50)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from
+    #   the previous \"List\" call. For important details about how pagination works,
+    #   see [List Pagination](https://docs.cloud.oracle.com/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending. If no value is specified timeCreated is default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Opsi::Models::AwrHubSourceSummaryCollection AwrHubSourceSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/list_awr_hub_sources.rb.html) to see an example of how to use list_awr_hub_sources API.
+    def list_awr_hub_sources(awr_hub_id, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#list_awr_hub_sources.' if logger
+
+      raise "Missing the required parameter 'awr_hub_id' when calling list_awr_hub_sources." if awr_hub_id.nil?
+
+
+      source_type_allowable_values = %w[ADW_S ATP_S ADW_D ATP_D EXTERNAL_PDB EXTERNAL_NONCDB COMANAGED_VM_CDB COMANAGED_VM_PDB COMANAGED_VM_NONCDB COMANAGED_BM_CDB COMANAGED_BM_PDB COMANAGED_BM_NONCDB COMANAGED_EXACS_CDB COMANAGED_EXACS_PDB COMANAGED_EXACS_NONCDB UNDEFINED]
+      if opts[:source_type] && !opts[:source_type].empty?
+        opts[:source_type].each do |val_to_check|
+          unless source_type_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "source_type", must be one of ADW_S, ATP_S, ADW_D, ATP_D, EXTERNAL_PDB, EXTERNAL_NONCDB, COMANAGED_VM_CDB, COMANAGED_VM_PDB, COMANAGED_VM_NONCDB, COMANAGED_BM_CDB, COMANAGED_BM_PDB, COMANAGED_BM_NONCDB, COMANAGED_EXACS_CDB, COMANAGED_EXACS_PDB, COMANAGED_EXACS_NONCDB, UNDEFINED.'
+          end
+        end
+      end
+
+
+      status_allowable_values = %w[ACCEPTING NOT_ACCEPTING NOT_REGISTERED TERMINATED]
+      if opts[:status] && !opts[:status].empty?
+        opts[:status].each do |val_to_check|
+          unless status_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "status", must be one of ACCEPTING, NOT_ACCEPTING, NOT_REGISTERED, TERMINATED.'
+          end
+        end
+      end
+
+
+      lifecycle_state_allowable_values = %w[CREATING UPDATING ACTIVE DELETING DELETED FAILED]
+      if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
+        opts[:lifecycle_state].each do |val_to_check|
+          unless lifecycle_state_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "lifecycle_state", must be one of CREATING, UPDATING, ACTIVE, DELETING, DELETED, FAILED.'
+          end
+        end
+      end
+
+      if opts[:sort_order] && !OCI::Opsi::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Opsi::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+
+      path = '/awrHubSources'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:awrHubId] = awr_hub_id
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:awrHubSourceId] = opts[:awr_hub_source_id] if opts[:awr_hub_source_id]
+      query_params[:sourceType] = OCI::ApiClient.build_collection_params(opts[:source_type], :multi) if opts[:source_type] && !opts[:source_type].empty?
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:status] = OCI::ApiClient.build_collection_params(opts[:status], :multi) if opts[:status] && !opts[:status].empty?
+      query_params[:lifecycleState] = OCI::ApiClient.build_collection_params(opts[:lifecycle_state], :multi) if opts[:lifecycle_state] && !opts[:lifecycle_state].empty?
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#list_awr_hub_sources') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Opsi::Models::AwrHubSourceSummaryCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -8166,6 +9079,72 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Opsi::Models::WorkRequestCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new object or overwrites an existing object with the same name to the Awr Hub.
+    #
+    # @param [String, IO] put_awr_hub_object_body The object to be uploaded to the Awr Hub.
+    # @param [String] awr_hub_source_id Unique Awr Hub Source identifier
+    # @param [String] object_name Unique Awr Hub Object identifier
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match Used for optimistic concurrency control. In the update or delete call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous get, create, or update response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/put_awr_hub_object.rb.html) to see an example of how to use put_awr_hub_object API.
+    def put_awr_hub_object(put_awr_hub_object_body, awr_hub_source_id, object_name, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#put_awr_hub_object.' if logger
+
+      raise "Missing the required parameter 'put_awr_hub_object_body' when calling put_awr_hub_object." if put_awr_hub_object_body.nil?
+      raise "Missing the required parameter 'awr_hub_source_id' when calling put_awr_hub_object." if awr_hub_source_id.nil?
+      raise "Missing the required parameter 'object_name' when calling put_awr_hub_object." if object_name.nil?
+      raise "Parameter value for 'awr_hub_source_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_hub_source_id)
+      raise "Parameter value for 'object_name' must not be blank" if OCI::Internal::Util.blank_string?(object_name)
+
+      path = '/awrHubObjects/awrHubSources/{awrHubSourceId}/o/{objectName}'.sub('{awrHubSourceId}', awr_hub_source_id.to_s).sub('{objectName}', object_name.to_s)
+      operation_signing_strategy = :exclude_body
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'content-type'] ||= 'application/octet-stream'
+
+      post_body = @api_client.object_to_http_body(put_awr_hub_object_body)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#put_awr_hub_object') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -15163,6 +16142,68 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#update_awr_hub') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Update Awr Hub Source object.
+    # @param [OCI::Opsi::Models::UpdateAwrHubSourceDetails] update_awr_hub_source_details The configuration to be updated.
+    # @param [String] awr_hub_source_id Unique Awr Hub Source identifier
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match Used for optimistic concurrency control. In the update or delete call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous get, create, or update response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact
+    #   Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/opsi/update_awr_hub_source.rb.html) to see an example of how to use update_awr_hub_source API.
+    def update_awr_hub_source(update_awr_hub_source_details, awr_hub_source_id, opts = {})
+      logger.debug 'Calling operation OperationsInsightsClient#update_awr_hub_source.' if logger
+
+      raise "Missing the required parameter 'update_awr_hub_source_details' when calling update_awr_hub_source." if update_awr_hub_source_details.nil?
+      raise "Missing the required parameter 'awr_hub_source_id' when calling update_awr_hub_source." if awr_hub_source_id.nil?
+      raise "Parameter value for 'awr_hub_source_id' must not be blank" if OCI::Internal::Util.blank_string?(awr_hub_source_id)
+
+      path = '/awrHubSources/{awrHubSourceId}'.sub('{awrHubSourceId}', awr_hub_source_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_awr_hub_source_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'OperationsInsightsClient#update_awr_hub_source') do
         @api_client.call_api(
           :PUT,
           path,

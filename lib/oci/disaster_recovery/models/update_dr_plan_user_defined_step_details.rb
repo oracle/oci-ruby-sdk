@@ -6,7 +6,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details for updating a user-defined step in a DR Plan.
+  # The details for updating a user-defined step in a DR plan.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class DisasterRecovery::Models::UpdateDrPlanUserDefinedStepDetails
     STEP_TYPE_ENUM = [
@@ -20,12 +20,21 @@ module OCI
 
     # **[Required]** The type of the user-defined step.
     #
-    # RUN_OBJECTSTORE_SCRIPT - A step which runs a script stored in Oracle Object Storage Service.
+    #   **RUN_OBJECTSTORE_SCRIPT_PRECHECK** - A step which performs a precheck on a script stored
+    #     in OCI object storage.
     #
-    # RUN_LOCAL_SCRIPT - A step which runs a script that resides locally on a compute instance.
+    #   **RUN_LOCAL_SCRIPT_PRECHECK** - A step which performs a precheck on a script which resides
+    #     locally on a compute instance.
     #
-    # INVOKE_FUNCTION - A step which invokes an Oracle Function.
-    #   See https://docs.oracle.com/en-us/iaas/Content/Functions/home.htm.
+    #   **INVOKE_FUNCTION_PRECHECK** - A step which performs a precheck on an OCI function.
+    #     See https://docs.oracle.com/en-us/iaas/Content/Functions/home.htm.
+    #
+    #   **RUN_OBJECTSTORE_SCRIPT** - A step which runs a script stored in OCI object storage.
+    #
+    #   **RUN_LOCAL_SCRIPT** - A step which runs a script that resides locally on a compute instance.
+    #
+    #   **INVOKE_FUNCTION** - A step which invokes an OCI function.
+    #     See https://docs.oracle.com/en-us/iaas/Content/Functions/home.htm.
     #
     # @return [String]
     attr_reader :step_type

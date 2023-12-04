@@ -16,6 +16,19 @@ module OCI
       TECHNOLOGY_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    SECURITY_PROTOCOL_ENUM = [
+      SECURITY_PROTOCOL_PLAIN = 'PLAIN'.freeze,
+      SECURITY_PROTOCOL_TLS = 'TLS'.freeze,
+      SECURITY_PROTOCOL_MTLS = 'MTLS'.freeze,
+      SECURITY_PROTOCOL_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    AUTHENTICATION_TYPE_ENUM = [
+      AUTHENTICATION_TYPE_NONE = 'NONE'.freeze,
+      AUTHENTICATION_TYPE_BASIC = 'BASIC'.freeze,
+      AUTHENTICATION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The Java Message Service technology type.
     #
     # @return [String]
@@ -64,6 +77,18 @@ module OCI
     # @return [String]
     attr_accessor :connection_factory
 
+    # Security protocol for Java Message Service. If not provided, default is PLAIN.
+    # Optional until 2024-06-27, in the release after it will be made required.
+    #
+    # @return [String]
+    attr_reader :security_protocol
+
+    # Authentication type for Java Message Service.  If not provided, default is NONE.
+    # Optional until 2024-06-27, in the release after it will be made required.
+    #
+    # @return [String]
+    attr_reader :authentication_type
+
     # The username Oracle GoldenGate uses to connect to the Java Message Service.
     # This username must already exist and be available by the Java Message Service to be connected to.
     #
@@ -97,9 +122,9 @@ module OCI
         'time_updated': :'timeUpdated',
         'vault_id': :'vaultId',
         'key_id': :'keyId',
-        'subnet_id': :'subnetId',
         'ingress_ips': :'ingressIps',
         'nsg_ids': :'nsgIds',
+        'subnet_id': :'subnetId',
         'technology_type': :'technologyType',
         'should_use_jndi': :'shouldUseJndi',
         'jndi_connection_factory': :'jndiConnectionFactory',
@@ -108,6 +133,8 @@ module OCI
         'jndi_security_principal': :'jndiSecurityPrincipal',
         'connection_url': :'connectionUrl',
         'connection_factory': :'connectionFactory',
+        'security_protocol': :'securityProtocol',
+        'authentication_type': :'authenticationType',
         'username': :'username',
         'private_ip': :'privateIp'
         # rubocop:enable Style/SymbolLiteral
@@ -132,9 +159,9 @@ module OCI
         'time_updated': :'DateTime',
         'vault_id': :'String',
         'key_id': :'String',
-        'subnet_id': :'String',
         'ingress_ips': :'Array<OCI::GoldenGate::Models::IngressIpDetails>',
         'nsg_ids': :'Array<String>',
+        'subnet_id': :'String',
         'technology_type': :'String',
         'should_use_jndi': :'BOOLEAN',
         'jndi_connection_factory': :'String',
@@ -143,6 +170,8 @@ module OCI
         'jndi_security_principal': :'String',
         'connection_url': :'String',
         'connection_factory': :'String',
+        'security_protocol': :'String',
+        'authentication_type': :'String',
         'username': :'String',
         'private_ip': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -168,9 +197,9 @@ module OCI
     # @option attributes [DateTime] :time_updated The value to assign to the {OCI::GoldenGate::Models::Connection#time_updated #time_updated} proprety
     # @option attributes [String] :vault_id The value to assign to the {OCI::GoldenGate::Models::Connection#vault_id #vault_id} proprety
     # @option attributes [String] :key_id The value to assign to the {OCI::GoldenGate::Models::Connection#key_id #key_id} proprety
-    # @option attributes [String] :subnet_id The value to assign to the {OCI::GoldenGate::Models::Connection#subnet_id #subnet_id} proprety
     # @option attributes [Array<OCI::GoldenGate::Models::IngressIpDetails>] :ingress_ips The value to assign to the {OCI::GoldenGate::Models::Connection#ingress_ips #ingress_ips} proprety
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {OCI::GoldenGate::Models::Connection#nsg_ids #nsg_ids} proprety
+    # @option attributes [String] :subnet_id The value to assign to the {OCI::GoldenGate::Models::Connection#subnet_id #subnet_id} proprety
     # @option attributes [String] :technology_type The value to assign to the {#technology_type} property
     # @option attributes [BOOLEAN] :should_use_jndi The value to assign to the {#should_use_jndi} property
     # @option attributes [String] :jndi_connection_factory The value to assign to the {#jndi_connection_factory} property
@@ -179,6 +208,8 @@ module OCI
     # @option attributes [String] :jndi_security_principal The value to assign to the {#jndi_security_principal} property
     # @option attributes [String] :connection_url The value to assign to the {#connection_url} property
     # @option attributes [String] :connection_factory The value to assign to the {#connection_factory} property
+    # @option attributes [String] :security_protocol The value to assign to the {#security_protocol} property
+    # @option attributes [String] :authentication_type The value to assign to the {#authentication_type} property
     # @option attributes [String] :username The value to assign to the {#username} property
     # @option attributes [String] :private_ip The value to assign to the {#private_ip} property
     def initialize(attributes = {})
@@ -239,6 +270,18 @@ module OCI
 
       self.connection_factory = attributes[:'connection_factory'] if attributes[:'connection_factory']
 
+      self.security_protocol = attributes[:'securityProtocol'] if attributes[:'securityProtocol']
+
+      raise 'You cannot provide both :securityProtocol and :security_protocol' if attributes.key?(:'securityProtocol') && attributes.key?(:'security_protocol')
+
+      self.security_protocol = attributes[:'security_protocol'] if attributes[:'security_protocol']
+
+      self.authentication_type = attributes[:'authenticationType'] if attributes[:'authenticationType']
+
+      raise 'You cannot provide both :authenticationType and :authentication_type' if attributes.key?(:'authenticationType') && attributes.key?(:'authentication_type')
+
+      self.authentication_type = attributes[:'authentication_type'] if attributes[:'authentication_type']
+
       self.username = attributes[:'username'] if attributes[:'username']
 
       self.private_ip = attributes[:'privateIp'] if attributes[:'privateIp']
@@ -259,6 +302,32 @@ module OCI
         @technology_type = TECHNOLOGY_TYPE_UNKNOWN_ENUM_VALUE
       else
         @technology_type = technology_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] security_protocol Object to be assigned
+    def security_protocol=(security_protocol)
+      # rubocop:disable Style/ConditionalAssignment
+      if security_protocol && !SECURITY_PROTOCOL_ENUM.include?(security_protocol)
+        OCI.logger.debug("Unknown value for 'security_protocol' [" + security_protocol + "]. Mapping to 'SECURITY_PROTOCOL_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @security_protocol = SECURITY_PROTOCOL_UNKNOWN_ENUM_VALUE
+      else
+        @security_protocol = security_protocol
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] authentication_type Object to be assigned
+    def authentication_type=(authentication_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if authentication_type && !AUTHENTICATION_TYPE_ENUM.include?(authentication_type)
+        OCI.logger.debug("Unknown value for 'authentication_type' [" + authentication_type + "]. Mapping to 'AUTHENTICATION_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @authentication_type = AUTHENTICATION_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @authentication_type = authentication_type
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -286,9 +355,9 @@ module OCI
         time_updated == other.time_updated &&
         vault_id == other.vault_id &&
         key_id == other.key_id &&
-        subnet_id == other.subnet_id &&
         ingress_ips == other.ingress_ips &&
         nsg_ids == other.nsg_ids &&
+        subnet_id == other.subnet_id &&
         technology_type == other.technology_type &&
         should_use_jndi == other.should_use_jndi &&
         jndi_connection_factory == other.jndi_connection_factory &&
@@ -297,6 +366,8 @@ module OCI
         jndi_security_principal == other.jndi_security_principal &&
         connection_url == other.connection_url &&
         connection_factory == other.connection_factory &&
+        security_protocol == other.security_protocol &&
+        authentication_type == other.authentication_type &&
         username == other.username &&
         private_ip == other.private_ip
     end
@@ -314,7 +385,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [connection_type, id, display_name, description, compartment_id, freeform_tags, defined_tags, system_tags, lifecycle_state, lifecycle_details, time_created, time_updated, vault_id, key_id, subnet_id, ingress_ips, nsg_ids, technology_type, should_use_jndi, jndi_connection_factory, jndi_provider_url, jndi_initial_context_factory, jndi_security_principal, connection_url, connection_factory, username, private_ip].hash
+      [connection_type, id, display_name, description, compartment_id, freeform_tags, defined_tags, system_tags, lifecycle_state, lifecycle_details, time_created, time_updated, vault_id, key_id, ingress_ips, nsg_ids, subnet_id, technology_type, should_use_jndi, jndi_connection_factory, jndi_provider_url, jndi_initial_context_factory, jndi_security_principal, connection_url, connection_factory, security_protocol, authentication_type, username, private_ip].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

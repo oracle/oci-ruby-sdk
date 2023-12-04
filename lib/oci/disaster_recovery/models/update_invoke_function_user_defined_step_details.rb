@@ -12,7 +12,7 @@ module OCI
   class DisasterRecovery::Models::UpdateInvokeFunctionUserDefinedStepDetails < DisasterRecovery::Models::UpdateDrPlanUserDefinedStepDetails
     # **[Required]** The OCID of function to be invoked.
     #
-    # Example: `ocid1.fnfunc.oc1.iad.&lt;unique_id&gt;`
+    # Example: `ocid1.fnfunc.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :function_id

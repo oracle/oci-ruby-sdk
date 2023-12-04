@@ -7,7 +7,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # source parser object.
+  # Source parser object.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class Logging::Models::UnifiedAgentParser
     PARSER_TYPE_ENUM = [
@@ -32,7 +32,7 @@ module OCI
     # @return [String]
     attr_reader :parser_type
 
-    # Specify time field for the event time. If the event doesn't have this field, the current time is used.
+    # Specifies the time field for the event time. If the event doesn't have this field, the current time is used.
     # @return [String]
     attr_accessor :field_time_key
 
@@ -65,15 +65,15 @@ module OCI
     # @return [String]
     attr_accessor :null_value_pattern
 
-    # If true, an empty string field is replaced with nil.
+    # If true, an empty string field is replaced with a null value.
     # @return [BOOLEAN]
     attr_accessor :is_null_empty_string
 
-    # If true, use Fluent::EventTime.now(current time) as a timestamp when time_key is specified.
+    # If true, use Fluent::EventTime.now(current time) as a timestamp when the time_key is specified.
     # @return [BOOLEAN]
     attr_accessor :is_estimate_current_event
 
-    # If true, keep time field in the record.
+    # If true, keep the time field in the record.
     # @return [BOOLEAN]
     attr_accessor :is_keep_time_key
 

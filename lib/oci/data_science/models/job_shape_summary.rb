@@ -14,6 +14,7 @@ module OCI
       SHAPE_SERIES_INTEL_SKYLAKE = 'INTEL_SKYLAKE'.freeze,
       SHAPE_SERIES_NVIDIA_GPU = 'NVIDIA_GPU'.freeze,
       SHAPE_SERIES_LEGACY = 'LEGACY'.freeze,
+      SHAPE_SERIES_ARM = 'ARM'.freeze,
       SHAPE_SERIES_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 

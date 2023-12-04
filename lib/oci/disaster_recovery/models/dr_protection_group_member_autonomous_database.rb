@@ -7,7 +7,7 @@ require_relative 'dr_protection_group_member'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Properties for an Autonomous Database member of a DR Protection Group.
+  # The properties for an Autonomous Database Serverless member of a DR protection group.
   #
   class DisasterRecovery::Models::DrProtectionGroupMemberAutonomousDatabase < DisasterRecovery::Models::DrProtectionGroupMember
     # Attribute mapping from ruby-style variable name to JSON key.

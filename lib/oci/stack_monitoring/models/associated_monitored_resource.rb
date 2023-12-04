@@ -19,6 +19,12 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    LICENSE_ENUM = [
+      LICENSE_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
+      LICENSE_ENTERPRISE_EDITION = 'ENTERPRISE_EDITION'.freeze,
+      LICENSE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Monitored resource identifier [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # @return [String]
@@ -64,6 +70,10 @@ module OCI
     # @return [String]
     attr_reader :lifecycle_state
 
+    # License edition of the monitored resource.
+    # @return [String]
+    attr_reader :license
+
     # Association details of the resource.
     #
     # @return [Object]
@@ -82,6 +92,7 @@ module OCI
         'external_id': :'externalId',
         'management_agent_id': :'managementAgentId',
         'lifecycle_state': :'lifecycleState',
+        'license': :'license',
         'association': :'association'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -100,6 +111,7 @@ module OCI
         'external_id': :'String',
         'management_agent_id': :'String',
         'lifecycle_state': :'String',
+        'license': :'String',
         'association': :'Object'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -120,6 +132,7 @@ module OCI
     # @option attributes [String] :external_id The value to assign to the {#external_id} property
     # @option attributes [String] :management_agent_id The value to assign to the {#management_agent_id} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
+    # @option attributes [String] :license The value to assign to the {#license} property
     # @option attributes [Object] :association The value to assign to the {#association} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -169,6 +182,8 @@ module OCI
 
       self.lifecycle_state = attributes[:'lifecycle_state'] if attributes[:'lifecycle_state']
 
+      self.license = attributes[:'license'] if attributes[:'license']
+
       self.association = attributes[:'association'] if attributes[:'association']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
@@ -183,6 +198,19 @@ module OCI
         @lifecycle_state = LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE
       else
         @lifecycle_state = lifecycle_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] license Object to be assigned
+    def license=(license)
+      # rubocop:disable Style/ConditionalAssignment
+      if license && !LICENSE_ENUM.include?(license)
+        OCI.logger.debug("Unknown value for 'license' [" + license + "]. Mapping to 'LICENSE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @license = LICENSE_UNKNOWN_ENUM_VALUE
+      else
+        @license = license
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -205,6 +233,7 @@ module OCI
         external_id == other.external_id &&
         management_agent_id == other.management_agent_id &&
         lifecycle_state == other.lifecycle_state &&
+        license == other.license &&
         association == other.association
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -221,7 +250,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, display_name, type, compartment_id, host_name, external_id, management_agent_id, lifecycle_state, association].hash
+      [id, name, display_name, type, compartment_id, host_name, external_id, management_agent_id, lifecycle_state, license, association].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

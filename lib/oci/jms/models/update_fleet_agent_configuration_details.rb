@@ -34,6 +34,9 @@ module OCI
     # @return [OCI::Jms::Models::FleetAgentOsConfiguration]
     attr_accessor :windows_configuration
 
+    # @return [OCI::Jms::Models::FleetAgentOsConfiguration]
+    attr_accessor :mac_os_configuration
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -43,7 +46,8 @@ module OCI
         'work_request_validity_period_in_days': :'workRequestValidityPeriodInDays',
         'agent_polling_interval_in_minutes': :'agentPollingIntervalInMinutes',
         'linux_configuration': :'linuxConfiguration',
-        'windows_configuration': :'windowsConfiguration'
+        'windows_configuration': :'windowsConfiguration',
+        'mac_os_configuration': :'macOsConfiguration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,7 +61,8 @@ module OCI
         'work_request_validity_period_in_days': :'Integer',
         'agent_polling_interval_in_minutes': :'Integer',
         'linux_configuration': :'OCI::Jms::Models::FleetAgentOsConfiguration',
-        'windows_configuration': :'OCI::Jms::Models::FleetAgentOsConfiguration'
+        'windows_configuration': :'OCI::Jms::Models::FleetAgentOsConfiguration',
+        'mac_os_configuration': :'OCI::Jms::Models::FleetAgentOsConfiguration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -74,6 +79,7 @@ module OCI
     # @option attributes [Integer] :agent_polling_interval_in_minutes The value to assign to the {#agent_polling_interval_in_minutes} property
     # @option attributes [OCI::Jms::Models::FleetAgentOsConfiguration] :linux_configuration The value to assign to the {#linux_configuration} property
     # @option attributes [OCI::Jms::Models::FleetAgentOsConfiguration] :windows_configuration The value to assign to the {#windows_configuration} property
+    # @option attributes [OCI::Jms::Models::FleetAgentOsConfiguration] :mac_os_configuration The value to assign to the {#mac_os_configuration} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -115,6 +121,12 @@ module OCI
       raise 'You cannot provide both :windowsConfiguration and :windows_configuration' if attributes.key?(:'windowsConfiguration') && attributes.key?(:'windows_configuration')
 
       self.windows_configuration = attributes[:'windows_configuration'] if attributes[:'windows_configuration']
+
+      self.mac_os_configuration = attributes[:'macOsConfiguration'] if attributes[:'macOsConfiguration']
+
+      raise 'You cannot provide both :macOsConfiguration and :mac_os_configuration' if attributes.key?(:'macOsConfiguration') && attributes.key?(:'mac_os_configuration')
+
+      self.mac_os_configuration = attributes[:'mac_os_configuration'] if attributes[:'mac_os_configuration']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -133,7 +145,8 @@ module OCI
         work_request_validity_period_in_days == other.work_request_validity_period_in_days &&
         agent_polling_interval_in_minutes == other.agent_polling_interval_in_minutes &&
         linux_configuration == other.linux_configuration &&
-        windows_configuration == other.windows_configuration
+        windows_configuration == other.windows_configuration &&
+        mac_os_configuration == other.mac_os_configuration
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -149,7 +162,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [jre_scan_frequency_in_minutes, java_usage_tracker_processing_frequency_in_minutes, work_request_validity_period_in_days, agent_polling_interval_in_minutes, linux_configuration, windows_configuration].hash
+      [jre_scan_frequency_in_minutes, java_usage_tracker_processing_frequency_in_minutes, work_request_validity_period_in_days, agent_polling_interval_in_minutes, linux_configuration, windows_configuration, mac_os_configuration].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

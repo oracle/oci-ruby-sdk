@@ -28,6 +28,10 @@ module OCI
     # @return [Integer]
     attr_accessor :max_on_demand_capacity_tables
 
+    # An array of regions that are available for replication.
+    # @return [Array<String>]
+    attr_accessor :available_replication_regions
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -36,7 +40,8 @@ module OCI
         'max_auto_reclaimable_tables': :'maxAutoReclaimableTables',
         'auto_reclaimable_tables': :'autoReclaimableTables',
         'on_demand_capacity_tables': :'onDemandCapacityTables',
-        'max_on_demand_capacity_tables': :'maxOnDemandCapacityTables'
+        'max_on_demand_capacity_tables': :'maxOnDemandCapacityTables',
+        'available_replication_regions': :'availableReplicationRegions'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -49,7 +54,8 @@ module OCI
         'max_auto_reclaimable_tables': :'Integer',
         'auto_reclaimable_tables': :'Integer',
         'on_demand_capacity_tables': :'Integer',
-        'max_on_demand_capacity_tables': :'Integer'
+        'max_on_demand_capacity_tables': :'Integer',
+        'available_replication_regions': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -65,6 +71,7 @@ module OCI
     # @option attributes [Integer] :auto_reclaimable_tables The value to assign to the {#auto_reclaimable_tables} property
     # @option attributes [Integer] :on_demand_capacity_tables The value to assign to the {#on_demand_capacity_tables} property
     # @option attributes [Integer] :max_on_demand_capacity_tables The value to assign to the {#max_on_demand_capacity_tables} property
+    # @option attributes [Array<String>] :available_replication_regions The value to assign to the {#available_replication_regions} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -96,6 +103,12 @@ module OCI
       raise 'You cannot provide both :maxOnDemandCapacityTables and :max_on_demand_capacity_tables' if attributes.key?(:'maxOnDemandCapacityTables') && attributes.key?(:'max_on_demand_capacity_tables')
 
       self.max_on_demand_capacity_tables = attributes[:'max_on_demand_capacity_tables'] if attributes[:'max_on_demand_capacity_tables']
+
+      self.available_replication_regions = attributes[:'availableReplicationRegions'] if attributes[:'availableReplicationRegions']
+
+      raise 'You cannot provide both :availableReplicationRegions and :available_replication_regions' if attributes.key?(:'availableReplicationRegions') && attributes.key?(:'available_replication_regions')
+
+      self.available_replication_regions = attributes[:'available_replication_regions'] if attributes[:'available_replication_regions']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -113,7 +126,8 @@ module OCI
         max_auto_reclaimable_tables == other.max_auto_reclaimable_tables &&
         auto_reclaimable_tables == other.auto_reclaimable_tables &&
         on_demand_capacity_tables == other.on_demand_capacity_tables &&
-        max_on_demand_capacity_tables == other.max_on_demand_capacity_tables
+        max_on_demand_capacity_tables == other.max_on_demand_capacity_tables &&
+        available_replication_regions == other.available_replication_regions
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -129,7 +143,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [items, max_auto_reclaimable_tables, auto_reclaimable_tables, on_demand_capacity_tables, max_on_demand_capacity_tables].hash
+      [items, max_auto_reclaimable_tables, auto_reclaimable_tables, on_demand_capacity_tables, max_on_demand_capacity_tables, available_replication_regions].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

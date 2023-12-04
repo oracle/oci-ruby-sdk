@@ -59,6 +59,10 @@ module OCI
     # @return [OCI::DataScience::Models::JobLogConfigurationDetails]
     attr_accessor :job_log_configuration_details
 
+    # Collection of JobStorageMountConfigurationDetails.
+    # @return [Array<OCI::DataScience::Models::StorageMountConfigurationDetails>]
+    attr_accessor :job_storage_mount_configuration_details_list
+
     # **[Required]** The state of the job.
     # @return [String]
     attr_reader :lifecycle_state
@@ -93,6 +97,7 @@ module OCI
         'job_configuration_details': :'jobConfigurationDetails',
         'job_infrastructure_configuration_details': :'jobInfrastructureConfigurationDetails',
         'job_log_configuration_details': :'jobLogConfigurationDetails',
+        'job_storage_mount_configuration_details_list': :'jobStorageMountConfigurationDetailsList',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
         'freeform_tags': :'freeformTags',
@@ -115,6 +120,7 @@ module OCI
         'job_configuration_details': :'OCI::DataScience::Models::JobConfigurationDetails',
         'job_infrastructure_configuration_details': :'OCI::DataScience::Models::JobInfrastructureConfigurationDetails',
         'job_log_configuration_details': :'OCI::DataScience::Models::JobLogConfigurationDetails',
+        'job_storage_mount_configuration_details_list': :'Array<OCI::DataScience::Models::StorageMountConfigurationDetails>',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
         'freeform_tags': :'Hash<String, String>',
@@ -139,6 +145,7 @@ module OCI
     # @option attributes [OCI::DataScience::Models::JobConfigurationDetails] :job_configuration_details The value to assign to the {#job_configuration_details} property
     # @option attributes [OCI::DataScience::Models::JobInfrastructureConfigurationDetails] :job_infrastructure_configuration_details The value to assign to the {#job_infrastructure_configuration_details} property
     # @option attributes [OCI::DataScience::Models::JobLogConfigurationDetails] :job_log_configuration_details The value to assign to the {#job_log_configuration_details} property
+    # @option attributes [Array<OCI::DataScience::Models::StorageMountConfigurationDetails>] :job_storage_mount_configuration_details_list The value to assign to the {#job_storage_mount_configuration_details_list} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -201,6 +208,12 @@ module OCI
 
       self.job_log_configuration_details = attributes[:'job_log_configuration_details'] if attributes[:'job_log_configuration_details']
 
+      self.job_storage_mount_configuration_details_list = attributes[:'jobStorageMountConfigurationDetailsList'] if attributes[:'jobStorageMountConfigurationDetailsList']
+
+      raise 'You cannot provide both :jobStorageMountConfigurationDetailsList and :job_storage_mount_configuration_details_list' if attributes.key?(:'jobStorageMountConfigurationDetailsList') && attributes.key?(:'job_storage_mount_configuration_details_list')
+
+      self.job_storage_mount_configuration_details_list = attributes[:'job_storage_mount_configuration_details_list'] if attributes[:'job_storage_mount_configuration_details_list']
+
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
       raise 'You cannot provide both :lifecycleState and :lifecycle_state' if attributes.key?(:'lifecycleState') && attributes.key?(:'lifecycle_state')
@@ -260,6 +273,7 @@ module OCI
         job_configuration_details == other.job_configuration_details &&
         job_infrastructure_configuration_details == other.job_infrastructure_configuration_details &&
         job_log_configuration_details == other.job_log_configuration_details &&
+        job_storage_mount_configuration_details_list == other.job_storage_mount_configuration_details_list &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
         freeform_tags == other.freeform_tags &&
@@ -279,7 +293,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, time_created, created_by, project_id, compartment_id, display_name, description, job_configuration_details, job_infrastructure_configuration_details, job_log_configuration_details, lifecycle_state, lifecycle_details, freeform_tags, defined_tags].hash
+      [id, time_created, created_by, project_id, compartment_id, display_name, description, job_configuration_details, job_infrastructure_configuration_details, job_log_configuration_details, job_storage_mount_configuration_details_list, lifecycle_state, lifecycle_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -257,6 +257,80 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a Metric Extension resource from one compartment identifier to another.
+    # When provided, If-Match is checked against ETag values of the resource.
+    #
+    # @param [String] metric_extension_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the metric extension resource.
+    # @param [OCI::StackMonitoring::Models::ChangeMetricExtensionCompartmentDetails] change_metric_extension_compartment_details The information required to change compartment of given Metric Extension resource
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/change_metric_extension_compartment.rb.html) to see an example of how to use change_metric_extension_compartment API.
+    def change_metric_extension_compartment(metric_extension_id, change_metric_extension_compartment_details, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#change_metric_extension_compartment.' if logger
+
+      raise "Missing the required parameter 'metric_extension_id' when calling change_metric_extension_compartment." if metric_extension_id.nil?
+      raise "Missing the required parameter 'change_metric_extension_compartment_details' when calling change_metric_extension_compartment." if change_metric_extension_compartment_details.nil?
+      raise "Parameter value for 'metric_extension_id' must not be blank" if OCI::Internal::Util.blank_string?(metric_extension_id)
+
+      path = '/metricExtensions/{metricExtensionId}/actions/changeCompartment'.sub('{metricExtensionId}', metric_extension_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_metric_extension_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#change_metric_extension_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves a monitored resource from one compartment to another.
     # When provided, If-Match is checked against ETag values of the resource.
     #
@@ -318,6 +392,142 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a stack monitoring resource task from one compartment to another.
+    #
+    # @param [String] monitored_resource_task_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of stack monitoring resource task.
+    # @param [OCI::StackMonitoring::Models::ChangeMonitoredResourceTaskCompartmentDetails] change_monitored_resource_task_compartment_details The information to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/change_monitored_resource_task_compartment.rb.html) to see an example of how to use change_monitored_resource_task_compartment API.
+    def change_monitored_resource_task_compartment(monitored_resource_task_id, change_monitored_resource_task_compartment_details, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#change_monitored_resource_task_compartment.' if logger
+
+      raise "Missing the required parameter 'monitored_resource_task_id' when calling change_monitored_resource_task_compartment." if monitored_resource_task_id.nil?
+      raise "Missing the required parameter 'change_monitored_resource_task_compartment_details' when calling change_monitored_resource_task_compartment." if change_monitored_resource_task_compartment_details.nil?
+      raise "Parameter value for 'monitored_resource_task_id' must not be blank" if OCI::Internal::Util.blank_string?(monitored_resource_task_id)
+
+      path = '/monitoredResourceTasks/{monitoredResourceTaskId}/actions/changeCompartment'.sub('{monitoredResourceTaskId}', monitored_resource_task_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_monitored_resource_task_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#change_monitored_resource_task_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates the specified Baseline-able metric
+    # @param [OCI::StackMonitoring::Models::CreateBaselineableMetricDetails] create_baselineable_metric_details Baseline metric
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::BaselineableMetric BaselineableMetric}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/create_baselineable_metric.rb.html) to see an example of how to use create_baselineable_metric API.
+    def create_baselineable_metric(create_baselineable_metric_details, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#create_baselineable_metric.' if logger
+
+      raise "Missing the required parameter 'create_baselineable_metric_details' when calling create_baselineable_metric." if create_baselineable_metric_details.nil?
+
+      path = '/baselineableMetrics'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_baselineable_metric_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#create_baselineable_metric') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::BaselineableMetric'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -465,6 +675,70 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a new metric extension resource for a given compartment
+    #
+    # @param [OCI::StackMonitoring::Models::CreateMetricExtensionDetails] create_metric_extension_details Details required for creating new Metric Extension
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::MetricExtension MetricExtension}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/create_metric_extension.rb.html) to see an example of how to use create_metric_extension API.
+    def create_metric_extension(create_metric_extension_details, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#create_metric_extension.' if logger
+
+      raise "Missing the required parameter 'create_metric_extension_details' when calling create_metric_extension." if create_metric_extension_details.nil?
+
+      path = '/metricExtensions'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_metric_extension_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#create_metric_extension') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::MetricExtension'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new monitored resource for the given resource type with the details and submits
     # a work request for promoting the resource to agent. Once the resource is successfully
     # added to agent, resource state will be marked active.
@@ -525,6 +799,194 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::StackMonitoring::Models::MonitoredResource'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Create a new stack monitoring resource task.
+    # @param [OCI::StackMonitoring::Models::CreateMonitoredResourceTaskDetails] create_monitored_resource_task_details Details to create the new stack monitoring resource task.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::MonitoredResourceTask MonitoredResourceTask}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/create_monitored_resource_task.rb.html) to see an example of how to use create_monitored_resource_task API.
+    def create_monitored_resource_task(create_monitored_resource_task_details, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#create_monitored_resource_task.' if logger
+
+      raise "Missing the required parameter 'create_monitored_resource_task_details' when calling create_monitored_resource_task." if create_monitored_resource_task_details.nil?
+
+      path = '/monitoredResourceTasks'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_monitored_resource_task_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#create_monitored_resource_task') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::MonitoredResourceTask'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new monitored resource type.
+    # @param [OCI::StackMonitoring::Models::CreateMonitoredResourceTypeDetails] create_monitored_resource_type_details Details for the new monitored resource type.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::MonitoredResourceType MonitoredResourceType}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/create_monitored_resource_type.rb.html) to see an example of how to use create_monitored_resource_type API.
+    def create_monitored_resource_type(create_monitored_resource_type_details, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#create_monitored_resource_type.' if logger
+
+      raise "Missing the required parameter 'create_monitored_resource_type_details' when calling create_monitored_resource_type." if create_monitored_resource_type_details.nil?
+
+      path = '/monitoredResourceTypes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_monitored_resource_type_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#create_monitored_resource_type') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::MonitoredResourceType'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the Baseline-able metric for the given id
+    # @param [String] baselineable_metric_id Identifier for the metric
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/delete_baselineable_metric.rb.html) to see an example of how to use delete_baselineable_metric API.
+    def delete_baselineable_metric(baselineable_metric_id, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#delete_baselineable_metric.' if logger
+
+      raise "Missing the required parameter 'baselineable_metric_id' when calling delete_baselineable_metric." if baselineable_metric_id.nil?
+      raise "Parameter value for 'baselineable_metric_id' must not be blank" if OCI::Internal::Util.blank_string?(baselineable_metric_id)
+
+      path = '/baselineableMetrics/{baselineableMetricId}'.sub('{baselineableMetricId}', baselineable_metric_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#delete_baselineable_metric') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -662,6 +1124,68 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deletes a metric extension by identifier
+    # @param [String] metric_extension_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the metric extension resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/delete_metric_extension.rb.html) to see an example of how to use delete_metric_extension API.
+    def delete_metric_extension(metric_extension_id, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#delete_metric_extension.' if logger
+
+      raise "Missing the required parameter 'metric_extension_id' when calling delete_metric_extension." if metric_extension_id.nil?
+      raise "Parameter value for 'metric_extension_id' must not be blank" if OCI::Internal::Util.blank_string?(metric_extension_id)
+
+      path = '/metricExtensions/{metricExtensionId}'.sub('{metricExtensionId}', metric_extension_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#delete_metric_extension') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Delete monitored resource by the given identifier [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # By default, only the specified resource is deleted. If the parameter 'isDeleteMembers' is set to true,
     # then the member resources will be deleted too. If the operation fails partially, the deleted entries
@@ -711,6 +1235,68 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#delete_monitored_resource') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a monitored resource type by identifier [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] monitored_resource_type_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of monitored resource type.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/delete_monitored_resource_type.rb.html) to see an example of how to use delete_monitored_resource_type API.
+    def delete_monitored_resource_type(monitored_resource_type_id, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#delete_monitored_resource_type.' if logger
+
+      raise "Missing the required parameter 'monitored_resource_type_id' when calling delete_monitored_resource_type." if monitored_resource_type_id.nil?
+      raise "Parameter value for 'monitored_resource_type_id' must not be blank" if OCI::Internal::Util.blank_string?(monitored_resource_type_id)
+
+      path = '/monitoredResourceTypes/{monitoredResourceTypeId}'.sub('{monitoredResourceTypeId}', monitored_resource_type_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#delete_monitored_resource_type') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -804,6 +1390,79 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Submits a request to disable matching metric extension Id for the given Resource IDs
+    #
+    # @param [String] metric_extension_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the metric extension resource.
+    # @param [OCI::StackMonitoring::Models::DisableMetricExtensionDetails] disable_metric_extension_details The list of Resource IDs for which given metric extension needs to be disabled
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/disable_metric_extension.rb.html) to see an example of how to use disable_metric_extension API.
+    def disable_metric_extension(metric_extension_id, disable_metric_extension_details, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#disable_metric_extension.' if logger
+
+      raise "Missing the required parameter 'metric_extension_id' when calling disable_metric_extension." if metric_extension_id.nil?
+      raise "Missing the required parameter 'disable_metric_extension_details' when calling disable_metric_extension." if disable_metric_extension_details.nil?
+      raise "Parameter value for 'metric_extension_id' must not be blank" if OCI::Internal::Util.blank_string?(metric_extension_id)
+
+      path = '/metricExtensions/{metricExtensionId}/actions/disable'.sub('{metricExtensionId}', metric_extension_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(disable_metric_extension_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#disable_metric_extension') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Removes associations between two monitored resources.
     # @param [OCI::StackMonitoring::Models::DisassociateMonitoredResourcesDetails] disassociate_monitored_resources_details Disassociate resources.
     # @param [Hash] opts the optional parameters
@@ -860,6 +1519,327 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Submits a request to enable matching metric extension Id for the given Resource IDs
+    #
+    # @param [String] metric_extension_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the metric extension resource.
+    # @param [OCI::StackMonitoring::Models::EnableMetricExtensionDetails] enable_metric_extension_details The list of Resource IDs for which given metric extension needs to be enabled
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/enable_metric_extension.rb.html) to see an example of how to use enable_metric_extension API.
+    def enable_metric_extension(metric_extension_id, enable_metric_extension_details, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#enable_metric_extension.' if logger
+
+      raise "Missing the required parameter 'metric_extension_id' when calling enable_metric_extension." if metric_extension_id.nil?
+      raise "Missing the required parameter 'enable_metric_extension_details' when calling enable_metric_extension." if enable_metric_extension_details.nil?
+      raise "Parameter value for 'metric_extension_id' must not be blank" if OCI::Internal::Util.blank_string?(metric_extension_id)
+
+      path = '/metricExtensions/{metricExtensionId}/actions/enable'.sub('{metricExtensionId}', metric_extension_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(enable_metric_extension_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#enable_metric_extension') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Evaluates metric for anomalies for the given data points
+    # @param [OCI::StackMonitoring::Models::EvaluateBaselineableMetricDetails] evaluate_baselineable_metric_details Metric details
+    # @param [String] baselineable_metric_id Identifier for the metric
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::EvaluateBaselineableMetricResult EvaluateBaselineableMetricResult}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/evaluate_baselineable_metric.rb.html) to see an example of how to use evaluate_baselineable_metric API.
+    def evaluate_baselineable_metric(evaluate_baselineable_metric_details, baselineable_metric_id, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#evaluate_baselineable_metric.' if logger
+
+      raise "Missing the required parameter 'evaluate_baselineable_metric_details' when calling evaluate_baselineable_metric." if evaluate_baselineable_metric_details.nil?
+      raise "Missing the required parameter 'baselineable_metric_id' when calling evaluate_baselineable_metric." if baselineable_metric_id.nil?
+      raise "Parameter value for 'baselineable_metric_id' must not be blank" if OCI::Internal::Util.blank_string?(baselineable_metric_id)
+
+      path = '/baselineableMetrics/{baselineableMetricId}/actions/evaluate'.sub('{baselineableMetricId}', baselineable_metric_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(evaluate_baselineable_metric_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#evaluate_baselineable_metric') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::EvaluateBaselineableMetricResult'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Export generates a template used to create new metric extension resources similar to matching metric extension id.
+    # Response is a file that contains metric extension definition with placeholders for fields to be changed.
+    #
+    # @param [String] metric_extension_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the metric extension resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
+    # @option [Block] &block Streaming http body to the block
+    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/export_metric_extension.rb.html) to see an example of how to use export_metric_extension API.
+    def export_metric_extension(metric_extension_id, opts = {}, &block)
+      logger.debug 'Calling operation StackMonitoringClient#export_metric_extension.' if logger
+
+      raise "Missing the required parameter 'metric_extension_id' when calling export_metric_extension." if metric_extension_id.nil?
+      raise "Parameter value for 'metric_extension_id' must not be blank" if OCI::Internal::Util.blank_string?(metric_extension_id)
+
+      path = '/metricExtensions/{metricExtensionId}/actions/export'.sub('{metricExtensionId}', metric_extension_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = opts[:accept] if opts[:accept]
+      header_params[:accept] ||= 'application/json'
+      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#export_metric_extension') do
+        if !block.nil?
+          @api_client.call_api(
+            :POST,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'Stream',
+            &block
+          )
+        elsif opts[:response_target]
+          if opts[:response_target].respond_to? :write
+            @api_client.call_api(
+              :POST,
+              path,
+              endpoint,
+              header_params: header_params,
+              query_params: query_params,
+              operation_signing_strategy: operation_signing_strategy,
+              body: post_body,
+              return_type: 'Stream',
+              &proc { |chunk, _response| opts[:response_target].write(chunk) }
+            )
+          elsif opts[:response_target].is_a?(String)
+            File.open(opts[:response_target], 'wb') do |output|
+              return @api_client.call_api(
+                :POST,
+                path,
+                endpoint,
+                header_params: header_params,
+                query_params: query_params,
+                operation_signing_strategy: operation_signing_strategy,
+                body: post_body,
+                return_type: 'Stream',
+                &proc { |chunk, _response| output.write(chunk) }
+              )
+            end
+          end
+        else
+          @api_client.call_api(
+            :POST,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'String'
+          )
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Get the Baseline-able metric for the given id
+    # @param [String] baselineable_metric_id Identifier for the metric
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::BaselineableMetric BaselineableMetric}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/get_baselineable_metric.rb.html) to see an example of how to use get_baselineable_metric API.
+    def get_baselineable_metric(baselineable_metric_id, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#get_baselineable_metric.' if logger
+
+      raise "Missing the required parameter 'baselineable_metric_id' when calling get_baselineable_metric." if baselineable_metric_id.nil?
+      raise "Parameter value for 'baselineable_metric_id' must not be blank" if OCI::Internal::Util.blank_string?(baselineable_metric_id)
+
+      path = '/baselineableMetrics/{baselineableMetricId}'.sub('{baselineableMetricId}', baselineable_metric_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#get_baselineable_metric') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::BaselineableMetric'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -986,6 +1966,62 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets a Metric Extension by identifier
+    # @param [String] metric_extension_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the metric extension resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::MetricExtension MetricExtension}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/get_metric_extension.rb.html) to see an example of how to use get_metric_extension API.
+    def get_metric_extension(metric_extension_id, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#get_metric_extension.' if logger
+
+      raise "Missing the required parameter 'metric_extension_id' when calling get_metric_extension." if metric_extension_id.nil?
+      raise "Parameter value for 'metric_extension_id' must not be blank" if OCI::Internal::Util.blank_string?(metric_extension_id)
+
+      path = '/metricExtensions/{metricExtensionId}'.sub('{metricExtensionId}', metric_extension_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#get_metric_extension') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::MetricExtension'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Get monitored resource for the given identifier [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # @param [String] monitored_resource_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of monitored resource.
@@ -1043,6 +2079,118 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets stack monitoring resource task details by identifier [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] monitored_resource_task_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of stack monitoring resource task.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::MonitoredResourceTask MonitoredResourceTask}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/get_monitored_resource_task.rb.html) to see an example of how to use get_monitored_resource_task API.
+    def get_monitored_resource_task(monitored_resource_task_id, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#get_monitored_resource_task.' if logger
+
+      raise "Missing the required parameter 'monitored_resource_task_id' when calling get_monitored_resource_task." if monitored_resource_task_id.nil?
+      raise "Parameter value for 'monitored_resource_task_id' must not be blank" if OCI::Internal::Util.blank_string?(monitored_resource_task_id)
+
+      path = '/monitoredResourceTasks/{monitoredResourceTaskId}'.sub('{monitoredResourceTaskId}', monitored_resource_task_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#get_monitored_resource_task') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::MonitoredResourceTask'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a monitored resource type by identifier [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] monitored_resource_type_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of monitored resource type.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::MonitoredResourceType MonitoredResourceType}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/get_monitored_resource_type.rb.html) to see an example of how to use get_monitored_resource_type API.
+    def get_monitored_resource_type(monitored_resource_type_id, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#get_monitored_resource_type.' if logger
+
+      raise "Missing the required parameter 'monitored_resource_type_id' when calling get_monitored_resource_type." if monitored_resource_type_id.nil?
+      raise "Parameter value for 'monitored_resource_type_id' must not be blank" if OCI::Internal::Util.blank_string?(monitored_resource_type_id)
+
+      path = '/monitoredResourceTypes/{monitoredResourceTypeId}'.sub('{monitoredResourceTypeId}', monitored_resource_type_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#get_monitored_resource_type') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::MonitoredResourceType'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the status of the work request with the given ID.
     # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the work request.
     # @param [Hash] opts the optional parameters
@@ -1086,6 +2234,95 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::StackMonitoring::Models::WorkRequest'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List of summary of baseline-able metrics for a given resource group if specified.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :resource_group Resource Group
+    # @option opts [String] :name Metric Name
+    # @option opts [String] :metric_namespace A filter to return monitored resource types that has the matching namespace.
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
+    #   paginated \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #    (default to 10)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the
+    #   previous \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :compartment_id The ID of the compartment in which data is listed.
+    # @option opts [String] :baselineable_metric_id Identifier for the metric
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #    (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order is ascending.
+    #    (default to name)
+    #   Allowed values are: name, namespace, resourceGroup
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::BaselineableMetricSummaryCollection BaselineableMetricSummaryCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/list_baselineable_metrics.rb.html) to see an example of how to use list_baselineable_metrics API.
+    def list_baselineable_metrics(opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#list_baselineable_metrics.' if logger
+
+
+      if opts[:sort_order] && !OCI::StackMonitoring::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::StackMonitoring::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[name namespace resourceGroup].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of name, namespace, resourceGroup.'
+      end
+
+      path = '/baselineableMetrics'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:resourceGroup] = opts[:resource_group] if opts[:resource_group]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:metricNamespace] = opts[:metric_namespace] if opts[:metric_namespace]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:baselineableMetricId] = opts[:baselineable_metric_id] if opts[:baselineable_metric_id]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#list_baselineable_metrics') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::BaselineableMetricSummaryCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1370,6 +2607,412 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns a list of metric extensions
+    # @param [String] compartment_id The ID of the compartment in which data is listed.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
+    #   paginated \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #    (default to 10)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the
+    #   previous \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided.
+    #   Default order for timeCreated is descending. Default order for resources is ascending.
+    #    (default to TIME_CREATED)
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #    (default to ASC)
+    # @option opts [String] :resource_type A filter to return resources based on resource type.
+    # @option opts [String] :name A filter to return resources based on name.
+    # @option opts [String] :status A filter to return resources based on status e.g. Draft or Published
+    # @option opts [String] :lifecycle_state A filter to return metric extensions based on Lifecycle State
+    # @option opts [String] :enabled_on_resource_id A filter to return metric extensions based on input resource Id on which metric extension is enabled
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::MetricExtensionCollection MetricExtensionCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/list_metric_extensions.rb.html) to see an example of how to use list_metric_extensions API.
+    def list_metric_extensions(compartment_id, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#list_metric_extensions.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_metric_extensions." if compartment_id.nil?
+
+      if opts[:sort_by] && !OCI::StackMonitoring::Models::METRIC_EXTENSION_SORT_BY_ENUM.include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of the values in OCI::StackMonitoring::Models::METRIC_EXTENSION_SORT_BY_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::StackMonitoring::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::StackMonitoring::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:status] && !OCI::StackMonitoring::Models::METRIC_EXTENSION_LIFE_CYCLE_DETAILS_ENUM.include?(opts[:status])
+        raise 'Invalid value for "status", must be one of the values in OCI::StackMonitoring::Models::METRIC_EXTENSION_LIFE_CYCLE_DETAILS_ENUM.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::StackMonitoring::Models::METRIC_EXTENSION_LIFE_CYCLE_STATES_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::StackMonitoring::Models::METRIC_EXTENSION_LIFE_CYCLE_STATES_ENUM.'
+      end
+
+      path = '/metricExtensions'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:resourceType] = opts[:resource_type] if opts[:resource_type]
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:status] = opts[:status] if opts[:status]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:enabledOnResourceId] = opts[:enabled_on_resource_id] if opts[:enabled_on_resource_id]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#list_metric_extensions') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::MetricExtensionCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of stack monitoring resource tasks in the compartment.
+    #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment for which
+    #   stack monitoring resource tasks should be listed.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :status A filter to return only resources that matches with lifecycleState given.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided.
+    #   Default order for 'timeUpdated' is descending.
+    #    (default to timeUpdated)
+    #   Allowed values are: timeUpdated
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #    (default to ASC)
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
+    #   paginated \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #    (default to 10)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the
+    #   previous \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::MonitoredResourceTasksCollection MonitoredResourceTasksCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/list_monitored_resource_tasks.rb.html) to see an example of how to use list_monitored_resource_tasks API.
+    def list_monitored_resource_tasks(compartment_id, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#list_monitored_resource_tasks.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_monitored_resource_tasks." if compartment_id.nil?
+
+      if opts[:status] && !OCI::StackMonitoring::Models::MONITORED_RESOURCE_TASK_LIFECYCLE_STATE_ENUM.include?(opts[:status])
+        raise 'Invalid value for "status", must be one of the values in OCI::StackMonitoring::Models::MONITORED_RESOURCE_TASK_LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeUpdated].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeUpdated.'
+      end
+
+      if opts[:sort_order] && !OCI::StackMonitoring::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::StackMonitoring::Models::SORT_ORDER_ENUM.'
+      end
+
+      path = '/monitoredResourceTasks'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:status] = opts[:status] if opts[:status]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#list_monitored_resource_tasks') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::MonitoredResourceTasksCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns list of resource types accessible to the customer.
+    # There are two types of resource types - System resource types and User resource types.
+    # System resource types are available out of the box in the stack monitoring resource service
+    # and are accessible to all the tenant users. User resource types are created in the context
+    # of a tenancy and are visible only for the tenancy. By default, both System resource types
+    # and User resource types are returned.
+    #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the tenancy for which
+    #   monitored resource types should be listed.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :name A filter to return monitored resource types that match exactly with the resource type name given.
+    #
+    # @option opts [String] :status A filter to return only resources that matches with lifecycleState given.
+    # @option opts [BOOLEAN] :is_exclude_system_types A filter to exclude system resource types. If set to true, system resource types will be excluded.
+    #    (default to false)
+    # @option opts [String] :metric_namespace A filter to return monitored resource types that has the matching namespace.
+    #
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided.
+    #   Default order for 'timeUpdated' is descending. Default order for 'name' is ascending.
+    #    (default to timeUpdated)
+    #   Allowed values are: timeUpdated, name
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #    (default to ASC)
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
+    #   paginated \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #    (default to 10)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the
+    #   previous \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [Array<String>] :fields Partial response refers to an optimization technique offered
+    #   by the RESTful web APIs, to return only the information
+    #   (fields) required by the client. In this mechanism, the client
+    #   sends the required field names as the query parameters for
+    #   an API to the server, and the server trims down the default
+    #   response content by removing the fields that are not required
+    #   by the client. The parameter controls which fields to
+    #   return and should be a query string parameter called \"fields\" of
+    #   an array type, provide the values as enums, and use collectionFormat.
+    #
+    #   MonitoredResourceType Id, name and compartment will be added by default.
+    #
+    # @option opts [Array<String>] :exclude_fields Partial response refers to an optimization technique offered
+    #   by the RESTful web APIs, to return all the information except
+    #   the fields requested to be excluded (excludeFields) by the client.
+    #   In this mechanism, the client
+    #   sends the exclude field names as the query parameters for
+    #   an API to the server, and the server trims down the default
+    #   response content by removing the fields that are not required
+    #   by the client. The parameter controls which fields to
+    #   exlude and to return and should be a query string parameter
+    #   called \"excludeFields\" of an array type, provide the values
+    #   as enums, and use collectionFormat.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::MonitoredResourceTypesCollection MonitoredResourceTypesCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/list_monitored_resource_types.rb.html) to see an example of how to use list_monitored_resource_types API.
+    def list_monitored_resource_types(compartment_id, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#list_monitored_resource_types.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_monitored_resource_types." if compartment_id.nil?
+
+      if opts[:status] && !OCI::StackMonitoring::Models::RESOURCE_TYPE_LIFECYCLE_STATE_ENUM.include?(opts[:status])
+        raise 'Invalid value for "status", must be one of the values in OCI::StackMonitoring::Models::RESOURCE_TYPE_LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeUpdated name].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeUpdated, name.'
+      end
+
+      if opts[:sort_order] && !OCI::StackMonitoring::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::StackMonitoring::Models::SORT_ORDER_ENUM.'
+      end
+
+      path = '/monitoredResourceTypes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:status] = opts[:status] if opts[:status]
+      query_params[:isExcludeSystemTypes] = opts[:is_exclude_system_types] if !opts[:is_exclude_system_types].nil?
+      query_params[:metricNamespace] = opts[:metric_namespace] if opts[:metric_namespace]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:fields] = OCI::ApiClient.build_collection_params(opts[:fields], :multi) if opts[:fields] && !opts[:fields].empty?
+      query_params[:excludeFields] = OCI::ApiClient.build_collection_params(opts[:exclude_fields], :multi) if opts[:exclude_fields] && !opts[:exclude_fields].empty?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#list_monitored_resource_types') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::MonitoredResourceTypesCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of monitored resources.
+    # @param [String] compartment_id The ID of the compartment in which data is listed.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :name A filter to return resources that match exact resource name.
+    # @option opts [String] :work_request_id A filter to return resources which were impacted as part of this work request identifier.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided.
+    #   Default order for timeCreated is descending. Default order for resources is ascending.
+    #    (default to TIME_CREATED)
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #    (default to ASC)
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
+    #   paginated \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #    (default to 10)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the
+    #   previous \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::MonitoredResourceCollection MonitoredResourceCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/list_monitored_resources.rb.html) to see an example of how to use list_monitored_resources API.
+    def list_monitored_resources(compartment_id, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#list_monitored_resources.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_monitored_resources." if compartment_id.nil?
+
+      if opts[:sort_by] && !OCI::StackMonitoring::Models::MONITORED_RESOURCE_SORT_BY_ENUM.include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of the values in OCI::StackMonitoring::Models::MONITORED_RESOURCE_SORT_BY_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::StackMonitoring::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::StackMonitoring::Models::SORT_ORDER_ENUM.'
+      end
+
+      path = '/monitoredResources'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:workRequestId] = opts[:work_request_id] if opts[:work_request_id]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#list_monitored_resources') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::MonitoredResourceCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Return a (paginated) list of errors for a given work request.
     #
     # @param [String] work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the work request.
@@ -1613,6 +3256,253 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::StackMonitoring::Models::WorkRequestSummaryCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Each resource is assigned a license based on which features are enabled for it.
+    # User is charged differently based on license.
+    # Specify the license type to be updated for the parent resource in the topology.
+    # The license type value is propagated to the member resources as well.
+    # Member resource is a resource which has \"contains\" association with the resource.
+    #
+    # @param [String] monitored_resource_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of monitored resource.
+    # @param [OCI::StackMonitoring::Models::ManageLicenseDetails] manage_license_details New license information.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/manage_license.rb.html) to see an example of how to use manage_license API.
+    def manage_license(monitored_resource_id, manage_license_details, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#manage_license.' if logger
+
+      raise "Missing the required parameter 'monitored_resource_id' when calling manage_license." if monitored_resource_id.nil?
+      raise "Missing the required parameter 'manage_license_details' when calling manage_license." if manage_license_details.nil?
+      raise "Parameter value for 'monitored_resource_id' must not be blank" if OCI::Internal::Util.blank_string?(monitored_resource_id)
+
+      path = '/monitoredResources/{monitoredResourceId}/actions/manageLicense'.sub('{monitoredResourceId}', monitored_resource_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(manage_license_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#manage_license') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Publish the Metric Extension identified by the id
+    # @param [String] metric_extension_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the metric extension resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::MetricExtension MetricExtension}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/publish_metric_extension.rb.html) to see an example of how to use publish_metric_extension API.
+    def publish_metric_extension(metric_extension_id, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#publish_metric_extension.' if logger
+
+      raise "Missing the required parameter 'metric_extension_id' when calling publish_metric_extension." if metric_extension_id.nil?
+      raise "Parameter value for 'metric_extension_id' must not be blank" if OCI::Internal::Util.blank_string?(metric_extension_id)
+
+      path = '/metricExtensions/{metricExtensionId}/actions/publish'.sub('{metricExtensionId}', metric_extension_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#publish_metric_extension') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::MetricExtension'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets resource count based on the aggregation criteria specified using \"groupBy\" parameter.
+    #
+    # @param [String] compartment_id The ID of the compartment in which data is listed.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :group_by The field to group by. Default group by is 'resourceType'.
+    #    (default to resourceType)
+    #   Allowed values are: resourceType, license, parentResourceId
+    # @option opts [String] :license Filter to return resource counts that match with the given licence edition.
+    #
+    # @option opts [String] :resource_type A filter to return resource counts that match exact resource type.
+    # @option opts [String] :sort_by If this query parameter is specified, the result is sorted by this query parameter value.
+    #    (default to count)
+    #   Allowed values are: count
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #    (default to ASC)
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a
+    #   paginated \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #    (default to 10)
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the
+    #   previous \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::MonitoredResourcesCountAggregationCollection MonitoredResourcesCountAggregationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/request_monitored_resources_summarized_count.rb.html) to see an example of how to use request_monitored_resources_summarized_count API.
+    def request_monitored_resources_summarized_count(compartment_id, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#request_monitored_resources_summarized_count.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling request_monitored_resources_summarized_count." if compartment_id.nil?
+
+      if opts[:group_by] && !%w[resourceType license parentResourceId].include?(opts[:group_by])
+        raise 'Invalid value for "group_by", must be one of resourceType, license, parentResourceId.'
+      end
+
+      if opts[:license] && !OCI::StackMonitoring::Models::LICENSE_TYPE_ENUM.include?(opts[:license])
+        raise 'Invalid value for "license", must be one of the values in OCI::StackMonitoring::Models::LICENSE_TYPE_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[count].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of count.'
+      end
+
+      if opts[:sort_order] && !OCI::StackMonitoring::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::StackMonitoring::Models::SORT_ORDER_ENUM.'
+      end
+
+      path = '/monitoredResources/actions/summarizeCount'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:groupBy] = opts[:group_by] if opts[:group_by]
+      query_params[:license] = opts[:license] if opts[:license]
+      query_params[:resourceType] = opts[:resource_type] if opts[:resource_type]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#request_monitored_resources_summarized_count') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::MonitoredResourcesCountAggregationCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2020,6 +3910,79 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Performs test of Metric Extension on a specific resource Id
+    # @param [String] metric_extension_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the metric extension resource.
+    # @param [OCI::StackMonitoring::Models::TestMetricExtensionDetails] test_metric_extension_details It contains OCID of resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::TestMetricExtensionData TestMetricExtensionData}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/test_metric_extension.rb.html) to see an example of how to use test_metric_extension API.
+    def test_metric_extension(metric_extension_id, test_metric_extension_details, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#test_metric_extension.' if logger
+
+      raise "Missing the required parameter 'metric_extension_id' when calling test_metric_extension." if metric_extension_id.nil?
+      raise "Missing the required parameter 'test_metric_extension_details' when calling test_metric_extension." if test_metric_extension_details.nil?
+      raise "Parameter value for 'metric_extension_id' must not be blank" if OCI::Internal::Util.blank_string?(metric_extension_id)
+
+      path = '/metricExtensions/{metricExtensionId}/actions/test'.sub('{metricExtensionId}', metric_extension_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(test_metric_extension_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#test_metric_extension') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::TestMetricExtensionData'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Provided tags will be added or updated in the existing list of tags for the affected resources.
     # Resources to be updated are identified based on association types specified.
     # If association types not specified, then tags will be updated only for the resource identified by
@@ -2083,6 +4046,71 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the Baseline-able metric for the given id
+    # @param [OCI::StackMonitoring::Models::UpdateBaselineableMetricDetails] update_baselineable_metric_details Baseline metric
+    # @param [String] baselineable_metric_id Identifier for the metric
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::BaselineableMetric BaselineableMetric}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/update_baselineable_metric.rb.html) to see an example of how to use update_baselineable_metric API.
+    def update_baselineable_metric(update_baselineable_metric_details, baselineable_metric_id, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#update_baselineable_metric.' if logger
+
+      raise "Missing the required parameter 'update_baselineable_metric_details' when calling update_baselineable_metric." if update_baselineable_metric_details.nil?
+      raise "Missing the required parameter 'baselineable_metric_id' when calling update_baselineable_metric." if baselineable_metric_id.nil?
+      raise "Parameter value for 'baselineable_metric_id' must not be blank" if OCI::Internal::Util.blank_string?(baselineable_metric_id)
+
+      path = '/baselineableMetrics/{baselineableMetricId}'.sub('{baselineableMetricId}', baselineable_metric_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_baselineable_metric_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#update_baselineable_metric') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::BaselineableMetric'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -2161,6 +4189,71 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Updates the Metric Extension
+    # @param [String] metric_extension_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the metric extension resource.
+    # @param [OCI::StackMonitoring::Models::UpdateMetricExtensionDetails] update_metric_extension_details The information to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::MetricExtension MetricExtension}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/update_metric_extension.rb.html) to see an example of how to use update_metric_extension API.
+    def update_metric_extension(metric_extension_id, update_metric_extension_details, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#update_metric_extension.' if logger
+
+      raise "Missing the required parameter 'metric_extension_id' when calling update_metric_extension." if metric_extension_id.nil?
+      raise "Missing the required parameter 'update_metric_extension_details' when calling update_metric_extension." if update_metric_extension_details.nil?
+      raise "Parameter value for 'metric_extension_id' must not be blank" if OCI::Internal::Util.blank_string?(metric_extension_id)
+
+      path = '/metricExtensions/{metricExtensionId}'.sub('{metricExtensionId}', metric_extension_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_metric_extension_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#update_metric_extension') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::MetricExtension'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Update monitored resource by the given identifier [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # Note that \"properties\" object, if specified, will entirely replace the existing object,
     # as part this operation.
@@ -2215,6 +4308,138 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Update stack monitoring resource task by the given identifier [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    #
+    # @param [String] monitored_resource_task_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of stack monitoring resource task.
+    # @param [OCI::StackMonitoring::Models::UpdateMonitoredResourceTaskDetails] update_monitored_resource_task_details The information to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::MonitoredResourceTask MonitoredResourceTask}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/update_monitored_resource_task.rb.html) to see an example of how to use update_monitored_resource_task API.
+    def update_monitored_resource_task(monitored_resource_task_id, update_monitored_resource_task_details, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#update_monitored_resource_task.' if logger
+
+      raise "Missing the required parameter 'monitored_resource_task_id' when calling update_monitored_resource_task." if monitored_resource_task_id.nil?
+      raise "Missing the required parameter 'update_monitored_resource_task_details' when calling update_monitored_resource_task." if update_monitored_resource_task_details.nil?
+      raise "Parameter value for 'monitored_resource_task_id' must not be blank" if OCI::Internal::Util.blank_string?(monitored_resource_task_id)
+
+      path = '/monitoredResourceTasks/{monitoredResourceTaskId}'.sub('{monitoredResourceTaskId}', monitored_resource_task_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_monitored_resource_task_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#update_monitored_resource_task') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::MonitoredResourceTask'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Update the Monitored Resource Type identified by the identifier [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    #
+    # @param [String] monitored_resource_type_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of monitored resource type.
+    # @param [OCI::StackMonitoring::Models::UpdateMonitoredResourceTypeDetails] update_monitored_resource_type_details The information to be updated for the given resource type id.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about a
+    #   particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::StackMonitoring::Models::MonitoredResourceType MonitoredResourceType}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/stackmonitoring/update_monitored_resource_type.rb.html) to see an example of how to use update_monitored_resource_type API.
+    def update_monitored_resource_type(monitored_resource_type_id, update_monitored_resource_type_details, opts = {})
+      logger.debug 'Calling operation StackMonitoringClient#update_monitored_resource_type.' if logger
+
+      raise "Missing the required parameter 'monitored_resource_type_id' when calling update_monitored_resource_type." if monitored_resource_type_id.nil?
+      raise "Missing the required parameter 'update_monitored_resource_type_details' when calling update_monitored_resource_type." if update_monitored_resource_type_details.nil?
+      raise "Parameter value for 'monitored_resource_type_id' must not be blank" if OCI::Internal::Util.blank_string?(monitored_resource_type_id)
+
+      path = '/monitoredResourceTypes/{monitoredResourceTypeId}'.sub('{monitoredResourceTypeId}', monitored_resource_type_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_monitored_resource_type_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'StackMonitoringClient#update_monitored_resource_type') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::StackMonitoring::Models::MonitoredResourceType'
         )
       end
       # rubocop:enable Metrics/BlockLength

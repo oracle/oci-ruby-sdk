@@ -6,21 +6,21 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details for updating a DR Plan step.
+  # The details for updating a DR plan step.
   class DisasterRecovery::Models::UpdateDrPlanStepDetails
     ERROR_MODE_ENUM = [
       ERROR_MODE_STOP_ON_ERROR = 'STOP_ON_ERROR'.freeze,
       ERROR_MODE_CONTINUE_ON_ERROR = 'CONTINUE_ON_ERROR'.freeze
     ].freeze
 
-    # The unique id of this step.
+    # The unique id of the step.
     #
-    # Example: `sgid1.step..&lt;unique_id&gt;`
+    # Example: `sgid1.step..uniqueID`
     #
     # @return [String]
     attr_accessor :id
 
-    # The display name of this step in a group.
+    # The display name of the step in a group.
     #
     # Example: `My_STEP_3A - EBS Start - STAGE A`
     #

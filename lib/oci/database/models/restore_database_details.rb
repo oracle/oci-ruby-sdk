@@ -9,6 +9,7 @@ module OCI
   # RestoreDatabaseDetails model.
   class Database::Models::RestoreDatabaseDetails
     # Restores using the backup with the System Change Number (SCN) specified.
+    # This field is applicable for both use cases - Restoring Container Database or Restoring specific Pluggable Database.
     #
     # @return [String]
     attr_accessor :database_scn
@@ -23,13 +24,19 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :latest
 
+    # Restores only the Pluggable Database (if specified) using the inputs provided in request.
+    #
+    # @return [String]
+    attr_accessor :pluggable_database_name
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'database_scn': :'databaseSCN',
         'timestamp': :'timestamp',
-        'latest': :'latest'
+        'latest': :'latest',
+        'pluggable_database_name': :'pluggableDatabaseName'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -40,7 +47,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'database_scn': :'String',
         'timestamp': :'DateTime',
-        'latest': :'BOOLEAN'
+        'latest': :'BOOLEAN',
+        'pluggable_database_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -54,6 +62,7 @@ module OCI
     # @option attributes [String] :database_scn The value to assign to the {#database_scn} property
     # @option attributes [DateTime] :timestamp The value to assign to the {#timestamp} property
     # @option attributes [BOOLEAN] :latest The value to assign to the {#latest} property
+    # @option attributes [String] :pluggable_database_name The value to assign to the {#pluggable_database_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -69,6 +78,12 @@ module OCI
       self.timestamp = attributes[:'timestamp'] if attributes[:'timestamp']
 
       self.latest = attributes[:'latest'] unless attributes[:'latest'].nil?
+
+      self.pluggable_database_name = attributes[:'pluggableDatabaseName'] if attributes[:'pluggableDatabaseName']
+
+      raise 'You cannot provide both :pluggableDatabaseName and :pluggable_database_name' if attributes.key?(:'pluggableDatabaseName') && attributes.key?(:'pluggable_database_name')
+
+      self.pluggable_database_name = attributes[:'pluggable_database_name'] if attributes[:'pluggable_database_name']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -84,7 +99,8 @@ module OCI
       self.class == other.class &&
         database_scn == other.database_scn &&
         timestamp == other.timestamp &&
-        latest == other.latest
+        latest == other.latest &&
+        pluggable_database_name == other.pluggable_database_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -100,7 +116,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_scn, timestamp, latest].hash
+      [database_scn, timestamp, latest, pluggable_database_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

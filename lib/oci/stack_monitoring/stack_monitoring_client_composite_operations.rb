@@ -77,6 +77,45 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::StackMonitoring::StackMonitoringClient#create_baselineable_metric} and then waits for the {OCI::StackMonitoring::Models::BaselineableMetric} acted upon
+    # to enter the given state(s).
+    #
+    # @param [OCI::StackMonitoring::Models::CreateBaselineableMetricDetails] create_baselineable_metric_details Baseline metric
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::StackMonitoring::Models::BaselineableMetric#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::StackMonitoring::StackMonitoringClient#create_baselineable_metric}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::StackMonitoring::Models::BaselineableMetric}
+    def create_baselineable_metric_and_wait_for_state(create_baselineable_metric_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_baselineable_metric(create_baselineable_metric_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_baselineable_metric(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::StackMonitoring::StackMonitoringClient#create_config} and then waits for the {OCI::StackMonitoring::Models::Config} acted upon
     # to enter the given state(s).
     #
@@ -155,6 +194,45 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::StackMonitoring::StackMonitoringClient#create_metric_extension} and then waits for the {OCI::StackMonitoring::Models::MetricExtension} acted upon
+    # to enter the given state(s).
+    #
+    # @param [OCI::StackMonitoring::Models::CreateMetricExtensionDetails] create_metric_extension_details Details required for creating new Metric Extension
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::StackMonitoring::Models::MetricExtension#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::StackMonitoring::StackMonitoringClient#create_metric_extension}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::StackMonitoring::Models::MetricExtension}
+    def create_metric_extension_and_wait_for_state(create_metric_extension_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_metric_extension(create_metric_extension_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_metric_extension(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::StackMonitoring::StackMonitoringClient#create_monitored_resource} and then waits for the {OCI::StackMonitoring::Models::WorkRequest}
     # to enter the given state(s).
     #
@@ -191,6 +269,134 @@ module OCI
             max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
           )
         end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::StackMonitoring::StackMonitoringClient#create_monitored_resource_task} and then waits for the {OCI::StackMonitoring::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [OCI::StackMonitoring::Models::CreateMonitoredResourceTaskDetails] create_monitored_resource_task_details Details to create the new stack monitoring resource task.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::StackMonitoring::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::StackMonitoring::StackMonitoringClient#create_monitored_resource_task}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::StackMonitoring::Models::WorkRequest}
+    def create_monitored_resource_task_and_wait_for_state(create_monitored_resource_task_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_monitored_resource_task(create_monitored_resource_task_details, base_operation_opts)
+      use_util = OCI::StackMonitoring::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::StackMonitoring::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::StackMonitoring::StackMonitoringClient#create_monitored_resource_type} and then waits for the {OCI::StackMonitoring::Models::MonitoredResourceType} acted upon
+    # to enter the given state(s).
+    #
+    # @param [OCI::StackMonitoring::Models::CreateMonitoredResourceTypeDetails] create_monitored_resource_type_details Details for the new monitored resource type.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::StackMonitoring::Models::MonitoredResourceType#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::StackMonitoring::StackMonitoringClient#create_monitored_resource_type}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::StackMonitoring::Models::MonitoredResourceType}
+    def create_monitored_resource_type_and_wait_for_state(create_monitored_resource_type_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_monitored_resource_type(create_monitored_resource_type_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_monitored_resource_type(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::StackMonitoring::StackMonitoringClient#delete_baselineable_metric} and then waits for the {OCI::StackMonitoring::Models::BaselineableMetric} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] baselineable_metric_id Identifier for the metric
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::StackMonitoring::Models::BaselineableMetric#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::StackMonitoring::StackMonitoringClient#delete_baselineable_metric}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    def delete_baselineable_metric_and_wait_for_state(baselineable_metric_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      initial_get_result = @service_client.get_baselineable_metric(baselineable_metric_id)
+      operation_result = @service_client.delete_baselineable_metric(baselineable_metric_id, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+
+      begin
+        waiter_result = initial_get_result.wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
+          succeed_on_not_found: true
+        )
         result_to_return = waiter_result
 
         return result_to_return
@@ -285,6 +491,46 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::StackMonitoring::StackMonitoringClient#delete_metric_extension} and then waits for the {OCI::StackMonitoring::Models::MetricExtension} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] metric_extension_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the metric extension resource.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::StackMonitoring::Models::MetricExtension#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::StackMonitoring::StackMonitoringClient#delete_metric_extension}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    def delete_metric_extension_and_wait_for_state(metric_extension_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      initial_get_result = @service_client.get_metric_extension(metric_extension_id)
+      operation_result = @service_client.delete_metric_extension(metric_extension_id, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+
+      begin
+        waiter_result = initial_get_result.wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
+          succeed_on_not_found: true
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::StackMonitoring::StackMonitoringClient#delete_monitored_resource} and then waits for the {OCI::StackMonitoring::Models::WorkRequest}
     # to enter the given state(s).
     #
@@ -334,6 +580,46 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::StackMonitoring::StackMonitoringClient#delete_monitored_resource_type} and then waits for the {OCI::StackMonitoring::Models::MonitoredResourceType} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] monitored_resource_type_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of monitored resource type.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::StackMonitoring::Models::MonitoredResourceType#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::StackMonitoring::StackMonitoringClient#delete_monitored_resource_type}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type nil
+    def delete_monitored_resource_type_and_wait_for_state(monitored_resource_type_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      initial_get_result = @service_client.get_monitored_resource_type(monitored_resource_type_id)
+      operation_result = @service_client.delete_monitored_resource_type(monitored_resource_type_id, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+
+      begin
+        waiter_result = initial_get_result.wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200,
+          succeed_on_not_found: true
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::StackMonitoring::StackMonitoringClient#disable_external_database} and then waits for the {OCI::StackMonitoring::Models::WorkRequest}
     # to enter the given state(s).
     #
@@ -347,6 +633,195 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::StackMonitoring::Models::WorkRequest}
     def disable_external_database_and_wait_for_state(monitored_resource_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.disable_external_database(monitored_resource_id, base_operation_opts)
+      use_util = OCI::StackMonitoring::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::StackMonitoring::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::StackMonitoring::StackMonitoringClient#disable_metric_extension} and then waits for the {OCI::StackMonitoring::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] metric_extension_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the metric extension resource.
+    # @param [OCI::StackMonitoring::Models::DisableMetricExtensionDetails] disable_metric_extension_details The list of Resource IDs for which given metric extension needs to be disabled
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::StackMonitoring::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::StackMonitoring::StackMonitoringClient#disable_metric_extension}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::StackMonitoring::Models::WorkRequest}
+    def disable_metric_extension_and_wait_for_state(metric_extension_id, disable_metric_extension_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.disable_metric_extension(metric_extension_id, disable_metric_extension_details, base_operation_opts)
+      use_util = OCI::StackMonitoring::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::StackMonitoring::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::StackMonitoring::StackMonitoringClient#enable_metric_extension} and then waits for the {OCI::StackMonitoring::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] metric_extension_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the metric extension resource.
+    # @param [OCI::StackMonitoring::Models::EnableMetricExtensionDetails] enable_metric_extension_details The list of Resource IDs for which given metric extension needs to be enabled
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::StackMonitoring::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::StackMonitoring::StackMonitoringClient#enable_metric_extension}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::StackMonitoring::Models::WorkRequest}
+    def enable_metric_extension_and_wait_for_state(metric_extension_id, enable_metric_extension_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.enable_metric_extension(metric_extension_id, enable_metric_extension_details, base_operation_opts)
+      use_util = OCI::StackMonitoring::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::StackMonitoring::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::StackMonitoring::StackMonitoringClient#publish_metric_extension} and then waits for the {OCI::StackMonitoring::Models::MetricExtension} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] metric_extension_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the metric extension resource.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::StackMonitoring::Models::MetricExtension#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::StackMonitoring::StackMonitoringClient#publish_metric_extension}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::StackMonitoring::Models::MetricExtension}
+    def publish_metric_extension_and_wait_for_state(metric_extension_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.publish_metric_extension(metric_extension_id, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_metric_extension(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::StackMonitoring::StackMonitoringClient#test_metric_extension} and then waits for the {OCI::StackMonitoring::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] metric_extension_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the metric extension resource.
+    # @param [OCI::StackMonitoring::Models::TestMetricExtensionDetails] test_metric_extension_details It contains OCID of resource.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::StackMonitoring::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::StackMonitoring::StackMonitoringClient#test_metric_extension}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::StackMonitoring::Models::WorkRequest}
+    def test_metric_extension_and_wait_for_state(metric_extension_id, test_metric_extension_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.test_metric_extension(metric_extension_id, test_metric_extension_details, base_operation_opts)
       use_util = OCI::StackMonitoring::Util.respond_to?(:wait_on_work_request)
 
       return operation_result if wait_for_states.empty? && !use_util
@@ -433,6 +908,46 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::StackMonitoring::StackMonitoringClient#update_baselineable_metric} and then waits for the {OCI::StackMonitoring::Models::BaselineableMetric} acted upon
+    # to enter the given state(s).
+    #
+    # @param [OCI::StackMonitoring::Models::UpdateBaselineableMetricDetails] update_baselineable_metric_details Baseline metric
+    # @param [String] baselineable_metric_id Identifier for the metric
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::StackMonitoring::Models::BaselineableMetric#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::StackMonitoring::StackMonitoringClient#update_baselineable_metric}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::StackMonitoring::Models::BaselineableMetric}
+    def update_baselineable_metric_and_wait_for_state(update_baselineable_metric_details, baselineable_metric_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_baselineable_metric(update_baselineable_metric_details, baselineable_metric_id, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_baselineable_metric(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::StackMonitoring::StackMonitoringClient#update_config} and then waits for the {OCI::StackMonitoring::Models::Config} acted upon
     # to enter the given state(s).
     #
@@ -455,6 +970,46 @@ module OCI
 
       begin
         waiter_result = @service_client.get_config(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::StackMonitoring::StackMonitoringClient#update_metric_extension} and then waits for the {OCI::StackMonitoring::Models::MetricExtension} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] metric_extension_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the metric extension resource.
+    # @param [OCI::StackMonitoring::Models::UpdateMetricExtensionDetails] update_metric_extension_details The information to be updated.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::StackMonitoring::Models::MetricExtension#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::StackMonitoring::StackMonitoringClient#update_metric_extension}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::StackMonitoring::Models::MetricExtension}
+    def update_metric_extension_and_wait_for_state(metric_extension_id, update_metric_extension_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_metric_extension(metric_extension_id, update_metric_extension_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_metric_extension(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
@@ -509,6 +1064,86 @@ module OCI
             max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
           )
         end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::StackMonitoring::StackMonitoringClient#update_monitored_resource_task} and then waits for the {OCI::StackMonitoring::Models::MonitoredResourceTask} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] monitored_resource_task_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of stack monitoring resource task.
+    # @param [OCI::StackMonitoring::Models::UpdateMonitoredResourceTaskDetails] update_monitored_resource_task_details The information to be updated.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::StackMonitoring::Models::MonitoredResourceTask#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::StackMonitoring::StackMonitoringClient#update_monitored_resource_task}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::StackMonitoring::Models::MonitoredResourceTask}
+    def update_monitored_resource_task_and_wait_for_state(monitored_resource_task_id, update_monitored_resource_task_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_monitored_resource_task(monitored_resource_task_id, update_monitored_resource_task_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_monitored_resource_task(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::StackMonitoring::StackMonitoringClient#update_monitored_resource_type} and then waits for the {OCI::StackMonitoring::Models::MonitoredResourceType} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] monitored_resource_type_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of monitored resource type.
+    # @param [OCI::StackMonitoring::Models::UpdateMonitoredResourceTypeDetails] update_monitored_resource_type_details The information to be updated for the given resource type id.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::StackMonitoring::Models::MonitoredResourceType#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::StackMonitoring::StackMonitoringClient#update_monitored_resource_type}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::StackMonitoring::Models::MonitoredResourceType}
+    def update_monitored_resource_type_and_wait_for_state(monitored_resource_type_id, update_monitored_resource_type_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_monitored_resource_type(monitored_resource_type_id, update_monitored_resource_type_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_monitored_resource_type(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
         result_to_return = waiter_result
 
         return result_to_return

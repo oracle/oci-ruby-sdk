@@ -6,41 +6,43 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A movable compute instance's source and destination VNIC mapping.
+  # Source VNIC to destination subnet mapping for a movable compute instance.
   class DisasterRecovery::Models::ComputeInstanceMovableVnicMapping
-    # **[Required]** The OCID of the VNIC.
+    # **[Required]** The OCID of the source VNIC.
     #
-    # Example: `ocid1.vnic.oc1..&lt;unique_id&gt;`
+    # Example: `ocid1.vnic.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :source_vnic_id
 
-    # **[Required]** The OCID of the destination (remote) subnet to which this VNIC should connect.
+    # **[Required]** The OCID of the destination subnet to which the source VNIC should connect.
     #
-    # Example: `ocid1.subnet.oc1..&lt;unique_id&gt;`
+    # Example: `ocid1.subnet.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :destination_subnet_id
 
-    # The primary private IP address to assign. This address must belong to the destination subnet.
+    # The private IP address to be assigned as the VNIC's primary IP address in the destination subnet.
+    # This must be a valid IP address in the destination subnet and the IP address must be available.
     #
     # Example: `10.0.3.3`
     #
     # @return [String]
     attr_accessor :destination_primary_private_ip_address
 
-    # The hostname to assign for this primary private IP.
-    # The value is the hostname portion of the private IP's fully qualified domain name (FQDN)
-    # (for example, bminstance1 in FQDN bminstance1.subnet123.vcn1.oraclevcn.com).
+    # The hostname label to be assigned in the destination subnet for the primary private IP of the source VNIC.
+    # This label is the hostname portion of the private IP's fully qualified domain name (FQDN)
+    # (for example, 'myhost1' in the FQDN 'myhost1.subnet123.vcn1.oraclevcn.com').
     #
-    # Example: `bminstance1`
+    # Example: `myhost1`
     #
     # @return [String]
     attr_accessor :destination_primary_private_ip_hostname_label
 
-    # A list of destination region's network security group (NSG) OCIDs which this VNIC should use.
+    # A list of OCIDs of network security groups (NSG) in the destination region which should be assigned to
+    # the source VNIC.
     #
-    # Example: `[ ocid1.networksecuritygroup.oc1..&lt;unique_id&gt;, ocid1.networksecuritygroup.oc1..&lt;unique_id&gt; ]`
+    # Example: `[ ocid1.networksecuritygroup.oc1..uniqueID, ocid1.networksecuritygroup.oc1..uniqueID ]`
     #
     # @return [Array<String>]
     attr_accessor :destination_nsg_id_list

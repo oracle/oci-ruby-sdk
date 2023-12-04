@@ -44,6 +44,10 @@ module OCI
     # @return [OCI::DataScience::Models::NotebookSessionRuntimeConfigDetails]
     attr_accessor :notebook_session_runtime_config_details
 
+    # Collection of NotebookSessionStorageMountConfigurationDetails.
+    # @return [Array<OCI::DataScience::Models::StorageMountConfigurationDetails>]
+    attr_accessor :notebook_session_storage_mount_configuration_details_list
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -55,7 +59,8 @@ module OCI
         'notebook_session_config_details': :'notebookSessionConfigDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'notebook_session_runtime_config_details': :'notebookSessionRuntimeConfigDetails'
+        'notebook_session_runtime_config_details': :'notebookSessionRuntimeConfigDetails',
+        'notebook_session_storage_mount_configuration_details_list': :'notebookSessionStorageMountConfigurationDetailsList'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -71,7 +76,8 @@ module OCI
         'notebook_session_config_details': :'OCI::DataScience::Models::NotebookSessionConfigDetails',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'notebook_session_runtime_config_details': :'OCI::DataScience::Models::NotebookSessionRuntimeConfigDetails'
+        'notebook_session_runtime_config_details': :'OCI::DataScience::Models::NotebookSessionRuntimeConfigDetails',
+        'notebook_session_storage_mount_configuration_details_list': :'Array<OCI::DataScience::Models::StorageMountConfigurationDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -90,6 +96,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [OCI::DataScience::Models::NotebookSessionRuntimeConfigDetails] :notebook_session_runtime_config_details The value to assign to the {#notebook_session_runtime_config_details} property
+    # @option attributes [Array<OCI::DataScience::Models::StorageMountConfigurationDetails>] :notebook_session_storage_mount_configuration_details_list The value to assign to the {#notebook_session_storage_mount_configuration_details_list} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -143,6 +150,12 @@ module OCI
       raise 'You cannot provide both :notebookSessionRuntimeConfigDetails and :notebook_session_runtime_config_details' if attributes.key?(:'notebookSessionRuntimeConfigDetails') && attributes.key?(:'notebook_session_runtime_config_details')
 
       self.notebook_session_runtime_config_details = attributes[:'notebook_session_runtime_config_details'] if attributes[:'notebook_session_runtime_config_details']
+
+      self.notebook_session_storage_mount_configuration_details_list = attributes[:'notebookSessionStorageMountConfigurationDetailsList'] if attributes[:'notebookSessionStorageMountConfigurationDetailsList']
+
+      raise 'You cannot provide both :notebookSessionStorageMountConfigurationDetailsList and :notebook_session_storage_mount_configuration_details_list' if attributes.key?(:'notebookSessionStorageMountConfigurationDetailsList') && attributes.key?(:'notebook_session_storage_mount_configuration_details_list')
+
+      self.notebook_session_storage_mount_configuration_details_list = attributes[:'notebook_session_storage_mount_configuration_details_list'] if attributes[:'notebook_session_storage_mount_configuration_details_list']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -163,7 +176,8 @@ module OCI
         notebook_session_config_details == other.notebook_session_config_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        notebook_session_runtime_config_details == other.notebook_session_runtime_config_details
+        notebook_session_runtime_config_details == other.notebook_session_runtime_config_details &&
+        notebook_session_storage_mount_configuration_details_list == other.notebook_session_storage_mount_configuration_details_list
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -179,7 +193,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, project_id, compartment_id, notebook_session_configuration_details, notebook_session_config_details, freeform_tags, defined_tags, notebook_session_runtime_config_details].hash
+      [display_name, project_id, compartment_id, notebook_session_configuration_details, notebook_session_config_details, freeform_tags, defined_tags, notebook_session_runtime_config_details, notebook_session_storage_mount_configuration_details_list].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

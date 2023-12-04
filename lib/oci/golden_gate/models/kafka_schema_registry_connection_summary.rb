@@ -59,9 +59,9 @@ module OCI
         'time_updated': :'timeUpdated',
         'vault_id': :'vaultId',
         'key_id': :'keyId',
-        'subnet_id': :'subnetId',
         'ingress_ips': :'ingressIps',
         'nsg_ids': :'nsgIds',
+        'subnet_id': :'subnetId',
         'technology_type': :'technologyType',
         'url': :'url',
         'authentication_type': :'authenticationType',
@@ -89,9 +89,9 @@ module OCI
         'time_updated': :'DateTime',
         'vault_id': :'String',
         'key_id': :'String',
-        'subnet_id': :'String',
         'ingress_ips': :'Array<OCI::GoldenGate::Models::IngressIpDetails>',
         'nsg_ids': :'Array<String>',
+        'subnet_id': :'String',
         'technology_type': :'String',
         'url': :'String',
         'authentication_type': :'String',
@@ -120,9 +120,9 @@ module OCI
     # @option attributes [DateTime] :time_updated The value to assign to the {OCI::GoldenGate::Models::ConnectionSummary#time_updated #time_updated} proprety
     # @option attributes [String] :vault_id The value to assign to the {OCI::GoldenGate::Models::ConnectionSummary#vault_id #vault_id} proprety
     # @option attributes [String] :key_id The value to assign to the {OCI::GoldenGate::Models::ConnectionSummary#key_id #key_id} proprety
-    # @option attributes [String] :subnet_id The value to assign to the {OCI::GoldenGate::Models::ConnectionSummary#subnet_id #subnet_id} proprety
     # @option attributes [Array<OCI::GoldenGate::Models::IngressIpDetails>] :ingress_ips The value to assign to the {OCI::GoldenGate::Models::ConnectionSummary#ingress_ips #ingress_ips} proprety
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {OCI::GoldenGate::Models::ConnectionSummary#nsg_ids #nsg_ids} proprety
+    # @option attributes [String] :subnet_id The value to assign to the {OCI::GoldenGate::Models::ConnectionSummary#subnet_id #subnet_id} proprety
     # @option attributes [String] :technology_type The value to assign to the {#technology_type} property
     # @option attributes [String] :url The value to assign to the {#url} property
     # @option attributes [String] :authentication_type The value to assign to the {#authentication_type} property
@@ -186,9 +186,9 @@ module OCI
         time_updated == other.time_updated &&
         vault_id == other.vault_id &&
         key_id == other.key_id &&
-        subnet_id == other.subnet_id &&
         ingress_ips == other.ingress_ips &&
         nsg_ids == other.nsg_ids &&
+        subnet_id == other.subnet_id &&
         technology_type == other.technology_type &&
         url == other.url &&
         authentication_type == other.authentication_type &&
@@ -209,7 +209,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [connection_type, id, display_name, description, compartment_id, freeform_tags, defined_tags, system_tags, lifecycle_state, lifecycle_details, time_created, time_updated, vault_id, key_id, subnet_id, ingress_ips, nsg_ids, technology_type, url, authentication_type, username, private_ip].hash
+      [connection_type, id, display_name, description, compartment_id, freeform_tags, defined_tags, system_tags, lifecycle_state, lifecycle_details, time_created, time_updated, vault_id, key_id, ingress_ips, nsg_ids, subnet_id, technology_type, url, authentication_type, username, private_ip].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

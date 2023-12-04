@@ -6,13 +6,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details to create a new Knowledge Base.
+  # Details to create a new knowledge base.
   class Adm::Models::CreateKnowledgeBaseDetails
-    # **[Required]** The Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)) of the Knowledge Base's compartment.
+    # **[Required]** The compartment Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)) of the knowledge base.
     # @return [String]
     attr_accessor :compartment_id
 
-    # The name of the Knowledge Base.
+    # The name of the knowledge base.
     # @return [String]
     attr_accessor :display_name
 

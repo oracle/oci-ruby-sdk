@@ -7,7 +7,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of a plan group in a DR Plan.
+  # Details of a group in a DR plan.
   class DisasterRecovery::Models::DrPlanGroup
     TYPE_ENUM = [
       TYPE_USER_DEFINED = 'USER_DEFINED'.freeze,
@@ -16,26 +16,28 @@ module OCI
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The unique id of this group. Must not be modified by user.
+    # **[Required]** The unique id of the group. Must not be modified by user.
     #
-    # Example: `sgid1.group..&lt;unique_id&gt;`
+    # Example: `sgid1.group..uniqueID`
     #
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The plan group type.
+    # **[Required]** The group type.
+    #
+    # Example: `BUILT_IN`
     #
     # @return [String]
     attr_reader :type
 
-    # **[Required]** The display name of this DR Plan Group.
+    # **[Required]** The display name of the group.
     #
     # Example: `DATABASE_SWITCHOVER`
     #
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The list of steps in this plan group.
+    # **[Required]** The list of steps in the group.
     #
     # @return [Array<OCI::DisasterRecovery::Models::DrPlanStep>]
     attr_accessor :steps

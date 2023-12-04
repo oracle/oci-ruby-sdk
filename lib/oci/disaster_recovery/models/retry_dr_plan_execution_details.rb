@@ -10,14 +10,14 @@ module OCI
   class DisasterRecovery::Models::RetryDrPlanExecutionDetails
     # **[Required]** The unique id of the group to retry as a whole, or the group containing the step being retried.
     #
-    # Example: `sgid1.group..&lt;unique_id&gt;`
+    # Example: `sgid1.group..uniqueID`
     #
     # @return [String]
     attr_accessor :group_id
 
     # The unique id of the step to retry (optional). Only needed when retrying a step.
     #
-    # Example: `sgid1.step..&lt;unique_id&gt;`
+    # Example: `sgid1.step..uniqueID`
     #
     # @return [String]
     attr_accessor :step_id

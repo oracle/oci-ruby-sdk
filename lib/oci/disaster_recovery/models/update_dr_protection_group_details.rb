@@ -6,11 +6,11 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details for updating a DR Protection Group.
+  # The details for updating a DR protection group.
   class DisasterRecovery::Models::UpdateDrProtectionGroupDetails
-    # The display name of the DR Protection Group.
+    # The display name of the DR protection group.
     #
-    # Example: `EBS PHX DRPG`
+    # Example: `EBS PHX Group`
     #
     # @return [String]
     attr_accessor :display_name
@@ -18,18 +18,21 @@ module OCI
     # @return [OCI::DisasterRecovery::Models::UpdateObjectStorageLogLocationDetails]
     attr_accessor :log_location
 
-    # A list of DR Protection Group members.
+    # A list of DR protection group members.  When updating members, this list must contain all members being retained,
+    # including added and updated members. The list must not contain deleted members.
     #
     # @return [Array<OCI::DisasterRecovery::Models::UpdateDrProtectionGroupMemberDetails>]
     attr_accessor :members
 
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]

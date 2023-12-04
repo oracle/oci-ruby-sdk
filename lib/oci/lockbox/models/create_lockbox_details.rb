@@ -21,7 +21,7 @@ module OCI
     # @return [String]
     attr_accessor :resource_id
 
-    # **[Required]** The partner using this lockbox to lock a resource.
+    # The partner using this lockbox to lock a resource.
     # @return [String]
     attr_reader :lockbox_partner
 
@@ -29,7 +29,11 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** Compartment Identifier
+    # The unique identifier (OCID) of partner resource using this lockbox to lock a resource
+    # @return [String]
+    attr_accessor :partner_id
+
+    # Compartment Identifier
     # @return [String]
     attr_accessor :partner_compartment_id
 
@@ -65,6 +69,7 @@ module OCI
         'resource_id': :'resourceId',
         'lockbox_partner': :'lockboxPartner',
         'compartment_id': :'compartmentId',
+        'partner_id': :'partnerId',
         'partner_compartment_id': :'partnerCompartmentId',
         'approval_template_id': :'approvalTemplateId',
         'max_access_duration': :'maxAccessDuration',
@@ -83,6 +88,7 @@ module OCI
         'resource_id': :'String',
         'lockbox_partner': :'String',
         'compartment_id': :'String',
+        'partner_id': :'String',
         'partner_compartment_id': :'String',
         'approval_template_id': :'String',
         'max_access_duration': :'String',
@@ -103,6 +109,7 @@ module OCI
     # @option attributes [String] :resource_id The value to assign to the {#resource_id} property
     # @option attributes [String] :lockbox_partner The value to assign to the {#lockbox_partner} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :partner_id The value to assign to the {#partner_id} property
     # @option attributes [String] :partner_compartment_id The value to assign to the {#partner_compartment_id} property
     # @option attributes [String] :approval_template_id The value to assign to the {#approval_template_id} property
     # @option attributes [String] :max_access_duration The value to assign to the {#max_access_duration} property
@@ -138,6 +145,12 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.partner_id = attributes[:'partnerId'] if attributes[:'partnerId']
+
+      raise 'You cannot provide both :partnerId and :partner_id' if attributes.key?(:'partnerId') && attributes.key?(:'partner_id')
+
+      self.partner_id = attributes[:'partner_id'] if attributes[:'partner_id']
 
       self.partner_compartment_id = attributes[:'partnerCompartmentId'] if attributes[:'partnerCompartmentId']
 
@@ -199,6 +212,7 @@ module OCI
         resource_id == other.resource_id &&
         lockbox_partner == other.lockbox_partner &&
         compartment_id == other.compartment_id &&
+        partner_id == other.partner_id &&
         partner_compartment_id == other.partner_compartment_id &&
         approval_template_id == other.approval_template_id &&
         max_access_duration == other.max_access_duration &&
@@ -220,7 +234,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, resource_id, lockbox_partner, compartment_id, partner_compartment_id, approval_template_id, max_access_duration, access_context_attributes, freeform_tags, defined_tags].hash
+      [display_name, resource_id, lockbox_partner, compartment_id, partner_id, partner_compartment_id, approval_template_id, max_access_duration, access_context_attributes, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

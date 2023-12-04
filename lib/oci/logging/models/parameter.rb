@@ -13,8 +13,6 @@ module OCI
       TYPE_INTEGER = 'integer'.freeze,
       TYPE_STRING = 'string'.freeze,
       TYPE_BOOLEAN = 'boolean'.freeze,
-      TYPE_ENUM_STRING = 'ENUM_STRING'.freeze,
-      TYPE_RQS_FILTER = 'RQS_FILTER'.freeze,
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -22,19 +20,9 @@ module OCI
     # @return [String]
     attr_accessor :name
 
-    # The user-friendly display name. This must be unique within the enclosing resource,
-    # and it's changeable. Avoid entering confidential information.
-    #
-    # @return [String]
-    attr_accessor :display_name
-
-    # **[Required]** Parameter type.
+    # This attribute is required.
     # @return [String]
     attr_reader :type
-
-    # Parameter rqsType if applicable.
-    # @return [String]
-    attr_accessor :rqs_type
 
     # Java regex pattern to validate a parameter value.
     # @return [String]
@@ -45,9 +33,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
-        'display_name': :'displayName',
         'type': :'type',
-        'rqs_type': :'rqsType',
         'pattern': :'pattern'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -58,9 +44,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
-        'display_name': :'String',
         'type': :'String',
-        'rqs_type': :'String',
         'pattern': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -73,9 +57,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :name The value to assign to the {#name} property
-    # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :type The value to assign to the {#type} property
-    # @option attributes [String] :rqs_type The value to assign to the {#rqs_type} property
     # @option attributes [String] :pattern The value to assign to the {#pattern} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -85,19 +67,7 @@ module OCI
 
       self.name = attributes[:'name'] if attributes[:'name']
 
-      self.display_name = attributes[:'displayName'] if attributes[:'displayName']
-
-      raise 'You cannot provide both :displayName and :display_name' if attributes.key?(:'displayName') && attributes.key?(:'display_name')
-
-      self.display_name = attributes[:'display_name'] if attributes[:'display_name']
-
       self.type = attributes[:'type'] if attributes[:'type']
-
-      self.rqs_type = attributes[:'rqsType'] if attributes[:'rqsType']
-
-      raise 'You cannot provide both :rqsType and :rqs_type' if attributes.key?(:'rqsType') && attributes.key?(:'rqs_type')
-
-      self.rqs_type = attributes[:'rqs_type'] if attributes[:'rqs_type']
 
       self.pattern = attributes[:'pattern'] if attributes[:'pattern']
     end
@@ -127,9 +97,7 @@ module OCI
 
       self.class == other.class &&
         name == other.name &&
-        display_name == other.display_name &&
         type == other.type &&
-        rqs_type == other.rqs_type &&
         pattern == other.pattern
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -146,7 +114,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, display_name, type, rqs_type, pattern].hash
+      [name, type, pattern].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

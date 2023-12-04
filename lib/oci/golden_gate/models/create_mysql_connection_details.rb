@@ -50,26 +50,25 @@ module OCI
     # @return [String]
     attr_accessor :ssl_mode
 
-    # Database Certificate - The base64 encoded content of mysql.pem file
+    # Database Certificate - The base64 encoded content of a .pem or .crt file.
     # containing the server public key (for 1 and 2-way SSL).
     #
     # @return [String]
     attr_accessor :ssl_ca
 
-    # Certificates revoked by certificate authorities (CA).
-    # Server certificate must not be on this list (for 1 and 2-way SSL).
-    # Note: This is an optional and that too only applicable if TLS/MTLS option is selected.
+    # The base64 encoded list of certificates revoked by the trusted certificate authorities (Trusted CA).
+    # Note: This is an optional property and only applicable if TLS/MTLS option is selected.
     #
     # @return [String]
     attr_accessor :ssl_crl
 
-    # Client Certificate - The base64 encoded content of client-cert.pem file
+    # Client Certificate - The base64 encoded content of a .pem or .crt file.
     # containing the client public key (for 2-way SSL).
     #
     # @return [String]
     attr_accessor :ssl_cert
 
-    # Client Key - The client-key.pem containing the client private key (for 2-way SSL).
+    # Client Key \u2013 The base64 encoded content of a .pem or .crt file containing the client private key (for 2-way SSL).
     #
     # @return [String]
     attr_accessor :ssl_key
@@ -106,8 +105,8 @@ module OCI
         'defined_tags': :'definedTags',
         'vault_id': :'vaultId',
         'key_id': :'keyId',
-        'subnet_id': :'subnetId',
         'nsg_ids': :'nsgIds',
+        'subnet_id': :'subnetId',
         'technology_type': :'technologyType',
         'username': :'username',
         'password': :'password',
@@ -139,8 +138,8 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'vault_id': :'String',
         'key_id': :'String',
-        'subnet_id': :'String',
         'nsg_ids': :'Array<String>',
+        'subnet_id': :'String',
         'technology_type': :'String',
         'username': :'String',
         'password': :'String',
@@ -173,8 +172,8 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {OCI::GoldenGate::Models::CreateConnectionDetails#defined_tags #defined_tags} proprety
     # @option attributes [String] :vault_id The value to assign to the {OCI::GoldenGate::Models::CreateConnectionDetails#vault_id #vault_id} proprety
     # @option attributes [String] :key_id The value to assign to the {OCI::GoldenGate::Models::CreateConnectionDetails#key_id #key_id} proprety
-    # @option attributes [String] :subnet_id The value to assign to the {OCI::GoldenGate::Models::CreateConnectionDetails#subnet_id #subnet_id} proprety
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {OCI::GoldenGate::Models::CreateConnectionDetails#nsg_ids #nsg_ids} proprety
+    # @option attributes [String] :subnet_id The value to assign to the {OCI::GoldenGate::Models::CreateConnectionDetails#subnet_id #subnet_id} proprety
     # @option attributes [String] :technology_type The value to assign to the {#technology_type} property
     # @option attributes [String] :username The value to assign to the {#username} property
     # @option attributes [String] :password The value to assign to the {#password} property
@@ -294,8 +293,8 @@ module OCI
         defined_tags == other.defined_tags &&
         vault_id == other.vault_id &&
         key_id == other.key_id &&
-        subnet_id == other.subnet_id &&
         nsg_ids == other.nsg_ids &&
+        subnet_id == other.subnet_id &&
         technology_type == other.technology_type &&
         username == other.username &&
         password == other.password &&
@@ -326,7 +325,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [connection_type, display_name, description, compartment_id, freeform_tags, defined_tags, vault_id, key_id, subnet_id, nsg_ids, technology_type, username, password, host, port, database_name, security_protocol, ssl_mode, ssl_ca, ssl_crl, ssl_cert, ssl_key, private_ip, additional_attributes, db_system_id].hash
+      [connection_type, display_name, description, compartment_id, freeform_tags, defined_tags, vault_id, key_id, nsg_ids, subnet_id, technology_type, username, password, host, port, database_name, security_protocol, ssl_mode, ssl_ca, ssl_crl, ssl_cert, ssl_key, private_ip, additional_attributes, db_system_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

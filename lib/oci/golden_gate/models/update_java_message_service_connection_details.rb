@@ -69,6 +69,44 @@ module OCI
     # @return [String]
     attr_accessor :password
 
+    # Security protocol for Java Message Service. If not provided, default is PLAIN.
+    # Optional until 2024-06-27, in the release after it will be made required.
+    #
+    # @return [String]
+    attr_accessor :security_protocol
+
+    # Authentication type for Java Message Service.  If not provided, default is NONE.
+    # Optional until 2024-06-27, in the release after it will be made required.
+    #
+    # @return [String]
+    attr_accessor :authentication_type
+
+    # The base64 encoded content of the TrustStore file.
+    #
+    # @return [String]
+    attr_accessor :trust_store
+
+    # The TrustStore password.
+    #
+    # @return [String]
+    attr_accessor :trust_store_password
+
+    # The base64 encoded content of the KeyStore file.
+    #
+    # @return [String]
+    attr_accessor :key_store
+
+    # The KeyStore password.
+    #
+    # @return [String]
+    attr_accessor :key_store_password
+
+    # The password for the cert inside of the KeyStore.
+    # In case it differs from the KeyStore password, it should be provided.
+    #
+    # @return [String]
+    attr_accessor :ssl_key_password
+
     # The private IP address of the connection's endpoint in the customer's VCN, typically a
     # database endpoint or a big data endpoint (e.g. Kafka bootstrap server).
     # In case the privateIp is provided, the subnetId must also be provided.
@@ -100,6 +138,13 @@ module OCI
         'connection_factory': :'connectionFactory',
         'username': :'username',
         'password': :'password',
+        'security_protocol': :'securityProtocol',
+        'authentication_type': :'authenticationType',
+        'trust_store': :'trustStore',
+        'trust_store_password': :'trustStorePassword',
+        'key_store': :'keyStore',
+        'key_store_password': :'keyStorePassword',
+        'ssl_key_password': :'sslKeyPassword',
         'private_ip': :'privateIp'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -127,6 +172,13 @@ module OCI
         'connection_factory': :'String',
         'username': :'String',
         'password': :'String',
+        'security_protocol': :'String',
+        'authentication_type': :'String',
+        'trust_store': :'String',
+        'trust_store_password': :'String',
+        'key_store': :'String',
+        'key_store_password': :'String',
+        'ssl_key_password': :'String',
         'private_ip': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -155,6 +207,13 @@ module OCI
     # @option attributes [String] :connection_factory The value to assign to the {#connection_factory} property
     # @option attributes [String] :username The value to assign to the {#username} property
     # @option attributes [String] :password The value to assign to the {#password} property
+    # @option attributes [String] :security_protocol The value to assign to the {#security_protocol} property
+    # @option attributes [String] :authentication_type The value to assign to the {#authentication_type} property
+    # @option attributes [String] :trust_store The value to assign to the {#trust_store} property
+    # @option attributes [String] :trust_store_password The value to assign to the {#trust_store_password} property
+    # @option attributes [String] :key_store The value to assign to the {#key_store} property
+    # @option attributes [String] :key_store_password The value to assign to the {#key_store_password} property
+    # @option attributes [String] :ssl_key_password The value to assign to the {#ssl_key_password} property
     # @option attributes [String] :private_ip The value to assign to the {#private_ip} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -218,6 +277,48 @@ module OCI
 
       self.password = attributes[:'password'] if attributes[:'password']
 
+      self.security_protocol = attributes[:'securityProtocol'] if attributes[:'securityProtocol']
+
+      raise 'You cannot provide both :securityProtocol and :security_protocol' if attributes.key?(:'securityProtocol') && attributes.key?(:'security_protocol')
+
+      self.security_protocol = attributes[:'security_protocol'] if attributes[:'security_protocol']
+
+      self.authentication_type = attributes[:'authenticationType'] if attributes[:'authenticationType']
+
+      raise 'You cannot provide both :authenticationType and :authentication_type' if attributes.key?(:'authenticationType') && attributes.key?(:'authentication_type')
+
+      self.authentication_type = attributes[:'authentication_type'] if attributes[:'authentication_type']
+
+      self.trust_store = attributes[:'trustStore'] if attributes[:'trustStore']
+
+      raise 'You cannot provide both :trustStore and :trust_store' if attributes.key?(:'trustStore') && attributes.key?(:'trust_store')
+
+      self.trust_store = attributes[:'trust_store'] if attributes[:'trust_store']
+
+      self.trust_store_password = attributes[:'trustStorePassword'] if attributes[:'trustStorePassword']
+
+      raise 'You cannot provide both :trustStorePassword and :trust_store_password' if attributes.key?(:'trustStorePassword') && attributes.key?(:'trust_store_password')
+
+      self.trust_store_password = attributes[:'trust_store_password'] if attributes[:'trust_store_password']
+
+      self.key_store = attributes[:'keyStore'] if attributes[:'keyStore']
+
+      raise 'You cannot provide both :keyStore and :key_store' if attributes.key?(:'keyStore') && attributes.key?(:'key_store')
+
+      self.key_store = attributes[:'key_store'] if attributes[:'key_store']
+
+      self.key_store_password = attributes[:'keyStorePassword'] if attributes[:'keyStorePassword']
+
+      raise 'You cannot provide both :keyStorePassword and :key_store_password' if attributes.key?(:'keyStorePassword') && attributes.key?(:'key_store_password')
+
+      self.key_store_password = attributes[:'key_store_password'] if attributes[:'key_store_password']
+
+      self.ssl_key_password = attributes[:'sslKeyPassword'] if attributes[:'sslKeyPassword']
+
+      raise 'You cannot provide both :sslKeyPassword and :ssl_key_password' if attributes.key?(:'sslKeyPassword') && attributes.key?(:'ssl_key_password')
+
+      self.ssl_key_password = attributes[:'ssl_key_password'] if attributes[:'ssl_key_password']
+
       self.private_ip = attributes[:'privateIp'] if attributes[:'privateIp']
 
       raise 'You cannot provide both :privateIp and :private_ip' if attributes.key?(:'privateIp') && attributes.key?(:'private_ip')
@@ -254,6 +355,13 @@ module OCI
         connection_factory == other.connection_factory &&
         username == other.username &&
         password == other.password &&
+        security_protocol == other.security_protocol &&
+        authentication_type == other.authentication_type &&
+        trust_store == other.trust_store &&
+        trust_store_password == other.trust_store_password &&
+        key_store == other.key_store &&
+        key_store_password == other.key_store_password &&
+        ssl_key_password == other.ssl_key_password &&
         private_ip == other.private_ip
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -270,7 +378,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [connection_type, display_name, description, freeform_tags, defined_tags, vault_id, key_id, nsg_ids, should_use_jndi, jndi_connection_factory, jndi_provider_url, jndi_initial_context_factory, jndi_security_principal, jndi_security_credentials, connection_url, connection_factory, username, password, private_ip].hash
+      [connection_type, display_name, description, freeform_tags, defined_tags, vault_id, key_id, nsg_ids, should_use_jndi, jndi_connection_factory, jndi_provider_url, jndi_initial_context_factory, jndi_security_principal, jndi_security_credentials, connection_url, connection_factory, username, password, security_protocol, authentication_type, trust_store, trust_store_password, key_store, key_store_password, ssl_key_password, private_ip].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -753,6 +753,72 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a new certificate to truststore.
+    #
+    # @param [OCI::GoldenGate::Models::CreateCertificateDetails] create_certificate_details Specifications to create the certificate to truststore.
+    #
+    # @param [String] deployment_id A unique Deployment identifier.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried, in case of a timeout or server error,
+    #   without the risk of executing that same action again. Retry tokens expire after 24 hours but can be
+    #   invalidated before then due to conflicting operations. For example, if a resource was deleted and purged
+    #   from the system, then a retry of the original creation request is rejected.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/goldengate/create_certificate.rb.html) to see an example of how to use create_certificate API.
+    def create_certificate(create_certificate_details, deployment_id, opts = {})
+      logger.debug 'Calling operation GoldenGateClient#create_certificate.' if logger
+
+      raise "Missing the required parameter 'create_certificate_details' when calling create_certificate." if create_certificate_details.nil?
+      raise "Missing the required parameter 'deployment_id' when calling create_certificate." if deployment_id.nil?
+      raise "Parameter value for 'deployment_id' must not be blank" if OCI::Internal::Util.blank_string?(deployment_id)
+
+      path = '/deployments/{deploymentId}/certificates'.sub('{deploymentId}', deployment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_certificate_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'GoldenGateClient#create_certificate') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new Connection.
     #
     # @param [OCI::GoldenGate::Models::CreateConnectionDetails] create_connection_details Specification of the Connection to create.
@@ -1045,6 +1111,72 @@ module OCI
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'GoldenGateClient#create_deployment_backup') do
         @api_client.call_api(
           :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the certificate from truststore.
+    #
+    # @param [String] deployment_id A unique Deployment identifier.
+    #
+    # @param [String] certificate_key A unique certificate identifier.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the
+    #   `if-match` parameter to the value of the etag from a previous GET or POST response for that
+    #   resource.  The resource is updated or deleted only if the etag you provide matches the
+    #   resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/goldengate/delete_certificate.rb.html) to see an example of how to use delete_certificate API.
+    def delete_certificate(deployment_id, certificate_key, opts = {})
+      logger.debug 'Calling operation GoldenGateClient#delete_certificate.' if logger
+
+      raise "Missing the required parameter 'deployment_id' when calling delete_certificate." if deployment_id.nil?
+      raise "Missing the required parameter 'certificate_key' when calling delete_certificate." if certificate_key.nil?
+      raise "Parameter value for 'deployment_id' must not be blank" if OCI::Internal::Util.blank_string?(deployment_id)
+      raise "Parameter value for 'certificate_key' must not be blank" if OCI::Internal::Util.blank_string?(certificate_key)
+
+      path = '/deployments/{deploymentId}/certificates/{certificateKey}'.sub('{deploymentId}', deployment_id.to_s).sub('{certificateKey}', certificate_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'GoldenGateClient#delete_certificate') do
+        @api_client.call_api(
+          :DELETE,
           path,
           endpoint,
           header_params: header_params,
@@ -1506,6 +1638,67 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves a Certificate.
+    #
+    # @param [String] deployment_id A unique Deployment identifier.
+    #
+    # @param [String] certificate_key A unique certificate identifier.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    #
+    # @return [Response] A Response object with data of type {OCI::GoldenGate::Models::Certificate Certificate}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/goldengate/get_certificate.rb.html) to see an example of how to use get_certificate API.
+    def get_certificate(deployment_id, certificate_key, opts = {})
+      logger.debug 'Calling operation GoldenGateClient#get_certificate.' if logger
+
+      raise "Missing the required parameter 'deployment_id' when calling get_certificate." if deployment_id.nil?
+      raise "Missing the required parameter 'certificate_key' when calling get_certificate." if certificate_key.nil?
+      raise "Parameter value for 'deployment_id' must not be blank" if OCI::Internal::Util.blank_string?(deployment_id)
+      raise "Parameter value for 'certificate_key' must not be blank" if OCI::Internal::Util.blank_string?(certificate_key)
+
+      path = '/deployments/{deploymentId}/certificates/{certificateKey}'.sub('{deploymentId}', deployment_id.to_s).sub('{certificateKey}', certificate_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'GoldenGateClient#get_certificate') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::GoldenGate::Models::Certificate'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1991,6 +2184,93 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns a list of certificates from truststore.
+    # @param [String] deployment_id A unique Deployment identifier.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    #
+    # @option opts [String] :lifecycle_state A filter to return only connections having the 'lifecycleState' given.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return.
+    #    (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. This is usually
+    #   retrieved from a previous list call.
+    #
+    # @option opts [String] :sort_order The sort order to use, either 'asc' or 'desc'.
+    #    (default to ASC)
+    # @option opts [String] :sort_by The field to sort by. Only one sort order can be provided. Default order for 'timeCreated' is
+    #   descending.  Default order for 'displayName' is ascending. If no value is specified
+    #   timeCreated is the default.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName
+    # @return [Response] A Response object with data of type {OCI::GoldenGate::Models::CertificateCollection CertificateCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/goldengate/list_certificates.rb.html) to see an example of how to use list_certificates API.
+    def list_certificates(deployment_id, opts = {})
+      logger.debug 'Calling operation GoldenGateClient#list_certificates.' if logger
+
+      raise "Missing the required parameter 'deployment_id' when calling list_certificates." if deployment_id.nil?
+
+      if opts[:lifecycle_state] && !OCI::GoldenGate::Models::CERTIFICATE_LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::GoldenGate::Models::CERTIFICATE_LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::GoldenGate::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::GoldenGate::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName.'
+      end
+      raise "Parameter value for 'deployment_id' must not be blank" if OCI::Internal::Util.blank_string?(deployment_id)
+
+      path = '/deployments/{deploymentId}/certificates'.sub('{deploymentId}', deployment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'GoldenGateClient#list_certificates') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::GoldenGate::Models::CertificateCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the Connection Assignments in the compartment.
     # @param [String] compartment_id The OCID of the compartment that contains the work request. Work requests should be scoped
     #   to the same compartment as the resource the work request affects. If the work request concerns
@@ -2100,10 +2380,10 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Array<String>] :technology_type The array of technology types.
     #
-    #   Allowed values are: GOLDENGATE, OCI_AUTONOMOUS_DATABASE, OCI_AUTONOMOUS_JSON_DATABASE, OCI_MYSQL, OCI_OBJECT_STORAGE, OCI_STREAMING, ORACLE_DATABASE, ORACLE_EXADATA, ORACLE_NOSQL, ORACLE_WEBLOGIC_JMS, AMAZON_RDS_ORACLE, AMAZON_RDS_SQLSERVER, AMAZON_S3, AMAZON_AURORA_MYSQL, AMAZON_AURORA_POSTGRESQL, AMAZON_RDS_MARIADB, AMAZON_RDS_MYSQL, AMAZON_RDS_POSTGRESQL, APACHE_KAFKA, AZURE_COSMOS_DB_FOR_MONGODB, AZURE_DATA_LAKE_STORAGE, AZURE_EVENT_HUBS, AZURE_MYSQL, AZURE_POSTGRESQL, AZURE_SQLSERVER_MANAGED_INSTANCE, AZURE_SQLSERVER_NON_MANAGED_INSTANCE, AZURE_SYNAPSE_ANALYTICS, CONFLUENT_KAFKA, CONFLUENT_SCHEMA_REGISTRY, GOOGLE_CLOUD_SQL_MYSQL, GOOGLE_CLOUD_SQL_POSTGRESQL, HDFS, MARIADB, MICROSOFT_SQLSERVER, MONGODB, MYSQL_SERVER, POSTGRESQL_SERVER, SINGLESTOREDB, SINGLESTOREDB_CLOUD, SNOWFLAKE
+    #   Allowed values are: GOLDENGATE, GENERIC, OCI_AUTONOMOUS_DATABASE, OCI_AUTONOMOUS_JSON_DATABASE, OCI_MYSQL, OCI_OBJECT_STORAGE, OCI_STREAMING, ORACLE_DATABASE, ORACLE_EXADATA, ORACLE_NOSQL, ORACLE_WEBLOGIC_JMS, AMAZON_RDS_ORACLE, AMAZON_RDS_SQLSERVER, AMAZON_S3, AMAZON_AURORA_MYSQL, AMAZON_AURORA_POSTGRESQL, AMAZON_KINESIS, AMAZON_REDSHIFT, AMAZON_RDS_MARIADB, AMAZON_RDS_MYSQL, AMAZON_RDS_POSTGRESQL, APACHE_KAFKA, AZURE_COSMOS_DB_FOR_MONGODB, AZURE_DATA_LAKE_STORAGE, AZURE_EVENT_HUBS, AZURE_MYSQL, AZURE_POSTGRESQL, AZURE_SQLSERVER_MANAGED_INSTANCE, AZURE_SQLSERVER_NON_MANAGED_INSTANCE, AZURE_SYNAPSE_ANALYTICS, CONFLUENT_KAFKA, CONFLUENT_SCHEMA_REGISTRY, ELASTICSEARCH, GOOGLE_BIGQUERY, GOOGLE_CLOUD_STORAGE, GOOGLE_CLOUD_SQL_MYSQL, GOOGLE_CLOUD_SQL_POSTGRESQL, GOOGLE_CLOUD_SQL_SQLSERVER, HDFS, MARIADB, MICROSOFT_SQLSERVER, MONGODB, MYSQL_SERVER, POSTGRESQL_SERVER, REDIS, SINGLESTOREDB, SINGLESTOREDB_CLOUD, SNOWFLAKE
     # @option opts [Array<String>] :connection_type The array of connection types.
     #
-    #   Allowed values are: GOLDENGATE, KAFKA, KAFKA_SCHEMA_REGISTRY, MYSQL, JAVA_MESSAGE_SERVICE, MICROSOFT_SQLSERVER, OCI_OBJECT_STORAGE, ORACLE, AZURE_DATA_LAKE_STORAGE, POSTGRESQL, AZURE_SYNAPSE_ANALYTICS, SNOWFLAKE, AMAZON_S3, HDFS, ORACLE_NOSQL, MONGODB
+    #   Allowed values are: GOLDENGATE, KAFKA, KAFKA_SCHEMA_REGISTRY, MYSQL, JAVA_MESSAGE_SERVICE, MICROSOFT_SQLSERVER, OCI_OBJECT_STORAGE, ORACLE, AZURE_DATA_LAKE_STORAGE, POSTGRESQL, AZURE_SYNAPSE_ANALYTICS, SNOWFLAKE, AMAZON_S3, HDFS, ORACLE_NOSQL, MONGODB, AMAZON_KINESIS, AMAZON_REDSHIFT, REDIS, ELASTICSEARCH, GENERIC, GOOGLE_CLOUD_STORAGE, GOOGLE_BIGQUERY
     # @option opts [String] :assigned_deployment_id The OCID of the deployment which for the connection must be assigned.
     #
     # @option opts [String] :assignable_deployment_id Filters for compatible connections which can be, but currently not assigned to the deployment specified by its id.
@@ -2136,21 +2416,21 @@ module OCI
       raise "Missing the required parameter 'compartment_id' when calling list_connections." if compartment_id.nil?
 
 
-      technology_type_allowable_values = %w[GOLDENGATE OCI_AUTONOMOUS_DATABASE OCI_AUTONOMOUS_JSON_DATABASE OCI_MYSQL OCI_OBJECT_STORAGE OCI_STREAMING ORACLE_DATABASE ORACLE_EXADATA ORACLE_NOSQL ORACLE_WEBLOGIC_JMS AMAZON_RDS_ORACLE AMAZON_RDS_SQLSERVER AMAZON_S3 AMAZON_AURORA_MYSQL AMAZON_AURORA_POSTGRESQL AMAZON_RDS_MARIADB AMAZON_RDS_MYSQL AMAZON_RDS_POSTGRESQL APACHE_KAFKA AZURE_COSMOS_DB_FOR_MONGODB AZURE_DATA_LAKE_STORAGE AZURE_EVENT_HUBS AZURE_MYSQL AZURE_POSTGRESQL AZURE_SQLSERVER_MANAGED_INSTANCE AZURE_SQLSERVER_NON_MANAGED_INSTANCE AZURE_SYNAPSE_ANALYTICS CONFLUENT_KAFKA CONFLUENT_SCHEMA_REGISTRY GOOGLE_CLOUD_SQL_MYSQL GOOGLE_CLOUD_SQL_POSTGRESQL HDFS MARIADB MICROSOFT_SQLSERVER MONGODB MYSQL_SERVER POSTGRESQL_SERVER SINGLESTOREDB SINGLESTOREDB_CLOUD SNOWFLAKE]
+      technology_type_allowable_values = %w[GOLDENGATE GENERIC OCI_AUTONOMOUS_DATABASE OCI_AUTONOMOUS_JSON_DATABASE OCI_MYSQL OCI_OBJECT_STORAGE OCI_STREAMING ORACLE_DATABASE ORACLE_EXADATA ORACLE_NOSQL ORACLE_WEBLOGIC_JMS AMAZON_RDS_ORACLE AMAZON_RDS_SQLSERVER AMAZON_S3 AMAZON_AURORA_MYSQL AMAZON_AURORA_POSTGRESQL AMAZON_KINESIS AMAZON_REDSHIFT AMAZON_RDS_MARIADB AMAZON_RDS_MYSQL AMAZON_RDS_POSTGRESQL APACHE_KAFKA AZURE_COSMOS_DB_FOR_MONGODB AZURE_DATA_LAKE_STORAGE AZURE_EVENT_HUBS AZURE_MYSQL AZURE_POSTGRESQL AZURE_SQLSERVER_MANAGED_INSTANCE AZURE_SQLSERVER_NON_MANAGED_INSTANCE AZURE_SYNAPSE_ANALYTICS CONFLUENT_KAFKA CONFLUENT_SCHEMA_REGISTRY ELASTICSEARCH GOOGLE_BIGQUERY GOOGLE_CLOUD_STORAGE GOOGLE_CLOUD_SQL_MYSQL GOOGLE_CLOUD_SQL_POSTGRESQL GOOGLE_CLOUD_SQL_SQLSERVER HDFS MARIADB MICROSOFT_SQLSERVER MONGODB MYSQL_SERVER POSTGRESQL_SERVER REDIS SINGLESTOREDB SINGLESTOREDB_CLOUD SNOWFLAKE]
       if opts[:technology_type] && !opts[:technology_type].empty?
         opts[:technology_type].each do |val_to_check|
           unless technology_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "technology_type", must be one of GOLDENGATE, OCI_AUTONOMOUS_DATABASE, OCI_AUTONOMOUS_JSON_DATABASE, OCI_MYSQL, OCI_OBJECT_STORAGE, OCI_STREAMING, ORACLE_DATABASE, ORACLE_EXADATA, ORACLE_NOSQL, ORACLE_WEBLOGIC_JMS, AMAZON_RDS_ORACLE, AMAZON_RDS_SQLSERVER, AMAZON_S3, AMAZON_AURORA_MYSQL, AMAZON_AURORA_POSTGRESQL, AMAZON_RDS_MARIADB, AMAZON_RDS_MYSQL, AMAZON_RDS_POSTGRESQL, APACHE_KAFKA, AZURE_COSMOS_DB_FOR_MONGODB, AZURE_DATA_LAKE_STORAGE, AZURE_EVENT_HUBS, AZURE_MYSQL, AZURE_POSTGRESQL, AZURE_SQLSERVER_MANAGED_INSTANCE, AZURE_SQLSERVER_NON_MANAGED_INSTANCE, AZURE_SYNAPSE_ANALYTICS, CONFLUENT_KAFKA, CONFLUENT_SCHEMA_REGISTRY, GOOGLE_CLOUD_SQL_MYSQL, GOOGLE_CLOUD_SQL_POSTGRESQL, HDFS, MARIADB, MICROSOFT_SQLSERVER, MONGODB, MYSQL_SERVER, POSTGRESQL_SERVER, SINGLESTOREDB, SINGLESTOREDB_CLOUD, SNOWFLAKE.'
+            raise 'Invalid value for "technology_type", must be one of GOLDENGATE, GENERIC, OCI_AUTONOMOUS_DATABASE, OCI_AUTONOMOUS_JSON_DATABASE, OCI_MYSQL, OCI_OBJECT_STORAGE, OCI_STREAMING, ORACLE_DATABASE, ORACLE_EXADATA, ORACLE_NOSQL, ORACLE_WEBLOGIC_JMS, AMAZON_RDS_ORACLE, AMAZON_RDS_SQLSERVER, AMAZON_S3, AMAZON_AURORA_MYSQL, AMAZON_AURORA_POSTGRESQL, AMAZON_KINESIS, AMAZON_REDSHIFT, AMAZON_RDS_MARIADB, AMAZON_RDS_MYSQL, AMAZON_RDS_POSTGRESQL, APACHE_KAFKA, AZURE_COSMOS_DB_FOR_MONGODB, AZURE_DATA_LAKE_STORAGE, AZURE_EVENT_HUBS, AZURE_MYSQL, AZURE_POSTGRESQL, AZURE_SQLSERVER_MANAGED_INSTANCE, AZURE_SQLSERVER_NON_MANAGED_INSTANCE, AZURE_SYNAPSE_ANALYTICS, CONFLUENT_KAFKA, CONFLUENT_SCHEMA_REGISTRY, ELASTICSEARCH, GOOGLE_BIGQUERY, GOOGLE_CLOUD_STORAGE, GOOGLE_CLOUD_SQL_MYSQL, GOOGLE_CLOUD_SQL_POSTGRESQL, GOOGLE_CLOUD_SQL_SQLSERVER, HDFS, MARIADB, MICROSOFT_SQLSERVER, MONGODB, MYSQL_SERVER, POSTGRESQL_SERVER, REDIS, SINGLESTOREDB, SINGLESTOREDB_CLOUD, SNOWFLAKE.'
           end
         end
       end
 
 
-      connection_type_allowable_values = %w[GOLDENGATE KAFKA KAFKA_SCHEMA_REGISTRY MYSQL JAVA_MESSAGE_SERVICE MICROSOFT_SQLSERVER OCI_OBJECT_STORAGE ORACLE AZURE_DATA_LAKE_STORAGE POSTGRESQL AZURE_SYNAPSE_ANALYTICS SNOWFLAKE AMAZON_S3 HDFS ORACLE_NOSQL MONGODB]
+      connection_type_allowable_values = %w[GOLDENGATE KAFKA KAFKA_SCHEMA_REGISTRY MYSQL JAVA_MESSAGE_SERVICE MICROSOFT_SQLSERVER OCI_OBJECT_STORAGE ORACLE AZURE_DATA_LAKE_STORAGE POSTGRESQL AZURE_SYNAPSE_ANALYTICS SNOWFLAKE AMAZON_S3 HDFS ORACLE_NOSQL MONGODB AMAZON_KINESIS AMAZON_REDSHIFT REDIS ELASTICSEARCH GENERIC GOOGLE_CLOUD_STORAGE GOOGLE_BIGQUERY]
       if opts[:connection_type] && !opts[:connection_type].empty?
         opts[:connection_type].each do |val_to_check|
           unless connection_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "connection_type", must be one of GOLDENGATE, KAFKA, KAFKA_SCHEMA_REGISTRY, MYSQL, JAVA_MESSAGE_SERVICE, MICROSOFT_SQLSERVER, OCI_OBJECT_STORAGE, ORACLE, AZURE_DATA_LAKE_STORAGE, POSTGRESQL, AZURE_SYNAPSE_ANALYTICS, SNOWFLAKE, AMAZON_S3, HDFS, ORACLE_NOSQL, MONGODB.'
+            raise 'Invalid value for "connection_type", must be one of GOLDENGATE, KAFKA, KAFKA_SCHEMA_REGISTRY, MYSQL, JAVA_MESSAGE_SERVICE, MICROSOFT_SQLSERVER, OCI_OBJECT_STORAGE, ORACLE, AZURE_DATA_LAKE_STORAGE, POSTGRESQL, AZURE_SYNAPSE_ANALYTICS, SNOWFLAKE, AMAZON_S3, HDFS, ORACLE_NOSQL, MONGODB, AMAZON_KINESIS, AMAZON_REDSHIFT, REDIS, ELASTICSEARCH, GENERIC, GOOGLE_CLOUD_STORAGE, GOOGLE_BIGQUERY.'
           end
         end
       end

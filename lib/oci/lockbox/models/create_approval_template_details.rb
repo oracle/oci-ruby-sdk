@@ -21,7 +21,6 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # This attribute is required.
     # @return [OCI::Lockbox::Models::ApproverLevels]
     attr_accessor :approver_levels
 

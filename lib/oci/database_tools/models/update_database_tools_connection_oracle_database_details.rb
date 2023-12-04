@@ -37,6 +37,9 @@ module OCI
     # @return [String]
     attr_accessor :private_endpoint_id
 
+    # @return [OCI::DatabaseTools::Models::DatabaseToolsConnectionOracleDatabaseProxyClientDetails]
+    attr_accessor :proxy_client
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -51,7 +54,8 @@ module OCI
         'user_password': :'userPassword',
         'advanced_properties': :'advancedProperties',
         'key_stores': :'keyStores',
-        'private_endpoint_id': :'privateEndpointId'
+        'private_endpoint_id': :'privateEndpointId',
+        'proxy_client': :'proxyClient'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -70,7 +74,8 @@ module OCI
         'user_password': :'OCI::DatabaseTools::Models::DatabaseToolsUserPasswordDetails',
         'advanced_properties': :'Hash<String, String>',
         'key_stores': :'Array<OCI::DatabaseTools::Models::DatabaseToolsKeyStoreDetails>',
-        'private_endpoint_id': :'String'
+        'private_endpoint_id': :'String',
+        'proxy_client': :'OCI::DatabaseTools::Models::DatabaseToolsConnectionOracleDatabaseProxyClientDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -91,6 +96,7 @@ module OCI
     # @option attributes [Hash<String, String>] :advanced_properties The value to assign to the {#advanced_properties} property
     # @option attributes [Array<OCI::DatabaseTools::Models::DatabaseToolsKeyStoreDetails>] :key_stores The value to assign to the {#key_stores} property
     # @option attributes [String] :private_endpoint_id The value to assign to the {#private_endpoint_id} property
+    # @option attributes [OCI::DatabaseTools::Models::DatabaseToolsConnectionOracleDatabaseProxyClientDetails] :proxy_client The value to assign to the {#proxy_client} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -142,6 +148,12 @@ module OCI
       raise 'You cannot provide both :privateEndpointId and :private_endpoint_id' if attributes.key?(:'privateEndpointId') && attributes.key?(:'private_endpoint_id')
 
       self.private_endpoint_id = attributes[:'private_endpoint_id'] if attributes[:'private_endpoint_id']
+
+      self.proxy_client = attributes[:'proxyClient'] if attributes[:'proxyClient']
+
+      raise 'You cannot provide both :proxyClient and :proxy_client' if attributes.key?(:'proxyClient') && attributes.key?(:'proxy_client')
+
+      self.proxy_client = attributes[:'proxy_client'] if attributes[:'proxy_client']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -165,7 +177,8 @@ module OCI
         user_password == other.user_password &&
         advanced_properties == other.advanced_properties &&
         key_stores == other.key_stores &&
-        private_endpoint_id == other.private_endpoint_id
+        private_endpoint_id == other.private_endpoint_id &&
+        proxy_client == other.proxy_client
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -181,7 +194,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, defined_tags, freeform_tags, type, related_resource, connection_string, user_name, user_password, advanced_properties, key_stores, private_endpoint_id].hash
+      [display_name, defined_tags, freeform_tags, type, related_resource, connection_string, user_name, user_password, advanced_properties, key_stores, private_endpoint_id, proxy_client].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

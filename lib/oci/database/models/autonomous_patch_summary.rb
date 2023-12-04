@@ -28,6 +28,12 @@ module OCI
       PATCH_MODEL_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    AUTONOMOUS_PATCH_TYPE_ENUM = [
+      AUTONOMOUS_PATCH_TYPE_QUARTERLY = 'QUARTERLY'.freeze,
+      AUTONOMOUS_PATCH_TYPE_TIMEZONE = 'TIMEZONE'.freeze,
+      AUTONOMOUS_PATCH_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the patch.
     # @return [String]
     attr_accessor :id
@@ -70,6 +76,11 @@ module OCI
     # @return [String]
     attr_accessor :year
 
+    # Maintenance run type, either \"QUARTERLY\" or \"TIMEZONE\".
+    #
+    # @return [String]
+    attr_reader :autonomous_patch_type
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -83,7 +94,8 @@ module OCI
         'version': :'version',
         'patch_model': :'patchModel',
         'quarter': :'quarter',
-        'year': :'year'
+        'year': :'year',
+        'autonomous_patch_type': :'autonomousPatchType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -101,7 +113,8 @@ module OCI
         'version': :'String',
         'patch_model': :'String',
         'quarter': :'String',
-        'year': :'String'
+        'year': :'String',
+        'autonomous_patch_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -122,6 +135,7 @@ module OCI
     # @option attributes [String] :patch_model The value to assign to the {#patch_model} property
     # @option attributes [String] :quarter The value to assign to the {#quarter} property
     # @option attributes [String] :year The value to assign to the {#year} property
+    # @option attributes [String] :autonomous_patch_type The value to assign to the {#autonomous_patch_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -163,6 +177,14 @@ module OCI
       self.quarter = attributes[:'quarter'] if attributes[:'quarter']
 
       self.year = attributes[:'year'] if attributes[:'year']
+
+      self.autonomous_patch_type = attributes[:'autonomousPatchType'] if attributes[:'autonomousPatchType']
+      self.autonomous_patch_type = "QUARTERLY" if autonomous_patch_type.nil? && !attributes.key?(:'autonomousPatchType') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :autonomousPatchType and :autonomous_patch_type' if attributes.key?(:'autonomousPatchType') && attributes.key?(:'autonomous_patch_type')
+
+      self.autonomous_patch_type = attributes[:'autonomous_patch_type'] if attributes[:'autonomous_patch_type']
+      self.autonomous_patch_type = "QUARTERLY" if autonomous_patch_type.nil? && !attributes.key?(:'autonomousPatchType') && !attributes.key?(:'autonomous_patch_type') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -193,6 +215,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] autonomous_patch_type Object to be assigned
+    def autonomous_patch_type=(autonomous_patch_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if autonomous_patch_type && !AUTONOMOUS_PATCH_TYPE_ENUM.include?(autonomous_patch_type)
+        OCI.logger.debug("Unknown value for 'autonomous_patch_type' [" + autonomous_patch_type + "]. Mapping to 'AUTONOMOUS_PATCH_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @autonomous_patch_type = AUTONOMOUS_PATCH_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @autonomous_patch_type = autonomous_patch_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -211,7 +246,8 @@ module OCI
         version == other.version &&
         patch_model == other.patch_model &&
         quarter == other.quarter &&
-        year == other.year
+        year == other.year &&
+        autonomous_patch_type == other.autonomous_patch_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -227,7 +263,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, description, type, lifecycle_details, lifecycle_state, time_released, version, patch_model, quarter, year].hash
+      [id, description, type, lifecycle_details, lifecycle_state, time_released, version, patch_model, quarter, year, autonomous_patch_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

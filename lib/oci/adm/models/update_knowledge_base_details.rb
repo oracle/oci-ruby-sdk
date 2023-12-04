@@ -6,9 +6,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details to update an existing Knowledge Base.
+  # Details to update an existing knowledge base.
   class Adm::Models::UpdateKnowledgeBaseDetails
-    # The name of the Knowledge Base.
+    # The name of the knowledge base.
     # @return [String]
     attr_accessor :display_name
 

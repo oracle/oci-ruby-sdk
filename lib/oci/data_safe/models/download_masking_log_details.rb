@@ -6,7 +6,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details to download masking log.
+  # Details to download the masking log.
   class DataSafe::Models::DownloadMaskingLogDetails
     # The OCID of the target database for which the masking log is to be downloaded.
     # @return [String]

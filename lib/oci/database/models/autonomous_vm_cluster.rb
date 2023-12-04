@@ -119,6 +119,38 @@ module OCI
     # @return [String]
     attr_accessor :next_maintenance_run_id
 
+    # The percentage of total number of CPUs used in an Autonomous VM Cluster.
+    # @return [Float]
+    attr_accessor :cpu_percentage
+
+    # The percentage of the data storage used for the Autonomous Databases in an Autonomous VM Cluster.
+    # @return [Float]
+    attr_accessor :autonomous_data_storage_percentage
+
+    # The number of CPUs provisioned in an Autonomous VM Cluster.
+    # @return [Float]
+    attr_accessor :provisioned_cpus
+
+    # The total data disk group size for Autonomous Databases, in TBs.
+    # @return [Float]
+    attr_accessor :total_autonomous_data_storage_in_tbs
+
+    # The number of CPUs reserved in an Autonomous VM Cluster.
+    # @return [Float]
+    attr_accessor :reserved_cpus
+
+    # The number of provisionable Autonomous Container Databases in an Autonomous VM Cluster.
+    # @return [Integer]
+    attr_accessor :provisionable_autonomous_container_databases
+
+    # The number of provisioned Autonomous Container Databases in an Autonomous VM Cluster.
+    # @return [Integer]
+    attr_accessor :provisioned_autonomous_container_databases
+
+    # The number of non-provisionable Autonomous Container Databases in an Autonomous VM Cluster.
+    # @return [Integer]
+    attr_accessor :non_provisionable_autonomous_container_databases
+
     # The memory allocated in GBs.
     # @return [Integer]
     attr_accessor :memory_size_in_gbs
@@ -203,6 +235,18 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_ords_certificate_expires
 
+    # The lowest value to which exadataStorage in TBs can be scaled down.
+    # @return [Float]
+    attr_accessor :exadata_storage_in_tbs_lowest_scaled_value
+
+    # The lowest value to which cpus can be scaled down.
+    # @return [Integer]
+    attr_accessor :cpus_lowest_scaled_value
+
+    # The lowest value to which ACDs can be scaled down.
+    # @return [Integer]
+    attr_accessor :max_acds_lowest_scaled_value
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -228,6 +272,14 @@ module OCI
         'maintenance_window': :'maintenanceWindow',
         'last_maintenance_run_id': :'lastMaintenanceRunId',
         'next_maintenance_run_id': :'nextMaintenanceRunId',
+        'cpu_percentage': :'cpuPercentage',
+        'autonomous_data_storage_percentage': :'autonomousDataStoragePercentage',
+        'provisioned_cpus': :'provisionedCpus',
+        'total_autonomous_data_storage_in_tbs': :'totalAutonomousDataStorageInTBs',
+        'reserved_cpus': :'reservedCpus',
+        'provisionable_autonomous_container_databases': :'provisionableAutonomousContainerDatabases',
+        'provisioned_autonomous_container_databases': :'provisionedAutonomousContainerDatabases',
+        'non_provisionable_autonomous_container_databases': :'nonProvisionableAutonomousContainerDatabases',
         'memory_size_in_gbs': :'memorySizeInGBs',
         'db_node_storage_size_in_gbs': :'dbNodeStorageSizeInGBs',
         'data_storage_size_in_tbs': :'dataStorageSizeInTBs',
@@ -245,7 +297,10 @@ module OCI
         'scan_listener_port_non_tls': :'scanListenerPortNonTls',
         'is_mtls_enabled': :'isMtlsEnabled',
         'time_database_ssl_certificate_expires': :'timeDatabaseSslCertificateExpires',
-        'time_ords_certificate_expires': :'timeOrdsCertificateExpires'
+        'time_ords_certificate_expires': :'timeOrdsCertificateExpires',
+        'exadata_storage_in_tbs_lowest_scaled_value': :'exadataStorageInTBsLowestScaledValue',
+        'cpus_lowest_scaled_value': :'cpusLowestScaledValue',
+        'max_acds_lowest_scaled_value': :'maxAcdsLowestScaledValue'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -275,6 +330,14 @@ module OCI
         'maintenance_window': :'OCI::Database::Models::MaintenanceWindow',
         'last_maintenance_run_id': :'String',
         'next_maintenance_run_id': :'String',
+        'cpu_percentage': :'Float',
+        'autonomous_data_storage_percentage': :'Float',
+        'provisioned_cpus': :'Float',
+        'total_autonomous_data_storage_in_tbs': :'Float',
+        'reserved_cpus': :'Float',
+        'provisionable_autonomous_container_databases': :'Integer',
+        'provisioned_autonomous_container_databases': :'Integer',
+        'non_provisionable_autonomous_container_databases': :'Integer',
         'memory_size_in_gbs': :'Integer',
         'db_node_storage_size_in_gbs': :'Integer',
         'data_storage_size_in_tbs': :'Float',
@@ -292,7 +355,10 @@ module OCI
         'scan_listener_port_non_tls': :'Integer',
         'is_mtls_enabled': :'BOOLEAN',
         'time_database_ssl_certificate_expires': :'DateTime',
-        'time_ords_certificate_expires': :'DateTime'
+        'time_ords_certificate_expires': :'DateTime',
+        'exadata_storage_in_tbs_lowest_scaled_value': :'Float',
+        'cpus_lowest_scaled_value': :'Integer',
+        'max_acds_lowest_scaled_value': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -324,6 +390,14 @@ module OCI
     # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window The value to assign to the {#maintenance_window} property
     # @option attributes [String] :last_maintenance_run_id The value to assign to the {#last_maintenance_run_id} property
     # @option attributes [String] :next_maintenance_run_id The value to assign to the {#next_maintenance_run_id} property
+    # @option attributes [Float] :cpu_percentage The value to assign to the {#cpu_percentage} property
+    # @option attributes [Float] :autonomous_data_storage_percentage The value to assign to the {#autonomous_data_storage_percentage} property
+    # @option attributes [Float] :provisioned_cpus The value to assign to the {#provisioned_cpus} property
+    # @option attributes [Float] :total_autonomous_data_storage_in_tbs The value to assign to the {#total_autonomous_data_storage_in_tbs} property
+    # @option attributes [Float] :reserved_cpus The value to assign to the {#reserved_cpus} property
+    # @option attributes [Integer] :provisionable_autonomous_container_databases The value to assign to the {#provisionable_autonomous_container_databases} property
+    # @option attributes [Integer] :provisioned_autonomous_container_databases The value to assign to the {#provisioned_autonomous_container_databases} property
+    # @option attributes [Integer] :non_provisionable_autonomous_container_databases The value to assign to the {#non_provisionable_autonomous_container_databases} property
     # @option attributes [Integer] :memory_size_in_gbs The value to assign to the {#memory_size_in_gbs} property
     # @option attributes [Integer] :db_node_storage_size_in_gbs The value to assign to the {#db_node_storage_size_in_gbs} property
     # @option attributes [Float] :data_storage_size_in_tbs The value to assign to the {#data_storage_size_in_tbs} property
@@ -342,6 +416,9 @@ module OCI
     # @option attributes [BOOLEAN] :is_mtls_enabled The value to assign to the {#is_mtls_enabled} property
     # @option attributes [DateTime] :time_database_ssl_certificate_expires The value to assign to the {#time_database_ssl_certificate_expires} property
     # @option attributes [DateTime] :time_ords_certificate_expires The value to assign to the {#time_ords_certificate_expires} property
+    # @option attributes [Float] :exadata_storage_in_tbs_lowest_scaled_value The value to assign to the {#exadata_storage_in_tbs_lowest_scaled_value} property
+    # @option attributes [Integer] :cpus_lowest_scaled_value The value to assign to the {#cpus_lowest_scaled_value} property
+    # @option attributes [Integer] :max_acds_lowest_scaled_value The value to assign to the {#max_acds_lowest_scaled_value} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -467,6 +544,54 @@ module OCI
 
       self.next_maintenance_run_id = attributes[:'next_maintenance_run_id'] if attributes[:'next_maintenance_run_id']
 
+      self.cpu_percentage = attributes[:'cpuPercentage'] if attributes[:'cpuPercentage']
+
+      raise 'You cannot provide both :cpuPercentage and :cpu_percentage' if attributes.key?(:'cpuPercentage') && attributes.key?(:'cpu_percentage')
+
+      self.cpu_percentage = attributes[:'cpu_percentage'] if attributes[:'cpu_percentage']
+
+      self.autonomous_data_storage_percentage = attributes[:'autonomousDataStoragePercentage'] if attributes[:'autonomousDataStoragePercentage']
+
+      raise 'You cannot provide both :autonomousDataStoragePercentage and :autonomous_data_storage_percentage' if attributes.key?(:'autonomousDataStoragePercentage') && attributes.key?(:'autonomous_data_storage_percentage')
+
+      self.autonomous_data_storage_percentage = attributes[:'autonomous_data_storage_percentage'] if attributes[:'autonomous_data_storage_percentage']
+
+      self.provisioned_cpus = attributes[:'provisionedCpus'] if attributes[:'provisionedCpus']
+
+      raise 'You cannot provide both :provisionedCpus and :provisioned_cpus' if attributes.key?(:'provisionedCpus') && attributes.key?(:'provisioned_cpus')
+
+      self.provisioned_cpus = attributes[:'provisioned_cpus'] if attributes[:'provisioned_cpus']
+
+      self.total_autonomous_data_storage_in_tbs = attributes[:'totalAutonomousDataStorageInTBs'] if attributes[:'totalAutonomousDataStorageInTBs']
+
+      raise 'You cannot provide both :totalAutonomousDataStorageInTBs and :total_autonomous_data_storage_in_tbs' if attributes.key?(:'totalAutonomousDataStorageInTBs') && attributes.key?(:'total_autonomous_data_storage_in_tbs')
+
+      self.total_autonomous_data_storage_in_tbs = attributes[:'total_autonomous_data_storage_in_tbs'] if attributes[:'total_autonomous_data_storage_in_tbs']
+
+      self.reserved_cpus = attributes[:'reservedCpus'] if attributes[:'reservedCpus']
+
+      raise 'You cannot provide both :reservedCpus and :reserved_cpus' if attributes.key?(:'reservedCpus') && attributes.key?(:'reserved_cpus')
+
+      self.reserved_cpus = attributes[:'reserved_cpus'] if attributes[:'reserved_cpus']
+
+      self.provisionable_autonomous_container_databases = attributes[:'provisionableAutonomousContainerDatabases'] if attributes[:'provisionableAutonomousContainerDatabases']
+
+      raise 'You cannot provide both :provisionableAutonomousContainerDatabases and :provisionable_autonomous_container_databases' if attributes.key?(:'provisionableAutonomousContainerDatabases') && attributes.key?(:'provisionable_autonomous_container_databases')
+
+      self.provisionable_autonomous_container_databases = attributes[:'provisionable_autonomous_container_databases'] if attributes[:'provisionable_autonomous_container_databases']
+
+      self.provisioned_autonomous_container_databases = attributes[:'provisionedAutonomousContainerDatabases'] if attributes[:'provisionedAutonomousContainerDatabases']
+
+      raise 'You cannot provide both :provisionedAutonomousContainerDatabases and :provisioned_autonomous_container_databases' if attributes.key?(:'provisionedAutonomousContainerDatabases') && attributes.key?(:'provisioned_autonomous_container_databases')
+
+      self.provisioned_autonomous_container_databases = attributes[:'provisioned_autonomous_container_databases'] if attributes[:'provisioned_autonomous_container_databases']
+
+      self.non_provisionable_autonomous_container_databases = attributes[:'nonProvisionableAutonomousContainerDatabases'] if attributes[:'nonProvisionableAutonomousContainerDatabases']
+
+      raise 'You cannot provide both :nonProvisionableAutonomousContainerDatabases and :non_provisionable_autonomous_container_databases' if attributes.key?(:'nonProvisionableAutonomousContainerDatabases') && attributes.key?(:'non_provisionable_autonomous_container_databases')
+
+      self.non_provisionable_autonomous_container_databases = attributes[:'non_provisionable_autonomous_container_databases'] if attributes[:'non_provisionable_autonomous_container_databases']
+
       self.memory_size_in_gbs = attributes[:'memorySizeInGBs'] if attributes[:'memorySizeInGBs']
 
       raise 'You cannot provide both :memorySizeInGBs and :memory_size_in_gbs' if attributes.key?(:'memorySizeInGBs') && attributes.key?(:'memory_size_in_gbs')
@@ -576,6 +701,24 @@ module OCI
       raise 'You cannot provide both :timeOrdsCertificateExpires and :time_ords_certificate_expires' if attributes.key?(:'timeOrdsCertificateExpires') && attributes.key?(:'time_ords_certificate_expires')
 
       self.time_ords_certificate_expires = attributes[:'time_ords_certificate_expires'] if attributes[:'time_ords_certificate_expires']
+
+      self.exadata_storage_in_tbs_lowest_scaled_value = attributes[:'exadataStorageInTBsLowestScaledValue'] if attributes[:'exadataStorageInTBsLowestScaledValue']
+
+      raise 'You cannot provide both :exadataStorageInTBsLowestScaledValue and :exadata_storage_in_tbs_lowest_scaled_value' if attributes.key?(:'exadataStorageInTBsLowestScaledValue') && attributes.key?(:'exadata_storage_in_tbs_lowest_scaled_value')
+
+      self.exadata_storage_in_tbs_lowest_scaled_value = attributes[:'exadata_storage_in_tbs_lowest_scaled_value'] if attributes[:'exadata_storage_in_tbs_lowest_scaled_value']
+
+      self.cpus_lowest_scaled_value = attributes[:'cpusLowestScaledValue'] if attributes[:'cpusLowestScaledValue']
+
+      raise 'You cannot provide both :cpusLowestScaledValue and :cpus_lowest_scaled_value' if attributes.key?(:'cpusLowestScaledValue') && attributes.key?(:'cpus_lowest_scaled_value')
+
+      self.cpus_lowest_scaled_value = attributes[:'cpus_lowest_scaled_value'] if attributes[:'cpus_lowest_scaled_value']
+
+      self.max_acds_lowest_scaled_value = attributes[:'maxAcdsLowestScaledValue'] if attributes[:'maxAcdsLowestScaledValue']
+
+      raise 'You cannot provide both :maxAcdsLowestScaledValue and :max_acds_lowest_scaled_value' if attributes.key?(:'maxAcdsLowestScaledValue') && attributes.key?(:'max_acds_lowest_scaled_value')
+
+      self.max_acds_lowest_scaled_value = attributes[:'max_acds_lowest_scaled_value'] if attributes[:'max_acds_lowest_scaled_value']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -649,6 +792,14 @@ module OCI
         maintenance_window == other.maintenance_window &&
         last_maintenance_run_id == other.last_maintenance_run_id &&
         next_maintenance_run_id == other.next_maintenance_run_id &&
+        cpu_percentage == other.cpu_percentage &&
+        autonomous_data_storage_percentage == other.autonomous_data_storage_percentage &&
+        provisioned_cpus == other.provisioned_cpus &&
+        total_autonomous_data_storage_in_tbs == other.total_autonomous_data_storage_in_tbs &&
+        reserved_cpus == other.reserved_cpus &&
+        provisionable_autonomous_container_databases == other.provisionable_autonomous_container_databases &&
+        provisioned_autonomous_container_databases == other.provisioned_autonomous_container_databases &&
+        non_provisionable_autonomous_container_databases == other.non_provisionable_autonomous_container_databases &&
         memory_size_in_gbs == other.memory_size_in_gbs &&
         db_node_storage_size_in_gbs == other.db_node_storage_size_in_gbs &&
         data_storage_size_in_tbs == other.data_storage_size_in_tbs &&
@@ -666,7 +817,10 @@ module OCI
         scan_listener_port_non_tls == other.scan_listener_port_non_tls &&
         is_mtls_enabled == other.is_mtls_enabled &&
         time_database_ssl_certificate_expires == other.time_database_ssl_certificate_expires &&
-        time_ords_certificate_expires == other.time_ords_certificate_expires
+        time_ords_certificate_expires == other.time_ords_certificate_expires &&
+        exadata_storage_in_tbs_lowest_scaled_value == other.exadata_storage_in_tbs_lowest_scaled_value &&
+        cpus_lowest_scaled_value == other.cpus_lowest_scaled_value &&
+        max_acds_lowest_scaled_value == other.max_acds_lowest_scaled_value
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -682,7 +836,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, time_created, lifecycle_state, lifecycle_details, time_zone, exadata_infrastructure_id, vm_cluster_network_id, is_local_backup_enabled, cpus_enabled, compute_model, ocpus_enabled, available_cpus, total_container_databases, memory_per_oracle_compute_unit_in_gbs, cpu_core_count_per_node, autonomous_data_storage_size_in_tbs, maintenance_window, last_maintenance_run_id, next_maintenance_run_id, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, data_storage_size_in_gbs, available_data_storage_size_in_tbs, node_count, license_model, freeform_tags, defined_tags, db_servers, reclaimable_cpus, available_container_databases, available_autonomous_data_storage_size_in_tbs, scan_listener_port_tls, scan_listener_port_non_tls, is_mtls_enabled, time_database_ssl_certificate_expires, time_ords_certificate_expires].hash
+      [id, compartment_id, display_name, time_created, lifecycle_state, lifecycle_details, time_zone, exadata_infrastructure_id, vm_cluster_network_id, is_local_backup_enabled, cpus_enabled, compute_model, ocpus_enabled, available_cpus, total_container_databases, memory_per_oracle_compute_unit_in_gbs, cpu_core_count_per_node, autonomous_data_storage_size_in_tbs, maintenance_window, last_maintenance_run_id, next_maintenance_run_id, cpu_percentage, autonomous_data_storage_percentage, provisioned_cpus, total_autonomous_data_storage_in_tbs, reserved_cpus, provisionable_autonomous_container_databases, provisioned_autonomous_container_databases, non_provisionable_autonomous_container_databases, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, data_storage_size_in_gbs, available_data_storage_size_in_tbs, node_count, license_model, freeform_tags, defined_tags, db_servers, reclaimable_cpus, available_container_databases, available_autonomous_data_storage_size_in_tbs, scan_listener_port_tls, scan_listener_port_non_tls, is_mtls_enabled, time_database_ssl_certificate_expires, time_ords_certificate_expires, exadata_storage_in_tbs_lowest_scaled_value, cpus_lowest_scaled_value, max_acds_lowest_scaled_value].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

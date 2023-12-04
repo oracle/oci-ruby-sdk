@@ -7,7 +7,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary information about a group execution in a DR Plan Execution.
+  # The details of a group execution in a DR plan execution.
   class DisasterRecovery::Models::DrPlanGroupExecution
     TYPE_ENUM = [
       TYPE_USER_DEFINED = 'USER_DEFINED'.freeze,
@@ -33,17 +33,19 @@ module OCI
 
     # **[Required]** The unique id of the group. Must not be modified by user.
     #
-    # Example: `sgid1.group..&lt;unique_id&gt;`
+    # Example: `sgid1.group..uniqueID`
     #
     # @return [String]
     attr_accessor :group_id
 
-    # **[Required]** The plan group type.
+    # **[Required]** The group type.
+    #
+    # Example: `BUILT_IN`
     #
     # @return [String]
     attr_reader :type
 
-    # **[Required]** The display name of group that was executed.
+    # **[Required]** The display name of the group execution.
     #
     # Example: `DATABASE_SWITCHOVER`
     #
@@ -55,21 +57,21 @@ module OCI
     # @return [String]
     attr_reader :status
 
-    # Additional details about the group execution status.
+    # Additional details on the group execution status.
     #
-    # Example: `A total of three steps failed in the group`
+    # Example: `A total of [3] steps failed in the group`
     #
     # @return [String]
     attr_accessor :status_details
 
-    # The time at which group execution began. An RFC3339 formatted datetime string.
+    # The time when group execution began. An RFC3339 formatted datetime string.
     #
     # Example: `2019-03-29T09:36:42Z`
     #
     # @return [DateTime]
     attr_accessor :time_started
 
-    # The time at which group execution ended. An RFC3339 formatted datetime string.
+    # The time when group execution ended. An RFC3339 formatted datetime string.
     #
     # Example: `2019-03-29T09:36:42Z`
     #
@@ -83,7 +85,7 @@ module OCI
     # @return [Integer]
     attr_accessor :execution_duration_in_sec
 
-    # **[Required]** A list of details of each step executed in this group.
+    # **[Required]** A list of step executions in the group.
     #
     # @return [Array<OCI::DisasterRecovery::Models::DrPlanStepExecution>]
     attr_accessor :step_executions

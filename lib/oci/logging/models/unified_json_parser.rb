@@ -17,7 +17,7 @@ module OCI
       TIME_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # Time type of JSON parser.
+    # JSON parser time type.
     # @return [String]
     attr_reader :time_type
 

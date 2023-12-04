@@ -9,7 +9,7 @@ require_relative 'unified_agent_logging_source'
 module OCI
   # Tail log source object.
   class Logging::Models::UnifiedAgentTailLogSource < Logging::Models::UnifiedAgentLoggingSource
-    # **[Required]** Absolute paths for log source files. Wildcard can be used.
+    # **[Required]** Absolute paths for log source files. Wildcards can be used.
     # @return [Array<String>]
     attr_accessor :paths
 

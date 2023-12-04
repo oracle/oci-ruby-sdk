@@ -6,18 +6,18 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details for creating a DR Protection Group.
+  # The details for creating a DR protection group.
   class DisasterRecovery::Models::CreateDrProtectionGroupDetails
-    # **[Required]** The OCID of the compartment in which to create the DR Protection Group.
+    # **[Required]** The OCID of the compartment in which to create the DR protection group.
     #
-    # Example: `ocid1.compartment.oc1..&lt;unique_id&gt;`
+    # Example: `ocid1.compartment.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The display name of the DR Protection Group.
+    # **[Required]** The display name of the DR protection group.
     #
-    # Example: `EBS PHX DRPG`
+    # Example: `EBS PHX Group`
     #
     # @return [String]
     attr_accessor :display_name
@@ -29,18 +29,20 @@ module OCI
     # @return [OCI::DisasterRecovery::Models::AssociateDrProtectionGroupDetails]
     attr_accessor :association
 
-    # A list of DR Protection Group members.
+    # A list of DR protection group members.
     #
     # @return [Array<OCI::DisasterRecovery::Models::CreateDrProtectionGroupMemberDetails>]
     attr_accessor :members
 
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]

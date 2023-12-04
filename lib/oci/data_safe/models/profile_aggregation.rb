@@ -11,19 +11,9 @@ module OCI
   # and how many profiles have password verification function.
   #
   class DataSafe::Models::ProfileAggregation
-    # The array of profile aggregation data.
+    # **[Required]** The array of profile aggregation data.
     # @return [Array<Hash<String, Object>>]
     attr_accessor :items
-
-    # **[Required]** The OCID of the latest user assessment corresponding to the target under consideration. A compartment
-    # type assessment can also be passed to profiles from all the targets from the corresponding compartment.
-    #
-    # @return [String]
-    attr_accessor :user_assessment_id
-
-    # **[Required]** The OCID of the compartment that contains the user assessment.
-    # @return [String]
-    attr_accessor :compartment_id
 
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm)
     #
@@ -44,8 +34,6 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'items': :'items',
-        'user_assessment_id': :'userAssessmentId',
-        'compartment_id': :'compartmentId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -57,8 +45,6 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'items': :'Array<Hash<String, Object>>',
-        'user_assessment_id': :'String',
-        'compartment_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -72,8 +58,6 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [Array<Hash<String, Object>>] :items The value to assign to the {#items} property
-    # @option attributes [String] :user_assessment_id The value to assign to the {#user_assessment_id} property
-    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -83,18 +67,6 @@ module OCI
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
       self.items = attributes[:'items'] if attributes[:'items']
-
-      self.user_assessment_id = attributes[:'userAssessmentId'] if attributes[:'userAssessmentId']
-
-      raise 'You cannot provide both :userAssessmentId and :user_assessment_id' if attributes.key?(:'userAssessmentId') && attributes.key?(:'user_assessment_id')
-
-      self.user_assessment_id = attributes[:'user_assessment_id'] if attributes[:'user_assessment_id']
-
-      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
-
-      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
-
-      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
@@ -121,8 +93,6 @@ module OCI
 
       self.class == other.class &&
         items == other.items &&
-        user_assessment_id == other.user_assessment_id &&
-        compartment_id == other.compartment_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -140,7 +110,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [items, user_assessment_id, compartment_id, freeform_tags, defined_tags].hash
+      [items, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

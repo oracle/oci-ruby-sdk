@@ -37,7 +37,15 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** Compartment Identifier
+    # The unique identifier (OCID) of partner resource using this lockbox to lock a resource
+    # @return [String]
+    attr_accessor :partner_id
+
+    # The unique identifier (OCID) of lockbox resource using to reference parent lockbox in hybrid oma setup
+    # @return [String]
+    attr_accessor :parent_lockbox_id
+
+    # Compartment Identifier
     # @return [String]
     attr_accessor :partner_compartment_id
 
@@ -45,7 +53,7 @@ module OCI
     # @return [String]
     attr_accessor :resource_id
 
-    # **[Required]** The partner using this lockbox to lock a resource.
+    # The partner using this lockbox to lock a resource.
     # @return [String]
     attr_reader :lockbox_partner
 
@@ -101,6 +109,8 @@ module OCI
         'id': :'id',
         'display_name': :'displayName',
         'compartment_id': :'compartmentId',
+        'partner_id': :'partnerId',
+        'parent_lockbox_id': :'parentLockboxId',
         'partner_compartment_id': :'partnerCompartmentId',
         'resource_id': :'resourceId',
         'lockbox_partner': :'lockboxPartner',
@@ -125,6 +135,8 @@ module OCI
         'id': :'String',
         'display_name': :'String',
         'compartment_id': :'String',
+        'partner_id': :'String',
+        'parent_lockbox_id': :'String',
         'partner_compartment_id': :'String',
         'resource_id': :'String',
         'lockbox_partner': :'String',
@@ -151,6 +163,8 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
+    # @option attributes [String] :partner_id The value to assign to the {#partner_id} property
+    # @option attributes [String] :parent_lockbox_id The value to assign to the {#parent_lockbox_id} property
     # @option attributes [String] :partner_compartment_id The value to assign to the {#partner_compartment_id} property
     # @option attributes [String] :resource_id The value to assign to the {#resource_id} property
     # @option attributes [String] :lockbox_partner The value to assign to the {#lockbox_partner} property
@@ -183,6 +197,18 @@ module OCI
       raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
 
       self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
+
+      self.partner_id = attributes[:'partnerId'] if attributes[:'partnerId']
+
+      raise 'You cannot provide both :partnerId and :partner_id' if attributes.key?(:'partnerId') && attributes.key?(:'partner_id')
+
+      self.partner_id = attributes[:'partner_id'] if attributes[:'partner_id']
+
+      self.parent_lockbox_id = attributes[:'parentLockboxId'] if attributes[:'parentLockboxId']
+
+      raise 'You cannot provide both :parentLockboxId and :parent_lockbox_id' if attributes.key?(:'parentLockboxId') && attributes.key?(:'parent_lockbox_id')
+
+      self.parent_lockbox_id = attributes[:'parent_lockbox_id'] if attributes[:'parent_lockbox_id']
 
       self.partner_compartment_id = attributes[:'partnerCompartmentId'] if attributes[:'partnerCompartmentId']
 
@@ -303,6 +329,8 @@ module OCI
         id == other.id &&
         display_name == other.display_name &&
         compartment_id == other.compartment_id &&
+        partner_id == other.partner_id &&
+        parent_lockbox_id == other.parent_lockbox_id &&
         partner_compartment_id == other.partner_compartment_id &&
         resource_id == other.resource_id &&
         lockbox_partner == other.lockbox_partner &&
@@ -331,7 +359,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, partner_compartment_id, resource_id, lockbox_partner, time_created, time_updated, lifecycle_state, access_context_attributes, approval_template_id, max_access_duration, lifecycle_details, freeform_tags, defined_tags, system_tags].hash
+      [id, display_name, compartment_id, partner_id, parent_lockbox_id, partner_compartment_id, resource_id, lockbox_partner, time_created, time_updated, lifecycle_state, access_context_attributes, approval_template_id, max_access_duration, lifecycle_details, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

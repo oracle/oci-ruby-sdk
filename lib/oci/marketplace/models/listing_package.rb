@@ -13,6 +13,8 @@ module OCI
     PACKAGE_TYPE_ENUM = [
       PACKAGE_TYPE_ORCHESTRATION = 'ORCHESTRATION'.freeze,
       PACKAGE_TYPE_IMAGE = 'IMAGE'.freeze,
+      PACKAGE_TYPE_CONTAINER = 'CONTAINER'.freeze,
+      PACKAGE_TYPE_KUBERNETES = 'KUBERNETES'.freeze,
       PACKAGE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -97,8 +99,10 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'packageType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::Marketplace::Models::ContainerListingPackage' if type == 'CONTAINER'
       return 'OCI::Marketplace::Models::OrchestrationListingPackage' if type == 'ORCHESTRATION'
       return 'OCI::Marketplace::Models::ImageListingPackage' if type == 'IMAGE'
+      return 'OCI::Marketplace::Models::KubernetesListingPackage' if type == 'KUBERNETES'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::Marketplace::Models::ListingPackage'

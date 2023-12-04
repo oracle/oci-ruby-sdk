@@ -101,6 +101,8 @@ module OCI
       type = object_hash[:'configType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::StackMonitoring::Models::AutoPromoteConfigSummary' if type == 'AUTO_PROMOTE'
+      return 'OCI::StackMonitoring::Models::LicenseAutoAssignConfigSummary' if type == 'LICENSE_AUTO_ASSIGN'
+      return 'OCI::StackMonitoring::Models::LicenseEnterpriseExtensibilityConfigSummary' if type == 'LICENSE_ENTERPRISE_EXTENSIBILITY'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::StackMonitoring::Models::ConfigSummary'

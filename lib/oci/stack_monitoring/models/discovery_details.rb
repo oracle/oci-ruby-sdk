@@ -24,6 +24,12 @@ module OCI
       RESOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    LICENSE_ENUM = [
+      LICENSE_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
+      LICENSE_ENTERPRISE_EDITION = 'ENTERPRISE_EDITION'.freeze,
+      LICENSE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The OCID of Management Agent
     # @return [String]
     attr_accessor :agent_id
@@ -35,6 +41,10 @@ module OCI
     # **[Required]** The Name of resource type
     # @return [String]
     attr_accessor :resource_name
+
+    # License edition of the monitored resource.
+    # @return [String]
+    attr_reader :license
 
     # This attribute is required.
     # @return [OCI::StackMonitoring::Models::PropertyDetails]
@@ -53,6 +63,7 @@ module OCI
         'agent_id': :'agentId',
         'resource_type': :'resourceType',
         'resource_name': :'resourceName',
+        'license': :'license',
         'properties': :'properties',
         'credentials': :'credentials',
         'tags': :'tags'
@@ -67,6 +78,7 @@ module OCI
         'agent_id': :'String',
         'resource_type': :'String',
         'resource_name': :'String',
+        'license': :'String',
         'properties': :'OCI::StackMonitoring::Models::PropertyDetails',
         'credentials': :'OCI::StackMonitoring::Models::CredentialCollection',
         'tags': :'OCI::StackMonitoring::Models::PropertyDetails'
@@ -83,6 +95,7 @@ module OCI
     # @option attributes [String] :agent_id The value to assign to the {#agent_id} property
     # @option attributes [String] :resource_type The value to assign to the {#resource_type} property
     # @option attributes [String] :resource_name The value to assign to the {#resource_name} property
+    # @option attributes [String] :license The value to assign to the {#license} property
     # @option attributes [OCI::StackMonitoring::Models::PropertyDetails] :properties The value to assign to the {#properties} property
     # @option attributes [OCI::StackMonitoring::Models::CredentialCollection] :credentials The value to assign to the {#credentials} property
     # @option attributes [OCI::StackMonitoring::Models::PropertyDetails] :tags The value to assign to the {#tags} property
@@ -110,6 +123,8 @@ module OCI
 
       self.resource_name = attributes[:'resource_name'] if attributes[:'resource_name']
 
+      self.license = attributes[:'license'] if attributes[:'license']
+
       self.properties = attributes[:'properties'] if attributes[:'properties']
 
       self.credentials = attributes[:'credentials'] if attributes[:'credentials']
@@ -132,6 +147,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] license Object to be assigned
+    def license=(license)
+      # rubocop:disable Style/ConditionalAssignment
+      if license && !LICENSE_ENUM.include?(license)
+        OCI.logger.debug("Unknown value for 'license' [" + license + "]. Mapping to 'LICENSE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @license = LICENSE_UNKNOWN_ENUM_VALUE
+      else
+        @license = license
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -144,6 +172,7 @@ module OCI
         agent_id == other.agent_id &&
         resource_type == other.resource_type &&
         resource_name == other.resource_name &&
+        license == other.license &&
         properties == other.properties &&
         credentials == other.credentials &&
         tags == other.tags
@@ -162,7 +191,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [agent_id, resource_type, resource_name, properties, credentials, tags].hash
+      [agent_id, resource_type, resource_name, license, properties, credentials, tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

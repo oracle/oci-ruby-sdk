@@ -9,7 +9,7 @@ module OCI
   # The configuration details for retrieving alarm history.
   #
   class Monitoring::Models::AlarmHistoryCollection
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the alarm for which to retrieve history.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the alarm to retrieve history for.
     #
     # @return [String]
     attr_accessor :alarm_id

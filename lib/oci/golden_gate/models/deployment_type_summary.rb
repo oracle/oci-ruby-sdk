@@ -13,6 +13,7 @@ module OCI
     CATEGORY_ENUM = [
       CATEGORY_DATA_REPLICATION = 'DATA_REPLICATION'.freeze,
       CATEGORY_STREAM_ANALYTICS = 'STREAM_ANALYTICS'.freeze,
+      CATEGORY_DATA_TRANSFORMS = 'DATA_TRANSFORMS'.freeze,
       CATEGORY_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -23,6 +24,8 @@ module OCI
       DEPLOYMENT_TYPE_DATABASE_MICROSOFT_SQLSERVER = 'DATABASE_MICROSOFT_SQLSERVER'.freeze,
       DEPLOYMENT_TYPE_DATABASE_MYSQL = 'DATABASE_MYSQL'.freeze,
       DEPLOYMENT_TYPE_DATABASE_POSTGRESQL = 'DATABASE_POSTGRESQL'.freeze,
+      DEPLOYMENT_TYPE_DATABASE_DB2_ZOS = 'DATABASE_DB2ZOS'.freeze,
+      DEPLOYMENT_TYPE_DATA_TRANSFORMS = 'DATA_TRANSFORMS'.freeze,
       DEPLOYMENT_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -43,11 +46,18 @@ module OCI
       CONNECTION_TYPES_HDFS = 'HDFS'.freeze,
       CONNECTION_TYPES_ORACLE_NOSQL = 'ORACLE_NOSQL'.freeze,
       CONNECTION_TYPES_MONGODB = 'MONGODB'.freeze,
+      CONNECTION_TYPES_AMAZON_KINESIS = 'AMAZON_KINESIS'.freeze,
+      CONNECTION_TYPES_AMAZON_REDSHIFT = 'AMAZON_REDSHIFT'.freeze,
+      CONNECTION_TYPES_REDIS = 'REDIS'.freeze,
+      CONNECTION_TYPES_ELASTICSEARCH = 'ELASTICSEARCH'.freeze,
+      CONNECTION_TYPES_GENERIC = 'GENERIC'.freeze,
+      CONNECTION_TYPES_GOOGLE_CLOUD_STORAGE = 'GOOGLE_CLOUD_STORAGE'.freeze,
+      CONNECTION_TYPES_GOOGLE_BIGQUERY = 'GOOGLE_BIGQUERY'.freeze,
       CONNECTION_TYPES_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The deployment category defines the broad separation of the deployment type into categories.  Currently
-    # the separation is 'DATA_REPLICATION' and 'STREAM_ANALYTICS'.
+    # **[Required]** The deployment category defines the broad separation of the deployment type into three categories.
+    # Currently the separation is 'DATA_REPLICATION', 'STREAM_ANALYTICS' and 'DATA_TRANSFORMS'.
     #
     # @return [String]
     attr_reader :category
@@ -88,6 +98,16 @@ module OCI
     # @return [String]
     attr_accessor :ogg_version
 
+    # The URL to the webpage listing the supported technologies.
+    #
+    # @return [String]
+    attr_accessor :supported_technologies_url
+
+    # The default admin username used by deployment.
+    #
+    # @return [String]
+    attr_accessor :default_username
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -98,7 +118,9 @@ module OCI
         'connection_types': :'connectionTypes',
         'source_technologies': :'sourceTechnologies',
         'target_technologies': :'targetTechnologies',
-        'ogg_version': :'oggVersion'
+        'ogg_version': :'oggVersion',
+        'supported_technologies_url': :'supportedTechnologiesUrl',
+        'default_username': :'defaultUsername'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -113,7 +135,9 @@ module OCI
         'connection_types': :'Array<String>',
         'source_technologies': :'Array<String>',
         'target_technologies': :'Array<String>',
-        'ogg_version': :'String'
+        'ogg_version': :'String',
+        'supported_technologies_url': :'String',
+        'default_username': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -131,6 +155,8 @@ module OCI
     # @option attributes [Array<String>] :source_technologies The value to assign to the {#source_technologies} property
     # @option attributes [Array<String>] :target_technologies The value to assign to the {#target_technologies} property
     # @option attributes [String] :ogg_version The value to assign to the {#ogg_version} property
+    # @option attributes [String] :supported_technologies_url The value to assign to the {#supported_technologies_url} property
+    # @option attributes [String] :default_username The value to assign to the {#default_username} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -174,6 +200,18 @@ module OCI
       raise 'You cannot provide both :oggVersion and :ogg_version' if attributes.key?(:'oggVersion') && attributes.key?(:'ogg_version')
 
       self.ogg_version = attributes[:'ogg_version'] if attributes[:'ogg_version']
+
+      self.supported_technologies_url = attributes[:'supportedTechnologiesUrl'] if attributes[:'supportedTechnologiesUrl']
+
+      raise 'You cannot provide both :supportedTechnologiesUrl and :supported_technologies_url' if attributes.key?(:'supportedTechnologiesUrl') && attributes.key?(:'supported_technologies_url')
+
+      self.supported_technologies_url = attributes[:'supported_technologies_url'] if attributes[:'supported_technologies_url']
+
+      self.default_username = attributes[:'defaultUsername'] if attributes[:'defaultUsername']
+
+      raise 'You cannot provide both :defaultUsername and :default_username' if attributes.key?(:'defaultUsername') && attributes.key?(:'default_username')
+
+      self.default_username = attributes[:'default_username'] if attributes[:'default_username']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -239,7 +277,9 @@ module OCI
         connection_types == other.connection_types &&
         source_technologies == other.source_technologies &&
         target_technologies == other.target_technologies &&
-        ogg_version == other.ogg_version
+        ogg_version == other.ogg_version &&
+        supported_technologies_url == other.supported_technologies_url &&
+        default_username == other.default_username
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -255,7 +295,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [category, display_name, deployment_type, connection_types, source_technologies, target_technologies, ogg_version].hash
+      [category, display_name, deployment_type, connection_types, source_technologies, target_technologies, ogg_version, supported_technologies_url, default_username].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -20,13 +20,18 @@ module OCI
     # @return [String]
     attr_accessor :default_value
 
+    # List of context attribute values.
+    # @return [Array<String>]
+    attr_accessor :values
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'name': :'name',
         'description': :'description',
-        'default_value': :'defaultValue'
+        'default_value': :'defaultValue',
+        'values': :'values'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,7 +42,8 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'name': :'String',
         'description': :'String',
-        'default_value': :'String'
+        'default_value': :'String',
+        'values': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -51,6 +57,7 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :default_value The value to assign to the {#default_value} property
+    # @option attributes [Array<String>] :values The value to assign to the {#values} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -66,6 +73,8 @@ module OCI
       raise 'You cannot provide both :defaultValue and :default_value' if attributes.key?(:'defaultValue') && attributes.key?(:'default_value')
 
       self.default_value = attributes[:'default_value'] if attributes[:'default_value']
+
+      self.values = attributes[:'values'] if attributes[:'values']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -81,7 +90,8 @@ module OCI
       self.class == other.class &&
         name == other.name &&
         description == other.description &&
-        default_value == other.default_value
+        default_value == other.default_value &&
+        values == other.values
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -97,7 +107,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, description, default_value].hash
+      [name, description, default_value, values].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

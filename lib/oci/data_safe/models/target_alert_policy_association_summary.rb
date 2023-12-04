@@ -39,7 +39,7 @@ module OCI
     # @return [String]
     attr_accessor :target_id
 
-    # Indicates if the target-alert policy association is enabled or disabled.
+    # Indicates if the target-alert policy association is enabled or disabled by user.
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 

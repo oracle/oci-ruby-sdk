@@ -33,6 +33,10 @@ module OCI
     # @return [String]
     attr_accessor :sid_prefix
 
+    # The list of pluggable databases that needs to be restored into new database.
+    # @return [Array<String>]
+    attr_accessor :pluggable_databases
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -42,7 +46,8 @@ module OCI
         'admin_password': :'adminPassword',
         'db_unique_name': :'dbUniqueName',
         'db_name': :'dbName',
-        'sid_prefix': :'sidPrefix'
+        'sid_prefix': :'sidPrefix',
+        'pluggable_databases': :'pluggableDatabases'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -56,7 +61,8 @@ module OCI
         'admin_password': :'String',
         'db_unique_name': :'String',
         'db_name': :'String',
-        'sid_prefix': :'String'
+        'sid_prefix': :'String',
+        'pluggable_databases': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -73,6 +79,7 @@ module OCI
     # @option attributes [String] :db_unique_name The value to assign to the {#db_unique_name} property
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [String] :sid_prefix The value to assign to the {#sid_prefix} property
+    # @option attributes [Array<String>] :pluggable_databases The value to assign to the {#pluggable_databases} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -114,6 +121,12 @@ module OCI
       raise 'You cannot provide both :sidPrefix and :sid_prefix' if attributes.key?(:'sidPrefix') && attributes.key?(:'sid_prefix')
 
       self.sid_prefix = attributes[:'sid_prefix'] if attributes[:'sid_prefix']
+
+      self.pluggable_databases = attributes[:'pluggableDatabases'] if attributes[:'pluggableDatabases']
+
+      raise 'You cannot provide both :pluggableDatabases and :pluggable_databases' if attributes.key?(:'pluggableDatabases') && attributes.key?(:'pluggable_databases')
+
+      self.pluggable_databases = attributes[:'pluggable_databases'] if attributes[:'pluggable_databases']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -132,7 +145,8 @@ module OCI
         admin_password == other.admin_password &&
         db_unique_name == other.db_unique_name &&
         db_name == other.db_name &&
-        sid_prefix == other.sid_prefix
+        sid_prefix == other.sid_prefix &&
+        pluggable_databases == other.pluggable_databases
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -148,7 +162,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [backup_id, backup_tde_password, admin_password, db_unique_name, db_name, sid_prefix].hash
+      [backup_id, backup_tde_password, admin_password, db_unique_name, db_name, sid_prefix, pluggable_databases].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

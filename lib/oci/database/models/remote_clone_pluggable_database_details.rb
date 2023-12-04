@@ -6,6 +6,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
+  # **Deprecated.** Use {#create_pluggable_database_details create_pluggable_database_details} for Pluggable Database RemoteClone Operation.
   # Parameters for cloning a pluggable database (PDB) in a remote database (CDB). A remote CDB is one that does not contain the source PDB.
   #
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.

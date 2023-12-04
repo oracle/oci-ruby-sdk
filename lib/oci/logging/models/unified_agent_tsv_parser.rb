@@ -9,11 +9,11 @@ require_relative 'unified_agent_parser'
 module OCI
   # TSV Parser.
   class Logging::Models::UnifiedAgentTsvParser < Logging::Models::UnifiedAgentParser
-    # tsv delimiter.
+    # TSV delimiter.
     # @return [String]
     attr_accessor :delimiter
 
-    # **[Required]** tsv keys.
+    # **[Required]** TSV keys.
     # @return [Array<String>]
     attr_accessor :keys
 

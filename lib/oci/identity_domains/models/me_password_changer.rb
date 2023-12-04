@@ -177,7 +177,7 @@ module OCI
     # @return [String]
     attr_accessor :external_id
 
-    # **[Required]** Password attribute. Max length for password is controlled via Password Policy.
+    # **[Required]** Password attribute. The maximum length for a password is controlled by a password policy.
     #
     # **SCIM++ Properties:**
     #  - type: string

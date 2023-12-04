@@ -6,9 +6,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of a role fetched from the database.
+  # The details of a role fetched from the database.
   class DataSafe::Models::RoleSummary
-    # **[Required]** Name of the role.
+    # **[Required]** The name of the role.
     # @return [String]
     attr_accessor :role_name
 

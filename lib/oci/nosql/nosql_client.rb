@@ -240,6 +240,78 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Add a replica for this table
+    # @param [String] table_name_or_id A table name within the compartment, or a table OCID.
+    # @param [OCI::Nosql::Models::CreateReplicaDetails] create_replica_details Specifications for the new replica
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried
+    #   in case of a timeout or server error without risk of executing
+    #   that same action again. Retry tokens expire after 24 hours, but
+    #   can be invalidated before then due to conflicting
+    #   operations. For example, if a resource has been deleted and
+    #   purged from the system, then a retry of the original creation
+    #   request might be rejected.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #    (default to false)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/create_replica.rb.html) to see an example of how to use create_replica API.
+    def create_replica(table_name_or_id, create_replica_details, opts = {})
+      logger.debug 'Calling operation NosqlClient#create_replica.' if logger
+
+      raise "Missing the required parameter 'table_name_or_id' when calling create_replica." if table_name_or_id.nil?
+      raise "Missing the required parameter 'create_replica_details' when calling create_replica." if create_replica_details.nil?
+      raise "Parameter value for 'table_name_or_id' must not be blank" if OCI::Internal::Util.blank_string?(table_name_or_id)
+
+      path = '/tables/{tableNameOrId}/replicas'.sub('{tableNameOrId}', table_name_or_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_replica_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'NosqlClient#create_replica') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Create a new table.
     # @param [OCI::Nosql::Models::CreateTableDetails] create_table_details Specifications for the new table.
     # @param [Hash] opts the optional parameters
@@ -351,6 +423,74 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'NosqlClient#delete_index') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Delete the specified replica table in the remote region.
+    # @param [String] table_name_or_id A table name within the compartment, or a table OCID.
+    # @param [String] region A customer-facing region identifier
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :compartment_id The ID of a table's compartment. When a table is identified
+    #   by name, the compartmentId is often needed to provide
+    #   context for interpreting the name.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #    (default to false)
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/nosql/delete_replica.rb.html) to see an example of how to use delete_replica API.
+    def delete_replica(table_name_or_id, region, opts = {})
+      logger.debug 'Calling operation NosqlClient#delete_replica.' if logger
+
+      raise "Missing the required parameter 'table_name_or_id' when calling delete_replica." if table_name_or_id.nil?
+      raise "Missing the required parameter 'region' when calling delete_replica." if region.nil?
+      raise "Parameter value for 'table_name_or_id' must not be blank" if OCI::Internal::Util.blank_string?(table_name_or_id)
+      raise "Parameter value for 'region' must not be blank" if OCI::Internal::Util.blank_string?(region)
+
+      path = '/tables/{tableNameOrId}/replicas/{region}'.sub('{tableNameOrId}', table_name_or_id.to_s).sub('{region}', region.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'NosqlClient#delete_replica') do
         @api_client.call_api(
           :DELETE,
           path,
