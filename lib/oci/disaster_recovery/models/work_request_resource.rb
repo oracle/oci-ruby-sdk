@@ -36,7 +36,7 @@ module OCI
 
     # **[Required]** The identifier (OCID) of the resource the work request affects.
     #
-    # Example: `ocid1.drplanexecution.oc1.iad.&lt;unique_id&gt;`
+    # Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :identifier

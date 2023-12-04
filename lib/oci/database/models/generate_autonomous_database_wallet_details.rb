@@ -29,12 +29,17 @@ module OCI
     # @return [String]
     attr_accessor :password
 
+    # True when requesting regional connection strings in PDB connect info, applicable to cross-region DG only.
+    # @return [BOOLEAN]
+    attr_accessor :is_regional
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'generate_type': :'generateType',
-        'password': :'password'
+        'password': :'password',
+        'is_regional': :'isRegional'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -44,7 +49,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'generate_type': :'String',
-        'password': :'String'
+        'password': :'String',
+        'is_regional': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,6 +63,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :generate_type The value to assign to the {#generate_type} property
     # @option attributes [String] :password The value to assign to the {#password} property
+    # @option attributes [BOOLEAN] :is_regional The value to assign to the {#is_regional} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -72,6 +79,12 @@ module OCI
       self.generate_type = "SINGLE" if generate_type.nil? && !attributes.key?(:'generateType') && !attributes.key?(:'generate_type') # rubocop:disable Style/StringLiterals
 
       self.password = attributes[:'password'] if attributes[:'password']
+
+      self.is_regional = attributes[:'isRegional'] unless attributes[:'isRegional'].nil?
+
+      raise 'You cannot provide both :isRegional and :is_regional' if attributes.key?(:'isRegional') && attributes.key?(:'is_regional')
+
+      self.is_regional = attributes[:'is_regional'] unless attributes[:'is_regional'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -94,7 +107,8 @@ module OCI
 
       self.class == other.class &&
         generate_type == other.generate_type &&
-        password == other.password
+        password == other.password &&
+        is_regional == other.is_regional
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -110,7 +124,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [generate_type, password].hash
+      [generate_type, password, is_regional].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

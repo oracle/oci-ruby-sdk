@@ -37,6 +37,10 @@ module OCI
     # @return [OCI::Jms::Models::FleetAgentOsConfiguration]
     attr_accessor :windows_configuration
 
+    # This attribute is required.
+    # @return [OCI::Jms::Models::FleetAgentOsConfiguration]
+    attr_accessor :mac_os_configuration
+
     # **[Required]** The date and time of the last modification to the Fleet Agent Configuration (formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)).
     #
     # @return [DateTime]
@@ -52,6 +56,7 @@ module OCI
         'agent_polling_interval_in_minutes': :'agentPollingIntervalInMinutes',
         'linux_configuration': :'linuxConfiguration',
         'windows_configuration': :'windowsConfiguration',
+        'mac_os_configuration': :'macOsConfiguration',
         'time_last_modified': :'timeLastModified'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -67,6 +72,7 @@ module OCI
         'agent_polling_interval_in_minutes': :'Integer',
         'linux_configuration': :'OCI::Jms::Models::FleetAgentOsConfiguration',
         'windows_configuration': :'OCI::Jms::Models::FleetAgentOsConfiguration',
+        'mac_os_configuration': :'OCI::Jms::Models::FleetAgentOsConfiguration',
         'time_last_modified': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -84,6 +90,7 @@ module OCI
     # @option attributes [Integer] :agent_polling_interval_in_minutes The value to assign to the {#agent_polling_interval_in_minutes} property
     # @option attributes [OCI::Jms::Models::FleetAgentOsConfiguration] :linux_configuration The value to assign to the {#linux_configuration} property
     # @option attributes [OCI::Jms::Models::FleetAgentOsConfiguration] :windows_configuration The value to assign to the {#windows_configuration} property
+    # @option attributes [OCI::Jms::Models::FleetAgentOsConfiguration] :mac_os_configuration The value to assign to the {#mac_os_configuration} property
     # @option attributes [DateTime] :time_last_modified The value to assign to the {#time_last_modified} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -127,6 +134,12 @@ module OCI
 
       self.windows_configuration = attributes[:'windows_configuration'] if attributes[:'windows_configuration']
 
+      self.mac_os_configuration = attributes[:'macOsConfiguration'] if attributes[:'macOsConfiguration']
+
+      raise 'You cannot provide both :macOsConfiguration and :mac_os_configuration' if attributes.key?(:'macOsConfiguration') && attributes.key?(:'mac_os_configuration')
+
+      self.mac_os_configuration = attributes[:'mac_os_configuration'] if attributes[:'mac_os_configuration']
+
       self.time_last_modified = attributes[:'timeLastModified'] if attributes[:'timeLastModified']
 
       raise 'You cannot provide both :timeLastModified and :time_last_modified' if attributes.key?(:'timeLastModified') && attributes.key?(:'time_last_modified')
@@ -151,6 +164,7 @@ module OCI
         agent_polling_interval_in_minutes == other.agent_polling_interval_in_minutes &&
         linux_configuration == other.linux_configuration &&
         windows_configuration == other.windows_configuration &&
+        mac_os_configuration == other.mac_os_configuration &&
         time_last_modified == other.time_last_modified
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -167,7 +181,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [jre_scan_frequency_in_minutes, java_usage_tracker_processing_frequency_in_minutes, work_request_validity_period_in_days, agent_polling_interval_in_minutes, linux_configuration, windows_configuration, time_last_modified].hash
+      [jre_scan_frequency_in_minutes, java_usage_tracker_processing_frequency_in_minutes, work_request_validity_period_in_days, agent_polling_interval_in_minutes, linux_configuration, windows_configuration, mac_os_configuration, time_last_modified].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

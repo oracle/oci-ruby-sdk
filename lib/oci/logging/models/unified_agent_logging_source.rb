@@ -16,7 +16,7 @@ module OCI
       SOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** unique name for the source
+    # **[Required]** Unique name for the source.
     # @return [String]
     attr_accessor :name
 

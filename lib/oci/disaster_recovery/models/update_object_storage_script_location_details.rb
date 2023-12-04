@@ -6,23 +6,23 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Information about updating an Object Storage script location for a user-defined step in a DR Plan.
+  # The details for updating an object storage script location for a user-defined step in a DR plan.
   class DisasterRecovery::Models::UpdateObjectStorageScriptLocationDetails
-    # **[Required]** The namespace in Object Storage (Note - this is usually the tenancy name).
+    # **[Required]** The namespace in object storage (Note - this is usually the tenancy name).
     #
     # Example: `myocitenancy`
     #
     # @return [String]
     attr_accessor :namespace
 
-    # **[Required]** The bucket name inside the Object Storage namespace.
+    # **[Required]** The bucket name inside the object storage namespace.
     #
     # Example: `custom_dr_scripts`
     #
     # @return [String]
     attr_accessor :bucket
 
-    # **[Required]** The object name inside the Object Storage bucket.
+    # **[Required]** The object name inside the object storage bucket.
     #
     # Example: `validate_app_start.sh`
     #

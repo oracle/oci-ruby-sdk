@@ -18,6 +18,14 @@ module OCI
       MANAGED_INSTANCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    DRS_FILE_STATUS_ENUM = [
+      DRS_FILE_STATUS_PRESENT = 'PRESENT'.freeze,
+      DRS_FILE_STATUS_ABSENT = 'ABSENT'.freeze,
+      DRS_FILE_STATUS_MISMATCH = 'MISMATCH'.freeze,
+      DRS_FILE_STATUS_NOT_CONFIGURED = 'NOT_CONFIGURED'.freeze,
+      DRS_FILE_STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the related managed instance.
     #
     # @return [String]
@@ -39,6 +47,9 @@ module OCI
     # @return [OCI::Jms::Models::OperatingSystem]
     attr_accessor :operating_system
 
+    # @return [OCI::Jms::Models::Agent]
+    attr_accessor :agent
+
     # The approximate count of applications reported by this managed instance.
     # @return [Integer]
     attr_accessor :approximate_application_count
@@ -50,6 +61,10 @@ module OCI
     # The approximate count of Java Runtimes reported by this managed instance.
     # @return [Integer]
     attr_accessor :approximate_jre_count
+
+    # DRS file status
+    # @return [String]
+    attr_reader :drs_file_status
 
     # Lower bound of the specified time period filter. JMS provides a view of the data that is _per day_. The query uses only the date element of the parameter.
     # @return [DateTime]
@@ -84,9 +99,11 @@ module OCI
         'hostname': :'hostname',
         'host_id': :'hostId',
         'operating_system': :'operatingSystem',
+        'agent': :'agent',
         'approximate_application_count': :'approximateApplicationCount',
         'approximate_installation_count': :'approximateInstallationCount',
         'approximate_jre_count': :'approximateJreCount',
+        'drs_file_status': :'drsFileStatus',
         'time_start': :'timeStart',
         'time_end': :'timeEnd',
         'time_first_seen': :'timeFirstSeen',
@@ -104,9 +121,11 @@ module OCI
         'hostname': :'String',
         'host_id': :'String',
         'operating_system': :'OCI::Jms::Models::OperatingSystem',
+        'agent': :'OCI::Jms::Models::Agent',
         'approximate_application_count': :'Integer',
         'approximate_installation_count': :'Integer',
         'approximate_jre_count': :'Integer',
+        'drs_file_status': :'String',
         'time_start': :'DateTime',
         'time_end': :'DateTime',
         'time_first_seen': :'DateTime',
@@ -126,9 +145,11 @@ module OCI
     # @option attributes [String] :hostname The value to assign to the {#hostname} property
     # @option attributes [String] :host_id The value to assign to the {#host_id} property
     # @option attributes [OCI::Jms::Models::OperatingSystem] :operating_system The value to assign to the {#operating_system} property
+    # @option attributes [OCI::Jms::Models::Agent] :agent The value to assign to the {#agent} property
     # @option attributes [Integer] :approximate_application_count The value to assign to the {#approximate_application_count} property
     # @option attributes [Integer] :approximate_installation_count The value to assign to the {#approximate_installation_count} property
     # @option attributes [Integer] :approximate_jre_count The value to assign to the {#approximate_jre_count} property
+    # @option attributes [String] :drs_file_status The value to assign to the {#drs_file_status} property
     # @option attributes [DateTime] :time_start The value to assign to the {#time_start} property
     # @option attributes [DateTime] :time_end The value to assign to the {#time_end} property
     # @option attributes [DateTime] :time_first_seen The value to assign to the {#time_first_seen} property
@@ -165,6 +186,8 @@ module OCI
 
       self.operating_system = attributes[:'operating_system'] if attributes[:'operating_system']
 
+      self.agent = attributes[:'agent'] if attributes[:'agent']
+
       self.approximate_application_count = attributes[:'approximateApplicationCount'] if attributes[:'approximateApplicationCount']
 
       raise 'You cannot provide both :approximateApplicationCount and :approximate_application_count' if attributes.key?(:'approximateApplicationCount') && attributes.key?(:'approximate_application_count')
@@ -182,6 +205,12 @@ module OCI
       raise 'You cannot provide both :approximateJreCount and :approximate_jre_count' if attributes.key?(:'approximateJreCount') && attributes.key?(:'approximate_jre_count')
 
       self.approximate_jre_count = attributes[:'approximate_jre_count'] if attributes[:'approximate_jre_count']
+
+      self.drs_file_status = attributes[:'drsFileStatus'] if attributes[:'drsFileStatus']
+
+      raise 'You cannot provide both :drsFileStatus and :drs_file_status' if attributes.key?(:'drsFileStatus') && attributes.key?(:'drs_file_status')
+
+      self.drs_file_status = attributes[:'drs_file_status'] if attributes[:'drs_file_status']
 
       self.time_start = attributes[:'timeStart'] if attributes[:'timeStart']
 
@@ -223,6 +252,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] drs_file_status Object to be assigned
+    def drs_file_status=(drs_file_status)
+      # rubocop:disable Style/ConditionalAssignment
+      if drs_file_status && !DRS_FILE_STATUS_ENUM.include?(drs_file_status)
+        OCI.logger.debug("Unknown value for 'drs_file_status' [" + drs_file_status + "]. Mapping to 'DRS_FILE_STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @drs_file_status = DRS_FILE_STATUS_UNKNOWN_ENUM_VALUE
+      else
+        @drs_file_status = drs_file_status
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -237,9 +279,11 @@ module OCI
         hostname == other.hostname &&
         host_id == other.host_id &&
         operating_system == other.operating_system &&
+        agent == other.agent &&
         approximate_application_count == other.approximate_application_count &&
         approximate_installation_count == other.approximate_installation_count &&
         approximate_jre_count == other.approximate_jre_count &&
+        drs_file_status == other.drs_file_status &&
         time_start == other.time_start &&
         time_end == other.time_end &&
         time_first_seen == other.time_first_seen &&
@@ -259,7 +303,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [managed_instance_id, managed_instance_type, hostname, host_id, operating_system, approximate_application_count, approximate_installation_count, approximate_jre_count, time_start, time_end, time_first_seen, time_last_seen].hash
+      [managed_instance_id, managed_instance_type, hostname, host_id, operating_system, agent, approximate_application_count, approximate_installation_count, approximate_jre_count, drs_file_status, time_start, time_end, time_first_seen, time_last_seen].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

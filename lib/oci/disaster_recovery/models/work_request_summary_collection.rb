@@ -10,7 +10,7 @@ module OCI
   # and other information, such as metadata.
   #
   class DisasterRecovery::Models::WorkRequestSummaryCollection
-    # **[Required]** A list of workRequestSummary objects.
+    # **[Required]** A list of work request summaries.
     #
     # @return [Array<OCI::DisasterRecovery::Models::WorkRequestSummary>]
     attr_accessor :items

@@ -9,8 +9,7 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Use the Logging Management API to create, read, list, update, move and delete
-  # log groups, log objects, log saved searches, agent configurations, log data models,
-  # continuous queries, and managed continuous queries.
+  # log groups, log objects, log saved searches, and agent configurations.
   #
   # For more information, see [Logging Overview](/iaas/Content/Logging/Concepts/loggingoverview.htm).
   class Logging::LoggingManagementClient
@@ -1527,7 +1526,6 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :service_stage Service stage of a service. The allowed values are \"ProductionStage\", \"DevStage\" and \"LAStage\".
     # @option opts [String] :opc_request_id Unique Oracle-assigned identifier for the request. If you need to contact Oracle about
     #   a particular request, please provide the request ID.
     #
@@ -1543,7 +1541,6 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
-      query_params[:serviceStage] = opts[:service_stage] if opts[:service_stage]
 
       # Header Params
       header_params = {}

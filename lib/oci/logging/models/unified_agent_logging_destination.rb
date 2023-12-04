@@ -12,11 +12,15 @@ module OCI
     # @return [String]
     attr_accessor :log_object_id
 
+    # @return [OCI::Logging::Models::OperationalMetricsConfiguration]
+    attr_accessor :operational_metrics_configuration
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'log_object_id': :'logObjectId'
+        'log_object_id': :'logObjectId',
+        'operational_metrics_configuration': :'operationalMetricsConfiguration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -25,7 +29,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'log_object_id': :'String'
+        'log_object_id': :'String',
+        'operational_metrics_configuration': :'OCI::Logging::Models::OperationalMetricsConfiguration'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -37,6 +42,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :log_object_id The value to assign to the {#log_object_id} property
+    # @option attributes [OCI::Logging::Models::OperationalMetricsConfiguration] :operational_metrics_configuration The value to assign to the {#operational_metrics_configuration} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -48,6 +54,12 @@ module OCI
       raise 'You cannot provide both :logObjectId and :log_object_id' if attributes.key?(:'logObjectId') && attributes.key?(:'log_object_id')
 
       self.log_object_id = attributes[:'log_object_id'] if attributes[:'log_object_id']
+
+      self.operational_metrics_configuration = attributes[:'operationalMetricsConfiguration'] if attributes[:'operationalMetricsConfiguration']
+
+      raise 'You cannot provide both :operationalMetricsConfiguration and :operational_metrics_configuration' if attributes.key?(:'operationalMetricsConfiguration') && attributes.key?(:'operational_metrics_configuration')
+
+      self.operational_metrics_configuration = attributes[:'operational_metrics_configuration'] if attributes[:'operational_metrics_configuration']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -61,7 +73,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        log_object_id == other.log_object_id
+        log_object_id == other.log_object_id &&
+        operational_metrics_configuration == other.operational_metrics_configuration
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -77,7 +90,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [log_object_id].hash
+      [log_object_id, operational_metrics_configuration].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

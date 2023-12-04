@@ -8,14 +8,16 @@ require 'logger'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # A summary of properties for the specified alarm.
-  # For information about alarms, see [Alarms Overview](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#AlarmsOverview).
+  # For information about alarms, see
+  # [Alarms Overview](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#AlarmsOverview).
   #
   # To use any of the API operations, you must be authorized in an IAM policy. If you're not authorized,
   # talk to an administrator. If you're an administrator who needs to write policies to give users access, see
   # [Getting Started with Policies](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policygetstarted.htm).
   #
   # For information about endpoints and signing API requests, see
-  # [About the API](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm). For information about available SDKs and tools, see
+  # [About the API](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm).
+  # For information about available SDKs and tools, see
   # [SDKS and Other Tools](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/sdks.htm).
   #
   class Monitoring::Models::AlarmSummary
@@ -34,7 +36,7 @@ module OCI
 
     # **[Required]** A user-friendly name for the alarm. It does not have to be unique, and it's changeable.
     #
-    # This name is sent as the title for notifications related to this alarm.
+    # This value determines the title of each alarm notification.
     #
     # Example: `High CPU Utilization`
     #
@@ -65,9 +67,12 @@ module OCI
     # rule condition has been met. The query must specify a metric, statistic, interval, and trigger
     # rule (threshold or absence). Supported values for interval depend on the specified time range. More
     # interval values are supported for smaller time ranges. Supported grouping functions: `grouping()`, `groupBy()`.
-    # For details about Monitoring Query Language (MQL), see [Monitoring Query Language (MQL) Reference](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Reference/mql.htm).
-    # For available dimensions, review the metric definition for the supported service.
-    # See [Supported Services](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#SupportedServices).
+    # For information about writing MQL expressions, see
+    # [Editing the MQL Expression for a Query](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Tasks/query-metric-mql.htm).
+    # For details about MQL, see
+    # [Monitoring Query Language (MQL) Reference](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Reference/mql.htm).
+    # For available dimensions, review the metric definition for the supported service. See
+    # [Supported Services](https://docs.cloud.oracle.com/iaas/Content/Monitoring/Concepts/monitoringoverview.htm#SupportedServices).
     #
     # Example of threshold alarm:
     #
@@ -95,10 +100,12 @@ module OCI
     # @return [String]
     attr_reader :severity
 
-    # **[Required]** A list of destinations to which the notifications for this alarm will be delivered.
-    # Each destination is represented by an [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) related to the supported destination service.
-    # For example, a destination using the Notifications service is represented by a topic OCID.
-    # Supported destination services: Notifications Service. Limit: One destination per supported destination service.
+    # **[Required]** A list of destinations for alarm notifications.
+    # Each destination is represented by the [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm)
+    # of a related resource, such as a {NotificationTopic}.
+    # Supported destination services: Notifications
+    # , Streaming.
+    # Limit: One destination per supported destination service.
     #
     # @return [Array<String>]
     attr_accessor :destinations

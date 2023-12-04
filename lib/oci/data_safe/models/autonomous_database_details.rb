@@ -7,9 +7,9 @@ require_relative 'database_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details of the Oracle Autonomous Database to be registered as a target database in Data Safe.
+  # The details of the Autonomous Database to be registered as a target database in Data Safe.
   class DataSafe::Models::AutonomousDatabaseDetails < DataSafe::Models::DatabaseDetails
-    # **[Required]** The OCID of the autonomous database registered as a target database in Data Safe.
+    # **[Required]** The OCID of the Autonomous Database registered as a target database in Data Safe.
     # @return [String]
     attr_accessor :autonomous_database_id
 

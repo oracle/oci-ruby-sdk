@@ -53,21 +53,22 @@ module OCI
     attr_accessor :ssl_mode
 
     # The base64 encoded certificate of the trusted certificate authorities (Trusted CA) for PostgreSQL.
+    # The supported file formats are .pem and .crt.
     #
     # @return [String]
     attr_accessor :ssl_ca
 
-    # The base64 encoded list of certificates revoked by the trusted certificate authorities (Trusted CA) for PostgreSQL.
+    # The base64 encoded list of certificates revoked by the trusted certificate authorities (Trusted CA).
     #
     # @return [String]
     attr_accessor :ssl_crl
 
-    # The base64 encoded certificate of the PostgreSQL server.
+    # The base64 encoded certificate of the PostgreSQL server. The supported file formats are .pem and .crt.
     #
     # @return [String]
     attr_accessor :ssl_cert
 
-    # The base64 encoded private key of the PostgreSQL server.
+    # The base64 encoded private key of the PostgreSQL server. The supported file formats are .pem and .crt.
     #
     # @return [String]
     attr_accessor :ssl_key

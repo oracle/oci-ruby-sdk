@@ -13,6 +13,7 @@ module OCI
     KIND_ENUM = [
       KIND_BASIC = 'BASIC'.freeze,
       KIND_APPLICATION = 'APPLICATION'.freeze,
+      KIND_LCM = 'LCM'.freeze,
       KIND_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -23,8 +24,13 @@ module OCI
       WORK_ITEM_TYPE_CRYPTO_ANALYSIS = 'CRYPTO_ANALYSIS'.freeze,
       WORK_ITEM_TYPE_CRYPTO_ANALYSIS_MERGE = 'CRYPTO_ANALYSIS_MERGE'.freeze,
       WORK_ITEM_TYPE_ADVANCED_USAGE_TRACKING = 'ADVANCED_USAGE_TRACKING'.freeze,
+      WORK_ITEM_TYPE_ADV_USAGE_SERVER_METADATA = 'ADV_USAGE_SERVER_METADATA'.freeze,
+      WORK_ITEM_TYPE_ADV_USAGE_SERVER_LIBRARIES = 'ADV_USAGE_SERVER_LIBRARIES'.freeze,
+      WORK_ITEM_TYPE_ADV_USAGE_JAVA_LIBRARIES = 'ADV_USAGE_JAVA_LIBRARIES'.freeze,
       WORK_ITEM_TYPE_PERFORMANCE_TUNING = 'PERFORMANCE_TUNING'.freeze,
       WORK_ITEM_TYPE_JMIGRATE_ANALYSIS = 'JMIGRATE_ANALYSIS'.freeze,
+      WORK_ITEM_TYPE_JMIGRATE_CREATE_REPORT = 'JMIGRATE_CREATE_REPORT'.freeze,
+      WORK_ITEM_TYPE_DRS = 'DRS'.freeze,
       WORK_ITEM_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -64,6 +70,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'kind'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::Jms::Models::LcmWorkItemDetails' if type == 'LCM'
       return 'OCI::Jms::Models::BasicWorkItemDetails' if type == 'BASIC'
       return 'OCI::Jms::Models::ApplicationWorkItemDetails' if type == 'APPLICATION'
 

@@ -35,6 +35,18 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # The new scaled up/down value for autonomous data storage in TBs for Autonomous VM cluster.
+    # @return [Float]
+    attr_accessor :autonomous_data_storage_size_in_tbs
+
+    # The new scaled up/down value for cpus per Autonomous VM cluster per node.
+    # @return [Integer]
+    attr_accessor :cpu_core_count_per_node
+
+    # The new scaled up/down value for maxACD count for Autonomous VM cluster.
+    # @return [Integer]
+    attr_accessor :total_container_databases
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -42,7 +54,10 @@ module OCI
         'maintenance_window_details': :'maintenanceWindowDetails',
         'license_model': :'licenseModel',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'autonomous_data_storage_size_in_tbs': :'autonomousDataStorageSizeInTBs',
+        'cpu_core_count_per_node': :'cpuCoreCountPerNode',
+        'total_container_databases': :'totalContainerDatabases'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -54,7 +69,10 @@ module OCI
         'maintenance_window_details': :'OCI::Database::Models::MaintenanceWindow',
         'license_model': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'autonomous_data_storage_size_in_tbs': :'Float',
+        'cpu_core_count_per_node': :'Integer',
+        'total_container_databases': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -69,6 +87,9 @@ module OCI
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Float] :autonomous_data_storage_size_in_tbs The value to assign to the {#autonomous_data_storage_size_in_tbs} property
+    # @option attributes [Integer] :cpu_core_count_per_node The value to assign to the {#cpu_core_count_per_node} property
+    # @option attributes [Integer] :total_container_databases The value to assign to the {#total_container_databases} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -98,6 +119,24 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.autonomous_data_storage_size_in_tbs = attributes[:'autonomousDataStorageSizeInTBs'] if attributes[:'autonomousDataStorageSizeInTBs']
+
+      raise 'You cannot provide both :autonomousDataStorageSizeInTBs and :autonomous_data_storage_size_in_tbs' if attributes.key?(:'autonomousDataStorageSizeInTBs') && attributes.key?(:'autonomous_data_storage_size_in_tbs')
+
+      self.autonomous_data_storage_size_in_tbs = attributes[:'autonomous_data_storage_size_in_tbs'] if attributes[:'autonomous_data_storage_size_in_tbs']
+
+      self.cpu_core_count_per_node = attributes[:'cpuCoreCountPerNode'] if attributes[:'cpuCoreCountPerNode']
+
+      raise 'You cannot provide both :cpuCoreCountPerNode and :cpu_core_count_per_node' if attributes.key?(:'cpuCoreCountPerNode') && attributes.key?(:'cpu_core_count_per_node')
+
+      self.cpu_core_count_per_node = attributes[:'cpu_core_count_per_node'] if attributes[:'cpu_core_count_per_node']
+
+      self.total_container_databases = attributes[:'totalContainerDatabases'] if attributes[:'totalContainerDatabases']
+
+      raise 'You cannot provide both :totalContainerDatabases and :total_container_databases' if attributes.key?(:'totalContainerDatabases') && attributes.key?(:'total_container_databases')
+
+      self.total_container_databases = attributes[:'total_container_databases'] if attributes[:'total_container_databases']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -122,7 +161,10 @@ module OCI
         maintenance_window_details == other.maintenance_window_details &&
         license_model == other.license_model &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        autonomous_data_storage_size_in_tbs == other.autonomous_data_storage_size_in_tbs &&
+        cpu_core_count_per_node == other.cpu_core_count_per_node &&
+        total_container_databases == other.total_container_databases
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -138,7 +180,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [maintenance_window_details, license_model, freeform_tags, defined_tags].hash
+      [maintenance_window_details, license_model, freeform_tags, defined_tags, autonomous_data_storage_size_in_tbs, cpu_core_count_per_node, total_container_databases].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

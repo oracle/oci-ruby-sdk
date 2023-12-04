@@ -11,7 +11,8 @@ module OCI
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
-      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze
+      LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze
     ].freeze
   end
 end

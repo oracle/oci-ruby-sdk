@@ -64,7 +64,7 @@ module OCI
     # @return [String]
     attr_reader :user_category
 
-    # The user account status.
+    # The status of the user account.
     # @return [String]
     attr_reader :account_status
 
@@ -72,11 +72,11 @@ module OCI
     # @return [String]
     attr_accessor :target_id
 
-    # The date and time when the user last logged in, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # The date and time the user last logged in, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # @return [DateTime]
     attr_accessor :time_last_login
 
-    # The date and time when the user was created in the database, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # The date and time the user was created in the database, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # @return [DateTime]
     attr_accessor :time_user_created
 
@@ -88,7 +88,7 @@ module OCI
     # @return [String]
     attr_accessor :user_profile
 
-    # The date and time when the user password was last changed, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # The date and time the user password was last changed, in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
     # @return [DateTime]
     attr_accessor :time_password_changed
 

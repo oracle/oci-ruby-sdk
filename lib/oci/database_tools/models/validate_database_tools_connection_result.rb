@@ -13,6 +13,8 @@ module OCI
     TYPE_ENUM = [
       TYPE_ORACLE_DATABASE = 'ORACLE_DATABASE'.freeze,
       TYPE_MYSQL = 'MYSQL'.freeze,
+      TYPE_POSTGRESQL = 'POSTGRESQL'.freeze,
+      TYPE_GENERIC_JDBC = 'GENERIC_JDBC'.freeze,
       TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -72,6 +74,7 @@ module OCI
 
       return 'OCI::DatabaseTools::Models::ValidateDatabaseToolsConnectionOracleDatabaseResult' if type == 'ORACLE_DATABASE'
       return 'OCI::DatabaseTools::Models::ValidateDatabaseToolsConnectionMySqlResult' if type == 'MYSQL'
+      return 'OCI::DatabaseTools::Models::ValidateDatabaseToolsConnectionPostgresqlResult' if type == 'POSTGRESQL'
 
       # TODO: Log a warning when the subtype is not found.
       'OCI::DatabaseTools::Models::ValidateDatabaseToolsConnectionResult'

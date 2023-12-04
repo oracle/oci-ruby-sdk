@@ -61,19 +61,19 @@ module OCI
     attr_accessor :lifecycle_details
 
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
-    # Example: `{\"bar-key\": \"value\"}`
+    # Example: `{\"bar-key\": \"value\"}`.
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
-    # Example: `{\"foo-namespace\": {\"bar-key\": \"value\"}}`
+    # Example: `{\"foo-namespace-1\": {\"bar-key-1\": \"value-1\", \"bar-key-2\": \"value-2\"}, \"foo-namespace-2\": {\"bar-key-1\": \"value-1\", \"bar-key-2\": \"value-2\"}}`.
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
     # Usage of system tag keys. These predefined keys are scoped to namespaces.
-    # Example: `{\"orcl-cloud\": {\"free-tier-retained\": \"true\"}}`
+    # Example: `{\"orcl-cloud\": {\"free-tier-retained\": \"true\"}}`.
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :system_tags

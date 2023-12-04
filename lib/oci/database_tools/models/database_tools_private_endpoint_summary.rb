@@ -16,6 +16,7 @@ module OCI
       LIFECYCLE_STATE_DELETING = 'DELETING'.freeze,
       LIFECYCLE_STATE_DELETED = 'DELETED'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_INACTIVE = 'INACTIVE'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -40,6 +41,10 @@ module OCI
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :system_tags
+
+    # Locks associated with this resource.
+    # @return [Array<OCI::DatabaseTools::Models::ResourceLock>]
+    attr_accessor :locks
 
     # A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
     # @return [String]
@@ -115,6 +120,7 @@ module OCI
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags',
         'system_tags': :'systemTags',
+        'locks': :'locks',
         'display_name': :'displayName',
         'description': :'description',
         'id': :'id',
@@ -143,6 +149,7 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>',
         'system_tags': :'Hash<String, Hash<String, Object>>',
+        'locks': :'Array<OCI::DatabaseTools::Models::ResourceLock>',
         'display_name': :'String',
         'description': :'String',
         'id': :'String',
@@ -173,6 +180,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
+    # @option attributes [Array<OCI::DatabaseTools::Models::ResourceLock>] :locks The value to assign to the {#locks} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :id The value to assign to the {#id} property
@@ -218,6 +226,8 @@ module OCI
       raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
 
       self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
+
+      self.locks = attributes[:'locks'] if attributes[:'locks']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -336,6 +346,7 @@ module OCI
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags &&
         system_tags == other.system_tags &&
+        locks == other.locks &&
         display_name == other.display_name &&
         description == other.description &&
         id == other.id &&
@@ -367,7 +378,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, freeform_tags, system_tags, display_name, description, id, endpoint_service_id, time_created, time_updated, vcn_id, subnet_id, private_endpoint_vnic_id, private_endpoint_ip, endpoint_fqdn, additional_fqdns, lifecycle_state, lifecycle_details, nsg_ids, reverse_connection_configuration].hash
+      [compartment_id, defined_tags, freeform_tags, system_tags, locks, display_name, description, id, endpoint_service_id, time_created, time_updated, vcn_id, subnet_id, private_endpoint_vnic_id, private_endpoint_ip, endpoint_fqdn, additional_fqdns, lifecycle_state, lifecycle_details, nsg_ids, reverse_connection_configuration].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -7,7 +7,9 @@ module OCI
   module DisasterRecovery::Models
     DR_PLAN_TYPE_ENUM = [
       DR_PLAN_TYPE_SWITCHOVER = 'SWITCHOVER'.freeze,
-      DR_PLAN_TYPE_FAILOVER = 'FAILOVER'.freeze
+      DR_PLAN_TYPE_FAILOVER = 'FAILOVER'.freeze,
+      DR_PLAN_TYPE_START_DRILL = 'START_DRILL'.freeze,
+      DR_PLAN_TYPE_STOP_DRILL = 'STOP_DRILL'.freeze
     ].freeze
   end
 end

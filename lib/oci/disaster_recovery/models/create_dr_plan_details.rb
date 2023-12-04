@@ -6,39 +6,43 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details for creating a DR Plan.
+  # The details for creating a DR plan.
   class DisasterRecovery::Models::CreateDrPlanDetails
     TYPE_ENUM = [
       TYPE_SWITCHOVER = 'SWITCHOVER'.freeze,
-      TYPE_FAILOVER = 'FAILOVER'.freeze
+      TYPE_FAILOVER = 'FAILOVER'.freeze,
+      TYPE_START_DRILL = 'START_DRILL'.freeze,
+      TYPE_STOP_DRILL = 'STOP_DRILL'.freeze
     ].freeze
 
-    # **[Required]** The display name of the DR Plan being created.
+    # **[Required]** The display name of the DR plan being created.
     #
     # Example: `EBS Switchover PHX to IAD`
     #
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The type of DR Plan to be created.
+    # **[Required]** The type of DR plan to be created.
     #
     # @return [String]
     attr_reader :type
 
-    # **[Required]** The OCID of the DR Protection Group to which this DR Plan belongs.
+    # **[Required]** The OCID of the DR protection group to which this DR plan belongs.
     #
-    # Example: `ocid1.drprotectiongroup.oc1.iad.&lt;unique_id&gt;`
+    # Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :dr_protection_group_id
 
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]

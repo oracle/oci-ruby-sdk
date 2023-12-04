@@ -7,13 +7,17 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details of a DR Plan Execution.
+  # The details of a DR plan execution.
   class DisasterRecovery::Models::DrPlanExecution
     PLAN_EXECUTION_TYPE_ENUM = [
       PLAN_EXECUTION_TYPE_SWITCHOVER = 'SWITCHOVER'.freeze,
       PLAN_EXECUTION_TYPE_SWITCHOVER_PRECHECK = 'SWITCHOVER_PRECHECK'.freeze,
       PLAN_EXECUTION_TYPE_FAILOVER = 'FAILOVER'.freeze,
       PLAN_EXECUTION_TYPE_FAILOVER_PRECHECK = 'FAILOVER_PRECHECK'.freeze,
+      PLAN_EXECUTION_TYPE_START_DRILL = 'START_DRILL'.freeze,
+      PLAN_EXECUTION_TYPE_START_DRILL_PRECHECK = 'START_DRILL_PRECHECK'.freeze,
+      PLAN_EXECUTION_TYPE_STOP_DRILL = 'STOP_DRILL'.freeze,
+      PLAN_EXECUTION_TYPE_STOP_DRILL_PRECHECK = 'STOP_DRILL_PRECHECK'.freeze,
       PLAN_EXECUTION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -33,35 +37,35 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The OCID of the DR Plan Execution.
+    # **[Required]** The OCID of the DR plan execution.
     #
-    # Example: `ocid1.drplanexecution.oc1.iad.&lt;unique_id&gt;`
+    # Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The OCID of the compartment containing this DR Plan Execution.
+    # **[Required]** The OCID of the compartment containing this DR plan execution.
     #
-    # Example: `ocid1.compartment.oc1..&lt;unique_id&gt;`
+    # Example: `ocid1.compartment.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The display name of this DR Plan Execution.
+    # **[Required]** The display name of the DR plan execution.
     #
     # Example: `Execution - EBS Switchover PHX to IAD`
     #
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The OCID of the DR Plan.
+    # **[Required]** The OCID of the DR plan.
     #
-    # Example: `ocid1.drplan.oc1.iad.&lt;unique_id&gt;`
+    # Example: `ocid1.drplan.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :plan_id
 
-    # **[Required]** The type of the DR Plan executed.
+    # **[Required]** The type of the DR plan executed.
     #
     # @return [String]
     attr_reader :plan_execution_type
@@ -70,22 +74,23 @@ module OCI
     # @return [OCI::DisasterRecovery::Models::DrPlanExecutionOptions]
     attr_accessor :execution_options
 
-    # **[Required]** The OCID of the DR Protection Group to which this DR Plan Execution belongs.
+    # **[Required]** The OCID of the DR protection group to which this DR plan execution belongs.
     #
-    # Example: `ocid1.drprotectiongroup.oc1.iad.&lt;unique_id&gt;`
+    # Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :dr_protection_group_id
 
-    # **[Required]** The OCID of peer (remote) DR Protection Group associated with this plan's
-    # DR Protection Group.
+    # **[Required]** The OCID of peer DR protection group associated with this plan's
+    # DR protection group.
     #
-    # Example: `ocid1.drprotectiongroup.oc1.phx.&lt;unique_id&gt;`
+    # Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :peer_dr_protection_group_id
 
-    # **[Required]** The region of the peer (remote) DR Protection Group.
+    # **[Required]** The region of the peer DR protection group associated with this plan's
+    # DR protection group.
     #
     # Example: `us-ashburn-1`
     #
@@ -96,28 +101,28 @@ module OCI
     # @return [OCI::DisasterRecovery::Models::ObjectStorageLogLocation]
     attr_accessor :log_location
 
-    # **[Required]** The date and time at which DR Plan Execution was created. An RFC3339 formatted datetime string.
+    # **[Required]** The date and time at which DR plan execution was created. An RFC3339 formatted datetime string.
     #
     # Example: `2019-03-29T09:36:42Z`
     #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The date and time at which DR Plan Execution began. An RFC3339 formatted datetime string.
+    # The date and time at which DR plan execution began. An RFC3339 formatted datetime string.
     #
     # Example: `2019-03-29T09:36:42Z`
     #
     # @return [DateTime]
     attr_accessor :time_started
 
-    # **[Required]** The time at which DR Plan Execution was last updated. An RFC3339 formatted datetime string.
+    # **[Required]** The time when DR plan execution was last updated. An RFC3339 formatted datetime string.
     #
     # Example: `2019-03-29T09:36:42Z`
     #
     # @return [DateTime]
     attr_accessor :time_updated
 
-    # The date and time at which DR Plan Execution succeeded, failed, was paused, or was canceled.
+    # The date and time at which DR plan execution succeeded, failed, was paused, or was canceled.
     # An RFC3339 formatted datetime string.
     #
     # Example: `2019-03-29T09:36:42Z`
@@ -125,43 +130,44 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_ended
 
-    # The total duration in seconds taken to complete the DR Plan Execution.
+    # The total duration in seconds taken to complete the DR plan execution.
     #
     # Example: `750`
     #
     # @return [Integer]
     attr_accessor :execution_duration_in_sec
 
-    # **[Required]** A list of groups executed in this DR Plan Execution.
+    # **[Required]** A list of groups executed in this DR plan execution.
     #
     # @return [Array<OCI::DisasterRecovery::Models::DrPlanGroupExecution>]
     attr_accessor :group_executions
 
-    # **[Required]** The current state of the DR Plan Execution.
+    # **[Required]** The current state of the DR plan execution.
     #
     # @return [String]
     attr_reader :lifecycle_state
 
-    # A message describing the DR Plan Execution's current state in more detail.
-    #
-    # Example: `The DR Plan Execution [Execution - EBS Switchover PHX to IAD] is currently in progress`
+    # A message describing the DR plan execution's current state in more detail.
     #
     # @return [String]
     attr_accessor :life_cycle_details
 
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
     # Usage of system tag keys. These predefined keys are scoped to namespaces.
+    #
     # Example: `{\"orcl-cloud\": {\"free-tier-retained\": \"true\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]

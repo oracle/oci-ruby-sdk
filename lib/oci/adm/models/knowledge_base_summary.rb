@@ -6,29 +6,29 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The summary of a Knowledge Base.
+  # The summary of a knowledge base.
   class Adm::Models::KnowledgeBaseSummary
-    # **[Required]** The Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)) of the Knowledge Base.
+    # **[Required]** The Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)) of the knowledge base.
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The name of the Knowledge Base.
+    # **[Required]** The name of the knowledge base.
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The creation date and time of the Knowledge Base (formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)).
+    # **[Required]** The creation date and time of the knowledge base (formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)).
     # @return [DateTime]
     attr_accessor :time_created
 
-    # **[Required]** The date and time the Knowledge Base was last updated (formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)).
+    # **[Required]** The date and time the knowledge base was last updated (formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)).
     # @return [DateTime]
     attr_accessor :time_updated
 
-    # **[Required]** The Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)) of the Knowledge Base's compartment.
+    # **[Required]** The compartment Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)) of the knowledge base.
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The current lifecycle state of the Knowledge Base.
+    # **[Required]** The current lifecycle state of the knowledge base.
     # @return [String]
     attr_accessor :lifecycle_state
 

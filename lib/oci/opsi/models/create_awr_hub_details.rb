@@ -20,7 +20,7 @@ module OCI
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** Object Storage Bucket Name
+    # Object Storage Bucket Name
     # @return [String]
     attr_accessor :object_storage_bucket_name
 

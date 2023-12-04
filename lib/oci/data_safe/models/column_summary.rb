@@ -6,7 +6,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details of a column in a table fetched from the database.
+  # The details of a column in a table fetched from the database.
   class DataSafe::Models::ColumnSummary
     # **[Required]** Name of the column.
     # @return [String]

@@ -60,7 +60,7 @@ module OCI
     # @return [String]
     attr_reader :database_type
 
-    # The OCIDs of associated resources like Database, Data Safe private endpoint etc.
+    # The OCIDs of associated resources like database, Data Safe private endpoint etc.
     # @return [Array<String>]
     attr_accessor :associated_resource_ids
 

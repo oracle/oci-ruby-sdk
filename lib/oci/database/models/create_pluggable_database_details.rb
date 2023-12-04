@@ -7,6 +7,7 @@ require 'date'
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
   # Parameters for creating a pluggable database in a specified container database (CDB).
+  # Additional option `pdbCreationTypeDetails` can be used for creating Pluggable Database using different operations, e.g. LocalClone, Remote Clone, Relocate.
   # **Warning:** Oracle recommends that you avoid using any confidential information when you supply string values using the API.
   #
   class Database::Models::CreatePluggableDatabaseDetails
@@ -32,6 +33,17 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :should_pdb_admin_account_be_locked
 
+    # The DB system administrator password of the Container Database.
+    # @return [String]
+    attr_accessor :container_database_admin_password
+
+    # Indicates whether to take Pluggable Database Backup after the operation.
+    # @return [BOOLEAN]
+    attr_accessor :should_create_pdb_backup
+
+    # @return [OCI::Database::Models::CreatePluggableDatabaseCreationTypeDetails]
+    attr_accessor :pdb_creation_type_details
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -55,6 +67,9 @@ module OCI
         'pdb_admin_password': :'pdbAdminPassword',
         'tde_wallet_password': :'tdeWalletPassword',
         'should_pdb_admin_account_be_locked': :'shouldPdbAdminAccountBeLocked',
+        'container_database_admin_password': :'containerDatabaseAdminPassword',
+        'should_create_pdb_backup': :'shouldCreatePdbBackup',
+        'pdb_creation_type_details': :'pdbCreationTypeDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -70,6 +85,9 @@ module OCI
         'pdb_admin_password': :'String',
         'tde_wallet_password': :'String',
         'should_pdb_admin_account_be_locked': :'BOOLEAN',
+        'container_database_admin_password': :'String',
+        'should_create_pdb_backup': :'BOOLEAN',
+        'pdb_creation_type_details': :'OCI::Database::Models::CreatePluggableDatabaseCreationTypeDetails',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -87,6 +105,9 @@ module OCI
     # @option attributes [String] :pdb_admin_password The value to assign to the {#pdb_admin_password} property
     # @option attributes [String] :tde_wallet_password The value to assign to the {#tde_wallet_password} property
     # @option attributes [BOOLEAN] :should_pdb_admin_account_be_locked The value to assign to the {#should_pdb_admin_account_be_locked} property
+    # @option attributes [String] :container_database_admin_password The value to assign to the {#container_database_admin_password} property
+    # @option attributes [BOOLEAN] :should_create_pdb_backup The value to assign to the {#should_create_pdb_backup} property
+    # @option attributes [OCI::Database::Models::CreatePluggableDatabaseCreationTypeDetails] :pdb_creation_type_details The value to assign to the {#pdb_creation_type_details} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -127,6 +148,24 @@ module OCI
       self.should_pdb_admin_account_be_locked = attributes[:'should_pdb_admin_account_be_locked'] unless attributes[:'should_pdb_admin_account_be_locked'].nil?
       self.should_pdb_admin_account_be_locked = false if should_pdb_admin_account_be_locked.nil? && !attributes.key?(:'shouldPdbAdminAccountBeLocked') && !attributes.key?(:'should_pdb_admin_account_be_locked') # rubocop:disable Style/StringLiterals
 
+      self.container_database_admin_password = attributes[:'containerDatabaseAdminPassword'] if attributes[:'containerDatabaseAdminPassword']
+
+      raise 'You cannot provide both :containerDatabaseAdminPassword and :container_database_admin_password' if attributes.key?(:'containerDatabaseAdminPassword') && attributes.key?(:'container_database_admin_password')
+
+      self.container_database_admin_password = attributes[:'container_database_admin_password'] if attributes[:'container_database_admin_password']
+
+      self.should_create_pdb_backup = attributes[:'shouldCreatePdbBackup'] unless attributes[:'shouldCreatePdbBackup'].nil?
+
+      raise 'You cannot provide both :shouldCreatePdbBackup and :should_create_pdb_backup' if attributes.key?(:'shouldCreatePdbBackup') && attributes.key?(:'should_create_pdb_backup')
+
+      self.should_create_pdb_backup = attributes[:'should_create_pdb_backup'] unless attributes[:'should_create_pdb_backup'].nil?
+
+      self.pdb_creation_type_details = attributes[:'pdbCreationTypeDetails'] if attributes[:'pdbCreationTypeDetails']
+
+      raise 'You cannot provide both :pdbCreationTypeDetails and :pdb_creation_type_details' if attributes.key?(:'pdbCreationTypeDetails') && attributes.key?(:'pdb_creation_type_details')
+
+      self.pdb_creation_type_details = attributes[:'pdb_creation_type_details'] if attributes[:'pdb_creation_type_details']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -156,6 +195,9 @@ module OCI
         pdb_admin_password == other.pdb_admin_password &&
         tde_wallet_password == other.tde_wallet_password &&
         should_pdb_admin_account_be_locked == other.should_pdb_admin_account_be_locked &&
+        container_database_admin_password == other.container_database_admin_password &&
+        should_create_pdb_backup == other.should_create_pdb_backup &&
+        pdb_creation_type_details == other.pdb_creation_type_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -173,7 +215,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [pdb_name, container_database_id, pdb_admin_password, tde_wallet_password, should_pdb_admin_account_be_locked, freeform_tags, defined_tags].hash
+      [pdb_name, container_database_id, pdb_admin_password, tde_wallet_password, should_pdb_admin_account_be_locked, container_database_admin_password, should_create_pdb_backup, pdb_creation_type_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

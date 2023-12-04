@@ -50,7 +50,7 @@ module OCI
     # @return [OCI::DataSafe::Models::ConnectionOption]
     attr_accessor :connection_option
 
-    # The OCIDs of associated resources like Database, Data Safe private endpoint etc.
+    # The OCIDs of associated resources like database, Data Safe private endpoint etc.
     # @return [Array<String>]
     attr_accessor :associated_resource_ids
 
@@ -62,7 +62,7 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_details
 
-    # **[Required]** The date and time of target database registration and creation in Data Safe.
+    # **[Required]** The date and time of the target database registration and creation in Data Safe.
     # @return [DateTime]
     attr_accessor :time_created
 

@@ -65,6 +65,21 @@ module OCI
     # @return [String]
     attr_accessor :display
 
+    # Resource description
+    #
+    # **Added In:** 2307071836
+    #
+    # **SCIM++ Properties:**
+    #  - idcsSearchable: true
+    #  - multiValued: false
+    #  - mutability: readOnly
+    #  - required: false
+    #  - returned: default
+    #  - type: string
+    #  - uniqueness: none
+    # @return [String]
+    attr_accessor :description
+
     # **[Required]** Requestable type. Allowed values are Group and App.
     #
     # **SCIM++ Properties:**
@@ -88,6 +103,7 @@ module OCI
         'value': :'value',
         'ref': :'$ref',
         'display': :'display',
+        'description': :'description',
         'type': :'type'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -100,6 +116,7 @@ module OCI
         'value': :'String',
         'ref': :'String',
         'display': :'String',
+        'description': :'String',
         'type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -114,6 +131,7 @@ module OCI
     # @option attributes [String] :value The value to assign to the {#value} property
     # @option attributes [String] :ref The value to assign to the {#ref} property
     # @option attributes [String] :display The value to assign to the {#display} property
+    # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :type The value to assign to the {#type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -126,6 +144,8 @@ module OCI
       self.ref = attributes[:'$ref'] if attributes[:'$ref']
 
       self.display = attributes[:'display'] if attributes[:'display']
+
+      self.description = attributes[:'description'] if attributes[:'description']
 
       self.type = attributes[:'type'] if attributes[:'type']
     end
@@ -157,6 +177,7 @@ module OCI
         value == other.value &&
         ref == other.ref &&
         display == other.display &&
+        description == other.description &&
         type == other.type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -173,7 +194,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [value, ref, display, type].hash
+      [value, ref, display, description, type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

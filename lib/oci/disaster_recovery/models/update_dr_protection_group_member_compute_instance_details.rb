@@ -7,31 +7,32 @@ require_relative 'update_dr_protection_group_member_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Update properties for a Compute Instance member.
+  # Deprecated. Update properties for a compute instance member.
   class DisasterRecovery::Models::UpdateDrProtectionGroupMemberComputeInstanceDetails < DisasterRecovery::Models::UpdateDrProtectionGroupMemberDetails
-    # A flag indicating if this compute instance should be moved during DR operations.
+    # A flag indicating if the compute instance should be moved during DR operations.
     #
     # Example: `false`
     #
     # @return [BOOLEAN]
     attr_accessor :is_movable
 
-    # A list of Compute Instance VNIC mappings.
+    # A list of compute instance VNIC mappings.
     #
     # @return [Array<OCI::DisasterRecovery::Models::ComputeInstanceVnicMappingDetails>]
     attr_accessor :vnic_mapping
 
-    # The OCID of the compartment for this compute instance in the destination region.
+    # The OCID of a compartment in the destination region in which the compute instance
+    # should be launched.
     #
-    # Example: `ocid1.compartment.oc1..&lt;unique_id&gt;`
+    # Example: `ocid1.compartment.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :destination_compartment_id
 
-    # The OCID of the dedicated VM Host in the destination region where this compute instance
-    # should be launched
+    # The OCID of a dedicated VM host in the destination region on which the compute instance
+    # should be launched.
     #
-    # Example: `ocid1.dedicatedvmhost.oc1.iad.&lt;unique_id&gt;`
+    # Example: `ocid1.dedicatedvmhost.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :destination_dedicated_vm_host_id

@@ -6,18 +6,18 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details for creating a DR Plan Execution.
+  # The details for creating a DR plan execution.
   class DisasterRecovery::Models::CreateDrPlanExecutionDetails
-    # The display name of the DR Plan Execution.
+    # The display name of the DR plan execution.
     #
     # Example: `Execution - EBS Switchover PHX to IAD`
     #
     # @return [String]
     attr_accessor :display_name
 
-    # **[Required]** The OCID of the DR Plan.
+    # **[Required]** The OCID of the DR plan.
     #
-    # Example: `ocid1.drplan.oc1.iad.&lt;unique_id&gt;`
+    # Example: `ocid1.drplan.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :plan_id
@@ -27,12 +27,14 @@ module OCI
     attr_accessor :execution_options
 
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]

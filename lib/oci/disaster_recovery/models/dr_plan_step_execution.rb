@@ -7,7 +7,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Summary information about a step execution.
+  # The details of a step execution in a DR plan execution.
   class DisasterRecovery::Models::DrPlanStepExecution
     TYPE_ENUM = [
       TYPE_COMPUTE_INSTANCE_STOP_PRECHECK = 'COMPUTE_INSTANCE_STOP_PRECHECK'.freeze,
@@ -36,6 +36,45 @@ module OCI
       TYPE_VOLUME_GROUP_REMOVE = 'VOLUME_GROUP_REMOVE'.freeze,
       TYPE_VOLUME_GROUP_TERMINATE = 'VOLUME_GROUP_TERMINATE'.freeze,
       TYPE_USER_DEFINED = 'USER_DEFINED'.freeze,
+      TYPE_VOLUME_GROUP_RESTORE_START_DRILL_PRECHECK = 'VOLUME_GROUP_RESTORE_START_DRILL_PRECHECK'.freeze,
+      TYPE_VOLUME_GROUP_REMOVE_PRECHECK = 'VOLUME_GROUP_REMOVE_PRECHECK'.freeze,
+      TYPE_VOLUME_GROUP_TERMINATE_PRECHECK = 'VOLUME_GROUP_TERMINATE_PRECHECK'.freeze,
+      TYPE_VOLUME_GROUP_RESTORE_START_DRILL = 'VOLUME_GROUP_RESTORE_START_DRILL'.freeze,
+      TYPE_AUTONOMOUS_DATABASE_CREATE_CLONE_PRECHECK = 'AUTONOMOUS_DATABASE_CREATE_CLONE_PRECHECK'.freeze,
+      TYPE_AUTONOMOUS_DATABASE_DELETE_CLONE_PRECHECK = 'AUTONOMOUS_DATABASE_DELETE_CLONE_PRECHECK'.freeze,
+      TYPE_LOAD_BALANCER_UPDATE_PRIMARY_BACKEND_SET_PRECHECK = 'LOAD_BALANCER_UPDATE_PRIMARY_BACKEND_SET_PRECHECK'.freeze,
+      TYPE_LOAD_BALANCER_UPDATE_STANDBY_BACKEND_SET_PRECHECK = 'LOAD_BALANCER_UPDATE_STANDBY_BACKEND_SET_PRECHECK'.freeze,
+      TYPE_FILE_SYSTEM_SWITCHOVER_PRECHECK = 'FILE_SYSTEM_SWITCHOVER_PRECHECK'.freeze,
+      TYPE_FILE_SYSTEM_FAILOVER_PRECHECK = 'FILE_SYSTEM_FAILOVER_PRECHECK'.freeze,
+      TYPE_FILE_SYSTEM_START_DRILL_PRECHECK = 'FILE_SYSTEM_START_DRILL_PRECHECK'.freeze,
+      TYPE_FILE_SYSTEM_STOP_DRILL_PRECHECK = 'FILE_SYSTEM_STOP_DRILL_PRECHECK'.freeze,
+      TYPE_FILE_SYSTEM_REMOVE_PRECHECK = 'FILE_SYSTEM_REMOVE_PRECHECK'.freeze,
+      TYPE_FILE_SYSTEM_TERMINATE_PRECHECK = 'FILE_SYSTEM_TERMINATE_PRECHECK'.freeze,
+      TYPE_FILE_SYSTEM_MOUNT_PRECHECK = 'FILE_SYSTEM_MOUNT_PRECHECK'.freeze,
+      TYPE_FILE_SYSTEM_UNMOUNT_PRECHECK = 'FILE_SYSTEM_UNMOUNT_PRECHECK'.freeze,
+      TYPE_COMPUTE_INSTANCE_START_PRECHECK = 'COMPUTE_INSTANCE_START_PRECHECK'.freeze,
+      TYPE_COMPUTE_INSTANCE_ATTACH_BLOCK_VOLUMES_PRECHECK = 'COMPUTE_INSTANCE_ATTACH_BLOCK_VOLUMES_PRECHECK'.freeze,
+      TYPE_COMPUTE_INSTANCE_DETACH_BLOCK_VOLUMES_PRECHECK = 'COMPUTE_INSTANCE_DETACH_BLOCK_VOLUMES_PRECHECK'.freeze,
+      TYPE_COMPUTE_INSTANCE_MOUNT_BLOCK_VOLUMES_PRECHECK = 'COMPUTE_INSTANCE_MOUNT_BLOCK_VOLUMES_PRECHECK'.freeze,
+      TYPE_COMPUTE_INSTANCE_UNMOUNT_BLOCK_VOLUMES_PRECHECK = 'COMPUTE_INSTANCE_UNMOUNT_BLOCK_VOLUMES_PRECHECK'.freeze,
+      TYPE_COMPUTE_CAPACITY_RESERVATION_START_DRILL_PRECHECK = 'COMPUTE_CAPACITY_RESERVATION_START_DRILL_PRECHECK'.freeze,
+      TYPE_COMPUTE_CAPACITY_AVAILABILITY_START_DRILL_PRECHECK = 'COMPUTE_CAPACITY_AVAILABILITY_START_DRILL_PRECHECK'.freeze,
+      TYPE_AUTONOMOUS_DATABASE_CREATE_CLONE = 'AUTONOMOUS_DATABASE_CREATE_CLONE'.freeze,
+      TYPE_AUTONOMOUS_DATABASE_DELETE_CLONE = 'AUTONOMOUS_DATABASE_DELETE_CLONE'.freeze,
+      TYPE_LOAD_BALANCER_UPDATE_PRIMARY_BACKEND_SET = 'LOAD_BALANCER_UPDATE_PRIMARY_BACKEND_SET'.freeze,
+      TYPE_LOAD_BALANCER_UPDATE_STANDBY_BACKEND_SET = 'LOAD_BALANCER_UPDATE_STANDBY_BACKEND_SET'.freeze,
+      TYPE_FILE_SYSTEM_SWITCHOVER = 'FILE_SYSTEM_SWITCHOVER'.freeze,
+      TYPE_FILE_SYSTEM_FAILOVER = 'FILE_SYSTEM_FAILOVER'.freeze,
+      TYPE_FILE_SYSTEM_REMOVE = 'FILE_SYSTEM_REMOVE'.freeze,
+      TYPE_FILE_SYSTEM_REVERSE = 'FILE_SYSTEM_REVERSE'.freeze,
+      TYPE_FILE_SYSTEM_TERMINATE = 'FILE_SYSTEM_TERMINATE'.freeze,
+      TYPE_FILE_SYSTEM_START_DRILL = 'FILE_SYSTEM_START_DRILL'.freeze,
+      TYPE_FILE_SYSTEM_STOP_DRILL = 'FILE_SYSTEM_STOP_DRILL'.freeze,
+      TYPE_COMPUTE_INSTANCE_START = 'COMPUTE_INSTANCE_START'.freeze,
+      TYPE_COMPUTE_INSTANCE_ATTACH_BLOCK_VOLUMES = 'COMPUTE_INSTANCE_ATTACH_BLOCK_VOLUMES'.freeze,
+      TYPE_COMPUTE_INSTANCE_DETACH_BLOCK_VOLUMES = 'COMPUTE_INSTANCE_DETACH_BLOCK_VOLUMES'.freeze,
+      TYPE_FILE_SYSTEM_MOUNT = 'FILE_SYSTEM_MOUNT'.freeze,
+      TYPE_FILE_SYSTEM_UNMOUNT = 'FILE_SYSTEM_UNMOUNT'.freeze,
       TYPE_COMPUTE_CAPACITY_RESERVATION_SWITCHOVER_PRECHECK = 'COMPUTE_CAPACITY_RESERVATION_SWITCHOVER_PRECHECK'.freeze,
       TYPE_COMPUTE_CAPACITY_RESERVATION_FAILOVER_PRECHECK = 'COMPUTE_CAPACITY_RESERVATION_FAILOVER_PRECHECK'.freeze,
       TYPE_COMPUTE_CAPACITY_AVAILABILITY_SWITCHOVER_PRECHECK = 'COMPUTE_CAPACITY_AVAILABILITY_SWITCHOVER_PRECHECK'.freeze,
@@ -57,26 +96,26 @@ module OCI
       STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The unique id of this step. Must not be modified by user.
+    # **[Required]** The unique id of the step. Must not be modified by user.
     #
-    # Example: `sgid1.step..&lt;unique_id&gt;`
+    # Example: `sgid1.step..uniqueID`
     #
     # @return [String]
     attr_accessor :step_id
 
-    # **[Required]** The plan step type.
+    # **[Required]** The step type.
     #
     # @return [String]
     attr_reader :type
 
     # **[Required]** The unique id of the group to which this step belongs. Must not be modified by user.
     #
-    # Example: `sgid1.group..&lt;unique_id&gt;`
+    # Example: `sgid1.group..uniqueID`
     #
     # @return [String]
     attr_accessor :group_id
 
-    # **[Required]** The display name of the step.
+    # **[Required]** The display name of the step execution.
     #
     # Example: `DATABASE_SWITCHOVER`
     #
@@ -92,28 +131,28 @@ module OCI
     # @return [String]
     attr_reader :status
 
-    # Additional details about the step execution status.
+    # Additional details on the step execution status.
     #
     # Example: `This step failed to complete due to a timeout`
     #
     # @return [String]
     attr_accessor :status_details
 
-    # The time at which step execution began. An RFC3339 formatted datetime string.
+    # The time when step execution began. An RFC3339 formatted datetime string.
     #
     # Example: `2019-03-29T09:36:42Z`
     #
     # @return [DateTime]
     attr_accessor :time_started
 
-    # The time at which step execution ended. An RFC3339 formatted datetime string.
+    # The time when execution ended. An RFC3339 formatted datetime string.
     #
     # Example: `2019-03-29T09:36:42Z`
     #
     # @return [DateTime]
     attr_accessor :time_ended
 
-    # The total duration in seconds taken to complete step execution.
+    # The total duration in seconds taken to complete the step execution.
     #
     # Example: `35`
     #

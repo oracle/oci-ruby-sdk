@@ -16,6 +16,24 @@ module OCI
       IDCS_PREVENTED_OPERATIONS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    STATUS_ENUM = [
+      STATUS_CREATED = 'CREATED'.freeze,
+      STATUS_COMPLETE = 'COMPLETE'.freeze,
+      STATUS_IN_PROGRESS = 'IN_PROGRESS'.freeze,
+      STATUS_APPROVED = 'APPROVED'.freeze,
+      STATUS_REJECTED = 'REJECTED'.freeze,
+      STATUS_CANCELED = 'CANCELED'.freeze,
+      STATUS_EXPIRED = 'EXPIRED'.freeze,
+      STATUS_FAILED = 'FAILED'.freeze,
+      STATUS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    ACTION_ENUM = [
+      ACTION_CANCEL = 'CANCEL'.freeze,
+      ACTION_ESCALATE = 'ESCALATE'.freeze,
+      ACTION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # Unique identifier for the SCIM Resource as defined by the Service Provider. Each representation of the Resource MUST include a non-empty id value. This identifier MUST be unique across the Service Provider's entire set of Resources. It MUST be a stable, non-reassignable identifier that does not change when the same Resource is returned in subsequent requests. The value of the id attribute is always issued by the Service Provider and MUST never be specified by the Service Consumer. bulkId: is a reserved keyword and MUST NOT be used in the unique identifier.
     #
     # **SCIM++ Properties:**
@@ -184,13 +202,58 @@ module OCI
     #  - caseExact: true
     #  - idcsSearchable: true
     #  - multiValued: false
+    #  - mutability: readOnly
+    #  - required: false
+    #  - returned: default
+    #  - type: string
+    #  - uniqueness: none
+    # @return [String]
+    attr_reader :status
+
+    # Requestor can set action to CANCEL to cancel the request or to ESCALATE to escalate the request while the request status is IN_PROGRESS. Requestor can't escalate the request if canceling or escalation is in progress.
+    #
+    # **Added In:** 2307071836
+    #
+    # **SCIM++ Properties:**
+    #  - caseExact: true
+    #  - idcsSearchable: true
+    #  - multiValued: false
     #  - mutability: readWrite
     #  - required: false
     #  - returned: default
     #  - type: string
     #  - uniqueness: none
     # @return [String]
-    attr_accessor :status
+    attr_reader :action
+
+    # Time by when Request expires
+    #
+    # **Added In:** 2307071836
+    #
+    # **SCIM++ Properties:**
+    #  - idcsSearchable: true
+    #  - multiValued: false
+    #  - mutability: readOnly
+    #  - required: false
+    #  - returned: default
+    #  - type: dateTime
+    #  - uniqueness: none
+    # @return [String]
+    attr_accessor :expires
+
+    # Approvals created for this request.
+    #
+    # **Added In:** 2307071836
+    #
+    # **SCIM++ Properties:**
+    #  - idcsSearchable: false
+    #  - multiValued: true
+    #  - mutability: readOnly
+    #  - returned: request
+    #  - type: complex
+    #  - uniqueness: none
+    # @return [Array<OCI::IdentityDomains::Models::MyRequestApprovalDetails>]
+    attr_accessor :approval_details
 
     # @return [OCI::IdentityDomains::Models::MyRequestRequestor]
     attr_accessor :requestor
@@ -218,6 +281,9 @@ module OCI
         'tenancy_ocid': :'tenancyOcid',
         'justification': :'justification',
         'status': :'status',
+        'action': :'action',
+        'expires': :'expires',
+        'approval_details': :'approvalDetails',
         'requestor': :'requestor',
         'requesting': :'requesting'
         # rubocop:enable Style/SymbolLiteral
@@ -243,6 +309,9 @@ module OCI
         'tenancy_ocid': :'String',
         'justification': :'String',
         'status': :'String',
+        'action': :'String',
+        'expires': :'String',
+        'approval_details': :'Array<OCI::IdentityDomains::Models::MyRequestApprovalDetails>',
         'requestor': :'OCI::IdentityDomains::Models::MyRequestRequestor',
         'requesting': :'OCI::IdentityDomains::Models::MyRequestRequesting'
         # rubocop:enable Style/SymbolLiteral
@@ -270,6 +339,9 @@ module OCI
     # @option attributes [String] :tenancy_ocid The value to assign to the {#tenancy_ocid} property
     # @option attributes [String] :justification The value to assign to the {#justification} property
     # @option attributes [String] :status The value to assign to the {#status} property
+    # @option attributes [String] :action The value to assign to the {#action} property
+    # @option attributes [String] :expires The value to assign to the {#expires} property
+    # @option attributes [Array<OCI::IdentityDomains::Models::MyRequestApprovalDetails>] :approval_details The value to assign to the {#approval_details} property
     # @option attributes [OCI::IdentityDomains::Models::MyRequestRequestor] :requestor The value to assign to the {#requestor} property
     # @option attributes [OCI::IdentityDomains::Models::MyRequestRequesting] :requesting The value to assign to the {#requesting} property
     def initialize(attributes = {})
@@ -340,6 +412,16 @@ module OCI
 
       self.status = attributes[:'status'] if attributes[:'status']
 
+      self.action = attributes[:'action'] if attributes[:'action']
+
+      self.expires = attributes[:'expires'] if attributes[:'expires']
+
+      self.approval_details = attributes[:'approvalDetails'] if attributes[:'approvalDetails']
+
+      raise 'You cannot provide both :approvalDetails and :approval_details' if attributes.key?(:'approvalDetails') && attributes.key?(:'approval_details')
+
+      self.approval_details = attributes[:'approval_details'] if attributes[:'approval_details']
+
       self.requestor = attributes[:'requestor'] if attributes[:'requestor']
 
       self.requesting = attributes[:'requesting'] if attributes[:'requesting']
@@ -363,6 +445,32 @@ module OCI
               IDCS_PREVENTED_OPERATIONS_UNKNOWN_ENUM_VALUE
             end
           end
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] status Object to be assigned
+    def status=(status)
+      # rubocop:disable Style/ConditionalAssignment
+      if status && !STATUS_ENUM.include?(status)
+        OCI.logger.debug("Unknown value for 'status' [" + status + "]. Mapping to 'STATUS_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @status = STATUS_UNKNOWN_ENUM_VALUE
+      else
+        @status = status
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] action Object to be assigned
+    def action=(action)
+      # rubocop:disable Style/ConditionalAssignment
+      if action && !ACTION_ENUM.include?(action)
+        OCI.logger.debug("Unknown value for 'action' [" + action + "]. Mapping to 'ACTION_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @action = ACTION_UNKNOWN_ENUM_VALUE
+      else
+        @action = action
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -391,6 +499,9 @@ module OCI
         tenancy_ocid == other.tenancy_ocid &&
         justification == other.justification &&
         status == other.status &&
+        action == other.action &&
+        expires == other.expires &&
+        approval_details == other.approval_details &&
         requestor == other.requestor &&
         requesting == other.requesting
     end
@@ -408,7 +519,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, ocid, schemas, meta, idcs_created_by, idcs_last_modified_by, idcs_prevented_operations, tags, delete_in_progress, idcs_last_upgraded_in_release, domain_ocid, compartment_ocid, tenancy_ocid, justification, status, requestor, requesting].hash
+      [id, ocid, schemas, meta, idcs_created_by, idcs_last_modified_by, idcs_prevented_operations, tags, delete_in_progress, idcs_last_upgraded_in_release, domain_ocid, compartment_ocid, tenancy_ocid, justification, status, action, expires, approval_details, requestor, requesting].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

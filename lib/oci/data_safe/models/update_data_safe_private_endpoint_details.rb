@@ -6,7 +6,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details used to update a Data Safe private endpoint.
+  # The details used to update the Data Safe private endpoint.
   class DataSafe::Models::UpdateDataSafePrivateEndpointDetails
     # The display name of the private endpoint.
     # @return [String]

@@ -6,13 +6,13 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # grok pattern object.
+  # Grok pattern object.
   class Logging::Models::GrokPattern
-    # **[Required]** The grok pattern.
+    # **[Required]** The Grok pattern.
     # @return [String]
     attr_accessor :pattern
 
-    # The name key to tag this grok pattern.
+    # The name key to tag this Grok pattern.
     # @return [String]
     attr_accessor :name
 

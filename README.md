@@ -4,7 +4,7 @@ This is Oracle Cloud Infrastructure SDK for Ruby. This project is open source an
 
 This project is no longer being actively developed by Oracle. We will continue to address security vulnerabilities for the foreseeable future, and will respond to questions on github, but have no plans to introduce any new functionality, and may not be able to address any non-security related issues. We encourage developers to migrate to other OCI SDKs, and developers may fork this project and enhance it as they desire.
 
-**Version 2.19.0**
+**Version 2.20.0**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -33,6 +33,7 @@ The Ruby SDK supports the following services:
 * Blockchain Platform
 * Budgets
 * Build service
+* Caching
 * Certificates service
 * Classic Migration
 * Cloud Bridge
@@ -79,6 +80,7 @@ The Ruby SDK supports the following services:
 * Incident Management
 * Integration Cloud
 * Java Management Service
+* Java Management Service Downloads
 * Key Management
 * License Manager
 * Limits
@@ -90,6 +92,7 @@ The Ruby SDK supports the following services:
 * Management Agent Cloud
 * Management Dashboard
 * Marketplace
+* Marketplace Publisher
 * Monitoring
 * MySQL Database service
 * Network Firewall
@@ -111,6 +114,7 @@ The Ruby SDK supports the following services:
 * Oracle NoSQL Database Cloud
 * OS Management
 * Process Automation
+* PostgreSQL service
 * Queue Service
 * Quotas
 * Resource Manager

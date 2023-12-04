@@ -366,6 +366,77 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Request to perform validaition of the DRS file and create the file to the Object Storage.
+    #
+    # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
+    # @param [OCI::Jms::Models::CreateDrsFileDetails] create_drs_file_details Detail information to create DRS
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   ETag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the ETag you
+    #   provide matches the resource's current ETag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/create_drs_file.rb.html) to see an example of how to use create_drs_file API.
+    def create_drs_file(fleet_id, create_drs_file_details, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#create_drs_file.' if logger
+
+      raise "Missing the required parameter 'fleet_id' when calling create_drs_file." if fleet_id.nil?
+      raise "Missing the required parameter 'create_drs_file_details' when calling create_drs_file." if create_drs_file_details.nil?
+      raise "Parameter value for 'fleet_id' must not be blank" if OCI::Internal::Util.blank_string?(fleet_id)
+
+      path = '/fleets/{fleetId}/drsFiles'.sub('{fleetId}', fleet_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_drs_file_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#create_drs_file') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Create a new Fleet using the information provided.
     #
     # `inventoryLog` is now a required parameter for CreateFleet API.
@@ -538,6 +609,70 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#delete_crypto_analysis_result') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Request to delete the DRS file from the Object Storage.
+    #
+    # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
+    # @param [String] drs_file_key The unique identifier of the DRS File in Object Storage.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   ETag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the ETag you
+    #   provide matches the resource's current ETag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/delete_drs_file.rb.html) to see an example of how to use delete_drs_file API.
+    def delete_drs_file(fleet_id, drs_file_key, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#delete_drs_file.' if logger
+
+      raise "Missing the required parameter 'fleet_id' when calling delete_drs_file." if fleet_id.nil?
+      raise "Missing the required parameter 'drs_file_key' when calling delete_drs_file." if drs_file_key.nil?
+      raise "Parameter value for 'fleet_id' must not be blank" if OCI::Internal::Util.blank_string?(fleet_id)
+      raise "Parameter value for 'drs_file_key' must not be blank" if OCI::Internal::Util.blank_string?(drs_file_key)
+
+      path = '/fleets/{fleetId}/drsFiles/{drsFileKey}'.sub('{fleetId}', fleet_id.to_s).sub('{drsFileKey}', drs_file_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#delete_drs_file') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -745,6 +880,148 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Request to disable the DRS in the selected target in the Fleet.
+    #
+    # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
+    # @param [OCI::Jms::Models::DisableDrsDetails] disable_drs_details Detail information to disable DRS
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   ETag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the ETag you
+    #   provide matches the resource's current ETag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/disable_drs.rb.html) to see an example of how to use disable_drs API.
+    def disable_drs(fleet_id, disable_drs_details, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#disable_drs.' if logger
+
+      raise "Missing the required parameter 'fleet_id' when calling disable_drs." if fleet_id.nil?
+      raise "Missing the required parameter 'disable_drs_details' when calling disable_drs." if disable_drs_details.nil?
+      raise "Parameter value for 'fleet_id' must not be blank" if OCI::Internal::Util.blank_string?(fleet_id)
+
+      path = '/fleets/{fleetId}/actions/disableDrs'.sub('{fleetId}', fleet_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(disable_drs_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#disable_drs') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Request to enable the DRS in the selected target in the Fleet.
+    #
+    # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
+    # @param [OCI::Jms::Models::EnableDrsDetails] enable_drs_details Detail information to enable DRS
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   ETag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the ETag you
+    #   provide matches the resource's current ETag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/enable_drs.rb.html) to see an example of how to use enable_drs API.
+    def enable_drs(fleet_id, enable_drs_details, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#enable_drs.' if logger
+
+      raise "Missing the required parameter 'fleet_id' when calling enable_drs." if fleet_id.nil?
+      raise "Missing the required parameter 'enable_drs_details' when calling enable_drs." if enable_drs_details.nil?
+      raise "Parameter value for 'fleet_id' must not be blank" if OCI::Internal::Util.blank_string?(fleet_id)
+
+      path = '/fleets/{fleetId}/actions/enableDrs'.sub('{fleetId}', fleet_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(enable_drs_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#enable_drs') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Generates Agent Deploy Script for Fleet using the information provided.
     #
     # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
@@ -892,6 +1169,173 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Jms::Models::CryptoAnalysisResult'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Get the detail about the created DRS file in the Fleet.
+    # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
+    # @param [String] drs_file_key The unique identifier of the DRS File in Object Storage.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. The token is usually retrieved from a previous list call.
+    # @return [Response] A Response object with data of type {OCI::Jms::Models::DrsFile DrsFile}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/get_drs_file.rb.html) to see an example of how to use get_drs_file API.
+    def get_drs_file(fleet_id, drs_file_key, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#get_drs_file.' if logger
+
+      raise "Missing the required parameter 'fleet_id' when calling get_drs_file." if fleet_id.nil?
+      raise "Missing the required parameter 'drs_file_key' when calling get_drs_file." if drs_file_key.nil?
+      raise "Parameter value for 'fleet_id' must not be blank" if OCI::Internal::Util.blank_string?(fleet_id)
+      raise "Parameter value for 'drs_file_key' must not be blank" if OCI::Internal::Util.blank_string?(drs_file_key)
+
+      path = '/fleets/{fleetId}/drsFiles/{drsFileKey}'.sub('{fleetId}', fleet_id.to_s).sub('{drsFileKey}', drs_file_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#get_drs_file') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Jms::Models::DrsFile'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns export setting for the specified Fleet.
+    # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::Jms::Models::ExportSetting ExportSetting}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/get_export_setting.rb.html) to see an example of how to use get_export_setting API.
+    def get_export_setting(fleet_id, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#get_export_setting.' if logger
+
+      raise "Missing the required parameter 'fleet_id' when calling get_export_setting." if fleet_id.nil?
+      raise "Parameter value for 'fleet_id' must not be blank" if OCI::Internal::Util.blank_string?(fleet_id)
+
+      path = '/fleets/{fleetId}/exportSetting'.sub('{fleetId}', fleet_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#get_export_setting') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Jms::Models::ExportSetting'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns last export status for the specified Fleet.
+    # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::Jms::Models::ExportStatus ExportStatus}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/get_export_status.rb.html) to see an example of how to use get_export_status API.
+    def get_export_status(fleet_id, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#get_export_status.' if logger
+
+      raise "Missing the required parameter 'fleet_id' when calling get_export_status." if fleet_id.nil?
+      raise "Parameter value for 'fleet_id' must not be blank" if OCI::Internal::Util.blank_string?(fleet_id)
+
+      path = '/fleets/{fleetId}/exportStatus'.sub('{fleetId}', fleet_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#get_export_status') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Jms::Models::ExportStatus'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1596,6 +2040,79 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # List the details about the created DRS files in the Fleet.
+    # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page The page token representing the page at which to start retrieving results. The token is usually retrieved from a previous list call.
+    # @option opts [String] :sort_order The sort order, either 'asc' or 'desc'. (default to ASC)
+    # @option opts [String] :sort_by The field that sorts the DRS details results. Only one sort order can be provided.
+    #   The default order for _drsFileKey_ is **descending**.
+    #   If no value is specified, then _drsFileKey_ is default.
+    #    (default to drsFileKey)
+    # @return [Response] A Response object with data of type {OCI::Jms::Models::DrsFileCollection DrsFileCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/list_drs_files.rb.html) to see an example of how to use list_drs_files API.
+    def list_drs_files(fleet_id, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#list_drs_files.' if logger
+
+      raise "Missing the required parameter 'fleet_id' when calling list_drs_files." if fleet_id.nil?
+
+      if opts[:sort_order] && !OCI::Jms::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Jms::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !OCI::Jms::Models::DRS_FILE_SORT_BY_ENUM.include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of the values in OCI::Jms::Models::DRS_FILE_SORT_BY_ENUM.'
+      end
+      raise "Parameter value for 'fleet_id' must not be blank" if OCI::Internal::Util.blank_string?(fleet_id)
+
+      path = '/fleets/{fleetId}/drsFiles'.sub('{fleetId}', fleet_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#list_drs_files') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Jms::Models::DrsFileCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # List potential diagnoses that would put a fleet into FAILED or NEEDS_ATTENTION lifecycle state.
     #
     # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
@@ -1865,6 +2382,7 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :family_version The version identifier for the Java family.
     # @option opts [String] :display_name The display name for the Java family.
+    # @option opts [BOOLEAN] :is_supported_version Filter the Java Release Family versions by support status.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page The page token representing the page at which to start retrieving results. The token is usually retrieved from a previous list call.
     # @option opts [String] :sort_order The sort order, either 'asc' or 'desc'. (default to ASC)
@@ -1893,6 +2411,7 @@ module OCI
       query_params = {}
       query_params[:familyVersion] = opts[:family_version] if opts[:family_version]
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:isSupportedVersion] = opts[:is_supported_version] if !opts[:is_supported_version].nil?
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
@@ -2458,6 +2977,7 @@ module OCI
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @option opts [String] :page The page token representing the page at which to start retrieving results. The token is usually retrieved from a previous list call.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :managed_instance_id The Fleet-unique identifier of the managed instance.
     # @return [Response] A Response object with data of type {OCI::Jms::Models::WorkRequestCollection WorkRequestCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(opts = {})
@@ -2475,6 +2995,7 @@ module OCI
       query_params[:fleetId] = opts[:fleet_id] if opts[:fleet_id]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:managedInstanceId] = opts[:managed_instance_id] if opts[:managed_instance_id]
 
       # Header Params
       header_params = {}
@@ -4101,6 +4622,143 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Jms::Models::ResourceInventory'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Request to perform validaition of the DRS file and update the existing file in the Object Storage.
+    #
+    # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
+    # @param [OCI::Jms::Models::UpdateDrsFileDetails] update_drs_file_details Detail information to update DRS
+    # @param [String] drs_file_key The unique identifier of the DRS File in Object Storage.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   ETag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the ETag you
+    #   provide matches the resource's current ETag value.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/update_drs_file.rb.html) to see an example of how to use update_drs_file API.
+    def update_drs_file(fleet_id, update_drs_file_details, drs_file_key, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#update_drs_file.' if logger
+
+      raise "Missing the required parameter 'fleet_id' when calling update_drs_file." if fleet_id.nil?
+      raise "Missing the required parameter 'update_drs_file_details' when calling update_drs_file." if update_drs_file_details.nil?
+      raise "Missing the required parameter 'drs_file_key' when calling update_drs_file." if drs_file_key.nil?
+      raise "Parameter value for 'fleet_id' must not be blank" if OCI::Internal::Util.blank_string?(fleet_id)
+      raise "Parameter value for 'drs_file_key' must not be blank" if OCI::Internal::Util.blank_string?(drs_file_key)
+
+      path = '/fleets/{fleetId}/drsFiles/{drsFileKey}'.sub('{fleetId}', fleet_id.to_s).sub('{drsFileKey}', drs_file_key.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(update_drs_file_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#update_drs_file') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates existing export setting for the specified Fleet.
+    # @param [String] fleet_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the Fleet.
+    # @param [OCI::Jms::Models::UpdateExportSettingDetails] update_export_setting_details The new details for the Export setting.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   ETag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the ETag you
+    #   provide matches the resource's current ETag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::Jms::Models::ExportSetting ExportSetting}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/jms/update_export_setting.rb.html) to see an example of how to use update_export_setting API.
+    def update_export_setting(fleet_id, update_export_setting_details, opts = {})
+      logger.debug 'Calling operation JavaManagementServiceClient#update_export_setting.' if logger
+
+      raise "Missing the required parameter 'fleet_id' when calling update_export_setting." if fleet_id.nil?
+      raise "Missing the required parameter 'update_export_setting_details' when calling update_export_setting." if update_export_setting_details.nil?
+      raise "Parameter value for 'fleet_id' must not be blank" if OCI::Internal::Util.blank_string?(fleet_id)
+
+      path = '/fleets/{fleetId}/exportSetting'.sub('{fleetId}', fleet_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_export_setting_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'JavaManagementServiceClient#update_export_setting') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Jms::Models::ExportSetting'
         )
       end
       # rubocop:enable Metrics/BlockLength

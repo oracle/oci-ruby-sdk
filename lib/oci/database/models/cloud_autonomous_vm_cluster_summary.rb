@@ -278,6 +278,18 @@ module OCI
     # @return [Integer]
     attr_accessor :non_provisionable_autonomous_container_databases
 
+    # The lowest value to which exadataStorage in TBs can be scaled down.
+    # @return [Float]
+    attr_accessor :exadata_storage_in_tbs_lowest_scaled_value
+
+    # The lowest value to which ocpus can be scaled down.
+    # @return [Integer]
+    attr_accessor :ocpus_lowest_scaled_value
+
+    # The lowest value to which ACDs can be scaled down.
+    # @return [Integer]
+    attr_accessor :max_acds_lowest_scaled_value
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -335,7 +347,10 @@ module OCI
         'reserved_cpus': :'reservedCpus',
         'provisionable_autonomous_container_databases': :'provisionableAutonomousContainerDatabases',
         'provisioned_autonomous_container_databases': :'provisionedAutonomousContainerDatabases',
-        'non_provisionable_autonomous_container_databases': :'nonProvisionableAutonomousContainerDatabases'
+        'non_provisionable_autonomous_container_databases': :'nonProvisionableAutonomousContainerDatabases',
+        'exadata_storage_in_tbs_lowest_scaled_value': :'exadataStorageInTBsLowestScaledValue',
+        'ocpus_lowest_scaled_value': :'ocpusLowestScaledValue',
+        'max_acds_lowest_scaled_value': :'maxAcdsLowestScaledValue'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -397,7 +412,10 @@ module OCI
         'reserved_cpus': :'Float',
         'provisionable_autonomous_container_databases': :'Integer',
         'provisioned_autonomous_container_databases': :'Integer',
-        'non_provisionable_autonomous_container_databases': :'Integer'
+        'non_provisionable_autonomous_container_databases': :'Integer',
+        'exadata_storage_in_tbs_lowest_scaled_value': :'Float',
+        'ocpus_lowest_scaled_value': :'Integer',
+        'max_acds_lowest_scaled_value': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -462,6 +480,9 @@ module OCI
     # @option attributes [Integer] :provisionable_autonomous_container_databases The value to assign to the {#provisionable_autonomous_container_databases} property
     # @option attributes [Integer] :provisioned_autonomous_container_databases The value to assign to the {#provisioned_autonomous_container_databases} property
     # @option attributes [Integer] :non_provisionable_autonomous_container_databases The value to assign to the {#non_provisionable_autonomous_container_databases} property
+    # @option attributes [Float] :exadata_storage_in_tbs_lowest_scaled_value The value to assign to the {#exadata_storage_in_tbs_lowest_scaled_value} property
+    # @option attributes [Integer] :ocpus_lowest_scaled_value The value to assign to the {#ocpus_lowest_scaled_value} property
+    # @option attributes [Integer] :max_acds_lowest_scaled_value The value to assign to the {#max_acds_lowest_scaled_value} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -773,6 +794,24 @@ module OCI
       raise 'You cannot provide both :nonProvisionableAutonomousContainerDatabases and :non_provisionable_autonomous_container_databases' if attributes.key?(:'nonProvisionableAutonomousContainerDatabases') && attributes.key?(:'non_provisionable_autonomous_container_databases')
 
       self.non_provisionable_autonomous_container_databases = attributes[:'non_provisionable_autonomous_container_databases'] if attributes[:'non_provisionable_autonomous_container_databases']
+
+      self.exadata_storage_in_tbs_lowest_scaled_value = attributes[:'exadataStorageInTBsLowestScaledValue'] if attributes[:'exadataStorageInTBsLowestScaledValue']
+
+      raise 'You cannot provide both :exadataStorageInTBsLowestScaledValue and :exadata_storage_in_tbs_lowest_scaled_value' if attributes.key?(:'exadataStorageInTBsLowestScaledValue') && attributes.key?(:'exadata_storage_in_tbs_lowest_scaled_value')
+
+      self.exadata_storage_in_tbs_lowest_scaled_value = attributes[:'exadata_storage_in_tbs_lowest_scaled_value'] if attributes[:'exadata_storage_in_tbs_lowest_scaled_value']
+
+      self.ocpus_lowest_scaled_value = attributes[:'ocpusLowestScaledValue'] if attributes[:'ocpusLowestScaledValue']
+
+      raise 'You cannot provide both :ocpusLowestScaledValue and :ocpus_lowest_scaled_value' if attributes.key?(:'ocpusLowestScaledValue') && attributes.key?(:'ocpus_lowest_scaled_value')
+
+      self.ocpus_lowest_scaled_value = attributes[:'ocpus_lowest_scaled_value'] if attributes[:'ocpus_lowest_scaled_value']
+
+      self.max_acds_lowest_scaled_value = attributes[:'maxAcdsLowestScaledValue'] if attributes[:'maxAcdsLowestScaledValue']
+
+      raise 'You cannot provide both :maxAcdsLowestScaledValue and :max_acds_lowest_scaled_value' if attributes.key?(:'maxAcdsLowestScaledValue') && attributes.key?(:'max_acds_lowest_scaled_value')
+
+      self.max_acds_lowest_scaled_value = attributes[:'max_acds_lowest_scaled_value'] if attributes[:'max_acds_lowest_scaled_value']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -878,7 +917,10 @@ module OCI
         reserved_cpus == other.reserved_cpus &&
         provisionable_autonomous_container_databases == other.provisionable_autonomous_container_databases &&
         provisioned_autonomous_container_databases == other.provisioned_autonomous_container_databases &&
-        non_provisionable_autonomous_container_databases == other.non_provisionable_autonomous_container_databases
+        non_provisionable_autonomous_container_databases == other.non_provisionable_autonomous_container_databases &&
+        exadata_storage_in_tbs_lowest_scaled_value == other.exadata_storage_in_tbs_lowest_scaled_value &&
+        ocpus_lowest_scaled_value == other.ocpus_lowest_scaled_value &&
+        max_acds_lowest_scaled_value == other.max_acds_lowest_scaled_value
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -894,7 +936,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, description, availability_domain, subnet_id, nsg_ids, last_update_history_entry_id, lifecycle_state, display_name, time_created, time_updated, cluster_time_zone, lifecycle_details, hostname, domain, cloud_exadata_infrastructure_id, shape, node_count, data_storage_size_in_tbs, data_storage_size_in_gbs, cpu_core_count, ocpu_count, compute_model, is_mtls_enabled_vm_cluster, cpu_core_count_per_node, memory_size_in_gbs, license_model, last_maintenance_run_id, next_maintenance_run_id, maintenance_window, scan_listener_port_tls, scan_listener_port_non_tls, freeform_tags, defined_tags, time_database_ssl_certificate_expires, time_ords_certificate_expires, available_cpus, reclaimable_cpus, available_container_databases, total_container_databases, available_autonomous_data_storage_size_in_tbs, autonomous_data_storage_size_in_tbs, db_node_storage_size_in_gbs, memory_per_oracle_compute_unit_in_gbs, db_servers, cpu_percentage, autonomous_data_storage_percentage, provisioned_cpus, total_cpus, total_autonomous_data_storage_in_tbs, reserved_cpus, provisionable_autonomous_container_databases, provisioned_autonomous_container_databases, non_provisionable_autonomous_container_databases].hash
+      [id, compartment_id, description, availability_domain, subnet_id, nsg_ids, last_update_history_entry_id, lifecycle_state, display_name, time_created, time_updated, cluster_time_zone, lifecycle_details, hostname, domain, cloud_exadata_infrastructure_id, shape, node_count, data_storage_size_in_tbs, data_storage_size_in_gbs, cpu_core_count, ocpu_count, compute_model, is_mtls_enabled_vm_cluster, cpu_core_count_per_node, memory_size_in_gbs, license_model, last_maintenance_run_id, next_maintenance_run_id, maintenance_window, scan_listener_port_tls, scan_listener_port_non_tls, freeform_tags, defined_tags, time_database_ssl_certificate_expires, time_ords_certificate_expires, available_cpus, reclaimable_cpus, available_container_databases, total_container_databases, available_autonomous_data_storage_size_in_tbs, autonomous_data_storage_size_in_tbs, db_node_storage_size_in_gbs, memory_per_oracle_compute_unit_in_gbs, db_servers, cpu_percentage, autonomous_data_storage_percentage, provisioned_cpus, total_cpus, total_autonomous_data_storage_in_tbs, reserved_cpus, provisionable_autonomous_container_databases, provisioned_autonomous_container_databases, non_provisionable_autonomous_container_databases, exadata_storage_in_tbs_lowest_scaled_value, ocpus_lowest_scaled_value, max_acds_lowest_scaled_value].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

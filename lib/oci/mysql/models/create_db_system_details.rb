@@ -14,6 +14,11 @@ module OCI
       CRASH_RECOVERY_DISABLED = 'DISABLED'.freeze
     ].freeze
 
+    DATABASE_MANAGEMENT_ENUM = [
+      DATABASE_MANAGEMENT_ENABLED = 'ENABLED'.freeze,
+      DATABASE_MANAGEMENT_DISABLED = 'DISABLED'.freeze
+    ].freeze
+
     # The user-friendly name for the DB System. It does not have to be unique.
     # @return [String]
     attr_accessor :display_name
@@ -157,6 +162,11 @@ module OCI
     # @return [String]
     attr_reader :crash_recovery
 
+    # Whether to enable monitoring via the Database Management service.
+    #
+    # @return [String]
+    attr_reader :database_management
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -184,7 +194,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'deletion_policy': :'deletionPolicy',
-        'crash_recovery': :'crashRecovery'
+        'crash_recovery': :'crashRecovery',
+        'database_management': :'databaseManagement'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -216,7 +227,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'deletion_policy': :'OCI::Mysql::Models::CreateDeletionPolicyDetails',
-        'crash_recovery': :'String'
+        'crash_recovery': :'String',
+        'database_management': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -251,6 +263,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [OCI::Mysql::Models::CreateDeletionPolicyDetails] :deletion_policy The value to assign to the {#deletion_policy} property
     # @option attributes [String] :crash_recovery The value to assign to the {#crash_recovery} property
+    # @option attributes [String] :database_management The value to assign to the {#database_management} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -388,6 +401,14 @@ module OCI
 
       self.crash_recovery = attributes[:'crash_recovery'] if attributes[:'crash_recovery']
       self.crash_recovery = "ENABLED" if crash_recovery.nil? && !attributes.key?(:'crashRecovery') && !attributes.key?(:'crash_recovery') # rubocop:disable Style/StringLiterals
+
+      self.database_management = attributes[:'databaseManagement'] if attributes[:'databaseManagement']
+      self.database_management = "ENABLED" if database_management.nil? && !attributes.key?(:'databaseManagement') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :databaseManagement and :database_management' if attributes.key?(:'databaseManagement') && attributes.key?(:'database_management')
+
+      self.database_management = attributes[:'database_management'] if attributes[:'database_management']
+      self.database_management = "ENABLED" if database_management.nil? && !attributes.key?(:'databaseManagement') && !attributes.key?(:'database_management') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -398,6 +419,14 @@ module OCI
       raise "Invalid value for 'crash_recovery': this must be one of the values in CRASH_RECOVERY_ENUM." if crash_recovery && !CRASH_RECOVERY_ENUM.include?(crash_recovery)
 
       @crash_recovery = crash_recovery
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] database_management Object to be assigned
+    def database_management=(database_management)
+      raise "Invalid value for 'database_management': this must be one of the values in DATABASE_MANAGEMENT_ENUM." if database_management && !DATABASE_MANAGEMENT_ENUM.include?(database_management)
+
+      @database_management = database_management
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -432,7 +461,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         deletion_policy == other.deletion_policy &&
-        crash_recovery == other.crash_recovery
+        crash_recovery == other.crash_recovery &&
+        database_management == other.database_management
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -448,7 +478,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, compartment_id, is_highly_available, availability_domain, fault_domain, configuration_id, shape_name, mysql_version, subnet_id, admin_username, admin_password, data_storage_size_in_gbs, hostname_label, ip_address, port, port_x, backup_policy, source, maintenance, freeform_tags, defined_tags, deletion_policy, crash_recovery].hash
+      [display_name, description, compartment_id, is_highly_available, availability_domain, fault_domain, configuration_id, shape_name, mysql_version, subnet_id, admin_username, admin_password, data_storage_size_in_gbs, hostname_label, ip_address, port, port_x, backup_policy, source, maintenance, freeform_tags, defined_tags, deletion_policy, crash_recovery, database_management].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -49,6 +49,7 @@ module OCI
       MAINTENANCE_SUBTYPE_DATABASE = 'DATABASE'.freeze,
       MAINTENANCE_SUBTYPE_ONEOFF = 'ONEOFF'.freeze,
       MAINTENANCE_SUBTYPE_SECURITY_MONTHLY = 'SECURITY_MONTHLY'.freeze,
+      MAINTENANCE_SUBTYPE_TIMEZONE = 'TIMEZONE'.freeze,
       MAINTENANCE_SUBTYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -121,6 +122,10 @@ module OCI
     # Maintenance sub-type.
     # @return [String]
     attr_reader :maintenance_subtype
+
+    # Indicates if an automatic DST Time Zone file update is enabled for the Autonomous Container Database. If enabled along with Release Update, patching will be done in a Non-Rolling manner.
+    # @return [BOOLEAN]
+    attr_accessor :is_dst_file_update_enabled
 
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the maintenance run for the Autonomous Data Guard association's peer container database.
     # @return [String]
@@ -200,6 +205,7 @@ module OCI
         'maintenance_type': :'maintenanceType',
         'patch_id': :'patchId',
         'maintenance_subtype': :'maintenanceSubtype',
+        'is_dst_file_update_enabled': :'isDstFileUpdateEnabled',
         'peer_maintenance_run_id': :'peerMaintenanceRunId',
         'patching_mode': :'patchingMode',
         'patch_failure_count': :'patchFailureCount',
@@ -236,6 +242,7 @@ module OCI
         'maintenance_type': :'String',
         'patch_id': :'String',
         'maintenance_subtype': :'String',
+        'is_dst_file_update_enabled': :'BOOLEAN',
         'peer_maintenance_run_id': :'String',
         'patching_mode': :'String',
         'patch_failure_count': :'Integer',
@@ -274,6 +281,7 @@ module OCI
     # @option attributes [String] :maintenance_type The value to assign to the {#maintenance_type} property
     # @option attributes [String] :patch_id The value to assign to the {#patch_id} property
     # @option attributes [String] :maintenance_subtype The value to assign to the {#maintenance_subtype} property
+    # @option attributes [BOOLEAN] :is_dst_file_update_enabled The value to assign to the {#is_dst_file_update_enabled} property
     # @option attributes [String] :peer_maintenance_run_id The value to assign to the {#peer_maintenance_run_id} property
     # @option attributes [String] :patching_mode The value to assign to the {#patching_mode} property
     # @option attributes [Integer] :patch_failure_count The value to assign to the {#patch_failure_count} property
@@ -366,6 +374,12 @@ module OCI
       raise 'You cannot provide both :maintenanceSubtype and :maintenance_subtype' if attributes.key?(:'maintenanceSubtype') && attributes.key?(:'maintenance_subtype')
 
       self.maintenance_subtype = attributes[:'maintenance_subtype'] if attributes[:'maintenance_subtype']
+
+      self.is_dst_file_update_enabled = attributes[:'isDstFileUpdateEnabled'] unless attributes[:'isDstFileUpdateEnabled'].nil?
+
+      raise 'You cannot provide both :isDstFileUpdateEnabled and :is_dst_file_update_enabled' if attributes.key?(:'isDstFileUpdateEnabled') && attributes.key?(:'is_dst_file_update_enabled')
+
+      self.is_dst_file_update_enabled = attributes[:'is_dst_file_update_enabled'] unless attributes[:'is_dst_file_update_enabled'].nil?
 
       self.peer_maintenance_run_id = attributes[:'peerMaintenanceRunId'] if attributes[:'peerMaintenanceRunId']
 
@@ -555,6 +569,7 @@ module OCI
         maintenance_type == other.maintenance_type &&
         patch_id == other.patch_id &&
         maintenance_subtype == other.maintenance_subtype &&
+        is_dst_file_update_enabled == other.is_dst_file_update_enabled &&
         peer_maintenance_run_id == other.peer_maintenance_run_id &&
         patching_mode == other.patching_mode &&
         patch_failure_count == other.patch_failure_count &&
@@ -584,7 +599,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, description, lifecycle_state, lifecycle_details, time_scheduled, time_started, time_ended, target_resource_type, target_resource_id, maintenance_type, patch_id, maintenance_subtype, peer_maintenance_run_id, patching_mode, patch_failure_count, target_db_server_version, target_storage_server_version, is_custom_action_timeout_enabled, custom_action_timeout_in_mins, current_custom_action_timeout_in_mins, patching_status, patching_start_time, patching_end_time, estimated_patching_time, current_patching_component, estimated_component_patching_start_time].hash
+      [id, compartment_id, display_name, description, lifecycle_state, lifecycle_details, time_scheduled, time_started, time_ended, target_resource_type, target_resource_id, maintenance_type, patch_id, maintenance_subtype, is_dst_file_update_enabled, peer_maintenance_run_id, patching_mode, patch_failure_count, target_db_server_version, target_storage_server_version, is_custom_action_timeout_enabled, custom_action_timeout_in_mins, current_custom_action_timeout_in_mins, patching_status, patching_start_time, patching_end_time, estimated_patching_time, current_patching_component, estimated_component_patching_start_time].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

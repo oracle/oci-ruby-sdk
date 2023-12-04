@@ -7,7 +7,7 @@ require_relative 'dr_plan_execution_control_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details for cancelling a DR Plan Execution.
+  # The details for cancelling a DR plan execution.
   #
   class DisasterRecovery::Models::CancelDrPlanExecutionDetails < DisasterRecovery::Models::DrPlanExecutionControlDetails
     # Attribute mapping from ruby-style variable name to JSON key.

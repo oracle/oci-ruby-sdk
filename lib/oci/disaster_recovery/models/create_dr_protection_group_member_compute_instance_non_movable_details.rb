@@ -7,14 +7,33 @@ require_relative 'create_dr_protection_group_member_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Create properties for a Non-Movable Compute Instance member.
+  # Create properties for a non-movable compute instance member.
   class DisasterRecovery::Models::CreateDrProtectionGroupMemberComputeInstanceNonMovableDetails < DisasterRecovery::Models::CreateDrProtectionGroupMemberDetails
+    # A flag indicating whether the non-movable compute instance should be started and stopped during DR operations.
+    # *Prechecks cannot be executed on stopped instances that are configured to be started.*
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_start_stop_enabled
+
+    # A list of operations performed on file systems used by the compute instance.
+    #
+    # @return [Array<OCI::DisasterRecovery::Models::CreateComputeInstanceNonMovableFileSystemOperationDetails>]
+    attr_accessor :file_system_operations
+
+    # A list of operations performed on block volumes used by the compute instance.
+    #
+    # @return [Array<OCI::DisasterRecovery::Models::CreateComputeInstanceNonMovableBlockVolumeOperationDetails>]
+    attr_accessor :block_volume_operations
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'member_id': :'memberId',
-        'member_type': :'memberType'
+        'member_type': :'memberType',
+        'is_start_stop_enabled': :'isStartStopEnabled',
+        'file_system_operations': :'fileSystemOperations',
+        'block_volume_operations': :'blockVolumeOperations'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -24,7 +43,10 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'member_id': :'String',
-        'member_type': :'String'
+        'member_type': :'String',
+        'is_start_stop_enabled': :'BOOLEAN',
+        'file_system_operations': :'Array<OCI::DisasterRecovery::Models::CreateComputeInstanceNonMovableFileSystemOperationDetails>',
+        'block_volume_operations': :'Array<OCI::DisasterRecovery::Models::CreateComputeInstanceNonMovableBlockVolumeOperationDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -36,12 +58,38 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :member_id The value to assign to the {OCI::DisasterRecovery::Models::CreateDrProtectionGroupMemberDetails#member_id #member_id} proprety
+    # @option attributes [BOOLEAN] :is_start_stop_enabled The value to assign to the {#is_start_stop_enabled} property
+    # @option attributes [Array<OCI::DisasterRecovery::Models::CreateComputeInstanceNonMovableFileSystemOperationDetails>] :file_system_operations The value to assign to the {#file_system_operations} property
+    # @option attributes [Array<OCI::DisasterRecovery::Models::CreateComputeInstanceNonMovableBlockVolumeOperationDetails>] :block_volume_operations The value to assign to the {#block_volume_operations} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
       attributes['memberType'] = 'COMPUTE_INSTANCE_NON_MOVABLE'
 
       super(attributes)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.is_start_stop_enabled = attributes[:'isStartStopEnabled'] unless attributes[:'isStartStopEnabled'].nil?
+      self.is_start_stop_enabled = false if is_start_stop_enabled.nil? && !attributes.key?(:'isStartStopEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isStartStopEnabled and :is_start_stop_enabled' if attributes.key?(:'isStartStopEnabled') && attributes.key?(:'is_start_stop_enabled')
+
+      self.is_start_stop_enabled = attributes[:'is_start_stop_enabled'] unless attributes[:'is_start_stop_enabled'].nil?
+      self.is_start_stop_enabled = false if is_start_stop_enabled.nil? && !attributes.key?(:'isStartStopEnabled') && !attributes.key?(:'is_start_stop_enabled') # rubocop:disable Style/StringLiterals
+
+      self.file_system_operations = attributes[:'fileSystemOperations'] if attributes[:'fileSystemOperations']
+
+      raise 'You cannot provide both :fileSystemOperations and :file_system_operations' if attributes.key?(:'fileSystemOperations') && attributes.key?(:'file_system_operations')
+
+      self.file_system_operations = attributes[:'file_system_operations'] if attributes[:'file_system_operations']
+
+      self.block_volume_operations = attributes[:'blockVolumeOperations'] if attributes[:'blockVolumeOperations']
+
+      raise 'You cannot provide both :blockVolumeOperations and :block_volume_operations' if attributes.key?(:'blockVolumeOperations') && attributes.key?(:'block_volume_operations')
+
+      self.block_volume_operations = attributes[:'block_volume_operations'] if attributes[:'block_volume_operations']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -56,7 +104,10 @@ module OCI
 
       self.class == other.class &&
         member_id == other.member_id &&
-        member_type == other.member_type
+        member_type == other.member_type &&
+        is_start_stop_enabled == other.is_start_stop_enabled &&
+        file_system_operations == other.file_system_operations &&
+        block_volume_operations == other.block_volume_operations
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -72,7 +123,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [member_id, member_type].hash
+      [member_id, member_type, is_start_stop_enabled, file_system_operations, block_volume_operations].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

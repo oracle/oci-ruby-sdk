@@ -11,7 +11,14 @@ module OCI
   class DatabaseTools::Models::CreateDatabaseToolsConnectionDetails
     TYPE_ENUM = [
       TYPE_ORACLE_DATABASE = 'ORACLE_DATABASE'.freeze,
-      TYPE_MYSQL = 'MYSQL'.freeze
+      TYPE_MYSQL = 'MYSQL'.freeze,
+      TYPE_POSTGRESQL = 'POSTGRESQL'.freeze,
+      TYPE_GENERIC_JDBC = 'GENERIC_JDBC'.freeze
+    ].freeze
+
+    RUNTIME_SUPPORT_ENUM = [
+      RUNTIME_SUPPORT_SUPPORTED = 'SUPPORTED'.freeze,
+      RUNTIME_SUPPORT_UNSUPPORTED = 'UNSUPPORTED'.freeze
     ].freeze
 
     # **[Required]** A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
@@ -34,9 +41,17 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # Locks associated with this resource.
+    # @return [Array<OCI::DatabaseTools::Models::ResourceLock>]
+    attr_accessor :locks
+
     # **[Required]** The DatabaseToolsConnection type.
     # @return [String]
     attr_reader :type
+
+    # Specifies whether this connection is supported by the Database Tools Runtime.
+    # @return [String]
+    attr_reader :runtime_support
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -46,7 +61,9 @@ module OCI
         'compartment_id': :'compartmentId',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags',
-        'type': :'type'
+        'locks': :'locks',
+        'type': :'type',
+        'runtime_support': :'runtimeSupport'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -59,7 +76,9 @@ module OCI
         'compartment_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>',
-        'type': :'String'
+        'locks': :'Array<OCI::DatabaseTools::Models::ResourceLock>',
+        'type': :'String',
+        'runtime_support': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -72,6 +91,8 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'type'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionGenericJdbcDetails' if type == 'GENERIC_JDBC'
+      return 'OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionPostgresqlDetails' if type == 'POSTGRESQL'
       return 'OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionMySqlDetails' if type == 'MYSQL'
       return 'OCI::DatabaseTools::Models::CreateDatabaseToolsConnectionOracleDatabaseDetails' if type == 'ORACLE_DATABASE'
 
@@ -90,7 +111,9 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Array<OCI::DatabaseTools::Models::ResourceLock>] :locks The value to assign to the {#locks} property
     # @option attributes [String] :type The value to assign to the {#type} property
+    # @option attributes [String] :runtime_support The value to assign to the {#runtime_support} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -121,7 +144,17 @@ module OCI
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
+      self.locks = attributes[:'locks'] if attributes[:'locks']
+
       self.type = attributes[:'type'] if attributes[:'type']
+
+      self.runtime_support = attributes[:'runtimeSupport'] if attributes[:'runtimeSupport']
+      self.runtime_support = "SUPPORTED" if runtime_support.nil? && !attributes.key?(:'runtimeSupport') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :runtimeSupport and :runtime_support' if attributes.key?(:'runtimeSupport') && attributes.key?(:'runtime_support')
+
+      self.runtime_support = attributes[:'runtime_support'] if attributes[:'runtime_support']
+      self.runtime_support = "SUPPORTED" if runtime_support.nil? && !attributes.key?(:'runtimeSupport') && !attributes.key?(:'runtime_support') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -132,6 +165,14 @@ module OCI
       raise "Invalid value for 'type': this must be one of the values in TYPE_ENUM." if type && !TYPE_ENUM.include?(type)
 
       @type = type
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] runtime_support Object to be assigned
+    def runtime_support=(runtime_support)
+      raise "Invalid value for 'runtime_support': this must be one of the values in RUNTIME_SUPPORT_ENUM." if runtime_support && !RUNTIME_SUPPORT_ENUM.include?(runtime_support)
+
+      @runtime_support = runtime_support
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -147,7 +188,9 @@ module OCI
         compartment_id == other.compartment_id &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags &&
-        type == other.type
+        locks == other.locks &&
+        type == other.type &&
+        runtime_support == other.runtime_support
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -163,7 +206,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, compartment_id, defined_tags, freeform_tags, type].hash
+      [display_name, compartment_id, defined_tags, freeform_tags, locks, type, runtime_support].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

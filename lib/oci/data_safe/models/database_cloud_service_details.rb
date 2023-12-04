@@ -7,13 +7,13 @@ require_relative 'database_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details of the Oracle Database Cloud Service to be registered as a target database in Data Safe.
+  # The details of the cloud database to be registered as a target database in Data Safe.
   class DataSafe::Models::DatabaseCloudServiceDetails < DataSafe::Models::DatabaseDetails
     # The OCID of the VM cluster in which the database is running.
     # @return [String]
     attr_accessor :vm_cluster_id
 
-    # The OCID of the cloud database system registered as a target database in Data Safe.
+    # The OCID of the cloud database registered as a target database in Data Safe.
     # @return [String]
     attr_accessor :db_system_id
 

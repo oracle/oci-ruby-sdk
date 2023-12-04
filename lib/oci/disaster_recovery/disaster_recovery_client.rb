@@ -8,9 +8,10 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Use the Full Stack Disaster Recovery (FSDR) API to manage disaster recovery for business applications.
-  # FSDR is an OCI disaster recovery orchestration and management service that provides comprehensive disaster recovery
-  # capabilities for all layers of an application stack, including infrastructure, middleware, database, and application.
+  # Use the Full Stack Disaster Recovery (DR) API to manage disaster recovery for business applications.
+  # Full Stack DR is an OCI disaster recovery orchestration and management service that provides comprehensive disaster
+  # recovery capabilities for all layers of an application stack, including infrastructure, middleware, database,
+  # and application.
   class DisasterRecovery::DisasterRecoveryClient
     # Client used to make HTTP requests.
     # @return [OCI::ApiClient]
@@ -102,13 +103,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Create an association between the DR Protection Group identified by *drProtectionGroupId* and
-    # another DR Protection Group in a different region.
+    # Create an association between the DR protection group identified by *drProtectionGroupId* and
+    # another DR protection group.
     #
-    # @param [OCI::DisasterRecovery::Models::AssociateDrProtectionGroupDetails] associate_dr_protection_group_details Details for creating an association between two DR Protection Groups.
-    # @param [String] dr_protection_group_id The OCID of the DR Protection Group.
+    # @param [OCI::DisasterRecovery::Models::AssociateDrProtectionGroupDetails] associate_dr_protection_group_details Details for creating an association between two DR protection groups.
+    # @param [String] dr_protection_group_id The OCID of the DR protection group.
     #
-    #   Example: `ocid1.drprotectiongroup.oc1.phx.exampleocid`
+    #   Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -178,11 +179,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Cancel the DR Plan Execution indentified by *drPlanExecutionId*.
-    # @param [OCI::DisasterRecovery::Models::CancelDrPlanExecutionDetails] cancel_dr_plan_execution_details Details for canceling a DR Plan Execution.
-    # @param [String] dr_plan_execution_id The OCID of the DR Plan Execution.
+    # Cancel the DR plan execution identified by *drPlanExecutionId*.
+    # @param [OCI::DisasterRecovery::Models::CancelDrPlanExecutionDetails] cancel_dr_plan_execution_details Details for canceling the DR plan execution.
+    # @param [String] dr_plan_execution_id The OCID of the DR plan execution.
     #
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -255,7 +256,7 @@ module OCI
     # Cancel the work request identified by *workRequestId*.
     # @param [String] work_request_id The ID (OCID) of the asynchronous request.
     #
-    #   Example: `ocid1.workrequest.oc1.phx.exampleocid`
+    #   Example: `ocid1.workrequest.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -316,11 +317,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Move the DR Protection Group identified by *drProtectionGroupId* to a different compartment.
-    # @param [OCI::DisasterRecovery::Models::ChangeDrProtectionGroupCompartmentDetails] change_dr_protection_group_compartment_details Details of DR Protection Group compartment to change.
-    # @param [String] dr_protection_group_id The OCID of the DR Protection Group.
+    # Move the DR protection group identified by *drProtectionGroupId* to a different compartment.
+    # @param [OCI::DisasterRecovery::Models::ChangeDrProtectionGroupCompartmentDetails] change_dr_protection_group_compartment_details Details for changing the DR protection group compartment.
+    # @param [String] dr_protection_group_id The OCID of the DR protection group.
     #
-    #   Example: `ocid1.drprotectiongroup.oc1.phx.exampleocid`
+    #   Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -390,8 +391,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new DR Plan of the specified DR Plan type.
-    # @param [OCI::DisasterRecovery::Models::CreateDrPlanDetails] create_dr_plan_details Details for creating the new DR Plan.
+    # Create a DR plan of the specified DR plan type.
+    # @param [OCI::DisasterRecovery::Models::CreateDrPlanDetails] create_dr_plan_details Details for creating the new DR plan.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -452,8 +453,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Execute a DR Plan for a DR Protection Group.
-    # @param [OCI::DisasterRecovery::Models::CreateDrPlanExecutionDetails] create_dr_plan_execution_details Details for the new DR Plan Execution.
+    # Execute a DR plan for a DR protection group.
+    # @param [OCI::DisasterRecovery::Models::CreateDrPlanExecutionDetails] create_dr_plan_execution_details Details for creating the DR plan execution.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -514,8 +515,8 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Create a new DR Protection Group.
-    # @param [OCI::DisasterRecovery::Models::CreateDrProtectionGroupDetails] create_dr_protection_group_details Details for the new DR Protection Group.
+    # Create a DR protection group.
+    # @param [OCI::DisasterRecovery::Models::CreateDrProtectionGroupDetails] create_dr_protection_group_details Details for creating the DR protection group.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -576,10 +577,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Delete the DR Plan identified by *drPlanId*.
-    # @param [String] dr_plan_id The OCID of the DR Plan.
+    # Delete the DR plan identified by *drPlanId*.
+    # @param [String] dr_plan_id The OCID of the DR plan.
     #
-    #   Example: `ocid1.drplan.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplan.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -640,10 +641,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Delete the DR Plan Execution identified by *drPlanExecutionId*.
-    # @param [String] dr_plan_execution_id The OCID of the DR Plan Execution.
+    # Delete the DR plan execution identified by *drPlanExecutionId*.
+    # @param [String] dr_plan_execution_id The OCID of the DR plan execution.
     #
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -704,10 +705,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Delete the DR Protection Group identified by *drProtectionGroupId*.
-    # @param [String] dr_protection_group_id The OCID of the DR Protection Group.
+    # Delete the DR protection group identified by *drProtectionGroupId*.
+    # @param [String] dr_protection_group_id The OCID of the DR protection group.
     #
-    #   Example: `ocid1.drprotectiongroup.oc1.phx.exampleocid`
+    #   Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -768,13 +769,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Delete the association between the DR Protection Group identified by *drProtectionGroupId*.
-    # and its peer DR Protection Group.
+    # Delete the association between the DR protection group identified by *drProtectionGroupId*.
+    # and its peer DR protection group.
     #
-    # @param [OCI::DisasterRecovery::Models::DisassociateDrProtectionGroupDetails] disassociate_dr_protection_group_details Details for removing an association between two DR Protection Groups.
-    # @param [String] dr_protection_group_id The OCID of the DR Protection Group.
+    # @param [OCI::DisasterRecovery::Models::DisassociateDrProtectionGroupDetails] disassociate_dr_protection_group_details Details for deleting the association between two DR protection groups.
+    # @param [String] dr_protection_group_id The OCID of the DR protection group.
     #
-    #   Example: `ocid1.drprotectiongroup.oc1.phx.exampleocid`
+    #   Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -844,10 +845,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get details for the DR Plan identified by *drPlanId*.
-    # @param [String] dr_plan_id The OCID of the DR Plan.
+    # Get details for the DR plan identified by *drPlanId*.
+    # @param [String] dr_plan_id The OCID of the DR plan.
     #
-    #   Example: `ocid1.drplan.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplan.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -902,10 +903,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get details for the DR Plan Execution identified by *drPlanExecutionId*.
-    # @param [String] dr_plan_execution_id The OCID of the DR Plan Execution.
+    # Get details for the DR plan execution identified by *drPlanExecutionId*.
+    # @param [String] dr_plan_execution_id The OCID of the DR plan execution.
     #
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -960,10 +961,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get the DR Protection Group identified by *drProtectionGroupId*.
-    # @param [String] dr_protection_group_id The OCID of the DR Protection Group.
+    # Get the DR protection group identified by *drProtectionGroupId*.
+    # @param [String] dr_protection_group_id The OCID of the DR protection group.
     #
-    #   Example: `ocid1.drprotectiongroup.oc1.phx.exampleocid`
+    #   Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1021,7 +1022,7 @@ module OCI
     # Get the status of the work request identified by *workRequestId*.
     # @param [String] work_request_id The ID (OCID) of the asynchronous request.
     #
-    #   Example: `ocid1.workrequest.oc1.phx.exampleocid`
+    #   Example: `ocid1.workrequest.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1076,11 +1077,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Ignore failed group or step in DR Plan Execution identified by *drPlanExecutionId* and resume execution.
-    # @param [OCI::DisasterRecovery::Models::IgnoreDrPlanExecutionDetails] ignore_dr_plan_execution_details Details of the failed group or step to ignore.
-    # @param [String] dr_plan_execution_id The OCID of the DR Plan Execution.
+    # Ignore the failed group or step in DR plan execution identified by *drPlanExecutionId* and resume execution.
+    # @param [OCI::DisasterRecovery::Models::IgnoreDrPlanExecutionDetails] ignore_dr_plan_execution_details Details for ignoring the failed group or step and resuming execution.
+    # @param [String] dr_plan_execution_id The OCID of the DR plan execution.
     #
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1150,24 +1151,24 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Get a summary list of all DR Plan Executions for a DR Protection Group.
-    # @param [String] dr_protection_group_id The OCID of the DR Protection Group. Mandatory query param.
+    # Get a summary list of all DR plan executions for a DR protection group.
+    # @param [String] dr_protection_group_id The OCID of the DR protection group. Mandatory query param.
     #
-    #   Example: `ocid1.drprotectiongroup.oc1.phx.exampleocid`
+    #   Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :lifecycle_state A filter to return only DR Plan Executions that match the given lifecycleState.
+    # @option opts [String] :lifecycle_state A filter to return only DR plan executions that match the given lifecycle state.
     #
-    # @option opts [String] :dr_plan_execution_id The OCID of the DR Plan Execution.
+    # @option opts [String] :dr_plan_execution_id The OCID of the DR plan execution.
     #
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
-    # @option opts [String] :dr_plan_execution_type The DR Plan Execution type.
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :dr_plan_execution_type The DR plan execution type.
+    # @option opts [String] :display_name A filter to return only resources that match the given display name.
     #
-    #   Example: `MY UNIQUE DISPLAY NAME`
+    #   Example: `MyResourceDisplayName`
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
     #   or items to return in a paginated \"List\" call.
@@ -1189,7 +1190,7 @@ module OCI
     # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending.
     #   Default order for displayName is ascending. If no value is specified timeCreated is default.
     #
-    #   Example: `displayName`
+    #   Example: `MyResourceDisplayName`
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
@@ -1266,24 +1267,24 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a summary list of all DR Plans for a DR Protection Group.
-    # @param [String] dr_protection_group_id The OCID of the DR Protection Group. Mandatory query param.
+    # Get a summary list of all DR plans for a DR protection group.
+    # @param [String] dr_protection_group_id The OCID of the DR protection group. Mandatory query param.
     #
-    #   Example: `ocid1.drprotectiongroup.oc1.phx.exampleocid`
+    #   Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :lifecycle_state A filter to return only DR Plans that match the given lifecycleState.
+    # @option opts [String] :lifecycle_state A filter to return only DR plans that match the given lifecycle state.
     #
-    # @option opts [String] :dr_plan_id The OCID of the DR Plan.
+    # @option opts [String] :dr_plan_id The OCID of the DR plan.
     #
-    #   Example: `ocid1.drplan.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplan.oc1..uniqueID`
     #
-    # @option opts [String] :dr_plan_type The DR Plan type.
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :dr_plan_type The DR plan type.
+    # @option opts [String] :display_name A filter to return only resources that match the given display name.
     #
-    #   Example: `MY UNIQUE DISPLAY NAME`
+    #   Example: `MyResourceDisplayName`
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
     #   or items to return in a paginated \"List\" call.
@@ -1305,7 +1306,7 @@ module OCI
     # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending.
     #   Default order for displayName is ascending. If no value is specified timeCreated is default.
     #
-    #   Example: `displayName`
+    #   Example: `MyResourceDisplayName`
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
@@ -1382,23 +1383,23 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a summary list of all DR Protection Groups in a compartment.
+    # Get a summary list of all DR protection groups in a compartment.
     # @param [String] compartment_id The ID (OCID) of the compartment in which to list resources.
     #
-    #   Example: `ocid1.compartment.oc1..exampleocid1`
+    #   Example: `ocid1.compartment.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :lifecycle_state A filter to return only DR Protection Groups that match the given lifecycleState.
+    # @option opts [String] :lifecycle_state A filter to return only DR protection groups that match the given lifecycle state.
     #
-    # @option opts [String] :dr_protection_group_id The OCID of the DR Protection Group. Optional query param.
+    # @option opts [String] :dr_protection_group_id The OCID of the DR protection group. Optional query param.
     #
-    #   Example: `ocid1.drprotectiongroup.oc1.phx.exampleocid`
+    #   Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
-    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :display_name A filter to return only resources that match the given display name.
     #
-    #   Example: `MY UNIQUE DISPLAY NAME`
+    #   Example: `MyResourceDisplayName`
     #
     # @option opts [Integer] :limit For list pagination. The maximum number of results per page,
     #   or items to return in a paginated \"List\" call.
@@ -1420,12 +1421,14 @@ module OCI
     # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending.
     #   Default order for displayName is ascending. If no value is specified timeCreated is default.
     #
-    #   Example: `displayName`
+    #   Example: `MyResourceDisplayName`
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
     # @option opts [String] :opc_request_id The client request ID for tracing.
     #
-    # @option opts [String] :role The DR Protection Group Role.
+    # @option opts [String] :role The DR protection group Role.
+    # @option opts [String] :lifecycle_sub_state A filter to return only DR protection groups that match the given lifecycle sub-state.
+    #
     # @return [Response] A Response object with data of type {OCI::DisasterRecovery::Models::DrProtectionGroupCollection DrProtectionGroupCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/disasterrecovery/list_dr_protection_groups.rb.html) to see an example of how to use list_dr_protection_groups API.
     def list_dr_protection_groups(compartment_id, opts = {})
@@ -1449,6 +1452,10 @@ module OCI
         raise 'Invalid value for "role", must be one of the values in OCI::DisasterRecovery::Models::DR_PROTECTION_GROUP_ROLE_ENUM.'
       end
 
+      if opts[:lifecycle_sub_state] && !OCI::DisasterRecovery::Models::DR_PROTECTION_GROUP_LIFECYCLE_SUB_STATE_ENUM.include?(opts[:lifecycle_sub_state])
+        raise 'Invalid value for "lifecycle_sub_state", must be one of the values in OCI::DisasterRecovery::Models::DR_PROTECTION_GROUP_LIFECYCLE_SUB_STATE_ENUM.'
+      end
+
       path = '/drProtectionGroups'
       operation_signing_strategy = :standard
 
@@ -1464,6 +1471,7 @@ module OCI
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:role] = opts[:role] if opts[:role]
+      query_params[:lifecycleSubState] = opts[:lifecycle_sub_state] if opts[:lifecycle_sub_state]
 
       # Header Params
       header_params = {}
@@ -1498,11 +1506,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Return a (paginated) list of errors for a given work request.
+    # Get a list of work request errors for the work request identified by *workRequestId*.
     #
     # @param [String] work_request_id The ID (OCID) of the asynchronous request.
     #
-    #   Example: `ocid1.workrequest.oc1.phx.exampleocid`
+    #   Example: `ocid1.workrequest.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1590,11 +1598,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Return a (paginated) list of logs for the work request identified by *workRequestId*.
+    # Get a list of logs for the work request identified by *workRequestId*.
     #
     # @param [String] work_request_id The ID (OCID) of the asynchronous request.
     #
-    #   Example: `ocid1.workrequest.oc1.phx.exampleocid`
+    #   Example: `ocid1.workrequest.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1689,16 +1697,17 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :compartment_id The ID (OCID) of the compartment in which to list resources.
     #
-    #   Example: `ocid1.compartment.oc1..exampleocid1`
+    #   Example: `ocid1.compartment.oc1..uniqueID`
     #
     # @option opts [String] :work_request_id The ID (OCID) of the asynchronous work request.
     #
-    #   Example: `ocid1.workrequest.oc1.phx.exampleocid1`
+    #   Example: `ocid1.workrequest.oc1..uniqueID`
     #
     # @option opts [String] :status A filter to return only resources whose lifecycleState matches the given OperationStatus.
     #
     # @option opts [String] :resource_id The ID (OCID) of the resource affected by the work request.
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     #
@@ -1789,11 +1798,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Pause the DR Plan Execution identified by *drPlanExecutionId*.
-    # @param [OCI::DisasterRecovery::Models::PauseDrPlanExecutionDetails] pause_dr_plan_execution_details Details for pausing a DR Plan Execution.
-    # @param [String] dr_plan_execution_id The OCID of the DR Plan Execution.
+    # Pause the DR plan execution identified by *drPlanExecutionId*.
+    # @param [OCI::DisasterRecovery::Models::PauseDrPlanExecutionDetails] pause_dr_plan_execution_details Details for pausing the DR plan execution.
+    # @param [String] dr_plan_execution_id The OCID of the DR plan execution.
     #
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1863,11 +1872,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Resume the DR Plan Execution identified by *drPlanExecutionId*.
-    # @param [OCI::DisasterRecovery::Models::ResumeDrPlanExecutionDetails] resume_dr_plan_execution_details Details for resuming a DR Plan Execution.
-    # @param [String] dr_plan_execution_id The OCID of the DR Plan Execution.
+    # Resume the DR plan execution identified by *drPlanExecutionId*.
+    # @param [OCI::DisasterRecovery::Models::ResumeDrPlanExecutionDetails] resume_dr_plan_execution_details Details for resuming the DR plan execution.
+    # @param [String] dr_plan_execution_id The OCID of the DR plan execution.
     #
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1937,11 +1946,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Retry failed group or step in DR Plan Execution identified by *drPlanExecutionId* and resume execution.
-    # @param [OCI::DisasterRecovery::Models::RetryDrPlanExecutionDetails] retry_dr_plan_execution_details Details of the failed group or step to retry.
-    # @param [String] dr_plan_execution_id The OCID of the DR Plan Execution.
+    # Retry the failed group or step in DR plan execution identified by *drPlanExecutionId* and resume execution.
+    # @param [OCI::DisasterRecovery::Models::RetryDrPlanExecutionDetails] retry_dr_plan_execution_details Details for retrying execution of the failed group or step.
+    # @param [String] dr_plan_execution_id The OCID of the DR plan execution.
     #
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2011,11 +2020,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Update the DR Plan identified by *drPlanId*.
-    # @param [OCI::DisasterRecovery::Models::UpdateDrPlanDetails] update_dr_plan_details Details of DR Plan to update.
-    # @param [String] dr_plan_id The OCID of the DR Plan.
+    # Update the DR plan identified by *drPlanId*.
+    # @param [OCI::DisasterRecovery::Models::UpdateDrPlanDetails] update_dr_plan_details Details for updating the DR plan.
+    # @param [String] dr_plan_id The OCID of the DR plan.
     #
-    #   Example: `ocid1.drplan.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplan.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2077,11 +2086,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Update the DR Plan Execution identified by *drPlanExecutionId*.
-    # @param [OCI::DisasterRecovery::Models::UpdateDrPlanExecutionDetails] update_dr_plan_execution_details Details of DR Plan Execution to update.
-    # @param [String] dr_plan_execution_id The OCID of the DR Plan Execution.
+    # Update the DR plan execution identified by *drPlanExecutionId*.
+    # @param [OCI::DisasterRecovery::Models::UpdateDrPlanExecutionDetails] update_dr_plan_execution_details Details for updating the DR plan execution.
+    # @param [String] dr_plan_execution_id The OCID of the DR plan execution.
     #
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2143,11 +2152,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Update the DR Protection Group identified by *drProtectionGroupId*.
-    # @param [OCI::DisasterRecovery::Models::UpdateDrProtectionGroupDetails] update_dr_protection_group_details Details of DR Protection Group to update.
-    # @param [String] dr_protection_group_id The OCID of the DR Protection Group.
+    # Update the DR protection group identified by *drProtectionGroupId*.
+    # @param [OCI::DisasterRecovery::Models::UpdateDrProtectionGroupDetails] update_dr_protection_group_details Details for updating the the DR protection group.
+    # @param [String] dr_protection_group_id The OCID of the DR protection group.
     #
-    #   Example: `ocid1.drprotectiongroup.oc1.phx.exampleocid`
+    #   Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -2209,11 +2218,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Update the role of the DR Protection Group identified by *drProtectionGroupId*.
-    # @param [OCI::DisasterRecovery::Models::UpdateDrProtectionGroupRoleDetails] update_dr_protection_group_role_details The role details for the DR Protection Group.
-    # @param [String] dr_protection_group_id The OCID of the DR Protection Group.
+    # Update the role of the DR protection group identified by *drProtectionGroupId*.
+    # @param [OCI::DisasterRecovery::Models::UpdateDrProtectionGroupRoleDetails] update_dr_protection_group_role_details The role details for the DR protection group to be updated.
+    # @param [String] dr_protection_group_id The OCID of the DR protection group.
     #
-    #   Example: `ocid1.drprotectiongroup.oc1.phx.exampleocid`
+    #   Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level

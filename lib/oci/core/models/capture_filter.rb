@@ -23,6 +23,7 @@ module OCI
 
     FILTER_TYPE_ENUM = [
       FILTER_TYPE_VTAP = 'VTAP'.freeze,
+      FILTER_TYPE_FLOWLOG = 'FLOWLOG'.freeze,
       FILTER_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -78,6 +79,11 @@ module OCI
     # @return [Array<OCI::Core::Models::VtapCaptureFilterRuleDetails>]
     attr_accessor :vtap_capture_filter_rules
 
+    # The set of rules governing what traffic the VCN flow log collects.
+    #
+    # @return [Array<OCI::Core::Models::FlowLogCaptureFilterRuleDetails>]
+    attr_accessor :flow_log_capture_filter_rules
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -90,7 +96,8 @@ module OCI
         'lifecycle_state': :'lifecycleState',
         'filter_type': :'filterType',
         'time_created': :'timeCreated',
-        'vtap_capture_filter_rules': :'vtapCaptureFilterRules'
+        'vtap_capture_filter_rules': :'vtapCaptureFilterRules',
+        'flow_log_capture_filter_rules': :'flowLogCaptureFilterRules'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -107,7 +114,8 @@ module OCI
         'lifecycle_state': :'String',
         'filter_type': :'String',
         'time_created': :'DateTime',
-        'vtap_capture_filter_rules': :'Array<OCI::Core::Models::VtapCaptureFilterRuleDetails>'
+        'vtap_capture_filter_rules': :'Array<OCI::Core::Models::VtapCaptureFilterRuleDetails>',
+        'flow_log_capture_filter_rules': :'Array<OCI::Core::Models::FlowLogCaptureFilterRuleDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -127,6 +135,7 @@ module OCI
     # @option attributes [String] :filter_type The value to assign to the {#filter_type} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [Array<OCI::Core::Models::VtapCaptureFilterRuleDetails>] :vtap_capture_filter_rules The value to assign to the {#vtap_capture_filter_rules} property
+    # @option attributes [Array<OCI::Core::Models::FlowLogCaptureFilterRuleDetails>] :flow_log_capture_filter_rules The value to assign to the {#flow_log_capture_filter_rules} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -182,6 +191,12 @@ module OCI
       raise 'You cannot provide both :vtapCaptureFilterRules and :vtap_capture_filter_rules' if attributes.key?(:'vtapCaptureFilterRules') && attributes.key?(:'vtap_capture_filter_rules')
 
       self.vtap_capture_filter_rules = attributes[:'vtap_capture_filter_rules'] if attributes[:'vtap_capture_filter_rules']
+
+      self.flow_log_capture_filter_rules = attributes[:'flowLogCaptureFilterRules'] if attributes[:'flowLogCaptureFilterRules']
+
+      raise 'You cannot provide both :flowLogCaptureFilterRules and :flow_log_capture_filter_rules' if attributes.key?(:'flowLogCaptureFilterRules') && attributes.key?(:'flow_log_capture_filter_rules')
+
+      self.flow_log_capture_filter_rules = attributes[:'flow_log_capture_filter_rules'] if attributes[:'flow_log_capture_filter_rules']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -229,7 +244,8 @@ module OCI
         lifecycle_state == other.lifecycle_state &&
         filter_type == other.filter_type &&
         time_created == other.time_created &&
-        vtap_capture_filter_rules == other.vtap_capture_filter_rules
+        vtap_capture_filter_rules == other.vtap_capture_filter_rules &&
+        flow_log_capture_filter_rules == other.flow_log_capture_filter_rules
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -245,7 +261,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, filter_type, time_created, vtap_capture_filter_rules].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, filter_type, time_created, vtap_capture_filter_rules, flow_log_capture_filter_rules].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

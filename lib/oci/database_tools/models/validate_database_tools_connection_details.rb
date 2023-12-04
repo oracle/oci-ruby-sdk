@@ -11,7 +11,9 @@ module OCI
   class DatabaseTools::Models::ValidateDatabaseToolsConnectionDetails
     TYPE_ENUM = [
       TYPE_ORACLE_DATABASE = 'ORACLE_DATABASE'.freeze,
-      TYPE_MYSQL = 'MYSQL'.freeze
+      TYPE_MYSQL = 'MYSQL'.freeze,
+      TYPE_POSTGRESQL = 'POSTGRESQL'.freeze,
+      TYPE_GENERIC_JDBC = 'GENERIC_JDBC'.freeze
     ].freeze
 
     # **[Required]** The `DatabaseToolsConnection` type.
@@ -44,6 +46,7 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'type'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::DatabaseTools::Models::ValidateDatabaseToolsConnectionPostgresqlDetails' if type == 'POSTGRESQL'
       return 'OCI::DatabaseTools::Models::ValidateDatabaseToolsConnectionOracleDatabaseDetails' if type == 'ORACLE_DATABASE'
       return 'OCI::DatabaseTools::Models::ValidateDatabaseToolsConnectionMySqlDetails' if type == 'MYSQL'
 

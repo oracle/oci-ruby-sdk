@@ -7,7 +7,7 @@ require_relative 'create_dr_protection_group_member_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Create properties for a Volume Group member.
+  # Create properties for a volume group member.
   class DisasterRecovery::Models::CreateDrProtectionGroupMemberVolumeGroupDetails < DisasterRecovery::Models::CreateDrProtectionGroupMemberDetails
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map

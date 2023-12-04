@@ -95,6 +95,22 @@ module OCI
     # @return [String]
     attr_accessor :access_token_url
 
+    # Relay Param variable for Social IDP
+    #
+    # **Added In:** 2305190132
+    #
+    # **SCIM++ Properties:**
+    #  - idcsCompositeKey: [relayParamKey]
+    #  - idcsSearchable: true
+    #  - multiValued: true
+    #  - mutability: readWrite
+    #  - required: false
+    #  - returned: default
+    #  - type: complex
+    #  - uniqueness: none
+    # @return [Array<OCI::IdentityDomains::Models::IdentityProviderRelayIdpParamMappings>]
+    attr_accessor :relay_idp_param_mappings
+
     # Social IDP User profile URL
     #
     # **Added In:** 20.1.3
@@ -280,6 +296,7 @@ module OCI
         'status': :'status',
         'authz_url': :'authzUrl',
         'access_token_url': :'accessTokenUrl',
+        'relay_idp_param_mappings': :'relayIdpParamMappings',
         'profile_url': :'profileUrl',
         'scope': :'scope',
         'admin_scope': :'adminScope',
@@ -304,6 +321,7 @@ module OCI
         'status': :'String',
         'authz_url': :'String',
         'access_token_url': :'String',
+        'relay_idp_param_mappings': :'Array<OCI::IdentityDomains::Models::IdentityProviderRelayIdpParamMappings>',
         'profile_url': :'String',
         'scope': :'Array<String>',
         'admin_scope': :'Array<String>',
@@ -330,6 +348,7 @@ module OCI
     # @option attributes [String] :status The value to assign to the {#status} property
     # @option attributes [String] :authz_url The value to assign to the {#authz_url} property
     # @option attributes [String] :access_token_url The value to assign to the {#access_token_url} property
+    # @option attributes [Array<OCI::IdentityDomains::Models::IdentityProviderRelayIdpParamMappings>] :relay_idp_param_mappings The value to assign to the {#relay_idp_param_mappings} property
     # @option attributes [String] :profile_url The value to assign to the {#profile_url} property
     # @option attributes [Array<String>] :scope The value to assign to the {#scope} property
     # @option attributes [Array<String>] :admin_scope The value to assign to the {#admin_scope} property
@@ -372,6 +391,12 @@ module OCI
       raise 'You cannot provide both :accessTokenUrl and :access_token_url' if attributes.key?(:'accessTokenUrl') && attributes.key?(:'access_token_url')
 
       self.access_token_url = attributes[:'access_token_url'] if attributes[:'access_token_url']
+
+      self.relay_idp_param_mappings = attributes[:'relayIdpParamMappings'] if attributes[:'relayIdpParamMappings']
+
+      raise 'You cannot provide both :relayIdpParamMappings and :relay_idp_param_mappings' if attributes.key?(:'relayIdpParamMappings') && attributes.key?(:'relay_idp_param_mappings')
+
+      self.relay_idp_param_mappings = attributes[:'relay_idp_param_mappings'] if attributes[:'relay_idp_param_mappings']
 
       self.profile_url = attributes[:'profileUrl'] if attributes[:'profileUrl']
 
@@ -465,6 +490,7 @@ module OCI
         status == other.status &&
         authz_url == other.authz_url &&
         access_token_url == other.access_token_url &&
+        relay_idp_param_mappings == other.relay_idp_param_mappings &&
         profile_url == other.profile_url &&
         scope == other.scope &&
         admin_scope == other.admin_scope &&
@@ -491,7 +517,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [account_linking_enabled, registration_enabled, status, authz_url, access_token_url, profile_url, scope, admin_scope, consumer_key, consumer_secret, service_provider_name, clock_skew_in_seconds, redirect_url, discovery_url, client_credential_in_payload, id_attribute].hash
+      [account_linking_enabled, registration_enabled, status, authz_url, access_token_url, relay_idp_param_mappings, profile_url, scope, admin_scope, consumer_key, consumer_secret, service_provider_name, clock_skew_in_seconds, redirect_url, discovery_url, client_credential_in_payload, id_attribute].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

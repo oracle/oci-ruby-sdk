@@ -27,6 +27,12 @@ module OCI
       CRASH_RECOVERY_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    DATABASE_MANAGEMENT_ENUM = [
+      DATABASE_MANAGEMENT_ENABLED = 'ENABLED'.freeze,
+      DATABASE_MANAGEMENT_DISABLED = 'DISABLED'.freeze,
+      DATABASE_MANAGEMENT_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** The OCID of the DB System.
     # @return [String]
     attr_accessor :id
@@ -193,6 +199,11 @@ module OCI
     # @return [OCI::Mysql::Models::PointInTimeRecoveryDetails]
     attr_accessor :point_in_time_recovery_details
 
+    # Whether to enable monitoring via the Database Management service.
+    #
+    # @return [String]
+    attr_reader :database_management
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -229,7 +240,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'crash_recovery': :'crashRecovery',
-        'point_in_time_recovery_details': :'pointInTimeRecoveryDetails'
+        'point_in_time_recovery_details': :'pointInTimeRecoveryDetails',
+        'database_management': :'databaseManagement'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -270,7 +282,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'crash_recovery': :'String',
-        'point_in_time_recovery_details': :'OCI::Mysql::Models::PointInTimeRecoveryDetails'
+        'point_in_time_recovery_details': :'OCI::Mysql::Models::PointInTimeRecoveryDetails',
+        'database_management': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -314,6 +327,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :crash_recovery The value to assign to the {#crash_recovery} property
     # @option attributes [OCI::Mysql::Models::PointInTimeRecoveryDetails] :point_in_time_recovery_details The value to assign to the {#point_in_time_recovery_details} property
+    # @option attributes [String] :database_management The value to assign to the {#database_management} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -495,6 +509,14 @@ module OCI
       raise 'You cannot provide both :pointInTimeRecoveryDetails and :point_in_time_recovery_details' if attributes.key?(:'pointInTimeRecoveryDetails') && attributes.key?(:'point_in_time_recovery_details')
 
       self.point_in_time_recovery_details = attributes[:'point_in_time_recovery_details'] if attributes[:'point_in_time_recovery_details']
+
+      self.database_management = attributes[:'databaseManagement'] if attributes[:'databaseManagement']
+      self.database_management = "ENABLED" if database_management.nil? && !attributes.key?(:'databaseManagement') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :databaseManagement and :database_management' if attributes.key?(:'databaseManagement') && attributes.key?(:'database_management')
+
+      self.database_management = attributes[:'database_management'] if attributes[:'database_management']
+      self.database_management = "ENABLED" if database_management.nil? && !attributes.key?(:'databaseManagement') && !attributes.key?(:'database_management') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -521,6 +543,19 @@ module OCI
         @crash_recovery = CRASH_RECOVERY_UNKNOWN_ENUM_VALUE
       else
         @crash_recovery = crash_recovery
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] database_management Object to be assigned
+    def database_management=(database_management)
+      # rubocop:disable Style/ConditionalAssignment
+      if database_management && !DATABASE_MANAGEMENT_ENUM.include?(database_management)
+        OCI.logger.debug("Unknown value for 'database_management' [" + database_management + "]. Mapping to 'DATABASE_MANAGEMENT_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @database_management = DATABASE_MANAGEMENT_UNKNOWN_ENUM_VALUE
+      else
+        @database_management = database_management
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -566,7 +601,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         crash_recovery == other.crash_recovery &&
-        point_in_time_recovery_details == other.point_in_time_recovery_details
+        point_in_time_recovery_details == other.point_in_time_recovery_details &&
+        database_management == other.database_management
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -582,7 +618,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, description, compartment_id, subnet_id, is_highly_available, current_placement, is_heat_wave_cluster_attached, heat_wave_cluster, availability_domain, fault_domain, shape_name, mysql_version, backup_policy, source, configuration_id, data_storage_size_in_gbs, hostname_label, ip_address, port, port_x, endpoints, channels, lifecycle_state, lifecycle_details, maintenance, deletion_policy, time_created, time_updated, freeform_tags, defined_tags, crash_recovery, point_in_time_recovery_details].hash
+      [id, display_name, description, compartment_id, subnet_id, is_highly_available, current_placement, is_heat_wave_cluster_attached, heat_wave_cluster, availability_domain, fault_domain, shape_name, mysql_version, backup_policy, source, configuration_id, data_storage_size_in_gbs, hostname_label, ip_address, port, port_x, endpoints, channels, lifecycle_state, lifecycle_details, maintenance, deletion_policy, time_created, time_updated, freeform_tags, defined_tags, crash_recovery, point_in_time_recovery_details, database_management].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

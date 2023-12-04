@@ -11,7 +11,9 @@ module OCI
   class Marketplace::Models::CreatePublicationPackage
     PACKAGE_TYPE_ENUM = [
       PACKAGE_TYPE_ORCHESTRATION = 'ORCHESTRATION'.freeze,
-      PACKAGE_TYPE_IMAGE = 'IMAGE'.freeze
+      PACKAGE_TYPE_IMAGE = 'IMAGE'.freeze,
+      PACKAGE_TYPE_CONTAINER = 'CONTAINER'.freeze,
+      PACKAGE_TYPE_KUBERNETES = 'KUBERNETES'.freeze
     ].freeze
 
     # **[Required]** The package version.

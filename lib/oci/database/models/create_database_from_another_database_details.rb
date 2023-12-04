@@ -32,6 +32,10 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_stamp_for_point_in_time_recovery
 
+    # The list of pluggable databases that needs to be restored into new database.
+    # @return [Array<String>]
+    attr_accessor :pluggable_databases
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -41,7 +45,8 @@ module OCI
         'admin_password': :'adminPassword',
         'db_unique_name': :'dbUniqueName',
         'db_name': :'dbName',
-        'time_stamp_for_point_in_time_recovery': :'timeStampForPointInTimeRecovery'
+        'time_stamp_for_point_in_time_recovery': :'timeStampForPointInTimeRecovery',
+        'pluggable_databases': :'pluggableDatabases'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -55,7 +60,8 @@ module OCI
         'admin_password': :'String',
         'db_unique_name': :'String',
         'db_name': :'String',
-        'time_stamp_for_point_in_time_recovery': :'DateTime'
+        'time_stamp_for_point_in_time_recovery': :'DateTime',
+        'pluggable_databases': :'Array<String>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -72,6 +78,7 @@ module OCI
     # @option attributes [String] :db_unique_name The value to assign to the {#db_unique_name} property
     # @option attributes [String] :db_name The value to assign to the {#db_name} property
     # @option attributes [DateTime] :time_stamp_for_point_in_time_recovery The value to assign to the {#time_stamp_for_point_in_time_recovery} property
+    # @option attributes [Array<String>] :pluggable_databases The value to assign to the {#pluggable_databases} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -113,6 +120,12 @@ module OCI
       raise 'You cannot provide both :timeStampForPointInTimeRecovery and :time_stamp_for_point_in_time_recovery' if attributes.key?(:'timeStampForPointInTimeRecovery') && attributes.key?(:'time_stamp_for_point_in_time_recovery')
 
       self.time_stamp_for_point_in_time_recovery = attributes[:'time_stamp_for_point_in_time_recovery'] if attributes[:'time_stamp_for_point_in_time_recovery']
+
+      self.pluggable_databases = attributes[:'pluggableDatabases'] if attributes[:'pluggableDatabases']
+
+      raise 'You cannot provide both :pluggableDatabases and :pluggable_databases' if attributes.key?(:'pluggableDatabases') && attributes.key?(:'pluggable_databases')
+
+      self.pluggable_databases = attributes[:'pluggable_databases'] if attributes[:'pluggable_databases']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -131,7 +144,8 @@ module OCI
         admin_password == other.admin_password &&
         db_unique_name == other.db_unique_name &&
         db_name == other.db_name &&
-        time_stamp_for_point_in_time_recovery == other.time_stamp_for_point_in_time_recovery
+        time_stamp_for_point_in_time_recovery == other.time_stamp_for_point_in_time_recovery &&
+        pluggable_databases == other.pluggable_databases
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -147,7 +161,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [database_id, backup_tde_password, admin_password, db_unique_name, db_name, time_stamp_for_point_in_time_recovery].hash
+      [database_id, backup_tde_password, admin_password, db_unique_name, db_name, time_stamp_for_point_in_time_recovery, pluggable_databases].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

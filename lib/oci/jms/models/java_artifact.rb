@@ -36,6 +36,45 @@ module OCI
     # @return [String]
     attr_accessor :sha256
 
+    # The file name of the artifact.
+    # @return [String]
+    attr_accessor :artifact_file_name
+
+    # **[Required]** The target Operating System family for the artifact.
+    # @return [String]
+    attr_accessor :os_family
+
+    # **[Required]** The target Operating System architecture for the artifact.
+    # @return [String]
+    attr_accessor :architecture
+
+    # **[Required]** The package type(typically the file extension) of the artifact.
+    # @return [String]
+    attr_accessor :package_type
+
+    # Additional information about the package type.
+    # @return [String]
+    attr_accessor :package_type_detail
+
+    # **[Required]** The endpoint that returns a short-lived artifact download URL in the response payload.
+    # This download url can then be used for downloading the artifact.
+    # See this [API](https://docs.oracle.com/en-us/iaas/api/#/en/jms/20230601/JavaArtifact/GenerateArtifactDownloadUrl) for more details.
+    #
+    # @return [String]
+    attr_accessor :download_url
+
+    # **[Required]** The endpoint for downloading this artifact from command line, automatically in scripts and dockerfiles.
+    # Depending on the context, this can point to the archive or latest update release version artifact in the specified family.
+    #
+    # @return [String]
+    attr_accessor :script_download_url
+
+    # **[Required]** The URL for retrieving the checksum for the artifact.
+    # Depending on the context, this can point to the checksum of the archive or latest update release version artifact.
+    #
+    # @return [String]
+    attr_accessor :script_checksum_url
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -44,7 +83,15 @@ module OCI
         'artifact_description': :'artifactDescription',
         'artifact_content_type': :'artifactContentType',
         'approximate_file_size_in_bytes': :'approximateFileSizeInBytes',
-        'sha256': :'sha256'
+        'sha256': :'sha256',
+        'artifact_file_name': :'artifactFileName',
+        'os_family': :'osFamily',
+        'architecture': :'architecture',
+        'package_type': :'packageType',
+        'package_type_detail': :'packageTypeDetail',
+        'download_url': :'downloadUrl',
+        'script_download_url': :'scriptDownloadUrl',
+        'script_checksum_url': :'scriptChecksumUrl'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,7 +104,15 @@ module OCI
         'artifact_description': :'String',
         'artifact_content_type': :'String',
         'approximate_file_size_in_bytes': :'Integer',
-        'sha256': :'String'
+        'sha256': :'String',
+        'artifact_file_name': :'String',
+        'os_family': :'String',
+        'architecture': :'String',
+        'package_type': :'String',
+        'package_type_detail': :'String',
+        'download_url': :'String',
+        'script_download_url': :'String',
+        'script_checksum_url': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -73,6 +128,14 @@ module OCI
     # @option attributes [String] :artifact_content_type The value to assign to the {#artifact_content_type} property
     # @option attributes [Integer] :approximate_file_size_in_bytes The value to assign to the {#approximate_file_size_in_bytes} property
     # @option attributes [String] :sha256 The value to assign to the {#sha256} property
+    # @option attributes [String] :artifact_file_name The value to assign to the {#artifact_file_name} property
+    # @option attributes [String] :os_family The value to assign to the {#os_family} property
+    # @option attributes [String] :architecture The value to assign to the {#architecture} property
+    # @option attributes [String] :package_type The value to assign to the {#package_type} property
+    # @option attributes [String] :package_type_detail The value to assign to the {#package_type_detail} property
+    # @option attributes [String] :download_url The value to assign to the {#download_url} property
+    # @option attributes [String] :script_download_url The value to assign to the {#script_download_url} property
+    # @option attributes [String] :script_checksum_url The value to assign to the {#script_checksum_url} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -104,6 +167,50 @@ module OCI
       self.approximate_file_size_in_bytes = attributes[:'approximate_file_size_in_bytes'] if attributes[:'approximate_file_size_in_bytes']
 
       self.sha256 = attributes[:'sha256'] if attributes[:'sha256']
+
+      self.artifact_file_name = attributes[:'artifactFileName'] if attributes[:'artifactFileName']
+
+      raise 'You cannot provide both :artifactFileName and :artifact_file_name' if attributes.key?(:'artifactFileName') && attributes.key?(:'artifact_file_name')
+
+      self.artifact_file_name = attributes[:'artifact_file_name'] if attributes[:'artifact_file_name']
+
+      self.os_family = attributes[:'osFamily'] if attributes[:'osFamily']
+
+      raise 'You cannot provide both :osFamily and :os_family' if attributes.key?(:'osFamily') && attributes.key?(:'os_family')
+
+      self.os_family = attributes[:'os_family'] if attributes[:'os_family']
+
+      self.architecture = attributes[:'architecture'] if attributes[:'architecture']
+
+      self.package_type = attributes[:'packageType'] if attributes[:'packageType']
+
+      raise 'You cannot provide both :packageType and :package_type' if attributes.key?(:'packageType') && attributes.key?(:'package_type')
+
+      self.package_type = attributes[:'package_type'] if attributes[:'package_type']
+
+      self.package_type_detail = attributes[:'packageTypeDetail'] if attributes[:'packageTypeDetail']
+
+      raise 'You cannot provide both :packageTypeDetail and :package_type_detail' if attributes.key?(:'packageTypeDetail') && attributes.key?(:'package_type_detail')
+
+      self.package_type_detail = attributes[:'package_type_detail'] if attributes[:'package_type_detail']
+
+      self.download_url = attributes[:'downloadUrl'] if attributes[:'downloadUrl']
+
+      raise 'You cannot provide both :downloadUrl and :download_url' if attributes.key?(:'downloadUrl') && attributes.key?(:'download_url')
+
+      self.download_url = attributes[:'download_url'] if attributes[:'download_url']
+
+      self.script_download_url = attributes[:'scriptDownloadUrl'] if attributes[:'scriptDownloadUrl']
+
+      raise 'You cannot provide both :scriptDownloadUrl and :script_download_url' if attributes.key?(:'scriptDownloadUrl') && attributes.key?(:'script_download_url')
+
+      self.script_download_url = attributes[:'script_download_url'] if attributes[:'script_download_url']
+
+      self.script_checksum_url = attributes[:'scriptChecksumUrl'] if attributes[:'scriptChecksumUrl']
+
+      raise 'You cannot provide both :scriptChecksumUrl and :script_checksum_url' if attributes.key?(:'scriptChecksumUrl') && attributes.key?(:'script_checksum_url')
+
+      self.script_checksum_url = attributes[:'script_checksum_url'] if attributes[:'script_checksum_url']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -134,7 +241,15 @@ module OCI
         artifact_description == other.artifact_description &&
         artifact_content_type == other.artifact_content_type &&
         approximate_file_size_in_bytes == other.approximate_file_size_in_bytes &&
-        sha256 == other.sha256
+        sha256 == other.sha256 &&
+        artifact_file_name == other.artifact_file_name &&
+        os_family == other.os_family &&
+        architecture == other.architecture &&
+        package_type == other.package_type &&
+        package_type_detail == other.package_type_detail &&
+        download_url == other.download_url &&
+        script_download_url == other.script_download_url &&
+        script_checksum_url == other.script_checksum_url
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -150,7 +265,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [artifact_id, artifact_description, artifact_content_type, approximate_file_size_in_bytes, sha256].hash
+      [artifact_id, artifact_description, artifact_content_type, approximate_file_size_in_bytes, sha256, artifact_file_name, os_family, architecture, package_type, package_type_detail, download_url, script_download_url, script_checksum_url].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

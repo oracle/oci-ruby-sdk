@@ -66,6 +66,7 @@ lib/oci/identity_data_plane/identity_data_plane.rb
 lib/oci/identity_domains/identity_domains.rb
 lib/oci/integration/integration.rb
 lib/oci/jms/jms.rb
+lib/oci/jms_java_downloads/jms_java_downloads.rb
 lib/oci/key_management/key_management.rb
 lib/oci/license_manager/license_manager.rb
 lib/oci/limits/limits.rb
@@ -78,6 +79,7 @@ lib/oci/loggingsearch/loggingsearch.rb
 lib/oci/management_agent/management_agent.rb
 lib/oci/management_dashboard/management_dashboard.rb
 lib/oci/marketplace/marketplace.rb
+lib/oci/marketplace_publisher/marketplace_publisher.rb
 lib/oci/media_services/media_services.rb
 lib/oci/monitoring/monitoring.rb
 lib/oci/mysql/mysql.rb
@@ -103,8 +105,10 @@ lib/oci/osub_billing_schedule/osub_billing_schedule.rb
 lib/oci/osub_organization_subscription/osub_organization_subscription.rb
 lib/oci/osub_subscription/osub_subscription.rb
 lib/oci/osub_usage/osub_usage.rb
+lib/oci/psql/psql.rb
 lib/oci/queue/queue.rb
 lib/oci/recovery/recovery.rb
+lib/oci/redis/redis.rb
 lib/oci/resource_manager/resource_manager.rb
 lib/oci/resource_search/resource_search.rb
 lib/oci/rover/rover.rb

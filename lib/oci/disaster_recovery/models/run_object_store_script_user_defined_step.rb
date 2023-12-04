@@ -9,16 +9,21 @@ require_relative 'dr_plan_user_defined_step'
 module OCI
   # Run Object Store Script step details.
   class DisasterRecovery::Models::RunObjectStoreScriptUserDefinedStep < DisasterRecovery::Models::DrPlanUserDefinedStep
-    # **[Required]** The OCID of the instance where this script or command should be executed.
+    # **[Required]** The OCID of the instance on which this script or command should be executed.
     #
-    # Example: `ocid1.instance.oc1.phx.&lt;unique_id&gt;`
+    # **For moving instances:** *runOnInstanceId* must be the OCID of the instance in the region where the
+    # instance is currently present.
+    #
+    # **For non-moving instances:** *runOnInstanceId* must be the OCID of the non-moving instance.
+    #
+    # Example: `ocid1.instance.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :run_on_instance_id
 
     # **[Required]** The region of the instance where this script or command should be executed.
     #
-    # Example: `us-phoenix-1`
+    # Example: `us-ashburn-1`
     #
     # @return [String]
     attr_accessor :run_on_instance_region

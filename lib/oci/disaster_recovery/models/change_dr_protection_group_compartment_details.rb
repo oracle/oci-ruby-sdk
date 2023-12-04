@@ -6,11 +6,11 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details for moving a DR Protection Group to another compartment.
+  # The details for moving a DR protection group to another compartment.
   class DisasterRecovery::Models::ChangeDrProtectionGroupCompartmentDetails
-    # **[Required]** The OCID of the compartment to which the DR Protection Group should be moved.
+    # **[Required]** The OCID of the compartment to which the DR protection group should be moved.
     #
-    # Example: `ocid1.compartment.oc1..&lt;unique_id&gt;`
+    # Example: `ocid1.compartment.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :compartment_id

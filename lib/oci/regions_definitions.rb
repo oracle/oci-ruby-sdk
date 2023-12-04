@@ -42,6 +42,8 @@ module OCI
       REGION_EU_MADRID_1 = 'eu-madrid-1'.freeze,
       REGION_US_CHICAGO_1 = 'us-chicago-1'.freeze,
       REGION_MX_MONTERREY_1 = 'mx-monterrey-1'.freeze,
+      REGION_US_SALTLAKE_2 = 'us-saltlake-2'.freeze,
+      REGION_SA_BOGOTA_1 = 'sa-bogota-1'.freeze,
       REGION_US_LANGLEY_1 = 'us-langley-1'.freeze,
       REGION_US_LUKE_1 = 'us-luke-1'.freeze,
       REGION_US_GOV_ASHBURN_1 = 'us-gov-ashburn-1'.freeze,
@@ -61,7 +63,8 @@ module OCI
       REGION_EU_DCC_DUBLIN_1 = 'eu-dcc-dublin-1'.freeze,
       REGION_EU_MADRID_2 = 'eu-madrid-2'.freeze,
       REGION_EU_FRANKFURT_2 = 'eu-frankfurt-2'.freeze,
-      REGION_EU_JOVANOVAC_1 = 'eu-jovanovac-1'.freeze
+      REGION_EU_JOVANOVAC_1 = 'eu-jovanovac-1'.freeze,
+      REGION_EU_DCC_ZURICH_1 = 'eu-dcc-zurich-1'.freeze
     ]
 
     REGION_SHORT_NAMES_TO_LONG_NAMES = {
@@ -100,6 +103,8 @@ module OCI
       'mad': REGION_EU_MADRID_1,
       'ord': REGION_US_CHICAGO_1,
       'mty': REGION_MX_MONTERREY_1,
+      'aga': REGION_US_SALTLAKE_2,
+      'bog': REGION_SA_BOGOTA_1,
       'lfi': REGION_US_LANGLEY_1,
       'luf': REGION_US_LUKE_1,
       'ric': REGION_US_GOV_ASHBURN_1,
@@ -119,7 +124,8 @@ module OCI
       'ork': REGION_EU_DCC_DUBLIN_1,
       'vll': REGION_EU_MADRID_2,
       'str': REGION_EU_FRANKFURT_2,
-      'beg': REGION_EU_JOVANOVAC_1
+      'beg': REGION_EU_JOVANOVAC_1,
+      'avz': REGION_EU_DCC_ZURICH_1
     }
 
     # --- Start of region realm mapping ---
@@ -159,6 +165,8 @@ module OCI
       'eu-madrid-1': 'oc1'.freeze,
       'us-chicago-1': 'oc1'.freeze,
       'mx-monterrey-1': 'oc1'.freeze,
+      'us-saltlake-2': 'oc1'.freeze,
+      'sa-bogota-1': 'oc1'.freeze,
 
       'us-langley-1': 'oc2'.freeze,
       'us-luke-1': 'oc2'.freeze,
@@ -187,7 +195,9 @@ module OCI
       'eu-madrid-2': 'oc19'.freeze,
       'eu-frankfurt-2': 'oc19'.freeze,
 
-      'eu-jovanovac-1': 'oc20'.freeze
+      'eu-jovanovac-1': 'oc20'.freeze,
+
+      'eu-dcc-zurich-1': 'oc24'.freeze
     }
     # ---  end of region realm mapping  ---
 
@@ -202,7 +212,8 @@ module OCI
       'oc10': 'oraclecloud10.com'.freeze,
       'oc14': 'oraclecloud14.com'.freeze,
       'oc19': 'oraclecloud.eu'.freeze,
-      'oc20': 'oraclecloud20.com'.freeze
+      'oc20': 'oraclecloud20.com'.freeze,
+      'oc24': 'oraclecloud24.com'.freeze
     }
     # ---  end of realm domain mapping  ---
   end

@@ -6,9 +6,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Details for moving a Knowledge Base.
+  # Details for moving a knowledge base.
   class Adm::Models::ChangeKnowledgeBaseCompartmentDetails
-    # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the compartment to which the resource must be moved.
+    # **[Required]** The compartment Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)) to which the resource must be moved.
     # @return [String]
     attr_accessor :compartment_id
 

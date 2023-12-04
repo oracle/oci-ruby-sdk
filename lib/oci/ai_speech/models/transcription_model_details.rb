@@ -47,12 +47,16 @@ module OCI
     # @return [String]
     attr_reader :language_code
 
+    # @return [OCI::AiSpeech::Models::TranscriptionSettings]
+    attr_accessor :transcription_settings
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
         'domain': :'domain',
-        'language_code': :'languageCode'
+        'language_code': :'languageCode',
+        'transcription_settings': :'transcriptionSettings'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -62,7 +66,8 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'domain': :'String',
-        'language_code': :'String'
+        'language_code': :'String',
+        'transcription_settings': :'OCI::AiSpeech::Models::TranscriptionSettings'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -75,6 +80,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :domain The value to assign to the {#domain} property
     # @option attributes [String] :language_code The value to assign to the {#language_code} property
+    # @option attributes [OCI::AiSpeech::Models::TranscriptionSettings] :transcription_settings The value to assign to the {#transcription_settings} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -91,6 +97,12 @@ module OCI
 
       self.language_code = attributes[:'language_code'] if attributes[:'language_code']
       self.language_code = "en-US" if language_code.nil? && !attributes.key?(:'languageCode') && !attributes.key?(:'language_code') # rubocop:disable Style/StringLiterals
+
+      self.transcription_settings = attributes[:'transcriptionSettings'] if attributes[:'transcriptionSettings']
+
+      raise 'You cannot provide both :transcriptionSettings and :transcription_settings' if attributes.key?(:'transcriptionSettings') && attributes.key?(:'transcription_settings')
+
+      self.transcription_settings = attributes[:'transcription_settings'] if attributes[:'transcription_settings']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -131,7 +143,8 @@ module OCI
 
       self.class == other.class &&
         domain == other.domain &&
-        language_code == other.language_code
+        language_code == other.language_code &&
+        transcription_settings == other.transcription_settings
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -147,7 +160,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [domain, language_code].hash
+      [domain, language_code, transcription_settings].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

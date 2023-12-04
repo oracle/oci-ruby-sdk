@@ -7,7 +7,7 @@ require_relative 'unified_agent_parser'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # msgpack parser.
+  # Msgpack parser.
   class Logging::Models::UnifiedAgentMsgpackParser < Logging::Models::UnifiedAgentParser
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
