@@ -26,7 +26,14 @@ module OCI
       CONNECTION_TYPE_AMAZON_S3 = 'AMAZON_S3'.freeze,
       CONNECTION_TYPE_HDFS = 'HDFS'.freeze,
       CONNECTION_TYPE_ORACLE_NOSQL = 'ORACLE_NOSQL'.freeze,
-      CONNECTION_TYPE_MONGODB = 'MONGODB'.freeze
+      CONNECTION_TYPE_MONGODB = 'MONGODB'.freeze,
+      CONNECTION_TYPE_AMAZON_KINESIS = 'AMAZON_KINESIS'.freeze,
+      CONNECTION_TYPE_AMAZON_REDSHIFT = 'AMAZON_REDSHIFT'.freeze,
+      CONNECTION_TYPE_REDIS = 'REDIS'.freeze,
+      CONNECTION_TYPE_ELASTICSEARCH = 'ELASTICSEARCH'.freeze,
+      CONNECTION_TYPE_GENERIC = 'GENERIC'.freeze,
+      CONNECTION_TYPE_GOOGLE_CLOUD_STORAGE = 'GOOGLE_CLOUD_STORAGE'.freeze,
+      CONNECTION_TYPE_GOOGLE_BIGQUERY = 'GOOGLE_BIGQUERY'.freeze
     ].freeze
 
     # **[Required]** The connection type.
@@ -77,15 +84,15 @@ module OCI
     # @return [String]
     attr_accessor :key_id
 
-    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the subnet being referenced.
-    #
-    # @return [String]
-    attr_accessor :subnet_id
-
     # An array of Network Security Group OCIDs used to define network access for either Deployments or Connections.
     #
     # @return [Array<String>]
     attr_accessor :nsg_ids
+
+    # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the subnet being referenced.
+    #
+    # @return [String]
+    attr_accessor :subnet_id
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -99,8 +106,8 @@ module OCI
         'defined_tags': :'definedTags',
         'vault_id': :'vaultId',
         'key_id': :'keyId',
-        'subnet_id': :'subnetId',
-        'nsg_ids': :'nsgIds'
+        'nsg_ids': :'nsgIds',
+        'subnet_id': :'subnetId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -117,8 +124,8 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'vault_id': :'String',
         'key_id': :'String',
-        'subnet_id': :'String',
-        'nsg_ids': :'Array<String>'
+        'nsg_ids': :'Array<String>',
+        'subnet_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -135,17 +142,24 @@ module OCI
       return 'OCI::GoldenGate::Models::CreateKafkaSchemaRegistryConnectionDetails' if type == 'KAFKA_SCHEMA_REGISTRY'
       return 'OCI::GoldenGate::Models::CreateMicrosoftSqlserverConnectionDetails' if type == 'MICROSOFT_SQLSERVER'
       return 'OCI::GoldenGate::Models::CreateJavaMessageServiceConnectionDetails' if type == 'JAVA_MESSAGE_SERVICE'
+      return 'OCI::GoldenGate::Models::CreateGoogleBigQueryConnectionDetails' if type == 'GOOGLE_BIGQUERY'
+      return 'OCI::GoldenGate::Models::CreateAmazonKinesisConnectionDetails' if type == 'AMAZON_KINESIS'
       return 'OCI::GoldenGate::Models::CreateSnowflakeConnectionDetails' if type == 'SNOWFLAKE'
       return 'OCI::GoldenGate::Models::CreateAzureDataLakeStorageConnectionDetails' if type == 'AZURE_DATA_LAKE_STORAGE'
       return 'OCI::GoldenGate::Models::CreateMongoDbConnectionDetails' if type == 'MONGODB'
       return 'OCI::GoldenGate::Models::CreateAmazonS3ConnectionDetails' if type == 'AMAZON_S3'
       return 'OCI::GoldenGate::Models::CreateHdfsConnectionDetails' if type == 'HDFS'
       return 'OCI::GoldenGate::Models::CreateOciObjectStorageConnectionDetails' if type == 'OCI_OBJECT_STORAGE'
+      return 'OCI::GoldenGate::Models::CreateElasticsearchConnectionDetails' if type == 'ELASTICSEARCH'
       return 'OCI::GoldenGate::Models::CreateAzureSynapseConnectionDetails' if type == 'AZURE_SYNAPSE_ANALYTICS'
+      return 'OCI::GoldenGate::Models::CreateRedisConnectionDetails' if type == 'REDIS'
       return 'OCI::GoldenGate::Models::CreateMysqlConnectionDetails' if type == 'MYSQL'
+      return 'OCI::GoldenGate::Models::CreateGenericConnectionDetails' if type == 'GENERIC'
+      return 'OCI::GoldenGate::Models::CreateGoogleCloudStorageConnectionDetails' if type == 'GOOGLE_CLOUD_STORAGE'
       return 'OCI::GoldenGate::Models::CreateKafkaConnectionDetails' if type == 'KAFKA'
       return 'OCI::GoldenGate::Models::CreateOracleConnectionDetails' if type == 'ORACLE'
       return 'OCI::GoldenGate::Models::CreateGoldenGateConnectionDetails' if type == 'GOLDENGATE'
+      return 'OCI::GoldenGate::Models::CreateAmazonRedshiftConnectionDetails' if type == 'AMAZON_REDSHIFT'
       return 'OCI::GoldenGate::Models::CreateOracleNosqlConnectionDetails' if type == 'ORACLE_NOSQL'
 
       # TODO: Log a warning when the subtype is not found.
@@ -167,8 +181,8 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :vault_id The value to assign to the {#vault_id} property
     # @option attributes [String] :key_id The value to assign to the {#key_id} property
-    # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
+    # @option attributes [String] :subnet_id The value to assign to the {#subnet_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -219,17 +233,17 @@ module OCI
 
       self.key_id = attributes[:'key_id'] if attributes[:'key_id']
 
-      self.subnet_id = attributes[:'subnetId'] if attributes[:'subnetId']
-
-      raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
-
-      self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
-
       self.nsg_ids = attributes[:'nsgIds'] if attributes[:'nsgIds']
 
       raise 'You cannot provide both :nsgIds and :nsg_ids' if attributes.key?(:'nsgIds') && attributes.key?(:'nsg_ids')
 
       self.nsg_ids = attributes[:'nsg_ids'] if attributes[:'nsg_ids']
+
+      self.subnet_id = attributes[:'subnetId'] if attributes[:'subnetId']
+
+      raise 'You cannot provide both :subnetId and :subnet_id' if attributes.key?(:'subnetId') && attributes.key?(:'subnet_id')
+
+      self.subnet_id = attributes[:'subnet_id'] if attributes[:'subnet_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -259,8 +273,8 @@ module OCI
         defined_tags == other.defined_tags &&
         vault_id == other.vault_id &&
         key_id == other.key_id &&
-        subnet_id == other.subnet_id &&
-        nsg_ids == other.nsg_ids
+        nsg_ids == other.nsg_ids &&
+        subnet_id == other.subnet_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -276,7 +290,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [connection_type, display_name, description, compartment_id, freeform_tags, defined_tags, vault_id, key_id, subnet_id, nsg_ids].hash
+      [connection_type, display_name, description, compartment_id, freeform_tags, defined_tags, vault_id, key_id, nsg_ids, subnet_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -36,6 +36,10 @@ module OCI
     # @return [OCI::DataScience::Models::JobLogConfigurationDetails]
     attr_accessor :job_log_configuration_details
 
+    # Collection of JobStorageMountConfigurationDetails.
+    # @return [Array<OCI::DataScience::Models::StorageMountConfigurationDetails>]
+    attr_accessor :job_storage_mount_configuration_details_list
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. See [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     # Example: `{\"Department\": \"Finance\"}`
     #
@@ -59,6 +63,7 @@ module OCI
         'job_configuration_details': :'jobConfigurationDetails',
         'job_infrastructure_configuration_details': :'jobInfrastructureConfigurationDetails',
         'job_log_configuration_details': :'jobLogConfigurationDetails',
+        'job_storage_mount_configuration_details_list': :'jobStorageMountConfigurationDetailsList',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags'
         # rubocop:enable Style/SymbolLiteral
@@ -76,6 +81,7 @@ module OCI
         'job_configuration_details': :'OCI::DataScience::Models::JobConfigurationDetails',
         'job_infrastructure_configuration_details': :'OCI::DataScience::Models::JobInfrastructureConfigurationDetails',
         'job_log_configuration_details': :'OCI::DataScience::Models::JobLogConfigurationDetails',
+        'job_storage_mount_configuration_details_list': :'Array<OCI::DataScience::Models::StorageMountConfigurationDetails>',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
@@ -95,6 +101,7 @@ module OCI
     # @option attributes [OCI::DataScience::Models::JobConfigurationDetails] :job_configuration_details The value to assign to the {#job_configuration_details} property
     # @option attributes [OCI::DataScience::Models::JobInfrastructureConfigurationDetails] :job_infrastructure_configuration_details The value to assign to the {#job_infrastructure_configuration_details} property
     # @option attributes [OCI::DataScience::Models::JobLogConfigurationDetails] :job_log_configuration_details The value to assign to the {#job_log_configuration_details} property
+    # @option attributes [Array<OCI::DataScience::Models::StorageMountConfigurationDetails>] :job_storage_mount_configuration_details_list The value to assign to the {#job_storage_mount_configuration_details_list} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     def initialize(attributes = {})
@@ -141,6 +148,12 @@ module OCI
 
       self.job_log_configuration_details = attributes[:'job_log_configuration_details'] if attributes[:'job_log_configuration_details']
 
+      self.job_storage_mount_configuration_details_list = attributes[:'jobStorageMountConfigurationDetailsList'] if attributes[:'jobStorageMountConfigurationDetailsList']
+
+      raise 'You cannot provide both :jobStorageMountConfigurationDetailsList and :job_storage_mount_configuration_details_list' if attributes.key?(:'jobStorageMountConfigurationDetailsList') && attributes.key?(:'job_storage_mount_configuration_details_list')
+
+      self.job_storage_mount_configuration_details_list = attributes[:'job_storage_mount_configuration_details_list'] if attributes[:'job_storage_mount_configuration_details_list']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -172,6 +185,7 @@ module OCI
         job_configuration_details == other.job_configuration_details &&
         job_infrastructure_configuration_details == other.job_infrastructure_configuration_details &&
         job_log_configuration_details == other.job_log_configuration_details &&
+        job_storage_mount_configuration_details_list == other.job_storage_mount_configuration_details_list &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags
     end
@@ -189,7 +203,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [project_id, compartment_id, display_name, description, job_configuration_details, job_infrastructure_configuration_details, job_log_configuration_details, freeform_tags, defined_tags].hash
+      [project_id, compartment_id, display_name, description, job_configuration_details, job_infrastructure_configuration_details, job_log_configuration_details, job_storage_mount_configuration_details_list, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

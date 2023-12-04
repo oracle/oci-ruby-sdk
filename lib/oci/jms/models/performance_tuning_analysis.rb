@@ -8,7 +8,7 @@ require 'date'
 module OCI
   # Performance tuning analysis configuration
   class Jms::Models::PerformanceTuningAnalysis
-    # PerformanceTuningAnalysis flag to store enabled or disabled status.
+    # PerformanceTuningAnalysis flag to store enabled or disabled status
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 

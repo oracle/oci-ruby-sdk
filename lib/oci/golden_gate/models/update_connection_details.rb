@@ -26,7 +26,14 @@ module OCI
       CONNECTION_TYPE_AMAZON_S3 = 'AMAZON_S3'.freeze,
       CONNECTION_TYPE_HDFS = 'HDFS'.freeze,
       CONNECTION_TYPE_ORACLE_NOSQL = 'ORACLE_NOSQL'.freeze,
-      CONNECTION_TYPE_MONGODB = 'MONGODB'.freeze
+      CONNECTION_TYPE_MONGODB = 'MONGODB'.freeze,
+      CONNECTION_TYPE_AMAZON_KINESIS = 'AMAZON_KINESIS'.freeze,
+      CONNECTION_TYPE_AMAZON_REDSHIFT = 'AMAZON_REDSHIFT'.freeze,
+      CONNECTION_TYPE_REDIS = 'REDIS'.freeze,
+      CONNECTION_TYPE_ELASTICSEARCH = 'ELASTICSEARCH'.freeze,
+      CONNECTION_TYPE_GENERIC = 'GENERIC'.freeze,
+      CONNECTION_TYPE_GOOGLE_CLOUD_STORAGE = 'GOOGLE_CLOUD_STORAGE'.freeze,
+      CONNECTION_TYPE_GOOGLE_BIGQUERY = 'GOOGLE_BIGQUERY'.freeze
     ].freeze
 
     # The connection type.
@@ -117,10 +124,16 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'connectionType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::GoldenGate::Models::UpdateElasticsearchConnectionDetails' if type == 'ELASTICSEARCH'
+      return 'OCI::GoldenGate::Models::UpdateGoogleBigQueryConnectionDetails' if type == 'GOOGLE_BIGQUERY'
       return 'OCI::GoldenGate::Models::UpdateOracleConnectionDetails' if type == 'ORACLE'
+      return 'OCI::GoldenGate::Models::UpdateAmazonRedshiftConnectionDetails' if type == 'AMAZON_REDSHIFT'
       return 'OCI::GoldenGate::Models::UpdateOciObjectStorageConnectionDetails' if type == 'OCI_OBJECT_STORAGE'
+      return 'OCI::GoldenGate::Models::UpdateRedisConnectionDetails' if type == 'REDIS'
       return 'OCI::GoldenGate::Models::UpdateMongoDbConnectionDetails' if type == 'MONGODB'
+      return 'OCI::GoldenGate::Models::UpdateGoogleCloudStorageConnectionDetails' if type == 'GOOGLE_CLOUD_STORAGE'
       return 'OCI::GoldenGate::Models::UpdateAzureDataLakeStorageConnectionDetails' if type == 'AZURE_DATA_LAKE_STORAGE'
+      return 'OCI::GoldenGate::Models::UpdateAmazonKinesisConnectionDetails' if type == 'AMAZON_KINESIS'
       return 'OCI::GoldenGate::Models::UpdateJavaMessageServiceConnectionDetails' if type == 'JAVA_MESSAGE_SERVICE'
       return 'OCI::GoldenGate::Models::UpdateGoldenGateConnectionDetails' if type == 'GOLDENGATE'
       return 'OCI::GoldenGate::Models::UpdatePostgresqlConnectionDetails' if type == 'POSTGRESQL'
@@ -132,6 +145,7 @@ module OCI
       return 'OCI::GoldenGate::Models::UpdateHdfsConnectionDetails' if type == 'HDFS'
       return 'OCI::GoldenGate::Models::UpdateMysqlConnectionDetails' if type == 'MYSQL'
       return 'OCI::GoldenGate::Models::UpdateKafkaConnectionDetails' if type == 'KAFKA'
+      return 'OCI::GoldenGate::Models::UpdateGenericConnectionDetails' if type == 'GENERIC'
       return 'OCI::GoldenGate::Models::UpdateAzureSynapseConnectionDetails' if type == 'AZURE_SYNAPSE_ANALYTICS'
 
       # TODO: Log a warning when the subtype is not found.

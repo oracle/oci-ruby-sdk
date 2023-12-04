@@ -233,6 +233,56 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Core::ComputeClient#change_compute_capacity_topology_compartment} and then waits for the {OCI::Core::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] compute_capacity_topology_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compute capacity topology.
+    # @param [OCI::Core::Models::ChangeComputeCapacityTopologyCompartmentDetails] change_compute_capacity_topology_compartment_details The configuration details for the move operation.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeClient#change_compute_capacity_topology_compartment}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Core::Models::WorkRequest}
+    def change_compute_capacity_topology_compartment_and_wait_for_state(compute_capacity_topology_id, change_compute_capacity_topology_compartment_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.change_compute_capacity_topology_compartment(compute_capacity_topology_id, change_compute_capacity_topology_compartment_details, base_operation_opts)
+      use_util = OCI::Core::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Core::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Core::ComputeClient#change_dedicated_vm_host_compartment} and then waits for the {OCI::Core::Models::WorkRequest}
     # to enter the given state(s).
     #
@@ -357,6 +407,46 @@ module OCI
 
       begin
         waiter_result = @service_client.get_compute_capacity_reservation(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Core::ComputeClient#create_compute_capacity_topology} and then waits for the {OCI::Core::Models::ComputeCapacityTopology} acted upon
+    # to enter the given state(s).
+    #
+    # @param [OCI::Core::Models::CreateComputeCapacityTopologyDetails] create_compute_capacity_topology_details Details for creating a new compute capacity topology.
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::ComputeCapacityTopology#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeClient#create_compute_capacity_topology}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::Core::Models::ComputeCapacityTopology}
+    def create_compute_capacity_topology_and_wait_for_state(create_compute_capacity_topology_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_compute_capacity_topology(create_compute_capacity_topology_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_compute_capacity_topology(wait_for_resource_id).wait_until(
           eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
           max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
           max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
@@ -556,6 +646,55 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Core::Models::WorkRequest}
     def delete_compute_capacity_reservation_and_wait_for_state(capacity_reservation_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.delete_compute_capacity_reservation(capacity_reservation_id, base_operation_opts)
+      use_util = OCI::Core::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Core::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Core::ComputeClient#delete_compute_capacity_topology} and then waits for the {OCI::Core::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] compute_capacity_topology_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compute capacity topology.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeClient#delete_compute_capacity_topology}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Core::Models::WorkRequest}
+    def delete_compute_capacity_topology_and_wait_for_state(compute_capacity_topology_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.delete_compute_capacity_topology(compute_capacity_topology_id, base_operation_opts)
       use_util = OCI::Core::Util.respond_to?(:wait_on_work_request)
 
       return operation_result if wait_for_states.empty? && !use_util
@@ -1098,6 +1237,56 @@ module OCI
     # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Core::Models::WorkRequest}
     def update_compute_capacity_reservation_and_wait_for_state(capacity_reservation_id, update_compute_capacity_reservation_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
       operation_result = @service_client.update_compute_capacity_reservation(capacity_reservation_id, update_compute_capacity_reservation_details, base_operation_opts)
+      use_util = OCI::Core::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+
+      begin
+        if use_util
+          waiter_result = OCI::Core::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::Core::ComputeClient#update_compute_capacity_topology} and then waits for the {OCI::Core::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] compute_capacity_topology_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compute capacity topology.
+    # @param [OCI::Core::Models::UpdateComputeCapacityTopologyDetails] update_compute_capacity_topology_details Update compute capacity topology details.
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Core::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Core::ComputeClient#update_compute_capacity_topology}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Core::Models::WorkRequest}
+    def update_compute_capacity_topology_and_wait_for_state(compute_capacity_topology_id, update_compute_capacity_topology_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_compute_capacity_topology(compute_capacity_topology_id, update_compute_capacity_topology_details, base_operation_opts)
       use_util = OCI::Core::Util.respond_to?(:wait_on_work_request)
 
       return operation_result if wait_for_states.empty? && !use_util

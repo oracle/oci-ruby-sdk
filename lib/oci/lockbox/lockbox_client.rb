@@ -8,7 +8,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Use the Managed Access API to approve access requests, create and manage templates, and manage resource approval settings. For more information, see [Managed Access Overview](https://docs.oracle.com/en-us/iaas/managed-access/overview.htm).
+  # Use the Managed Access API to approve access requests, create and manage templates, and manage resource approval settings. For more information, see [Managed Access Overview](https://docs.oracle.com/iaas/Content/managed-access/home.htm).
   #
   # Use the table of contents and search tool to explore the Managed Access API.
   class Lockbox::LockboxClient
@@ -616,6 +616,144 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Exports a list of AccessRequestSummary objects within a compartment and during a specified time range in text format. You can filter the results by problem severity.
+    #
+    # @param [OCI::Lockbox::Models::ExportAccessRequestsDetails] export_access_requests_details
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :id A generic Id query param used to filter lockbox, access request and approval template by Id.
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :lifecycle_state A filter to return only resources their lifecycleState matches the given lifecycleState.
+    # @option opts [String] :lockbox_partner The name of the lockbox partner.
+    # @option opts [String] :partner_id The ID of the partner.
+    # @option opts [String] :requestor_id The unique identifier (OCID) of the requestor in which to list resources.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
+    # @option opts [String] :page A token representing the position at which to start retrieving results. This must come from the `opc-next-page` header field of a previous response.
+    # @option opts [String] :sort_order The sort order to use, either 'ASC' or 'DESC'.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, displayName, id
+    # @option opts [String, IO] :response_target Streaming http body into a file (specified by file name or File object) or IO object if the block is not given
+    # @option [Block] &block Streaming http body to the block
+    # @return [Response] A Response object with data of type String if response_target and block are not given, otherwise with nil data
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/lockbox/export_access_requests.rb.html) to see an example of how to use export_access_requests API.
+    def export_access_requests(export_access_requests_details, opts = {}, &block)
+      logger.debug 'Calling operation LockboxClient#export_access_requests.' if logger
+
+      raise "Missing the required parameter 'export_access_requests_details' when calling export_access_requests." if export_access_requests_details.nil?
+
+      if opts[:lifecycle_state] && !OCI::Lockbox::Models::AccessRequest::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Lockbox::Models::AccessRequest::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:lockbox_partner] && !OCI::Lockbox::Models::LOCKBOX_PARTNER_ENUM.include?(opts[:lockbox_partner])
+        raise 'Invalid value for "lockbox_partner", must be one of the values in OCI::Lockbox::Models::LOCKBOX_PARTNER_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::Lockbox::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Lockbox::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated displayName id].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, displayName, id.'
+      end
+
+      path = '/accessRequests/actions/export'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:lockboxPartner] = opts[:lockbox_partner] if opts[:lockbox_partner]
+      query_params[:partnerId] = opts[:partner_id] if opts[:partner_id]
+      query_params[:requestorId] = opts[:requestor_id] if opts[:requestor_id]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = opts[:accept] if opts[:accept]
+      header_params[:accept] ||= 'text/csv'
+      header_params[:'accept-encoding'] = opts[:accept_encoding] if opts[:accept_encoding]
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(export_access_requests_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LockboxClient#export_access_requests') do
+        if !block.nil?
+          @api_client.call_api(
+            :POST,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'Stream',
+            &block
+          )
+        elsif opts[:response_target]
+          if opts[:response_target].respond_to? :write
+            @api_client.call_api(
+              :POST,
+              path,
+              endpoint,
+              header_params: header_params,
+              query_params: query_params,
+              operation_signing_strategy: operation_signing_strategy,
+              body: post_body,
+              return_type: 'Stream',
+              &proc { |chunk, _response| opts[:response_target].write(chunk) }
+            )
+          elsif opts[:response_target].is_a?(String)
+            File.open(opts[:response_target], 'wb') do |output|
+              return @api_client.call_api(
+                :POST,
+                path,
+                endpoint,
+                header_params: header_params,
+                query_params: query_params,
+                operation_signing_strategy: operation_signing_strategy,
+                body: post_body,
+                return_type: 'Stream',
+                &proc { |chunk, _response| output.write(chunk) }
+              )
+            end
+          end
+        else
+          @api_client.call_api(
+            :POST,
+            path,
+            endpoint,
+            header_params: header_params,
+            query_params: query_params,
+            operation_signing_strategy: operation_signing_strategy,
+            body: post_body,
+            return_type: 'String'
+          )
+        end
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Retrieves the access credential/material associated with the access request.
     #
     # @param [String] access_request_id The unique identifier (OCID) of the access request.
@@ -968,6 +1106,7 @@ module OCI
     # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
     # @option opts [String] :lifecycle_state A filter to return only resources their lifecycleState matches the given lifecycleState.
     # @option opts [String] :lockbox_partner The name of the lockbox partner.
+    # @option opts [String] :partner_id The ID of the partner.
     # @option opts [String] :requestor_id The unique identifier (OCID) of the requestor in which to list resources.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page A token representing the position at which to start retrieving results. This must come from the `opc-next-page` header field of a previous response.
@@ -975,6 +1114,8 @@ module OCI
     # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Default order for timeCreated is descending. Default order for displayName is ascending.
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName, id
+    # @option opts [DateTime] :time_created_after Date and time on or after which Access Requests were created, as described in [RFC 3339](https://tools.ietf.org/rfc/rfc3339)
+    # @option opts [DateTime] :time_created_before Date and time on or before which Access requests were created, as described in [RFC 3339](https://tools.ietf.org/rfc/rfc3339)
     # @return [Response] A Response object with data of type {OCI::Lockbox::Models::AccessRequestCollection AccessRequestCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/lockbox/list_access_requests.rb.html) to see an example of how to use list_access_requests API.
     def list_access_requests(opts = {})
@@ -1008,11 +1149,14 @@ module OCI
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:lockboxPartner] = opts[:lockbox_partner] if opts[:lockbox_partner]
+      query_params[:partnerId] = opts[:partner_id] if opts[:partner_id]
       query_params[:requestorId] = opts[:requestor_id] if opts[:requestor_id]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:timeCreatedAfter] = opts[:time_created_after] if opts[:time_created_after]
+      query_params[:timeCreatedBefore] = opts[:time_created_before] if opts[:time_created_before]
 
       # Header Params
       header_params = {}
@@ -1140,6 +1284,7 @@ module OCI
     # @option opts [String] :id unique Lockbox identifier
     # @option opts [String] :resource_id The ID of the resource associated with the lockbox.
     # @option opts [String] :lockbox_partner The name of the lockbox partner.
+    # @option opts [String] :partner_id The ID of the partner.
     # @option opts [Integer] :limit The maximum number of items to return. (default to 10)
     # @option opts [String] :page A token representing the position at which to start retrieving results. This must come from the `opc-next-page` header field of a previous response.
     # @option opts [String] :sort_order The sort order to use, either 'ASC' or 'DESC'.
@@ -1181,6 +1326,7 @@ module OCI
       query_params[:id] = opts[:id] if opts[:id]
       query_params[:resourceId] = opts[:resource_id] if opts[:resource_id]
       query_params[:lockboxPartner] = opts[:lockbox_partner] if opts[:lockbox_partner]
+      query_params[:partnerId] = opts[:partner_id] if opts[:partner_id]
       query_params[:limit] = opts[:limit] if opts[:limit]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]

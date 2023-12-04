@@ -81,6 +81,11 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_advanced_features_enabled
 
+    # Whether or not export setting is enabled in this Fleet.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_export_setting_enabled
+
     # **[Required]** The creation date and time of the Fleet (formatted according to [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)).
     #
     # @return [DateTime]
@@ -127,6 +132,7 @@ module OCI
         'inventory_log': :'inventoryLog',
         'operation_log': :'operationLog',
         'is_advanced_features_enabled': :'isAdvancedFeaturesEnabled',
+        'is_export_setting_enabled': :'isExportSettingEnabled',
         'time_created': :'timeCreated',
         'lifecycle_state': :'lifecycleState',
         'defined_tags': :'definedTags',
@@ -152,6 +158,7 @@ module OCI
         'inventory_log': :'OCI::Jms::Models::CustomLog',
         'operation_log': :'OCI::Jms::Models::CustomLog',
         'is_advanced_features_enabled': :'BOOLEAN',
+        'is_export_setting_enabled': :'BOOLEAN',
         'time_created': :'DateTime',
         'lifecycle_state': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
@@ -179,6 +186,7 @@ module OCI
     # @option attributes [OCI::Jms::Models::CustomLog] :inventory_log The value to assign to the {#inventory_log} property
     # @option attributes [OCI::Jms::Models::CustomLog] :operation_log The value to assign to the {#operation_log} property
     # @option attributes [BOOLEAN] :is_advanced_features_enabled The value to assign to the {#is_advanced_features_enabled} property
+    # @option attributes [BOOLEAN] :is_export_setting_enabled The value to assign to the {#is_export_setting_enabled} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
@@ -254,6 +262,12 @@ module OCI
 
       self.is_advanced_features_enabled = attributes[:'is_advanced_features_enabled'] unless attributes[:'is_advanced_features_enabled'].nil?
 
+      self.is_export_setting_enabled = attributes[:'isExportSettingEnabled'] unless attributes[:'isExportSettingEnabled'].nil?
+
+      raise 'You cannot provide both :isExportSettingEnabled and :is_export_setting_enabled' if attributes.key?(:'isExportSettingEnabled') && attributes.key?(:'is_export_setting_enabled')
+
+      self.is_export_setting_enabled = attributes[:'is_export_setting_enabled'] unless attributes[:'is_export_setting_enabled'].nil?
+
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
       raise 'You cannot provide both :timeCreated and :time_created' if attributes.key?(:'timeCreated') && attributes.key?(:'time_created')
@@ -321,6 +335,7 @@ module OCI
         inventory_log == other.inventory_log &&
         operation_log == other.operation_log &&
         is_advanced_features_enabled == other.is_advanced_features_enabled &&
+        is_export_setting_enabled == other.is_export_setting_enabled &&
         time_created == other.time_created &&
         lifecycle_state == other.lifecycle_state &&
         defined_tags == other.defined_tags &&
@@ -341,7 +356,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, description, compartment_id, approximate_jre_count, approximate_installation_count, approximate_application_count, approximate_managed_instance_count, approximate_java_server_count, inventory_log, operation_log, is_advanced_features_enabled, time_created, lifecycle_state, defined_tags, freeform_tags, system_tags].hash
+      [id, display_name, description, compartment_id, approximate_jre_count, approximate_installation_count, approximate_application_count, approximate_managed_instance_count, approximate_java_server_count, inventory_log, operation_log, is_advanced_features_enabled, is_export_setting_enabled, time_created, lifecycle_state, defined_tags, freeform_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

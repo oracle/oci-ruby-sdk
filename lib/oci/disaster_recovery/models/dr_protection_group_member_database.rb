@@ -7,12 +7,13 @@ require_relative 'dr_protection_group_member'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Properties for a Database (DBCS) member of a DR Protection Group.
+  # The properties for a Base Database or Exadata Database member of a DR protection group.
   #
   class DisasterRecovery::Models::DrProtectionGroupMemberDatabase < DisasterRecovery::Models::DrProtectionGroupMember
-    # The ID of the vault secret where the database password is stored.
+    # The OCID of the vault secret where the database SYSDBA password is stored.
+    # This password is used for performing database DR operations.
     #
-    # Example: `ocid1.vaultsecret.oc1.phx.exampleocid1`
+    # Example: `ocid1.vaultsecret.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :password_vault_secret_id

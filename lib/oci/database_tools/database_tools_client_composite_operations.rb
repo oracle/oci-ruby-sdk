@@ -27,6 +27,86 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::DatabaseTools::DatabaseToolsClient#add_database_tools_connection_lock} and then waits for the {OCI::DatabaseTools::Models::DatabaseToolsConnection} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools connection.
+    # @param [OCI::DatabaseTools::Models::AddResourceLockDetails] add_resource_lock_details AddResourceLockDetails body parameter
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DatabaseTools::Models::DatabaseToolsConnection#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DatabaseTools::DatabaseToolsClient#add_database_tools_connection_lock}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DatabaseTools::Models::DatabaseToolsConnection}
+    def add_database_tools_connection_lock_and_wait_for_state(database_tools_connection_id, add_resource_lock_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.add_database_tools_connection_lock(database_tools_connection_id, add_resource_lock_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_database_tools_connection(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::DatabaseTools::DatabaseToolsClient#add_database_tools_private_endpoint_lock} and then waits for the {OCI::DatabaseTools::Models::DatabaseToolsPrivateEndpoint} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] database_tools_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools private endpoint.
+    # @param [OCI::DatabaseTools::Models::AddResourceLockDetails] add_resource_lock_details AddResourceLockDetails body parameter
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DatabaseTools::Models::DatabaseToolsPrivateEndpoint#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DatabaseTools::DatabaseToolsClient#add_database_tools_private_endpoint_lock}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DatabaseTools::Models::DatabaseToolsPrivateEndpoint}
+    def add_database_tools_private_endpoint_lock_and_wait_for_state(database_tools_private_endpoint_id, add_resource_lock_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.add_database_tools_private_endpoint_lock(database_tools_private_endpoint_id, add_resource_lock_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_database_tools_private_endpoint(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::DatabaseTools::DatabaseToolsClient#change_database_tools_connection_compartment} and then waits for the {OCI::DatabaseTools::Models::WorkRequest}
     # to enter the given state(s).
     #
@@ -309,6 +389,86 @@ module OCI
             max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
           )
         end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::DatabaseTools::DatabaseToolsClient#remove_database_tools_connection_lock} and then waits for the {OCI::DatabaseTools::Models::DatabaseToolsConnection} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] database_tools_connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools connection.
+    # @param [OCI::DatabaseTools::Models::RemoveResourceLockDetails] remove_resource_lock_details RemoveResourceLockDetails body parameter
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DatabaseTools::Models::DatabaseToolsConnection#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DatabaseTools::DatabaseToolsClient#remove_database_tools_connection_lock}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DatabaseTools::Models::DatabaseToolsConnection}
+    def remove_database_tools_connection_lock_and_wait_for_state(database_tools_connection_id, remove_resource_lock_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.remove_database_tools_connection_lock(database_tools_connection_id, remove_resource_lock_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_database_tools_connection(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
+    # Calls {OCI::DatabaseTools::DatabaseToolsClient#remove_database_tools_private_endpoint_lock} and then waits for the {OCI::DatabaseTools::Models::DatabaseToolsPrivateEndpoint} acted upon
+    # to enter the given state(s).
+    #
+    # @param [String] database_tools_private_endpoint_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of a Database Tools private endpoint.
+    # @param [OCI::DatabaseTools::Models::RemoveResourceLockDetails] remove_resource_lock_details RemoveResourceLockDetails body parameter
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DatabaseTools::Models::DatabaseToolsPrivateEndpoint#lifecycle_state}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DatabaseTools::DatabaseToolsClient#remove_database_tools_private_endpoint_lock}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object with data of type {OCI::DatabaseTools::Models::DatabaseToolsPrivateEndpoint}
+    def remove_database_tools_private_endpoint_lock_and_wait_for_state(database_tools_private_endpoint_id, remove_resource_lock_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.remove_database_tools_private_endpoint_lock(database_tools_private_endpoint_id, remove_resource_lock_details, base_operation_opts)
+
+      return operation_result if wait_for_states.empty?
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.data.id
+
+      begin
+        waiter_result = @service_client.get_database_tools_private_endpoint(wait_for_resource_id).wait_until(
+          eval_proc: ->(response) { response.data.respond_to?(:lifecycle_state) && lowered_wait_for_states.include?(response.data.lifecycle_state.downcase) },
+          max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+          max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+        )
         result_to_return = waiter_result
 
         return result_to_return

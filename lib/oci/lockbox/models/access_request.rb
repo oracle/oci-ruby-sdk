@@ -92,6 +92,23 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_expired
 
+    # **[Required]** The time the access request was last reminded. Format is defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    # Example: `2020-01-25T21:10:29.600Z`
+    #
+    # @return [DateTime]
+    attr_accessor :time_reminded
+
+    # **[Required]** The count of times the access request was reminded.
+    #
+    # @return [Integer]
+    attr_accessor :reminder_count
+
+    # **[Required]** The location of the requestor. Format with be two letters indicatiog operator's country code defined by https://jira-sd.mc1.oracleiaas.com/browse/SSD-17880
+    # Example: `US`
+    #
+    # @return [String]
+    attr_accessor :requestor_location
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -108,7 +125,10 @@ module OCI
         'activity_logs': :'activityLogs',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
-        'time_expired': :'timeExpired'
+        'time_expired': :'timeExpired',
+        'time_reminded': :'timeReminded',
+        'reminder_count': :'reminderCount',
+        'requestor_location': :'requestorLocation'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -129,7 +149,10 @@ module OCI
         'activity_logs': :'Array<OCI::Lockbox::Models::ActivityLog>',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
-        'time_expired': :'DateTime'
+        'time_expired': :'DateTime',
+        'time_reminded': :'DateTime',
+        'reminder_count': :'Integer',
+        'requestor_location': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -153,6 +176,9 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [DateTime] :time_expired The value to assign to the {#time_expired} property
+    # @option attributes [DateTime] :time_reminded The value to assign to the {#time_reminded} property
+    # @option attributes [Integer] :reminder_count The value to assign to the {#reminder_count} property
+    # @option attributes [String] :requestor_location The value to assign to the {#requestor_location} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -224,6 +250,24 @@ module OCI
       raise 'You cannot provide both :timeExpired and :time_expired' if attributes.key?(:'timeExpired') && attributes.key?(:'time_expired')
 
       self.time_expired = attributes[:'time_expired'] if attributes[:'time_expired']
+
+      self.time_reminded = attributes[:'timeReminded'] if attributes[:'timeReminded']
+
+      raise 'You cannot provide both :timeReminded and :time_reminded' if attributes.key?(:'timeReminded') && attributes.key?(:'time_reminded')
+
+      self.time_reminded = attributes[:'time_reminded'] if attributes[:'time_reminded']
+
+      self.reminder_count = attributes[:'reminderCount'] if attributes[:'reminderCount']
+
+      raise 'You cannot provide both :reminderCount and :reminder_count' if attributes.key?(:'reminderCount') && attributes.key?(:'reminder_count')
+
+      self.reminder_count = attributes[:'reminder_count'] if attributes[:'reminder_count']
+
+      self.requestor_location = attributes[:'requestorLocation'] if attributes[:'requestorLocation']
+
+      raise 'You cannot provide both :requestorLocation and :requestor_location' if attributes.key?(:'requestorLocation') && attributes.key?(:'requestor_location')
+
+      self.requestor_location = attributes[:'requestor_location'] if attributes[:'requestor_location']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -275,7 +319,10 @@ module OCI
         activity_logs == other.activity_logs &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
-        time_expired == other.time_expired
+        time_expired == other.time_expired &&
+        time_reminded == other.time_reminded &&
+        reminder_count == other.reminder_count &&
+        requestor_location == other.requestor_location
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -291,7 +338,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, lockbox_id, display_name, description, requestor_id, lifecycle_state, lifecycle_state_details, access_duration, context, activity_logs, time_created, time_updated, time_expired].hash
+      [id, lockbox_id, display_name, description, requestor_id, lifecycle_state, lifecycle_state_details, access_duration, context, activity_logs, time_created, time_updated, time_expired, time_reminded, reminder_count, requestor_location].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

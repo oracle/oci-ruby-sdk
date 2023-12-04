@@ -7,9 +7,9 @@ require_relative 'dr_protection_group_member'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Properties for a Compute Instance member of a DR Protection Group.
+  # Deprecated. Properties for a compute instance member of a DR protection group.
   class DisasterRecovery::Models::DrProtectionGroupMemberComputeInstance < DisasterRecovery::Models::DrProtectionGroupMember
-    # A flag indicating if this compute instance should be moved during DR operations.
+    # A flag indicating if the compute instance should be moved during DR operations.
     #
     # Example: `false`
     #
@@ -21,16 +21,18 @@ module OCI
     # @return [Array<OCI::DisasterRecovery::Models::ComputeInstanceVnicMapping>]
     attr_accessor :vnic_mapping
 
-    # The OCID of the compartment for this compute instance in the destination region.
+    # The OCID of a compartment in the destination region in which the compute instance
+    # should be launched.
     #
-    # Example: `ocid1.compartment.oc1..exampleocid`
+    # Example: `ocid1.compartment.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :destination_compartment_id
 
-    # The OCID of the dedicated VM Host for this compute instance in the destination region.
+    # The OCID of a dedicated VM host in the destination region where the compute instance
+    # should be launched.
     #
-    # Example: `ocid1.dedicatedvmhost.oc1.iad.exampleocid`
+    # Example: `ocid1.dedicatedvmhost.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :destination_dedicated_vm_host_id

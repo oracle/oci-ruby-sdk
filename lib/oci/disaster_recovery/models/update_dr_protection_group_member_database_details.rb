@@ -9,9 +9,9 @@ require_relative 'update_dr_protection_group_member_details'
 module OCI
   # Update properties for a Database (DBCS) member.
   class DisasterRecovery::Models::UpdateDrProtectionGroupMemberDatabaseDetails < DisasterRecovery::Models::UpdateDrProtectionGroupMemberDetails
-    # The OCID of the vault secret where the database password is stored.
+    # The OCID of the vault secret where the database SYSDBA password is stored.
     #
-    # Example: `ocid1.vaultsecret.oc1.phx.&lt;unique_id&gt;`
+    # Example: `ocid1.vaultsecret.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :password_vault_secret_id

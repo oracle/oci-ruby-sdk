@@ -17,6 +17,12 @@ module OCI
       SUPPORT_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    # List of artifacts for the latest Java release version in this family.
+    # The script URLs in the response can be used from a command line, or in scripts and dockerfiles to always get the artifacts corresponding to the latest update release version.
+    #
+    # @return [Array<OCI::Jms::Models::JavaArtifact>]
+    attr_accessor :latest_release_artifacts
+
     # **[Required]** The Java release family identifier.
     # @return [String]
     attr_accessor :family_version
@@ -38,15 +44,28 @@ module OCI
     # @return [String]
     attr_accessor :doc_url
 
+    # **[Required]** Latest Java release version in the family.
+    # @return [String]
+    attr_accessor :latest_release_version
+
+    # **[Required]** Whether or not this Java release family is under active support.
+    # Refer [Java Support Roadmap](https://www.oracle.com/java/technologies/java-se-support-roadmap.html) for more details.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_supported_version
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'latest_release_artifacts': :'latestReleaseArtifacts',
         'family_version': :'familyVersion',
         'display_name': :'displayName',
         'support_type': :'supportType',
         'end_of_support_life_date': :'endOfSupportLifeDate',
-        'doc_url': :'docUrl'
+        'doc_url': :'docUrl',
+        'latest_release_version': :'latestReleaseVersion',
+        'is_supported_version': :'isSupportedVersion'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -55,11 +74,14 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'latest_release_artifacts': :'Array<OCI::Jms::Models::JavaArtifact>',
         'family_version': :'String',
         'display_name': :'String',
         'support_type': :'String',
         'end_of_support_life_date': :'DateTime',
-        'doc_url': :'String'
+        'doc_url': :'String',
+        'latest_release_version': :'String',
+        'is_supported_version': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -70,13 +92,25 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [Array<OCI::Jms::Models::JavaArtifact>] :latest_release_artifacts The value to assign to the {#latest_release_artifacts} property
     # @option attributes [String] :family_version The value to assign to the {#family_version} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :support_type The value to assign to the {#support_type} property
     # @option attributes [DateTime] :end_of_support_life_date The value to assign to the {#end_of_support_life_date} property
     # @option attributes [String] :doc_url The value to assign to the {#doc_url} property
+    # @option attributes [String] :latest_release_version The value to assign to the {#latest_release_version} property
+    # @option attributes [BOOLEAN] :is_supported_version The value to assign to the {#is_supported_version} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
+
+      # convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.latest_release_artifacts = attributes[:'latestReleaseArtifacts'] if attributes[:'latestReleaseArtifacts']
+
+      raise 'You cannot provide both :latestReleaseArtifacts and :latest_release_artifacts' if attributes.key?(:'latestReleaseArtifacts') && attributes.key?(:'latest_release_artifacts')
+
+      self.latest_release_artifacts = attributes[:'latest_release_artifacts'] if attributes[:'latest_release_artifacts']
 
       self.family_version = attributes[:'familyVersion'] if attributes[:'familyVersion']
 
@@ -107,6 +141,18 @@ module OCI
       raise 'You cannot provide both :docUrl and :doc_url' if attributes.key?(:'docUrl') && attributes.key?(:'doc_url')
 
       self.doc_url = attributes[:'doc_url'] if attributes[:'doc_url']
+
+      self.latest_release_version = attributes[:'latestReleaseVersion'] if attributes[:'latestReleaseVersion']
+
+      raise 'You cannot provide both :latestReleaseVersion and :latest_release_version' if attributes.key?(:'latestReleaseVersion') && attributes.key?(:'latest_release_version')
+
+      self.latest_release_version = attributes[:'latest_release_version'] if attributes[:'latest_release_version']
+
+      self.is_supported_version = attributes[:'isSupportedVersion'] unless attributes[:'isSupportedVersion'].nil?
+
+      raise 'You cannot provide both :isSupportedVersion and :is_supported_version' if attributes.key?(:'isSupportedVersion') && attributes.key?(:'is_supported_version')
+
+      self.is_supported_version = attributes[:'is_supported_version'] unless attributes[:'is_supported_version'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -133,11 +179,14 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        latest_release_artifacts == other.latest_release_artifacts &&
         family_version == other.family_version &&
         display_name == other.display_name &&
         support_type == other.support_type &&
         end_of_support_life_date == other.end_of_support_life_date &&
-        doc_url == other.doc_url
+        doc_url == other.doc_url &&
+        latest_release_version == other.latest_release_version &&
+        is_supported_version == other.is_supported_version
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -153,7 +202,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [family_version, display_name, support_type, end_of_support_life_date, doc_url].hash
+      [latest_release_artifacts, family_version, display_name, support_type, end_of_support_life_date, doc_url, latest_release_version, is_supported_version].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -10,7 +10,14 @@ module OCI
   # The details for updating a Run Object Store Script step.
   #
   class DisasterRecovery::Models::UpdateRunObjectStoreScriptUserDefinedStepDetails < DisasterRecovery::Models::UpdateDrPlanUserDefinedStepDetails
-    # **[Required]** The OCID of the instance where this script or command should be executed.
+    # **[Required]** The OCID of the instance on which this script or command should be executed.
+    #
+    # **For moving instances:** *runOnInstanceId* must be the OCID of the instance in the region where the
+    # instance is currently present.
+    #
+    # **For non-moving instances:** *runOnInstanceId* must be the OCID of the non-moving instance.
+    #
+    # Example: `ocid1.instance.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :run_on_instance_id

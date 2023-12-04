@@ -7,7 +7,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A summary of a announcement on Console Overview page
+  # An summary of a announcement on Console Overview page
   class Jms::Models::AnnouncementSummary
     # **[Required]** Unique id of the announcement
     # @return [Integer]

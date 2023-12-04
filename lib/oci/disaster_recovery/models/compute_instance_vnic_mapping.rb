@@ -6,25 +6,27 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A compute instance's source and destination VNIC mapping.
+  # Deprecated. Source VNIC to destination subnet mapping for a compute instance.
+  #
   class DisasterRecovery::Models::ComputeInstanceVnicMapping
     # **[Required]** The OCID of the VNIC.
     #
-    # Example: `ocid1.vnic.oc1.phx.exampleocid`
+    # Example: `ocid1.vnic.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :source_vnic_id
 
-    # **[Required]** The OCID of the destination (remote) subnet to which this VNIC should connect.
+    # **[Required]** The OCID of the destination subnet to which the source VNIC should connect.
     #
-    # Example: `ocid1.subnet.oc1.iad.exampleocid`
+    # Example: `ocid1.subnet.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :destination_subnet_id
 
-    # A list of destination region's network security group (NSG) OCIDs which this VNIC should use.
+    # A list of OCIDs of network security groups (NSG) in the destination region which should be assigned to
+    # the source VNIC.
     #
-    # Example: `[ ocid1.networksecuritygroup.oc1.iad.exampleocid1, ocid1.networksecuritygroup.oc1.iad.exampleocid2 ]`
+    # Example: `[ ocid1.networksecuritygroup.oc1..uniqueID1, ocid1.networksecuritygroup.oc1..uniqueID2 ]`
     #
     # @return [Array<String>]
     attr_accessor :destination_nsg_id_list

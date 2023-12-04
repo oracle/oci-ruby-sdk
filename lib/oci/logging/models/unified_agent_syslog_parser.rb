@@ -27,19 +27,19 @@ module OCI
     # @return [String]
     attr_accessor :time_format
 
-    # rfc5424 time format.
+    # RFC 5424 time format.
     # @return [String]
     attr_accessor :rfc5424_time_format
 
-    # Message format of syslog.
+    # Syslog message format.
     # @return [String]
     attr_reader :message_format
 
-    # With priority or not.
+    # Specifies with priority or not. Corresponds to the Fluentd with_priority parameter.
     # @return [BOOLEAN]
     attr_accessor :is_with_priority
 
-    # Support colonless ident or not.
+    # Specifies whether or not to support colonless ident. Corresponds to the Fluentd support_colonless_ident parameter.
     # @return [BOOLEAN]
     attr_accessor :is_support_colonless_ident
 

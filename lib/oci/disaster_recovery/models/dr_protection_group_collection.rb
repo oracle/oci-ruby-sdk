@@ -6,9 +6,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # A list of DR Protection Groups.
+  # A list of DR protection group summaries.
   class DisasterRecovery::Models::DrProtectionGroupCollection
-    # **[Required]** A list of DR Protection Group summary objects.
+    # **[Required]** A list of DR protection group summaries.
     #
     # @return [Array<OCI::DisasterRecovery::Models::DrProtectionGroupSummary>]
     attr_accessor :items

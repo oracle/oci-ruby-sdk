@@ -7,17 +7,17 @@ require_relative 'unified_agent_parser'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # grok parser.
+  # Grok parser.
   class Logging::Models::UnifiedAgentGrokParser < Logging::Models::UnifiedAgentParser
-    # grok name key.
+    # Grok name key.
     # @return [String]
     attr_accessor :grok_name_key
 
-    # grok failure key.
+    # Grok failure key.
     # @return [String]
     attr_accessor :grok_failure_key
 
-    # **[Required]** grok pattern object.
+    # **[Required]** Grok pattern object.
     # @return [Array<OCI::Logging::Models::GrokPattern>]
     attr_accessor :patterns
 

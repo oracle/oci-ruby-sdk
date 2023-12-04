@@ -21,8 +21,8 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 
-    # **[Required]** When set to `true`, splits notifications per metric stream. When set to `false`, groups notifications across metric streams.
-    # Example: `true`
+    # **[Required]** When set to `true`, splits alarm notifications per metric stream.
+    # When set to `false`, groups alarm notifications across metric streams.
     #
     # @return [BOOLEAN]
     attr_accessor :is_notifications_per_metric_dimension_enabled

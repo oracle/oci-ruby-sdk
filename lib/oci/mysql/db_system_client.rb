@@ -648,6 +648,9 @@ module OCI
     # @option opts [BOOLEAN] :is_up_to_date Filter instances if they are using the latest revision of the
     #   Configuration they are associated with.
     #    (default to false)
+    # @option opts [Array<String>] :database_management Filter DB Systems by their Database Management configuration.
+    #
+    #   Allowed values are: ENABLED, DISABLED
     # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided. Time fields are default ordered as descending. Display name is default ordered as ascending.
     #    (default to timeCreated)
     #   Allowed values are: displayName, timeCreated
@@ -671,6 +674,16 @@ module OCI
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Mysql::Models::DbSystem::LIFECYCLE_STATE_ENUM.'
       end
 
+
+      database_management_allowable_values = %w[ENABLED DISABLED]
+      if opts[:database_management] && !opts[:database_management].empty?
+        opts[:database_management].each do |val_to_check|
+          unless database_management_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "database_management", must be one of ENABLED, DISABLED.'
+          end
+        end
+      end
+
       if opts[:sort_by] && !%w[displayName timeCreated].include?(opts[:sort_by])
         raise 'Invalid value for "sort_by", must be one of displayName, timeCreated.'
       end
@@ -692,6 +705,7 @@ module OCI
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:configurationId] = opts[:configuration_id] if opts[:configuration_id]
       query_params[:isUpToDate] = opts[:is_up_to_date] if !opts[:is_up_to_date].nil?
+      query_params[:databaseManagement] = OCI::ApiClient.build_collection_params(opts[:database_management], :multi) if opts[:database_management] && !opts[:database_management].empty?
       query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:limit] = opts[:limit] if opts[:limit]

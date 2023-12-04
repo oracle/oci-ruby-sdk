@@ -105,6 +105,8 @@ module OCI
     #  - returned: always
     #  - type: integer
     #  - uniqueness: none
+    #  - idcsMaxValue: 100
+    #  - idcsMinValue: 0
     # @return [Integer]
     attr_accessor :score
 

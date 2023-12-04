@@ -15,6 +15,7 @@ module OCI
       TECHNOLOGY_TYPE_AMAZON_RDS_SQLSERVER = 'AMAZON_RDS_SQLSERVER'.freeze,
       TECHNOLOGY_TYPE_AZURE_SQLSERVER_MANAGED_INSTANCE = 'AZURE_SQLSERVER_MANAGED_INSTANCE'.freeze,
       TECHNOLOGY_TYPE_AZURE_SQLSERVER_NON_MANAGED_INSTANCE = 'AZURE_SQLSERVER_NON_MANAGED_INSTANCE'.freeze,
+      TECHNOLOGY_TYPE_GOOGLE_CLOUD_SQL_SQLSERVER = 'GOOGLE_CLOUD_SQL_SQLSERVER'.freeze,
       TECHNOLOGY_TYPE_MICROSOFT_SQLSERVER = 'MICROSOFT_SQLSERVER'.freeze,
       TECHNOLOGY_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
@@ -60,7 +61,7 @@ module OCI
     # @return [String]
     attr_reader :security_protocol
 
-    # Database Certificate - The base64 encoded content of pem file
+    # Database Certificate - The base64 encoded content of a .pem or .crt file.
     # containing the server public key (for 1-way SSL).
     #
     # @return [String]
@@ -98,9 +99,9 @@ module OCI
         'time_updated': :'timeUpdated',
         'vault_id': :'vaultId',
         'key_id': :'keyId',
-        'subnet_id': :'subnetId',
         'ingress_ips': :'ingressIps',
         'nsg_ids': :'nsgIds',
+        'subnet_id': :'subnetId',
         'technology_type': :'technologyType',
         'username': :'username',
         'host': :'host',
@@ -133,9 +134,9 @@ module OCI
         'time_updated': :'DateTime',
         'vault_id': :'String',
         'key_id': :'String',
-        'subnet_id': :'String',
         'ingress_ips': :'Array<OCI::GoldenGate::Models::IngressIpDetails>',
         'nsg_ids': :'Array<String>',
+        'subnet_id': :'String',
         'technology_type': :'String',
         'username': :'String',
         'host': :'String',
@@ -169,9 +170,9 @@ module OCI
     # @option attributes [DateTime] :time_updated The value to assign to the {OCI::GoldenGate::Models::Connection#time_updated #time_updated} proprety
     # @option attributes [String] :vault_id The value to assign to the {OCI::GoldenGate::Models::Connection#vault_id #vault_id} proprety
     # @option attributes [String] :key_id The value to assign to the {OCI::GoldenGate::Models::Connection#key_id #key_id} proprety
-    # @option attributes [String] :subnet_id The value to assign to the {OCI::GoldenGate::Models::Connection#subnet_id #subnet_id} proprety
     # @option attributes [Array<OCI::GoldenGate::Models::IngressIpDetails>] :ingress_ips The value to assign to the {OCI::GoldenGate::Models::Connection#ingress_ips #ingress_ips} proprety
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {OCI::GoldenGate::Models::Connection#nsg_ids #nsg_ids} proprety
+    # @option attributes [String] :subnet_id The value to assign to the {OCI::GoldenGate::Models::Connection#subnet_id #subnet_id} proprety
     # @option attributes [String] :technology_type The value to assign to the {#technology_type} property
     # @option attributes [String] :username The value to assign to the {#username} property
     # @option attributes [String] :host The value to assign to the {#host} property
@@ -292,9 +293,9 @@ module OCI
         time_updated == other.time_updated &&
         vault_id == other.vault_id &&
         key_id == other.key_id &&
-        subnet_id == other.subnet_id &&
         ingress_ips == other.ingress_ips &&
         nsg_ids == other.nsg_ids &&
+        subnet_id == other.subnet_id &&
         technology_type == other.technology_type &&
         username == other.username &&
         host == other.host &&
@@ -320,7 +321,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [connection_type, id, display_name, description, compartment_id, freeform_tags, defined_tags, system_tags, lifecycle_state, lifecycle_details, time_created, time_updated, vault_id, key_id, subnet_id, ingress_ips, nsg_ids, technology_type, username, host, port, database_name, additional_attributes, security_protocol, ssl_ca, should_validate_server_certificate, private_ip].hash
+      [connection_type, id, display_name, description, compartment_id, freeform_tags, defined_tags, system_tags, lifecycle_state, lifecycle_details, time_created, time_updated, vault_id, key_id, ingress_ips, nsg_ids, subnet_id, technology_type, username, host, port, database_name, additional_attributes, security_protocol, ssl_ca, should_validate_server_certificate, private_ip].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

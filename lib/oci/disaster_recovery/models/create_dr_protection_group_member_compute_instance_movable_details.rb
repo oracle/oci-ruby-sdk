@@ -7,43 +7,50 @@ require_relative 'create_dr_protection_group_member_details'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Create properties for a Movable Compute Instance member.
+  # Create properties for a movable compute instance member.
   class DisasterRecovery::Models::CreateDrProtectionGroupMemberComputeInstanceMovableDetails < DisasterRecovery::Models::CreateDrProtectionGroupMemberDetails
-    # A flag indicating if this compute instance should be moved to the same fault domain.
-    # Compute instance launch will fail if this flag is set to true and capacity is not available in that specific fault domain in the destination region.
+    # A flag indicating if the compute instance should be moved to the same fault domain in the destination region.
+    # The compute instance launch will fail if this flag is set to true and capacity is not available in the
+    # specified fault domain in the destination region.
     #
     # Example: `false`
     #
     # @return [BOOLEAN]
     attr_accessor :is_retain_fault_domain
 
-    # The OCID of the capacity reservation in the destination region using which this compute instance
-    # should be launched.
+    # The OCID of a capacity reservation in the destination region which will be used to launch
+    # the compute instance.
     #
-    # Example: `ocid1.capacityreservation.oc1..&lt;unique_id&gt;`
+    # Example: `ocid1.capacityreservation.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :destination_capacity_reservation_id
 
-    # A list of Compute Instance VNIC mappings.
+    # A list of compute instance VNIC mappings.
     #
     # @return [Array<OCI::DisasterRecovery::Models::ComputeInstanceMovableVnicMappingDetails>]
     attr_accessor :vnic_mappings
 
-    # The OCID of the compartment for this compute instance in the destination region.
+    # The OCID of a compartment in the destination region in which the compute instance
+    # should be launched.
     #
-    # Example: `ocid1.compartment.oc1..&lt;unique_id&gt;`
+    # Example: `ocid1.compartment.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :destination_compartment_id
 
-    # The OCID of the dedicated VM Host in the destination region where this compute instance
-    # should be launched
+    # The OCID of a dedicated VM host in the destination region where the compute instance
+    # should be launched.
     #
-    # Example: `ocid1.dedicatedvmhost.oc1..&lt;unique_id&gt;`
+    # Example: `ocid1.dedicatedvmhost.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :destination_dedicated_vm_host_id
+
+    # A list of operations performed on file systems used by the compute instance.
+    #
+    # @return [Array<OCI::DisasterRecovery::Models::CreateComputeInstanceMovableFileSystemOperationDetails>]
+    attr_accessor :file_system_operations
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -55,7 +62,8 @@ module OCI
         'destination_capacity_reservation_id': :'destinationCapacityReservationId',
         'vnic_mappings': :'vnicMappings',
         'destination_compartment_id': :'destinationCompartmentId',
-        'destination_dedicated_vm_host_id': :'destinationDedicatedVmHostId'
+        'destination_dedicated_vm_host_id': :'destinationDedicatedVmHostId',
+        'file_system_operations': :'fileSystemOperations'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -70,7 +78,8 @@ module OCI
         'destination_capacity_reservation_id': :'String',
         'vnic_mappings': :'Array<OCI::DisasterRecovery::Models::ComputeInstanceMovableVnicMappingDetails>',
         'destination_compartment_id': :'String',
-        'destination_dedicated_vm_host_id': :'String'
+        'destination_dedicated_vm_host_id': :'String',
+        'file_system_operations': :'Array<OCI::DisasterRecovery::Models::CreateComputeInstanceMovableFileSystemOperationDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -87,6 +96,7 @@ module OCI
     # @option attributes [Array<OCI::DisasterRecovery::Models::ComputeInstanceMovableVnicMappingDetails>] :vnic_mappings The value to assign to the {#vnic_mappings} property
     # @option attributes [String] :destination_compartment_id The value to assign to the {#destination_compartment_id} property
     # @option attributes [String] :destination_dedicated_vm_host_id The value to assign to the {#destination_dedicated_vm_host_id} property
+    # @option attributes [Array<OCI::DisasterRecovery::Models::CreateComputeInstanceMovableFileSystemOperationDetails>] :file_system_operations The value to assign to the {#file_system_operations} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -128,6 +138,12 @@ module OCI
       raise 'You cannot provide both :destinationDedicatedVmHostId and :destination_dedicated_vm_host_id' if attributes.key?(:'destinationDedicatedVmHostId') && attributes.key?(:'destination_dedicated_vm_host_id')
 
       self.destination_dedicated_vm_host_id = attributes[:'destination_dedicated_vm_host_id'] if attributes[:'destination_dedicated_vm_host_id']
+
+      self.file_system_operations = attributes[:'fileSystemOperations'] if attributes[:'fileSystemOperations']
+
+      raise 'You cannot provide both :fileSystemOperations and :file_system_operations' if attributes.key?(:'fileSystemOperations') && attributes.key?(:'file_system_operations')
+
+      self.file_system_operations = attributes[:'file_system_operations'] if attributes[:'file_system_operations']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -147,7 +163,8 @@ module OCI
         destination_capacity_reservation_id == other.destination_capacity_reservation_id &&
         vnic_mappings == other.vnic_mappings &&
         destination_compartment_id == other.destination_compartment_id &&
-        destination_dedicated_vm_host_id == other.destination_dedicated_vm_host_id
+        destination_dedicated_vm_host_id == other.destination_dedicated_vm_host_id &&
+        file_system_operations == other.file_system_operations
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -163,7 +180,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [member_id, member_type, is_retain_fault_domain, destination_capacity_reservation_id, vnic_mappings, destination_compartment_id, destination_dedicated_vm_host_id].hash
+      [member_id, member_type, is_retain_fault_domain, destination_capacity_reservation_id, vnic_mappings, destination_compartment_id, destination_dedicated_vm_host_id, file_system_operations].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

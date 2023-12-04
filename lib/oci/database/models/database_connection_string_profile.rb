@@ -84,6 +84,10 @@ module OCI
     # @return [String]
     attr_reader :syntax_format
 
+    # True for a regional connection string, applicable to cross-region DG only.
+    # @return [BOOLEAN]
+    attr_accessor :is_regional
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -95,7 +99,8 @@ module OCI
         'tls_authentication': :'tlsAuthentication',
         'host_format': :'hostFormat',
         'session_mode': :'sessionMode',
-        'syntax_format': :'syntaxFormat'
+        'syntax_format': :'syntaxFormat',
+        'is_regional': :'isRegional'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -111,7 +116,8 @@ module OCI
         'tls_authentication': :'String',
         'host_format': :'String',
         'session_mode': :'String',
-        'syntax_format': :'String'
+        'syntax_format': :'String',
+        'is_regional': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -130,6 +136,7 @@ module OCI
     # @option attributes [String] :host_format The value to assign to the {#host_format} property
     # @option attributes [String] :session_mode The value to assign to the {#session_mode} property
     # @option attributes [String] :syntax_format The value to assign to the {#syntax_format} property
+    # @option attributes [BOOLEAN] :is_regional The value to assign to the {#is_regional} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -175,6 +182,12 @@ module OCI
       raise 'You cannot provide both :syntaxFormat and :syntax_format' if attributes.key?(:'syntaxFormat') && attributes.key?(:'syntax_format')
 
       self.syntax_format = attributes[:'syntax_format'] if attributes[:'syntax_format']
+
+      self.is_regional = attributes[:'isRegional'] unless attributes[:'isRegional'].nil?
+
+      raise 'You cannot provide both :isRegional and :is_regional' if attributes.key?(:'isRegional') && attributes.key?(:'is_regional')
+
+      self.is_regional = attributes[:'is_regional'] unless attributes[:'is_regional'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -273,7 +286,8 @@ module OCI
         tls_authentication == other.tls_authentication &&
         host_format == other.host_format &&
         session_mode == other.session_mode &&
-        syntax_format == other.syntax_format
+        syntax_format == other.syntax_format &&
+        is_regional == other.is_regional
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -289,7 +303,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, value, consumer_group, protocol, tls_authentication, host_format, session_mode, syntax_format].hash
+      [display_name, value, consumer_group, protocol, tls_authentication, host_format, session_mode, syntax_format, is_regional].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

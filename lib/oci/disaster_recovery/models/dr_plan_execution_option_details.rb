@@ -13,7 +13,11 @@ module OCI
       PLAN_EXECUTION_TYPE_SWITCHOVER = 'SWITCHOVER'.freeze,
       PLAN_EXECUTION_TYPE_SWITCHOVER_PRECHECK = 'SWITCHOVER_PRECHECK'.freeze,
       PLAN_EXECUTION_TYPE_FAILOVER = 'FAILOVER'.freeze,
-      PLAN_EXECUTION_TYPE_FAILOVER_PRECHECK = 'FAILOVER_PRECHECK'.freeze
+      PLAN_EXECUTION_TYPE_FAILOVER_PRECHECK = 'FAILOVER_PRECHECK'.freeze,
+      PLAN_EXECUTION_TYPE_START_DRILL = 'START_DRILL'.freeze,
+      PLAN_EXECUTION_TYPE_START_DRILL_PRECHECK = 'START_DRILL_PRECHECK'.freeze,
+      PLAN_EXECUTION_TYPE_STOP_DRILL = 'STOP_DRILL'.freeze,
+      PLAN_EXECUTION_TYPE_STOP_DRILL_PRECHECK = 'STOP_DRILL_PRECHECK'.freeze
     ].freeze
 
     # **[Required]** The type of the plan execution.
@@ -47,8 +51,12 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'planExecutionType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::DisasterRecovery::Models::StopDrillPrecheckExecutionOptionDetails' if type == 'STOP_DRILL_PRECHECK'
       return 'OCI::DisasterRecovery::Models::SwitchoverPrecheckExecutionOptionDetails' if type == 'SWITCHOVER_PRECHECK'
+      return 'OCI::DisasterRecovery::Models::StopDrillExecutionOptionDetails' if type == 'STOP_DRILL'
       return 'OCI::DisasterRecovery::Models::FailoverPrecheckExecutionOptionDetails' if type == 'FAILOVER_PRECHECK'
+      return 'OCI::DisasterRecovery::Models::StartDrillExecutionOptionDetails' if type == 'START_DRILL'
+      return 'OCI::DisasterRecovery::Models::StartDrillPrecheckExecutionOptionDetails' if type == 'START_DRILL_PRECHECK'
       return 'OCI::DisasterRecovery::Models::SwitchoverExecutionOptionDetails' if type == 'SWITCHOVER'
       return 'OCI::DisasterRecovery::Models::FailoverExecutionOptionDetails' if type == 'FAILOVER'
 

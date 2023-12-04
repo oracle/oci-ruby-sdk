@@ -6,27 +6,29 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details for updating a DR Plan.
+  # The details for updating a DR plan.
   class DisasterRecovery::Models::UpdateDrPlanDetails
-    # The display name of the DR Plan being updated.
+    # The display name of the DR plan being updated.
     #
     # Example: `EBS Switchover PHX to IAD`
     #
     # @return [String]
     attr_accessor :display_name
 
-    # An ordered list of plan groups in a DR Plan.
+    # An ordered list of groups in a DR plan.
     #
     # @return [Array<OCI::DisasterRecovery::Models::UpdateDrPlanGroupDetails>]
     attr_accessor :plan_groups
 
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
+    #
     # Example: `{\"Department\": \"Finance\"}`
     #
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
     # Defined tags for this resource. Each key is predefined and scoped to a namespace.
+    #
     # Example: `{\"Operations\": {\"CostCenter\": \"42\"}}`
     #
     # @return [Hash<String, Hash<String, Object>>]

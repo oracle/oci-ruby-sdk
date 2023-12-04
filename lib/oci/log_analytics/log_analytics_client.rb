@@ -12931,6 +12931,97 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Accepts discovery data for processing by Logging Analytics.
+    #
+    # @param [String] namespace_name The Logging Analytics namespace used for the request.
+    #
+    # @param [String, IO] upload_discovery_data_details Discovery data
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_meta_properties Metadata key and value pairs separated by a semicolon. Example k1:v1;k2:v2;k3:v3
+    #
+    # @option opts [String] :discovery_data_type Discovery data type
+    #    (default to ENTITY)
+    #   Allowed values are: ENTITY, K8S_OBJECTS
+    # @option opts [String] :payload_type Identifies the type of request payload.
+    #    (default to JSON)
+    # @option opts [String] :content_type The content type of the log data.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @option opts [String] :expect A value of `100-continue` requests preliminary verification of the request method, path, and headers before the request body is sent.
+    #   If no error results from such verification, the server will send a 100 (Continue) interim response to indicate readiness for the request body.
+    #   The only allowed value for this parameter is \"100-Continue\" (case-insensitive).
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/loganalytics/upload_discovery_data.rb.html) to see an example of how to use upload_discovery_data API.
+    def upload_discovery_data(namespace_name, upload_discovery_data_details, opts = {})
+      logger.debug 'Calling operation LogAnalyticsClient#upload_discovery_data.' if logger
+
+      raise "Missing the required parameter 'namespace_name' when calling upload_discovery_data." if namespace_name.nil?
+      raise "Missing the required parameter 'upload_discovery_data_details' when calling upload_discovery_data." if upload_discovery_data_details.nil?
+
+      if opts[:discovery_data_type] && !%w[ENTITY K8S_OBJECTS].include?(opts[:discovery_data_type])
+        raise 'Invalid value for "discovery_data_type", must be one of ENTITY, K8S_OBJECTS.'
+      end
+
+      if opts[:payload_type] && !OCI::LogAnalytics::Models::PAYLOAD_TYPE_ENUM.include?(opts[:payload_type])
+        raise 'Invalid value for "payload_type", must be one of the values in OCI::LogAnalytics::Models::PAYLOAD_TYPE_ENUM.'
+      end
+      raise "Parameter value for 'namespace_name' must not be blank" if OCI::Internal::Util.blank_string?(namespace_name)
+
+      path = '/namespaces/{namespaceName}/actions/uploadDiscoveryData'.sub('{namespaceName}', namespace_name.to_s)
+      operation_signing_strategy = :exclude_body
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:discoveryDataType] = opts[:discovery_data_type] if opts[:discovery_data_type]
+      query_params[:payloadType] = opts[:payload_type] if opts[:payload_type]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-meta-properties'] = opts[:opc_meta_properties] if opts[:opc_meta_properties]
+      header_params[:'content-type'] = opts[:content_type] if opts[:content_type]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:expect] = opts[:expect] if opts[:expect]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'content-type'] ||= 'application/octet-stream'
+      header_params[:expect] ||= '100-continue'
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(upload_discovery_data_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'LogAnalyticsClient#upload_discovery_data') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Accepts log events for processing by Logging Analytics.
     #
     # @param [String] namespace_name The Logging Analytics namespace used for the request.

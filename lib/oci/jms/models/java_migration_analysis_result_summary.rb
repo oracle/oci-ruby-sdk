@@ -27,6 +27,10 @@ module OCI
     # @return [String]
     attr_accessor :fleet_id
 
+    # The unique key that identifies the application.
+    # @return [String]
+    attr_accessor :application_key
+
     # **[Required]** The name of the application for which the Java migration analysis was performed.
     # @return [String]
     attr_accessor :application_name
@@ -86,6 +90,7 @@ module OCI
         'id': :'id',
         'work_request_id': :'workRequestId',
         'fleet_id': :'fleetId',
+        'application_key': :'applicationKey',
         'application_name': :'applicationName',
         'application_path': :'applicationPath',
         'application_execution_type': :'applicationExecutionType',
@@ -110,6 +115,7 @@ module OCI
         'id': :'String',
         'work_request_id': :'String',
         'fleet_id': :'String',
+        'application_key': :'String',
         'application_name': :'String',
         'application_path': :'String',
         'application_execution_type': :'String',
@@ -136,6 +142,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :work_request_id The value to assign to the {#work_request_id} property
     # @option attributes [String] :fleet_id The value to assign to the {#fleet_id} property
+    # @option attributes [String] :application_key The value to assign to the {#application_key} property
     # @option attributes [String] :application_name The value to assign to the {#application_name} property
     # @option attributes [String] :application_path The value to assign to the {#application_path} property
     # @option attributes [String] :application_execution_type The value to assign to the {#application_execution_type} property
@@ -168,6 +175,12 @@ module OCI
       raise 'You cannot provide both :fleetId and :fleet_id' if attributes.key?(:'fleetId') && attributes.key?(:'fleet_id')
 
       self.fleet_id = attributes[:'fleet_id'] if attributes[:'fleet_id']
+
+      self.application_key = attributes[:'applicationKey'] if attributes[:'applicationKey']
+
+      raise 'You cannot provide both :applicationKey and :application_key' if attributes.key?(:'applicationKey') && attributes.key?(:'application_key')
+
+      self.application_key = attributes[:'application_key'] if attributes[:'application_key']
 
       self.application_name = attributes[:'applicationName'] if attributes[:'applicationName']
 
@@ -267,6 +280,7 @@ module OCI
         id == other.id &&
         work_request_id == other.work_request_id &&
         fleet_id == other.fleet_id &&
+        application_key == other.application_key &&
         application_name == other.application_name &&
         application_path == other.application_path &&
         application_execution_type == other.application_execution_type &&
@@ -295,7 +309,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, work_request_id, fleet_id, application_name, application_path, application_execution_type, source_jdk_version, target_jdk_version, managed_instance_id, host_name, time_created, namespace, bucket_name, object_storage_upload_dir_path, object_list, metadata].hash
+      [id, work_request_id, fleet_id, application_key, application_name, application_path, application_execution_type, source_jdk_version, target_jdk_version, managed_instance_id, host_name, time_created, namespace, bucket_name, object_storage_upload_dir_path, object_list, metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

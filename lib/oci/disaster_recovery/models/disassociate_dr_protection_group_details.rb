@@ -6,14 +6,14 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details for disassociating this DR Protection Group from a peer (remote) DR Protection Group.
+  # The details for disassociating this DR protection group from a peer DR protection group.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class DisasterRecovery::Models::DisassociateDrProtectionGroupDetails
     TYPE_ENUM = [
       TYPE_DEFAULT = 'DEFAULT'.freeze
     ].freeze
 
-    # **[Required]** The default type (required for forward compatibility).
+    # **[Required]** The default type.
     #
     # @return [String]
     attr_reader :type

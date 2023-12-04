@@ -29,7 +29,7 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** Indicates if the target-alert policy association is enabled or disabled.
+    # **[Required]** Indicates if the target-alert policy association is enabled or disabled by user.
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 

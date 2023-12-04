@@ -594,7 +594,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Cancel the given work request.
+    # Cancel the specified work request.
     #
     # @param [String] work_request_id The OCID of the work request.
     # @param [Hash] opts the optional parameters
@@ -980,6 +980,75 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#change_data_safe_private_endpoint_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves the specified database security configuration and its dependent resources into a different compartment.
+    # @param [String] database_security_config_id The OCID of the database security configuration resource.
+    # @param [OCI::DataSafe::Models::ChangeDatabaseSecurityConfigCompartmentDetails] change_database_security_config_compartment_details Details for the compartment move.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/change_database_security_config_compartment.rb.html) to see an example of how to use change_database_security_config_compartment API.
+    def change_database_security_config_compartment(database_security_config_id, change_database_security_config_compartment_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#change_database_security_config_compartment.' if logger
+
+      raise "Missing the required parameter 'database_security_config_id' when calling change_database_security_config_compartment." if database_security_config_id.nil?
+      raise "Missing the required parameter 'change_database_security_config_compartment_details' when calling change_database_security_config_compartment." if change_database_security_config_compartment_details.nil?
+      raise "Parameter value for 'database_security_config_id' must not be blank" if OCI::Internal::Util.blank_string?(database_security_config_id)
+
+      path = '/databaseSecurityConfigs/{databaseSecurityConfigId}/actions/changeCompartment'.sub('{databaseSecurityConfigId}', database_security_config_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_database_security_config_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#change_database_security_config_compartment') do
         @api_client.call_api(
           :POST,
           path,
@@ -1627,6 +1696,144 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves the specified security policy and its dependent resources into a different compartment.
+    # @param [String] security_policy_id The OCID of the security policy resource.
+    # @param [OCI::DataSafe::Models::ChangeSecurityPolicyCompartmentDetails] change_security_policy_compartment_details Details for the compartment move.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/change_security_policy_compartment.rb.html) to see an example of how to use change_security_policy_compartment API.
+    def change_security_policy_compartment(security_policy_id, change_security_policy_compartment_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#change_security_policy_compartment.' if logger
+
+      raise "Missing the required parameter 'security_policy_id' when calling change_security_policy_compartment." if security_policy_id.nil?
+      raise "Missing the required parameter 'change_security_policy_compartment_details' when calling change_security_policy_compartment." if change_security_policy_compartment_details.nil?
+      raise "Parameter value for 'security_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(security_policy_id)
+
+      path = '/securityPolicies/{securityPolicyId}/actions/changeCompartment'.sub('{securityPolicyId}', security_policy_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_security_policy_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#change_security_policy_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves the specified security policy deployment and its dependent resources into a different compartment.
+    # @param [String] security_policy_deployment_id The OCID of the security policy deployment resource.
+    # @param [OCI::DataSafe::Models::ChangeSecurityPolicyDeploymentCompartmentDetails] change_security_policy_deployment_compartment_details Details for the compartment move.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/change_security_policy_deployment_compartment.rb.html) to see an example of how to use change_security_policy_deployment_compartment API.
+    def change_security_policy_deployment_compartment(security_policy_deployment_id, change_security_policy_deployment_compartment_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#change_security_policy_deployment_compartment.' if logger
+
+      raise "Missing the required parameter 'security_policy_deployment_id' when calling change_security_policy_deployment_compartment." if security_policy_deployment_id.nil?
+      raise "Missing the required parameter 'change_security_policy_deployment_compartment_details' when calling change_security_policy_deployment_compartment." if change_security_policy_deployment_compartment_details.nil?
+      raise "Parameter value for 'security_policy_deployment_id' must not be blank" if OCI::Internal::Util.blank_string?(security_policy_deployment_id)
+
+      path = '/securityPolicyDeployments/{securityPolicyDeploymentId}/actions/changeCompartment'.sub('{securityPolicyDeploymentId}', security_policy_deployment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_security_policy_deployment_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#change_security_policy_deployment_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves the specified sensitive data model and its dependent resources into a different compartment.
     # @param [String] sensitive_data_model_id The OCID of the sensitive data model.
     # @param [OCI::DataSafe::Models::ChangeSensitiveDataModelCompartmentDetails] change_sensitive_data_model_compartment_details Details to change the compartment of a sensitive data model.
@@ -1744,6 +1951,144 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#change_sensitive_type_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves the specified SQL collection and its dependent resources into a different compartment.
+    # @param [String] sql_collection_id The OCID of the SQL collection resource.
+    # @param [OCI::DataSafe::Models::ChangeSqlCollectionCompartmentDetails] change_sql_collection_compartment_details Details for the compartment move.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/change_sql_collection_compartment.rb.html) to see an example of how to use change_sql_collection_compartment API.
+    def change_sql_collection_compartment(sql_collection_id, change_sql_collection_compartment_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#change_sql_collection_compartment.' if logger
+
+      raise "Missing the required parameter 'sql_collection_id' when calling change_sql_collection_compartment." if sql_collection_id.nil?
+      raise "Missing the required parameter 'change_sql_collection_compartment_details' when calling change_sql_collection_compartment." if change_sql_collection_compartment_details.nil?
+      raise "Parameter value for 'sql_collection_id' must not be blank" if OCI::Internal::Util.blank_string?(sql_collection_id)
+
+      path = '/sqlCollections/{sqlCollectionId}/actions/changeCompartment'.sub('{sqlCollectionId}', sql_collection_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_sql_collection_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#change_sql_collection_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves the specified SQL firewall policy and its dependent resources into a different compartment.
+    # @param [String] sql_firewall_policy_id The OCID of the SQL firewall policy resource.
+    # @param [OCI::DataSafe::Models::ChangeSqlFirewallPolicyCompartmentDetails] change_sql_firewall_policy_compartment_details Details for the compartment move.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/change_sql_firewall_policy_compartment.rb.html) to see an example of how to use change_sql_firewall_policy_compartment API.
+    def change_sql_firewall_policy_compartment(sql_firewall_policy_id, change_sql_firewall_policy_compartment_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#change_sql_firewall_policy_compartment.' if logger
+
+      raise "Missing the required parameter 'sql_firewall_policy_id' when calling change_sql_firewall_policy_compartment." if sql_firewall_policy_id.nil?
+      raise "Missing the required parameter 'change_sql_firewall_policy_compartment_details' when calling change_sql_firewall_policy_compartment." if change_sql_firewall_policy_compartment_details.nil?
+      raise "Parameter value for 'sql_firewall_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(sql_firewall_policy_id)
+
+      path = '/sqlFirewallPolicies/{sqlFirewallPolicyId}/actions/changeCompartment'.sub('{sqlFirewallPolicyId}', sql_firewall_policy_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_sql_firewall_policy_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#change_sql_firewall_policy_compartment') do
         @api_client.call_api(
           :POST,
           path,
@@ -2455,7 +2800,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Creates a new masking policy and associates it with a sensitive data model or a reference target database.
+    # Creates a new masking policy and associates it with a sensitive data model or a target database.
     #
     # To use a sensitive data model as the source of masking columns, set the columnSource attribute to
     # SENSITIVE_DATA_MODEL and provide the sensitiveDataModelId attribute. After creating a masking policy,
@@ -2958,6 +3303,67 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataSafe::Models::SensitiveType'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new SQL collection resource.
+    #
+    # @param [OCI::DataSafe::Models::CreateSqlCollectionDetails] create_sql_collection_details Details of the SQL collection.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SqlCollection SqlCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/create_sql_collection.rb.html) to see an example of how to use create_sql_collection API.
+    def create_sql_collection(create_sql_collection_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#create_sql_collection.' if logger
+
+      raise "Missing the required parameter 'create_sql_collection_details' when calling create_sql_collection." if create_sql_collection_details.nil?
+
+      path = '/sqlCollections'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_sql_collection_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#create_sql_collection') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SqlCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -4118,6 +4524,127 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#delete_sensitive_type') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified SQL collection.
+    # @param [String] sql_collection_id The OCID of the SQL collection resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/delete_sql_collection.rb.html) to see an example of how to use delete_sql_collection API.
+    def delete_sql_collection(sql_collection_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#delete_sql_collection.' if logger
+
+      raise "Missing the required parameter 'sql_collection_id' when calling delete_sql_collection." if sql_collection_id.nil?
+      raise "Parameter value for 'sql_collection_id' must not be blank" if OCI::Internal::Util.blank_string?(sql_collection_id)
+
+      path = '/sqlCollections/{sqlCollectionId}'.sub('{sqlCollectionId}', sql_collection_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#delete_sql_collection') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the SQL firewall policy resource.
+    #
+    # @param [String] sql_firewall_policy_id The OCID of the SQL firewall policy resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/delete_sql_firewall_policy.rb.html) to see an example of how to use delete_sql_firewall_policy API.
+    def delete_sql_firewall_policy(sql_firewall_policy_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#delete_sql_firewall_policy.' if logger
+
+      raise "Missing the required parameter 'sql_firewall_policy_id' when calling delete_sql_firewall_policy." if sql_firewall_policy_id.nil?
+      raise "Parameter value for 'sql_firewall_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(sql_firewall_policy_id)
+
+      path = '/sqlFirewallPolicies/{sqlFirewallPolicyId}'.sub('{sqlFirewallPolicyId}', sql_firewall_policy_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#delete_sql_firewall_policy') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -5832,6 +6359,73 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Generates or appends to the SQL firewall policy using the specified SQL collection.
+    # @param [String] sql_collection_id The OCID of the SQL collection resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/generate_sql_firewall_policy.rb.html) to see an example of how to use generate_sql_firewall_policy API.
+    def generate_sql_firewall_policy(sql_collection_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#generate_sql_firewall_policy.' if logger
+
+      raise "Missing the required parameter 'sql_collection_id' when calling generate_sql_firewall_policy." if sql_collection_id.nil?
+      raise "Parameter value for 'sql_collection_id' must not be blank" if OCI::Internal::Util.blank_string?(sql_collection_id)
+
+      path = '/sqlCollections/{sqlCollectionId}/actions/generateSqlFirewallPolicy'.sub('{sqlCollectionId}', sql_collection_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#generate_sql_firewall_policy') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Generates the report of the specified user assessment. The report is available in PDF or XLS format.
     # After generating the report, use DownloadUserAssessmentReport to download it in the preferred format.
     #
@@ -6467,6 +7061,60 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataSafe::Models::DataSafePrivateEndpoint'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a database security configuration by identifier.
+    # @param [String] database_security_config_id The OCID of the database security configuration resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::DatabaseSecurityConfig DatabaseSecurityConfig}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/get_database_security_config.rb.html) to see an example of how to use get_database_security_config API.
+    def get_database_security_config(database_security_config_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#get_database_security_config.' if logger
+
+      raise "Missing the required parameter 'database_security_config_id' when calling get_database_security_config." if database_security_config_id.nil?
+      raise "Parameter value for 'database_security_config_id' must not be blank" if OCI::Internal::Util.blank_string?(database_security_config_id)
+
+      path = '/databaseSecurityConfigs/{databaseSecurityConfigId}'.sub('{databaseSecurityConfigId}', database_security_config_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#get_database_security_config') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::DatabaseSecurityConfig'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -7298,9 +7946,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the details of the comparison report on the security assessments submitted for comparison.
+    # Gets the details of the comparison report for the security assessments submitted for comparison.
     # @param [String] security_assessment_id The OCID of the security assessment.
-    # @param [String] comparison_security_assessment_id The OCID of the baseline security assessment.
+    # @param [String] comparison_security_assessment_id The OCID of the security assessment baseline.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
@@ -7342,6 +7990,175 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataSafe::Models::SecurityAssessmentComparison'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a security policy by the specified OCID of the security policy resource.
+    # @param [String] security_policy_id The OCID of the security policy resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SecurityPolicy SecurityPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/get_security_policy.rb.html) to see an example of how to use get_security_policy API.
+    def get_security_policy(security_policy_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#get_security_policy.' if logger
+
+      raise "Missing the required parameter 'security_policy_id' when calling get_security_policy." if security_policy_id.nil?
+      raise "Parameter value for 'security_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(security_policy_id)
+
+      path = '/securityPolicies/{securityPolicyId}'.sub('{securityPolicyId}', security_policy_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#get_security_policy') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SecurityPolicy'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a security policy deployment by identifier.
+    # @param [String] security_policy_deployment_id The OCID of the security policy deployment resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SecurityPolicyDeployment SecurityPolicyDeployment}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/get_security_policy_deployment.rb.html) to see an example of how to use get_security_policy_deployment API.
+    def get_security_policy_deployment(security_policy_deployment_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#get_security_policy_deployment.' if logger
+
+      raise "Missing the required parameter 'security_policy_deployment_id' when calling get_security_policy_deployment." if security_policy_deployment_id.nil?
+      raise "Parameter value for 'security_policy_deployment_id' must not be blank" if OCI::Internal::Util.blank_string?(security_policy_deployment_id)
+
+      path = '/securityPolicyDeployments/{securityPolicyDeploymentId}'.sub('{securityPolicyDeploymentId}', security_policy_deployment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#get_security_policy_deployment') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SecurityPolicyDeployment'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a security policy entity states by identifier.
+    # @param [String] security_policy_deployment_id The OCID of the security policy deployment resource.
+    # @param [String] security_policy_entry_state_id Unique security policy entry state identifier.
+    #   The unique id for a given security policy entry state can be obtained
+    #   from the list api by passing the OCID of the corresponding
+    #   security policy deployment resource as the query parameter.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SecurityPolicyEntryState SecurityPolicyEntryState}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/get_security_policy_entry_state.rb.html) to see an example of how to use get_security_policy_entry_state API.
+    def get_security_policy_entry_state(security_policy_deployment_id, security_policy_entry_state_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#get_security_policy_entry_state.' if logger
+
+      raise "Missing the required parameter 'security_policy_deployment_id' when calling get_security_policy_entry_state." if security_policy_deployment_id.nil?
+      raise "Missing the required parameter 'security_policy_entry_state_id' when calling get_security_policy_entry_state." if security_policy_entry_state_id.nil?
+      raise "Parameter value for 'security_policy_deployment_id' must not be blank" if OCI::Internal::Util.blank_string?(security_policy_deployment_id)
+      raise "Parameter value for 'security_policy_entry_state_id' must not be blank" if OCI::Internal::Util.blank_string?(security_policy_entry_state_id)
+
+      path = '/securityPolicyDeployments/{securityPolicyDeploymentId}/securityPolicyEntryStates/{securityPolicyEntryStateId}'.sub('{securityPolicyDeploymentId}', security_policy_deployment_id.to_s).sub('{securityPolicyEntryStateId}', security_policy_entry_state_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#get_security_policy_entry_state') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SecurityPolicyEntryState'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -7520,6 +8337,114 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets a SQL collection by identifier.
+    # @param [String] sql_collection_id The OCID of the SQL collection resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SqlCollection SqlCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/get_sql_collection.rb.html) to see an example of how to use get_sql_collection API.
+    def get_sql_collection(sql_collection_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#get_sql_collection.' if logger
+
+      raise "Missing the required parameter 'sql_collection_id' when calling get_sql_collection." if sql_collection_id.nil?
+      raise "Parameter value for 'sql_collection_id' must not be blank" if OCI::Internal::Util.blank_string?(sql_collection_id)
+
+      path = '/sqlCollections/{sqlCollectionId}'.sub('{sqlCollectionId}', sql_collection_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#get_sql_collection') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SqlCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a SQL firewall policy by identifier.
+    # @param [String] sql_firewall_policy_id The OCID of the SQL firewall policy resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SqlFirewallPolicy SqlFirewallPolicy}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/get_sql_firewall_policy.rb.html) to see an example of how to use get_sql_firewall_policy API.
+    def get_sql_firewall_policy(sql_firewall_policy_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#get_sql_firewall_policy.' if logger
+
+      raise "Missing the required parameter 'sql_firewall_policy_id' when calling get_sql_firewall_policy." if sql_firewall_policy_id.nil?
+      raise "Parameter value for 'sql_firewall_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(sql_firewall_policy_id)
+
+      path = '/sqlFirewallPolicies/{sqlFirewallPolicyId}'.sub('{sqlFirewallPolicyId}', sql_firewall_policy_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#get_sql_firewall_policy') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SqlFirewallPolicy'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the details of target-alert policy association by its ID.
     # @param [String] target_alert_policy_association_id The OCID of the target-alert policy association.
     # @param [Hash] opts the optional parameters
@@ -7683,7 +8608,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets the details of the comparison report for the user assessments provided.
+    # Gets the details of the comparison report for the user assessments submitted for comparison.
     # @param [String] user_assessment_id The OCID of the user assessment.
     # @param [String] comparison_user_assessment_id The OCID of the baseline user assessment.
     # @param [Hash] opts the optional parameters
@@ -9721,6 +10646,138 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Retrieves a list of all database security configurations in Data Safe.
+    #
+    # The ListDatabaseSecurityConfigs operation returns only the database security configurations in the specified `compartmentId`.
+    #
+    # The parameter `accessLevel` specifies whether to return only those compartments for which the
+    # requestor has INSPECT permissions on at least one resource directly
+    # or indirectly (ACCESSIBLE) (the resource can be in a subcompartment) or to return Not Authorized if
+    # Principal doesn't have access to even one of the child compartments. This is valid only when
+    # `compartmentIdInSubtree` is set to `true`.
+    #
+    # The parameter `compartmentIdInSubtree` applies when you perform ListDatabaseSecurityConfigs on the
+    # `compartmentId` passed and when it is set to true, the entire hierarchy of compartments can be returned.
+    # To get a full list of all compartments and subcompartments in the tenancy (root compartment),
+    # set the parameter `compartmentIdInSubtree` to true and `accessLevel` to ACCESSIBLE.
+    #
+    # @param [String] compartment_id A filter to return only resources that match the specified compartment OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned. Depends on the 'accessLevel' setting.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are RESTRICTED and ACCESSIBLE. Default is RESTRICTED.
+    #   Setting this to ACCESSIBLE returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [String] :display_name A filter to return only resources that match the specified display name.
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :lifecycle_state The current state of the database security configuration.
+    # @option opts [String] :database_security_config_id An optional filter to return only resources that match the specified OCID of the database security configuration resource.
+    # @option opts [DateTime] :time_created_greater_than_or_equal_to A filter to return only the resources that were created after the specified date and time, as defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #   Using TimeCreatedGreaterThanOrEqualToQueryParam parameter retrieves all resources created after that date.
+    #
+    #   **Example:** 2016-12-19T16:39:57.600Z
+    #
+    # @option opts [DateTime] :time_created_less_than Search for resources that were created before a specific date.
+    #   Specifying this parameter corresponding `timeCreatedLessThan`
+    #   parameter will retrieve all resources created before the
+    #   specified created date, in \"YYYY-MM-ddThh:mmZ\" format with a Z offset, as
+    #   defined by RFC 3339.
+    #
+    #   **Example:** 2016-12-19T16:39:57.600Z
+    #
+    # @option opts [String] :target_id A filter to return only items related to a specific target OCID.
+    # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field used for sorting. Only one sorting order (sortOrder) can be specified.
+    #   The default order for TIMECREATED is descending. The default order for DISPLAYNAME is ascending.
+    #   The DISPLAYNAME sort order is case sensitive.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::DatabaseSecurityConfigCollection DatabaseSecurityConfigCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_database_security_configs.rb.html) to see an example of how to use list_database_security_configs API.
+    def list_database_security_configs(compartment_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#list_database_security_configs.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_database_security_configs." if compartment_id.nil?
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::DataSafe::Models::DATABASE_SECURITY_CONFIG_LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataSafe::Models::DATABASE_SECURITY_CONFIG_LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      path = '/databaseSecurityConfigs'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:databaseSecurityConfigId] = opts[:database_security_config_id] if opts[:database_security_config_id]
+      query_params[:timeCreatedGreaterThanOrEqualTo] = opts[:time_created_greater_than_or_equal_to] if opts[:time_created_greater_than_or_equal_to]
+      query_params[:timeCreatedLessThan] = opts[:time_created_less_than] if opts[:time_created_less_than]
+      query_params[:targetId] = opts[:target_id] if opts[:target_id]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#list_database_security_configs') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::DatabaseSecurityConfigCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets a list of columns of a SDM masking policy difference resource based on the specified query parameters.
     # @param [String] sdm_masking_policy_difference_id The OCID of the SDM masking policy difference.
     # @param [Hash] opts the optional parameters
@@ -9734,7 +10791,7 @@ module OCI
     # @option opts [Array<String>] :column_name A filter to return only a specific column based on column name.
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order for schemaName is descending.
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sorting parameter (sortOrder). The default order for schemaName is descending.
     #   The default order for differenceType, schemaName, objectName, columnName and plannedAction is ascending.
     #    (default to schemaName)
     #   Allowed values are: differenceType, schemaName, objectName, columnName, plannedAction
@@ -9908,7 +10965,7 @@ module OCI
     # @option opts [Array<String>] :column_name A filter to return only a specific column based on column name.
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order for timeFinished is descending.
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sorting parameter (sortOrder). The default order for timeFinished is descending.
     #   The default order for discoveryType, schemaName, objectName, columnName and plannedAction is ascending.
     #    (default to timeFinished)
     #   Allowed values are: discoveryType, timeFinished, schemaName, objectName, columnName, plannedAction
@@ -10011,7 +11068,7 @@ module OCI
     # @option opts [String] :sensitive_data_model_id A filter to return only the resources that match the specified sensitive data model OCID.
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order for timeFinished is descending.
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sorting parameter (sortOrder). The default order for timeFinished is descending.
     #   The default order for displayName is ascending.
     #    (default to timeStarted)
     #   Allowed values are: timeStarted, displayName
@@ -10093,7 +11150,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # List all the findings from all the targets in the specified assessment.
+    # List all the findings from all the targets in the specified compartment.
     #
     # @param [String] security_assessment_id The OCID of the security assessment.
     # @param [Hash] opts the optional parameters
@@ -10102,7 +11159,7 @@ module OCI
     # @option opts [String] :opc_request_id Unique identifier for the request.
     # @option opts [String] :severity A filter to return only findings of a particular risk level.
     #   Allowed values are: HIGH, MEDIUM, LOW, EVALUATE, ADVISORY, PASS
-    # @option opts [String] :references An optional filter to return only findings containing the specified reference.
+    # @option opts [String] :references An optional filter to return only findings that match the specified reference.
     # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
@@ -10114,7 +11171,9 @@ module OCI
     #   resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
     #    (default to RESTRICTED)
     #   Allowed values are: RESTRICTED, ACCESSIBLE
-    # @option opts [String] :finding_key Each finding has a key. This key is same for the finding across targets
+    # @option opts [String] :finding_key Each finding in security assessment has an associated key (think of key as a finding's name).
+    #   For a given finding, the key will be the same across targets. The user can use these keys to filter the findings.
+    #
     # @return [Response] A Response object with data of type Array<{OCI::DataSafe::Models::FindingSummary FindingSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_findings.rb.html) to see an example of how to use list_findings API.
     def list_findings(security_assessment_id, opts = {})
@@ -10313,7 +11372,7 @@ module OCI
     # @option opts [String] :library_masking_format_source A filter to return the library masking format resources based on the value of their source attribute. (default to USER)
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order for timeCreated is descending.
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sorting parameter (sortOrder). The default order for timeCreated is descending.
     #   The default order for displayName is ascending. The displayName sort order is case sensitive.
     #    (default to timeCreated)
     #   Allowed values are: displayName, timeCreated
@@ -10408,7 +11467,7 @@ module OCI
     # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order for all the fields is ascending.
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sorting parameter (sortOrder). The default order for all the fields is ascending.
     #    (default to schemaName)
     #   Allowed values are: schemaName, objectName
     # @option opts [Array<String>] :schema_name A filter to return only items related to specific schema name.
@@ -10581,7 +11640,7 @@ module OCI
     # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order for timeCreated is descending.
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sorting parameter (sortOrder). The default order for timeCreated is descending.
     #   The default order for other fields is ascending.
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, schemaName, objectName, dataType
@@ -10737,7 +11796,7 @@ module OCI
     # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder).
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sorting parameter (sortOrder).
     #   The default order is ascending.
     #    (default to schemaName)
     #   Allowed values are: schemaName, objectName, objectType
@@ -10832,7 +11891,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to return only the resources that match the specified lifecycle states.
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order for timeCreated is descending.
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sorting parameter (sortOrder). The default order for timeCreated is descending.
     #   The default order for displayName is ascending. The displayName sort order is case sensitive.
     #    (default to timeCreated)
     #   Allowed values are: displayName, timeCreated
@@ -10949,7 +12008,7 @@ module OCI
     # @option opts [String] :target_id A filter to return only items related to a specific target OCID.
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order for timeMaskingFinished is descending.
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sorting parameter (sortOrder). The default order for timeMaskingFinished is descending.
     #    (default to timeMaskingFinished)
     #   Allowed values are: timeMaskingFinished
     # @option opts [String] :opc_request_id Unique identifier for the request.
@@ -11040,7 +12099,7 @@ module OCI
     # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder).
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sorting parameter (sortOrder).
     #   The default order is ascending.
     #    (default to schemaName)
     #   Allowed values are: schemaName
@@ -11387,7 +12446,7 @@ module OCI
     #
     # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order is targetId ASC.
     #    (default to targetId)
-    #   Allowed values are: profileName, targetId, isUserCreated, passwordVerificationFunction, userCount, sessionsPerUser, inactiveAccountTime, failedLoginAttempts
+    #   Allowed values are: profileName, targetId, isUserCreated, passwordVerificationFunction, userCount, sessionsPerUser, inactiveAccountTime, passwordLockTime, failedLoginAttempts
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :opc_request_id Unique identifier for the request.
@@ -11403,8 +12462,8 @@ module OCI
         raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
       end
 
-      if opts[:sort_by] && !%w[profileName targetId isUserCreated passwordVerificationFunction userCount sessionsPerUser inactiveAccountTime failedLoginAttempts].include?(opts[:sort_by])
-        raise 'Invalid value for "sort_by", must be one of profileName, targetId, isUserCreated, passwordVerificationFunction, userCount, sessionsPerUser, inactiveAccountTime, failedLoginAttempts.'
+      if opts[:sort_by] && !%w[profileName targetId isUserCreated passwordVerificationFunction userCount sessionsPerUser inactiveAccountTime passwordLockTime failedLoginAttempts].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of profileName, targetId, isUserCreated, passwordVerificationFunction, userCount, sessionsPerUser, inactiveAccountTime, passwordLockTime, failedLoginAttempts.'
       end
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
@@ -11876,7 +12935,7 @@ module OCI
     # @option opts [String] :masking_policy_id A filter to return only the resources that match the specified masking policy OCID.
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order for timeCreationStarted is descending.
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sorting parameter (sortOrder). The default order for timeCreationStarted is descending.
     #   The default order for displayName is ascending.
     #    (default to timeCreationStarted)
     #   Allowed values are: timeCreationStarted, displayName
@@ -11998,7 +13057,7 @@ module OCI
     # @option opts [String] :target_id A filter to return only items related to a specific target OCID.
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [BOOLEAN] :is_baseline A filter to return only security assessments that are set as baseline. (default to false)
+    # @option opts [BOOLEAN] :is_baseline A filter to return only the security assessments that are set as a baseline. (default to false)
     # @option opts [String] :sort_by The field to sort by. You can specify only one sort order(sortOrder). The default order for timeCreated is descending.
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
@@ -12107,6 +13166,309 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Retrieves a list of all security policies in Data Safe.
+    #
+    # The ListSecurityPolicies operation returns only the security policies in the specified `compartmentId`.
+    #
+    # The parameter `accessLevel` specifies whether to return only those compartments for which the
+    # requestor has INSPECT permissions on at least one resource directly
+    # or indirectly (ACCESSIBLE) (the resource can be in a subcompartment) or to return Not Authorized if
+    # Principal doesn't have access to even one of the child compartments. This is valid only when
+    # `compartmentIdInSubtree` is set to `true`.
+    #
+    # The parameter `compartmentIdInSubtree` applies when you perform ListSecurityPolicies on the
+    # `compartmentId` passed and when it is set to true, the entire hierarchy of compartments can be returned.
+    # To get a full list of all compartments and subcompartments in the tenancy (root compartment),
+    # set the parameter `compartmentIdInSubtree` to true and `accessLevel` to ACCESSIBLE.
+    #
+    # @param [String] compartment_id A filter to return only resources that match the specified compartment OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned. Depends on the 'accessLevel' setting.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are RESTRICTED and ACCESSIBLE. Default is RESTRICTED.
+    #   Setting this to ACCESSIBLE returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [String] :display_name A filter to return only resources that match the specified display name.
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :lifecycle_state The current state of the security policy.
+    # @option opts [String] :security_policy_id An optional filter to return only resources that match the specified OCID of the security policy resource.
+    # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field used for sorting. Only one sorting order (sortOrder) can be specified.
+    #   The default order for TIMECREATED is descending. The default order for DISPLAYNAME is ascending.
+    #   The DISPLAYNAME sort order is case sensitive.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SecurityPolicyCollection SecurityPolicyCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_security_policies.rb.html) to see an example of how to use list_security_policies API.
+    def list_security_policies(compartment_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#list_security_policies.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_security_policies." if compartment_id.nil?
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::DataSafe::Models::SECURITY_POLICY_LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataSafe::Models::SECURITY_POLICY_LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      path = '/securityPolicies'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:securityPolicyId] = opts[:security_policy_id] if opts[:security_policy_id]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#list_security_policies') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SecurityPolicyCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves a list of all security policy deployments in Data Safe.
+    #
+    # The ListSecurityPolicyDeployments operation returns only the security policy deployments in the specified `compartmentId`.
+    #
+    # The parameter `accessLevel` specifies whether to return only those compartments for which the
+    # requestor has INSPECT permissions on at least one resource directly
+    # or indirectly (ACCESSIBLE) (the resource can be in a subcompartment) or to return Not Authorized if
+    # Principal doesn't have access to even one of the child compartments. This is valid only when
+    # `compartmentIdInSubtree` is set to `true`.
+    #
+    # The parameter `compartmentIdInSubtree` applies when you perform ListSecurityPolicyDeployments on the
+    # `compartmentId` passed and when it is set to true, the entire hierarchy of compartments can be returned.
+    # To get a full list of all compartments and subcompartments in the tenancy (root compartment),
+    # set the parameter `compartmentIdInSubtree` to true and `accessLevel` to ACCESSIBLE.
+    #
+    # @param [String] compartment_id A filter to return only resources that match the specified compartment OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned. Depends on the 'accessLevel' setting.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are RESTRICTED and ACCESSIBLE. Default is RESTRICTED.
+    #   Setting this to ACCESSIBLE returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [String] :display_name A filter to return only resources that match the specified display name.
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :lifecycle_state The current state of the security policy deployment.
+    # @option opts [String] :security_policy_deployment_id An optional filter to return only resources that match the specified OCID of the security policy deployment resource.
+    # @option opts [String] :target_id A filter to return only items related to a specific target OCID.
+    # @option opts [String] :security_policy_id An optional filter to return only resources that match the specified OCID of the security policy resource.
+    # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field used for sorting. Only one sorting order (sortOrder) can be specified.
+    #   The default order for TIMECREATED is descending. The default order for DISPLAYNAME is ascending.
+    #   The DISPLAYNAME sort order is case sensitive.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SecurityPolicyDeploymentCollection SecurityPolicyDeploymentCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_security_policy_deployments.rb.html) to see an example of how to use list_security_policy_deployments API.
+    def list_security_policy_deployments(compartment_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#list_security_policy_deployments.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_security_policy_deployments." if compartment_id.nil?
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::DataSafe::Models::SECURITY_POLICY_DEPLOYMENT_LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataSafe::Models::SECURITY_POLICY_DEPLOYMENT_LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      path = '/securityPolicyDeployments'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:securityPolicyDeploymentId] = opts[:security_policy_deployment_id] if opts[:security_policy_deployment_id]
+      query_params[:targetId] = opts[:target_id] if opts[:target_id]
+      query_params[:securityPolicyId] = opts[:security_policy_id] if opts[:security_policy_id]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#list_security_policy_deployments') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SecurityPolicyDeploymentCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves a list of all security policy entry states in Data Safe.
+    #
+    # The ListSecurityPolicyEntryStates operation returns only the security policy entry states for the specified security policy entry.
+    #
+    # @param [String] security_policy_deployment_id The OCID of the security policy deployment resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :deployment_status The current state of the security policy deployment.
+    # @option opts [String] :security_policy_entry_id An optional filter to return only resources that match the specified security policy entry OCID.
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SecurityPolicyEntryStateCollection SecurityPolicyEntryStateCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_security_policy_entry_states.rb.html) to see an example of how to use list_security_policy_entry_states API.
+    def list_security_policy_entry_states(security_policy_deployment_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#list_security_policy_entry_states.' if logger
+
+      raise "Missing the required parameter 'security_policy_deployment_id' when calling list_security_policy_entry_states." if security_policy_deployment_id.nil?
+
+      if opts[:deployment_status] && !OCI::DataSafe::Models::SECURITY_POLICY_ENTRY_STATE_DEPLOYMENT_STATUS_ENUM.include?(opts[:deployment_status])
+        raise 'Invalid value for "deployment_status", must be one of the values in OCI::DataSafe::Models::SECURITY_POLICY_ENTRY_STATE_DEPLOYMENT_STATUS_ENUM.'
+      end
+      raise "Parameter value for 'security_policy_deployment_id' must not be blank" if OCI::Internal::Util.blank_string?(security_policy_deployment_id)
+
+      path = '/securityPolicyDeployments/{securityPolicyDeploymentId}/securityPolicyEntryStates'.sub('{securityPolicyDeploymentId}', security_policy_deployment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:deploymentStatus] = opts[:deployment_status] if opts[:deployment_status]
+      query_params[:securityPolicyEntryId] = opts[:security_policy_entry_id] if opts[:security_policy_entry_id]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#list_security_policy_entry_states') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SecurityPolicyEntryStateCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets a list of sensitive columns present in the specified sensitive data model based on the specified query parameters.
     #
     # @param [String] sensitive_data_model_id The OCID of the sensitive data model.
@@ -12161,7 +13523,7 @@ module OCI
     # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order for timeCreated is descending.
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sorting parameter (sortOrder). The default order for timeCreated is descending.
     #   The default order for schemaName, objectName, and columnName is ascending.
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, schemaName, objectName, columnName, dataType
@@ -12313,7 +13675,7 @@ module OCI
     # @option opts [String] :target_id A filter to return only items related to a specific target OCID.
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order for timeCreated is descending.
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sorting parameter (sortOrder). The default order for timeCreated is descending.
     #   The default order for displayName is ascending.
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
@@ -12411,7 +13773,7 @@ module OCI
     # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder).
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sorting parameter (sortOrder).
     #   The default order is ascending.
     #    (default to schemaName)
     #   Allowed values are: schemaName, objectName, objectType
@@ -12500,7 +13862,7 @@ module OCI
     # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder).
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sorting parameter (sortOrder).
     #   The default order is ascending.
     #    (default to schemaName)
     #   Allowed values are: schemaName
@@ -12603,7 +13965,7 @@ module OCI
     #
     # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
     #   Allowed values are: ASC, DESC
-    # @option opts [String] :sort_by The field to sort by. You can specify only one sort order (sortOrder). The default order for timeCreated is descending.
+    # @option opts [String] :sort_by The field to sort by. You can specify only one sorting parameter (sortOrder). The default order for timeCreated is descending.
     #   The default order for displayName is ascending.
     #    (default to timeCreated)
     #   Allowed values are: timeCreated, displayName
@@ -12685,6 +14047,1048 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::DataSafe::Models::SensitiveTypeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves a list of all SQL collection analytics in Data Safe.
+    #
+    # The ListSqlCollectionAnalytics operation returns only the analytics for the SQL collections in the specified `compartmentId`.
+    #
+    # The parameter `accessLevel` specifies whether to return only those compartments for which the
+    # requestor has INSPECT permissions on at least one resource directly
+    # or indirectly (ACCESSIBLE) (the resource can be in a subcompartment) or to return Not Authorized if
+    # Principal doesn't have access to even one of the child compartments. This is valid only when
+    # `compartmentIdInSubtree` is set to `true`.
+    #
+    # The parameter `compartmentIdInSubtree` applies when you perform ListSqlCollections on the
+    # `compartmentId` passed and when it is set to true, the entire hierarchy of compartments can be returned.
+    # To get a full list of all compartments and subcompartments in the tenancy (root compartment),
+    # set the parameter `compartmentIdInSubtree` to true and `accessLevel` to ACCESSIBLE.
+    #
+    # @param [String] compartment_id A filter to return only resources that match the specified compartment OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned. Depends on the 'accessLevel' setting.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are RESTRICTED and ACCESSIBLE. Default is RESTRICTED.
+    #   Setting this to ACCESSIBLE returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :lifecycle_state The current state of the SQL collection.
+    # @option opts [String] :target_id A filter to return only items related to a specific target OCID.
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [Array<String>] :group_by The group by parameter to summarize SQL collection aggregation.
+    #   Allowed values are: targetId, lifecycleState
+    # @option opts [DateTime] :time_started An optional filter to return the stats of the SQL collection logs collected after the date-time specified,
+    #   in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
+    # @option opts [DateTime] :time_ended An optional filter to return the stats of the SQL collection logs collected before the date-time specified,
+    #   in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SqlCollectionAnalyticsCollection SqlCollectionAnalyticsCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_sql_collection_analytics.rb.html) to see an example of how to use list_sql_collection_analytics API.
+    def list_sql_collection_analytics(compartment_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#list_sql_collection_analytics.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_sql_collection_analytics." if compartment_id.nil?
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::DataSafe::Models::SQL_COLLECTION_LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataSafe::Models::SQL_COLLECTION_LIFECYCLE_STATE_ENUM.'
+      end
+
+
+      group_by_allowable_values = %w[targetId lifecycleState]
+      if opts[:group_by] && !opts[:group_by].empty?
+        opts[:group_by].each do |val_to_check|
+          unless group_by_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "group_by", must be one of targetId, lifecycleState.'
+          end
+        end
+      end
+
+      path = '/sqlCollectionAnalytics'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:targetId] = opts[:target_id] if opts[:target_id]
+      query_params[:groupBy] = OCI::ApiClient.build_collection_params(opts[:group_by], :multi) if opts[:group_by] && !opts[:group_by].empty?
+      query_params[:timeStarted] = opts[:time_started] if opts[:time_started]
+      query_params[:timeEnded] = opts[:time_ended] if opts[:time_ended]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#list_sql_collection_analytics') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SqlCollectionAnalyticsCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves a list of the SQL collection log analytics.
+    #
+    # @param [DateTime] time_started An optional filter to return the stats of the SQL collection logs collected after the date-time specified,
+    #   in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
+    # @param [DateTime] time_ended An optional filter to return the stats of the SQL collection logs collected before the date-time specified,
+    #   in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
+    # @param [String] sql_collection_id The OCID of the SQL collection resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :group_by The group by parameter to summarize SQL collection log insights aggregation.
+    #   Allowed values are: clientIp, clientProgram, clientOsUserName
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SqlCollectionLogInsightsCollection SqlCollectionLogInsightsCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_sql_collection_log_insights.rb.html) to see an example of how to use list_sql_collection_log_insights API.
+    def list_sql_collection_log_insights(time_started, time_ended, sql_collection_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#list_sql_collection_log_insights.' if logger
+
+      raise "Missing the required parameter 'time_started' when calling list_sql_collection_log_insights." if time_started.nil?
+      raise "Missing the required parameter 'time_ended' when calling list_sql_collection_log_insights." if time_ended.nil?
+      raise "Missing the required parameter 'sql_collection_id' when calling list_sql_collection_log_insights." if sql_collection_id.nil?
+
+      if opts[:group_by] && !%w[clientIp clientProgram clientOsUserName].include?(opts[:group_by])
+        raise 'Invalid value for "group_by", must be one of clientIp, clientProgram, clientOsUserName.'
+      end
+      raise "Parameter value for 'sql_collection_id' must not be blank" if OCI::Internal::Util.blank_string?(sql_collection_id)
+
+      path = '/sqlCollections/{sqlCollectionId}/logInsights'.sub('{sqlCollectionId}', sql_collection_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:timeStarted] = time_started
+      query_params[:timeEnded] = time_ended
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:groupBy] = opts[:group_by] if opts[:group_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#list_sql_collection_log_insights') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SqlCollectionLogInsightsCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves a list of all SQL collections in Data Safe.
+    #
+    # The ListSqlCollections operation returns only the SQL collections in the specified `compartmentId`.
+    #
+    # The parameter `accessLevel` specifies whether to return only those compartments for which the
+    # requestor has INSPECT permissions on at least one resource directly
+    # or indirectly (ACCESSIBLE) (the resource can be in a subcompartment) or to return Not Authorized if
+    # Principal doesn't have access to even one of the child compartments. This is valid only when
+    # `compartmentIdInSubtree` is set to `true`.
+    #
+    # The parameter `compartmentIdInSubtree` applies when you perform ListSqlCollections on the
+    # `compartmentId` passed and when it is set to true, the entire hierarchy of compartments can be returned.
+    # To get a full list of all compartments and subcompartments in the tenancy (root compartment),
+    # set the parameter `compartmentIdInSubtree` to true and `accessLevel` to ACCESSIBLE.
+    #
+    # @param [String] compartment_id A filter to return only resources that match the specified compartment OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned. Depends on the 'accessLevel' setting.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are RESTRICTED and ACCESSIBLE. Default is RESTRICTED.
+    #   Setting this to ACCESSIBLE returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [String] :display_name A filter to return only resources that match the specified display name.
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :lifecycle_state The current state of the SQL collection.
+    # @option opts [String] :sql_collection_id An optional filter to return only resources that match the specified OCID of the SQL collection resource.
+    # @option opts [DateTime] :time_created_greater_than_or_equal_to A filter to return only the resources that were created after the specified date and time, as defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #   Using TimeCreatedGreaterThanOrEqualToQueryParam parameter retrieves all resources created after that date.
+    #
+    #   **Example:** 2016-12-19T16:39:57.600Z
+    #
+    # @option opts [DateTime] :time_created_less_than Search for resources that were created before a specific date.
+    #   Specifying this parameter corresponding `timeCreatedLessThan`
+    #   parameter will retrieve all resources created before the
+    #   specified created date, in \"YYYY-MM-ddThh:mmZ\" format with a Z offset, as
+    #   defined by RFC 3339.
+    #
+    #   **Example:** 2016-12-19T16:39:57.600Z
+    #
+    # @option opts [String] :target_id A filter to return only items related to a specific target OCID.
+    # @option opts [String] :db_user_name A filter to return only items that match the specified user name.
+    # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field used for sorting. Only one sorting parameter order (sortOrder) can be specified.
+    #   The DISPLAYNAME sort order is case sensitive.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, DISPLAYNAME, TIMELASTSTARTED
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SqlCollectionCollection SqlCollectionCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_sql_collections.rb.html) to see an example of how to use list_sql_collections API.
+    def list_sql_collections(compartment_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#list_sql_collections.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_sql_collections." if compartment_id.nil?
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::DataSafe::Models::SQL_COLLECTION_LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataSafe::Models::SQL_COLLECTION_LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME TIMELASTSTARTED].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME, TIMELASTSTARTED.'
+      end
+
+      path = '/sqlCollections'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:sqlCollectionId] = opts[:sql_collection_id] if opts[:sql_collection_id]
+      query_params[:timeCreatedGreaterThanOrEqualTo] = opts[:time_created_greater_than_or_equal_to] if opts[:time_created_greater_than_or_equal_to]
+      query_params[:timeCreatedLessThan] = opts[:time_created_less_than] if opts[:time_created_less_than]
+      query_params[:targetId] = opts[:target_id] if opts[:target_id]
+      query_params[:dbUserName] = opts[:db_user_name] if opts[:db_user_name]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#list_sql_collections') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SqlCollectionCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns the aggregation details of all SQL firewall allowed SQL statements.
+    #
+    # The ListSqlFirewallAllowedSqlAnalytics operation returns the aggregates of the SQL firewall allowed SQL statements in the specified `compartmentId`.
+    #
+    # The parameter `accessLevel` specifies whether to return only those compartments for which the
+    # requestor has INSPECT permissions on at least one resource directly
+    # or indirectly (ACCESSIBLE) (the resource can be in a subcompartment) or to return Not Authorized if
+    # Principal doesn't have access to even one of the child compartments. This is valid only when
+    # `compartmentIdInSubtree` is set to `true`.
+    #
+    # The parameter `compartmentIdInSubtree` applies when you perform ListSqlFirewallAllowedSqlAnalytics on the
+    # `compartmentId` passed and when it is set to true, the entire hierarchy of compartments can be returned.
+    # To get a full list of all compartments and subcompartments in the tenancy (root compartment),
+    # set the parameter `compartmentIdInSubtree` to true and `accessLevel` to ACCESSIBLE.
+    #
+    # @param [String] compartment_id A filter to return only resources that match the specified compartment OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned. Depends on the 'accessLevel' setting.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are RESTRICTED and ACCESSIBLE. Default is RESTRICTED.
+    #   Setting this to ACCESSIBLE returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :scim_query The scimQuery query parameter accepts filter expressions that use the syntax described in Section 3.2.2.2
+    #   of the System for Cross-Domain Identity Management (SCIM) specification, which is available
+    #   at [RFC3339](https://tools.ietf.org/html/draft-ietf-scim-api-12). In SCIM filtering expressions,
+    #   text, date, and time values must be enclosed in quotation marks, with date and time values using ISO-8601 format.
+    #   (Numeric and boolean values should not be quoted.)
+    #
+    #   **Example:** query=(currentUser eq 'SCOTT') and (topLevel eq 'YES')
+    #
+    # @option opts [Array<String>] :group_by The group by parameter to summarize the allowed SQL aggregation.
+    #   Allowed values are: dbUserName, sqlLevel, sqlFirewallPolicyId, lifecycleState
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SqlFirewallAllowedSqlAnalyticsCollection SqlFirewallAllowedSqlAnalyticsCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_sql_firewall_allowed_sql_analytics.rb.html) to see an example of how to use list_sql_firewall_allowed_sql_analytics API.
+    def list_sql_firewall_allowed_sql_analytics(compartment_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#list_sql_firewall_allowed_sql_analytics.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_sql_firewall_allowed_sql_analytics." if compartment_id.nil?
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+
+      group_by_allowable_values = %w[dbUserName sqlLevel sqlFirewallPolicyId lifecycleState]
+      if opts[:group_by] && !opts[:group_by].empty?
+        opts[:group_by].each do |val_to_check|
+          unless group_by_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "group_by", must be one of dbUserName, sqlLevel, sqlFirewallPolicyId, lifecycleState.'
+          end
+        end
+      end
+
+      path = '/sqlFirewallAllowedSqlAnalytics'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:scimQuery] = opts[:scim_query] if opts[:scim_query]
+      query_params[:groupBy] = OCI::ApiClient.build_collection_params(opts[:group_by], :multi) if opts[:group_by] && !opts[:group_by].empty?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#list_sql_firewall_allowed_sql_analytics') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SqlFirewallAllowedSqlAnalyticsCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves a list of all SQL firewall allowed SQL statements.
+    #
+    # The ListSqlFirewallAllowedSqls operation returns only the SQL firewall allowed SQL statements in the specified `compartmentId`.
+    #
+    # The parameter `accessLevel` specifies whether to return only those compartments for which the
+    # requestor has INSPECT permissions on at least one resource directly
+    # or indirectly (ACCESSIBLE) (the resource can be in a subcompartment) or to return Not Authorized if
+    # Principal doesn't have access to even one of the child compartments. This is valid only when
+    # `compartmentIdInSubtree` is set to `true`.
+    #
+    # The parameter `compartmentIdInSubtree` applies when you perform ListSqlFirewallPolicies on the
+    # `compartmentId` passed and when it is set to true, the entire hierarchy of compartments can be returned.
+    # To get a full list of all compartments and subcompartments in the tenancy (root compartment),
+    # set the parameter `compartmentIdInSubtree` to true and `accessLevel` to ACCESSIBLE.
+    #
+    # @param [String] compartment_id A filter to return only resources that match the specified compartment OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned. Depends on the 'accessLevel' setting.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are RESTRICTED and ACCESSIBLE. Default is RESTRICTED.
+    #   Setting this to ACCESSIBLE returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :scim_query The scimQuery query parameter accepts filter expressions that use the syntax described in Section 3.2.2.2
+    #   of the System for Cross-Domain Identity Management (SCIM) specification, which is available
+    #   at [RFC3339](https://tools.ietf.org/html/draft-ietf-scim-api-12). In SCIM filtering expressions,
+    #   text, date, and time values must be enclosed in quotation marks, with date and time values using ISO-8601 format.
+    #   (Numeric and boolean values should not be quoted.)
+    #
+    #   **Example:** query=(currentUser eq 'SCOTT') and (topLevel eq 'YES')
+    #
+    # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field to sort by. Only one sort parameter should be provided.
+    #    (default to timeCollected)
+    #   Allowed values are: displayName, timeCollected
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SqlFirewallAllowedSqlCollection SqlFirewallAllowedSqlCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_sql_firewall_allowed_sqls.rb.html) to see an example of how to use list_sql_firewall_allowed_sqls API.
+    def list_sql_firewall_allowed_sqls(compartment_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#list_sql_firewall_allowed_sqls.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_sql_firewall_allowed_sqls." if compartment_id.nil?
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[displayName timeCollected].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of displayName, timeCollected.'
+      end
+
+      path = '/sqlFirewallAllowedSqls'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:scimQuery] = opts[:scim_query] if opts[:scim_query]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#list_sql_firewall_allowed_sqls') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SqlFirewallAllowedSqlCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Retrieves a list of all SQL firewall policies.
+    #
+    # The ListSqlFirewallPolicies operation returns only the SQL firewall policies in the specified `compartmentId`.
+    #
+    # The parameter `accessLevel` specifies whether to return only those compartments for which the
+    # requestor has INSPECT permissions on at least one resource directly
+    # or indirectly (ACCESSIBLE) (the resource can be in a subcompartment) or to return Not Authorized if
+    # Principal doesn't have access to even one of the child compartments. This is valid only when
+    # `compartmentIdInSubtree` is set to `true`.
+    #
+    # The parameter `compartmentIdInSubtree` applies when you perform ListSqlFirewallPolicies on the
+    # `compartmentId` passed and when it is set to true, the entire hierarchy of compartments can be returned.
+    # To get a full list of all compartments and subcompartments in the tenancy (root compartment),
+    # set the parameter `compartmentIdInSubtree` to true and `accessLevel` to ACCESSIBLE.
+    #
+    # @param [String] compartment_id A filter to return only resources that match the specified compartment OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned. Depends on the 'accessLevel' setting.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are RESTRICTED and ACCESSIBLE. Default is RESTRICTED.
+    #   Setting this to ACCESSIBLE returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [String] :display_name A filter to return only resources that match the specified display name.
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :security_policy_id An optional filter to return only resources that match the specified OCID of the security policy resource.
+    # @option opts [String] :lifecycle_state The current state of the SQL firewall policy.
+    # @option opts [String] :sql_firewall_policy_id An optional filter to return only resources that match the specified OCID of the SQL firewall policy resource.
+    # @option opts [String] :db_user_name A filter to return only items that match the specified user name.
+    # @option opts [String] :violation_action An optional filter to return only resources that match the specified violation action.
+    #   Allowed values are: block, observe
+    # @option opts [DateTime] :time_created_greater_than_or_equal_to A filter to return only the resources that were created after the specified date and time, as defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #   Using TimeCreatedGreaterThanOrEqualToQueryParam parameter retrieves all resources created after that date.
+    #
+    #   **Example:** 2016-12-19T16:39:57.600Z
+    #
+    # @option opts [DateTime] :time_created_less_than Search for resources that were created before a specific date.
+    #   Specifying this parameter corresponding `timeCreatedLessThan`
+    #   parameter will retrieve all resources created before the
+    #   specified created date, in \"YYYY-MM-ddThh:mmZ\" format with a Z offset, as
+    #   defined by RFC 3339.
+    #
+    #   **Example:** 2016-12-19T16:39:57.600Z
+    #
+    # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by The field used for sorting. Only one sorting order (sortOrder) can be specified.
+    #   The default order for TIMECREATED is descending. The default order for DISPLAYNAME is ascending.
+    #   The DISPLAYNAME sort order is case sensitive.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SqlFirewallPolicyCollection SqlFirewallPolicyCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_sql_firewall_policies.rb.html) to see an example of how to use list_sql_firewall_policies API.
+    def list_sql_firewall_policies(compartment_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#list_sql_firewall_policies.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_sql_firewall_policies." if compartment_id.nil?
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::DataSafe::Models::SQL_FIREWALL_POLICY_LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataSafe::Models::SQL_FIREWALL_POLICY_LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:violation_action] && !%w[block observe].include?(opts[:violation_action])
+        raise 'Invalid value for "violation_action", must be one of block, observe.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      path = '/sqlFirewallPolicies'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:securityPolicyId] = opts[:security_policy_id] if opts[:security_policy_id]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:sqlFirewallPolicyId] = opts[:sql_firewall_policy_id] if opts[:sql_firewall_policy_id]
+      query_params[:dbUserName] = opts[:db_user_name] if opts[:db_user_name]
+      query_params[:violationAction] = opts[:violation_action] if opts[:violation_action]
+      query_params[:timeCreatedGreaterThanOrEqualTo] = opts[:time_created_greater_than_or_equal_to] if opts[:time_created_greater_than_or_equal_to]
+      query_params[:timeCreatedLessThan] = opts[:time_created_less_than] if opts[:time_created_less_than]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#list_sql_firewall_policies') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SqlFirewallPolicyCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of aggregated SQL firewall policy details.
+    #
+    # The parameter `accessLevel` specifies whether to return only those compartments for which the
+    # requestor has INSPECT permissions on at least one resource directly
+    # or indirectly (ACCESSIBLE) (the resource can be in a subcompartment) or to return Not Authorized if
+    # principal doesn't have access to even one of the child compartments. This is valid only when
+    # `compartmentIdInSubtree` is set to `true`.
+    #
+    # The parameter `compartmentIdInSubtree` applies when you perform SummarizedSqlFirewallPolicyInfo on the specified
+    # `compartmentId` and when it is set to true, the entire hierarchy of compartments can be returned.
+    # To get a full list of all compartments and subcompartments in the tenancy (root compartment),
+    # set the parameter `compartmentIdInSubtree` to true and `accessLevel` to ACCESSIBLE.
+    #
+    # @param [String] compartment_id A filter to return only resources that match the specified compartment OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned. Depends on the 'accessLevel' setting.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are RESTRICTED and ACCESSIBLE. Default is RESTRICTED.
+    #   Setting this to ACCESSIBLE returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [Array<String>] :group_by The group by parameter to summarize SQL firewall policy aggregation.
+    #   Allowed values are: violationAction, enforcementScope, securityPolicyId, lifecycleState
+    # @option opts [String] :lifecycle_state The current state of the SQL firewall policy.
+    # @option opts [String] :security_policy_id An optional filter to return only resources that match the specified OCID of the security policy resource.
+    # @option opts [DateTime] :time_started An optional filter to return the summary of the SQL firewall policies created after the date-time specified,
+    #   in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
+    # @option opts [DateTime] :time_ended An optional filter to return the summary of the SQL firewall policies created before the date-time specified,
+    #   in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SqlFirewallPolicyAnalyticsCollection SqlFirewallPolicyAnalyticsCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_sql_firewall_policy_analytics.rb.html) to see an example of how to use list_sql_firewall_policy_analytics API.
+    def list_sql_firewall_policy_analytics(compartment_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#list_sql_firewall_policy_analytics.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_sql_firewall_policy_analytics." if compartment_id.nil?
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+
+      group_by_allowable_values = %w[violationAction enforcementScope securityPolicyId lifecycleState]
+      if opts[:group_by] && !opts[:group_by].empty?
+        opts[:group_by].each do |val_to_check|
+          unless group_by_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "group_by", must be one of violationAction, enforcementScope, securityPolicyId, lifecycleState.'
+          end
+        end
+      end
+
+      if opts[:lifecycle_state] && !OCI::DataSafe::Models::SQL_FIREWALL_POLICY_LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::DataSafe::Models::SQL_FIREWALL_POLICY_LIFECYCLE_STATE_ENUM.'
+      end
+
+      path = '/sqlFirewallPolicyAnalytics'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:groupBy] = OCI::ApiClient.build_collection_params(opts[:group_by], :multi) if opts[:group_by] && !opts[:group_by].empty?
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:securityPolicyId] = opts[:security_policy_id] if opts[:security_policy_id]
+      query_params[:timeStarted] = opts[:time_started] if opts[:time_started]
+      query_params[:timeEnded] = opts[:time_ended] if opts[:time_ended]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#list_sql_firewall_policy_analytics') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SqlFirewallPolicyAnalyticsCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns the aggregation details of the SQL firewall violations.
+    #
+    # @param [String] compartment_id A filter to return only resources that match the specified compartment OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned. Depends on the 'accessLevel' setting.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are RESTRICTED and ACCESSIBLE. Default is RESTRICTED.
+    #   Setting this to ACCESSIBLE returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [DateTime] :time_started An optional filter to return audit events whose creation time in the database is greater than and equal to the date-time specified,
+    #   in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
+    # @option opts [DateTime] :time_ended An optional filter to return audit events whose creation time in the database is less than and equal to the date-time specified,
+    #   in the format defined by [RFC3339](https://tools.ietf.org/html/rfc3339).
+    #
+    # @option opts [String] :query_time_zone Default time zone is UTC if no time zone provided. The date-time considerations of the resource will be in accordance with the specified time zone.
+    #    (default to UTC)
+    # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by If this query parameter is specified, the result is sorted by this query parameter value.
+    #    (default to operationTime)
+    #   Allowed values are: dbUserName, targetId, targetName, operationTime, timeCollected, clientOsUserName, operation, currentDbUserName, sqlLevel, clientIp, clientProgram, violationCause, violationAction, violationCount
+    # @option opts [String] :scim_query The scimQuery query parameter accepts filter expressions that use the syntax described in Section 3.2.2.2
+    #   of the System for Cross-Domain Identity Management (SCIM) specification, which is available
+    #   at [RFC3339](https://tools.ietf.org/html/draft-ietf-scim-api-12). In SCIM filtering expressions,
+    #   text, date, and time values must be enclosed in quotation marks, with date and time values using ISO-8601 format.
+    #   (Numeric and boolean values should not be quoted.)
+    #
+    #   **Example:** query=(operationTime ge '2021-06-04T01-00-26') and (violationAction eq 'BLOCKED')
+    #
+    # @option opts [Array<String>] :summary_field Specifies a subset of summarized fields to be returned in the response.
+    #   Allowed values are: dbUserName, targetName, clientOsUserName, operation, sqlText, currentDbUserName, sqlLevel, clientIp, clientProgram, violationCause, violationAction, selects, creates, alters, drops, grants, revokes
+    # @option opts [Array<String>] :group_by A groupBy can only be used in combination with summaryField parameter.
+    #   A groupBy value has to be a subset of the values mentioned in summaryField parameter.
+    #
+    #   Allowed values are: dbUserName, targetName, operationTime, timeCollected, clientOsUserName, operation, sqlText, currentDbUserName, sqlLevel, clientIp, clientProgram, violationCause, violationAction
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SqlFirewallViolationAnalyticsCollection SqlFirewallViolationAnalyticsCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_sql_firewall_violation_analytics.rb.html) to see an example of how to use list_sql_firewall_violation_analytics API.
+    def list_sql_firewall_violation_analytics(compartment_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#list_sql_firewall_violation_analytics.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_sql_firewall_violation_analytics." if compartment_id.nil?
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[dbUserName targetId targetName operationTime timeCollected clientOsUserName operation currentDbUserName sqlLevel clientIp clientProgram violationCause violationAction violationCount].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of dbUserName, targetId, targetName, operationTime, timeCollected, clientOsUserName, operation, currentDbUserName, sqlLevel, clientIp, clientProgram, violationCause, violationAction, violationCount.'
+      end
+
+
+      summary_field_allowable_values = %w[dbUserName targetName clientOsUserName operation sqlText currentDbUserName sqlLevel clientIp clientProgram violationCause violationAction selects creates alters drops grants revokes]
+      if opts[:summary_field] && !opts[:summary_field].empty?
+        opts[:summary_field].each do |val_to_check|
+          unless summary_field_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "summary_field", must be one of dbUserName, targetName, clientOsUserName, operation, sqlText, currentDbUserName, sqlLevel, clientIp, clientProgram, violationCause, violationAction, selects, creates, alters, drops, grants, revokes.'
+          end
+        end
+      end
+
+
+      group_by_allowable_values = %w[dbUserName targetName operationTime timeCollected clientOsUserName operation sqlText currentDbUserName sqlLevel clientIp clientProgram violationCause violationAction]
+      if opts[:group_by] && !opts[:group_by].empty?
+        opts[:group_by].each do |val_to_check|
+          unless group_by_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "group_by", must be one of dbUserName, targetName, operationTime, timeCollected, clientOsUserName, operation, sqlText, currentDbUserName, sqlLevel, clientIp, clientProgram, violationCause, violationAction.'
+          end
+        end
+      end
+
+      path = '/sqlFirewallViolationAnalytics'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:timeStarted] = opts[:time_started] if opts[:time_started]
+      query_params[:timeEnded] = opts[:time_ended] if opts[:time_ended]
+      query_params[:queryTimeZone] = opts[:query_time_zone] if opts[:query_time_zone]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:scimQuery] = opts[:scim_query] if opts[:scim_query]
+      query_params[:summaryField] = OCI::ApiClient.build_collection_params(opts[:summary_field], :multi) if opts[:summary_field] && !opts[:summary_field].empty?
+      query_params[:groupBy] = OCI::ApiClient.build_collection_params(opts[:group_by], :multi) if opts[:group_by] && !opts[:group_by].empty?
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#list_sql_firewall_violation_analytics') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SqlFirewallViolationAnalyticsCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets a list of all the SQL firewall violations captured by the firewall.
+    #
+    # @param [String] compartment_id A filter to return only resources that match the specified compartment OCID.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned. Depends on the 'accessLevel' setting.
+    #    (default to false)
+    # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :access_level Valid values are RESTRICTED and ACCESSIBLE. Default is RESTRICTED.
+    #   Setting this to ACCESSIBLE returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
+    # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :sort_by If this query parameter is specified, the result is sorted by this query parameter value.
+    #    (default to operationTime)
+    #   Allowed values are: dbUserName, targetId, targetName, operationTime, timeCollected, clientOsUserName, operation, currentDbUserName, sqlLevel, clientIp, clientProgram, violationCause, violationAction
+    # @option opts [String] :scim_query The scimQuery query parameter accepts filter expressions that use the syntax described in Section 3.2.2.2
+    #   of the System for Cross-Domain Identity Management (SCIM) specification, which is available
+    #   at [RFC3339](https://tools.ietf.org/html/draft-ietf-scim-api-12). In SCIM filtering expressions,
+    #   text, date, and time values must be enclosed in quotation marks, with date and time values using ISO-8601 format.
+    #   (Numeric and boolean values should not be quoted.)
+    #
+    #   **Example:** query=(operationTime ge '2021-06-04T01-00-26') and (violationAction eq 'BLOCKED')
+    #
+    # @return [Response] A Response object with data of type {OCI::DataSafe::Models::SqlFirewallViolationsCollection SqlFirewallViolationsCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_sql_firewall_violations.rb.html) to see an example of how to use list_sql_firewall_violations API.
+    def list_sql_firewall_violations(compartment_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#list_sql_firewall_violations.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_sql_firewall_violations." if compartment_id.nil?
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:sort_by] && !%w[dbUserName targetId targetName operationTime timeCollected clientOsUserName operation currentDbUserName sqlLevel clientIp clientProgram violationCause violationAction].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of dbUserName, targetId, targetName, operationTime, timeCollected, clientOsUserName, operation, currentDbUserName, sqlLevel, clientIp, clientProgram, violationCause, violationAction.'
+      end
+
+      path = '/sqlFirewallViolations'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:scimQuery] = opts[:scim_query] if opts[:scim_query]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json, application/xml'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#list_sql_firewall_violations') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::DataSafe::Models::SqlFirewallViolationsCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -12906,9 +15310,9 @@ module OCI
     # @option opts [String] :target_database_id A filter to return the target database that matches the specified OCID.
     # @option opts [String] :display_name A filter to return only resources that match the specified display name.
     #
-    # @option opts [String] :lifecycle_state A filter to return the target databases that matches the current state of the target database.
-    # @option opts [String] :database_type A filter to return target databases that match the database type of the target database.
-    # @option opts [String] :infrastructure_type A filter to return target databases that match the infrastructure type of the target database.
+    # @option opts [String] :lifecycle_state A filter to return only target databases that match the specified lifecycle state.
+    # @option opts [String] :database_type A filter to return only target databases that match the specified database type.
+    # @option opts [String] :infrastructure_type A filter to return only target databases that match the specified infrastructure type.
     # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
@@ -13012,7 +15416,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Gets a list of aggregated user details from the specified user assessment. This provides information about the overall state
+    # Gets a list of aggregated user details from the specified user assessment. This provides information about the overall state.
     # of database user security.  For example, the user details include how many users have the DBA role and how many users are in
     # the critical category. This data is especially useful content for dashboards or to support analytics.
     #
@@ -13573,17 +15977,26 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :operation_type A filter to return only work requests that match the specific operation type.
-    # @option opts [String] :sort_by The field used for sorting. Only one sorting order (sortOrder) can be specified.
+    # @option opts [String] :sort_by The field used for sorting. Only one sorting parameter can be specified.
     #   The default order is descending.
     #    (default to STARTTIME)
     #   Allowed values are: STARTTIME, FINISHTIME, ACCEPTEDTIME
-    # @option opts [String] :sort_order The sort order to use, either ascending (ASC) or descending (DESC). (default to DESC)
+    # @option opts [String] :sort_order The sorting order for the work requests, either ascending (ASC) or descending (DESC). (default to DESC)
     #   Allowed values are: ASC, DESC
     # @option opts [String] :resource_id A filter to return only work requests that match the specified resource OCID.
     # @option opts [String] :target_database_id A filter to return only work requests that are associated to the specified target database OCID.
     # @option opts [String] :opc_request_id Unique identifier for the request.
     # @option opts [String] :page For list pagination. The page token representing the page at which to start retrieving results. It is usually retrieved from a previous \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
     # @option opts [Integer] :limit For list pagination. The maximum number of items to return per page in a paginated \"List\" call. For details about how pagination works, see [List Pagination](https://docs.cloud.oracle.com/en-us/iaas/Content/API/Concepts/usingapi.htm#nine).
+    # @option opts [BOOLEAN] :compartment_id_in_subtree Default is false.
+    #   When set to true, the hierarchy of compartments is traversed and all compartments and subcompartments in the tenancy are returned. Depends on the 'accessLevel' setting.
+    #    (default to false)
+    # @option opts [String] :access_level Valid values are RESTRICTED and ACCESSIBLE. Default is RESTRICTED.
+    #   Setting this to ACCESSIBLE returns only those compartments for which the
+    #   user has INSPECT permissions directly or indirectly (permissions can be on a
+    #   resource in a subcompartment). When set to RESTRICTED permissions are checked and no partial results are displayed.
+    #    (default to RESTRICTED)
+    #   Allowed values are: RESTRICTED, ACCESSIBLE
     # @return [Response] A Response object with data of type Array<{OCI::DataSafe::Models::WorkRequestSummary WorkRequestSummary}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
     def list_work_requests(compartment_id, opts = {})
@@ -13597,6 +16010,10 @@ module OCI
 
       if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
         raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:access_level] && !%w[RESTRICTED ACCESSIBLE].include?(opts[:access_level])
+        raise 'Invalid value for "access_level", must be one of RESTRICTED, ACCESSIBLE.'
       end
 
       path = '/workRequests'
@@ -13613,6 +16030,8 @@ module OCI
       query_params[:targetDatabaseId] = opts[:target_database_id] if opts[:target_database_id]
       query_params[:page] = opts[:page] if opts[:page]
       query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:compartmentIdInSubtree] = opts[:compartment_id_in_subtree] if !opts[:compartment_id_in_subtree].nil?
+      query_params[:accessLevel] = opts[:access_level] if opts[:access_level]
 
       # Header Params
       header_params = {}
@@ -14233,6 +16652,140 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Purge the SQL collection logs for the specified SqlCollection.
+    # @param [String] sql_collection_id The OCID of the SQL collection resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/purge_sql_collection_logs.rb.html) to see an example of how to use purge_sql_collection_logs API.
+    def purge_sql_collection_logs(sql_collection_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#purge_sql_collection_logs.' if logger
+
+      raise "Missing the required parameter 'sql_collection_id' when calling purge_sql_collection_logs." if sql_collection_id.nil?
+      raise "Parameter value for 'sql_collection_id' must not be blank" if OCI::Internal::Util.blank_string?(sql_collection_id)
+
+      path = '/sqlCollections/{sqlCollectionId}/actions/purgeLogs'.sub('{sqlCollectionId}', sql_collection_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#purge_sql_collection_logs') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Refreshes the specified database security configuration.
+    # @param [String] database_security_config_id The OCID of the database security configuration resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/refresh_database_security_configuration.rb.html) to see an example of how to use refresh_database_security_configuration API.
+    def refresh_database_security_configuration(database_security_config_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#refresh_database_security_configuration.' if logger
+
+      raise "Missing the required parameter 'database_security_config_id' when calling refresh_database_security_configuration." if database_security_config_id.nil?
+      raise "Parameter value for 'database_security_config_id' must not be blank" if OCI::Internal::Util.blank_string?(database_security_config_id)
+
+      path = '/databaseSecurityConfigs/{databaseSecurityConfigId}/actions/refresh'.sub('{databaseSecurityConfigId}', database_security_config_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#refresh_database_security_configuration') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Runs a security assessment, refreshes the latest assessment, and saves it for future reference.
     # The assessment runs with a securityAssessmentId of type LATEST. Before you start, first call the ListSecurityAssessments operation with filter \"type = latest\" to get the security assessment id for the target's latest assessment.
     #
@@ -14283,6 +16836,73 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#refresh_security_assessment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Refresh the specified SQL collection Log Insights.
+    # @param [String] sql_collection_id The OCID of the SQL collection resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/refresh_sql_collection_log_insights.rb.html) to see an example of how to use refresh_sql_collection_log_insights API.
+    def refresh_sql_collection_log_insights(sql_collection_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#refresh_sql_collection_log_insights.' if logger
+
+      raise "Missing the required parameter 'sql_collection_id' when calling refresh_sql_collection_log_insights." if sql_collection_id.nil?
+      raise "Parameter value for 'sql_collection_id' must not be blank" if OCI::Internal::Util.blank_string?(sql_collection_id)
+
+      path = '/sqlCollections/{sqlCollectionId}/actions/refreshLogInsights'.sub('{sqlCollectionId}', sql_collection_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#refresh_sql_collection_log_insights') do
         @api_client.call_api(
           :POST,
           path,
@@ -14912,6 +17532,73 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Start the specified SQL collection.
+    # @param [String] sql_collection_id The OCID of the SQL collection resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/start_sql_collection.rb.html) to see an example of how to use start_sql_collection API.
+    def start_sql_collection(sql_collection_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#start_sql_collection.' if logger
+
+      raise "Missing the required parameter 'sql_collection_id' when calling start_sql_collection." if sql_collection_id.nil?
+      raise "Parameter value for 'sql_collection_id' must not be blank" if OCI::Internal::Util.blank_string?(sql_collection_id)
+
+      path = '/sqlCollections/{sqlCollectionId}/actions/start'.sub('{sqlCollectionId}', sql_collection_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#start_sql_collection') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Stops the specified audit trail.
     # @param [String] audit_trail_id The OCID of the audit trail.
     # @param [Hash] opts the optional parameters
@@ -14951,6 +17638,73 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#stop_audit_trail') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Stops the specified SQL collection.
+    # @param [String] sql_collection_id The OCID of the SQL collection resource.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/stop_sql_collection.rb.html) to see an example of how to use stop_sql_collection API.
+    def stop_sql_collection(sql_collection_id, opts = {})
+      logger.debug 'Calling operation DataSafeClient#stop_sql_collection.' if logger
+
+      raise "Missing the required parameter 'sql_collection_id' when calling stop_sql_collection." if sql_collection_id.nil?
+      raise "Parameter value for 'sql_collection_id' must not be blank" if OCI::Internal::Util.blank_string?(sql_collection_id)
+
+      path = '/sqlCollections/{sqlCollectionId}/actions/stop'.sub('{sqlCollectionId}', sql_collection_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#stop_sql_collection') do
         @api_client.call_api(
           :POST,
           path,
@@ -15551,6 +18305,68 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Updates the database security configuration.
+    # @param [String] database_security_config_id The OCID of the database security configuration resource.
+    # @param [OCI::DataSafe::Models::UpdateDatabaseSecurityConfigDetails] update_database_security_config_details Details to update the database security configuration.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/update_database_security_config.rb.html) to see an example of how to use update_database_security_config API.
+    def update_database_security_config(database_security_config_id, update_database_security_config_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#update_database_security_config.' if logger
+
+      raise "Missing the required parameter 'database_security_config_id' when calling update_database_security_config." if database_security_config_id.nil?
+      raise "Missing the required parameter 'update_database_security_config_details' when calling update_database_security_config." if update_database_security_config_details.nil?
+      raise "Parameter value for 'database_security_config_id' must not be blank" if OCI::Internal::Util.blank_string?(database_security_config_id)
+
+      path = '/databaseSecurityConfigs/{databaseSecurityConfigId}'.sub('{databaseSecurityConfigId}', database_security_config_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_database_security_config_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#update_database_security_config') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates one or more attributes of the specified library masking format. Note that updating the formatEntries attribute replaces all the existing masking format entries with the specified format entries.
     # @param [String] library_masking_format_id The OCID of the library masking format.
     # @param [OCI::DataSafe::Models::UpdateLibraryMaskingFormatDetails] update_library_masking_format_details Details to update a library masking format.
@@ -16068,6 +18884,130 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Updates the security policy.
+    # @param [String] security_policy_id The OCID of the security policy resource.
+    # @param [OCI::DataSafe::Models::UpdateSecurityPolicyDetails] update_security_policy_details Details to update the security policy.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/update_security_policy.rb.html) to see an example of how to use update_security_policy API.
+    def update_security_policy(security_policy_id, update_security_policy_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#update_security_policy.' if logger
+
+      raise "Missing the required parameter 'security_policy_id' when calling update_security_policy." if security_policy_id.nil?
+      raise "Missing the required parameter 'update_security_policy_details' when calling update_security_policy." if update_security_policy_details.nil?
+      raise "Parameter value for 'security_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(security_policy_id)
+
+      path = '/securityPolicies/{securityPolicyId}'.sub('{securityPolicyId}', security_policy_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_security_policy_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#update_security_policy') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the security policy deployment.
+    # @param [String] security_policy_deployment_id The OCID of the security policy deployment resource.
+    # @param [OCI::DataSafe::Models::UpdateSecurityPolicyDeploymentDetails] update_security_policy_deployment_details Details to update the security policy deployment.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/update_security_policy_deployment.rb.html) to see an example of how to use update_security_policy_deployment API.
+    def update_security_policy_deployment(security_policy_deployment_id, update_security_policy_deployment_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#update_security_policy_deployment.' if logger
+
+      raise "Missing the required parameter 'security_policy_deployment_id' when calling update_security_policy_deployment." if security_policy_deployment_id.nil?
+      raise "Missing the required parameter 'update_security_policy_deployment_details' when calling update_security_policy_deployment." if update_security_policy_deployment_details.nil?
+      raise "Parameter value for 'security_policy_deployment_id' must not be blank" if OCI::Internal::Util.blank_string?(security_policy_deployment_id)
+
+      path = '/securityPolicyDeployments/{securityPolicyDeploymentId}'.sub('{securityPolicyDeploymentId}', security_policy_deployment_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_security_policy_deployment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#update_security_policy_deployment') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates one or more attributes of the specified sensitive column.
     # @param [String] sensitive_data_model_id The OCID of the sensitive data model.
     # @param [String] sensitive_column_key The unique key that identifies the sensitive column. It's numeric and unique within a sensitive data model.
@@ -16238,6 +19178,130 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#update_sensitive_type') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the SQL collection.
+    # @param [String] sql_collection_id The OCID of the SQL collection resource.
+    # @param [OCI::DataSafe::Models::UpdateSqlCollectionDetails] update_sql_collection_details Details to update the SQL collection.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/update_sql_collection.rb.html) to see an example of how to use update_sql_collection API.
+    def update_sql_collection(sql_collection_id, update_sql_collection_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#update_sql_collection.' if logger
+
+      raise "Missing the required parameter 'sql_collection_id' when calling update_sql_collection." if sql_collection_id.nil?
+      raise "Missing the required parameter 'update_sql_collection_details' when calling update_sql_collection." if update_sql_collection_details.nil?
+      raise "Parameter value for 'sql_collection_id' must not be blank" if OCI::Internal::Util.blank_string?(sql_collection_id)
+
+      path = '/sqlCollections/{sqlCollectionId}'.sub('{sqlCollectionId}', sql_collection_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_sql_collection_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#update_sql_collection') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the SQL firewall policy.
+    # @param [String] sql_firewall_policy_id The OCID of the SQL firewall policy resource.
+    # @param [OCI::DataSafe::Models::UpdateSqlFirewallPolicyDetails] update_sql_firewall_policy_details Details to update the SQL firewall policy.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the if-match parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/datasafe/update_sql_firewall_policy.rb.html) to see an example of how to use update_sql_firewall_policy API.
+    def update_sql_firewall_policy(sql_firewall_policy_id, update_sql_firewall_policy_details, opts = {})
+      logger.debug 'Calling operation DataSafeClient#update_sql_firewall_policy.' if logger
+
+      raise "Missing the required parameter 'sql_firewall_policy_id' when calling update_sql_firewall_policy." if sql_firewall_policy_id.nil?
+      raise "Missing the required parameter 'update_sql_firewall_policy_details' when calling update_sql_firewall_policy." if update_sql_firewall_policy_details.nil?
+      raise "Parameter value for 'sql_firewall_policy_id' must not be blank" if OCI::Internal::Util.blank_string?(sql_firewall_policy_id)
+
+      path = '/sqlFirewallPolicies/{sqlFirewallPolicyId}'.sub('{sqlFirewallPolicyId}', sql_firewall_policy_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_sql_firewall_policy_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DataSafeClient#update_sql_firewall_policy') do
         @api_client.call_api(
           :PUT,
           path,

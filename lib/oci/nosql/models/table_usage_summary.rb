@@ -51,6 +51,11 @@ module OCI
     # @return [Integer]
     attr_accessor :max_shard_size_usage_in_percent
 
+    # The time stamp of this usage record.
+    #
+    # @return [DateTime]
+    attr_accessor :time_started
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -62,7 +67,8 @@ module OCI
         'read_throttle_count': :'readThrottleCount',
         'write_throttle_count': :'writeThrottleCount',
         'storage_throttle_count': :'storageThrottleCount',
-        'max_shard_size_usage_in_percent': :'maxShardSizeUsageInPercent'
+        'max_shard_size_usage_in_percent': :'maxShardSizeUsageInPercent',
+        'time_started': :'timeStarted'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -78,7 +84,8 @@ module OCI
         'read_throttle_count': :'Integer',
         'write_throttle_count': :'Integer',
         'storage_throttle_count': :'Integer',
-        'max_shard_size_usage_in_percent': :'Integer'
+        'max_shard_size_usage_in_percent': :'Integer',
+        'time_started': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -97,6 +104,7 @@ module OCI
     # @option attributes [Integer] :write_throttle_count The value to assign to the {#write_throttle_count} property
     # @option attributes [Integer] :storage_throttle_count The value to assign to the {#storage_throttle_count} property
     # @option attributes [Integer] :max_shard_size_usage_in_percent The value to assign to the {#max_shard_size_usage_in_percent} property
+    # @option attributes [DateTime] :time_started The value to assign to the {#time_started} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -150,6 +158,12 @@ module OCI
       raise 'You cannot provide both :maxShardSizeUsageInPercent and :max_shard_size_usage_in_percent' if attributes.key?(:'maxShardSizeUsageInPercent') && attributes.key?(:'max_shard_size_usage_in_percent')
 
       self.max_shard_size_usage_in_percent = attributes[:'max_shard_size_usage_in_percent'] if attributes[:'max_shard_size_usage_in_percent']
+
+      self.time_started = attributes[:'timeStarted'] if attributes[:'timeStarted']
+
+      raise 'You cannot provide both :timeStarted and :time_started' if attributes.key?(:'timeStarted') && attributes.key?(:'time_started')
+
+      self.time_started = attributes[:'time_started'] if attributes[:'time_started']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -170,7 +184,8 @@ module OCI
         read_throttle_count == other.read_throttle_count &&
         write_throttle_count == other.write_throttle_count &&
         storage_throttle_count == other.storage_throttle_count &&
-        max_shard_size_usage_in_percent == other.max_shard_size_usage_in_percent
+        max_shard_size_usage_in_percent == other.max_shard_size_usage_in_percent &&
+        time_started == other.time_started
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -186,7 +201,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [seconds_in_period, read_units, write_units, storage_in_g_bs, read_throttle_count, write_throttle_count, storage_throttle_count, max_shard_size_usage_in_percent].hash
+      [seconds_in_period, read_units, write_units, storage_in_g_bs, read_throttle_count, write_throttle_count, storage_throttle_count, max_shard_size_usage_in_percent, time_started].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -6,7 +6,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Update properties for a member in a DR Protection Group.
+  # Update properties for a member in a DR protection group.
   # This class has direct subclasses. If you are using this class as input to a service operations then you should favor using a subclass over the base class
   class DisasterRecovery::Models::UpdateDrProtectionGroupMemberDetails
     MEMBER_TYPE_ENUM = [
@@ -15,12 +15,15 @@ module OCI
       MEMBER_TYPE_COMPUTE_INSTANCE_NON_MOVABLE = 'COMPUTE_INSTANCE_NON_MOVABLE'.freeze,
       MEMBER_TYPE_VOLUME_GROUP = 'VOLUME_GROUP'.freeze,
       MEMBER_TYPE_DATABASE = 'DATABASE'.freeze,
-      MEMBER_TYPE_AUTONOMOUS_DATABASE = 'AUTONOMOUS_DATABASE'.freeze
+      MEMBER_TYPE_AUTONOMOUS_DATABASE = 'AUTONOMOUS_DATABASE'.freeze,
+      MEMBER_TYPE_LOAD_BALANCER = 'LOAD_BALANCER'.freeze,
+      MEMBER_TYPE_NETWORK_LOAD_BALANCER = 'NETWORK_LOAD_BALANCER'.freeze,
+      MEMBER_TYPE_FILE_SYSTEM = 'FILE_SYSTEM'.freeze
     ].freeze
 
     # **[Required]** The OCID of the member.
     #
-    # Example: `ocid1.database.oc1.phx.&lt;unique_id&gt;`
+    # Example: `ocid1.database.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :member_id
@@ -59,9 +62,12 @@ module OCI
       type = object_hash[:'memberType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::DisasterRecovery::Models::UpdateDrProtectionGroupMemberComputeInstanceDetails' if type == 'COMPUTE_INSTANCE'
+      return 'OCI::DisasterRecovery::Models::UpdateDrProtectionGroupMemberNetworkLoadBalancerDetails' if type == 'NETWORK_LOAD_BALANCER'
       return 'OCI::DisasterRecovery::Models::UpdateDrProtectionGroupMemberAutonomousDatabaseDetails' if type == 'AUTONOMOUS_DATABASE'
+      return 'OCI::DisasterRecovery::Models::UpdateDrProtectionGroupMemberFileSystemDetails' if type == 'FILE_SYSTEM'
       return 'OCI::DisasterRecovery::Models::UpdateDrProtectionGroupMemberVolumeGroupDetails' if type == 'VOLUME_GROUP'
       return 'OCI::DisasterRecovery::Models::UpdateDrProtectionGroupMemberComputeInstanceNonMovableDetails' if type == 'COMPUTE_INSTANCE_NON_MOVABLE'
+      return 'OCI::DisasterRecovery::Models::UpdateDrProtectionGroupMemberLoadBalancerDetails' if type == 'LOAD_BALANCER'
       return 'OCI::DisasterRecovery::Models::UpdateDrProtectionGroupMemberComputeInstanceMovableDetails' if type == 'COMPUTE_INSTANCE_MOVABLE'
       return 'OCI::DisasterRecovery::Models::UpdateDrProtectionGroupMemberDatabaseDetails' if type == 'DATABASE'
 

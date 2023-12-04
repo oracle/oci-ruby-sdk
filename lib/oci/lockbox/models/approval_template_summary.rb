@@ -27,7 +27,6 @@ module OCI
     # @return [String]
     attr_accessor :lifecycle_state
 
-    # This attribute is required.
     # @return [OCI::Lockbox::Models::ApproverLevels]
     attr_accessor :approver_levels
 

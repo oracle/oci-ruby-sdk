@@ -10,6 +10,12 @@ module OCI
   # A summary of the status of a work request.
   class Adm::Models::WorkRequestSummary
     OPERATION_TYPE_ENUM = [
+      OPERATION_TYPE_CREATE_REMEDIATION_RECIPE = 'CREATE_REMEDIATION_RECIPE'.freeze,
+      OPERATION_TYPE_DELETE_REMEDIATION_RECIPE = 'DELETE_REMEDIATION_RECIPE'.freeze,
+      OPERATION_TYPE_MOVE_REMEDIATION_RECIPE = 'MOVE_REMEDIATION_RECIPE'.freeze,
+      OPERATION_TYPE_UPDATE_REMEDIATION_RECIPE = 'UPDATE_REMEDIATION_RECIPE'.freeze,
+      OPERATION_TYPE_ACTIVATE_REMEDIATION_RECIPE = 'ACTIVATE_REMEDIATION_RECIPE'.freeze,
+      OPERATION_TYPE_DEACTIVATE_REMEDIATION_RECIPE = 'DEACTIVATE_REMEDIATION_RECIPE'.freeze,
       OPERATION_TYPE_CREATE_KNOWLEDGE_BASE = 'CREATE_KNOWLEDGE_BASE'.freeze,
       OPERATION_TYPE_DELETE_KNOWLEDGE_BASE = 'DELETE_KNOWLEDGE_BASE'.freeze,
       OPERATION_TYPE_MOVE_KNOWLEDGE_BASE = 'MOVE_KNOWLEDGE_BASE'.freeze,
@@ -85,6 +91,12 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :defined_tags
 
+    # Usage of system tag keys. These predefined keys are scoped to namespaces.
+    # Example: `{\"orcl-cloud\": {\"free-tier-retained\": \"true\"}}`
+    #
+    # @return [Hash<String, Hash<String, Object>>]
+    attr_accessor :system_tags
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -99,7 +111,8 @@ module OCI
         'time_started': :'timeStarted',
         'time_finished': :'timeFinished',
         'freeform_tags': :'freeformTags',
-        'defined_tags': :'definedTags'
+        'defined_tags': :'definedTags',
+        'system_tags': :'systemTags'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -118,7 +131,8 @@ module OCI
         'time_started': :'DateTime',
         'time_finished': :'DateTime',
         'freeform_tags': :'Hash<String, String>',
-        'defined_tags': :'Hash<String, Hash<String, Object>>'
+        'defined_tags': :'Hash<String, Hash<String, Object>>',
+        'system_tags': :'Hash<String, Hash<String, Object>>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -140,6 +154,7 @@ module OCI
     # @option attributes [DateTime] :time_finished The value to assign to the {#time_finished} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
+    # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -199,6 +214,12 @@ module OCI
       raise 'You cannot provide both :definedTags and :defined_tags' if attributes.key?(:'definedTags') && attributes.key?(:'defined_tags')
 
       self.defined_tags = attributes[:'defined_tags'] if attributes[:'defined_tags']
+
+      self.system_tags = attributes[:'systemTags'] if attributes[:'systemTags']
+
+      raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
+
+      self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -248,7 +269,8 @@ module OCI
         time_started == other.time_started &&
         time_finished == other.time_finished &&
         freeform_tags == other.freeform_tags &&
-        defined_tags == other.defined_tags
+        defined_tags == other.defined_tags &&
+        system_tags == other.system_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -264,7 +286,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [operation_type, status, id, compartment_id, resources, percent_complete, time_accepted, time_started, time_finished, freeform_tags, defined_tags].hash
+      [operation_type, status, id, compartment_id, resources, percent_complete, time_accepted, time_started, time_finished, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

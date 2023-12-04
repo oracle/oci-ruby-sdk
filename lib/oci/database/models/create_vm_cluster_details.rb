@@ -103,6 +103,10 @@ module OCI
     # @return [OCI::Database::Models::DataCollectionOptions]
     attr_accessor :data_collection_options
 
+    # Operating system version of the image.
+    # @return [String]
+    attr_accessor :system_version
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -126,7 +130,8 @@ module OCI
         'db_servers': :'dbServers',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'data_collection_options': :'dataCollectionOptions'
+        'data_collection_options': :'dataCollectionOptions',
+        'system_version': :'systemVersion'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -154,7 +159,8 @@ module OCI
         'db_servers': :'Array<String>',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'data_collection_options': :'OCI::Database::Models::DataCollectionOptions'
+        'data_collection_options': :'OCI::Database::Models::DataCollectionOptions',
+        'system_version': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -185,6 +191,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [OCI::Database::Models::DataCollectionOptions] :data_collection_options The value to assign to the {#data_collection_options} property
+    # @option attributes [String] :system_version The value to assign to the {#system_version} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -310,6 +317,12 @@ module OCI
       raise 'You cannot provide both :dataCollectionOptions and :data_collection_options' if attributes.key?(:'dataCollectionOptions') && attributes.key?(:'data_collection_options')
 
       self.data_collection_options = attributes[:'data_collection_options'] if attributes[:'data_collection_options']
+
+      self.system_version = attributes[:'systemVersion'] if attributes[:'systemVersion']
+
+      raise 'You cannot provide both :systemVersion and :system_version' if attributes.key?(:'systemVersion') && attributes.key?(:'system_version')
+
+      self.system_version = attributes[:'system_version'] if attributes[:'system_version']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -350,7 +363,8 @@ module OCI
         db_servers == other.db_servers &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        data_collection_options == other.data_collection_options
+        data_collection_options == other.data_collection_options &&
+        system_version == other.system_version
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -366,7 +380,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, display_name, exadata_infrastructure_id, cpu_core_count, ocpu_count, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, data_storage_size_in_gbs, ssh_public_keys, vm_cluster_network_id, license_model, is_sparse_diskgroup_enabled, is_local_backup_enabled, time_zone, gi_version, db_servers, freeform_tags, defined_tags, data_collection_options].hash
+      [compartment_id, display_name, exadata_infrastructure_id, cpu_core_count, ocpu_count, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, data_storage_size_in_gbs, ssh_public_keys, vm_cluster_network_id, license_model, is_sparse_diskgroup_enabled, is_local_backup_enabled, time_zone, gi_version, db_servers, freeform_tags, defined_tags, data_collection_options, system_version].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

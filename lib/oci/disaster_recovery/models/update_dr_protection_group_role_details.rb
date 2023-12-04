@@ -6,7 +6,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The role details for a DR Protection Group.
+  # The details for updating the role of a DR protection group.
   class DisasterRecovery::Models::UpdateDrProtectionGroupRoleDetails
     ROLE_ENUM = [
       ROLE_PRIMARY = 'PRIMARY'.freeze,
@@ -14,7 +14,7 @@ module OCI
       ROLE_UNCONFIGURED = 'UNCONFIGURED'.freeze
     ].freeze
 
-    # **[Required]** The role of the DR Protection Group.
+    # **[Required]** The new role of the DR protection group.
     #
     # @return [String]
     attr_reader :role

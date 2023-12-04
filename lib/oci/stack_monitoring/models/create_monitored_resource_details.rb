@@ -10,6 +10,11 @@ module OCI
   # The combination of monitored resource name and type should be unique across tenancy.
   #
   class StackMonitoring::Models::CreateMonitoredResourceDetails
+    LICENSE_ENUM = [
+      LICENSE_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
+      LICENSE_ENTERPRISE_EDITION = 'ENTERPRISE_EDITION'.freeze
+    ].freeze
+
     # **[Required]** Monitored Resource Name.
     #
     # @return [String]
@@ -51,6 +56,12 @@ module OCI
     #
     # @return [String]
     attr_accessor :resource_time_zone
+
+    # License edition of the monitored resource. If not provided
+    # the default license type for the compartment will be used.
+    #
+    # @return [String]
+    attr_reader :license
 
     # List of monitored resource properties.
     #
@@ -110,6 +121,7 @@ module OCI
         'external_id': :'externalId',
         'management_agent_id': :'managementAgentId',
         'resource_time_zone': :'resourceTimeZone',
+        'license': :'license',
         'properties': :'properties',
         'database_connection_details': :'databaseConnectionDetails',
         'credentials': :'credentials',
@@ -134,6 +146,7 @@ module OCI
         'external_id': :'String',
         'management_agent_id': :'String',
         'resource_time_zone': :'String',
+        'license': :'String',
         'properties': :'Array<OCI::StackMonitoring::Models::MonitoredResourceProperty>',
         'database_connection_details': :'OCI::StackMonitoring::Models::ConnectionDetails',
         'credentials': :'OCI::StackMonitoring::Models::MonitoredResourceCredential',
@@ -160,6 +173,7 @@ module OCI
     # @option attributes [String] :external_id The value to assign to the {#external_id} property
     # @option attributes [String] :management_agent_id The value to assign to the {#management_agent_id} property
     # @option attributes [String] :resource_time_zone The value to assign to the {#resource_time_zone} property
+    # @option attributes [String] :license The value to assign to the {#license} property
     # @option attributes [Array<OCI::StackMonitoring::Models::MonitoredResourceProperty>] :properties The value to assign to the {#properties} property
     # @option attributes [OCI::StackMonitoring::Models::ConnectionDetails] :database_connection_details The value to assign to the {#database_connection_details} property
     # @option attributes [OCI::StackMonitoring::Models::MonitoredResourceCredential] :credentials The value to assign to the {#credentials} property
@@ -216,6 +230,8 @@ module OCI
       self.resource_time_zone = attributes[:'resource_time_zone'] if attributes[:'resource_time_zone']
       self.resource_time_zone = "Etc/UTC" if resource_time_zone.nil? && !attributes.key?(:'resourceTimeZone') && !attributes.key?(:'resource_time_zone') # rubocop:disable Style/StringLiterals
 
+      self.license = attributes[:'license'] if attributes[:'license']
+
       self.properties = attributes[:'properties'] if attributes[:'properties']
 
       self.database_connection_details = attributes[:'databaseConnectionDetails'] if attributes[:'databaseConnectionDetails']
@@ -255,6 +271,14 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] license Object to be assigned
+    def license=(license)
+      raise "Invalid value for 'license': this must be one of the values in LICENSE_ENUM." if license && !LICENSE_ENUM.include?(license)
+
+      @license = license
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -272,6 +296,7 @@ module OCI
         external_id == other.external_id &&
         management_agent_id == other.management_agent_id &&
         resource_time_zone == other.resource_time_zone &&
+        license == other.license &&
         properties == other.properties &&
         database_connection_details == other.database_connection_details &&
         credentials == other.credentials &&
@@ -295,7 +320,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, display_name, type, compartment_id, host_name, external_id, management_agent_id, resource_time_zone, properties, database_connection_details, credentials, aliases, additional_credentials, additional_aliases, freeform_tags, defined_tags].hash
+      [name, display_name, type, compartment_id, host_name, external_id, management_agent_id, resource_time_zone, license, properties, database_connection_details, credentials, aliases, additional_credentials, additional_aliases, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

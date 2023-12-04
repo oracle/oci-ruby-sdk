@@ -9,11 +9,11 @@ require_relative 'unified_agent_parser'
 module OCI
   # CSV Parser.
   class Logging::Models::UnifiedAgentCsvParser < Logging::Models::UnifiedAgentParser
-    # csv delimiter.
+    # CSV delimiter.
     # @return [String]
     attr_accessor :delimiter
 
-    # **[Required]** csv keys.
+    # **[Required]** CSV keys.
     # @return [Array<String>]
     attr_accessor :keys
 

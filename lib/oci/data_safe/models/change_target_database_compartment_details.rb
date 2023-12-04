@@ -8,7 +8,7 @@ require 'date'
 module OCI
   # The details used to change the compartment of a Data Safe target database.
   class DataSafe::Models::ChangeTargetDatabaseCompartmentDetails
-    # **[Required]** The OCID of the new compartment to where you want to move the Data Safe target database.
+    # **[Required]** The OCID of the compartment you want to move the Data Safe target database to.
     # @return [String]
     attr_accessor :compartment_id
 

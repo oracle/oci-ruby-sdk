@@ -68,6 +68,10 @@ module OCI
     # @return [OCI::DataScience::Models::JobLogConfigurationDetails]
     attr_accessor :job_log_configuration_override_details
 
+    # Collection of JobStorageMountConfigurationDetails.
+    # @return [Array<OCI::DataScience::Models::StorageMountConfigurationDetails>]
+    attr_accessor :job_storage_mount_configuration_details_list
+
     # @return [OCI::DataScience::Models::JobRunLogDetails]
     attr_accessor :log_details
 
@@ -107,6 +111,7 @@ module OCI
         'job_configuration_override_details': :'jobConfigurationOverrideDetails',
         'job_infrastructure_configuration_details': :'jobInfrastructureConfigurationDetails',
         'job_log_configuration_override_details': :'jobLogConfigurationOverrideDetails',
+        'job_storage_mount_configuration_details_list': :'jobStorageMountConfigurationDetailsList',
         'log_details': :'logDetails',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
@@ -132,6 +137,7 @@ module OCI
         'job_configuration_override_details': :'OCI::DataScience::Models::JobConfigurationDetails',
         'job_infrastructure_configuration_details': :'OCI::DataScience::Models::JobInfrastructureConfigurationDetails',
         'job_log_configuration_override_details': :'OCI::DataScience::Models::JobLogConfigurationDetails',
+        'job_storage_mount_configuration_details_list': :'Array<OCI::DataScience::Models::StorageMountConfigurationDetails>',
         'log_details': :'OCI::DataScience::Models::JobRunLogDetails',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
@@ -159,6 +165,7 @@ module OCI
     # @option attributes [OCI::DataScience::Models::JobConfigurationDetails] :job_configuration_override_details The value to assign to the {#job_configuration_override_details} property
     # @option attributes [OCI::DataScience::Models::JobInfrastructureConfigurationDetails] :job_infrastructure_configuration_details The value to assign to the {#job_infrastructure_configuration_details} property
     # @option attributes [OCI::DataScience::Models::JobLogConfigurationDetails] :job_log_configuration_override_details The value to assign to the {#job_log_configuration_override_details} property
+    # @option attributes [Array<OCI::DataScience::Models::StorageMountConfigurationDetails>] :job_storage_mount_configuration_details_list The value to assign to the {#job_storage_mount_configuration_details_list} property
     # @option attributes [OCI::DataScience::Models::JobRunLogDetails] :log_details The value to assign to the {#log_details} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
@@ -238,6 +245,12 @@ module OCI
 
       self.job_log_configuration_override_details = attributes[:'job_log_configuration_override_details'] if attributes[:'job_log_configuration_override_details']
 
+      self.job_storage_mount_configuration_details_list = attributes[:'jobStorageMountConfigurationDetailsList'] if attributes[:'jobStorageMountConfigurationDetailsList']
+
+      raise 'You cannot provide both :jobStorageMountConfigurationDetailsList and :job_storage_mount_configuration_details_list' if attributes.key?(:'jobStorageMountConfigurationDetailsList') && attributes.key?(:'job_storage_mount_configuration_details_list')
+
+      self.job_storage_mount_configuration_details_list = attributes[:'job_storage_mount_configuration_details_list'] if attributes[:'job_storage_mount_configuration_details_list']
+
       self.log_details = attributes[:'logDetails'] if attributes[:'logDetails']
 
       raise 'You cannot provide both :logDetails and :log_details' if attributes.key?(:'logDetails') && attributes.key?(:'log_details')
@@ -305,6 +318,7 @@ module OCI
         job_configuration_override_details == other.job_configuration_override_details &&
         job_infrastructure_configuration_details == other.job_infrastructure_configuration_details &&
         job_log_configuration_override_details == other.job_log_configuration_override_details &&
+        job_storage_mount_configuration_details_list == other.job_storage_mount_configuration_details_list &&
         log_details == other.log_details &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
@@ -325,7 +339,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, time_accepted, time_started, time_finished, created_by, project_id, compartment_id, job_id, display_name, job_configuration_override_details, job_infrastructure_configuration_details, job_log_configuration_override_details, log_details, lifecycle_state, lifecycle_details, freeform_tags, defined_tags].hash
+      [id, time_accepted, time_started, time_finished, created_by, project_id, compartment_id, job_id, display_name, job_configuration_override_details, job_infrastructure_configuration_details, job_log_configuration_override_details, job_storage_mount_configuration_details_list, log_details, lifecycle_state, lifecycle_details, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

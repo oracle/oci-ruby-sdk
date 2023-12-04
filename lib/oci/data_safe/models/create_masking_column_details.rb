@@ -70,7 +70,7 @@ module OCI
     # @return [String]
     attr_accessor :sensitive_type_id
 
-    # Indicates if data masking is enabled for the masking column. Set it to false if
+    # Indicates whether data masking is enabled for the masking column. Set it to false if
     # you don't want to mask the column.
     #
     # @return [BOOLEAN]

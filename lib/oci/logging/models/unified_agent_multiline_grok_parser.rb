@@ -9,11 +9,11 @@ require_relative 'unified_agent_parser'
 module OCI
   # Multiline grok parser.
   class Logging::Models::UnifiedAgentMultilineGrokParser < Logging::Models::UnifiedAgentParser
-    # grok name key.
+    # Grok name key.
     # @return [String]
     attr_accessor :grok_name_key
 
-    # grok failure key.
+    # Grok failure key.
     # @return [String]
     attr_accessor :grok_failure_key
 
@@ -21,7 +21,7 @@ module OCI
     # @return [String]
     attr_accessor :multi_line_start_regexp
 
-    # **[Required]** grok pattern object.
+    # **[Required]** Grok pattern object.
     # @return [Array<OCI::Logging::Models::GrokPattern>]
     attr_accessor :patterns
 

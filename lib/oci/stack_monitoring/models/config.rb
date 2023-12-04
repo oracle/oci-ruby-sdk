@@ -28,6 +28,8 @@ module OCI
 
     CONFIG_TYPE_ENUM = [
       CONFIG_TYPE_AUTO_PROMOTE = 'AUTO_PROMOTE'.freeze,
+      CONFIG_TYPE_LICENSE_AUTO_ASSIGN = 'LICENSE_AUTO_ASSIGN'.freeze,
+      CONFIG_TYPE_LICENSE_ENTERPRISE_EXTENSIBILITY = 'LICENSE_ENTERPRISE_EXTENSIBILITY'.freeze,
       CONFIG_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -121,6 +123,8 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'configType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::StackMonitoring::Models::LicenseEnterpriseExtensibilityConfigDetails' if type == 'LICENSE_ENTERPRISE_EXTENSIBILITY'
+      return 'OCI::StackMonitoring::Models::LicenseAutoAssignConfigDetails' if type == 'LICENSE_AUTO_ASSIGN'
       return 'OCI::StackMonitoring::Models::AutoPromoteConfigDetails' if type == 'AUTO_PROMOTE'
 
       # TODO: Log a warning when the subtype is not found.

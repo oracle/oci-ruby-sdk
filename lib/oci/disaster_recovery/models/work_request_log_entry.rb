@@ -10,7 +10,7 @@ module OCI
   class DisasterRecovery::Models::WorkRequestLogEntry
     # **[Required]** A human-readable log message.
     #
-    # Example: `DR Plan Execution is in progress`
+    # Example: `DR plan execution is in progress`
     #
     # @return [String]
     attr_accessor :message

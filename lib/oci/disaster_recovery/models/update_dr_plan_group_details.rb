@@ -6,7 +6,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details for updating a DR Plan group.
+  # The details for updating a group in a DR plan.
   class DisasterRecovery::Models::UpdateDrPlanGroupDetails
     TYPE_ENUM = [
       TYPE_USER_DEFINED = 'USER_DEFINED'.freeze,
@@ -14,14 +14,14 @@ module OCI
       TYPE_BUILT_IN_PRECHECK = 'BUILT_IN_PRECHECK'.freeze
     ].freeze
 
-    # The unique id of this group. Must not be modified by user.
+    # The unique id of the group. Must not be modified by user.
     #
-    # Example: `sgid1.group..&lt;unique_id&gt;`
+    # Example: `sgid1.group..uniqueID`
     #
     # @return [String]
     attr_accessor :id
 
-    # The display name of this group.
+    # The display name of the group.
     #
     # Example: `My_GROUP_3 - EBS Start`
     #
@@ -29,6 +29,8 @@ module OCI
     attr_accessor :display_name
 
     # The group type.
+    #
+    # Example: `BUILT_IN`
     #
     # @return [String]
     attr_reader :type

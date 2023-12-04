@@ -36,13 +36,21 @@ module OCI
     # @return [String]
     attr_reader :action
 
-    # **[Required]** A valid Oracle Grid Infrastructure (GI) software version.
+    # A valid Oracle Grid Infrastructure (GI) software version.
     # @return [String]
     attr_accessor :new_gi_version
 
-    # **[Required]** A valid Oracle Grid Infrastructure (GI) software version.
+    # A valid Oracle Grid Infrastructure (GI) software version.
     # @return [String]
     attr_accessor :old_gi_version
+
+    # A valid Oracle Software (OS) version eg. Oracle Linux Server release 8
+    # @return [String]
+    attr_accessor :old_os_version
+
+    # A valid Oracle Software (OS) version eg. Oracle Linux Server release 8
+    # @return [String]
+    attr_accessor :new_os_version
 
     # **[Required]** The retention period, in days, for the snapshot that allows you to perform a rollback of the upgrade operation. After this number of days passes, you cannot roll back the upgrade.
     # @return [Integer]
@@ -74,6 +82,8 @@ module OCI
         'action': :'action',
         'new_gi_version': :'newGiVersion',
         'old_gi_version': :'oldGiVersion',
+        'old_os_version': :'oldOsVersion',
+        'new_os_version': :'newOsVersion',
         'snapshot_retention_period_in_days': :'snapshotRetentionPeriodInDays',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
@@ -91,6 +101,8 @@ module OCI
         'action': :'String',
         'new_gi_version': :'String',
         'old_gi_version': :'String',
+        'old_os_version': :'String',
+        'new_os_version': :'String',
         'snapshot_retention_period_in_days': :'Integer',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
@@ -110,6 +122,8 @@ module OCI
     # @option attributes [String] :action The value to assign to the {#action} property
     # @option attributes [String] :new_gi_version The value to assign to the {#new_gi_version} property
     # @option attributes [String] :old_gi_version The value to assign to the {#old_gi_version} property
+    # @option attributes [String] :old_os_version The value to assign to the {#old_os_version} property
+    # @option attributes [String] :new_os_version The value to assign to the {#new_os_version} property
     # @option attributes [Integer] :snapshot_retention_period_in_days The value to assign to the {#snapshot_retention_period_in_days} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
@@ -133,6 +147,18 @@ module OCI
       raise 'You cannot provide both :oldGiVersion and :old_gi_version' if attributes.key?(:'oldGiVersion') && attributes.key?(:'old_gi_version')
 
       self.old_gi_version = attributes[:'old_gi_version'] if attributes[:'old_gi_version']
+
+      self.old_os_version = attributes[:'oldOsVersion'] if attributes[:'oldOsVersion']
+
+      raise 'You cannot provide both :oldOsVersion and :old_os_version' if attributes.key?(:'oldOsVersion') && attributes.key?(:'old_os_version')
+
+      self.old_os_version = attributes[:'old_os_version'] if attributes[:'old_os_version']
+
+      self.new_os_version = attributes[:'newOsVersion'] if attributes[:'newOsVersion']
+
+      raise 'You cannot provide both :newOsVersion and :new_os_version' if attributes.key?(:'newOsVersion') && attributes.key?(:'new_os_version')
+
+      self.new_os_version = attributes[:'new_os_version'] if attributes[:'new_os_version']
 
       self.snapshot_retention_period_in_days = attributes[:'snapshotRetentionPeriodInDays'] if attributes[:'snapshotRetentionPeriodInDays']
 
@@ -206,6 +232,8 @@ module OCI
         action == other.action &&
         new_gi_version == other.new_gi_version &&
         old_gi_version == other.old_gi_version &&
+        old_os_version == other.old_os_version &&
+        new_os_version == other.new_os_version &&
         snapshot_retention_period_in_days == other.snapshot_retention_period_in_days &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
@@ -226,7 +254,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, action, new_gi_version, old_gi_version, snapshot_retention_period_in_days, lifecycle_state, lifecycle_details, time_started, time_ended].hash
+      [id, action, new_gi_version, old_gi_version, old_os_version, new_os_version, snapshot_retention_period_in_days, lifecycle_state, lifecycle_details, time_started, time_ended].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

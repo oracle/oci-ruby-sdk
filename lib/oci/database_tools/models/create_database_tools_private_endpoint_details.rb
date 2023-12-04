@@ -24,6 +24,10 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # Locks associated with this resource.
+    # @return [Array<OCI::DatabaseTools::Models::ResourceLock>]
+    attr_accessor :locks
+
     # **[Required]** A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
     # @return [String]
     attr_accessor :display_name
@@ -58,6 +62,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'defined_tags': :'definedTags',
         'freeform_tags': :'freeformTags',
+        'locks': :'locks',
         'display_name': :'displayName',
         'description': :'description',
         'endpoint_service_id': :'endpointServiceId',
@@ -75,6 +80,7 @@ module OCI
         'compartment_id': :'String',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'freeform_tags': :'Hash<String, String>',
+        'locks': :'Array<OCI::DatabaseTools::Models::ResourceLock>',
         'display_name': :'String',
         'description': :'String',
         'endpoint_service_id': :'String',
@@ -94,6 +100,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [Array<OCI::DatabaseTools::Models::ResourceLock>] :locks The value to assign to the {#locks} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :endpoint_service_id The value to assign to the {#endpoint_service_id} property
@@ -123,6 +130,8 @@ module OCI
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
+
+      self.locks = attributes[:'locks'] if attributes[:'locks']
 
       self.display_name = attributes[:'displayName'] if attributes[:'displayName']
 
@@ -171,6 +180,7 @@ module OCI
         compartment_id == other.compartment_id &&
         defined_tags == other.defined_tags &&
         freeform_tags == other.freeform_tags &&
+        locks == other.locks &&
         display_name == other.display_name &&
         description == other.description &&
         endpoint_service_id == other.endpoint_service_id &&
@@ -192,7 +202,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, freeform_tags, display_name, description, endpoint_service_id, subnet_id, private_endpoint_ip, nsg_ids].hash
+      [compartment_id, defined_tags, freeform_tags, locks, display_name, description, endpoint_service_id, subnet_id, private_endpoint_ip, nsg_ids].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -6,9 +6,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details reqired to set baseline assessment.
+  # The details required to set the baseline for the assessment.
   class DataSafe::Models::SecurityAssessmentBaseLineDetails
-    # List of security assessment OCIDs that need to be updated while setting the baseline.
+    # The list of OCIDs for the security assessments that need to be updated while setting the baseline.
     # @return [Array<String>]
     attr_accessor :assessment_ids
 

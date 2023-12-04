@@ -8,7 +8,7 @@ require 'date'
 module OCI
   # Details to apply the SDM masking policy difference to a masking policy.
   class DataSafe::Models::ApplySdmMaskingPolicyDifferenceDetails
-    # The OCID of the SDM masking policy difference.
+    # **[Required]** The OCID of the SDM masking policy difference.
     # @return [String]
     attr_accessor :sdm_masking_policy_difference_id
 

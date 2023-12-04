@@ -9,7 +9,7 @@ module OCI
   # The details used to update a target-alert policy association.
   #
   class DataSafe::Models::UpdateTargetAlertPolicyAssociationDetails
-    # Indicates if the target-alert policy association is enabled or disabled.
+    # Indicates if the target-alert policy association is enabled or disabled by user.
     # @return [BOOLEAN]
     attr_accessor :is_enabled
 

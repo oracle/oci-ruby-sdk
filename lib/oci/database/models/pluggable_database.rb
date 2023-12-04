@@ -20,6 +20,13 @@ module OCI
       LIFECYCLE_STATE_TERMINATED = 'TERMINATED'.freeze,
       LIFECYCLE_STATE_UPDATING = 'UPDATING'.freeze,
       LIFECYCLE_STATE_FAILED = 'FAILED'.freeze,
+      LIFECYCLE_STATE_RELOCATING = 'RELOCATING'.freeze,
+      LIFECYCLE_STATE_RELOCATED = 'RELOCATED'.freeze,
+      LIFECYCLE_STATE_REFRESHING = 'REFRESHING'.freeze,
+      LIFECYCLE_STATE_RESTORE_IN_PROGRESS = 'RESTORE_IN_PROGRESS'.freeze,
+      LIFECYCLE_STATE_RESTORE_FAILED = 'RESTORE_FAILED'.freeze,
+      LIFECYCLE_STATE_BACKUP_IN_PROGRESS = 'BACKUP_IN_PROGRESS'.freeze,
+      LIFECYCLE_STATE_DISABLED = 'DISABLED'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -58,7 +65,8 @@ module OCI
     # @return [OCI::Database::Models::PluggableDatabaseConnectionStrings]
     attr_accessor :connection_strings
 
-    # **[Required]** The mode that pluggable database is in. Open mode can only be changed to READ_ONLY or MIGRATE directly from the backend (within the Oracle Database software).
+    # **[Required]** **Deprecated.** Use {#pluggable_database_node_level_details pluggable_database_node_level_details} for OpenMode details.
+    # The mode that pluggable database is in. Open mode can only be changed to READ_ONLY or MIGRATE directly from the backend (within the Oracle Database software).
     #
     # @return [String]
     attr_reader :open_mode
@@ -90,6 +98,15 @@ module OCI
     # @return [OCI::Database::Models::PluggableDatabaseManagementConfig]
     attr_accessor :pluggable_database_management_config
 
+    # @return [OCI::Database::Models::PluggableDatabaseRefreshableCloneConfig]
+    attr_accessor :refreshable_clone_config
+
+    # Pluggable Database Node Level Details.
+    # Example: [{\"nodeName\" : \"node1\", \"openMode\" : \"READ_WRITE\"}, {\"nodeName\" : \"node2\", \"openMode\" : \"READ_ONLY\"}]
+    #
+    # @return [Array<OCI::Database::Models::PluggableDatabaseNodeLevelDetails>]
+    attr_accessor :pdb_node_level_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -106,7 +123,9 @@ module OCI
         'compartment_id': :'compartmentId',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'pluggable_database_management_config': :'pluggableDatabaseManagementConfig'
+        'pluggable_database_management_config': :'pluggableDatabaseManagementConfig',
+        'refreshable_clone_config': :'refreshableCloneConfig',
+        'pdb_node_level_details': :'pdbNodeLevelDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -127,7 +146,9 @@ module OCI
         'compartment_id': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'pluggable_database_management_config': :'OCI::Database::Models::PluggableDatabaseManagementConfig'
+        'pluggable_database_management_config': :'OCI::Database::Models::PluggableDatabaseManagementConfig',
+        'refreshable_clone_config': :'OCI::Database::Models::PluggableDatabaseRefreshableCloneConfig',
+        'pdb_node_level_details': :'Array<OCI::Database::Models::PluggableDatabaseNodeLevelDetails>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -151,6 +172,8 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [OCI::Database::Models::PluggableDatabaseManagementConfig] :pluggable_database_management_config The value to assign to the {#pluggable_database_management_config} property
+    # @option attributes [OCI::Database::Models::PluggableDatabaseRefreshableCloneConfig] :refreshable_clone_config The value to assign to the {#refreshable_clone_config} property
+    # @option attributes [Array<OCI::Database::Models::PluggableDatabaseNodeLevelDetails>] :pdb_node_level_details The value to assign to the {#pdb_node_level_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -227,6 +250,18 @@ module OCI
       raise 'You cannot provide both :pluggableDatabaseManagementConfig and :pluggable_database_management_config' if attributes.key?(:'pluggableDatabaseManagementConfig') && attributes.key?(:'pluggable_database_management_config')
 
       self.pluggable_database_management_config = attributes[:'pluggable_database_management_config'] if attributes[:'pluggable_database_management_config']
+
+      self.refreshable_clone_config = attributes[:'refreshableCloneConfig'] if attributes[:'refreshableCloneConfig']
+
+      raise 'You cannot provide both :refreshableCloneConfig and :refreshable_clone_config' if attributes.key?(:'refreshableCloneConfig') && attributes.key?(:'refreshable_clone_config')
+
+      self.refreshable_clone_config = attributes[:'refreshable_clone_config'] if attributes[:'refreshable_clone_config']
+
+      self.pdb_node_level_details = attributes[:'pdbNodeLevelDetails'] if attributes[:'pdbNodeLevelDetails']
+
+      raise 'You cannot provide both :pdbNodeLevelDetails and :pdb_node_level_details' if attributes.key?(:'pdbNodeLevelDetails') && attributes.key?(:'pdb_node_level_details')
+
+      self.pdb_node_level_details = attributes[:'pdb_node_level_details'] if attributes[:'pdb_node_level_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -278,7 +313,9 @@ module OCI
         compartment_id == other.compartment_id &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        pluggable_database_management_config == other.pluggable_database_management_config
+        pluggable_database_management_config == other.pluggable_database_management_config &&
+        refreshable_clone_config == other.refreshable_clone_config &&
+        pdb_node_level_details == other.pdb_node_level_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -294,7 +331,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, container_database_id, pdb_name, lifecycle_state, lifecycle_details, time_created, connection_strings, open_mode, is_restricted, compartment_id, freeform_tags, defined_tags, pluggable_database_management_config].hash
+      [id, container_database_id, pdb_name, lifecycle_state, lifecycle_details, time_created, connection_strings, open_mode, is_restricted, compartment_id, freeform_tags, defined_tags, pluggable_database_management_config, refreshable_clone_config, pdb_node_level_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -10,14 +10,14 @@ module OCI
   class DisasterRecovery::Models::IgnoreDrPlanExecutionDetails
     # **[Required]** The unique id of the group to ignore as a whole, or the group containing the step to ignore.
     #
-    # Example: `sgid1.group..&lt;unique_id&gt;`
+    # Example: `sgid1.group..uniqueID`
     #
     # @return [String]
     attr_accessor :group_id
 
     # The unique id of the step to ignore (optional). Only needed when ignoring a step.
     #
-    # Example: `sgid1.step..&lt;unique_id&gt;`
+    # Example: `sgid1.step..uniqueID`
     #
     # @return [String]
     attr_accessor :step_id

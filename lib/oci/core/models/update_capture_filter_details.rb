@@ -28,6 +28,11 @@ module OCI
     # @return [Array<OCI::Core::Models::VtapCaptureFilterRuleDetails>]
     attr_accessor :vtap_capture_filter_rules
 
+    # The set of rules governing what traffic the VCN flow log collects.
+    #
+    # @return [Array<OCI::Core::Models::FlowLogCaptureFilterRuleDetails>]
+    attr_accessor :flow_log_capture_filter_rules
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no
     # predefined name, type, or namespace. For more information, see [Resource Tags](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm).
     #
@@ -43,6 +48,7 @@ module OCI
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'vtap_capture_filter_rules': :'vtapCaptureFilterRules',
+        'flow_log_capture_filter_rules': :'flowLogCaptureFilterRules',
         'freeform_tags': :'freeformTags'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -55,6 +61,7 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'vtap_capture_filter_rules': :'Array<OCI::Core::Models::VtapCaptureFilterRuleDetails>',
+        'flow_log_capture_filter_rules': :'Array<OCI::Core::Models::FlowLogCaptureFilterRuleDetails>',
         'freeform_tags': :'Hash<String, String>'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -69,6 +76,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Array<OCI::Core::Models::VtapCaptureFilterRuleDetails>] :vtap_capture_filter_rules The value to assign to the {#vtap_capture_filter_rules} property
+    # @option attributes [Array<OCI::Core::Models::FlowLogCaptureFilterRuleDetails>] :flow_log_capture_filter_rules The value to assign to the {#flow_log_capture_filter_rules} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -94,6 +102,12 @@ module OCI
 
       self.vtap_capture_filter_rules = attributes[:'vtap_capture_filter_rules'] if attributes[:'vtap_capture_filter_rules']
 
+      self.flow_log_capture_filter_rules = attributes[:'flowLogCaptureFilterRules'] if attributes[:'flowLogCaptureFilterRules']
+
+      raise 'You cannot provide both :flowLogCaptureFilterRules and :flow_log_capture_filter_rules' if attributes.key?(:'flowLogCaptureFilterRules') && attributes.key?(:'flow_log_capture_filter_rules')
+
+      self.flow_log_capture_filter_rules = attributes[:'flow_log_capture_filter_rules'] if attributes[:'flow_log_capture_filter_rules']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -115,6 +129,7 @@ module OCI
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         vtap_capture_filter_rules == other.vtap_capture_filter_rules &&
+        flow_log_capture_filter_rules == other.flow_log_capture_filter_rules &&
         freeform_tags == other.freeform_tags
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -131,7 +146,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, vtap_capture_filter_rules, freeform_tags].hash
+      [defined_tags, display_name, vtap_capture_filter_rules, flow_log_capture_filter_rules, freeform_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

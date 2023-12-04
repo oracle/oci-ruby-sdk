@@ -13,7 +13,7 @@ module OCI
     # @return [String]
     attr_accessor :database_name
 
-    # The database version.
+    # **[Required]** The database version.
     # @return [String]
     attr_accessor :database_version
 

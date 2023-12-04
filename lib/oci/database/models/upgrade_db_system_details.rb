@@ -28,6 +28,10 @@ module OCI
     # @return [String]
     attr_accessor :new_gi_version
 
+    # A valid Oracle Software (OS) version eg. Oracle Linux Server release 8
+    # @return [String]
+    attr_accessor :new_os_version
+
     # If true, rollback time is updated even if operating system upgrade history contains errors.
     # @return [BOOLEAN]
     attr_accessor :is_snapshot_retention_days_force_updated
@@ -39,6 +43,7 @@ module OCI
         'action': :'action',
         'snapshot_retention_period_in_days': :'snapshotRetentionPeriodInDays',
         'new_gi_version': :'newGiVersion',
+        'new_os_version': :'newOsVersion',
         'is_snapshot_retention_days_force_updated': :'isSnapshotRetentionDaysForceUpdated'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -51,6 +56,7 @@ module OCI
         'action': :'String',
         'snapshot_retention_period_in_days': :'Integer',
         'new_gi_version': :'String',
+        'new_os_version': :'String',
         'is_snapshot_retention_days_force_updated': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -65,6 +71,7 @@ module OCI
     # @option attributes [String] :action The value to assign to the {#action} property
     # @option attributes [Integer] :snapshot_retention_period_in_days The value to assign to the {#snapshot_retention_period_in_days} property
     # @option attributes [String] :new_gi_version The value to assign to the {#new_gi_version} property
+    # @option attributes [String] :new_os_version The value to assign to the {#new_os_version} property
     # @option attributes [BOOLEAN] :is_snapshot_retention_days_force_updated The value to assign to the {#is_snapshot_retention_days_force_updated} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -85,6 +92,12 @@ module OCI
       raise 'You cannot provide both :newGiVersion and :new_gi_version' if attributes.key?(:'newGiVersion') && attributes.key?(:'new_gi_version')
 
       self.new_gi_version = attributes[:'new_gi_version'] if attributes[:'new_gi_version']
+
+      self.new_os_version = attributes[:'newOsVersion'] if attributes[:'newOsVersion']
+
+      raise 'You cannot provide both :newOsVersion and :new_os_version' if attributes.key?(:'newOsVersion') && attributes.key?(:'new_os_version')
+
+      self.new_os_version = attributes[:'new_os_version'] if attributes[:'new_os_version']
 
       self.is_snapshot_retention_days_force_updated = attributes[:'isSnapshotRetentionDaysForceUpdated'] unless attributes[:'isSnapshotRetentionDaysForceUpdated'].nil?
 
@@ -115,6 +128,7 @@ module OCI
         action == other.action &&
         snapshot_retention_period_in_days == other.snapshot_retention_period_in_days &&
         new_gi_version == other.new_gi_version &&
+        new_os_version == other.new_os_version &&
         is_snapshot_retention_days_force_updated == other.is_snapshot_retention_days_force_updated
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -131,7 +145,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [action, snapshot_retention_period_in_days, new_gi_version, is_snapshot_retention_days_force_updated].hash
+      [action, snapshot_retention_period_in_days, new_gi_version, new_os_version, is_snapshot_retention_days_force_updated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

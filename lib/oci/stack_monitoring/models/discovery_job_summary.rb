@@ -24,6 +24,12 @@ module OCI
       RESOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    LICENSE_ENUM = [
+      LICENSE_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
+      LICENSE_ENTERPRISE_EDITION = 'ENTERPRISE_EDITION'.freeze,
+      LICENSE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     DISCOVERY_TYPE_ENUM = [
       DISCOVERY_TYPE_ADD = 'ADD'.freeze,
       DISCOVERY_TYPE_ADD_WITH_RETRY = 'ADD_WITH_RETRY'.freeze,
@@ -62,6 +68,10 @@ module OCI
     # The name of resource type
     # @return [String]
     attr_accessor :resource_name
+
+    # License edition of the monitored resource.
+    # @return [String]
+    attr_reader :license
 
     # The OCID of the Compartment
     # @return [String]
@@ -121,6 +131,7 @@ module OCI
         'id': :'id',
         'resource_type': :'resourceType',
         'resource_name': :'resourceName',
+        'license': :'license',
         'compartment_id': :'compartmentId',
         'discovery_type': :'discoveryType',
         'status': :'status',
@@ -143,6 +154,7 @@ module OCI
         'id': :'String',
         'resource_type': :'String',
         'resource_name': :'String',
+        'license': :'String',
         'compartment_id': :'String',
         'discovery_type': :'String',
         'status': :'String',
@@ -167,6 +179,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :resource_type The value to assign to the {#resource_type} property
     # @option attributes [String] :resource_name The value to assign to the {#resource_name} property
+    # @option attributes [String] :license The value to assign to the {#license} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :discovery_type The value to assign to the {#discovery_type} property
     # @option attributes [String] :status The value to assign to the {#status} property
@@ -197,6 +210,8 @@ module OCI
       raise 'You cannot provide both :resourceName and :resource_name' if attributes.key?(:'resourceName') && attributes.key?(:'resource_name')
 
       self.resource_name = attributes[:'resource_name'] if attributes[:'resource_name']
+
+      self.license = attributes[:'license'] if attributes[:'license']
 
       self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
 
@@ -279,6 +294,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] license Object to be assigned
+    def license=(license)
+      # rubocop:disable Style/ConditionalAssignment
+      if license && !LICENSE_ENUM.include?(license)
+        OCI.logger.debug("Unknown value for 'license' [" + license + "]. Mapping to 'LICENSE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @license = LICENSE_UNKNOWN_ENUM_VALUE
+      else
+        @license = license
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] discovery_type Object to be assigned
     def discovery_type=(discovery_type)
       # rubocop:disable Style/ConditionalAssignment
@@ -329,6 +357,7 @@ module OCI
         id == other.id &&
         resource_type == other.resource_type &&
         resource_name == other.resource_name &&
+        license == other.license &&
         compartment_id == other.compartment_id &&
         discovery_type == other.discovery_type &&
         status == other.status &&
@@ -355,7 +384,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, resource_type, resource_name, compartment_id, discovery_type, status, status_message, tenant_id, user_id, time_updated, lifecycle_state, freeform_tags, defined_tags, system_tags].hash
+      [id, resource_type, resource_name, license, compartment_id, discovery_type, status, status_message, tenant_id, user_id, time_updated, lifecycle_state, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

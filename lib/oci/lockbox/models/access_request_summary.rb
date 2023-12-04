@@ -29,6 +29,12 @@ module OCI
     # @return [String]
     attr_accessor :requestor_id
 
+    # The two-char country code of the requestor while creating the access request
+    # Example: `US`
+    #
+    # @return [String]
+    attr_accessor :requestor_location
+
     # **[Required]** The current state of the access request.
     # @return [String]
     attr_accessor :lifecycle_state
@@ -64,6 +70,7 @@ module OCI
         'display_name': :'displayName',
         'description': :'description',
         'requestor_id': :'requestorId',
+        'requestor_location': :'requestorLocation',
         'lifecycle_state': :'lifecycleState',
         'access_duration': :'accessDuration',
         'time_created': :'timeCreated',
@@ -82,6 +89,7 @@ module OCI
         'display_name': :'String',
         'description': :'String',
         'requestor_id': :'String',
+        'requestor_location': :'String',
         'lifecycle_state': :'String',
         'access_duration': :'String',
         'time_created': :'DateTime',
@@ -102,6 +110,7 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :requestor_id The value to assign to the {#requestor_id} property
+    # @option attributes [String] :requestor_location The value to assign to the {#requestor_location} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :access_duration The value to assign to the {#access_duration} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
@@ -134,6 +143,12 @@ module OCI
       raise 'You cannot provide both :requestorId and :requestor_id' if attributes.key?(:'requestorId') && attributes.key?(:'requestor_id')
 
       self.requestor_id = attributes[:'requestor_id'] if attributes[:'requestor_id']
+
+      self.requestor_location = attributes[:'requestorLocation'] if attributes[:'requestorLocation']
+
+      raise 'You cannot provide both :requestorLocation and :requestor_location' if attributes.key?(:'requestorLocation') && attributes.key?(:'requestor_location')
+
+      self.requestor_location = attributes[:'requestor_location'] if attributes[:'requestor_location']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -182,6 +197,7 @@ module OCI
         display_name == other.display_name &&
         description == other.description &&
         requestor_id == other.requestor_id &&
+        requestor_location == other.requestor_location &&
         lifecycle_state == other.lifecycle_state &&
         access_duration == other.access_duration &&
         time_created == other.time_created &&
@@ -202,7 +218,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, lockbox_id, display_name, description, requestor_id, lifecycle_state, access_duration, time_created, time_updated, time_expired].hash
+      [id, lockbox_id, display_name, description, requestor_id, requestor_location, lifecycle_state, access_duration, time_created, time_updated, time_expired].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

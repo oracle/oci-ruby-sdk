@@ -11,7 +11,9 @@ module OCI
   class DatabaseTools::Models::UpdateDatabaseToolsConnectionDetails
     TYPE_ENUM = [
       TYPE_ORACLE_DATABASE = 'ORACLE_DATABASE'.freeze,
-      TYPE_MYSQL = 'MYSQL'.freeze
+      TYPE_MYSQL = 'MYSQL'.freeze,
+      TYPE_POSTGRESQL = 'POSTGRESQL'.freeze,
+      TYPE_GENERIC_JDBC = 'GENERIC_JDBC'.freeze
     ].freeze
 
     # A user-friendly name. Does not have to be unique, and it's changeable. Avoid entering confidential information.
@@ -66,6 +68,8 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'type'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::DatabaseTools::Models::UpdateDatabaseToolsConnectionGenericJdbcDetails' if type == 'GENERIC_JDBC'
+      return 'OCI::DatabaseTools::Models::UpdateDatabaseToolsConnectionPostgresqlDetails' if type == 'POSTGRESQL'
       return 'OCI::DatabaseTools::Models::UpdateDatabaseToolsConnectionMySqlDetails' if type == 'MYSQL'
       return 'OCI::DatabaseTools::Models::UpdateDatabaseToolsConnectionOracleDatabaseDetails' if type == 'ORACLE_DATABASE'
 

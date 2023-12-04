@@ -9933,6 +9933,7 @@ module OCI
     # @option opts [String] :lifecycle_state A filter to return only resources that match the given capture filter lifecycle state.
     #   The state value is case-insensitive.
     #
+    # @option opts [String] :filter_type A filter to only return resources that match the given capture `filterType`. The `filterType` value is the string representation of enum - `VTAP`, `FLOWLOG`.
     # @return [Response] A Response object with data of type Array<{OCI::Core::Models::CaptureFilter CaptureFilter}>
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_capture_filters.rb.html) to see an example of how to use list_capture_filters API.
     def list_capture_filters(compartment_id, opts = {})
@@ -9952,6 +9953,10 @@ module OCI
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Core::Models::CaptureFilter::LIFECYCLE_STATE_ENUM.'
       end
 
+      if opts[:filter_type] && !OCI::Core::Models::CaptureFilter::FILTER_TYPE_ENUM.include?(opts[:filter_type])
+        raise 'Invalid value for "filter_type", must be one of the values in OCI::Core::Models::CaptureFilter::FILTER_TYPE_ENUM.'
+      end
+
       path = '/captureFilters'
       operation_signing_strategy = :standard
 
@@ -9965,6 +9970,7 @@ module OCI
       query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:filterType] = opts[:filter_type] if opts[:filter_type]
 
       # Header Params
       header_params = {}

@@ -19,6 +19,12 @@ module OCI
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    LICENSE_ENUM = [
+      LICENSE_STANDARD_EDITION = 'STANDARD_EDITION'.freeze,
+      LICENSE_ENTERPRISE_EDITION = 'ENTERPRISE_EDITION'.freeze,
+      LICENSE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # **[Required]** Monitored resource identifier [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     #
     # @return [String]
@@ -37,6 +43,10 @@ module OCI
     #
     # @return [String]
     attr_accessor :type
+
+    # Compartment Identifier [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @return [String]
+    attr_accessor :compartment_id
 
     # Monitored Resource Host Name.
     #
@@ -72,6 +82,10 @@ module OCI
     # @return [Array<OCI::StackMonitoring::Models::MonitoredResourceProperty>]
     attr_accessor :properties
 
+    # License edition of the monitored resource.
+    # @return [String]
+    attr_reader :license
+
     # Simple key-value pair that is applied without any predefined name, type or scope. Exists for cross-compatibility only.
     # Example: `{\"bar-key\": \"value\"}`
     #
@@ -98,6 +112,7 @@ module OCI
         'name': :'name',
         'display_name': :'displayName',
         'type': :'type',
+        'compartment_id': :'compartmentId',
         'host_name': :'hostName',
         'external_id': :'externalId',
         'management_agent_id': :'managementAgentId',
@@ -105,6 +120,7 @@ module OCI
         'time_updated': :'timeUpdated',
         'lifecycle_state': :'lifecycleState',
         'properties': :'properties',
+        'license': :'license',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'system_tags': :'systemTags'
@@ -120,6 +136,7 @@ module OCI
         'name': :'String',
         'display_name': :'String',
         'type': :'String',
+        'compartment_id': :'String',
         'host_name': :'String',
         'external_id': :'String',
         'management_agent_id': :'String',
@@ -127,6 +144,7 @@ module OCI
         'time_updated': :'DateTime',
         'lifecycle_state': :'String',
         'properties': :'Array<OCI::StackMonitoring::Models::MonitoredResourceProperty>',
+        'license': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'system_tags': :'Hash<String, Hash<String, Object>>'
@@ -144,6 +162,7 @@ module OCI
     # @option attributes [String] :name The value to assign to the {#name} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [String] :type The value to assign to the {#type} property
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :host_name The value to assign to the {#host_name} property
     # @option attributes [String] :external_id The value to assign to the {#external_id} property
     # @option attributes [String] :management_agent_id The value to assign to the {#management_agent_id} property
@@ -151,6 +170,7 @@ module OCI
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Array<OCI::StackMonitoring::Models::MonitoredResourceProperty>] :properties The value to assign to the {#properties} property
+    # @option attributes [String] :license The value to assign to the {#license} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
@@ -171,6 +191,12 @@ module OCI
       self.display_name = attributes[:'display_name'] if attributes[:'display_name']
 
       self.type = attributes[:'type'] if attributes[:'type']
+
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
       self.host_name = attributes[:'hostName'] if attributes[:'hostName']
 
@@ -210,6 +236,8 @@ module OCI
 
       self.properties = attributes[:'properties'] if attributes[:'properties']
 
+      self.license = attributes[:'license'] if attributes[:'license']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -244,6 +272,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] license Object to be assigned
+    def license=(license)
+      # rubocop:disable Style/ConditionalAssignment
+      if license && !LICENSE_ENUM.include?(license)
+        OCI.logger.debug("Unknown value for 'license' [" + license + "]. Mapping to 'LICENSE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @license = LICENSE_UNKNOWN_ENUM_VALUE
+      else
+        @license = license
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -257,6 +298,7 @@ module OCI
         name == other.name &&
         display_name == other.display_name &&
         type == other.type &&
+        compartment_id == other.compartment_id &&
         host_name == other.host_name &&
         external_id == other.external_id &&
         management_agent_id == other.management_agent_id &&
@@ -264,6 +306,7 @@ module OCI
         time_updated == other.time_updated &&
         lifecycle_state == other.lifecycle_state &&
         properties == other.properties &&
+        license == other.license &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         system_tags == other.system_tags
@@ -282,7 +325,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, display_name, type, host_name, external_id, management_agent_id, time_created, time_updated, lifecycle_state, properties, freeform_tags, defined_tags, system_tags].hash
+      [id, name, display_name, type, compartment_id, host_name, external_id, management_agent_id, time_created, time_updated, lifecycle_state, properties, license, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

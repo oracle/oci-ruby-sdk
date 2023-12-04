@@ -100,6 +100,135 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Activates the specified Remediation Recipe.
+    # @param [String] remediation_recipe_id The Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)) of a Remediation Recipe, as a URL path parameter.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/activate_remediation_recipe.rb.html) to see an example of how to use activate_remediation_recipe API.
+    def activate_remediation_recipe(remediation_recipe_id, opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#activate_remediation_recipe.' if logger
+
+      raise "Missing the required parameter 'remediation_recipe_id' when calling activate_remediation_recipe." if remediation_recipe_id.nil?
+      raise "Parameter value for 'remediation_recipe_id' must not be blank" if OCI::Internal::Util.blank_string?(remediation_recipe_id)
+
+      path = '/remediationRecipes/{remediationRecipeId}/actions/activate'.sub('{remediationRecipeId}', remediation_recipe_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#activate_remediation_recipe') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Cancels the specified remediation run.
+    # @param [String] remediation_run_id Unique Remediation Run identifier path parameter.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::Adm::Models::RemediationRun RemediationRun}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/cancel_remediation_run.rb.html) to see an example of how to use cancel_remediation_run API.
+    def cancel_remediation_run(remediation_run_id, opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#cancel_remediation_run.' if logger
+
+      raise "Missing the required parameter 'remediation_run_id' when calling cancel_remediation_run." if remediation_run_id.nil?
+      raise "Parameter value for 'remediation_run_id' must not be blank" if OCI::Internal::Util.blank_string?(remediation_run_id)
+
+      path = '/remediationRuns/{remediationRunId}/actions/cancel'.sub('{remediationRunId}', remediation_run_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#cancel_remediation_run') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Adm::Models::RemediationRun'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Cancel work request with the given ID.
     # @param [String] work_request_id The Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)) of the asynchronous request.
     # @param [Hash] opts the optional parameters
@@ -209,6 +338,146 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#change_knowledge_base_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a Remediation Recipe from one compartment to another.
+    # @param [String] remediation_recipe_id The Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)) of a Remediation Recipe, as a URL path parameter.
+    # @param [OCI::Adm::Models::ChangeRemediationRecipeCompartmentDetails] change_remediation_recipe_compartment_details The information to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/change_remediation_recipe_compartment.rb.html) to see an example of how to use change_remediation_recipe_compartment API.
+    def change_remediation_recipe_compartment(remediation_recipe_id, change_remediation_recipe_compartment_details, opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#change_remediation_recipe_compartment.' if logger
+
+      raise "Missing the required parameter 'remediation_recipe_id' when calling change_remediation_recipe_compartment." if remediation_recipe_id.nil?
+      raise "Missing the required parameter 'change_remediation_recipe_compartment_details' when calling change_remediation_recipe_compartment." if change_remediation_recipe_compartment_details.nil?
+      raise "Parameter value for 'remediation_recipe_id' must not be blank" if OCI::Internal::Util.blank_string?(remediation_recipe_id)
+
+      path = '/remediationRecipes/{remediationRecipeId}/actions/changeCompartment'.sub('{remediationRecipeId}', remediation_recipe_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_remediation_recipe_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#change_remediation_recipe_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Moves a remediation run from one compartment to another.
+    # @param [String] remediation_run_id Unique Remediation Run identifier path parameter.
+    # @param [OCI::Adm::Models::ChangeRemediationRunCompartmentDetails] change_remediation_run_compartment_details The information to be updated.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/change_remediation_run_compartment.rb.html) to see an example of how to use change_remediation_run_compartment API.
+    def change_remediation_run_compartment(remediation_run_id, change_remediation_run_compartment_details, opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#change_remediation_run_compartment.' if logger
+
+      raise "Missing the required parameter 'remediation_run_id' when calling change_remediation_run_compartment." if remediation_run_id.nil?
+      raise "Missing the required parameter 'change_remediation_run_compartment_details' when calling change_remediation_run_compartment." if change_remediation_run_compartment_details.nil?
+      raise "Parameter value for 'remediation_run_id' must not be blank" if OCI::Internal::Util.blank_string?(remediation_run_id)
+
+      path = '/remediationRuns/{remediationRunId}/actions/changeCompartment'.sub('{remediationRunId}', remediation_run_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_remediation_run_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#change_remediation_run_compartment') do
         @api_client.call_api(
           :POST,
           path,
@@ -360,6 +629,127 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a new Remediation Recipe.
+    # @param [OCI::Adm::Models::CreateRemediationRecipeDetails] create_remediation_recipe_details The details to create a new Remediation Recipe.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/create_remediation_recipe.rb.html) to see an example of how to use create_remediation_recipe API.
+    def create_remediation_recipe(create_remediation_recipe_details, opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#create_remediation_recipe.' if logger
+
+      raise "Missing the required parameter 'create_remediation_recipe_details' when calling create_remediation_recipe." if create_remediation_recipe_details.nil?
+
+      path = '/remediationRecipes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_remediation_recipe_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#create_remediation_recipe') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Creates a new remediation run.
+    # @param [OCI::Adm::Models::CreateRemediationRunDetails] create_remediation_run_details The details used to create a new remediation run.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations. For example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   might be rejected.
+    #
+    # @return [Response] A Response object with data of type {OCI::Adm::Models::RemediationRun RemediationRun}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/create_remediation_run.rb.html) to see an example of how to use create_remediation_run API.
+    def create_remediation_run(create_remediation_run_details, opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#create_remediation_run.' if logger
+
+      raise "Missing the required parameter 'create_remediation_run_details' when calling create_remediation_run." if create_remediation_run_details.nil?
+
+      path = '/remediationRuns'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_remediation_run_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#create_remediation_run') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Adm::Models::RemediationRun'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates a new Vulnerability Audit by providing a tree of Application Dependencies.
     # @param [OCI::Adm::Models::CreateVulnerabilityAuditDetails] create_vulnerability_audit_details The details to create a new Vulnerability Audit.
     # @param [Hash] opts the optional parameters
@@ -428,6 +818,66 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Deactivates the specified Remediation Recipe.
+    # @param [String] remediation_recipe_id The Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)) of a Remediation Recipe, as a URL path parameter.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/deactivate_remediation_recipe.rb.html) to see an example of how to use deactivate_remediation_recipe API.
+    def deactivate_remediation_recipe(remediation_recipe_id, opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#deactivate_remediation_recipe.' if logger
+
+      raise "Missing the required parameter 'remediation_recipe_id' when calling deactivate_remediation_recipe." if remediation_recipe_id.nil?
+      raise "Parameter value for 'remediation_recipe_id' must not be blank" if OCI::Internal::Util.blank_string?(remediation_recipe_id)
+
+      path = '/remediationRecipes/{remediationRecipeId}/actions/deactivate'.sub('{remediationRecipeId}', remediation_recipe_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#deactivate_remediation_recipe') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Deletes the specified Knowledge Base.
     # @param [String] knowledge_base_id The Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)) of a Knowledge Base, as a URL path parameter.
     # @param [Hash] opts the optional parameters
@@ -467,6 +917,126 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#delete_knowledge_base') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified Remediation Recipe.
+    # @param [String] remediation_recipe_id The Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)) of a Remediation Recipe, as a URL path parameter.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/delete_remediation_recipe.rb.html) to see an example of how to use delete_remediation_recipe API.
+    def delete_remediation_recipe(remediation_recipe_id, opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#delete_remediation_recipe.' if logger
+
+      raise "Missing the required parameter 'remediation_recipe_id' when calling delete_remediation_recipe." if remediation_recipe_id.nil?
+      raise "Parameter value for 'remediation_recipe_id' must not be blank" if OCI::Internal::Util.blank_string?(remediation_recipe_id)
+
+      path = '/remediationRecipes/{remediationRecipeId}'.sub('{remediationRecipeId}', remediation_recipe_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#delete_remediation_recipe') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified remediation run.
+    # @param [String] remediation_run_id Unique Remediation Run identifier path parameter.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/delete_remediation_run.rb.html) to see an example of how to use delete_remediation_run API.
+    def delete_remediation_run(remediation_run_id, opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#delete_remediation_run.' if logger
+
+      raise "Missing the required parameter 'remediation_run_id' when calling delete_remediation_run." if remediation_run_id.nil?
+      raise "Parameter value for 'remediation_run_id' must not be blank" if OCI::Internal::Util.blank_string?(remediation_run_id)
+
+      path = '/remediationRuns/{remediationRunId}'.sub('{remediationRunId}', remediation_run_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#delete_remediation_run') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -602,6 +1172,175 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns the details of the specified RemediationRecipe.
+    # @param [String] remediation_recipe_id The Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)) of a Remediation Recipe, as a URL path parameter.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::Adm::Models::RemediationRecipe RemediationRecipe}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/get_remediation_recipe.rb.html) to see an example of how to use get_remediation_recipe API.
+    def get_remediation_recipe(remediation_recipe_id, opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#get_remediation_recipe.' if logger
+
+      raise "Missing the required parameter 'remediation_recipe_id' when calling get_remediation_recipe." if remediation_recipe_id.nil?
+      raise "Parameter value for 'remediation_recipe_id' must not be blank" if OCI::Internal::Util.blank_string?(remediation_recipe_id)
+
+      path = '/remediationRecipes/{remediationRecipeId}'.sub('{remediationRecipeId}', remediation_recipe_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#get_remediation_recipe') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Adm::Models::RemediationRecipe'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns the details of the specified remediation run.
+    # @param [String] remediation_run_id Unique Remediation Run identifier path parameter.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::Adm::Models::RemediationRun RemediationRun}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/get_remediation_run.rb.html) to see an example of how to use get_remediation_run API.
+    def get_remediation_run(remediation_run_id, opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#get_remediation_run.' if logger
+
+      raise "Missing the required parameter 'remediation_run_id' when calling get_remediation_run." if remediation_run_id.nil?
+      raise "Parameter value for 'remediation_run_id' must not be blank" if OCI::Internal::Util.blank_string?(remediation_run_id)
+
+      path = '/remediationRuns/{remediationRunId}'.sub('{remediationRunId}', remediation_run_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#get_remediation_run') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Adm::Models::RemediationRun'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns the details of the specified Remediation Run Stage.
+    # @param [String] remediation_run_id Unique Remediation Run identifier path parameter.
+    # @param [String] stage_type The type of Remediation Run Stage, as a URL path parameter.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::Adm::Models::RemediationRunStage RemediationRunStage}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/get_stage.rb.html) to see an example of how to use get_stage API.
+    def get_stage(remediation_run_id, stage_type, opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#get_stage.' if logger
+
+      raise "Missing the required parameter 'remediation_run_id' when calling get_stage." if remediation_run_id.nil?
+      raise "Missing the required parameter 'stage_type' when calling get_stage." if stage_type.nil?
+      unless OCI::Adm::Models::REMEDIATION_RUN_STAGE_TYPE_ENUM.include?(stage_type)
+        raise 'Invalid value for "stage_type", must be one of the values in OCI::Adm::Models::REMEDIATION_RUN_STAGE_TYPE_ENUM.'
+      end
+
+      raise "Parameter value for 'remediation_run_id' must not be blank" if OCI::Internal::Util.blank_string?(remediation_run_id)
+      raise "Parameter value for 'stage_type' must not be blank" if OCI::Internal::Util.blank_string?(stage_type)
+
+      path = '/remediationRuns/{remediationRunId}/stages/{stageType}'.sub('{remediationRunId}', remediation_run_id.to_s).sub('{stageType}', stage_type.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#get_stage') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Adm::Models::RemediationRunStage'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns the details of the specified Vulnerability Audit.
     # @param [String] vulnerability_audit_id Unique Vulnerability Audit identifier path parameter.
     # @param [Hash] opts the optional parameters
@@ -697,6 +1436,85 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Adm::Models::WorkRequest'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of application dependency with their associated recommendations.
+    # @param [String] remediation_run_id Unique Remediation Run identifier path parameter.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
+    # @option opts [String] :page A token representing the position at which to start retrieving results. This must come from the `opc-next-page` header field of a previous response.
+    # @option opts [String] :sort_order The sort order to use, either 'ASC' or 'DESC'.
+    # @option opts [String] :gav A filter to return only resources that match the entire GAV (Group Artifact Version) identifier given.
+    # @option opts [String] :sort_by The field to sort by. Only one sort order may be provided.
+    #   If sort order is dfs, the nodes are returned by going through the application dependency tree in a depth-first manner. Children are sorted based on their GAV property alphabetically (either ascending or descending, depending on the order parameter). Default order is ascending.
+    #   If sort order is bfs, the nodes are returned by going through the application dependency tree in a breadth-first manner. Children are sorted based on their GAV property alphabetically (either ascending or descending, depending on the order parameter). Default order is ascending.
+    #   Default order for gav is ascending where ascending corresponds to alphanumerical order.
+    #   Default order for nodeId is ascending where ascending corresponds to alphanumerical order.
+    #   Sorting by DFS or BFS cannot be used in conjunction with the following query parameters: \"gav\", \"cvssV2GreaterThanOrEqual\", \"cvssV3GreaterThanOrEqual\" and \"vulnerabilityId\".
+    #    (default to gav)
+    #   Allowed values are: gav, nodeId, dfs, bfs
+    # @return [Response] A Response object with data of type {OCI::Adm::Models::ApplicationDependencyRecommendationCollection ApplicationDependencyRecommendationCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/list_application_dependency_recommendations.rb.html) to see an example of how to use list_application_dependency_recommendations API.
+    def list_application_dependency_recommendations(remediation_run_id, opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#list_application_dependency_recommendations.' if logger
+
+      raise "Missing the required parameter 'remediation_run_id' when calling list_application_dependency_recommendations." if remediation_run_id.nil?
+
+      if opts[:sort_order] && !OCI::Adm::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Adm::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[gav nodeId dfs bfs].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of gav, nodeId, dfs, bfs.'
+      end
+      raise "Parameter value for 'remediation_run_id' must not be blank" if OCI::Internal::Util.blank_string?(remediation_run_id)
+
+      path = '/remediationRuns/{remediationRunId}/applicationDependencyRecommendations'.sub('{remediationRunId}', remediation_run_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:gav] = opts[:gav] if opts[:gav]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#list_application_dependency_recommendations') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Adm::Models::ApplicationDependencyRecommendationCollection'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -812,6 +1630,8 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :id A filter to return only resources that match the specified identifier.
+    #   Required only if the compartmentId query parameter is not specified.
+    #
     # @option opts [String] :sort_by The field used to sort Knowledge Bases. Only one sort order is allowed.
     #   Default order for _displayName_ is **ascending alphabetical order**.
     #   Default order for _lifecyleState_ is the following sequence: **CREATING, ACTIVE, UPDATING, FAILED, DELETING, and DELETED**.Default order for _timeCreated_ is **descending**.
@@ -824,6 +1644,8 @@ module OCI
     # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
     # @option opts [String] :page A token representing the position at which to start retrieving results. This must come from the `opc-next-page` header field of a previous response.
     # @option opts [String] :compartment_id A filter to return only resources that belong to the specified compartment identifier.
+    #   Required only if the id query param is not specified.
+    #
     # @option opts [String] :opc_request_id The client request ID for tracing.
     # @return [Response] A Response object with data of type {OCI::Adm::Models::KnowledgeBaseCollection KnowledgeBaseCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/list_knowledge_bases.rb.html) to see an example of how to use list_knowledge_bases API.
@@ -891,14 +1713,294 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Returns a list of Vulnerability Audits based on the specified query parameters.
-    # At least one of id, compartmentId or knowledgeBaseId query parameter must be provided.
+    # Returns a list of Remediation Recipes based on the specified query parameters.
+    # The query parameters `compartmentId` or `id` must be provided.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :id A filter to return only resources that match the specified identifier.
+    #   Required only if the compartmentId query parameter is not specified.
+    #
+    # @option opts [String] :sort_by The field used to sort Remediation Recipes. Only one sort order is allowed.
+    #   Default order for _displayName_ is **ascending alphabetical order**.
+    #   Default order for _lifecyleState_ is the following sequence: **CREATING, ACTIVE, UPDATING, INACTIVE, FAILED, DELETING, and DELETED**.
+    #   Default order for _timeCreated_ is **descending**.
+    #   Default order for _timeUpdated_ is **descending**.
+    #   Default order for _type_ is the following sequence: **ADM**.
+    #    (default to timeCreated)
+    #   Allowed values are: DISPLAY_NAME, LIFECYCLE_STATE, TIME_CREATED, TIME_UPDATED, TYPE
+    # @option opts [String] :lifecycle_state A filter to return only Remediation Recipes that match the specified lifecycleState.
+    # @option opts [String] :sort_order The sort order to use, either 'ASC' or 'DESC'.
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
+    # @option opts [String] :page A token representing the position at which to start retrieving results. This must come from the `opc-next-page` header field of a previous response.
     # @option opts [String] :compartment_id A filter to return only resources that belong to the specified compartment identifier.
+    #   Required only if the id query param is not specified.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::Adm::Models::RemediationRecipeCollection RemediationRecipeCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/list_remediation_recipes.rb.html) to see an example of how to use list_remediation_recipes API.
+    def list_remediation_recipes(opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#list_remediation_recipes.' if logger
+
+
+      if opts[:sort_by] && !%w[DISPLAY_NAME LIFECYCLE_STATE TIME_CREATED TIME_UPDATED TYPE].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of DISPLAY_NAME, LIFECYCLE_STATE, TIME_CREATED, TIME_UPDATED, TYPE.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Adm::Models::RemediationRecipe::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Adm::Models::RemediationRecipe::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::Adm::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Adm::Models::SORT_ORDER_ENUM.'
+      end
+
+      path = '/remediationRecipes'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#list_remediation_recipes') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Adm::Models::RemediationRecipeCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of remediation runs contained by a compartment.
+    # The query parameter `compartmentId` is required unless the query parameter `id` is specified.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :id A filter to return only resources that match the specified identifier.
+    #   Required only if the compartmentId query parameter is not specified.
+    #
+    # @option opts [String] :remediation_recipe_id A filter to return only resources that match the specified Remediation Recipe identifier.
+    # @option opts [String] :lifecycle_state A filter to return only Remediation Runs that match the specified lifecycleState.
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given.
+    # @option opts [String] :sort_order The sort order to use, either 'ASC' or 'DESC'.
+    # @option opts [String] :sort_by The field used to sort Remediation Runs. Only one sort order is allowed.
+    #   Default order for _timeCreated_ is **descending**.
+    #   Default order for _timeFinished_ is **descending**.
+    #   Default order for _timeStarted_ is **descending**.
+    #   Default order for _displayName_ is **ascending alphabetical order**.
+    #   Default order for _lifecycleState_ is the following sequence: **CREATING, ACTIVE, UPDATING, DELETING, DELETED, and FAILED**.
+    #   Default order for currentStageType is the following sequence: **DETECT, RECOMMEND, VERIFY, and APPLY**.
+    #    (default to timeCreated)
+    #   Allowed values are: timeCreated, timeFinished, timeStarted, displayName, lifecycleState, currentStageType
+    # @option opts [String] :compartment_id A filter to return only resources that belong to the specified compartment identifier.
+    #   Required only if the id query param is not specified.
+    #
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
+    # @option opts [String] :page A token representing the position at which to start retrieving results. This must come from the `opc-next-page` header field of a previous response.
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::Adm::Models::RemediationRunCollection RemediationRunCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/list_remediation_runs.rb.html) to see an example of how to use list_remediation_runs API.
+    def list_remediation_runs(opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#list_remediation_runs.' if logger
+
+
+      if opts[:lifecycle_state] && !OCI::Adm::Models::RemediationRun::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Adm::Models::RemediationRun::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::Adm::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Adm::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[timeCreated timeFinished timeStarted displayName lifecycleState currentStageType].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of timeCreated, timeFinished, timeStarted, displayName, lifecycleState, currentStageType.'
+      end
+
+      path = '/remediationRuns'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:id] = opts[:id] if opts[:id]
+      query_params[:remediationRecipeId] = opts[:remediation_recipe_id] if opts[:remediation_recipe_id]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#list_remediation_runs') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Adm::Models::RemediationRunCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of Remediation Run Stages based on the specified query parameters and Remediation Run identifier.
+    # @param [String] remediation_run_id Unique Remediation Run identifier path parameter.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :type A filter to return only Stages that match the specified type.
+    # @option opts [String] :status A filter to return only Stages that match the specified status.
+    # @option opts [String] :sort_order The sort order to use, either 'ASC' or 'DESC'.
+    # @option opts [Integer] :limit The maximum number of items to return. (default to 100)
+    # @option opts [String] :page A token representing the position at which to start retrieving results. This must come from the `opc-next-page` header field of a previous response.
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @option opts [String] :sort_by The field used to sort Stages. Only one sort order is allowed.
+    #   Default order for status is the following sequence: **CREATED, IN_PROGRESS, SUCCEEDED, FAILED, CANCELING, and CANCELED**.
+    #   Default order for _timeCreated_ is **descending**.
+    #   Default order for _timeFinished_ is **descending**.
+    #   Default order for _timeStarted_ is **descending**.
+    #   Default order for _type_ is the following sequence: **DETECT, RECOMMEND, VERIFY, and APPLY**.
+    #    (default to timeCreated)
+    #   Allowed values are: status, timeCreated, timeFinished, timeStarted, type
+    # @return [Response] A Response object with data of type {OCI::Adm::Models::RemediationRunStageCollection RemediationRunStageCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/list_stages.rb.html) to see an example of how to use list_stages API.
+    def list_stages(remediation_run_id, opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#list_stages.' if logger
+
+      raise "Missing the required parameter 'remediation_run_id' when calling list_stages." if remediation_run_id.nil?
+
+      if opts[:type] && !OCI::Adm::Models::REMEDIATION_RUN_STAGE_TYPE_ENUM.include?(opts[:type])
+        raise 'Invalid value for "type", must be one of the values in OCI::Adm::Models::REMEDIATION_RUN_STAGE_TYPE_ENUM.'
+      end
+
+      if opts[:status] && !OCI::Adm::Models::RemediationRunStage::STATUS_ENUM.include?(opts[:status])
+        raise 'Invalid value for "status", must be one of the values in OCI::Adm::Models::RemediationRunStage::STATUS_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::Adm::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Adm::Models::SORT_ORDER_ENUM.'
+      end
+
+      if opts[:sort_by] && !%w[status timeCreated timeFinished timeStarted type].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of status, timeCreated, timeFinished, timeStarted, type.'
+      end
+      raise "Parameter value for 'remediation_run_id' must not be blank" if OCI::Internal::Util.blank_string?(remediation_run_id)
+
+      path = '/remediationRuns/{remediationRunId}/stages'.sub('{remediationRunId}', remediation_run_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:type] = opts[:type] if opts[:type]
+      query_params[:status] = opts[:status] if opts[:status]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#list_stages') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Adm::Models::RemediationRunStageCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns a list of Vulnerability Audits based on the specified query parameters.
+    # At least one of id, compartmentId query parameter must be provided.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :id A filter to return only resources that match the specified identifier.
+    #   Required only if the compartmentId query parameter is not specified.
+    #
+    # @option opts [String] :compartment_id A filter to return only resources that belong to the specified compartment identifier.
+    #   Required only if the id query param is not specified.
+    #
     # @option opts [String] :knowledge_base_id A filter to return only Vulnerability Audits that were created against the specified knowledge base.
     # @option opts [BOOLEAN] :is_success A filter to return only successful or failed Vulnerability Audits.
     # @option opts [String] :lifecycle_state A filter to return only Vulnerability Audits that match the specified lifecycleState.
@@ -1137,6 +2239,8 @@ module OCI
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [String] :compartment_id A filter to return only resources that belong to the specified compartment identifier.
+    #   Required only if the id query param is not specified.
+    #
     # @option opts [String] :work_request_id The identifier of the asynchronous work request.
     # @option opts [String] :status A filter to return only resources that match the specified OperationStatus.
     # @option opts [String] :resource_id The Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)) of the resource affected by the work request.
@@ -1262,6 +2366,131 @@ module OCI
           query_params: query_params,
           operation_signing_strategy: operation_signing_strategy,
           body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates one or more attributes of the specified Remediation Recipe.
+    # @param [String] remediation_recipe_id The Oracle Cloud Identifier ([OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm)) of a Remediation Recipe, as a URL path parameter.
+    # @param [OCI::Adm::Models::UpdateRemediationRecipeDetails] update_remediation_recipe_details The details to update a Remediation Recipe.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/update_remediation_recipe.rb.html) to see an example of how to use update_remediation_recipe API.
+    def update_remediation_recipe(remediation_recipe_id, update_remediation_recipe_details, opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#update_remediation_recipe.' if logger
+
+      raise "Missing the required parameter 'remediation_recipe_id' when calling update_remediation_recipe." if remediation_recipe_id.nil?
+      raise "Missing the required parameter 'update_remediation_recipe_details' when calling update_remediation_recipe." if update_remediation_recipe_details.nil?
+      raise "Parameter value for 'remediation_recipe_id' must not be blank" if OCI::Internal::Util.blank_string?(remediation_recipe_id)
+
+      path = '/remediationRecipes/{remediationRecipeId}'.sub('{remediationRecipeId}', remediation_recipe_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_remediation_recipe_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#update_remediation_recipe') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates by identifier one or more attributes of the specified remediation run.
+    # @param [String] remediation_run_id Unique Remediation Run identifier path parameter.
+    # @param [OCI::Adm::Models::UpdateRemediationRunDetails] update_remediation_run_details The details used to update a remediation run.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call
+    #   for a resource, set the `if-match` parameter to the value of the
+    #   etag from a previous GET or POST response for that resource.
+    #   The resource will be updated or deleted only if the etag you
+    #   provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    # @return [Response] A Response object with data of type {OCI::Adm::Models::RemediationRun RemediationRun}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/adm/update_remediation_run.rb.html) to see an example of how to use update_remediation_run API.
+    def update_remediation_run(remediation_run_id, update_remediation_run_details, opts = {})
+      logger.debug 'Calling operation ApplicationDependencyManagementClient#update_remediation_run.' if logger
+
+      raise "Missing the required parameter 'remediation_run_id' when calling update_remediation_run." if remediation_run_id.nil?
+      raise "Missing the required parameter 'update_remediation_run_details' when calling update_remediation_run." if update_remediation_run_details.nil?
+      raise "Parameter value for 'remediation_run_id' must not be blank" if OCI::Internal::Util.blank_string?(remediation_run_id)
+
+      path = '/remediationRuns/{remediationRunId}'.sub('{remediationRunId}', remediation_run_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_remediation_run_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'ApplicationDependencyManagementClient#update_remediation_run') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Adm::Models::RemediationRun'
         )
       end
       # rubocop:enable Metrics/BlockLength

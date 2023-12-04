@@ -6,7 +6,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # The details for associating this DR Protection Group with a peer (remote) DR Protection Group.
+  # The details for associating a DR protection group with a peer DR protection group.
   class DisasterRecovery::Models::AssociateDrProtectionGroupDetails
     ROLE_ENUM = [
       ROLE_PRIMARY = 'PRIMARY'.freeze,
@@ -14,21 +14,23 @@ module OCI
       ROLE_UNCONFIGURED = 'UNCONFIGURED'.freeze
     ].freeze
 
-    # The OCID of the peer (remote) DR Protection Group.
+    # The OCID of the peer DR protection group.
     #
-    # Example: `ocid1.drprotectiongroup.oc1.iad.&lt;unique_id&gt;`
+    # Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @return [String]
     attr_accessor :peer_id
 
-    # The region of the peer (remote) DR Protection Group.
+    # The region of the peer DR protection group.
     #
     # Example: `us-ashburn-1`
     #
     # @return [String]
     attr_accessor :peer_region
 
-    # **[Required]** The role of this DR Protection Group.
+    # **[Required]** The role of the DR protection group.
+    #
+    # Example: `STANDBY`
     #
     # @return [String]
     attr_reader :role

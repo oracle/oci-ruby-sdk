@@ -6,9 +6,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Contains a list of DR Plans.
+  # A list of DR plan summaries.
   class DisasterRecovery::Models::DrPlanCollection
-    # **[Required]** A list of DR Plan objects.
+    # **[Required]** A list of DR plan summaries.
     #
     # @return [Array<OCI::DisasterRecovery::Models::DrPlanSummary>]
     attr_accessor :items

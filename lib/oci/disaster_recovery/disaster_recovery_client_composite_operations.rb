@@ -30,10 +30,10 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#associate_dr_protection_group} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DisasterRecovery::Models::AssociateDrProtectionGroupDetails] associate_dr_protection_group_details Details for creating an association between two DR Protection Groups.
-    # @param [String] dr_protection_group_id The OCID of the DR Protection Group.
+    # @param [OCI::DisasterRecovery::Models::AssociateDrProtectionGroupDetails] associate_dr_protection_group_details Details for creating an association between two DR protection groups.
+    # @param [String] dr_protection_group_id The OCID of the DR protection group.
     #
-    #   Example: `ocid1.drprotectiongroup.oc1.phx.exampleocid`
+    #   Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#associate_dr_protection_group}
@@ -83,10 +83,10 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#cancel_dr_plan_execution} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DisasterRecovery::Models::CancelDrPlanExecutionDetails] cancel_dr_plan_execution_details Details for canceling a DR Plan Execution.
-    # @param [String] dr_plan_execution_id The OCID of the DR Plan Execution.
+    # @param [OCI::DisasterRecovery::Models::CancelDrPlanExecutionDetails] cancel_dr_plan_execution_details Details for canceling the DR plan execution.
+    # @param [String] dr_plan_execution_id The OCID of the DR plan execution.
     #
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#cancel_dr_plan_execution}
@@ -136,10 +136,10 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#change_dr_protection_group_compartment} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DisasterRecovery::Models::ChangeDrProtectionGroupCompartmentDetails] change_dr_protection_group_compartment_details Details of DR Protection Group compartment to change.
-    # @param [String] dr_protection_group_id The OCID of the DR Protection Group.
+    # @param [OCI::DisasterRecovery::Models::ChangeDrProtectionGroupCompartmentDetails] change_dr_protection_group_compartment_details Details for changing the DR protection group compartment.
+    # @param [String] dr_protection_group_id The OCID of the DR protection group.
     #
-    #   Example: `ocid1.drprotectiongroup.oc1.phx.exampleocid`
+    #   Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#change_dr_protection_group_compartment}
@@ -189,7 +189,7 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#create_dr_plan} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DisasterRecovery::Models::CreateDrPlanDetails] create_dr_plan_details Details for creating the new DR Plan.
+    # @param [OCI::DisasterRecovery::Models::CreateDrPlanDetails] create_dr_plan_details Details for creating the new DR plan.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#create_dr_plan}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -238,7 +238,7 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#create_dr_plan_execution} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DisasterRecovery::Models::CreateDrPlanExecutionDetails] create_dr_plan_execution_details Details for the new DR Plan Execution.
+    # @param [OCI::DisasterRecovery::Models::CreateDrPlanExecutionDetails] create_dr_plan_execution_details Details for creating the DR plan execution.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#create_dr_plan_execution}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -287,7 +287,7 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#create_dr_protection_group} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DisasterRecovery::Models::CreateDrProtectionGroupDetails] create_dr_protection_group_details Details for the new DR Protection Group.
+    # @param [OCI::DisasterRecovery::Models::CreateDrProtectionGroupDetails] create_dr_protection_group_details Details for creating the DR protection group.
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#create_dr_protection_group}
     # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
@@ -336,9 +336,9 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#delete_dr_plan} and then waits for the {OCI::DisasterRecovery::Models::DrPlan} acted upon
     # to enter the given state(s).
     #
-    # @param [String] dr_plan_id The OCID of the DR Plan.
+    # @param [String] dr_plan_id The OCID of the DR plan.
     #
-    #   Example: `ocid1.drplan.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplan.oc1..uniqueID`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::DrPlan#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#delete_dr_plan}
@@ -379,9 +379,9 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#delete_dr_plan_execution} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] dr_plan_execution_id The OCID of the DR Plan Execution.
+    # @param [String] dr_plan_execution_id The OCID of the DR plan execution.
     #
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#delete_dr_plan_execution}
@@ -431,9 +431,9 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#delete_dr_protection_group} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] dr_protection_group_id The OCID of the DR Protection Group.
+    # @param [String] dr_protection_group_id The OCID of the DR protection group.
     #
-    #   Example: `ocid1.drprotectiongroup.oc1.phx.exampleocid`
+    #   Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#delete_dr_protection_group}
@@ -483,10 +483,10 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#disassociate_dr_protection_group} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DisasterRecovery::Models::DisassociateDrProtectionGroupDetails] disassociate_dr_protection_group_details Details for removing an association between two DR Protection Groups.
-    # @param [String] dr_protection_group_id The OCID of the DR Protection Group.
+    # @param [OCI::DisasterRecovery::Models::DisassociateDrProtectionGroupDetails] disassociate_dr_protection_group_details Details for deleting the association between two DR protection groups.
+    # @param [String] dr_protection_group_id The OCID of the DR protection group.
     #
-    #   Example: `ocid1.drprotectiongroup.oc1.phx.exampleocid`
+    #   Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#disassociate_dr_protection_group}
@@ -536,10 +536,10 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#ignore_dr_plan_execution} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DisasterRecovery::Models::IgnoreDrPlanExecutionDetails] ignore_dr_plan_execution_details Details of the failed group or step to ignore.
-    # @param [String] dr_plan_execution_id The OCID of the DR Plan Execution.
+    # @param [OCI::DisasterRecovery::Models::IgnoreDrPlanExecutionDetails] ignore_dr_plan_execution_details Details for ignoring the failed group or step and resuming execution.
+    # @param [String] dr_plan_execution_id The OCID of the DR plan execution.
     #
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#ignore_dr_plan_execution}
@@ -589,10 +589,10 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#pause_dr_plan_execution} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DisasterRecovery::Models::PauseDrPlanExecutionDetails] pause_dr_plan_execution_details Details for pausing a DR Plan Execution.
-    # @param [String] dr_plan_execution_id The OCID of the DR Plan Execution.
+    # @param [OCI::DisasterRecovery::Models::PauseDrPlanExecutionDetails] pause_dr_plan_execution_details Details for pausing the DR plan execution.
+    # @param [String] dr_plan_execution_id The OCID of the DR plan execution.
     #
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#pause_dr_plan_execution}
@@ -642,10 +642,10 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#resume_dr_plan_execution} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DisasterRecovery::Models::ResumeDrPlanExecutionDetails] resume_dr_plan_execution_details Details for resuming a DR Plan Execution.
-    # @param [String] dr_plan_execution_id The OCID of the DR Plan Execution.
+    # @param [OCI::DisasterRecovery::Models::ResumeDrPlanExecutionDetails] resume_dr_plan_execution_details Details for resuming the DR plan execution.
+    # @param [String] dr_plan_execution_id The OCID of the DR plan execution.
     #
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#resume_dr_plan_execution}
@@ -695,10 +695,10 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#retry_dr_plan_execution} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DisasterRecovery::Models::RetryDrPlanExecutionDetails] retry_dr_plan_execution_details Details of the failed group or step to retry.
-    # @param [String] dr_plan_execution_id The OCID of the DR Plan Execution.
+    # @param [OCI::DisasterRecovery::Models::RetryDrPlanExecutionDetails] retry_dr_plan_execution_details Details for retrying execution of the failed group or step.
+    # @param [String] dr_plan_execution_id The OCID of the DR plan execution.
     #
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#retry_dr_plan_execution}
@@ -748,10 +748,10 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#update_dr_plan} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DisasterRecovery::Models::UpdateDrPlanDetails] update_dr_plan_details Details of DR Plan to update.
-    # @param [String] dr_plan_id The OCID of the DR Plan.
+    # @param [OCI::DisasterRecovery::Models::UpdateDrPlanDetails] update_dr_plan_details Details for updating the DR plan.
+    # @param [String] dr_plan_id The OCID of the DR plan.
     #
-    #   Example: `ocid1.drplan.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplan.oc1..uniqueID`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#update_dr_plan}
@@ -801,10 +801,10 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#update_dr_plan_execution} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DisasterRecovery::Models::UpdateDrPlanExecutionDetails] update_dr_plan_execution_details Details of DR Plan Execution to update.
-    # @param [String] dr_plan_execution_id The OCID of the DR Plan Execution.
+    # @param [OCI::DisasterRecovery::Models::UpdateDrPlanExecutionDetails] update_dr_plan_execution_details Details for updating the DR plan execution.
+    # @param [String] dr_plan_execution_id The OCID of the DR plan execution.
     #
-    #   Example: `ocid1.drplanexecution.oc1.iad.exampleocid`
+    #   Example: `ocid1.drplanexecution.oc1..uniqueID`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#update_dr_plan_execution}
@@ -854,10 +854,10 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#update_dr_protection_group} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DisasterRecovery::Models::UpdateDrProtectionGroupDetails] update_dr_protection_group_details Details of DR Protection Group to update.
-    # @param [String] dr_protection_group_id The OCID of the DR Protection Group.
+    # @param [OCI::DisasterRecovery::Models::UpdateDrProtectionGroupDetails] update_dr_protection_group_details Details for updating the the DR protection group.
+    # @param [String] dr_protection_group_id The OCID of the DR protection group.
     #
-    #   Example: `ocid1.drprotectiongroup.oc1.phx.exampleocid`
+    #   Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#update_dr_protection_group}
@@ -907,10 +907,10 @@ module OCI
     # Calls {OCI::DisasterRecovery::DisasterRecoveryClient#update_dr_protection_group_role} and then waits for the {OCI::DisasterRecovery::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::DisasterRecovery::Models::UpdateDrProtectionGroupRoleDetails] update_dr_protection_group_role_details The role details for the DR Protection Group.
-    # @param [String] dr_protection_group_id The OCID of the DR Protection Group.
+    # @param [OCI::DisasterRecovery::Models::UpdateDrProtectionGroupRoleDetails] update_dr_protection_group_role_details The role details for the DR protection group to be updated.
+    # @param [String] dr_protection_group_id The OCID of the DR protection group.
     #
-    #   Example: `ocid1.drprotectiongroup.oc1.phx.exampleocid`
+    #   Example: `ocid1.drprotectiongroup.oc1..uniqueID`
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::DisasterRecovery::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::DisasterRecovery::DisasterRecoveryClient#update_dr_protection_group_role}

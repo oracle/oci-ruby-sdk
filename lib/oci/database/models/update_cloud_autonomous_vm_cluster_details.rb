@@ -25,6 +25,18 @@ module OCI
     # @return [OCI::Database::Models::MaintenanceWindow]
     attr_accessor :maintenance_window_details
 
+    # The new scaled up/down value for exadata storage in TBs for cloud autonomous VM cluster.
+    # @return [Float]
+    attr_accessor :autonomous_data_storage_size_in_tbs
+
+    # The new scaled up/down value for ocpus for cloud autonomous VM cluster per node.
+    # @return [Integer]
+    attr_accessor :cpu_core_count_per_node
+
+    # The new scaled up/down value for maxACD count for cloud autonomous VM cluster.
+    # @return [Integer]
+    attr_accessor :total_container_databases
+
     # The Oracle license model that applies to the Oracle Autonomous Database. Bring your own license (BYOL) allows you to apply your current on-premises Oracle software licenses to equivalent, highly automated Oracle services in the cloud.
     # License Included allows you to subscribe to new Oracle Database software licenses and the Oracle Database service.
     # Note that when provisioning an [Autonomous Database on dedicated Exadata infrastructure](https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html), this attribute must be null. It is already set at the
@@ -63,6 +75,9 @@ module OCI
         'description': :'description',
         'display_name': :'displayName',
         'maintenance_window_details': :'maintenanceWindowDetails',
+        'autonomous_data_storage_size_in_tbs': :'autonomousDataStorageSizeInTBs',
+        'cpu_core_count_per_node': :'cpuCoreCountPerNode',
+        'total_container_databases': :'totalContainerDatabases',
         'license_model': :'licenseModel',
         'nsg_ids': :'nsgIds',
         'freeform_tags': :'freeformTags',
@@ -78,6 +93,9 @@ module OCI
         'description': :'String',
         'display_name': :'String',
         'maintenance_window_details': :'OCI::Database::Models::MaintenanceWindow',
+        'autonomous_data_storage_size_in_tbs': :'Float',
+        'cpu_core_count_per_node': :'Integer',
+        'total_container_databases': :'Integer',
         'license_model': :'String',
         'nsg_ids': :'Array<String>',
         'freeform_tags': :'Hash<String, String>',
@@ -95,6 +113,9 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window_details The value to assign to the {#maintenance_window_details} property
+    # @option attributes [Float] :autonomous_data_storage_size_in_tbs The value to assign to the {#autonomous_data_storage_size_in_tbs} property
+    # @option attributes [Integer] :cpu_core_count_per_node The value to assign to the {#cpu_core_count_per_node} property
+    # @option attributes [Integer] :total_container_databases The value to assign to the {#total_container_databases} property
     # @option attributes [String] :license_model The value to assign to the {#license_model} property
     # @option attributes [Array<String>] :nsg_ids The value to assign to the {#nsg_ids} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -118,6 +139,24 @@ module OCI
       raise 'You cannot provide both :maintenanceWindowDetails and :maintenance_window_details' if attributes.key?(:'maintenanceWindowDetails') && attributes.key?(:'maintenance_window_details')
 
       self.maintenance_window_details = attributes[:'maintenance_window_details'] if attributes[:'maintenance_window_details']
+
+      self.autonomous_data_storage_size_in_tbs = attributes[:'autonomousDataStorageSizeInTBs'] if attributes[:'autonomousDataStorageSizeInTBs']
+
+      raise 'You cannot provide both :autonomousDataStorageSizeInTBs and :autonomous_data_storage_size_in_tbs' if attributes.key?(:'autonomousDataStorageSizeInTBs') && attributes.key?(:'autonomous_data_storage_size_in_tbs')
+
+      self.autonomous_data_storage_size_in_tbs = attributes[:'autonomous_data_storage_size_in_tbs'] if attributes[:'autonomous_data_storage_size_in_tbs']
+
+      self.cpu_core_count_per_node = attributes[:'cpuCoreCountPerNode'] if attributes[:'cpuCoreCountPerNode']
+
+      raise 'You cannot provide both :cpuCoreCountPerNode and :cpu_core_count_per_node' if attributes.key?(:'cpuCoreCountPerNode') && attributes.key?(:'cpu_core_count_per_node')
+
+      self.cpu_core_count_per_node = attributes[:'cpu_core_count_per_node'] if attributes[:'cpu_core_count_per_node']
+
+      self.total_container_databases = attributes[:'totalContainerDatabases'] if attributes[:'totalContainerDatabases']
+
+      raise 'You cannot provide both :totalContainerDatabases and :total_container_databases' if attributes.key?(:'totalContainerDatabases') && attributes.key?(:'total_container_databases')
+
+      self.total_container_databases = attributes[:'total_container_databases'] if attributes[:'total_container_databases']
 
       self.license_model = attributes[:'licenseModel'] if attributes[:'licenseModel']
 
@@ -166,6 +205,9 @@ module OCI
         description == other.description &&
         display_name == other.display_name &&
         maintenance_window_details == other.maintenance_window_details &&
+        autonomous_data_storage_size_in_tbs == other.autonomous_data_storage_size_in_tbs &&
+        cpu_core_count_per_node == other.cpu_core_count_per_node &&
+        total_container_databases == other.total_container_databases &&
         license_model == other.license_model &&
         nsg_ids == other.nsg_ids &&
         freeform_tags == other.freeform_tags &&
@@ -185,7 +227,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [description, display_name, maintenance_window_details, license_model, nsg_ids, freeform_tags, defined_tags].hash
+      [description, display_name, maintenance_window_details, autonomous_data_storage_size_in_tbs, cpu_core_count_per_node, total_container_databases, license_model, nsg_ids, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

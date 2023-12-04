@@ -36,6 +36,7 @@ module OCI
       LIFECYCLE_STATE_RESTARTING = 'RESTARTING'.freeze,
       LIFECYCLE_STATE_MAINTENANCE_IN_PROGRESS = 'MAINTENANCE_IN_PROGRESS'.freeze,
       LIFECYCLE_STATE_ROLE_CHANGE_IN_PROGRESS = 'ROLE_CHANGE_IN_PROGRESS'.freeze,
+      LIFECYCLE_STATE_ENABLING_AUTONOMOUS_DATA_GUARD = 'ENABLING_AUTONOMOUS_DATA_GUARD'.freeze,
       LIFECYCLE_STATE_UNAVAILABLE = 'UNAVAILABLE'.freeze,
       LIFECYCLE_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
@@ -172,6 +173,14 @@ module OCI
     # @return [String]
     attr_reader :version_preference
 
+    # Indicates if an automatic DST Time Zone file update is enabled for the Autonomous Container Database. If enabled along with Release Update, patching will be done in a Non-Rolling manner.
+    # @return [BOOLEAN]
+    attr_accessor :is_dst_file_update_enabled
+
+    # DST Time Zone File version of the Autonomous Container Database.
+    # @return [String]
+    attr_accessor :dst_file_version
+
     # Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace.
     # For more information, see [Resource Tags](https://docs.cloud.oracle.com/Content/General/Concepts/resourcetags.htm).
     #
@@ -257,6 +266,10 @@ module OCI
     # @return [Float]
     attr_accessor :largest_provisionable_autonomous_database_in_cpus
 
+    # The timestamp of last successful backup. Here NULL value represents either there are no successful backups or backups are not configured for this Autonomous Container Database.
+    # @return [DateTime]
+    attr_accessor :time_of_last_backup
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -286,6 +299,8 @@ module OCI
         'maintenance_window': :'maintenanceWindow',
         'standby_maintenance_buffer_in_days': :'standbyMaintenanceBufferInDays',
         'version_preference': :'versionPreference',
+        'is_dst_file_update_enabled': :'isDstFileUpdateEnabled',
+        'dst_file_version': :'dstFileVersion',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
         'role': :'role',
@@ -302,7 +317,8 @@ module OCI
         'compute_model': :'computeModel',
         'provisioned_cpus': :'provisionedCpus',
         'reserved_cpus': :'reservedCpus',
-        'largest_provisionable_autonomous_database_in_cpus': :'largestProvisionableAutonomousDatabaseInCpus'
+        'largest_provisionable_autonomous_database_in_cpus': :'largestProvisionableAutonomousDatabaseInCpus',
+        'time_of_last_backup': :'timeOfLastBackup'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -336,6 +352,8 @@ module OCI
         'maintenance_window': :'OCI::Database::Models::MaintenanceWindow',
         'standby_maintenance_buffer_in_days': :'Integer',
         'version_preference': :'String',
+        'is_dst_file_update_enabled': :'BOOLEAN',
+        'dst_file_version': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'role': :'String',
@@ -352,7 +370,8 @@ module OCI
         'compute_model': :'String',
         'provisioned_cpus': :'Float',
         'reserved_cpus': :'Float',
-        'largest_provisionable_autonomous_database_in_cpus': :'Float'
+        'largest_provisionable_autonomous_database_in_cpus': :'Float',
+        'time_of_last_backup': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -388,6 +407,8 @@ module OCI
     # @option attributes [OCI::Database::Models::MaintenanceWindow] :maintenance_window The value to assign to the {#maintenance_window} property
     # @option attributes [Integer] :standby_maintenance_buffer_in_days The value to assign to the {#standby_maintenance_buffer_in_days} property
     # @option attributes [String] :version_preference The value to assign to the {#version_preference} property
+    # @option attributes [BOOLEAN] :is_dst_file_update_enabled The value to assign to the {#is_dst_file_update_enabled} property
+    # @option attributes [String] :dst_file_version The value to assign to the {#dst_file_version} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :role The value to assign to the {#role} property
@@ -405,6 +426,7 @@ module OCI
     # @option attributes [Float] :provisioned_cpus The value to assign to the {#provisioned_cpus} property
     # @option attributes [Float] :reserved_cpus The value to assign to the {#reserved_cpus} property
     # @option attributes [Float] :largest_provisionable_autonomous_database_in_cpus The value to assign to the {#largest_provisionable_autonomous_database_in_cpus} property
+    # @option attributes [DateTime] :time_of_last_backup The value to assign to the {#time_of_last_backup} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -559,6 +581,18 @@ module OCI
       self.version_preference = attributes[:'version_preference'] if attributes[:'version_preference']
       self.version_preference = "NEXT_RELEASE_UPDATE" if version_preference.nil? && !attributes.key?(:'versionPreference') && !attributes.key?(:'version_preference') # rubocop:disable Style/StringLiterals
 
+      self.is_dst_file_update_enabled = attributes[:'isDstFileUpdateEnabled'] unless attributes[:'isDstFileUpdateEnabled'].nil?
+
+      raise 'You cannot provide both :isDstFileUpdateEnabled and :is_dst_file_update_enabled' if attributes.key?(:'isDstFileUpdateEnabled') && attributes.key?(:'is_dst_file_update_enabled')
+
+      self.is_dst_file_update_enabled = attributes[:'is_dst_file_update_enabled'] unless attributes[:'is_dst_file_update_enabled'].nil?
+
+      self.dst_file_version = attributes[:'dstFileVersion'] if attributes[:'dstFileVersion']
+
+      raise 'You cannot provide both :dstFileVersion and :dst_file_version' if attributes.key?(:'dstFileVersion') && attributes.key?(:'dst_file_version')
+
+      self.dst_file_version = attributes[:'dst_file_version'] if attributes[:'dst_file_version']
+
       self.freeform_tags = attributes[:'freeformTags'] if attributes[:'freeformTags']
 
       raise 'You cannot provide both :freeformTags and :freeform_tags' if attributes.key?(:'freeformTags') && attributes.key?(:'freeform_tags')
@@ -656,6 +690,12 @@ module OCI
       raise 'You cannot provide both :largestProvisionableAutonomousDatabaseInCpus and :largest_provisionable_autonomous_database_in_cpus' if attributes.key?(:'largestProvisionableAutonomousDatabaseInCpus') && attributes.key?(:'largest_provisionable_autonomous_database_in_cpus')
 
       self.largest_provisionable_autonomous_database_in_cpus = attributes[:'largest_provisionable_autonomous_database_in_cpus'] if attributes[:'largest_provisionable_autonomous_database_in_cpus']
+
+      self.time_of_last_backup = attributes[:'timeOfLastBackup'] if attributes[:'timeOfLastBackup']
+
+      raise 'You cannot provide both :timeOfLastBackup and :time_of_last_backup' if attributes.key?(:'timeOfLastBackup') && attributes.key?(:'time_of_last_backup')
+
+      self.time_of_last_backup = attributes[:'time_of_last_backup'] if attributes[:'time_of_last_backup']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -785,6 +825,8 @@ module OCI
         maintenance_window == other.maintenance_window &&
         standby_maintenance_buffer_in_days == other.standby_maintenance_buffer_in_days &&
         version_preference == other.version_preference &&
+        is_dst_file_update_enabled == other.is_dst_file_update_enabled &&
+        dst_file_version == other.dst_file_version &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
         role == other.role &&
@@ -801,7 +843,8 @@ module OCI
         compute_model == other.compute_model &&
         provisioned_cpus == other.provisioned_cpus &&
         reserved_cpus == other.reserved_cpus &&
-        largest_provisionable_autonomous_database_in_cpus == other.largest_provisionable_autonomous_database_in_cpus
+        largest_provisionable_autonomous_database_in_cpus == other.largest_provisionable_autonomous_database_in_cpus &&
+        time_of_last_backup == other.time_of_last_backup
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -817,7 +860,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, display_name, db_unique_name, db_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, autonomous_vm_cluster_id, infrastructure_type, cloud_autonomous_vm_cluster_id, kms_key_id, vault_id, kms_key_version_id, key_history_entry, lifecycle_state, lifecycle_details, time_created, time_snapshot_standby_revert, patch_model, patch_id, last_maintenance_run_id, next_maintenance_run_id, maintenance_window, standby_maintenance_buffer_in_days, version_preference, freeform_tags, defined_tags, role, availability_domain, db_version, backup_config, key_store_id, key_store_wallet_name, memory_per_oracle_compute_unit_in_gbs, available_cpus, total_cpus, reclaimable_cpus, provisionable_cpus, compute_model, provisioned_cpus, reserved_cpus, largest_provisionable_autonomous_database_in_cpus].hash
+      [id, compartment_id, display_name, db_unique_name, db_name, service_level_agreement_type, autonomous_exadata_infrastructure_id, autonomous_vm_cluster_id, infrastructure_type, cloud_autonomous_vm_cluster_id, kms_key_id, vault_id, kms_key_version_id, key_history_entry, lifecycle_state, lifecycle_details, time_created, time_snapshot_standby_revert, patch_model, patch_id, last_maintenance_run_id, next_maintenance_run_id, maintenance_window, standby_maintenance_buffer_in_days, version_preference, is_dst_file_update_enabled, dst_file_version, freeform_tags, defined_tags, role, availability_domain, db_version, backup_config, key_store_id, key_store_wallet_name, memory_per_oracle_compute_unit_in_gbs, available_cpus, total_cpus, reclaimable_cpus, provisionable_cpus, compute_model, provisioned_cpus, reserved_cpus, largest_provisionable_autonomous_database_in_cpus, time_of_last_backup].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

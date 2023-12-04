@@ -6,9 +6,9 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Collection of Knowledge Base summaries.
+  # Collection of knowledge base summaries.
   class Adm::Models::KnowledgeBaseCollection
-    # **[Required]** List of Knowledge Base summaries.
+    # **[Required]** List of knowledge base summaries.
     # @return [Array<OCI::Adm::Models::KnowledgeBaseSummary>]
     attr_accessor :items
 
