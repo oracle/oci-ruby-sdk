@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2023, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2024, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'oci/common'
@@ -75,7 +75,6 @@ module OCI
   autoload :Internal, 'oci/internal/internal'
   autoload :WorkRequests, 'oci/work_requests/work_requests'
   autoload :DataSafe, 'oci/data_safe/data_safe'
-  autoload :ApplicationMigration, 'oci/application_migration/application_migration'
   autoload :DataLabelingService, 'oci/data_labeling_service/data_labeling_service'
   autoload :Marketplace, 'oci/marketplace/marketplace'
   autoload :DataScience, 'oci/data_science/data_science'
@@ -141,6 +140,14 @@ module OCI
   autoload :MarketplacePublisher, 'oci/marketplace_publisher/marketplace_publisher'
   autoload :JmsJavaDownloads, 'oci/jms_java_downloads/jms_java_downloads'
   autoload :Psql, 'oci/psql/psql'
+  autoload :GenerativeAiInference, 'oci/generative_ai_inference/generative_ai_inference'
+  autoload :GenerativeAi, 'oci/generative_ai/generative_ai'
+  autoload :CapacityManagement, 'oci/capacity_management/capacity_management'
+  autoload :GloballyDistributedDatabase, 'oci/globally_distributed_database/globally_distributed_database'
+  autoload :Desktops, 'oci/desktops/desktops'
+  autoload :EmailDataPlane, 'oci/email_data_plane/email_data_plane'
+  autoload :ClusterPlacementGroups, 'oci/cluster_placement_groups/cluster_placement_groups'
+  autoload :SSEReader, 'oci/sse_reader'
 
   require 'oci/object_storage/transfer/transfer'
   class << self
