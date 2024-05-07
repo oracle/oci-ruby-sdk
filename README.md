@@ -4,7 +4,7 @@ This is Oracle Cloud Infrastructure SDK for Ruby. This project is open source an
 
 This project is no longer being actively developed by Oracle. We will continue to address security vulnerabilities for the foreseeable future, and will respond to questions on github, but have no plans to introduce any new functionality, and may not be able to address any non-security related issues. We encourage developers to migrate to other OCI SDKs, and developers may fork this project and enhance it as they desire.
 
-**Version 2.20.0**
+**Version 2.21.0**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -23,7 +23,6 @@ The Ruby SDK supports the following services:
 * API Gateway
 * Application Dependency Management
 * Application Management service
-* Application Migration
 * Application Performance Monitoring
 * Audit
 * Autonomous recovery
@@ -36,6 +35,7 @@ The Ruby SDK supports the following services:
 * Caching
 * Certificates service
 * Classic Migration
+* Cluster Placement Groups service
 * Cloud Bridge
 * Cloud Guard
 * Cloud Migrations
@@ -71,7 +71,10 @@ The Ruby SDK supports the following services:
 * File Storage
 * Functions
 * Fusion Apps as a Service
+* Generative AI service 
+* Generative AI Inference service
 * Generic Artifacts service
+* Globally Distributed Database service
 * Golden Gate
 * Governance Rules service
 * Health Checks
@@ -101,6 +104,7 @@ The Ruby SDK supports the following services:
 * Networking Topology
 * Notification
 * OCI Control Center
+* OCI Control Center service
 * OCI Registry
 * OneSubscription service
 * Operations Insights
@@ -121,6 +125,7 @@ The Ruby SDK supports the following services:
 * Search
 * Service Catalog service
 * Secret Management (for the Vault service)
+* Secure Desktops service
 * Service Mesh
 * Service Connector Hub
 * Source Code Management service
@@ -721,6 +726,12 @@ To be notified when a new version of the Ruby SDK is released, subscribe to the 
 ## Known Issues
 
 You can find information on any known issues with the SDK [here](https://docs.cloud.oracle.com/Content/knownissues.htm) and under the [Issues](https://github.com/oracle/oci-ruby-sdk/issues) tab of this project's [GitHub repository](https://github.com/oracle/oci-ruby-sdk).
+
+## SSE Support
+
+For SSE response, Ruby SDK is having some performance issue where the response is not returning as a TRUE streaming mode. It's actually returning 
+in a chunked mode, which waits until it receive multiple lines of SSE response into one block and then return the result. This behavior is caused by the base HTTP
+client package(Net::HTTP) which is the only HTTP package we use in Ruby SDK Please refer genai_generate_text_example in examples-oci folder to use SSE support.
 
 ## Questions or Feedback?
 You can post an issue on the [Issues](https://github.com/oracle/oci-ruby-sdk/issues) tab of this project's [GitHub repository](https://github.com/oracle/oci-ruby-sdk).
