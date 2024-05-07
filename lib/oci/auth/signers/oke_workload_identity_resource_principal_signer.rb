@@ -1,4 +1,4 @@
-# Copyright (c) 2016, 2023, Oracle and/or its affiliates.  All rights reserved.
+# Copyright (c) 2016, 2024, Oracle and/or its affiliates.  All rights reserved.
 # This software is dual-licensed to you under the Universal Permissive License (UPL) 1.0 as shown at https://oss.oracle.com/licenses/upl or Apache License 2.0 as shown at http://www.apache.org/licenses/LICENSE-2.0. You may choose either license.
 
 require 'json'
@@ -61,8 +61,18 @@ module OCI
           @refresh_lock.lock
           @session_key_supplier.refresh
           @security_token = OCI::Auth::SecurityTokenContainer.new(resource_principal_session_token)
+          reset_signer
         ensure
           @refresh_lock.unlock if @refresh_lock.locked? && @refresh_lock.owned?
+        end
+
+        def reset_signer
+          @key_id = "ST$#{@security_token.security_token}"
+          @private_key_content = @session_key_supplier.key_pair[:private_key]
+          @private_key = OpenSSL::PKey::RSA.new(
+            @private_key_content,
+            @pass_phrase || SecureRandom.uuid
+          )
         end
 
         def resource_principal_session_token

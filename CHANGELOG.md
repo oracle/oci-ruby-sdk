@@ -3,6 +3,166 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.21.0 - 2024-05-06
+### Added
+- Support for changing compartments of configurations in the PostgreSQL service
+- Support for granular policies including compartments, resource types, and recommendations in the Optimizer service
+- Support for token exchanges in the Identity Domains service
+- Support for Apache HTTP server discovery and monitoring in the Stack Monitoring service
+- Support for resource locking in the Data Catalog service
+- Support for concurrency throttling in the Data Integration service
+- Support for reboot migrations for VMs on dedicated hosts in the Compute service
+- Support for connection routing method settings and subnet update in the GoldenGate service
+- Support for data discovery of commonly used sensitive types in the Data Safe service
+- Support for incremental extraction and updates to the workflows in the Data Integration service
+- Support for calling Oracle Cloud Infrastructure services in the sa-valparaiso-1 region
+- Support for creation of up to 60 containers per container instance in the Container Instances service
+- Support for Oracle GoldenGate discovery and monitoring in the Stack Monitoring service
+- Support for GoldenGate stream analytics in the GoldenGate service
+- Support for backup work requests in MySQL Heatwave service
+- Support for create, update, delete and list operations on on-premise vantage points and workers in the Application Performance Monitoring service
+- Support for host capacity planning for compute instances and host unallocated metrics in the Operations Insights service
+- Support for resource id filter on the service work requests in the Container Instances service
+- Support for polyglot vulnerability audit in the Application Dependency Management service
+- Support for create, read, and update operations on peer databases in the Data Safe service
+- Support for dimension specific alarm suppressions in the Monitoring service
+- Support for calculating audit volume in the Data Safe service
+- Support for viewing schema accesses in data safe user assessments in the Data Safe service
+- Support for security feature usage in the Data Safe service
+- Support for viewing the top security findings in data safe security assessments in the Data Safe service
+- Support for additional filters in list findings operation in the Data Safe service
+- Support for updating risk level of the specified finding in the Data Safe service
+- Support for the Generative AI service
+- Support for additional currencies and countries for paid listings in the Marketplace service
+- Support for process sets in the Stack Monitoring service
+- Support for OCI Control Center service
+- Support for giro value set for address rules in the Oracle Store Platform service
+- Support for giro in tax information for subscriptions in the Oracle Store Platform service
+- Support for REST connectivity with Oath2 in the Data Integration service
+- Support for resolver rules limit increase in the DNS service
+- Support for named credentials in the Database Management service
+- Support for the Globally Distributed Database service
+- Support for secret auto-rotation in the Secret Management service
+- Support for dedicated key management in the Key Management service
+- Support for resource locking operations in the Digital Media service
+- Support for data sources, including prometheus emitter, in the Management Agent service
+- Support for Bring Your Own Certificates (BYOC) in the MySQL HeatWave Database service
+- Support for adding automatic backups during cross region operations and disaster recovery in the Autonomous Database service
+- Support for overlapping CIDR in network path analyzer in the Virtual Network Monitoring service
+- Support for additional attributes in entity and topology in the Log Analytics service
+- Support for historic collection and log type while creating object collection rules in the Log Analytics service
+- Support for position aware parsers in the Log Analytics service
+- Support for filtering log sources, detection rules and scheduled tasks based on target service in the Log Analytics service
+- Support for additional recall and release attributes in the Log Analytics service
+- Support for opc-meta-properties header while uploading log events in the Log Analytics service
+- Support for calling Oracle Cloud Infrastructure services in the me-dcc-doha-1 region
+- Support for Secure Desktops service
+- Support for enabling and disabling Simultaneous Multithreading (SMT) for virtual machines in the Compute service
+- Support for Bring Your Own Container Jobs (BYOC v2) in the Data Science service
+- Support for expanded language translation in the AI Language service
+- Support for additional flags for ignoring transliteration and text length to be considered for determining dominant language in the AI Language service
+- Support for specifying dialog version when creating skills entities in the Digital Assistant service
+- Support for bulk creation of skill entities in the Digital Assistant service
+- Support for training skill query entities in the Digital Assistant service
+- Support for cascading delete of skill custom entities in the Digital Assistant service
+- Support for creating autonomous dataguard associations in the Database service
+- Support for auto generation of secrets in the Secret Management service
+- Support for cluster placement groups in Cloud Exadata Infrastructure in the Database service
+- Support for retrieving previous logs of the container in the Container Instances service
+- Support for queue sources in the Connector Hub service
+- Support for automatic key rotation in the Key Management Service
+- Support for downloading operator activity reports and assignment healthchecks in the Operator Access Control service
+- Support for operator requesting access in the future time in the Operator Access Control service
+- Support for forwarding hypervisor logs in the Operator Access Control service
+- Support for asynchronous data asset export in the Data Catalog service
+- Support for launch with multiple volumes for virtual machines in the Compute Service
+- Support for tagging in Database Management service
+- Support for Linux capabilities configuration for the containers in the Container Instances service
+- Support for service platforms in the Oracle Store Platform Gateway service
+- Support for whisper models and delete job operation in the Speech service
+- Support for new SQL insight content types in news reports in the Operations Insights service
+- Support for launching virtual machines with multiple volumes in the Compute service
+- Support for new development license type on dedicated infrastructure in the Database service
+- Support for placement parameters on Autonomous Container Database create operation in the Database service
+- Support for autoscaling on model deployment in the Data Science service
+- Support for standalone Oracle HTTP server discovery and monitoring in the Stack Monitoring service
+- Support for attribute management for traces in the Application Performance Monitoring service
+- Support for async jobs and document translations in the AI language service
+- Support for creating and updating a refreshable clone with auto-refresh for an Autonomous Database in the Database service
+- Support for symmetric hashing in the Network Load Balancer service
+- Support for creating and deploying helm command specifications in the DevOps Service
+- Support for uninstalling helm chart when deleting an Oracle Kubernetes Stage through the DevOps Service
+- Support for collecting metrics and filter plugin with Unified Monitoring Agent (UMA) in the Logging service
+- Support for reading logs from head position after agent restart in the Logging service
+- Support for monitoring MySQL HeatWave clusters in Database Management Service
+- Support for multiple severities in an alarm in the Monitoring service
+- Support for assigned private IP and single stack IPV6 feature for Network Load Balancer Service
+- Support for Configuration API in Email Delivery Service
+- Support for the status field in creating data source resource for Cloud Guard Service
+- Support for TLSv1.3 in Load Balancer Service
+- Support for sending mails via HTTPS for Email Delivery Service
+- Support for calling Oracle Cloud Infrastructure services in the ap-dcc-gazipur-1 region
+- Support for the DNS-based backend health check in the Network Load Balancer service
+- Support for Fail Open in the Network Load Balancer service
+- Support for adding and updating Instant failover in the Network Load Balancer service
+- Support for adding and updating source type and resource category for resource types in the Stack Monitoring service
+- Support for searching resources based on resource category,  source type, multiple compartments, multiple lifecycle states in the Stack Monitoring service
+- Support for filtering listed resources based on lifecycle status in the Stack Monitoring service
+- Support for creating tasks with new config parameters in the Stack Monitoring service
+- Support for Composite Resource Principal integration in the Data Flow service
+- Support for calling Oracle Cloud Infrastructure services in the me-abudhabi-3 region
+- Support for new Image resource for an Autonomous Database in the Database service
+- Support for creating Autonomous Container Database using Autonomous Database Software Image in the Database service
+- Support for new dedicated AI cluster unit shape in the Generative AI service
+- Support for Chat API for LLM models in the Generative AI service
+- Support for network security groups (NSGs) in the Redis service
+- Support for custom public egress on model deployments in the Data Science service
+- Support for a new data transfer parameter for AWS S3 bucket in the Database Migration service
+- Support for Oracle Process Automation instance start and stop operations in the Process Automation service
+- Support for healthcare Natural Language Processing (NLP) in the AI Language service
+- Support for identification and de-identification of Private Health Information (PHI) service in the AI Language service
+- Support for multilingual content for using machine learning models in the AI Language service
+- Support for usage statements in cost management in the Usage service
+- Support for the Cluster Placement Groups service
+- Support for new optional parameter for managing approval template in the Managed Access service
+- Support for cluster placement groups in the Compute service
+- Support for replacing boot volume for virtual machines in the Compute service
+- Support for assigning a cluster placement group to boot and block volumes in the Block Storage service
+- Support for container workload integration in the Cloud Guard service
+- Support for instances in OCI and 3rd party clouds in the OS Management service
+- Support for enabling unified auditing for DBHome in the Database service
+- Support for listing minor Grid Infrastructure (GI) versions available for custom GI software image creation in the Database service
+- Support for network security groups in the Recovery Cloud service
+- Support for lineage metadata import in the Data Catalog service
+- Support for workspace properties in workspace create and update operations in the Data Integration service
+- Support for monitoring ExaCC databases in the Database Management service
+- Support for validations on target and policy before the masking process in the Data Safe service
+- Support for resizing of local file systems in the Database service
+- Support for adding user defined pause group in disaster recovery plan in the Disaster Recovery service
+- Support for OS patching configs in the Big Data service
+- Support for IP inventory and notification feature in the Networking service
+- Support for accidental delete protection for load balancers, load balancer listeners, and load balancer backends in the Load Balancer service
+- Support for backend max connections for load balancers in the Load Balancer service
+- Support for listener max connections for load balancers in the Load Balancer service
+
+### Breaking
+- Models `MediaWorkflowJobFact`, `MediaWorkflowJobFactCollection` and `MediaWorkflowJobFactSummary` were removed from the Digital Media service
+- Methods `get_media_workflow_job_fact` and `list_media_workflow_job_facts` were removed from the Digital Media service
+- The model `PreTrainedPhiModelDetails` was removed in the AI Language service
+- Property `max_cpu_core_count` was removed from models `UpdateAutonomousDatabaseDetails`, `CreateRefreshableAutonomousDatabaseCloneDetails`, `CreateCrossRegionDisasterRecoveryDetails`, `CreateCrossRegionAutonomousDatabaseDataGuardDetails`, `CreateAutonomousDatabaseFromBackupTimestampDetails`, `CreateAutonomousDatabaseFromBackupDetails`, `CreateAutonomousDatabaseDetails`, `CreateAutonomousDatabaseCloneDetails`, `CreateAutonomousDatabaseBase`, `AutonomousDatabase`, `AutonomousDatabaseSummary` in the Database service
+- Property `key_id` in model `CreateSecretDetails` is made required in the Vault service
+- Model `DatabaseConnectionCredentailsByName` was renamed to `DatabaseConnectionCredentialsByName` in the Database service
+- The property `CapacityPlanningResources` has been made optional in the model `NewsContentTypes` in the Operations Insights service
+- The properties `DisplayName` and `Description` were made required in the model `CreateUnifiedAgentConfigurationDetails` in the Logging service
+- The property `RecordInput` was made required in the model `OperationalMetricsSource` in the Logging service
+- The Application Migration service was decommissioned and removed
+- The property `instance_location` was removed from the method `get_managed_instance_analytic_content` and `summarize_managed_instance_analytics` in the `ReportingManagedInstanceClient` in the OS Management service
+- The property `display_name` was removed from the method `list_software_packages` in the `SoftwareSourceClient` in the OS Management service
+- The property `AdvisoryType` was removed from the method `list_managed_instance_errata` in the `ManagedInstanceClient` in the OS Management service
+- The type of property `Architecture` was changed from `string` to `SoftwarePackageArchitecture` in the models `SoftwarePackage` and `SoftwarePackageSummary` in the OS Management service
+
+
+
 ## 2.20.0 - 2023-12-04
 ### Added
 - Support for creating flow log type capture filters in Virtual Cloud Network service
