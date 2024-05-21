@@ -4,7 +4,7 @@ This is Oracle Cloud Infrastructure SDK for Ruby. This project is open source an
 
 This project is no longer being actively developed by Oracle. We will continue to address security vulnerabilities for the foreseeable future, and will respond to questions on github, but have no plans to introduce any new functionality, and may not be able to address any non-security related issues. We encourage developers to migrate to other OCI SDKs, and developers may fork this project and enhance it as they desire.
 
-**Version 2.21.0**
+**Version 2.21.1**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
