@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.21.1 - 2024-05-21
+### Added
+- Fixed pysch dependency version
+
 ## 2.21.0 - 2024-05-06
 ### Added
 - Support for changing compartments of configurations in the PostgreSQL service

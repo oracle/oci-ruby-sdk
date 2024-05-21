@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'json', '>= 1.4.6', '< 3.0.0'
   s.add_runtime_dependency 'inifile', '~> 3.0', '>= 3.0.0'
   s.add_runtime_dependency 'jwt', '~> 2.1'
-  s.add_runtime_dependency 'psych', '>= 5.0.1', '< 5.1.2'
+  s.add_runtime_dependency 'psych',  "~> 5.0", ">= 5.0.1"
   s.add_runtime_dependency 'event_stream_parser', '~> 1.0.0'
   s.add_development_dependency 'webmock', '~> 3.5', '>=3.5.1'
   s.add_development_dependency 'vcr', '~> 4.0'
