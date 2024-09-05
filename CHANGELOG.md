@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
+## 2.19.99 - 2023-07-30
+### Added
+- Support for calling infrastructure services
+
 ## 2.21.1 - 2024-05-21
 ### Added
 - Fixed pysch dependency version
