@@ -2,7 +2,7 @@
 
 ## Getting Started
 The following instructions assume that you have [rbenv](https://github.com/rbenv/rbenv) and [ruby-build](https://github.com/rbenv/ruby-build) installed to help you manage Ruby
-versions on your machine so that your system wide Ruby version remains untouched.
+versions on your machine so that your system-wide Ruby version remains untouched.
 
 You can then install different Ruby versions and set them as the one to use for the SDK. For example, to use Ruby 2.5.0:
 

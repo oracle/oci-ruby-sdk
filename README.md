@@ -2,7 +2,7 @@
 
 This is Oracle Cloud Infrastructure SDK for Ruby. This project is open source and maintained by Oracle Corp. The home page for the project is <a href="https://docs.cloud.oracle.com/en-us/iaas/Content/API/SDKDocs/rubysdk.htm">here</a>.
 
-This project is no longer being actively developed by Oracle. We will continue to address security vulnerabilities for the foreseeable future, and will respond to questions on github, but have no plans to introduce any new functionality, and may not be able to address any non-security related issues. We encourage developers to migrate to other OCI SDKs, and developers may fork this project and enhance it as they desire.
+This project is no longer being actively developed by Oracle. We will continue to address security vulnerabilities for the foreseeable future, and will respond to questions on GitHub, but have no plans to introduce any new functionality, and may not be able to address any non-security related issues. We encourage developers to migrate to other OCI SDKs, and developers may fork this project and enhance it as they desire.
 
 **Version 2.21.1**
 
@@ -154,11 +154,11 @@ The following table provides details about some of the attributes of the SDK.
 	</tr>
 	<tr>
 		<td>Responses</td>
-		<td>All API methods return a Response object, which contains an HTTP status (200, 204, etc), headers, and data, and also directly exposes some commonly used response headers such as <code>opc-next_page</code>, and <code>opc-request_id</code>.</td>
+		<td>All API methods return a Response object, which contains an HTTP status (200, 204, etc.), headers, and data, and also directly exposes some commonly used response headers such as <code>opc-next_page</code>, and <code>opc-request_id</code>.</td>
 	</tr>
 	<tr>
 		<td>Models</td>
-		<td>Get, update, and create operations return first class objects of the corresponding type (such as User, Instance, etc) in Response.data.</td>
+		<td>Get, update, and create operations return first class objects of the corresponding type (such as User, Instance, etc.) in Response.data.</td>
 	</tr>
 	<tr>
 		<td>Errors</td>
@@ -262,20 +262,20 @@ You can also [download the SDK](https://github.com/oracle/oci-ruby-sdk/releases)
  `gem install oci-*.gem`
 
 ### Troubleshooting an Installation
-If you see "Unable to resolve dependencies”, you can install the dependencies manually:
+If you see "Unable to resolve dependencies", you can install the dependencies manually:
 
 	gem install inifile
 
 ## SDK modules and namespacing
 The top level module name for the Ruby SDK is `OCI`, however using `OracleBMC` as the top level namespace is also supported. For example, you can reference the configuration object as both `OCI::Config` and `OracleBMC::Config`.
 
-Using `OCI` as the top level module name is preferred and it is also used in the SDK API Reference. Additionally, if you inspect the type of an SDK object it will always be reported as being under the `OCI::` module.
+Using `OCI` as the top level module name is preferred, and it is also used in the SDK API Reference. Additionally, if you inspect the type of an SDK object it will always be reported as being under the `OCI::` module.
 
 You can start from importing oci module, this will allow you to access the whole OCI Ruby SDK.
 
 	require 'oci'
 
-However, in some cases, if you're only using limited number of OCI services, importing the whole OCI module is not necessary and would possibly increase the loading time of your application. Instead importing the `oci` module, you can manually import sub modules based on your requirement:
+However, in some cases, if you're only using limited number of OCI services, importing the whole OCI module is not necessary and would possibly increase the loading time of your application. Instead, importing the `oci` module, you can manually import sub modules based on your requirement:
 
 	require 'oci/common' # This is commonly required for using oci ruby sdk
     require 'oci/auth/auth' # This module is commonly required to authenticate api calls
@@ -682,7 +682,7 @@ You can instruct the waiter to take care of this for you and consider that a 404
     api.delete_vcn(vcn.id)
     api.get_vcn(vcn.id).wait_until(:lifecycle_state, OCI::Core::Models::Vcn::LIFECYCLE_STATE_TERMINATED, succeed_on_not_found: true)
 
-Using the `succeed_on_not_found` keyword argument is likely only useful when waiting on temrinated/deleted resources.
+Using the `succeed_on_not_found` keyword argument is likely only useful when waiting on terminated/deleted resources.
 
 ### Signing a Raw Request
 The {OCI::Signer} can be used to sign arbitrary requests to the Oracle Cloud Infrastructure Services. The following example uses Net::HTTP to call the IAM service directly.
@@ -736,7 +736,7 @@ client package(Net::HTTP) which is the only HTTP package we use in Ruby SDK Plea
 ## Questions or Feedback?
 You can post an issue on the [Issues](https://github.com/oracle/oci-ruby-sdk/issues) tab of this project's [GitHub repository](https://github.com/oracle/oci-ruby-sdk).
 
-Addtional ways to get in touch:
+Additional ways to get in touch:
 
 * [Stack Overflow](https://stackoverflow.com/): Please use the [oracle-cloud-infrastructure](https://stackoverflow.com/questions/tagged/oracle-cloud-infrastructure) and [oci-ruby-sdk](https://stackoverflow.com/questions/tagged/oci-ruby-sdk) tags in your post
 * [Developer Tools section](https://community.oracle.com/community/cloud_computing/bare-metal/content?filterID=contentstatus%5Bpublished%5D~category%5Bdeveloper-tools%5D&filterID=contentstatus%5Bpublished%5D~objecttype~objecttype%5Bthread%5D) of the Oracle Cloud forums
