@@ -142,6 +142,29 @@ module OCI
     # @return [Integer]
     attr_accessor :unique_size_in_gbs
 
+    # The date and time when a backup\u2019s retention period ends and it is set to expire. This is an optional field. If it is not specified, it is set to null, no retention period will be applied to the backups.
+    # @return [DateTime]
+    attr_accessor :time_retention_expires_at
+
+    # @return [OCI::Core::Models::RetentionDuration]
+    attr_accessor :retention_period
+
+    # Prevent backups from being deleted during the configured retention period. This is an optional field. If it is not specified, it is set to null, prevent deletion will not be applied to the backups.
+    # @return [BOOLEAN]
+    attr_accessor :is_prevent_deletion_enabled
+
+    # feature that prevents deletion or alteration of backup data for a specified period to ensure data protection and regulatory compliance. This is an optional field. If it is not specified, it is set to null, no retention lock will be applied to the backups. This feature should be used in conjunction with the retention-period field.
+    # @return [BOOLEAN]
+    attr_accessor :is_retention_lock_enabled
+
+    # feature that preserves backup data from modification or deletion to ensure it remains available for legal or regulatory investigations or litigation, regardless of standard retention policies. This is an optional field. If it is not specified, it is set to null, no legal hold will be applied to the backups.
+    # @return [BOOLEAN]
+    attr_accessor :is_indefinite_retention_enabled
+
+    # The OCID of the volume group backup associated with the backup. This is an optional field. If it is not present in the response, the backup does not belong to a volume group.
+    # @return [String]
+    attr_accessor :volume_group_backup_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -163,7 +186,13 @@ module OCI
         'time_created': :'timeCreated',
         'time_request_received': :'timeRequestReceived',
         'type': :'type',
-        'unique_size_in_gbs': :'uniqueSizeInGBs'
+        'unique_size_in_gbs': :'uniqueSizeInGBs',
+        'time_retention_expires_at': :'timeRetentionExpiresAt',
+        'retention_period': :'retentionPeriod',
+        'is_prevent_deletion_enabled': :'isPreventDeletionEnabled',
+        'is_retention_lock_enabled': :'isRetentionLockEnabled',
+        'is_indefinite_retention_enabled': :'isIndefiniteRetentionEnabled',
+        'volume_group_backup_id': :'volumeGroupBackupId'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -189,7 +218,13 @@ module OCI
         'time_created': :'DateTime',
         'time_request_received': :'DateTime',
         'type': :'String',
-        'unique_size_in_gbs': :'Integer'
+        'unique_size_in_gbs': :'Integer',
+        'time_retention_expires_at': :'DateTime',
+        'retention_period': :'OCI::Core::Models::RetentionDuration',
+        'is_prevent_deletion_enabled': :'BOOLEAN',
+        'is_retention_lock_enabled': :'BOOLEAN',
+        'is_indefinite_retention_enabled': :'BOOLEAN',
+        'volume_group_backup_id': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -218,6 +253,12 @@ module OCI
     # @option attributes [DateTime] :time_request_received The value to assign to the {#time_request_received} property
     # @option attributes [String] :type The value to assign to the {#type} property
     # @option attributes [Integer] :unique_size_in_gbs The value to assign to the {#unique_size_in_gbs} property
+    # @option attributes [DateTime] :time_retention_expires_at The value to assign to the {#time_retention_expires_at} property
+    # @option attributes [OCI::Core::Models::RetentionDuration] :retention_period The value to assign to the {#retention_period} property
+    # @option attributes [BOOLEAN] :is_prevent_deletion_enabled The value to assign to the {#is_prevent_deletion_enabled} property
+    # @option attributes [BOOLEAN] :is_retention_lock_enabled The value to assign to the {#is_retention_lock_enabled} property
+    # @option attributes [BOOLEAN] :is_indefinite_retention_enabled The value to assign to the {#is_indefinite_retention_enabled} property
+    # @option attributes [String] :volume_group_backup_id The value to assign to the {#volume_group_backup_id} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -323,6 +364,42 @@ module OCI
       raise 'You cannot provide both :uniqueSizeInGBs and :unique_size_in_gbs' if attributes.key?(:'uniqueSizeInGBs') && attributes.key?(:'unique_size_in_gbs')
 
       self.unique_size_in_gbs = attributes[:'unique_size_in_gbs'] if attributes[:'unique_size_in_gbs']
+
+      self.time_retention_expires_at = attributes[:'timeRetentionExpiresAt'] if attributes[:'timeRetentionExpiresAt']
+
+      raise 'You cannot provide both :timeRetentionExpiresAt and :time_retention_expires_at' if attributes.key?(:'timeRetentionExpiresAt') && attributes.key?(:'time_retention_expires_at')
+
+      self.time_retention_expires_at = attributes[:'time_retention_expires_at'] if attributes[:'time_retention_expires_at']
+
+      self.retention_period = attributes[:'retentionPeriod'] if attributes[:'retentionPeriod']
+
+      raise 'You cannot provide both :retentionPeriod and :retention_period' if attributes.key?(:'retentionPeriod') && attributes.key?(:'retention_period')
+
+      self.retention_period = attributes[:'retention_period'] if attributes[:'retention_period']
+
+      self.is_prevent_deletion_enabled = attributes[:'isPreventDeletionEnabled'] unless attributes[:'isPreventDeletionEnabled'].nil?
+
+      raise 'You cannot provide both :isPreventDeletionEnabled and :is_prevent_deletion_enabled' if attributes.key?(:'isPreventDeletionEnabled') && attributes.key?(:'is_prevent_deletion_enabled')
+
+      self.is_prevent_deletion_enabled = attributes[:'is_prevent_deletion_enabled'] unless attributes[:'is_prevent_deletion_enabled'].nil?
+
+      self.is_retention_lock_enabled = attributes[:'isRetentionLockEnabled'] unless attributes[:'isRetentionLockEnabled'].nil?
+
+      raise 'You cannot provide both :isRetentionLockEnabled and :is_retention_lock_enabled' if attributes.key?(:'isRetentionLockEnabled') && attributes.key?(:'is_retention_lock_enabled')
+
+      self.is_retention_lock_enabled = attributes[:'is_retention_lock_enabled'] unless attributes[:'is_retention_lock_enabled'].nil?
+
+      self.is_indefinite_retention_enabled = attributes[:'isIndefiniteRetentionEnabled'] unless attributes[:'isIndefiniteRetentionEnabled'].nil?
+
+      raise 'You cannot provide both :isIndefiniteRetentionEnabled and :is_indefinite_retention_enabled' if attributes.key?(:'isIndefiniteRetentionEnabled') && attributes.key?(:'is_indefinite_retention_enabled')
+
+      self.is_indefinite_retention_enabled = attributes[:'is_indefinite_retention_enabled'] unless attributes[:'is_indefinite_retention_enabled'].nil?
+
+      self.volume_group_backup_id = attributes[:'volumeGroupBackupId'] if attributes[:'volumeGroupBackupId']
+
+      raise 'You cannot provide both :volumeGroupBackupId and :volume_group_backup_id' if attributes.key?(:'volumeGroupBackupId') && attributes.key?(:'volume_group_backup_id')
+
+      self.volume_group_backup_id = attributes[:'volume_group_backup_id'] if attributes[:'volume_group_backup_id']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -392,7 +469,13 @@ module OCI
         time_created == other.time_created &&
         time_request_received == other.time_request_received &&
         type == other.type &&
-        unique_size_in_gbs == other.unique_size_in_gbs
+        unique_size_in_gbs == other.unique_size_in_gbs &&
+        time_retention_expires_at == other.time_retention_expires_at &&
+        retention_period == other.retention_period &&
+        is_prevent_deletion_enabled == other.is_prevent_deletion_enabled &&
+        is_retention_lock_enabled == other.is_retention_lock_enabled &&
+        is_indefinite_retention_enabled == other.is_indefinite_retention_enabled &&
+        volume_group_backup_id == other.volume_group_backup_id
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -408,7 +491,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [boot_volume_id, compartment_id, defined_tags, system_tags, display_name, expiration_time, freeform_tags, id, image_id, kms_key_id, lifecycle_state, size_in_gbs, source_boot_volume_backup_id, source_type, time_created, time_request_received, type, unique_size_in_gbs].hash
+      [boot_volume_id, compartment_id, defined_tags, system_tags, display_name, expiration_time, freeform_tags, id, image_id, kms_key_id, lifecycle_state, size_in_gbs, source_boot_volume_backup_id, source_type, time_created, time_request_received, type, unique_size_in_gbs, time_retention_expires_at, retention_period, is_prevent_deletion_enabled, is_retention_lock_enabled, is_indefinite_retention_enabled, volume_group_backup_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

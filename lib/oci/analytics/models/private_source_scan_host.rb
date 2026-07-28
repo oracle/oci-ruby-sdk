@@ -6,20 +6,20 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Private source Scan Hostname model.
+  # Private source SCAN hostname model.
   #
   class Analytics::Models::PrivateSourceScanHost
-    # **[Required]** Private Source Scan hostname. Ex: db01-scan.corp.example.com, prd-db01-scan.mycompany.com.
+    # **[Required]** Private source SCAN hostname. For example: db01-scan.corp.example.com, prd-db01-scan.mycompany.com.
     #
     # @return [String]
     attr_accessor :scan_hostname
 
-    # **[Required]** Private Source Scan host port. This is the source port where SCAN protocol will get connected (e.g. 1521).
+    # **[Required]** Private source SCAN host port. This is the source port where the SCAN protocol connects (for example, 1521).
     #
     # @return [Integer]
     attr_accessor :scan_port
 
-    # Description of private source scan host zone.
+    # Description of private source SCAN host zone.
     #
     # @return [String]
     attr_accessor :description

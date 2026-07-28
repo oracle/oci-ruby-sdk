@@ -15,6 +15,8 @@ module OCI
       STORAGE_TYPE_AMAZON_S3 = 'AMAZON_S3'.freeze,
       STORAGE_TYPE_GOOGLE_CLOUD_STORAGE = 'GOOGLE_CLOUD_STORAGE'.freeze,
       STORAGE_TYPE_AZURE_DATA_LAKE_STORAGE = 'AZURE_DATA_LAKE_STORAGE'.freeze,
+      STORAGE_TYPE_NONE = 'NONE'.freeze,
+      STORAGE_TYPE_OCI_OBJECT_STORAGE_S3_API = 'OCI_OBJECT_STORAGE_S3_API'.freeze,
       STORAGE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -49,8 +51,10 @@ module OCI
     def self.get_subtype(object_hash)
       type = object_hash[:'storageType'] # rubocop:disable Style/SymbolLiteral
 
+      return 'OCI::GoldenGate::Models::OciObjectStorageS3ApiIcebergStorage' if type == 'OCI_OBJECT_STORAGE_S3_API'
       return 'OCI::GoldenGate::Models::AmazonS3IcebergStorage' if type == 'AMAZON_S3'
       return 'OCI::GoldenGate::Models::AzureDataLakeStorageIcebergStorage' if type == 'AZURE_DATA_LAKE_STORAGE'
+      return 'OCI::GoldenGate::Models::NoIcebergStorage' if type == 'NONE'
       return 'OCI::GoldenGate::Models::GoogleCloudStorageIcebergStorage' if type == 'GOOGLE_CLOUD_STORAGE'
 
       # TODO: Log a warning when the subtype is not found.

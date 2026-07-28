@@ -131,6 +131,17 @@ module OCI
     # @return [String]
     attr_reader :time_zone
 
+    # @return [OCI::Core::Models::RetentionDuration]
+    attr_accessor :retention_period
+
+    # Prevent backups from being deleted during the configured retention period. This is an optional field. If it is not specified, it is set to null, prevent deletion will not be applied to the backups.
+    # @return [BOOLEAN]
+    attr_accessor :is_prevent_deletion_enabled
+
+    # feature that prevents deletion or alteration of backup data for a specified period to ensure data protection and regulatory compliance. This is an optional field. If it is not specified, it is set to null, no retention lock will be applied to the backups. This feature should be used in conjunction with the retention-period field.
+    # @return [BOOLEAN]
+    attr_accessor :is_retention_lock_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -144,7 +155,10 @@ module OCI
         'day_of_month': :'dayOfMonth',
         'month': :'month',
         'retention_seconds': :'retentionSeconds',
-        'time_zone': :'timeZone'
+        'time_zone': :'timeZone',
+        'retention_period': :'retentionPeriod',
+        'is_prevent_deletion_enabled': :'isPreventDeletionEnabled',
+        'is_retention_lock_enabled': :'isRetentionLockEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -162,7 +176,10 @@ module OCI
         'day_of_month': :'Integer',
         'month': :'String',
         'retention_seconds': :'Integer',
-        'time_zone': :'String'
+        'time_zone': :'String',
+        'retention_period': :'OCI::Core::Models::RetentionDuration',
+        'is_prevent_deletion_enabled': :'BOOLEAN',
+        'is_retention_lock_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -183,6 +200,9 @@ module OCI
     # @option attributes [String] :month The value to assign to the {#month} property
     # @option attributes [Integer] :retention_seconds The value to assign to the {#retention_seconds} property
     # @option attributes [String] :time_zone The value to assign to the {#time_zone} property
+    # @option attributes [OCI::Core::Models::RetentionDuration] :retention_period The value to assign to the {#retention_period} property
+    # @option attributes [BOOLEAN] :is_prevent_deletion_enabled The value to assign to the {#is_prevent_deletion_enabled} property
+    # @option attributes [BOOLEAN] :is_retention_lock_enabled The value to assign to the {#is_retention_lock_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -242,6 +262,24 @@ module OCI
 
       self.time_zone = attributes[:'time_zone'] if attributes[:'time_zone']
       self.time_zone = "UTC" if time_zone.nil? && !attributes.key?(:'timeZone') && !attributes.key?(:'time_zone') # rubocop:disable Style/StringLiterals
+
+      self.retention_period = attributes[:'retentionPeriod'] if attributes[:'retentionPeriod']
+
+      raise 'You cannot provide both :retentionPeriod and :retention_period' if attributes.key?(:'retentionPeriod') && attributes.key?(:'retention_period')
+
+      self.retention_period = attributes[:'retention_period'] if attributes[:'retention_period']
+
+      self.is_prevent_deletion_enabled = attributes[:'isPreventDeletionEnabled'] unless attributes[:'isPreventDeletionEnabled'].nil?
+
+      raise 'You cannot provide both :isPreventDeletionEnabled and :is_prevent_deletion_enabled' if attributes.key?(:'isPreventDeletionEnabled') && attributes.key?(:'is_prevent_deletion_enabled')
+
+      self.is_prevent_deletion_enabled = attributes[:'is_prevent_deletion_enabled'] unless attributes[:'is_prevent_deletion_enabled'].nil?
+
+      self.is_retention_lock_enabled = attributes[:'isRetentionLockEnabled'] unless attributes[:'isRetentionLockEnabled'].nil?
+
+      raise 'You cannot provide both :isRetentionLockEnabled and :is_retention_lock_enabled' if attributes.key?(:'isRetentionLockEnabled') && attributes.key?(:'is_retention_lock_enabled')
+
+      self.is_retention_lock_enabled = attributes[:'is_retention_lock_enabled'] unless attributes[:'is_retention_lock_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -342,7 +380,10 @@ module OCI
         day_of_month == other.day_of_month &&
         month == other.month &&
         retention_seconds == other.retention_seconds &&
-        time_zone == other.time_zone
+        time_zone == other.time_zone &&
+        retention_period == other.retention_period &&
+        is_prevent_deletion_enabled == other.is_prevent_deletion_enabled &&
+        is_retention_lock_enabled == other.is_retention_lock_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -358,7 +399,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [backup_type, offset_seconds, period, offset_type, hour_of_day, day_of_week, day_of_month, month, retention_seconds, time_zone].hash
+      [backup_type, offset_seconds, period, offset_type, hour_of_day, day_of_week, day_of_month, month, retention_seconds, time_zone, retention_period, is_prevent_deletion_enabled, is_retention_lock_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

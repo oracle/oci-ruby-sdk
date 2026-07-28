@@ -38,7 +38,8 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The name of the Analytics instance. This name must be unique in the tenancy and cannot be changed.
+    # **[Required]** The name of the Analytics instance. This name must be unique in the tenancy and can't be changed.
+    # The name must start with a letter and can contain only letters, numbers and dash (-).
     #
     # @return [String]
     attr_accessor :name
@@ -53,12 +54,12 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The current state of an instance.
+    # **[Required]** The current state of the Analytics instance.
     #
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** Analytics feature set.
+    # **[Required]** The feature set. Either `SELF_SERVICE_ANALYTICS` (Professional Edition) or `ENTERPRISE_ANALYTICS` (Enterprise Edition).
     #
     # @return [String]
     attr_reader :feature_set
@@ -81,7 +82,7 @@ module OCI
     # @return [OCI::Analytics::Models::NetworkEndpointDetails]
     attr_accessor :network_endpoint_details
 
-    # URL of the Analytics service.
+    # URL of the Analytics instance.
     #
     # @return [String]
     attr_accessor :service_url
@@ -108,16 +109,16 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :system_tags
 
-    # **[Required]** The date and time the instance was created, in the format defined by RFC3339.
+    # **[Required]** The date and time the Analytics instance was created, in the format defined by RFC3339.
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The date and time the instance was last updated (in the format defined by RFC3339).
-    # This timestamp represents updates made through this API. External events do not
-    # influence it.
+    # The date and time the Analytics instance was last updated (in the format defined by RFC3339).
+    # This timestamp represents updates made through this API. External events don't
+    # affect it.
     #
     # @return [DateTime]
     attr_accessor :time_updated

@@ -13,7 +13,9 @@ module OCI
     STORAGE_TYPE_ENUM = [
       STORAGE_TYPE_AMAZON_S3 = 'AMAZON_S3'.freeze,
       STORAGE_TYPE_GOOGLE_CLOUD_STORAGE = 'GOOGLE_CLOUD_STORAGE'.freeze,
-      STORAGE_TYPE_AZURE_DATA_LAKE_STORAGE = 'AZURE_DATA_LAKE_STORAGE'.freeze
+      STORAGE_TYPE_AZURE_DATA_LAKE_STORAGE = 'AZURE_DATA_LAKE_STORAGE'.freeze,
+      STORAGE_TYPE_NONE = 'NONE'.freeze,
+      STORAGE_TYPE_OCI_OBJECT_STORAGE_S3_API = 'OCI_OBJECT_STORAGE_S3_API'.freeze
     ].freeze
 
     # **[Required]** The storage type used in the Iceberg connection.
@@ -48,6 +50,8 @@ module OCI
       type = object_hash[:'storageType'] # rubocop:disable Style/SymbolLiteral
 
       return 'OCI::GoldenGate::Models::UpdateAmazonS3IcebergStorageDetails' if type == 'AMAZON_S3'
+      return 'OCI::GoldenGate::Models::UpdateOciObjectStorageS3ApiIcebergStorageDetails' if type == 'OCI_OBJECT_STORAGE_S3_API'
+      return 'OCI::GoldenGate::Models::UpdateNoIcebergStorageDetails' if type == 'NONE'
       return 'OCI::GoldenGate::Models::UpdateGoogleCloudStorageIcebergStorageDetails' if type == 'GOOGLE_CLOUD_STORAGE'
       return 'OCI::GoldenGate::Models::UpdateAzureDataLakeStorageIcebergStorageDetails' if type == 'AZURE_DATA_LAKE_STORAGE'
 

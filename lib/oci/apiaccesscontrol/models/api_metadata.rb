@@ -48,9 +48,13 @@ module OCI
     # @return [String]
     attr_accessor :api_name
 
-    # List of the fields that is use while calling post or put for the data.
+    # deprecated; Use attributes field instead.
     # @return [Array<String>]
     attr_accessor :fields
+
+    # List of the fields that is use while calling post or put for the data.
+    # @return [Array<String>]
+    attr_accessor :attributes
 
     # **[Required]** The date and time the PrivilegedApiControl was created, in the format defined by [RFC 3339](https://tools.ietf.org/html/rfc3339).
     #
@@ -117,6 +121,7 @@ module OCI
         'entity_type': :'entityType',
         'api_name': :'apiName',
         'fields': :'fields',
+        'attributes': :'attributes',
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'time_deleted': :'timeDeleted',
@@ -140,6 +145,7 @@ module OCI
         'entity_type': :'String',
         'api_name': :'String',
         'fields': :'Array<String>',
+        'attributes': :'Array<String>',
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'time_deleted': :'DateTime',
@@ -165,6 +171,7 @@ module OCI
     # @option attributes [String] :entity_type The value to assign to the {#entity_type} property
     # @option attributes [String] :api_name The value to assign to the {#api_name} property
     # @option attributes [Array<String>] :fields The value to assign to the {#fields} property
+    # @option attributes [Array<String>] :attributes The value to assign to the {#attributes} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [DateTime] :time_deleted The value to assign to the {#time_deleted} property
@@ -208,6 +215,8 @@ module OCI
       self.api_name = attributes[:'api_name'] if attributes[:'api_name']
 
       self.fields = attributes[:'fields'] if attributes[:'fields']
+
+      self.attributes = attributes[:'attributes'] if attributes[:'attributes']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
 
@@ -289,6 +298,7 @@ module OCI
         entity_type == other.entity_type &&
         api_name == other.api_name &&
         fields == other.fields &&
+        attributes == other.attributes &&
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         time_deleted == other.time_deleted &&
@@ -312,7 +322,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, service_name, display_name, path, entity_type, api_name, fields, time_created, time_updated, time_deleted, lifecycle_state, lifecycle_details, freeform_tags, defined_tags, system_tags].hash
+      [id, service_name, display_name, path, entity_type, api_name, fields, attributes, time_created, time_updated, time_deleted, lifecycle_state, lifecycle_details, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

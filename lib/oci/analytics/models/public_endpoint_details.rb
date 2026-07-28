@@ -26,7 +26,7 @@ module OCI
     # @return [Array<OCI::Analytics::Models::VirtualCloudNetwork>]
     attr_accessor :whitelisted_vcns
 
-    # Oracle Cloud Services that are allowed to access this Analytics instance.
+    # Oracle Cloud services that are allowed to access this Analytics instance.
     #
     # @return [Array<String>]
     attr_reader :whitelisted_services

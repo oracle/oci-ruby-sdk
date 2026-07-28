@@ -11,6 +11,7 @@ module OCI
   #
   class GoldenGate::Models::IcebergConnectionSummary < GoldenGate::Models::ConnectionSummary
     # **[Required]** The Iceberg technology type.
+    #
     # @return [String]
     attr_accessor :technology_type
 

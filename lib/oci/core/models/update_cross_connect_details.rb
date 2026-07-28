@@ -48,6 +48,14 @@ module OCI
     # @return [OCI::Core::Models::UpdateMacsecProperties]
     attr_accessor :macsec_properties
 
+    # The flag to enable or disable the down timer for the interface.
+    # @return [BOOLEAN]
+    attr_accessor :is_interface_hold_timer_enabled
+
+    # The duration of the interface down timer in milliseconds between 0 and 3000 in multiples of 500.
+    # @return [Integer]
+    attr_accessor :interface_down_timer_value_in_milliseconds
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -57,7 +65,9 @@ module OCI
         'freeform_tags': :'freeformTags',
         'is_active': :'isActive',
         'customer_reference_name': :'customerReferenceName',
-        'macsec_properties': :'macsecProperties'
+        'macsec_properties': :'macsecProperties',
+        'is_interface_hold_timer_enabled': :'isInterfaceHoldTimerEnabled',
+        'interface_down_timer_value_in_milliseconds': :'interfaceDownTimerValueInMilliseconds'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -71,7 +81,9 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'is_active': :'BOOLEAN',
         'customer_reference_name': :'String',
-        'macsec_properties': :'OCI::Core::Models::UpdateMacsecProperties'
+        'macsec_properties': :'OCI::Core::Models::UpdateMacsecProperties',
+        'is_interface_hold_timer_enabled': :'BOOLEAN',
+        'interface_down_timer_value_in_milliseconds': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -88,6 +100,8 @@ module OCI
     # @option attributes [BOOLEAN] :is_active The value to assign to the {#is_active} property
     # @option attributes [String] :customer_reference_name The value to assign to the {#customer_reference_name} property
     # @option attributes [OCI::Core::Models::UpdateMacsecProperties] :macsec_properties The value to assign to the {#macsec_properties} property
+    # @option attributes [BOOLEAN] :is_interface_hold_timer_enabled The value to assign to the {#is_interface_hold_timer_enabled} property
+    # @option attributes [Integer] :interface_down_timer_value_in_milliseconds The value to assign to the {#interface_down_timer_value_in_milliseconds} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -129,6 +143,18 @@ module OCI
       raise 'You cannot provide both :macsecProperties and :macsec_properties' if attributes.key?(:'macsecProperties') && attributes.key?(:'macsec_properties')
 
       self.macsec_properties = attributes[:'macsec_properties'] if attributes[:'macsec_properties']
+
+      self.is_interface_hold_timer_enabled = attributes[:'isInterfaceHoldTimerEnabled'] unless attributes[:'isInterfaceHoldTimerEnabled'].nil?
+
+      raise 'You cannot provide both :isInterfaceHoldTimerEnabled and :is_interface_hold_timer_enabled' if attributes.key?(:'isInterfaceHoldTimerEnabled') && attributes.key?(:'is_interface_hold_timer_enabled')
+
+      self.is_interface_hold_timer_enabled = attributes[:'is_interface_hold_timer_enabled'] unless attributes[:'is_interface_hold_timer_enabled'].nil?
+
+      self.interface_down_timer_value_in_milliseconds = attributes[:'interfaceDownTimerValueInMilliseconds'] if attributes[:'interfaceDownTimerValueInMilliseconds']
+
+      raise 'You cannot provide both :interfaceDownTimerValueInMilliseconds and :interface_down_timer_value_in_milliseconds' if attributes.key?(:'interfaceDownTimerValueInMilliseconds') && attributes.key?(:'interface_down_timer_value_in_milliseconds')
+
+      self.interface_down_timer_value_in_milliseconds = attributes[:'interface_down_timer_value_in_milliseconds'] if attributes[:'interface_down_timer_value_in_milliseconds']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -147,7 +173,9 @@ module OCI
         freeform_tags == other.freeform_tags &&
         is_active == other.is_active &&
         customer_reference_name == other.customer_reference_name &&
-        macsec_properties == other.macsec_properties
+        macsec_properties == other.macsec_properties &&
+        is_interface_hold_timer_enabled == other.is_interface_hold_timer_enabled &&
+        interface_down_timer_value_in_milliseconds == other.interface_down_timer_value_in_milliseconds
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -163,7 +191,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, is_active, customer_reference_name, macsec_properties].hash
+      [defined_tags, display_name, freeform_tags, is_active, customer_reference_name, macsec_properties, is_interface_hold_timer_enabled, interface_down_timer_value_in_milliseconds].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

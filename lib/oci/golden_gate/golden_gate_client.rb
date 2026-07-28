@@ -3240,6 +3240,143 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Returns the list of AI models for the specified provider. If the
+    # provider requires additional context to resolve its supported models,
+    # that context must be supplied in the request.
+    #
+    # @param [String] compartment_id The OCID of the compartment that contains the work request. Work requests should be scoped
+    #   to the same compartment as the resource the work request affects. If the work request concerns
+    #   multiple resources, and those resources are not in the same compartment, it is up to the service team
+    #   to pick the primary resource whose compartment should be used.
+    #
+    # @param [String] provider_type The AI provider type for which model information is requested.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :region OCI region identifier, for example us-ashburn-1.
+    #
+    # @option opts [String] :tenancy_id OCI tenancy OCID to use when resolving provider models, for example for
+    #   OCI Generative AI model discovery across a specific tenancy.
+    #
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    #
+    # @return [Response] A Response object with data of type {OCI::GoldenGate::Models::AiModelCollection AiModelCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/goldengate/list_ai_models.rb.html) to see an example of how to use list_ai_models API.
+    def list_ai_models(compartment_id, provider_type, opts = {})
+      logger.debug 'Calling operation GoldenGateClient#list_ai_models.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_ai_models." if compartment_id.nil?
+      raise "Missing the required parameter 'provider_type' when calling list_ai_models." if provider_type.nil?
+      unless OCI::GoldenGate::Models::AiProviderSummary::PROVIDER_TYPE_ENUM.include?(provider_type)
+        raise 'Invalid value for "provider_type", must be one of the values in OCI::GoldenGate::Models::AiProviderSummary::PROVIDER_TYPE_ENUM.'
+      end
+
+
+      path = '/aiModels'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:providerType] = provider_type
+      query_params[:region] = opts[:region] if opts[:region]
+      query_params[:tenancyId] = opts[:tenancy_id] if opts[:tenancy_id]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'GoldenGateClient#list_ai_models') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::GoldenGate::Models::AiModelCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Returns the list of AI providers along with their supported models.
+    #
+    # @param [String] compartment_id The OCID of the compartment that contains the work request. Work requests should be scoped
+    #   to the same compartment as the resource the work request affects. If the work request concerns
+    #   multiple resources, and those resources are not in the same compartment, it is up to the service team
+    #   to pick the primary resource whose compartment should be used.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id The client request ID for tracing.
+    #
+    # @return [Response] A Response object with data of type {OCI::GoldenGate::Models::AiProviderCollection AiProviderCollection}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/goldengate/list_ai_providers.rb.html) to see an example of how to use list_ai_providers API.
+    def list_ai_providers(compartment_id, opts = {})
+      logger.debug 'Calling operation GoldenGateClient#list_ai_providers.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_ai_providers." if compartment_id.nil?
+
+      path = '/aiProviders'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'GoldenGateClient#list_ai_providers') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::GoldenGate::Models::AiProviderCollection'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Returns a list of certificates from truststore.
     # @param [String] deployment_id A unique Deployment identifier.
     #
@@ -3340,6 +3477,12 @@ module OCI
     #
     # @option opts [String] :connection_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the connection.
     #
+    # @option opts [Array<String>] :connection_type The array of connection types.
+    #
+    #   Allowed values are: GOLDENGATE, KAFKA, KAFKA_SCHEMA_REGISTRY, MYSQL, JAVA_MESSAGE_SERVICE, MICROSOFT_SQLSERVER, OCI_OBJECT_STORAGE, ORACLE, AZURE_DATA_LAKE_STORAGE, POSTGRESQL, AZURE_SYNAPSE_ANALYTICS, SNOWFLAKE, AMAZON_S3, HDFS, ORACLE_AI_DATA_PLATFORM, ORACLE_NOSQL, MONGODB, AMAZON_KINESIS, AMAZON_REDSHIFT, DB2, REDIS, ELASTICSEARCH, GENERIC, GOOGLE_CLOUD_STORAGE, GOOGLE_BIGQUERY, DATABRICKS, GOOGLE_PUBSUB, MICROSOFT_FABRIC, ICEBERG, AI_MODEL
+    # @option opts [Array<String>] :connection_type_not_equal_to The array of connection types to exclude.
+    #
+    #   Allowed values are: GOLDENGATE, KAFKA, KAFKA_SCHEMA_REGISTRY, MYSQL, JAVA_MESSAGE_SERVICE, MICROSOFT_SQLSERVER, OCI_OBJECT_STORAGE, ORACLE, AZURE_DATA_LAKE_STORAGE, POSTGRESQL, AZURE_SYNAPSE_ANALYTICS, SNOWFLAKE, AMAZON_S3, HDFS, ORACLE_AI_DATA_PLATFORM, ORACLE_NOSQL, MONGODB, AMAZON_KINESIS, AMAZON_REDSHIFT, DB2, REDIS, ELASTICSEARCH, GENERIC, GOOGLE_CLOUD_STORAGE, GOOGLE_BIGQUERY, DATABRICKS, GOOGLE_PUBSUB, MICROSOFT_FABRIC, ICEBERG, AI_MODEL
     # @option opts [String] :name The name of the connection in the assignment (aliasName).
     # @option opts [String] :lifecycle_state A filter to return only connection assignments having the 'lifecycleState' given.
     # @option opts [Integer] :limit The maximum number of items to return.
@@ -3363,6 +3506,26 @@ module OCI
 
       raise "Missing the required parameter 'compartment_id' when calling list_connection_assignments." if compartment_id.nil?
 
+
+      connection_type_allowable_values = %w[GOLDENGATE KAFKA KAFKA_SCHEMA_REGISTRY MYSQL JAVA_MESSAGE_SERVICE MICROSOFT_SQLSERVER OCI_OBJECT_STORAGE ORACLE AZURE_DATA_LAKE_STORAGE POSTGRESQL AZURE_SYNAPSE_ANALYTICS SNOWFLAKE AMAZON_S3 HDFS ORACLE_AI_DATA_PLATFORM ORACLE_NOSQL MONGODB AMAZON_KINESIS AMAZON_REDSHIFT DB2 REDIS ELASTICSEARCH GENERIC GOOGLE_CLOUD_STORAGE GOOGLE_BIGQUERY DATABRICKS GOOGLE_PUBSUB MICROSOFT_FABRIC ICEBERG AI_MODEL]
+      if opts[:connection_type] && !opts[:connection_type].empty?
+        opts[:connection_type].each do |val_to_check|
+          unless connection_type_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "connection_type", must be one of GOLDENGATE, KAFKA, KAFKA_SCHEMA_REGISTRY, MYSQL, JAVA_MESSAGE_SERVICE, MICROSOFT_SQLSERVER, OCI_OBJECT_STORAGE, ORACLE, AZURE_DATA_LAKE_STORAGE, POSTGRESQL, AZURE_SYNAPSE_ANALYTICS, SNOWFLAKE, AMAZON_S3, HDFS, ORACLE_AI_DATA_PLATFORM, ORACLE_NOSQL, MONGODB, AMAZON_KINESIS, AMAZON_REDSHIFT, DB2, REDIS, ELASTICSEARCH, GENERIC, GOOGLE_CLOUD_STORAGE, GOOGLE_BIGQUERY, DATABRICKS, GOOGLE_PUBSUB, MICROSOFT_FABRIC, ICEBERG, AI_MODEL.'
+          end
+        end
+      end
+
+
+      connection_type_not_equal_to_allowable_values = %w[GOLDENGATE KAFKA KAFKA_SCHEMA_REGISTRY MYSQL JAVA_MESSAGE_SERVICE MICROSOFT_SQLSERVER OCI_OBJECT_STORAGE ORACLE AZURE_DATA_LAKE_STORAGE POSTGRESQL AZURE_SYNAPSE_ANALYTICS SNOWFLAKE AMAZON_S3 HDFS ORACLE_AI_DATA_PLATFORM ORACLE_NOSQL MONGODB AMAZON_KINESIS AMAZON_REDSHIFT DB2 REDIS ELASTICSEARCH GENERIC GOOGLE_CLOUD_STORAGE GOOGLE_BIGQUERY DATABRICKS GOOGLE_PUBSUB MICROSOFT_FABRIC ICEBERG AI_MODEL]
+      if opts[:connection_type_not_equal_to] && !opts[:connection_type_not_equal_to].empty?
+        opts[:connection_type_not_equal_to].each do |val_to_check|
+          unless connection_type_not_equal_to_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "connection_type_not_equal_to", must be one of GOLDENGATE, KAFKA, KAFKA_SCHEMA_REGISTRY, MYSQL, JAVA_MESSAGE_SERVICE, MICROSOFT_SQLSERVER, OCI_OBJECT_STORAGE, ORACLE, AZURE_DATA_LAKE_STORAGE, POSTGRESQL, AZURE_SYNAPSE_ANALYTICS, SNOWFLAKE, AMAZON_S3, HDFS, ORACLE_AI_DATA_PLATFORM, ORACLE_NOSQL, MONGODB, AMAZON_KINESIS, AMAZON_REDSHIFT, DB2, REDIS, ELASTICSEARCH, GENERIC, GOOGLE_CLOUD_STORAGE, GOOGLE_BIGQUERY, DATABRICKS, GOOGLE_PUBSUB, MICROSOFT_FABRIC, ICEBERG, AI_MODEL.'
+          end
+        end
+      end
+
       if opts[:lifecycle_state] && !OCI::GoldenGate::Models::ConnectionAssignment::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::GoldenGate::Models::ConnectionAssignment::LIFECYCLE_STATE_ENUM.'
       end
@@ -3384,6 +3547,8 @@ module OCI
       query_params[:compartmentId] = compartment_id
       query_params[:deploymentId] = opts[:deployment_id] if opts[:deployment_id]
       query_params[:connectionId] = opts[:connection_id] if opts[:connection_id]
+      query_params[:connectionType] = OCI::ApiClient.build_collection_params(opts[:connection_type], :multi) if opts[:connection_type] && !opts[:connection_type].empty?
+      query_params[:connectionTypeNotEqualTo] = OCI::ApiClient.build_collection_params(opts[:connection_type_not_equal_to], :multi) if opts[:connection_type_not_equal_to] && !opts[:connection_type_not_equal_to].empty?
       query_params[:name] = opts[:name] if opts[:name]
       query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
       query_params[:limit] = opts[:limit] if opts[:limit]
@@ -3436,10 +3601,13 @@ module OCI
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
     # @option opts [Array<String>] :technology_type The array of technology types.
     #
-    #   Allowed values are: GOLDENGATE, GENERIC, OCI_AUTONOMOUS_DATABASE, OCI_AUTONOMOUS_JSON_DATABASE, OCI_CACHE_WITH_REDIS, OCI_MYSQL, OCI_OBJECT_STORAGE, OCI_POSTGRESQL, OCI_STREAMING, OCI_STREAMING_WITH_APACHE_KAFKA, ORACLE_DATABASE, ORACLE_EXADATA, ORACLE_EXADATA_DATABASE_AT_AZURE, ORACLE_AUTONOMOUS_DATABASE_AT_AZURE, ORACLE_JSON_COLLECTION, ORACLE_EXADATA_DATABASE_AT_GOOGLE_CLOUD, ORACLE_AUTONOMOUS_DATABASE_AT_GOOGLE_CLOUD, ORACLE_EXADATA_DATABASE_AT_AWS, ORACLE_AUTONOMOUS_DATABASE_AT_AWS, ORACLE_AI_DATA_PLATFORM, ORACLE_NOSQL, ORACLE_REST_DATA_SERVICES, ORACLE_WEBLOGIC_JMS, AMAZON_RDS_ORACLE, AMAZON_RDS_SQLSERVER, AMAZON_S3, AMAZON_AURORA_MYSQL, AMAZON_AURORA_POSTGRESQL, AMAZON_DOCUMENT_DB, AMAZON_KINESIS, AMAZON_REDSHIFT, AMAZON_RDS_MARIADB, AMAZON_RDS_MYSQL, AMAZON_RDS_POSTGRESQL, APACHE_ICEBERG, APACHE_KAFKA, AZURE_COSMOS_DB_FOR_MONGODB, AZURE_COSMOS_DB_FOR_POSTGRESQL, AZURE_DATA_LAKE_STORAGE, AZURE_EVENT_HUBS, AZURE_MYSQL, AZURE_POSTGRESQL, AZURE_SQLSERVER_MANAGED_INSTANCE, AZURE_SQLSERVER_NON_MANAGED_INSTANCE, AZURE_SYNAPSE_ANALYTICS, CONFLUENT_KAFKA, CONFLUENT_SCHEMA_REGISTRY, DATABRICKS, DB2_I, DB2_ZOS, ELASTICSEARCH, EDB_POSTGRES_ADVANCED_SERVER, GOOGLE_ALLOY_DB_FOR_POSTGRESQL, GOOGLE_BIGQUERY, GOOGLE_CLOUD_STORAGE, GOOGLE_CLOUD_SQL_MYSQL, GOOGLE_CLOUD_SQL_POSTGRESQL, GOOGLE_CLOUD_SQL_SQLSERVER, GOOGLE_PUBSUB, HDFS, MARIADB, MICROSOFT_SQLSERVER, MICROSOFT_FABRIC_EVENTSTREAM, MICROSOFT_FABRIC_LAKEHOUSE, MICROSOFT_FABRIC_MIRROR, MONGODB, MYSQL_SERVER, MYSQL_HEATWAVE_ON_AZURE, MYSQL_HEATWAVE_ON_AWS, POSTGRESQL_SERVER, REDIS, SINGLESTOREDB, SINGLESTOREDB_CLOUD, SNOWFLAKE, YUGABYTE_DB
+    #   Allowed values are: GOLDENGATE, GENERIC, OCI_AUTONOMOUS_DATABASE, OCI_AUTONOMOUS_JSON_DATABASE, OCI_CACHE_WITH_REDIS, OCI_MYSQL, OCI_OBJECT_STORAGE, OCI_POSTGRESQL, OCI_STREAMING, OCI_STREAMING_WITH_APACHE_KAFKA, ORACLE_DATABASE, ORACLE_EXADATA, ORACLE_EXADATA_EXASCALE, ORACLE_EXADATA_DATABASE_AT_AZURE, ORACLE_EXADATA_EXASCALE_AT_AZURE, ORACLE_AUTONOMOUS_DATABASE_AT_AZURE, ORACLE_JSON_COLLECTION, ORACLE_EXADATA_DATABASE_AT_GOOGLE_CLOUD, ORACLE_EXADATA_EXASCALE_AT_GOOGLE_CLOUD, ORACLE_AUTONOMOUS_DATABASE_AT_GOOGLE_CLOUD, ORACLE_EXADATA_DATABASE_AT_AWS, ORACLE_AUTONOMOUS_DATABASE_AT_AWS, ORACLE_AI_DATA_PLATFORM, ORACLE_NOSQL, ORACLE_REST_DATA_SERVICES, ORACLE_WEBLOGIC_JMS, AMAZON_RDS_ORACLE, AMAZON_RDS_SQLSERVER, AMAZON_S3, AMAZON_AURORA_MYSQL, AMAZON_AURORA_POSTGRESQL, AMAZON_DOCUMENT_DB, AMAZON_KINESIS, AMAZON_REDSHIFT, AMAZON_RDS_MARIADB, AMAZON_RDS_MYSQL, AMAZON_RDS_POSTGRESQL, APACHE_ICEBERG, APACHE_KAFKA, AZURE_COSMOS_DB_FOR_MONGODB, AZURE_COSMOS_DB_FOR_POSTGRESQL, AZURE_DATA_LAKE_STORAGE, AZURE_EVENT_HUBS, AZURE_MYSQL, AZURE_POSTGRESQL, AZURE_SQLSERVER_MANAGED_INSTANCE, AZURE_SQLSERVER_NON_MANAGED_INSTANCE, AZURE_SYNAPSE_ANALYTICS, CONFLUENT_KAFKA, CONFLUENT_SCHEMA_REGISTRY, DATABRICKS, DB2_I, DB2_ZOS, ELASTICSEARCH, EDB_POSTGRES_ADVANCED_SERVER, GOOGLE_ALLOY_DB_FOR_POSTGRESQL, GOOGLE_BIGQUERY, GOOGLE_CLOUD_MANAGED_SERVICE_FOR_APACHE_KAFKA, GOOGLE_CLOUD_STORAGE, GOOGLE_CLOUD_SQL_MYSQL, GOOGLE_CLOUD_SQL_POSTGRESQL, GOOGLE_CLOUD_SQL_SQLSERVER, GOOGLE_PUBSUB, HDFS, MARIADB, MICROSOFT_SQLSERVER, MICROSOFT_FABRIC_EVENTSTREAM, MICROSOFT_FABRIC_LAKEHOUSE, MICROSOFT_FABRIC_MIRROR, MONGODB, MYSQL_SERVER, MYSQL_HEATWAVE_ON_AZURE, MYSQL_HEATWAVE_ON_AWS, POSTGRESQL_SERVER, REDIS, SINGLESTOREDB, SINGLESTOREDB_CLOUD, SNOWFLAKE, YUGABYTE_DB, AI_MODEL
     # @option opts [Array<String>] :connection_type The array of connection types.
     #
-    #   Allowed values are: GOLDENGATE, KAFKA, KAFKA_SCHEMA_REGISTRY, MYSQL, JAVA_MESSAGE_SERVICE, MICROSOFT_SQLSERVER, OCI_OBJECT_STORAGE, ORACLE, AZURE_DATA_LAKE_STORAGE, POSTGRESQL, AZURE_SYNAPSE_ANALYTICS, SNOWFLAKE, AMAZON_S3, HDFS, ORACLE_AI_DATA_PLATFORM, ORACLE_NOSQL, MONGODB, AMAZON_KINESIS, AMAZON_REDSHIFT, DB2, REDIS, ELASTICSEARCH, GENERIC, GOOGLE_CLOUD_STORAGE, GOOGLE_BIGQUERY, DATABRICKS, GOOGLE_PUBSUB, MICROSOFT_FABRIC, ICEBERG
+    #   Allowed values are: GOLDENGATE, KAFKA, KAFKA_SCHEMA_REGISTRY, MYSQL, JAVA_MESSAGE_SERVICE, MICROSOFT_SQLSERVER, OCI_OBJECT_STORAGE, ORACLE, AZURE_DATA_LAKE_STORAGE, POSTGRESQL, AZURE_SYNAPSE_ANALYTICS, SNOWFLAKE, AMAZON_S3, HDFS, ORACLE_AI_DATA_PLATFORM, ORACLE_NOSQL, MONGODB, AMAZON_KINESIS, AMAZON_REDSHIFT, DB2, REDIS, ELASTICSEARCH, GENERIC, GOOGLE_CLOUD_STORAGE, GOOGLE_BIGQUERY, DATABRICKS, GOOGLE_PUBSUB, MICROSOFT_FABRIC, ICEBERG, AI_MODEL
+    # @option opts [Array<String>] :connection_type_not_equal_to The array of connection types to exclude.
+    #
+    #   Allowed values are: GOLDENGATE, KAFKA, KAFKA_SCHEMA_REGISTRY, MYSQL, JAVA_MESSAGE_SERVICE, MICROSOFT_SQLSERVER, OCI_OBJECT_STORAGE, ORACLE, AZURE_DATA_LAKE_STORAGE, POSTGRESQL, AZURE_SYNAPSE_ANALYTICS, SNOWFLAKE, AMAZON_S3, HDFS, ORACLE_AI_DATA_PLATFORM, ORACLE_NOSQL, MONGODB, AMAZON_KINESIS, AMAZON_REDSHIFT, DB2, REDIS, ELASTICSEARCH, GENERIC, GOOGLE_CLOUD_STORAGE, GOOGLE_BIGQUERY, DATABRICKS, GOOGLE_PUBSUB, MICROSOFT_FABRIC, ICEBERG, AI_MODEL
     # @option opts [String] :assigned_deployment_id The OCID of the deployment which for the connection must be assigned.
     #
     # @option opts [String] :assignable_deployment_id Filters for compatible connections which can be, but currently not assigned to the deployment specified by its id.
@@ -3472,21 +3640,31 @@ module OCI
       raise "Missing the required parameter 'compartment_id' when calling list_connections." if compartment_id.nil?
 
 
-      technology_type_allowable_values = %w[GOLDENGATE GENERIC OCI_AUTONOMOUS_DATABASE OCI_AUTONOMOUS_JSON_DATABASE OCI_CACHE_WITH_REDIS OCI_MYSQL OCI_OBJECT_STORAGE OCI_POSTGRESQL OCI_STREAMING OCI_STREAMING_WITH_APACHE_KAFKA ORACLE_DATABASE ORACLE_EXADATA ORACLE_EXADATA_DATABASE_AT_AZURE ORACLE_AUTONOMOUS_DATABASE_AT_AZURE ORACLE_JSON_COLLECTION ORACLE_EXADATA_DATABASE_AT_GOOGLE_CLOUD ORACLE_AUTONOMOUS_DATABASE_AT_GOOGLE_CLOUD ORACLE_EXADATA_DATABASE_AT_AWS ORACLE_AUTONOMOUS_DATABASE_AT_AWS ORACLE_AI_DATA_PLATFORM ORACLE_NOSQL ORACLE_REST_DATA_SERVICES ORACLE_WEBLOGIC_JMS AMAZON_RDS_ORACLE AMAZON_RDS_SQLSERVER AMAZON_S3 AMAZON_AURORA_MYSQL AMAZON_AURORA_POSTGRESQL AMAZON_DOCUMENT_DB AMAZON_KINESIS AMAZON_REDSHIFT AMAZON_RDS_MARIADB AMAZON_RDS_MYSQL AMAZON_RDS_POSTGRESQL APACHE_ICEBERG APACHE_KAFKA AZURE_COSMOS_DB_FOR_MONGODB AZURE_COSMOS_DB_FOR_POSTGRESQL AZURE_DATA_LAKE_STORAGE AZURE_EVENT_HUBS AZURE_MYSQL AZURE_POSTGRESQL AZURE_SQLSERVER_MANAGED_INSTANCE AZURE_SQLSERVER_NON_MANAGED_INSTANCE AZURE_SYNAPSE_ANALYTICS CONFLUENT_KAFKA CONFLUENT_SCHEMA_REGISTRY DATABRICKS DB2_I DB2_ZOS ELASTICSEARCH EDB_POSTGRES_ADVANCED_SERVER GOOGLE_ALLOY_DB_FOR_POSTGRESQL GOOGLE_BIGQUERY GOOGLE_CLOUD_STORAGE GOOGLE_CLOUD_SQL_MYSQL GOOGLE_CLOUD_SQL_POSTGRESQL GOOGLE_CLOUD_SQL_SQLSERVER GOOGLE_PUBSUB HDFS MARIADB MICROSOFT_SQLSERVER MICROSOFT_FABRIC_EVENTSTREAM MICROSOFT_FABRIC_LAKEHOUSE MICROSOFT_FABRIC_MIRROR MONGODB MYSQL_SERVER MYSQL_HEATWAVE_ON_AZURE MYSQL_HEATWAVE_ON_AWS POSTGRESQL_SERVER REDIS SINGLESTOREDB SINGLESTOREDB_CLOUD SNOWFLAKE YUGABYTE_DB]
+      technology_type_allowable_values = %w[GOLDENGATE GENERIC OCI_AUTONOMOUS_DATABASE OCI_AUTONOMOUS_JSON_DATABASE OCI_CACHE_WITH_REDIS OCI_MYSQL OCI_OBJECT_STORAGE OCI_POSTGRESQL OCI_STREAMING OCI_STREAMING_WITH_APACHE_KAFKA ORACLE_DATABASE ORACLE_EXADATA ORACLE_EXADATA_EXASCALE ORACLE_EXADATA_DATABASE_AT_AZURE ORACLE_EXADATA_EXASCALE_AT_AZURE ORACLE_AUTONOMOUS_DATABASE_AT_AZURE ORACLE_JSON_COLLECTION ORACLE_EXADATA_DATABASE_AT_GOOGLE_CLOUD ORACLE_EXADATA_EXASCALE_AT_GOOGLE_CLOUD ORACLE_AUTONOMOUS_DATABASE_AT_GOOGLE_CLOUD ORACLE_EXADATA_DATABASE_AT_AWS ORACLE_AUTONOMOUS_DATABASE_AT_AWS ORACLE_AI_DATA_PLATFORM ORACLE_NOSQL ORACLE_REST_DATA_SERVICES ORACLE_WEBLOGIC_JMS AMAZON_RDS_ORACLE AMAZON_RDS_SQLSERVER AMAZON_S3 AMAZON_AURORA_MYSQL AMAZON_AURORA_POSTGRESQL AMAZON_DOCUMENT_DB AMAZON_KINESIS AMAZON_REDSHIFT AMAZON_RDS_MARIADB AMAZON_RDS_MYSQL AMAZON_RDS_POSTGRESQL APACHE_ICEBERG APACHE_KAFKA AZURE_COSMOS_DB_FOR_MONGODB AZURE_COSMOS_DB_FOR_POSTGRESQL AZURE_DATA_LAKE_STORAGE AZURE_EVENT_HUBS AZURE_MYSQL AZURE_POSTGRESQL AZURE_SQLSERVER_MANAGED_INSTANCE AZURE_SQLSERVER_NON_MANAGED_INSTANCE AZURE_SYNAPSE_ANALYTICS CONFLUENT_KAFKA CONFLUENT_SCHEMA_REGISTRY DATABRICKS DB2_I DB2_ZOS ELASTICSEARCH EDB_POSTGRES_ADVANCED_SERVER GOOGLE_ALLOY_DB_FOR_POSTGRESQL GOOGLE_BIGQUERY GOOGLE_CLOUD_MANAGED_SERVICE_FOR_APACHE_KAFKA GOOGLE_CLOUD_STORAGE GOOGLE_CLOUD_SQL_MYSQL GOOGLE_CLOUD_SQL_POSTGRESQL GOOGLE_CLOUD_SQL_SQLSERVER GOOGLE_PUBSUB HDFS MARIADB MICROSOFT_SQLSERVER MICROSOFT_FABRIC_EVENTSTREAM MICROSOFT_FABRIC_LAKEHOUSE MICROSOFT_FABRIC_MIRROR MONGODB MYSQL_SERVER MYSQL_HEATWAVE_ON_AZURE MYSQL_HEATWAVE_ON_AWS POSTGRESQL_SERVER REDIS SINGLESTOREDB SINGLESTOREDB_CLOUD SNOWFLAKE YUGABYTE_DB AI_MODEL]
       if opts[:technology_type] && !opts[:technology_type].empty?
         opts[:technology_type].each do |val_to_check|
           unless technology_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "technology_type", must be one of GOLDENGATE, GENERIC, OCI_AUTONOMOUS_DATABASE, OCI_AUTONOMOUS_JSON_DATABASE, OCI_CACHE_WITH_REDIS, OCI_MYSQL, OCI_OBJECT_STORAGE, OCI_POSTGRESQL, OCI_STREAMING, OCI_STREAMING_WITH_APACHE_KAFKA, ORACLE_DATABASE, ORACLE_EXADATA, ORACLE_EXADATA_DATABASE_AT_AZURE, ORACLE_AUTONOMOUS_DATABASE_AT_AZURE, ORACLE_JSON_COLLECTION, ORACLE_EXADATA_DATABASE_AT_GOOGLE_CLOUD, ORACLE_AUTONOMOUS_DATABASE_AT_GOOGLE_CLOUD, ORACLE_EXADATA_DATABASE_AT_AWS, ORACLE_AUTONOMOUS_DATABASE_AT_AWS, ORACLE_AI_DATA_PLATFORM, ORACLE_NOSQL, ORACLE_REST_DATA_SERVICES, ORACLE_WEBLOGIC_JMS, AMAZON_RDS_ORACLE, AMAZON_RDS_SQLSERVER, AMAZON_S3, AMAZON_AURORA_MYSQL, AMAZON_AURORA_POSTGRESQL, AMAZON_DOCUMENT_DB, AMAZON_KINESIS, AMAZON_REDSHIFT, AMAZON_RDS_MARIADB, AMAZON_RDS_MYSQL, AMAZON_RDS_POSTGRESQL, APACHE_ICEBERG, APACHE_KAFKA, AZURE_COSMOS_DB_FOR_MONGODB, AZURE_COSMOS_DB_FOR_POSTGRESQL, AZURE_DATA_LAKE_STORAGE, AZURE_EVENT_HUBS, AZURE_MYSQL, AZURE_POSTGRESQL, AZURE_SQLSERVER_MANAGED_INSTANCE, AZURE_SQLSERVER_NON_MANAGED_INSTANCE, AZURE_SYNAPSE_ANALYTICS, CONFLUENT_KAFKA, CONFLUENT_SCHEMA_REGISTRY, DATABRICKS, DB2_I, DB2_ZOS, ELASTICSEARCH, EDB_POSTGRES_ADVANCED_SERVER, GOOGLE_ALLOY_DB_FOR_POSTGRESQL, GOOGLE_BIGQUERY, GOOGLE_CLOUD_STORAGE, GOOGLE_CLOUD_SQL_MYSQL, GOOGLE_CLOUD_SQL_POSTGRESQL, GOOGLE_CLOUD_SQL_SQLSERVER, GOOGLE_PUBSUB, HDFS, MARIADB, MICROSOFT_SQLSERVER, MICROSOFT_FABRIC_EVENTSTREAM, MICROSOFT_FABRIC_LAKEHOUSE, MICROSOFT_FABRIC_MIRROR, MONGODB, MYSQL_SERVER, MYSQL_HEATWAVE_ON_AZURE, MYSQL_HEATWAVE_ON_AWS, POSTGRESQL_SERVER, REDIS, SINGLESTOREDB, SINGLESTOREDB_CLOUD, SNOWFLAKE, YUGABYTE_DB.'
+            raise 'Invalid value for "technology_type", must be one of GOLDENGATE, GENERIC, OCI_AUTONOMOUS_DATABASE, OCI_AUTONOMOUS_JSON_DATABASE, OCI_CACHE_WITH_REDIS, OCI_MYSQL, OCI_OBJECT_STORAGE, OCI_POSTGRESQL, OCI_STREAMING, OCI_STREAMING_WITH_APACHE_KAFKA, ORACLE_DATABASE, ORACLE_EXADATA, ORACLE_EXADATA_EXASCALE, ORACLE_EXADATA_DATABASE_AT_AZURE, ORACLE_EXADATA_EXASCALE_AT_AZURE, ORACLE_AUTONOMOUS_DATABASE_AT_AZURE, ORACLE_JSON_COLLECTION, ORACLE_EXADATA_DATABASE_AT_GOOGLE_CLOUD, ORACLE_EXADATA_EXASCALE_AT_GOOGLE_CLOUD, ORACLE_AUTONOMOUS_DATABASE_AT_GOOGLE_CLOUD, ORACLE_EXADATA_DATABASE_AT_AWS, ORACLE_AUTONOMOUS_DATABASE_AT_AWS, ORACLE_AI_DATA_PLATFORM, ORACLE_NOSQL, ORACLE_REST_DATA_SERVICES, ORACLE_WEBLOGIC_JMS, AMAZON_RDS_ORACLE, AMAZON_RDS_SQLSERVER, AMAZON_S3, AMAZON_AURORA_MYSQL, AMAZON_AURORA_POSTGRESQL, AMAZON_DOCUMENT_DB, AMAZON_KINESIS, AMAZON_REDSHIFT, AMAZON_RDS_MARIADB, AMAZON_RDS_MYSQL, AMAZON_RDS_POSTGRESQL, APACHE_ICEBERG, APACHE_KAFKA, AZURE_COSMOS_DB_FOR_MONGODB, AZURE_COSMOS_DB_FOR_POSTGRESQL, AZURE_DATA_LAKE_STORAGE, AZURE_EVENT_HUBS, AZURE_MYSQL, AZURE_POSTGRESQL, AZURE_SQLSERVER_MANAGED_INSTANCE, AZURE_SQLSERVER_NON_MANAGED_INSTANCE, AZURE_SYNAPSE_ANALYTICS, CONFLUENT_KAFKA, CONFLUENT_SCHEMA_REGISTRY, DATABRICKS, DB2_I, DB2_ZOS, ELASTICSEARCH, EDB_POSTGRES_ADVANCED_SERVER, GOOGLE_ALLOY_DB_FOR_POSTGRESQL, GOOGLE_BIGQUERY, GOOGLE_CLOUD_MANAGED_SERVICE_FOR_APACHE_KAFKA, GOOGLE_CLOUD_STORAGE, GOOGLE_CLOUD_SQL_MYSQL, GOOGLE_CLOUD_SQL_POSTGRESQL, GOOGLE_CLOUD_SQL_SQLSERVER, GOOGLE_PUBSUB, HDFS, MARIADB, MICROSOFT_SQLSERVER, MICROSOFT_FABRIC_EVENTSTREAM, MICROSOFT_FABRIC_LAKEHOUSE, MICROSOFT_FABRIC_MIRROR, MONGODB, MYSQL_SERVER, MYSQL_HEATWAVE_ON_AZURE, MYSQL_HEATWAVE_ON_AWS, POSTGRESQL_SERVER, REDIS, SINGLESTOREDB, SINGLESTOREDB_CLOUD, SNOWFLAKE, YUGABYTE_DB, AI_MODEL.'
           end
         end
       end
 
 
-      connection_type_allowable_values = %w[GOLDENGATE KAFKA KAFKA_SCHEMA_REGISTRY MYSQL JAVA_MESSAGE_SERVICE MICROSOFT_SQLSERVER OCI_OBJECT_STORAGE ORACLE AZURE_DATA_LAKE_STORAGE POSTGRESQL AZURE_SYNAPSE_ANALYTICS SNOWFLAKE AMAZON_S3 HDFS ORACLE_AI_DATA_PLATFORM ORACLE_NOSQL MONGODB AMAZON_KINESIS AMAZON_REDSHIFT DB2 REDIS ELASTICSEARCH GENERIC GOOGLE_CLOUD_STORAGE GOOGLE_BIGQUERY DATABRICKS GOOGLE_PUBSUB MICROSOFT_FABRIC ICEBERG]
+      connection_type_allowable_values = %w[GOLDENGATE KAFKA KAFKA_SCHEMA_REGISTRY MYSQL JAVA_MESSAGE_SERVICE MICROSOFT_SQLSERVER OCI_OBJECT_STORAGE ORACLE AZURE_DATA_LAKE_STORAGE POSTGRESQL AZURE_SYNAPSE_ANALYTICS SNOWFLAKE AMAZON_S3 HDFS ORACLE_AI_DATA_PLATFORM ORACLE_NOSQL MONGODB AMAZON_KINESIS AMAZON_REDSHIFT DB2 REDIS ELASTICSEARCH GENERIC GOOGLE_CLOUD_STORAGE GOOGLE_BIGQUERY DATABRICKS GOOGLE_PUBSUB MICROSOFT_FABRIC ICEBERG AI_MODEL]
       if opts[:connection_type] && !opts[:connection_type].empty?
         opts[:connection_type].each do |val_to_check|
           unless connection_type_allowable_values.include?(val_to_check)
-            raise 'Invalid value for "connection_type", must be one of GOLDENGATE, KAFKA, KAFKA_SCHEMA_REGISTRY, MYSQL, JAVA_MESSAGE_SERVICE, MICROSOFT_SQLSERVER, OCI_OBJECT_STORAGE, ORACLE, AZURE_DATA_LAKE_STORAGE, POSTGRESQL, AZURE_SYNAPSE_ANALYTICS, SNOWFLAKE, AMAZON_S3, HDFS, ORACLE_AI_DATA_PLATFORM, ORACLE_NOSQL, MONGODB, AMAZON_KINESIS, AMAZON_REDSHIFT, DB2, REDIS, ELASTICSEARCH, GENERIC, GOOGLE_CLOUD_STORAGE, GOOGLE_BIGQUERY, DATABRICKS, GOOGLE_PUBSUB, MICROSOFT_FABRIC, ICEBERG.'
+            raise 'Invalid value for "connection_type", must be one of GOLDENGATE, KAFKA, KAFKA_SCHEMA_REGISTRY, MYSQL, JAVA_MESSAGE_SERVICE, MICROSOFT_SQLSERVER, OCI_OBJECT_STORAGE, ORACLE, AZURE_DATA_LAKE_STORAGE, POSTGRESQL, AZURE_SYNAPSE_ANALYTICS, SNOWFLAKE, AMAZON_S3, HDFS, ORACLE_AI_DATA_PLATFORM, ORACLE_NOSQL, MONGODB, AMAZON_KINESIS, AMAZON_REDSHIFT, DB2, REDIS, ELASTICSEARCH, GENERIC, GOOGLE_CLOUD_STORAGE, GOOGLE_BIGQUERY, DATABRICKS, GOOGLE_PUBSUB, MICROSOFT_FABRIC, ICEBERG, AI_MODEL.'
+          end
+        end
+      end
+
+
+      connection_type_not_equal_to_allowable_values = %w[GOLDENGATE KAFKA KAFKA_SCHEMA_REGISTRY MYSQL JAVA_MESSAGE_SERVICE MICROSOFT_SQLSERVER OCI_OBJECT_STORAGE ORACLE AZURE_DATA_LAKE_STORAGE POSTGRESQL AZURE_SYNAPSE_ANALYTICS SNOWFLAKE AMAZON_S3 HDFS ORACLE_AI_DATA_PLATFORM ORACLE_NOSQL MONGODB AMAZON_KINESIS AMAZON_REDSHIFT DB2 REDIS ELASTICSEARCH GENERIC GOOGLE_CLOUD_STORAGE GOOGLE_BIGQUERY DATABRICKS GOOGLE_PUBSUB MICROSOFT_FABRIC ICEBERG AI_MODEL]
+      if opts[:connection_type_not_equal_to] && !opts[:connection_type_not_equal_to].empty?
+        opts[:connection_type_not_equal_to].each do |val_to_check|
+          unless connection_type_not_equal_to_allowable_values.include?(val_to_check)
+            raise 'Invalid value for "connection_type_not_equal_to", must be one of GOLDENGATE, KAFKA, KAFKA_SCHEMA_REGISTRY, MYSQL, JAVA_MESSAGE_SERVICE, MICROSOFT_SQLSERVER, OCI_OBJECT_STORAGE, ORACLE, AZURE_DATA_LAKE_STORAGE, POSTGRESQL, AZURE_SYNAPSE_ANALYTICS, SNOWFLAKE, AMAZON_S3, HDFS, ORACLE_AI_DATA_PLATFORM, ORACLE_NOSQL, MONGODB, AMAZON_KINESIS, AMAZON_REDSHIFT, DB2, REDIS, ELASTICSEARCH, GENERIC, GOOGLE_CLOUD_STORAGE, GOOGLE_BIGQUERY, DATABRICKS, GOOGLE_PUBSUB, MICROSOFT_FABRIC, ICEBERG, AI_MODEL.'
           end
         end
       end
@@ -3516,6 +3694,7 @@ module OCI
       query_params[:compartmentId] = compartment_id
       query_params[:technologyType] = OCI::ApiClient.build_collection_params(opts[:technology_type], :multi) if opts[:technology_type] && !opts[:technology_type].empty?
       query_params[:connectionType] = OCI::ApiClient.build_collection_params(opts[:connection_type], :multi) if opts[:connection_type] && !opts[:connection_type].empty?
+      query_params[:connectionTypeNotEqualTo] = OCI::ApiClient.build_collection_params(opts[:connection_type_not_equal_to], :multi) if opts[:connection_type_not_equal_to] && !opts[:connection_type_not_equal_to].empty?
       query_params[:assignedDeploymentId] = opts[:assigned_deployment_id] if opts[:assigned_deployment_id]
       query_params[:assignableDeploymentId] = opts[:assignable_deployment_id] if opts[:assignable_deployment_id]
       query_params[:assignableDeploymentType] = opts[:assignable_deployment_type] if opts[:assignable_deployment_type]

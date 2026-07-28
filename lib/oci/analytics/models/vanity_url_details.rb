@@ -6,25 +6,25 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Vanity url configuration details.
+  # Vanity URL configuration details.
   #
   class Analytics::Models::VanityUrlDetails
-    # The vanity url unique identifier key.
+    # The vanity URL unique identifier key.
     #
     # @return [String]
     attr_accessor :key
 
-    # Description of the vanity url.
+    # Description of the vanity URL.
     #
     # @return [String]
     attr_accessor :description
 
-    # List of urls supported by this vanity URL definition (max of 3).
+    # List of URLs supported by this vanity URL definition (maximum of 3).
     #
     # @return [Array<String>]
     attr_accessor :urls
 
-    # List of fully qualified hostnames supported by this vanity URL definition (max of 3).
+    # List of fully-qualified hostnames supported by this vanity URL definition (maximum of 3).
     #
     # @return [Array<String>]
     attr_accessor :hosts

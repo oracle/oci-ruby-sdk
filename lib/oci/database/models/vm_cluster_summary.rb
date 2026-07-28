@@ -118,6 +118,13 @@ module OCI
     # @return [Integer]
     attr_accessor :sparse_storage_percentage
 
+    # @return [OCI::Database::Models::ExadataLiveImageVersionDetails]
+    attr_accessor :live_image_version_details
+
+    # Oracle Linux version for the respective Exadata Image.
+    # @return [String]
+    attr_accessor :oracle_linux_version
+
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the VM cluster network.
     # @return [String]
     attr_accessor :vm_cluster_network_id
@@ -252,6 +259,8 @@ module OCI
         'data_storage_percentage': :'dataStoragePercentage',
         'reco_storage_percentage': :'recoStoragePercentage',
         'sparse_storage_percentage': :'sparseStoragePercentage',
+        'live_image_version_details': :'liveImageVersionDetails',
+        'oracle_linux_version': :'oracleLinuxVersion',
         'vm_cluster_network_id': :'vmClusterNetworkId',
         'cpus_enabled': :'cpusEnabled',
         'ocpus_enabled': :'ocpusEnabled',
@@ -301,6 +310,8 @@ module OCI
         'data_storage_percentage': :'Integer',
         'reco_storage_percentage': :'Integer',
         'sparse_storage_percentage': :'Integer',
+        'live_image_version_details': :'OCI::Database::Models::ExadataLiveImageVersionDetails',
+        'oracle_linux_version': :'String',
         'vm_cluster_network_id': :'String',
         'cpus_enabled': :'Integer',
         'ocpus_enabled': :'Float',
@@ -352,6 +363,8 @@ module OCI
     # @option attributes [Integer] :data_storage_percentage The value to assign to the {#data_storage_percentage} property
     # @option attributes [Integer] :reco_storage_percentage The value to assign to the {#reco_storage_percentage} property
     # @option attributes [Integer] :sparse_storage_percentage The value to assign to the {#sparse_storage_percentage} property
+    # @option attributes [OCI::Database::Models::ExadataLiveImageVersionDetails] :live_image_version_details The value to assign to the {#live_image_version_details} property
+    # @option attributes [String] :oracle_linux_version The value to assign to the {#oracle_linux_version} property
     # @option attributes [String] :vm_cluster_network_id The value to assign to the {#vm_cluster_network_id} property
     # @option attributes [Integer] :cpus_enabled The value to assign to the {#cpus_enabled} property
     # @option attributes [Float] :ocpus_enabled The value to assign to the {#ocpus_enabled} property
@@ -464,6 +477,18 @@ module OCI
       raise 'You cannot provide both :sparseStoragePercentage and :sparse_storage_percentage' if attributes.key?(:'sparseStoragePercentage') && attributes.key?(:'sparse_storage_percentage')
 
       self.sparse_storage_percentage = attributes[:'sparse_storage_percentage'] if attributes[:'sparse_storage_percentage']
+
+      self.live_image_version_details = attributes[:'liveImageVersionDetails'] if attributes[:'liveImageVersionDetails']
+
+      raise 'You cannot provide both :liveImageVersionDetails and :live_image_version_details' if attributes.key?(:'liveImageVersionDetails') && attributes.key?(:'live_image_version_details')
+
+      self.live_image_version_details = attributes[:'live_image_version_details'] if attributes[:'live_image_version_details']
+
+      self.oracle_linux_version = attributes[:'oracleLinuxVersion'] if attributes[:'oracleLinuxVersion']
+
+      raise 'You cannot provide both :oracleLinuxVersion and :oracle_linux_version' if attributes.key?(:'oracleLinuxVersion') && attributes.key?(:'oracle_linux_version')
+
+      self.oracle_linux_version = attributes[:'oracle_linux_version'] if attributes[:'oracle_linux_version']
 
       self.vm_cluster_network_id = attributes[:'vmClusterNetworkId'] if attributes[:'vmClusterNetworkId']
 
@@ -742,6 +767,8 @@ module OCI
         data_storage_percentage == other.data_storage_percentage &&
         reco_storage_percentage == other.reco_storage_percentage &&
         sparse_storage_percentage == other.sparse_storage_percentage &&
+        live_image_version_details == other.live_image_version_details &&
+        oracle_linux_version == other.oracle_linux_version &&
         vm_cluster_network_id == other.vm_cluster_network_id &&
         cpus_enabled == other.cpus_enabled &&
         ocpus_enabled == other.ocpus_enabled &&
@@ -784,7 +811,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, last_patch_history_entry_id, lifecycle_state, display_name, time_created, lifecycle_details, time_zone, is_local_backup_enabled, exadata_infrastructure_id, is_sparse_diskgroup_enabled, data_storage_percentage, reco_storage_percentage, sparse_storage_percentage, vm_cluster_network_id, cpus_enabled, ocpus_enabled, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, data_storage_size_in_gbs, shape, gi_version, system_version, ssh_public_keys, license_model, db_servers, availability_domain, freeform_tags, defined_tags, system_tags, data_collection_options, gi_software_image_id, file_system_configuration_details, vm_cluster_type, cloud_automation_update_details, exascale_db_storage_vault_id, storage_management_type, compute_model, vm_file_system_storage_type, vm_backup_storage_type].hash
+      [id, compartment_id, last_patch_history_entry_id, lifecycle_state, display_name, time_created, lifecycle_details, time_zone, is_local_backup_enabled, exadata_infrastructure_id, is_sparse_diskgroup_enabled, data_storage_percentage, reco_storage_percentage, sparse_storage_percentage, live_image_version_details, oracle_linux_version, vm_cluster_network_id, cpus_enabled, ocpus_enabled, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, data_storage_size_in_gbs, shape, gi_version, system_version, ssh_public_keys, license_model, db_servers, availability_domain, freeform_tags, defined_tags, system_tags, data_collection_options, gi_software_image_id, file_system_configuration_details, vm_cluster_type, cloud_automation_update_details, exascale_db_storage_vault_id, storage_management_type, compute_model, vm_file_system_storage_type, vm_backup_storage_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

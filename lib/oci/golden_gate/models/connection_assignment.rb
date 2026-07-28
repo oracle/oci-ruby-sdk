@@ -11,6 +11,40 @@ module OCI
   # Before you can use a connection as a GoldenGate source or target, you must assign it to a deployment.
   #
   class GoldenGate::Models::ConnectionAssignment
+    CONNECTION_TYPE_ENUM = [
+      CONNECTION_TYPE_GOLDENGATE = 'GOLDENGATE'.freeze,
+      CONNECTION_TYPE_KAFKA = 'KAFKA'.freeze,
+      CONNECTION_TYPE_KAFKA_SCHEMA_REGISTRY = 'KAFKA_SCHEMA_REGISTRY'.freeze,
+      CONNECTION_TYPE_MYSQL = 'MYSQL'.freeze,
+      CONNECTION_TYPE_JAVA_MESSAGE_SERVICE = 'JAVA_MESSAGE_SERVICE'.freeze,
+      CONNECTION_TYPE_MICROSOFT_SQLSERVER = 'MICROSOFT_SQLSERVER'.freeze,
+      CONNECTION_TYPE_OCI_OBJECT_STORAGE = 'OCI_OBJECT_STORAGE'.freeze,
+      CONNECTION_TYPE_ORACLE = 'ORACLE'.freeze,
+      CONNECTION_TYPE_AZURE_DATA_LAKE_STORAGE = 'AZURE_DATA_LAKE_STORAGE'.freeze,
+      CONNECTION_TYPE_POSTGRESQL = 'POSTGRESQL'.freeze,
+      CONNECTION_TYPE_AZURE_SYNAPSE_ANALYTICS = 'AZURE_SYNAPSE_ANALYTICS'.freeze,
+      CONNECTION_TYPE_SNOWFLAKE = 'SNOWFLAKE'.freeze,
+      CONNECTION_TYPE_AMAZON_S3 = 'AMAZON_S3'.freeze,
+      CONNECTION_TYPE_HDFS = 'HDFS'.freeze,
+      CONNECTION_TYPE_ORACLE_AI_DATA_PLATFORM = 'ORACLE_AI_DATA_PLATFORM'.freeze,
+      CONNECTION_TYPE_ORACLE_NOSQL = 'ORACLE_NOSQL'.freeze,
+      CONNECTION_TYPE_MONGODB = 'MONGODB'.freeze,
+      CONNECTION_TYPE_AMAZON_KINESIS = 'AMAZON_KINESIS'.freeze,
+      CONNECTION_TYPE_AMAZON_REDSHIFT = 'AMAZON_REDSHIFT'.freeze,
+      CONNECTION_TYPE_DB2 = 'DB2'.freeze,
+      CONNECTION_TYPE_REDIS = 'REDIS'.freeze,
+      CONNECTION_TYPE_ELASTICSEARCH = 'ELASTICSEARCH'.freeze,
+      CONNECTION_TYPE_GENERIC = 'GENERIC'.freeze,
+      CONNECTION_TYPE_GOOGLE_CLOUD_STORAGE = 'GOOGLE_CLOUD_STORAGE'.freeze,
+      CONNECTION_TYPE_GOOGLE_BIGQUERY = 'GOOGLE_BIGQUERY'.freeze,
+      CONNECTION_TYPE_DATABRICKS = 'DATABRICKS'.freeze,
+      CONNECTION_TYPE_GOOGLE_PUBSUB = 'GOOGLE_PUBSUB'.freeze,
+      CONNECTION_TYPE_MICROSOFT_FABRIC = 'MICROSOFT_FABRIC'.freeze,
+      CONNECTION_TYPE_ICEBERG = 'ICEBERG'.freeze,
+      CONNECTION_TYPE_AI_MODEL = 'AI_MODEL'.freeze,
+      CONNECTION_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     LIFECYCLE_STATE_ENUM = [
       LIFECYCLE_STATE_CREATING = 'CREATING'.freeze,
       LIFECYCLE_STATE_ACTIVE = 'ACTIVE'.freeze,
@@ -31,6 +65,11 @@ module OCI
     #
     # @return [String]
     attr_accessor :connection_id
+
+    # **[Required]** The connection type.
+    #
+    # @return [String]
+    attr_reader :connection_type
 
     # **[Required]** The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the deployment being referenced.
     #
@@ -69,6 +108,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'id': :'id',
         'connection_id': :'connectionId',
+        'connection_type': :'connectionType',
         'deployment_id': :'deploymentId',
         'alias_name': :'aliasName',
         'compartment_id': :'compartmentId',
@@ -85,6 +125,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'id': :'String',
         'connection_id': :'String',
+        'connection_type': :'String',
         'deployment_id': :'String',
         'alias_name': :'String',
         'compartment_id': :'String',
@@ -103,6 +144,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :connection_id The value to assign to the {#connection_id} property
+    # @option attributes [String] :connection_type The value to assign to the {#connection_type} property
     # @option attributes [String] :deployment_id The value to assign to the {#deployment_id} property
     # @option attributes [String] :alias_name The value to assign to the {#alias_name} property
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
@@ -122,6 +164,12 @@ module OCI
       raise 'You cannot provide both :connectionId and :connection_id' if attributes.key?(:'connectionId') && attributes.key?(:'connection_id')
 
       self.connection_id = attributes[:'connection_id'] if attributes[:'connection_id']
+
+      self.connection_type = attributes[:'connectionType'] if attributes[:'connectionType']
+
+      raise 'You cannot provide both :connectionType and :connection_type' if attributes.key?(:'connectionType') && attributes.key?(:'connection_type')
+
+      self.connection_type = attributes[:'connection_type'] if attributes[:'connection_type']
 
       self.deployment_id = attributes[:'deploymentId'] if attributes[:'deploymentId']
 
@@ -163,6 +211,19 @@ module OCI
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] connection_type Object to be assigned
+    def connection_type=(connection_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if connection_type && !CONNECTION_TYPE_ENUM.include?(connection_type)
+        OCI.logger.debug("Unknown value for 'connection_type' [" + connection_type + "]. Mapping to 'CONNECTION_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @connection_type = CONNECTION_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @connection_type = connection_type
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] lifecycle_state Object to be assigned
     def lifecycle_state=(lifecycle_state)
       # rubocop:disable Style/ConditionalAssignment
@@ -186,6 +247,7 @@ module OCI
       self.class == other.class &&
         id == other.id &&
         connection_id == other.connection_id &&
+        connection_type == other.connection_type &&
         deployment_id == other.deployment_id &&
         alias_name == other.alias_name &&
         compartment_id == other.compartment_id &&
@@ -207,7 +269,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, connection_id, deployment_id, alias_name, compartment_id, lifecycle_state, time_created, time_updated].hash
+      [id, connection_id, connection_type, deployment_id, alias_name, compartment_id, lifecycle_state, time_created, time_updated].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

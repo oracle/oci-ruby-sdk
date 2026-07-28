@@ -27,7 +27,9 @@ module OCI
     attr_accessor :client_id
 
     # Client secret associated with the client id.
-    # Deprecated: This field is deprecated and replaced by \"clientSecretSecretId\". This field will be removed after February 15 2026.
+    # Deprecated: This field is deprecated and replaced by \"clientSecretSecretId\".
+    # This change follows the GoldenGate \"Plain Text Fields in Connections\" deprecation:
+    # https://docs.oracle.com/en-us/iaas/Content/servicechanges.htm#servicechanges_topic-GoldenGate
     #
     # @return [String]
     attr_accessor :client_secret

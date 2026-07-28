@@ -15,6 +15,7 @@ module OCI
     attr_accessor :technology_type
 
     # **[Required]** Access key ID to access the Amazon Kinesis.
+    # Note: Despite the \"Id\" suffix, this value is not an OCI OCID.
     #
     # @return [String]
     attr_accessor :access_key_id

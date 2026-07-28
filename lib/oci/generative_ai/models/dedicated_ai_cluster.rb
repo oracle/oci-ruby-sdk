@@ -108,6 +108,8 @@ module OCI
       UNIT_SHAPE_H100_X2 = 'H100_X2'.freeze,
       UNIT_SHAPE_H100_X4 = 'H100_X4'.freeze,
       UNIT_SHAPE_H100_X8 = 'H100_X8'.freeze,
+      UNIT_SHAPE_H100_X16 = 'H100_X16'.freeze,
+      UNIT_SHAPE_H100_X32 = 'H100_X32'.freeze,
       UNIT_SHAPE_H200_X1 = 'H200_X1'.freeze,
       UNIT_SHAPE_H200_X2 = 'H200_X2'.freeze,
       UNIT_SHAPE_H200_X4 = 'H200_X4'.freeze,

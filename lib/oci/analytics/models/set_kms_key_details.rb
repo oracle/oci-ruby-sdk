@@ -6,10 +6,10 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Input payload to reset the OCI Vault encryption key.
+  # Input payload to reset the OCI vault encryption key.
   #
   class Analytics::Models::SetKmsKeyDetails
-    # **[Required]** OCID of the OCI Vault Key encrypting the customer data stored in this Analytics instance. An empty value indicates Oracle managed default encryption (null is not supported in this API).
+    # **[Required]** OCID of the OCI vault key encrypting the customer data stored in this Analytics instance. An empty value indicates the default Oracle-managed encryption (this API doesn't support null).
     #
     # @return [String]
     attr_accessor :kms_key_id

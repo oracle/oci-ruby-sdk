@@ -75,6 +75,11 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_memory_encryption_enabled
 
+    # Specifies if the Dedicated Virtual Machine Host (DVMH) is restricted to running only Burstable VMs. If `true`, only Burstable VMs can be launched. If `false`, Burstable VMs cannot be launched.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_burstable
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -88,7 +93,8 @@ module OCI
         'freeform_tags': :'freeformTags',
         'placement_constraint_details': :'placementConstraintDetails',
         'capacity_config': :'capacityConfig',
-        'is_memory_encryption_enabled': :'isMemoryEncryptionEnabled'
+        'is_memory_encryption_enabled': :'isMemoryEncryptionEnabled',
+        'is_burstable': :'isBurstable'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -106,7 +112,8 @@ module OCI
         'freeform_tags': :'Hash<String, String>',
         'placement_constraint_details': :'OCI::Core::Models::PlacementConstraintDetails',
         'capacity_config': :'String',
-        'is_memory_encryption_enabled': :'BOOLEAN'
+        'is_memory_encryption_enabled': :'BOOLEAN',
+        'is_burstable': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -127,6 +134,7 @@ module OCI
     # @option attributes [OCI::Core::Models::PlacementConstraintDetails] :placement_constraint_details The value to assign to the {#placement_constraint_details} property
     # @option attributes [String] :capacity_config The value to assign to the {#capacity_config} property
     # @option attributes [BOOLEAN] :is_memory_encryption_enabled The value to assign to the {#is_memory_encryption_enabled} property
+    # @option attributes [BOOLEAN] :is_burstable The value to assign to the {#is_burstable} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -194,6 +202,14 @@ module OCI
 
       self.is_memory_encryption_enabled = attributes[:'is_memory_encryption_enabled'] unless attributes[:'is_memory_encryption_enabled'].nil?
       self.is_memory_encryption_enabled = false if is_memory_encryption_enabled.nil? && !attributes.key?(:'isMemoryEncryptionEnabled') && !attributes.key?(:'is_memory_encryption_enabled') # rubocop:disable Style/StringLiterals
+
+      self.is_burstable = attributes[:'isBurstable'] unless attributes[:'isBurstable'].nil?
+      self.is_burstable = false if is_burstable.nil? && !attributes.key?(:'isBurstable') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isBurstable and :is_burstable' if attributes.key?(:'isBurstable') && attributes.key?(:'is_burstable')
+
+      self.is_burstable = attributes[:'is_burstable'] unless attributes[:'is_burstable'].nil?
+      self.is_burstable = false if is_burstable.nil? && !attributes.key?(:'isBurstable') && !attributes.key?(:'is_burstable') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -216,7 +232,8 @@ module OCI
         freeform_tags == other.freeform_tags &&
         placement_constraint_details == other.placement_constraint_details &&
         capacity_config == other.capacity_config &&
-        is_memory_encryption_enabled == other.is_memory_encryption_enabled
+        is_memory_encryption_enabled == other.is_memory_encryption_enabled &&
+        is_burstable == other.is_burstable
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -232,7 +249,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, dedicated_vm_host_shape, defined_tags, display_name, fault_domain, freeform_tags, placement_constraint_details, capacity_config, is_memory_encryption_enabled].hash
+      [availability_domain, compartment_id, dedicated_vm_host_shape, defined_tags, display_name, fault_domain, freeform_tags, placement_constraint_details, capacity_config, is_memory_encryption_enabled, is_burstable].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

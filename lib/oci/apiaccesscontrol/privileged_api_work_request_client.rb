@@ -394,10 +394,10 @@ module OCI
 
     # Lists the work requests in a compartment.
     #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment in which to list resources.
     # @option opts [String] :work_request_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the asynchronous work request.
     # @option opts [String] :status A filter to return only the resources that match the given lifecycle state.
     # @option opts [String] :resource_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the resource affected by the work request.
@@ -420,9 +420,10 @@ module OCI
     #   Allowed values are: timeAccepted
     # @return [Response] A Response object with data of type {OCI::Apiaccesscontrol::Models::WorkRequestSummaryCollection WorkRequestSummaryCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apiaccesscontrol/list_work_requests.rb.html) to see an example of how to use list_work_requests API.
-    def list_work_requests(opts = {})
+    def list_work_requests(compartment_id, opts = {})
       logger.debug 'Calling operation PrivilegedApiWorkRequestClient#list_work_requests.' if logger
 
+      raise "Missing the required parameter 'compartment_id' when calling list_work_requests." if compartment_id.nil?
 
       if opts[:status] && !OCI::Apiaccesscontrol::Models::OPERATION_STATUS_ENUM.include?(opts[:status])
         raise 'Invalid value for "status", must be one of the values in OCI::Apiaccesscontrol::Models::OPERATION_STATUS_ENUM.'
@@ -442,7 +443,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
-      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:compartmentId] = compartment_id
       query_params[:workRequestId] = opts[:work_request_id] if opts[:work_request_id]
       query_params[:status] = opts[:status] if opts[:status]
       query_params[:resourceId] = opts[:resource_id] if opts[:resource_id]

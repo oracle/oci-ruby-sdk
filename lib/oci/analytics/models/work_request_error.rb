@@ -10,7 +10,7 @@ module OCI
   # Error encountered during the execution of a work request.
   #
   class Analytics::Models::WorkRequestError
-    # **[Required]** A short error code that defines the error, meant for programmatic parsing.
+    # **[Required]** A short error code that defines the error, for programmatic parsing.
     #
     # @return [String]
     attr_accessor :code
@@ -20,7 +20,7 @@ module OCI
     # @return [String]
     attr_accessor :message
 
-    # **[Required]** The date and time the error occured, in the format defined by RFC3339.
+    # **[Required]** The date and time the error occurred, in the format defined by RFC3339.
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #

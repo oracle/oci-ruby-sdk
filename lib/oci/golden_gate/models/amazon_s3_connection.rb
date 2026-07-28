@@ -21,7 +21,7 @@ module OCI
     attr_reader :technology_type
 
     # **[Required]** Access key ID to access the Amazon S3 bucket.
-    # e.g.: \"this-is-not-the-secret\"
+    # Note: Despite the \"Id\" suffix, this value is not an OCI OCID.
     #
     # @return [String]
     attr_accessor :access_key_id

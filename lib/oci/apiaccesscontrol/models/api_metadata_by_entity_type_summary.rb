@@ -8,6 +8,10 @@ require 'date'
 module OCI
   # Summary information about a ApiMetadata.
   class Apiaccesscontrol::Models::ApiMetadataByEntityTypeSummary
+    # The OCID of the compartment that contains the Service Provider Action.
+    # @return [String]
+    attr_accessor :compartment_id
+
     # The entity Type to which the Api belongs to.
     # @return [String]
     attr_accessor :entity_type
@@ -43,6 +47,7 @@ module OCI
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
+        'compartment_id': :'compartmentId',
         'entity_type': :'entityType',
         'api_metadatas': :'apiMetadatas',
         'freeform_tags': :'freeformTags',
@@ -56,6 +61,7 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
+        'compartment_id': :'String',
         'entity_type': :'String',
         'api_metadatas': :'Array<OCI::Apiaccesscontrol::Models::ApiMetadataSummary>',
         'freeform_tags': :'Hash<String, String>',
@@ -71,6 +77,7 @@ module OCI
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
+    # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :entity_type The value to assign to the {#entity_type} property
     # @option attributes [Array<OCI::Apiaccesscontrol::Models::ApiMetadataSummary>] :api_metadatas The value to assign to the {#api_metadatas} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
@@ -81,6 +88,12 @@ module OCI
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      self.compartment_id = attributes[:'compartmentId'] if attributes[:'compartmentId']
+
+      raise 'You cannot provide both :compartmentId and :compartment_id' if attributes.key?(:'compartmentId') && attributes.key?(:'compartment_id')
+
+      self.compartment_id = attributes[:'compartment_id'] if attributes[:'compartment_id']
 
       self.entity_type = attributes[:'entityType'] if attributes[:'entityType']
 
@@ -124,6 +137,7 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
+        compartment_id == other.compartment_id &&
         entity_type == other.entity_type &&
         api_metadatas == other.api_metadatas &&
         freeform_tags == other.freeform_tags &&
@@ -144,7 +158,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [entity_type, api_metadatas, freeform_tags, defined_tags, system_tags].hash
+      [compartment_id, entity_type, api_metadatas, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -49,6 +49,10 @@ module OCI
     # @return [Array<String>]
     attr_accessor :approver_group_id_list
 
+    # List of Group containing the levels at which the users belonging to the group can authorize.
+    # @return [Array<OCI::Apiaccesscontrol::Models::ApproverGroupLevel>]
+    attr_accessor :approver_group_level_list
+
     # resourceType for which the PrivilegedApiControl is applicable
     # @return [String]
     attr_accessor :resource_type
@@ -67,7 +71,6 @@ module OCI
     attr_accessor :number_of_approvers
 
     # **[Required]** The date and time the PrivilegedApiControl was created, in the format defined by [RFC 3339](https://tools.ietf.org/html/rfc3339).
-    #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
@@ -140,6 +143,7 @@ module OCI
         'description': :'description',
         'notification_topic_id': :'notificationTopicId',
         'approver_group_id_list': :'approverGroupIdList',
+        'approver_group_level_list': :'approverGroupLevelList',
         'resource_type': :'resourceType',
         'resources': :'resources',
         'privileged_operation_list': :'privilegedOperationList',
@@ -168,6 +172,7 @@ module OCI
         'description': :'String',
         'notification_topic_id': :'String',
         'approver_group_id_list': :'Array<String>',
+        'approver_group_level_list': :'Array<OCI::Apiaccesscontrol::Models::ApproverGroupLevel>',
         'resource_type': :'String',
         'resources': :'Array<String>',
         'privileged_operation_list': :'Array<OCI::Apiaccesscontrol::Models::PrivilegedApiDetails>',
@@ -198,6 +203,7 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :notification_topic_id The value to assign to the {#notification_topic_id} property
     # @option attributes [Array<String>] :approver_group_id_list The value to assign to the {#approver_group_id_list} property
+    # @option attributes [Array<OCI::Apiaccesscontrol::Models::ApproverGroupLevel>] :approver_group_level_list The value to assign to the {#approver_group_level_list} property
     # @option attributes [String] :resource_type The value to assign to the {#resource_type} property
     # @option attributes [Array<String>] :resources The value to assign to the {#resources} property
     # @option attributes [Array<OCI::Apiaccesscontrol::Models::PrivilegedApiDetails>] :privileged_operation_list The value to assign to the {#privileged_operation_list} property
@@ -245,6 +251,12 @@ module OCI
       raise 'You cannot provide both :approverGroupIdList and :approver_group_id_list' if attributes.key?(:'approverGroupIdList') && attributes.key?(:'approver_group_id_list')
 
       self.approver_group_id_list = attributes[:'approver_group_id_list'] if attributes[:'approver_group_id_list']
+
+      self.approver_group_level_list = attributes[:'approverGroupLevelList'] if attributes[:'approverGroupLevelList']
+
+      raise 'You cannot provide both :approverGroupLevelList and :approver_group_level_list' if attributes.key?(:'approverGroupLevelList') && attributes.key?(:'approver_group_level_list')
+
+      self.approver_group_level_list = attributes[:'approver_group_level_list'] if attributes[:'approver_group_level_list']
 
       self.resource_type = attributes[:'resourceType'] if attributes[:'resourceType']
 
@@ -353,6 +365,7 @@ module OCI
         description == other.description &&
         notification_topic_id == other.notification_topic_id &&
         approver_group_id_list == other.approver_group_id_list &&
+        approver_group_level_list == other.approver_group_level_list &&
         resource_type == other.resource_type &&
         resources == other.resources &&
         privileged_operation_list == other.privileged_operation_list &&
@@ -382,7 +395,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, display_name, compartment_id, description, notification_topic_id, approver_group_id_list, resource_type, resources, privileged_operation_list, number_of_approvers, time_created, time_updated, time_deleted, state, state_details, lifecycle_state, lifecycle_details, freeform_tags, defined_tags, system_tags].hash
+      [id, display_name, compartment_id, description, notification_topic_id, approver_group_id_list, approver_group_level_list, resource_type, resources, privileged_operation_list, number_of_approvers, time_created, time_updated, time_deleted, state, state_details, lifecycle_state, lifecycle_details, freeform_tags, defined_tags, system_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

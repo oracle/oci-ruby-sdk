@@ -7724,7 +7724,6 @@ module OCI
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:disable Lint/UnusedMethodArgument
 
 
     # Gets the Letter of Authority for the specified cross-connect.
@@ -7732,6 +7731,9 @@ module OCI
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
     # @return [Response] A Response object with data of type {OCI::Core::Models::LetterOfAuthority LetterOfAuthority}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/get_cross_connect_letter_of_authority.rb.html) to see an example of how to use get_cross_connect_letter_of_authority API.
     def get_cross_connect_letter_of_authority(cross_connect_id, opts = {})
@@ -7751,6 +7753,7 @@ module OCI
       header_params = {}
       header_params[:accept] = 'application/json, text/html'
       header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
       # rubocop:enable Style/NegatedIf
 
       post_body = nil
@@ -7773,7 +7776,6 @@ module OCI
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
-    # rubocop:enable Lint/UnusedMethodArgument
 
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
@@ -13637,6 +13639,75 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # The operation lists available OCI's FastConnect MultiCloud Provider/Partner remote region names associated with an OCI region.
+    #
+    # @param [String] provider_service_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the provider service.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Core::Models::ProviderRemoteRegionName ProviderRemoteRegionName}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/list_provider_remote_regions.rb.html) to see an example of how to use list_provider_remote_regions API.
+    def list_provider_remote_regions(provider_service_id, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#list_provider_remote_regions.' if logger
+
+      raise "Missing the required parameter 'provider_service_id' when calling list_provider_remote_regions." if provider_service_id.nil?
+      raise "Parameter value for 'provider_service_id' must not be blank" if OCI::Internal::Util.blank_string?(provider_service_id)
+
+      path = '/fastConnectProviderServices/{providerServiceId}/providerRemoteRegions'.sub('{providerServiceId}', provider_service_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#list_provider_remote_regions') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Core::Models::ProviderRemoteRegionName>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Lists the public IP pools in the specified compartment.
     # You can filter the list using query parameters.
     #
@@ -16547,6 +16618,69 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Core::Models::CrossConnectGroup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the Letter of Authority for the specified cross-connect.
+    # @param [String] cross_connect_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the cross-connect.
+    # @param [OCI::Core::Models::UpdateCrossConnectLetterOfAuthorityDetails] update_cross_connect_letter_of_authority_details Update CrossConnect LOA fields.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource. The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type {OCI::Core::Models::LetterOfAuthority LetterOfAuthority}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/core/update_cross_connect_letter_of_authority.rb.html) to see an example of how to use update_cross_connect_letter_of_authority API.
+    def update_cross_connect_letter_of_authority(cross_connect_id, update_cross_connect_letter_of_authority_details, opts = {})
+      logger.debug 'Calling operation VirtualNetworkClient#update_cross_connect_letter_of_authority.' if logger
+
+      raise "Missing the required parameter 'cross_connect_id' when calling update_cross_connect_letter_of_authority." if cross_connect_id.nil?
+      raise "Missing the required parameter 'update_cross_connect_letter_of_authority_details' when calling update_cross_connect_letter_of_authority." if update_cross_connect_letter_of_authority_details.nil?
+      raise "Parameter value for 'cross_connect_id' must not be blank" if OCI::Internal::Util.blank_string?(cross_connect_id)
+
+      path = '/crossConnects/{crossConnectId}/letterOfAuthority'.sub('{crossConnectId}', cross_connect_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json, text/html'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_cross_connect_letter_of_authority_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'VirtualNetworkClient#update_cross_connect_letter_of_authority') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Core::Models::LetterOfAuthority'
         )
       end
       # rubocop:enable Metrics/BlockLength

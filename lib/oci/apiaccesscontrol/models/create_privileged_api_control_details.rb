@@ -21,13 +21,17 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The OCID of the OCI Notification topic to publish messages related to this Delegation Control.
+    # **[Required]** The OCID of the OCI Notification topic to publish messages related to this Privileged Api Control.
     # @return [String]
     attr_accessor :notification_topic_id
 
     # **[Required]** List of user IAM group ids who can approve an privilegedApi request associated with a resource governed by this operator control.
     # @return [Array<String>]
     attr_accessor :approver_group_id_list
+
+    # List of Group containing the levels at which the users belonging to the group can authorize.
+    # @return [Array<OCI::Apiaccesscontrol::Models::ApproverGroupLevel>]
+    attr_accessor :approver_group_level_list
 
     # **[Required]** List of privileged operator operations. If Privileged API Managment is enabled for a resource it will be validated whether the operation done by the operator is a part of privileged operation.
     #
@@ -38,7 +42,7 @@ module OCI
     # @return [String]
     attr_accessor :resource_type
 
-    # **[Required]** contains Resource details
+    # contains Resource details
     # @return [Array<String>]
     attr_accessor :resources
 
@@ -71,6 +75,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'notification_topic_id': :'notificationTopicId',
         'approver_group_id_list': :'approverGroupIdList',
+        'approver_group_level_list': :'approverGroupLevelList',
         'privileged_operation_list': :'privilegedOperationList',
         'resource_type': :'resourceType',
         'resources': :'resources',
@@ -90,6 +95,7 @@ module OCI
         'compartment_id': :'String',
         'notification_topic_id': :'String',
         'approver_group_id_list': :'Array<String>',
+        'approver_group_level_list': :'Array<OCI::Apiaccesscontrol::Models::ApproverGroupLevel>',
         'privileged_operation_list': :'Array<OCI::Apiaccesscontrol::Models::PrivilegedApiDetails>',
         'resource_type': :'String',
         'resources': :'Array<String>',
@@ -111,6 +117,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :notification_topic_id The value to assign to the {#notification_topic_id} property
     # @option attributes [Array<String>] :approver_group_id_list The value to assign to the {#approver_group_id_list} property
+    # @option attributes [Array<OCI::Apiaccesscontrol::Models::ApproverGroupLevel>] :approver_group_level_list The value to assign to the {#approver_group_level_list} property
     # @option attributes [Array<OCI::Apiaccesscontrol::Models::PrivilegedApiDetails>] :privileged_operation_list The value to assign to the {#privileged_operation_list} property
     # @option attributes [String] :resource_type The value to assign to the {#resource_type} property
     # @option attributes [Array<String>] :resources The value to assign to the {#resources} property
@@ -148,6 +155,12 @@ module OCI
       raise 'You cannot provide both :approverGroupIdList and :approver_group_id_list' if attributes.key?(:'approverGroupIdList') && attributes.key?(:'approver_group_id_list')
 
       self.approver_group_id_list = attributes[:'approver_group_id_list'] if attributes[:'approver_group_id_list']
+
+      self.approver_group_level_list = attributes[:'approverGroupLevelList'] if attributes[:'approverGroupLevelList']
+
+      raise 'You cannot provide both :approverGroupLevelList and :approver_group_level_list' if attributes.key?(:'approverGroupLevelList') && attributes.key?(:'approver_group_level_list')
+
+      self.approver_group_level_list = attributes[:'approver_group_level_list'] if attributes[:'approver_group_level_list']
 
       self.privileged_operation_list = attributes[:'privilegedOperationList'] if attributes[:'privilegedOperationList']
 
@@ -198,6 +211,7 @@ module OCI
         compartment_id == other.compartment_id &&
         notification_topic_id == other.notification_topic_id &&
         approver_group_id_list == other.approver_group_id_list &&
+        approver_group_level_list == other.approver_group_level_list &&
         privileged_operation_list == other.privileged_operation_list &&
         resource_type == other.resource_type &&
         resources == other.resources &&
@@ -219,7 +233,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [display_name, description, compartment_id, notification_topic_id, approver_group_id_list, privileged_operation_list, resource_type, resources, number_of_approvers, freeform_tags, defined_tags].hash
+      [display_name, description, compartment_id, notification_topic_id, approver_group_id_list, approver_group_level_list, privileged_operation_list, resource_type, resources, number_of_approvers, freeform_tags, defined_tags].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -20,6 +20,11 @@ module OCI
       BGP_ADMIN_STATE_DISABLED = 'DISABLED'.freeze
     ].freeze
 
+    TRAFFIC_MODE_ENUM = [
+      TRAFFIC_MODE_NORMAL = 'NORMAL'.freeze,
+      TRAFFIC_MODE_DRAIN = 'DRAIN'.freeze
+    ].freeze
+
     PROVIDER_STATE_ENUM = [
       PROVIDER_STATE_ACTIVE = 'ACTIVE'.freeze,
       PROVIDER_STATE_INACTIVE = 'INACTIVE'.freeze
@@ -115,6 +120,12 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
+    # The traffic mode to be set with this Virtual Circuit. This controls whether the traffic is to be drained
+    # for the associated Virtual Circuit or not.
+    #
+    # @return [String]
+    attr_reader :traffic_mode
+
     # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the {Drg}
     # that this private virtual circuit uses.
     #
@@ -166,6 +177,7 @@ module OCI
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
+        'traffic_mode': :'trafficMode',
         'gateway_id': :'gatewayId',
         'provider_state': :'providerState',
         'provider_service_key_name': :'providerServiceKeyName',
@@ -190,6 +202,7 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
+        'traffic_mode': :'String',
         'gateway_id': :'String',
         'provider_state': :'String',
         'provider_service_key_name': :'String',
@@ -216,6 +229,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
+    # @option attributes [String] :traffic_mode The value to assign to the {#traffic_mode} property
     # @option attributes [String] :gateway_id The value to assign to the {#gateway_id} property
     # @option attributes [String] :provider_state The value to assign to the {#provider_state} property
     # @option attributes [String] :provider_service_key_name The value to assign to the {#provider_service_key_name} property
@@ -297,6 +311,12 @@ module OCI
 
       self.freeform_tags = attributes[:'freeform_tags'] if attributes[:'freeform_tags']
 
+      self.traffic_mode = attributes[:'trafficMode'] if attributes[:'trafficMode']
+
+      raise 'You cannot provide both :trafficMode and :traffic_mode' if attributes.key?(:'trafficMode') && attributes.key?(:'traffic_mode')
+
+      self.traffic_mode = attributes[:'traffic_mode'] if attributes[:'traffic_mode']
+
       self.gateway_id = attributes[:'gatewayId'] if attributes[:'gatewayId']
 
       raise 'You cannot provide both :gatewayId and :gateway_id' if attributes.key?(:'gatewayId') && attributes.key?(:'gateway_id')
@@ -354,6 +374,14 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] traffic_mode Object to be assigned
+    def traffic_mode=(traffic_mode)
+      raise "Invalid value for 'traffic_mode': this must be one of the values in TRAFFIC_MODE_ENUM." if traffic_mode && !TRAFFIC_MODE_ENUM.include?(traffic_mode)
+
+      @traffic_mode = traffic_mode
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] provider_state Object to be assigned
     def provider_state=(provider_state)
       raise "Invalid value for 'provider_state': this must be one of the values in PROVIDER_STATE_ENUM." if provider_state && !PROVIDER_STATE_ENUM.include?(provider_state)
@@ -389,6 +417,7 @@ module OCI
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
+        traffic_mode == other.traffic_mode &&
         gateway_id == other.gateway_id &&
         provider_state == other.provider_state &&
         provider_service_key_name == other.provider_service_key_name &&
@@ -409,7 +438,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bandwidth_shape_name, cross_connect_mappings, routing_policy, bgp_admin_state, is_bfd_enabled, is_transport_mode, customer_bgp_asn, customer_asn, defined_tags, display_name, freeform_tags, gateway_id, provider_state, provider_service_key_name, reference_comment, ip_mtu].hash
+      [bandwidth_shape_name, cross_connect_mappings, routing_policy, bgp_admin_state, is_bfd_enabled, is_transport_mode, customer_bgp_asn, customer_asn, defined_tags, display_name, freeform_tags, traffic_mode, gateway_id, provider_state, provider_service_key_name, reference_comment, ip_mtu].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

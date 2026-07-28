@@ -14,11 +14,17 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_memory_encryption_supported
 
+    # Specifies if the Dedicated Virtual Machine Host (DVMH) is to running only Burstable VMs. If `true`, only Burstable VMs can be launched. If `false`, Burstable VMs cannot be launched.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_burstable_supported
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         # rubocop:disable Style/SymbolLiteral
-        'is_memory_encryption_supported': :'isMemoryEncryptionSupported'
+        'is_memory_encryption_supported': :'isMemoryEncryptionSupported',
+        'is_burstable_supported': :'isBurstableSupported'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -27,7 +33,8 @@ module OCI
     def self.swagger_types
       {
         # rubocop:disable Style/SymbolLiteral
-        'is_memory_encryption_supported': :'BOOLEAN'
+        'is_memory_encryption_supported': :'BOOLEAN',
+        'is_burstable_supported': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -39,6 +46,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [BOOLEAN] :is_memory_encryption_supported The value to assign to the {#is_memory_encryption_supported} property
+    # @option attributes [BOOLEAN] :is_burstable_supported The value to assign to the {#is_burstable_supported} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -52,6 +60,14 @@ module OCI
 
       self.is_memory_encryption_supported = attributes[:'is_memory_encryption_supported'] unless attributes[:'is_memory_encryption_supported'].nil?
       self.is_memory_encryption_supported = false if is_memory_encryption_supported.nil? && !attributes.key?(:'isMemoryEncryptionSupported') && !attributes.key?(:'is_memory_encryption_supported') # rubocop:disable Style/StringLiterals
+
+      self.is_burstable_supported = attributes[:'isBurstableSupported'] unless attributes[:'isBurstableSupported'].nil?
+      self.is_burstable_supported = false if is_burstable_supported.nil? && !attributes.key?(:'isBurstableSupported') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isBurstableSupported and :is_burstable_supported' if attributes.key?(:'isBurstableSupported') && attributes.key?(:'is_burstable_supported')
+
+      self.is_burstable_supported = attributes[:'is_burstable_supported'] unless attributes[:'is_burstable_supported'].nil?
+      self.is_burstable_supported = false if is_burstable_supported.nil? && !attributes.key?(:'isBurstableSupported') && !attributes.key?(:'is_burstable_supported') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -65,7 +81,8 @@ module OCI
       return true if equal?(other)
 
       self.class == other.class &&
-        is_memory_encryption_supported == other.is_memory_encryption_supported
+        is_memory_encryption_supported == other.is_memory_encryption_supported &&
+        is_burstable_supported == other.is_burstable_supported
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -81,7 +98,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [is_memory_encryption_supported].hash
+      [is_memory_encryption_supported, is_burstable_supported].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

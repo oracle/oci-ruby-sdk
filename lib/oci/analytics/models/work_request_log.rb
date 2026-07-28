@@ -14,7 +14,7 @@ module OCI
     # @return [String]
     attr_accessor :message
 
-    # **[Required]** The date and time the log entry occured, in the format defined by RFC3339.
+    # **[Required]** The date and time the log entry occurred, in the format defined by RFC3339.
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #

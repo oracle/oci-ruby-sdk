@@ -9,6 +9,14 @@ module OCI
   # Details specifying which maintenance update to apply to the VM Cluster and which action is to be performed by the maintenance update. Applies to Exadata Cloud@Customer instances only.
   #
   class Database::Models::VmClusterUpdateDetails
+    UPDATE_MODE_ENUM = [
+      UPDATE_MODE_ONLINE_HIGHCVSS = 'ONLINE_HIGHCVSS'.freeze,
+      UPDATE_MODE_ONLINE_ALLCVSS = 'ONLINE_ALLCVSS'.freeze,
+      UPDATE_MODE_ONLINE_ALL_UPDATES = 'ONLINE_ALL_UPDATES'.freeze,
+      UPDATE_MODE_PENDING_UPDATES = 'PENDING_UPDATES'.freeze,
+      UPDATE_MODE_FULL_UPDATE = 'FULL_UPDATE'.freeze
+    ].freeze
+
     UPDATE_ACTION_ENUM = [
       UPDATE_ACTION_ROLLING_APPLY = 'ROLLING_APPLY'.freeze,
       UPDATE_ACTION_PRECHECK = 'PRECHECK'.freeze,
@@ -18,6 +26,10 @@ module OCI
     # The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the maintenance update.
     # @return [String]
     attr_accessor :update_id
+
+    # The update mode to perform for OS Update.
+    # @return [String]
+    attr_reader :update_mode
 
     # The update action to perform.
     # @return [String]
@@ -32,6 +44,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'update_id': :'updateId',
+        'update_mode': :'updateMode',
         'update_action': :'updateAction',
         'gi_software_image_id': :'giSoftwareImageId'
         # rubocop:enable Style/SymbolLiteral
@@ -43,6 +56,7 @@ module OCI
       {
         # rubocop:disable Style/SymbolLiteral
         'update_id': :'String',
+        'update_mode': :'String',
         'update_action': :'String',
         'gi_software_image_id': :'String'
         # rubocop:enable Style/SymbolLiteral
@@ -56,6 +70,7 @@ module OCI
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :update_id The value to assign to the {#update_id} property
+    # @option attributes [String] :update_mode The value to assign to the {#update_mode} property
     # @option attributes [String] :update_action The value to assign to the {#update_action} property
     # @option attributes [String] :gi_software_image_id The value to assign to the {#gi_software_image_id} property
     def initialize(attributes = {})
@@ -69,6 +84,14 @@ module OCI
       raise 'You cannot provide both :updateId and :update_id' if attributes.key?(:'updateId') && attributes.key?(:'update_id')
 
       self.update_id = attributes[:'update_id'] if attributes[:'update_id']
+
+      self.update_mode = attributes[:'updateMode'] if attributes[:'updateMode']
+      self.update_mode = "FULL_UPDATE" if update_mode.nil? && !attributes.key?(:'updateMode') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :updateMode and :update_mode' if attributes.key?(:'updateMode') && attributes.key?(:'update_mode')
+
+      self.update_mode = attributes[:'update_mode'] if attributes[:'update_mode']
+      self.update_mode = "FULL_UPDATE" if update_mode.nil? && !attributes.key?(:'updateMode') && !attributes.key?(:'update_mode') # rubocop:disable Style/StringLiterals
 
       self.update_action = attributes[:'updateAction'] if attributes[:'updateAction']
 
@@ -84,6 +107,14 @@ module OCI
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] update_mode Object to be assigned
+    def update_mode=(update_mode)
+      raise "Invalid value for 'update_mode': this must be one of the values in UPDATE_MODE_ENUM." if update_mode && !UPDATE_MODE_ENUM.include?(update_mode)
+
+      @update_mode = update_mode
+    end
 
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] update_action Object to be assigned
@@ -103,6 +134,7 @@ module OCI
 
       self.class == other.class &&
         update_id == other.update_id &&
+        update_mode == other.update_mode &&
         update_action == other.update_action &&
         gi_software_image_id == other.gi_software_image_id
     end
@@ -120,7 +152,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [update_id, update_action, gi_software_image_id].hash
+      [update_id, update_mode, update_action, gi_software_image_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

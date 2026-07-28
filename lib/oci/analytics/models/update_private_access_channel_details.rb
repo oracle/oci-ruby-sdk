@@ -6,37 +6,37 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Input payload to update a Private Access Channel.
+  # Input payload to update a private access channel.
   #
   class Analytics::Models::UpdatePrivateAccessChannelDetails
-    # Display Name of the Private Access Channel.
+    # Display name of the private access channel.
     #
     # @return [String]
     attr_accessor :display_name
 
-    # OCID of the customer VCN peered with private access channel.
+    # OCID of the customer VCN peered with the private access channel.
     #
     # @return [String]
     attr_accessor :vcn_id
 
-    # OCID of the customer subnet connected to private access channel.
+    # OCID of the customer subnet connected to the private access channel.
     #
     # @return [String]
     attr_accessor :subnet_id
 
-    # List of Private Source DNS zones registered with Private Access Channel,
-    # where datasource hostnames from these dns zones / domains will be resolved in the peered VCN for access from Analytics Instance.
-    # Min of 1 is required and Max of 30 Private Source DNS zones can be registered.
+    # List of private source DNS zones registered with the private access channel. The
+    #  datasource hostnames from these DNS zones / domains will be resolved in the peered VCN for access from  the Analytics instance.
+    # Minimum 1 private source is required. Maximum 30 private source DNS zones can be registered.
     #
     # @return [Array<OCI::Analytics::Models::PrivateSourceDnsZone>]
     attr_accessor :private_source_dns_zones
 
-    # List of Private Source DB SCAN hosts registered with Private Access Channel for access from Analytics Instance.
+    # List of private source database SCAN hosts registered with the private access channel for access from the Analytics instance.
     #
     # @return [Array<OCI::Analytics::Models::PrivateSourceScanHost>]
     attr_accessor :private_source_scan_hosts
 
-    # Network Security Group OCIDs for an Analytics instance.
+    # Network Security Group OCIDs for the Analytics instance.
     #
     # @return [Array<String>]
     attr_accessor :network_security_group_ids

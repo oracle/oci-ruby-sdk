@@ -30,6 +30,11 @@ module OCI
       IP_MTU_MTU_9000 = 'MTU_9000'.freeze
     ].freeze
 
+    TRAFFIC_MODE_ENUM = [
+      TRAFFIC_MODE_NORMAL = 'NORMAL'.freeze,
+      TRAFFIC_MODE_DRAIN = 'DRAIN'.freeze
+    ].freeze
+
     # The provisioned data rate of the connection. To get a list of the
     # available bandwidth levels (that is, shapes), see
     # {#list_fast_connect_provider_virtual_circuit_bandwidth_shapes list_fast_connect_provider_virtual_circuit_bandwidth_shapes}.
@@ -167,6 +172,22 @@ module OCI
     # @return [String]
     attr_reader :ip_mtu
 
+    # The OCI's FastConnect MultiCloud Provider/Partner remote region name associated with the OCI region.
+    # To get the list of associated provider remote region use the ListProviderRemoteRegions operation
+    #
+    # @return [String]
+    attr_accessor :provider_remote_region
+
+    # Customer's account on Provider/Partner cloud (AWS, GCP or any other)
+    # @return [String]
+    attr_accessor :remote_account_id
+
+    # The traffic mode to be set with this Virtual Circuit. This controls whether the traffic is to be drained
+    # for the associated Virtual Circuit or not.
+    #
+    # @return [String]
+    attr_reader :traffic_mode
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -191,7 +212,10 @@ module OCI
         'public_prefixes': :'publicPrefixes',
         'region': :'region',
         'type': :'type',
-        'ip_mtu': :'ipMtu'
+        'ip_mtu': :'ipMtu',
+        'provider_remote_region': :'providerRemoteRegion',
+        'remote_account_id': :'remoteAccountId',
+        'traffic_mode': :'trafficMode'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -220,7 +244,10 @@ module OCI
         'public_prefixes': :'Array<OCI::Core::Models::CreateVirtualCircuitPublicPrefixDetails>',
         'region': :'String',
         'type': :'String',
-        'ip_mtu': :'String'
+        'ip_mtu': :'String',
+        'provider_remote_region': :'String',
+        'remote_account_id': :'String',
+        'traffic_mode': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -252,6 +279,9 @@ module OCI
     # @option attributes [String] :region The value to assign to the {#region} property
     # @option attributes [String] :type The value to assign to the {#type} property
     # @option attributes [String] :ip_mtu The value to assign to the {#ip_mtu} property
+    # @option attributes [String] :provider_remote_region The value to assign to the {#provider_remote_region} property
+    # @option attributes [String] :remote_account_id The value to assign to the {#remote_account_id} property
+    # @option attributes [String] :traffic_mode The value to assign to the {#traffic_mode} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -379,6 +409,24 @@ module OCI
       raise 'You cannot provide both :ipMtu and :ip_mtu' if attributes.key?(:'ipMtu') && attributes.key?(:'ip_mtu')
 
       self.ip_mtu = attributes[:'ip_mtu'] if attributes[:'ip_mtu']
+
+      self.provider_remote_region = attributes[:'providerRemoteRegion'] if attributes[:'providerRemoteRegion']
+
+      raise 'You cannot provide both :providerRemoteRegion and :provider_remote_region' if attributes.key?(:'providerRemoteRegion') && attributes.key?(:'provider_remote_region')
+
+      self.provider_remote_region = attributes[:'provider_remote_region'] if attributes[:'provider_remote_region']
+
+      self.remote_account_id = attributes[:'remoteAccountId'] if attributes[:'remoteAccountId']
+
+      raise 'You cannot provide both :remoteAccountId and :remote_account_id' if attributes.key?(:'remoteAccountId') && attributes.key?(:'remote_account_id')
+
+      self.remote_account_id = attributes[:'remote_account_id'] if attributes[:'remote_account_id']
+
+      self.traffic_mode = attributes[:'trafficMode'] if attributes[:'trafficMode']
+
+      raise 'You cannot provide both :trafficMode and :traffic_mode' if attributes.key?(:'trafficMode') && attributes.key?(:'traffic_mode')
+
+      self.traffic_mode = attributes[:'traffic_mode'] if attributes[:'traffic_mode']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -422,6 +470,14 @@ module OCI
       @ip_mtu = ip_mtu
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] traffic_mode Object to be assigned
+    def traffic_mode=(traffic_mode)
+      raise "Invalid value for 'traffic_mode': this must be one of the values in TRAFFIC_MODE_ENUM." if traffic_mode && !TRAFFIC_MODE_ENUM.include?(traffic_mode)
+
+      @traffic_mode = traffic_mode
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -451,7 +507,10 @@ module OCI
         public_prefixes == other.public_prefixes &&
         region == other.region &&
         type == other.type &&
-        ip_mtu == other.ip_mtu
+        ip_mtu == other.ip_mtu &&
+        provider_remote_region == other.provider_remote_region &&
+        remote_account_id == other.remote_account_id &&
+        traffic_mode == other.traffic_mode
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -467,7 +526,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bandwidth_shape_name, compartment_id, cross_connect_mappings, routing_policy, bgp_admin_state, is_bfd_enabled, is_transport_mode, customer_bgp_asn, customer_asn, defined_tags, display_name, freeform_tags, gateway_id, provider_name, provider_service_id, provider_service_key_name, provider_service_name, public_prefixes, region, type, ip_mtu].hash
+      [bandwidth_shape_name, compartment_id, cross_connect_mappings, routing_policy, bgp_admin_state, is_bfd_enabled, is_transport_mode, customer_bgp_asn, customer_asn, defined_tags, display_name, freeform_tags, gateway_id, provider_name, provider_service_id, provider_service_key_name, provider_service_name, public_prefixes, region, type, ip_mtu, provider_remote_region, remote_account_id, traffic_mode].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

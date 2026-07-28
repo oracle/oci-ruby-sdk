@@ -6,7 +6,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Input payload to create a vanity url.
+  # Input payload to create a vanity URL.
   #
   class Analytics::Models::CreateVanityUrlDetails
     # Optional description.
@@ -14,17 +14,17 @@ module OCI
     # @return [String]
     attr_accessor :description
 
-    # **[Required]** List of fully qualified hostnames supported by this vanity URL definition (max of 3).
+    # **[Required]** List of fully-qualified hostnames supported by this vanity URL definition (maximum of 3).
     #
     # @return [Array<String>]
     attr_accessor :hosts
 
-    # Passphrase for the PEM Private key (if any).
+    # Passphrase for the PEM private key (if any).
     #
     # @return [String]
     attr_accessor :passphrase
 
-    # **[Required]** PEM Private key for HTTPS connections.
+    # **[Required]** PEM private key for HTTPS connections.
     #
     # @return [String]
     attr_accessor :private_key
@@ -34,7 +34,7 @@ module OCI
     # @return [String]
     attr_accessor :public_certificate
 
-    # **[Required]** PEM CA certificate(s) for HTTPS connections. This may include multiple PEM certificates.
+    # **[Required]** PEM CA certificates for HTTPS connections. This may include multiple PEM certificates.
     #
     # @return [String]
     attr_accessor :ca_certificate

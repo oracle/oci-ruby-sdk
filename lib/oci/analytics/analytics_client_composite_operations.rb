@@ -30,7 +30,7 @@ module OCI
     # Calls {OCI::Analytics::AnalyticsClient#change_analytics_instance_compartment} and then waits for the {OCI::Analytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [OCI::Analytics::Models::ChangeCompartmentDetails] change_compartment_details Input payload to move the resource to a different compartment.
     #
@@ -83,9 +83,9 @@ module OCI
     # Calls {OCI::Analytics::AnalyticsClient#change_analytics_instance_network_endpoint} and then waits for the {OCI::Analytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
-    # @param [OCI::Analytics::Models::ChangeAnalyticsInstanceNetworkEndpointDetails] change_analytics_instance_network_endpoint_details Input payload for changing an Analytics instance network endpoint.
+    # @param [OCI::Analytics::Models::ChangeAnalyticsInstanceNetworkEndpointDetails] change_analytics_instance_network_endpoint_details Input payload for changing a network endpoint for an Analytics instance.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Analytics::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Analytics::AnalyticsClient#change_analytics_instance_network_endpoint}
@@ -136,7 +136,7 @@ module OCI
     # Calls {OCI::Analytics::AnalyticsClient#create_analytics_instance} and then waits for the {OCI::Analytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [OCI::Analytics::Models::CreateAnalyticsInstanceDetails] create_analytics_instance_details Analytics Instance details.
+    # @param [OCI::Analytics::Models::CreateAnalyticsInstanceDetails] create_analytics_instance_details Analytics instance details.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Analytics::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Analytics::AnalyticsClient#create_analytics_instance}
@@ -187,7 +187,7 @@ module OCI
     # Calls {OCI::Analytics::AnalyticsClient#create_private_access_channel} and then waits for the {OCI::Analytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [OCI::Analytics::Models::CreatePrivateAccessChannelDetails] create_private_access_channel_details Input payload for creating a private access channel for an Analytics instance.
     #
@@ -237,12 +237,65 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Analytics::AnalyticsClient#create_resource_group} and then waits for the {OCI::Analytics::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
+    #
+    # @param [OCI::Analytics::Models::CreateResourceGroupDetails] create_resource_group_details Resource group details
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Analytics::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Analytics::AnalyticsClient#create_resource_group}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Analytics::Models::WorkRequest}
+    def create_resource_group_and_wait_for_state(analytics_instance_id, create_resource_group_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.create_resource_group(analytics_instance_id, create_resource_group_details, base_operation_opts)
+      use_util = OCI::Analytics::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+      return operation_result if wait_for_resource_id.nil? || wait_for_resource_id.empty?
+
+      begin
+        if use_util
+          waiter_result = OCI::Analytics::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Analytics::AnalyticsClient#create_vanity_url} and then waits for the {OCI::Analytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
-    # @param [OCI::Analytics::Models::CreateVanityUrlDetails] create_vanity_url_details Vanity url details.
+    # @param [OCI::Analytics::Models::CreateVanityUrlDetails] create_vanity_url_details Vanity URL details.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Analytics::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Analytics::AnalyticsClient#create_vanity_url}
@@ -293,7 +346,7 @@ module OCI
     # Calls {OCI::Analytics::AnalyticsClient#delete_analytics_instance} and then waits for the {OCI::Analytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Analytics::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Analytics::AnalyticsClient#delete_analytics_instance}
@@ -344,9 +397,9 @@ module OCI
     # Calls {OCI::Analytics::AnalyticsClient#delete_private_access_channel} and then waits for the {OCI::Analytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] private_access_channel_key The unique identifier key of the Private Access Channel.
+    # @param [String] private_access_channel_key The unique identifier key of the private access channel.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Analytics::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Analytics::AnalyticsClient#delete_private_access_channel}
@@ -394,12 +447,65 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Analytics::AnalyticsClient#delete_resource_group} and then waits for the {OCI::Analytics::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
+    #
+    # @param [String] analytics_instance_resource_group_id Specify unique id of a resource group within an Analytics instance.
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Analytics::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Analytics::AnalyticsClient#delete_resource_group}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Analytics::Models::WorkRequest}
+    def delete_resource_group_and_wait_for_state(analytics_instance_id, analytics_instance_resource_group_id, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.delete_resource_group(analytics_instance_id, analytics_instance_resource_group_id, base_operation_opts)
+      use_util = OCI::Analytics::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+      return operation_result if wait_for_resource_id.nil? || wait_for_resource_id.empty?
+
+      begin
+        if use_util
+          waiter_result = OCI::Analytics::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Analytics::AnalyticsClient#delete_vanity_url} and then waits for the {OCI::Analytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
-    # @param [String] vanity_url_key Specify unique identifier key of a vanity url to update or delete.
+    # @param [String] vanity_url_key Specify unique identifier key of a vanity URL to update or delete.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Analytics::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Analytics::AnalyticsClient#delete_vanity_url}
@@ -450,7 +556,7 @@ module OCI
     # Calls {OCI::Analytics::AnalyticsClient#scale_analytics_instance} and then waits for the {OCI::Analytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [OCI::Analytics::Models::ScaleAnalyticsInstanceDetails] scale_analytics_instance_details Input payload for scaling an Analytics instance up or down.
     #
@@ -503,7 +609,7 @@ module OCI
     # Calls {OCI::Analytics::AnalyticsClient#set_feature_bundle} and then waits for the {OCI::Analytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [OCI::Analytics::Models::SetFeatureBundleDetails] set_feature_bundle_details Input payload for the feature set of an Analytics instance.
     #
@@ -556,9 +662,9 @@ module OCI
     # Calls {OCI::Analytics::AnalyticsClient#set_kms_key} and then waits for the {OCI::Analytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
-    # @param [OCI::Analytics::Models::SetKmsKeyDetails] set_kms_key_details Input payload to reset the OCI Vault encryption key.
+    # @param [OCI::Analytics::Models::SetKmsKeyDetails] set_kms_key_details Input payload to reset the OCI vault encryption key.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Analytics::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Analytics::AnalyticsClient#set_kms_key}
@@ -609,7 +715,7 @@ module OCI
     # Calls {OCI::Analytics::AnalyticsClient#start_analytics_instance} and then waits for the {OCI::Analytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Analytics::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Analytics::AnalyticsClient#start_analytics_instance}
@@ -660,7 +766,7 @@ module OCI
     # Calls {OCI::Analytics::AnalyticsClient#stop_analytics_instance} and then waits for the {OCI::Analytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Analytics::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Analytics::AnalyticsClient#stop_analytics_instance}
@@ -711,10 +817,10 @@ module OCI
     # Calls {OCI::Analytics::AnalyticsClient#update_analytics_instance} and then waits for the {OCI::Analytics::Models::AnalyticsInstance} acted upon
     # to enter the given state(s).
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
-    # @param [OCI::Analytics::Models::UpdateAnalyticsInstanceDetails] update_analytics_instance_details The Analytics Instance fields to update. Fields that are not provided
-    #   will not be updated.
+    # @param [OCI::Analytics::Models::UpdateAnalyticsInstanceDetails] update_analytics_instance_details Update specified fields for an Analytics instance. Fields that aren't provided
+    #    won't be updated.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Analytics::Models::AnalyticsInstance#lifecycle_state}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Analytics::AnalyticsClient#update_analytics_instance}
@@ -754,11 +860,11 @@ module OCI
     # Calls {OCI::Analytics::AnalyticsClient#update_private_access_channel} and then waits for the {OCI::Analytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] private_access_channel_key The unique identifier key of the Private Access Channel.
+    # @param [String] private_access_channel_key The unique identifier key of the private access channel.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
-    # @param [OCI::Analytics::Models::UpdatePrivateAccessChannelDetails] update_private_access_channel_details Update the Private Access Channel with the given unique identifier key in the specified Analytics Instance.
+    # @param [OCI::Analytics::Models::UpdatePrivateAccessChannelDetails] update_private_access_channel_details Update the private access channel with the given unique identifier key in the specified Analytics instance.
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Analytics::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Analytics::AnalyticsClient#update_private_access_channel}
@@ -806,14 +912,69 @@ module OCI
     # rubocop:disable Layout/EmptyLines
 
 
+    # Calls {OCI::Analytics::AnalyticsClient#update_resource_group} and then waits for the {OCI::Analytics::Models::WorkRequest}
+    # to enter the given state(s).
+    #
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
+    #
+    # @param [String] analytics_instance_resource_group_id Specify unique id of a resource group within an Analytics instance.
+    #
+    # @param [OCI::Analytics::Models::UpdateResourceGroupDetails] update_resource_group_details Resource group details to update (certificate).
+    #
+    # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Analytics::Models::WorkRequest#status}
+    # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Analytics::AnalyticsClient#update_resource_group}
+    # @param [Hash] waiter_opts Optional arguments for the waiter. Keys should be symbols, and the following keys are supported:
+    #   * max_interval_seconds: The maximum interval between queries, in seconds.
+    #   * max_wait_seconds The maximum time to wait, in seconds
+    #
+    # @return [OCI::Response] A {OCI::Response} object containing the completed {OCI::Analytics::Models::WorkRequest}
+    def update_resource_group_and_wait_for_state(analytics_instance_id, analytics_instance_resource_group_id, update_resource_group_details, wait_for_states = [], base_operation_opts = {}, waiter_opts = {})
+      operation_result = @service_client.update_resource_group(analytics_instance_id, analytics_instance_resource_group_id, update_resource_group_details, base_operation_opts)
+      use_util = OCI::Analytics::Util.respond_to?(:wait_on_work_request)
+
+      return operation_result if wait_for_states.empty? && !use_util
+
+      lowered_wait_for_states = wait_for_states.map(&:downcase)
+      wait_for_resource_id = operation_result.headers['opc-work-request-id']
+      return operation_result if wait_for_resource_id.nil? || wait_for_resource_id.empty?
+
+      begin
+        if use_util
+          waiter_result = OCI::Analytics::Util.wait_on_work_request(
+            @service_client,
+            wait_for_resource_id,
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        else
+          waiter_result = @service_client.get_work_request(wait_for_resource_id).wait_until(
+            eval_proc: ->(response) { response.data.respond_to?(:status) && lowered_wait_for_states.include?(response.data.status.downcase) },
+            max_interval_seconds: waiter_opts.key?(:max_interval_seconds) ? waiter_opts[:max_interval_seconds] : 30,
+            max_wait_seconds: waiter_opts.key?(:max_wait_seconds) ? waiter_opts[:max_wait_seconds] : 1200
+          )
+        end
+        result_to_return = waiter_result
+
+        return result_to_return
+      rescue StandardError
+        raise OCI::Errors::CompositeOperationError.new(partial_results: [operation_result])
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:enable Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/ParameterLists, Metrics/PerceivedComplexity
+    # rubocop:disable Layout/EmptyLines
+
+
     # Calls {OCI::Analytics::AnalyticsClient#update_vanity_url} and then waits for the {OCI::Analytics::Models::WorkRequest}
     # to enter the given state(s).
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
-    # @param [String] vanity_url_key Specify unique identifier key of a vanity url to update or delete.
+    # @param [String] vanity_url_key Specify unique identifier key of a vanity URL to update or delete.
     #
-    # @param [OCI::Analytics::Models::UpdateVanityUrlDetails] update_vanity_url_details Vanity url details to update (certificate).
+    # @param [OCI::Analytics::Models::UpdateVanityUrlDetails] update_vanity_url_details Vanity URL details to update (certificate).
     #
     # @param [Array<String>] wait_for_states An array of states to wait on. These should be valid values for {OCI::Analytics::Models::WorkRequest#status}
     # @param [Hash] base_operation_opts Any optional arguments accepted by {OCI::Analytics::AnalyticsClient#update_vanity_url}

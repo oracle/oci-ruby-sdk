@@ -135,6 +135,11 @@ module OCI
     # @return [String]
     attr_accessor :filesystem_snapshot_policy_id
 
+    # Bytes referenced only by this snapshot; deducted from compartment usage immediately upon deletion.
+    #
+    # @return [Integer]
+    attr_accessor :exclusive_bytes
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -156,7 +161,8 @@ module OCI
         'defined_tags': :'definedTags',
         'system_tags': :'systemTags',
         'expiration_time': :'expirationTime',
-        'filesystem_snapshot_policy_id': :'filesystemSnapshotPolicyId'
+        'filesystem_snapshot_policy_id': :'filesystemSnapshotPolicyId',
+        'exclusive_bytes': :'exclusiveBytes'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -182,7 +188,8 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'system_tags': :'Hash<String, Hash<String, Object>>',
         'expiration_time': :'DateTime',
-        'filesystem_snapshot_policy_id': :'String'
+        'filesystem_snapshot_policy_id': :'String',
+        'exclusive_bytes': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -211,6 +218,7 @@ module OCI
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
     # @option attributes [DateTime] :expiration_time The value to assign to the {#expiration_time} property
     # @option attributes [String] :filesystem_snapshot_policy_id The value to assign to the {#filesystem_snapshot_policy_id} property
+    # @option attributes [Integer] :exclusive_bytes The value to assign to the {#exclusive_bytes} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -312,6 +320,12 @@ module OCI
       raise 'You cannot provide both :filesystemSnapshotPolicyId and :filesystem_snapshot_policy_id' if attributes.key?(:'filesystemSnapshotPolicyId') && attributes.key?(:'filesystem_snapshot_policy_id')
 
       self.filesystem_snapshot_policy_id = attributes[:'filesystem_snapshot_policy_id'] if attributes[:'filesystem_snapshot_policy_id']
+
+      self.exclusive_bytes = attributes[:'exclusiveBytes'] if attributes[:'exclusiveBytes']
+
+      raise 'You cannot provide both :exclusiveBytes and :exclusive_bytes' if attributes.key?(:'exclusiveBytes') && attributes.key?(:'exclusive_bytes')
+
+      self.exclusive_bytes = attributes[:'exclusive_bytes'] if attributes[:'exclusive_bytes']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -368,7 +382,8 @@ module OCI
         defined_tags == other.defined_tags &&
         system_tags == other.system_tags &&
         expiration_time == other.expiration_time &&
-        filesystem_snapshot_policy_id == other.filesystem_snapshot_policy_id
+        filesystem_snapshot_policy_id == other.filesystem_snapshot_policy_id &&
+        exclusive_bytes == other.exclusive_bytes
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -384,7 +399,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [file_system_id, id, lifecycle_state, name, time_created, snapshot_type, snapshot_time, provenance_id, is_clone_source, lifecycle_details, locks, lock_duration_details, time_locked, freeform_tags, defined_tags, system_tags, expiration_time, filesystem_snapshot_policy_id].hash
+      [file_system_id, id, lifecycle_state, name, time_created, snapshot_type, snapshot_time, provenance_id, is_clone_source, lifecycle_details, locks, lock_duration_details, time_locked, freeform_tags, defined_tags, system_tags, expiration_time, filesystem_snapshot_policy_id, exclusive_bytes].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -17,6 +17,7 @@ module OCI
     ].freeze
 
     # **[Required]** The Iceberg technology type.
+    #
     # @return [String]
     attr_reader :technology_type
 

@@ -7,7 +7,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Service instance capacity metadata (e.g.: OLPU count, number of users, ...etc...).
+  # Service instance capacity metadata (for example, OLPU count, number of users, and so on).
   #
   class Analytics::Models::Capacity
     CAPACITY_TYPE_ENUM = [
@@ -24,7 +24,7 @@ module OCI
     attr_reader :capacity_type
 
     # **[Required]** The capacity value selected, either the number of OCPUs (OLPU_COUNT) or the number of users (USER_COUNT).
-    # This parameter affects the number of OCPUs, amount of memory, and other resources allocated to the instance.
+    # This parameter affects the number of OCPUs, amount of memory, and other resources allocated to the Analytics instance.
     #
     # @return [Integer]
     attr_accessor :capacity_value

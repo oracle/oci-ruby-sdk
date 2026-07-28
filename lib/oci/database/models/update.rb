@@ -25,6 +25,24 @@ module OCI
       AVAILABLE_ACTIONS_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    LAST_UPDATE_MODE_ENUM = [
+      LAST_UPDATE_MODE_ONLINE_HIGHCVSS = 'ONLINE_HIGHCVSS'.freeze,
+      LAST_UPDATE_MODE_ONLINE_ALLCVSS = 'ONLINE_ALLCVSS'.freeze,
+      LAST_UPDATE_MODE_ONLINE_ALL_UPDATES = 'ONLINE_ALL_UPDATES'.freeze,
+      LAST_UPDATE_MODE_PENDING_UPDATES = 'PENDING_UPDATES'.freeze,
+      LAST_UPDATE_MODE_FULL_UPDATE = 'FULL_UPDATE'.freeze,
+      LAST_UPDATE_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
+    AVAILABLE_UPDATE_MODES_ENUM = [
+      AVAILABLE_UPDATE_MODES_ONLINE_HIGHCVSS = 'ONLINE_HIGHCVSS'.freeze,
+      AVAILABLE_UPDATE_MODES_ONLINE_ALLCVSS = 'ONLINE_ALLCVSS'.freeze,
+      AVAILABLE_UPDATE_MODES_ONLINE_ALL_UPDATES = 'ONLINE_ALL_UPDATES'.freeze,
+      AVAILABLE_UPDATE_MODES_PENDING_UPDATES = 'PENDING_UPDATES'.freeze,
+      AVAILABLE_UPDATE_MODES_FULL_UPDATE = 'FULL_UPDATE'.freeze,
+      AVAILABLE_UPDATE_MODES_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     UPDATE_TYPE_ENUM = [
       UPDATE_TYPE_GI_UPGRADE = 'GI_UPGRADE'.freeze,
       UPDATE_TYPE_GI_PATCH = 'GI_PATCH'.freeze,
@@ -56,6 +74,18 @@ module OCI
     # @return [Array<String>]
     attr_reader :available_actions
 
+    # The previous update mode performed (only valid for OS Updates).
+    # @return [String]
+    attr_reader :last_update_mode
+
+    # The possible update options available (only valid for OS Update).
+    # @return [Array<String>]
+    attr_reader :available_update_modes
+
+    # Oracle Linux version for the respective Exadata Image.
+    # @return [String]
+    attr_accessor :oracle_linux_version
+
     # **[Required]** The type of cloud VM cluster maintenance update.
     # @return [String]
     attr_reader :update_type
@@ -85,6 +115,9 @@ module OCI
         'description': :'description',
         'last_action': :'lastAction',
         'available_actions': :'availableActions',
+        'last_update_mode': :'lastUpdateMode',
+        'available_update_modes': :'availableUpdateModes',
+        'oracle_linux_version': :'oracleLinuxVersion',
         'update_type': :'updateType',
         'lifecycle_details': :'lifecycleDetails',
         'lifecycle_state': :'lifecycleState',
@@ -102,6 +135,9 @@ module OCI
         'description': :'String',
         'last_action': :'String',
         'available_actions': :'Array<String>',
+        'last_update_mode': :'String',
+        'available_update_modes': :'Array<String>',
+        'oracle_linux_version': :'String',
         'update_type': :'String',
         'lifecycle_details': :'String',
         'lifecycle_state': :'String',
@@ -121,6 +157,9 @@ module OCI
     # @option attributes [String] :description The value to assign to the {#description} property
     # @option attributes [String] :last_action The value to assign to the {#last_action} property
     # @option attributes [Array<String>] :available_actions The value to assign to the {#available_actions} property
+    # @option attributes [String] :last_update_mode The value to assign to the {#last_update_mode} property
+    # @option attributes [Array<String>] :available_update_modes The value to assign to the {#available_update_modes} property
+    # @option attributes [String] :oracle_linux_version The value to assign to the {#oracle_linux_version} property
     # @option attributes [String] :update_type The value to assign to the {#update_type} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
@@ -144,6 +183,24 @@ module OCI
       raise 'You cannot provide both :availableActions and :available_actions' if attributes.key?(:'availableActions') && attributes.key?(:'available_actions')
 
       self.available_actions = attributes[:'available_actions'] if attributes[:'available_actions']
+
+      self.last_update_mode = attributes[:'lastUpdateMode'] if attributes[:'lastUpdateMode']
+
+      raise 'You cannot provide both :lastUpdateMode and :last_update_mode' if attributes.key?(:'lastUpdateMode') && attributes.key?(:'last_update_mode')
+
+      self.last_update_mode = attributes[:'last_update_mode'] if attributes[:'last_update_mode']
+
+      self.available_update_modes = attributes[:'availableUpdateModes'] if attributes[:'availableUpdateModes']
+
+      raise 'You cannot provide both :availableUpdateModes and :available_update_modes' if attributes.key?(:'availableUpdateModes') && attributes.key?(:'available_update_modes')
+
+      self.available_update_modes = attributes[:'available_update_modes'] if attributes[:'available_update_modes']
+
+      self.oracle_linux_version = attributes[:'oracleLinuxVersion'] if attributes[:'oracleLinuxVersion']
+
+      raise 'You cannot provide both :oracleLinuxVersion and :oracle_linux_version' if attributes.key?(:'oracleLinuxVersion') && attributes.key?(:'oracle_linux_version')
+
+      self.oracle_linux_version = attributes[:'oracle_linux_version'] if attributes[:'oracle_linux_version']
 
       self.update_type = attributes[:'updateType'] if attributes[:'updateType']
 
@@ -208,6 +265,39 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] last_update_mode Object to be assigned
+    def last_update_mode=(last_update_mode)
+      # rubocop:disable Style/ConditionalAssignment
+      if last_update_mode && !LAST_UPDATE_MODE_ENUM.include?(last_update_mode)
+        OCI.logger.debug("Unknown value for 'last_update_mode' [" + last_update_mode + "]. Mapping to 'LAST_UPDATE_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @last_update_mode = LAST_UPDATE_MODE_UNKNOWN_ENUM_VALUE
+      else
+        @last_update_mode = last_update_mode
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] available_update_modes Object to be assigned
+    def available_update_modes=(available_update_modes)
+      # rubocop:disable Style/ConditionalAssignment
+      if available_update_modes.nil?
+        @available_update_modes = nil
+      else
+        @available_update_modes =
+          available_update_modes.collect do |item|
+            if AVAILABLE_UPDATE_MODES_ENUM.include?(item)
+              item
+            else
+              OCI.logger.debug("Unknown value for 'available_update_modes' [#{item}]. Mapping to 'AVAILABLE_UPDATE_MODES_UNKNOWN_ENUM_VALUE'") if OCI.logger
+              AVAILABLE_UPDATE_MODES_UNKNOWN_ENUM_VALUE
+            end
+          end
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] update_type Object to be assigned
     def update_type=(update_type)
       # rubocop:disable Style/ConditionalAssignment
@@ -246,6 +336,9 @@ module OCI
         description == other.description &&
         last_action == other.last_action &&
         available_actions == other.available_actions &&
+        last_update_mode == other.last_update_mode &&
+        available_update_modes == other.available_update_modes &&
+        oracle_linux_version == other.oracle_linux_version &&
         update_type == other.update_type &&
         lifecycle_details == other.lifecycle_details &&
         lifecycle_state == other.lifecycle_state &&
@@ -266,7 +359,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, description, last_action, available_actions, update_type, lifecycle_details, lifecycle_state, time_released, version].hash
+      [id, description, last_action, available_actions, last_update_mode, available_update_modes, oracle_linux_version, update_type, lifecycle_details, lifecycle_state, time_released, version].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

@@ -1378,6 +1378,76 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Moves a BaseDB-C@C VM cluster and its dependent resources to another compartment. Applies to Base Database Service on Cloud@Customer instances only.
+    #
+    # @param [OCI::Database::Models::ChangeBaseccVmClusterCompartmentDetails] change_basecc_vm_cluster_compartment_details Request to move the BaseDB-C@C VM cluster to a different compartment.
+    # @param [String] basecc_vm_cluster_id The BaseDB-C@C VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/change_basecc_vm_cluster_compartment.rb.html) to see an example of how to use change_basecc_vm_cluster_compartment API.
+    def change_basecc_vm_cluster_compartment(change_basecc_vm_cluster_compartment_details, basecc_vm_cluster_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#change_basecc_vm_cluster_compartment.' if logger
+
+      raise "Missing the required parameter 'change_basecc_vm_cluster_compartment_details' when calling change_basecc_vm_cluster_compartment." if change_basecc_vm_cluster_compartment_details.nil?
+      raise "Missing the required parameter 'basecc_vm_cluster_id' when calling change_basecc_vm_cluster_compartment." if basecc_vm_cluster_id.nil?
+      raise "Parameter value for 'basecc_vm_cluster_id' must not be blank" if OCI::Internal::Util.blank_string?(basecc_vm_cluster_id)
+
+      path = '/baseccVmClusters/{baseccVmClusterId}/actions/changeCompartment'.sub('{baseccVmClusterId}', basecc_vm_cluster_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(change_basecc_vm_cluster_compartment_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#change_basecc_vm_cluster_compartment') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Moves an Autonomous Exadata VM cluster in the Oracle cloud and its dependent resources to another compartment. For Exadata Cloud@Customer systems, see {#change_autonomous_vm_cluster_compartment change_autonomous_vm_cluster_compartment}.
     #
     # @param [OCI::Database::Models::ChangeCloudAutonomousVmClusterCompartmentDetails] change_cloud_autonomous_vm_cluster_compartment_details Request to move cloud Autonomous VM cluster to a different compartment
@@ -4703,6 +4773,70 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Creates a BaseDB-C@C VM cluster.
+    #
+    # @param [OCI::Database::Models::CreateBaseccVmClusterDetails] create_basecc_vm_cluster_details Request to create a BaseDB-C@C VM cluster. Applies to Base Database Service on Cloud@Customer instances only.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::BaseccVmCluster BaseccVmCluster}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/create_basecc_vm_cluster.rb.html) to see an example of how to use create_basecc_vm_cluster API.
+    def create_basecc_vm_cluster(create_basecc_vm_cluster_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#create_basecc_vm_cluster.' if logger
+
+      raise "Missing the required parameter 'create_basecc_vm_cluster_details' when calling create_basecc_vm_cluster." if create_basecc_vm_cluster_details.nil?
+
+      path = '/baseccVmClusters'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_basecc_vm_cluster_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#create_basecc_vm_cluster') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::BaseccVmCluster'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Creates an Autonomous Exadata VM cluster in the Oracle cloud. For Exadata Cloud@Customer systems, see {#create_autonomous_vm_cluster create_autonomous_vm_cluster}.
     #
     # @param [OCI::Database::Models::CreateCloudAutonomousVmClusterDetails] create_cloud_autonomous_vm_cluster_details Request to create a cloud Autonomous VM cluster.
@@ -7186,6 +7320,66 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#delete_backup_destination') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes the specified BaseDB-C@C VM cluster. Applies to Base Database Service on Cloud@Customer instances only.
+    #
+    # @param [String] basecc_vm_cluster_id The BaseDB-C@C VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/delete_basecc_vm_cluster.rb.html) to see an example of how to use delete_basecc_vm_cluster API.
+    def delete_basecc_vm_cluster(basecc_vm_cluster_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#delete_basecc_vm_cluster.' if logger
+
+      raise "Missing the required parameter 'basecc_vm_cluster_id' when calling delete_basecc_vm_cluster." if basecc_vm_cluster_id.nil?
+      raise "Parameter value for 'basecc_vm_cluster_id' must not be blank" if OCI::Internal::Util.blank_string?(basecc_vm_cluster_id)
+
+      path = '/baseccVmClusters/{baseccVmClusterId}'.sub('{baseccVmClusterId}', basecc_vm_cluster_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#delete_basecc_vm_cluster') do
         @api_client.call_api(
           :DELETE,
           path,
@@ -12805,6 +12999,180 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets information about the BaseDB-C@C VM cluster. Applies to Base Database Service on Cloud@Customer instances only.
+    #
+    # @param [String] basecc_vm_cluster_id The BaseDB-C@C VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::BaseccVmCluster BaseccVmCluster}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_basecc_vm_cluster.rb.html) to see an example of how to use get_basecc_vm_cluster API.
+    def get_basecc_vm_cluster(basecc_vm_cluster_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#get_basecc_vm_cluster.' if logger
+
+      raise "Missing the required parameter 'basecc_vm_cluster_id' when calling get_basecc_vm_cluster." if basecc_vm_cluster_id.nil?
+      raise "Parameter value for 'basecc_vm_cluster_id' must not be blank" if OCI::Internal::Util.blank_string?(basecc_vm_cluster_id)
+
+      path = '/baseccVmClusters/{baseccVmClusterId}'.sub('{baseccVmClusterId}', basecc_vm_cluster_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_basecc_vm_cluster') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::BaseccVmCluster'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets information about a specified maintenance update package for a BaseDB-C@C VM cluster. Applies to Base Database Service on Cloud@Customer instances only.
+    #
+    # @param [String] basecc_vm_cluster_id The BaseDB-C@C VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] update_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the maintenance update.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::BaseccVmClusterUpdate BaseccVmClusterUpdate}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_basecc_vm_cluster_update.rb.html) to see an example of how to use get_basecc_vm_cluster_update API.
+    def get_basecc_vm_cluster_update(basecc_vm_cluster_id, update_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#get_basecc_vm_cluster_update.' if logger
+
+      raise "Missing the required parameter 'basecc_vm_cluster_id' when calling get_basecc_vm_cluster_update." if basecc_vm_cluster_id.nil?
+      raise "Missing the required parameter 'update_id' when calling get_basecc_vm_cluster_update." if update_id.nil?
+      raise "Parameter value for 'basecc_vm_cluster_id' must not be blank" if OCI::Internal::Util.blank_string?(basecc_vm_cluster_id)
+      raise "Parameter value for 'update_id' must not be blank" if OCI::Internal::Util.blank_string?(update_id)
+
+      path = '/baseccVmClusters/{baseccVmClusterId}/updates/{updateId}'.sub('{baseccVmClusterId}', basecc_vm_cluster_id.to_s).sub('{updateId}', update_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_basecc_vm_cluster_update') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::BaseccVmClusterUpdate'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Gets the maintenance update history details for the specified update history entry. Applies to Base Database Service on Cloud@Customer instances only.
+    #
+    # @param [String] basecc_vm_cluster_id The BaseDB-C@C VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [String] update_history_entry_id The [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) of the maintenance update history entry.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::BaseccVmClusterUpdateHistoryEntry BaseccVmClusterUpdateHistoryEntry}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/get_basecc_vm_cluster_update_history_entry.rb.html) to see an example of how to use get_basecc_vm_cluster_update_history_entry API.
+    def get_basecc_vm_cluster_update_history_entry(basecc_vm_cluster_id, update_history_entry_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#get_basecc_vm_cluster_update_history_entry.' if logger
+
+      raise "Missing the required parameter 'basecc_vm_cluster_id' when calling get_basecc_vm_cluster_update_history_entry." if basecc_vm_cluster_id.nil?
+      raise "Missing the required parameter 'update_history_entry_id' when calling get_basecc_vm_cluster_update_history_entry." if update_history_entry_id.nil?
+      raise "Parameter value for 'basecc_vm_cluster_id' must not be blank" if OCI::Internal::Util.blank_string?(basecc_vm_cluster_id)
+      raise "Parameter value for 'update_history_entry_id' must not be blank" if OCI::Internal::Util.blank_string?(update_history_entry_id)
+
+      path = '/baseccVmClusters/{baseccVmClusterId}/updateHistoryEntries/{updateHistoryEntryId}'.sub('{baseccVmClusterId}', basecc_vm_cluster_id.to_s).sub('{updateHistoryEntryId}', update_history_entry_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#get_basecc_vm_cluster_update_history_entry') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::BaseccVmClusterUpdateHistoryEntry'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets information about the specified Autonomous Exadata VM cluster in the Oracle cloud. For Exadata Cloud@Custustomer systems, see {#get_autonomous_vm_cluster get_autonomous_vm_cluster}.
     #
     # @param [String] cloud_autonomous_vm_cluster_id The Cloud VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -18312,6 +18680,245 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Gets the history of the maintenance update actions performed on the specified BaseDB-C@C VM cluster. Applies to Base Database Service on Cloud@Customer instances only.
+    #
+    # @param [String] basecc_vm_cluster_id The BaseDB-C@C VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :update_type A filter to return only resources that match the given update type exactly. (default to GI_UPGRADE)
+    #   Allowed values are: GI_UPGRADE, GI_PATCH, OS_UPDATE
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
+    # @option opts [String] :page The pagination token to continue listing from.
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Database::Models::BaseccVmClusterUpdateHistoryEntrySummary BaseccVmClusterUpdateHistoryEntrySummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_basecc_vm_cluster_update_history_entries.rb.html) to see an example of how to use list_basecc_vm_cluster_update_history_entries API.
+    def list_basecc_vm_cluster_update_history_entries(basecc_vm_cluster_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#list_basecc_vm_cluster_update_history_entries.' if logger
+
+      raise "Missing the required parameter 'basecc_vm_cluster_id' when calling list_basecc_vm_cluster_update_history_entries." if basecc_vm_cluster_id.nil?
+
+      if opts[:update_type] && !%w[GI_UPGRADE GI_PATCH OS_UPDATE].include?(opts[:update_type])
+        raise 'Invalid value for "update_type", must be one of GI_UPGRADE, GI_PATCH, OS_UPDATE.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Database::Models::BaseccVmClusterUpdateHistoryEntrySummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Database::Models::BaseccVmClusterUpdateHistoryEntrySummary::LIFECYCLE_STATE_ENUM.'
+      end
+      raise "Parameter value for 'basecc_vm_cluster_id' must not be blank" if OCI::Internal::Util.blank_string?(basecc_vm_cluster_id)
+
+      path = '/baseccVmClusters/{baseccVmClusterId}/updateHistoryEntries'.sub('{baseccVmClusterId}', basecc_vm_cluster_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:updateType] = opts[:update_type] if opts[:update_type]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_basecc_vm_cluster_update_history_entries') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::BaseccVmClusterUpdateHistoryEntrySummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the maintenance updates that can be applied to the specified BaseDB-C@C VM cluster. Applies to Base Database Service on Cloud@Customer instances only.
+    #
+    # @param [String] basecc_vm_cluster_id The BaseDB-C@C VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :update_type A filter to return only resources that match the given update type exactly. (default to GI_UPGRADE)
+    #   Allowed values are: GI_UPGRADE, GI_PATCH, OS_UPDATE
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
+    # @option opts [String] :page The pagination token to continue listing from.
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Database::Models::BaseccVmClusterUpdateSummary BaseccVmClusterUpdateSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_basecc_vm_cluster_updates.rb.html) to see an example of how to use list_basecc_vm_cluster_updates API.
+    def list_basecc_vm_cluster_updates(basecc_vm_cluster_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#list_basecc_vm_cluster_updates.' if logger
+
+      raise "Missing the required parameter 'basecc_vm_cluster_id' when calling list_basecc_vm_cluster_updates." if basecc_vm_cluster_id.nil?
+
+      if opts[:update_type] && !%w[GI_UPGRADE GI_PATCH OS_UPDATE].include?(opts[:update_type])
+        raise 'Invalid value for "update_type", must be one of GI_UPGRADE, GI_PATCH, OS_UPDATE.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Database::Models::BaseccVmClusterUpdateSummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Database::Models::BaseccVmClusterUpdateSummary::LIFECYCLE_STATE_ENUM.'
+      end
+      raise "Parameter value for 'basecc_vm_cluster_id' must not be blank" if OCI::Internal::Util.blank_string?(basecc_vm_cluster_id)
+
+      path = '/baseccVmClusters/{baseccVmClusterId}/updates'.sub('{baseccVmClusterId}', basecc_vm_cluster_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:updateType] = opts[:update_type] if opts[:update_type]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_basecc_vm_cluster_updates') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::BaseccVmClusterUpdateSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Lists the BaseDB-C@C VM clusters in the specified compartment. Applies to Base Database Service on Cloud@Customer instances only.
+    #
+    # @param [String] compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :base_infrastructure_id If provided, filters the results for the given Oracle Data Cloud@Customer Infrastructure. (default to default)
+    # @option opts [Integer] :limit The maximum number of items to return per page. (default to 10)
+    # @option opts [String] :page The pagination token to continue listing from.
+    # @option opts [String] :sort_by The field to sort by.  You can provide one sort order (`sortOrder`).  Default order for TIMECREATED is descending.  Default order for DISPLAYNAME is ascending. The DISPLAYNAME sort order is case sensitive.
+    #    (default to TIMECREATED)
+    #   Allowed values are: TIMECREATED, DISPLAYNAME
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`). (default to ASC)
+    #   Allowed values are: ASC, DESC
+    # @option opts [String] :lifecycle_state A filter to return only resources that match the given lifecycle state exactly.
+    # @option opts [String] :availability_domain A filter to return only resources that match the given availability domain exactly.
+    # @option opts [String] :display_name A filter to return only resources that match the entire display name given. The match is not case sensitive.
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :vm_cluster_type A filter to return only BaseDB-C@C VM clusters that match the given VM Cluster type exactly.
+    # @return [Response] A Response object with data of type Array<{OCI::Database::Models::BaseccVmClusterSummary BaseccVmClusterSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/list_basecc_vm_clusters.rb.html) to see an example of how to use list_basecc_vm_clusters API.
+    def list_basecc_vm_clusters(compartment_id, opts = {})
+      logger.debug 'Calling operation DatabaseClient#list_basecc_vm_clusters.' if logger
+
+      raise "Missing the required parameter 'compartment_id' when calling list_basecc_vm_clusters." if compartment_id.nil?
+
+      if opts[:sort_by] && !%w[TIMECREATED DISPLAYNAME].include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of TIMECREATED, DISPLAYNAME.'
+      end
+
+      if opts[:sort_order] && !%w[ASC DESC].include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of ASC, DESC.'
+      end
+
+      if opts[:lifecycle_state] && !OCI::Database::Models::BaseccVmClusterSummary::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
+        raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Database::Models::BaseccVmClusterSummary::LIFECYCLE_STATE_ENUM.'
+      end
+
+      if opts[:vm_cluster_type] && !OCI::Database::Models::BaseccVmClusterSummary::VM_CLUSTER_TYPE_ENUM.include?(opts[:vm_cluster_type])
+        raise 'Invalid value for "vm_cluster_type", must be one of the values in OCI::Database::Models::BaseccVmClusterSummary::VM_CLUSTER_TYPE_ENUM.'
+      end
+
+      path = '/baseccVmClusters'
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:compartmentId] = compartment_id
+      query_params[:baseInfrastructureId] = opts[:base_infrastructure_id] if opts[:base_infrastructure_id]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+      query_params[:lifecycleState] = opts[:lifecycle_state] if opts[:lifecycle_state]
+      query_params[:availabilityDomain] = opts[:availability_domain] if opts[:availability_domain]
+      query_params[:displayName] = opts[:display_name] if opts[:display_name]
+      query_params[:vmClusterType] = opts[:vm_cluster_type] if opts[:vm_cluster_type]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#list_basecc_vm_clusters') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Database::Models::BaseccVmClusterSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Gets the list of resource usage details for all the Cloud Autonomous Container Database
     # in the specified Cloud Autonomous Exadata VM cluster.
     #
@@ -21640,6 +22247,7 @@ module OCI
     # @option opts [String] :compartment_id The compartment [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
     # @option opts [String] :opc_request_id Unique identifier for the request.
     #
+    # @option opts [String] :exadata_infrastructure_id If provided, filters the results for the given Exadata Infrastructure. (default to default)
     # @option opts [String] :shape_family If provided, filters the results to the set of database versions which are supported for the given shape family.
     #   Allowed values are: SINGLENODE, YODA, VIRTUALMACHINE, EXADATA, EXACC, EXADB_XS
     # @option opts [BOOLEAN] :is_gi_version_for_provisioning If true, returns the Grid Infrastructure versions that can be used for provisioning a cluster (default to false)
@@ -21678,6 +22286,7 @@ module OCI
       query_params = {}
       query_params[:availabilityDomain] = opts[:availability_domain] if opts[:availability_domain]
       query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:exadataInfrastructureId] = opts[:exadata_infrastructure_id] if opts[:exadata_infrastructure_id]
       query_params[:shapeFamily] = opts[:shape_family] if opts[:shape_family]
       query_params[:isGiVersionForProvisioning] = opts[:is_gi_version_for_provisioning] if !opts[:is_gi_version_for_provisioning].nil?
       query_params[:shape] = opts[:shape] if opts[:shape]
@@ -24561,6 +25170,76 @@ module OCI
 
       # rubocop:disable Metrics/BlockLength
       OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#register_cloud_vm_cluster_pkcs') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Install the PKCS11 driver for given keystore type
+    #
+    # @param [String] exadb_vm_cluster_id The Exadata VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) on Exascale Infrastructure.
+    # @param [OCI::Database::Models::RegisterExadbVmClusterPkcsDetails] register_exadb_vm_cluster_pkcs_details Details of registering PKCS11 driver.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/register_exadb_vm_cluster_pkcs.rb.html) to see an example of how to use register_exadb_vm_cluster_pkcs API.
+    def register_exadb_vm_cluster_pkcs(exadb_vm_cluster_id, register_exadb_vm_cluster_pkcs_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#register_exadb_vm_cluster_pkcs.' if logger
+
+      raise "Missing the required parameter 'exadb_vm_cluster_id' when calling register_exadb_vm_cluster_pkcs." if exadb_vm_cluster_id.nil?
+      raise "Missing the required parameter 'register_exadb_vm_cluster_pkcs_details' when calling register_exadb_vm_cluster_pkcs." if register_exadb_vm_cluster_pkcs_details.nil?
+      raise "Parameter value for 'exadb_vm_cluster_id' must not be blank" if OCI::Internal::Util.blank_string?(exadb_vm_cluster_id)
+
+      path = '/exadbVmClusters/{exadbVmClusterId}/actions/registerPkcs'.sub('{exadbVmClusterId}', exadb_vm_cluster_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(register_exadb_vm_cluster_pkcs_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#register_exadb_vm_cluster_pkcs') do
         @api_client.call_api(
           :POST,
           path,
@@ -28017,6 +28696,76 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
+    # Uninstall the PKCS11 driver for given keystore type
+    #
+    # @param [String] exadb_vm_cluster_id The Exadata VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm) on Exascale Infrastructure.
+    # @param [OCI::Database::Models::UnregisterExadbVmClusterPkcsDetails] unregister_exadb_vm_cluster_pkcs_details Details of unregistering PKCS11 driver.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/unregister_exadb_vm_cluster_pkcs.rb.html) to see an example of how to use unregister_exadb_vm_cluster_pkcs API.
+    def unregister_exadb_vm_cluster_pkcs(exadb_vm_cluster_id, unregister_exadb_vm_cluster_pkcs_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#unregister_exadb_vm_cluster_pkcs.' if logger
+
+      raise "Missing the required parameter 'exadb_vm_cluster_id' when calling unregister_exadb_vm_cluster_pkcs." if exadb_vm_cluster_id.nil?
+      raise "Missing the required parameter 'unregister_exadb_vm_cluster_pkcs_details' when calling unregister_exadb_vm_cluster_pkcs." if unregister_exadb_vm_cluster_pkcs_details.nil?
+      raise "Parameter value for 'exadb_vm_cluster_id' must not be blank" if OCI::Internal::Util.blank_string?(exadb_vm_cluster_id)
+
+      path = '/exadbVmClusters/{exadbVmClusterId}/actions/unregisterPkcs'.sub('{exadbVmClusterId}', exadb_vm_cluster_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(unregister_exadb_vm_cluster_pkcs_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#unregister_exadb_vm_cluster_pkcs') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
     # Updates the advanced cluster file system resource.
     #
     # @param [String] advanced_cluster_file_system_id The advanced cluster file system Id [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
@@ -28759,6 +29508,69 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Database::Models::BackupDestination'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Updates the specified BaseDB-C@C VM cluster. Applies to Base Database Service on Cloud@Customer instances only.
+    #
+    # @param [String] basecc_vm_cluster_id The BaseDB-C@C VM cluster [OCID](https://docs.cloud.oracle.com/Content/General/Concepts/identifiers.htm).
+    # @param [OCI::Database::Models::UpdateBaseccVmClusterDetails] update_basecc_vm_cluster_details Request to update the attributes of a BaseDB-C@C VM cluster.
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #
+    # @return [Response] A Response object with data of type {OCI::Database::Models::BaseccVmCluster BaseccVmCluster}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/database/update_basecc_vm_cluster.rb.html) to see an example of how to use update_basecc_vm_cluster API.
+    def update_basecc_vm_cluster(basecc_vm_cluster_id, update_basecc_vm_cluster_details, opts = {})
+      logger.debug 'Calling operation DatabaseClient#update_basecc_vm_cluster.' if logger
+
+      raise "Missing the required parameter 'basecc_vm_cluster_id' when calling update_basecc_vm_cluster." if basecc_vm_cluster_id.nil?
+      raise "Missing the required parameter 'update_basecc_vm_cluster_details' when calling update_basecc_vm_cluster." if update_basecc_vm_cluster_details.nil?
+      raise "Parameter value for 'basecc_vm_cluster_id' must not be blank" if OCI::Internal::Util.blank_string?(basecc_vm_cluster_id)
+
+      path = '/baseccVmClusters/{baseccVmClusterId}'.sub('{baseccVmClusterId}', basecc_vm_cluster_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = @api_client.object_to_http_body(update_basecc_vm_cluster_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'DatabaseClient#update_basecc_vm_cluster') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Database::Models::BaseccVmCluster'
         )
       end
       # rubocop:enable Metrics/BlockLength
