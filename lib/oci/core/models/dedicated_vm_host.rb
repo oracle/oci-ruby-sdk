@@ -91,6 +91,11 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_memory_encryption_enabled
 
+    # Specifies if the Dedicated Virtual Machine Host (DVMH) is to running only Burstable VMs. If `true`, only Burstable VMs can be launched. If `false`, Burstable VMs cannot be launched.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_burstable
+
     # **[Required]** The current state of the dedicated VM host.
     #
     # @return [String]
@@ -158,6 +163,7 @@ module OCI
         'id': :'id',
         'capacity_config': :'capacityConfig',
         'is_memory_encryption_enabled': :'isMemoryEncryptionEnabled',
+        'is_burstable': :'isBurstable',
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'total_ocpus': :'totalOcpus',
@@ -187,6 +193,7 @@ module OCI
         'id': :'String',
         'capacity_config': :'String',
         'is_memory_encryption_enabled': :'BOOLEAN',
+        'is_burstable': :'BOOLEAN',
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'total_ocpus': :'Float',
@@ -218,6 +225,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :capacity_config The value to assign to the {#capacity_config} property
     # @option attributes [BOOLEAN] :is_memory_encryption_enabled The value to assign to the {#is_memory_encryption_enabled} property
+    # @option attributes [BOOLEAN] :is_burstable The value to assign to the {#is_burstable} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [Float] :total_ocpus The value to assign to the {#total_ocpus} property
@@ -297,6 +305,14 @@ module OCI
 
       self.is_memory_encryption_enabled = attributes[:'is_memory_encryption_enabled'] unless attributes[:'is_memory_encryption_enabled'].nil?
       self.is_memory_encryption_enabled = false if is_memory_encryption_enabled.nil? && !attributes.key?(:'isMemoryEncryptionEnabled') && !attributes.key?(:'is_memory_encryption_enabled') # rubocop:disable Style/StringLiterals
+
+      self.is_burstable = attributes[:'isBurstable'] unless attributes[:'isBurstable'].nil?
+      self.is_burstable = false if is_burstable.nil? && !attributes.key?(:'isBurstable') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isBurstable and :is_burstable' if attributes.key?(:'isBurstable') && attributes.key?(:'is_burstable')
+
+      self.is_burstable = attributes[:'is_burstable'] unless attributes[:'is_burstable'].nil?
+      self.is_burstable = false if is_burstable.nil? && !attributes.key?(:'isBurstable') && !attributes.key?(:'is_burstable') # rubocop:disable Style/StringLiterals
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -394,6 +410,7 @@ module OCI
         id == other.id &&
         capacity_config == other.capacity_config &&
         is_memory_encryption_enabled == other.is_memory_encryption_enabled &&
+        is_burstable == other.is_burstable &&
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         total_ocpus == other.total_ocpus &&
@@ -419,7 +436,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, dedicated_vm_host_shape, defined_tags, display_name, fault_domain, freeform_tags, placement_constraint_details, id, capacity_config, is_memory_encryption_enabled, lifecycle_state, time_created, total_ocpus, remaining_ocpus, total_memory_in_gbs, remaining_memory_in_gbs, total_local_volume_in_gbs, remaining_local_volume_in_gbs, capacity_bins, compute_bare_metal_host_id].hash
+      [availability_domain, compartment_id, dedicated_vm_host_shape, defined_tags, display_name, fault_domain, freeform_tags, placement_constraint_details, id, capacity_config, is_memory_encryption_enabled, is_burstable, lifecycle_state, time_created, total_ocpus, remaining_ocpus, total_memory_in_gbs, remaining_memory_in_gbs, total_local_volume_in_gbs, remaining_local_volume_in_gbs, capacity_bins, compute_bare_metal_host_id].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

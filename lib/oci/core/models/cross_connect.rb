@@ -117,6 +117,18 @@ module OCI
     # @return [String]
     attr_accessor :oci_logical_device_name
 
+    # The flag to enable or disable the down timer for the interface.
+    # @return [BOOLEAN]
+    attr_accessor :is_interface_hold_timer_enabled
+
+    # The duration of the interface down timer in milliseconds between 0 and 3000 in multiples of 500.
+    # @return [Integer]
+    attr_accessor :interface_down_timer_value_in_milliseconds
+
+    # The flag to enable or disable the Qos for the cross-connect.
+    # @return [BOOLEAN]
+    attr_accessor :is_qos_enabled
+
     # The name of the FastConnect interface where this cross-connect is installed.
     #
     # @return [String]
@@ -141,6 +153,9 @@ module OCI
         'macsec_properties': :'macsecProperties',
         'oci_physical_device_name': :'ociPhysicalDeviceName',
         'oci_logical_device_name': :'ociLogicalDeviceName',
+        'is_interface_hold_timer_enabled': :'isInterfaceHoldTimerEnabled',
+        'interface_down_timer_value_in_milliseconds': :'interfaceDownTimerValueInMilliseconds',
+        'is_qos_enabled': :'isQosEnabled',
         'interface_name': :'interfaceName'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -165,6 +180,9 @@ module OCI
         'macsec_properties': :'OCI::Core::Models::MacsecProperties',
         'oci_physical_device_name': :'String',
         'oci_logical_device_name': :'String',
+        'is_interface_hold_timer_enabled': :'BOOLEAN',
+        'interface_down_timer_value_in_milliseconds': :'Integer',
+        'is_qos_enabled': :'BOOLEAN',
         'interface_name': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -191,6 +209,9 @@ module OCI
     # @option attributes [OCI::Core::Models::MacsecProperties] :macsec_properties The value to assign to the {#macsec_properties} property
     # @option attributes [String] :oci_physical_device_name The value to assign to the {#oci_physical_device_name} property
     # @option attributes [String] :oci_logical_device_name The value to assign to the {#oci_logical_device_name} property
+    # @option attributes [BOOLEAN] :is_interface_hold_timer_enabled The value to assign to the {#is_interface_hold_timer_enabled} property
+    # @option attributes [Integer] :interface_down_timer_value_in_milliseconds The value to assign to the {#interface_down_timer_value_in_milliseconds} property
+    # @option attributes [BOOLEAN] :is_qos_enabled The value to assign to the {#is_qos_enabled} property
     # @option attributes [String] :interface_name The value to assign to the {#interface_name} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -284,6 +305,24 @@ module OCI
 
       self.oci_logical_device_name = attributes[:'oci_logical_device_name'] if attributes[:'oci_logical_device_name']
 
+      self.is_interface_hold_timer_enabled = attributes[:'isInterfaceHoldTimerEnabled'] unless attributes[:'isInterfaceHoldTimerEnabled'].nil?
+
+      raise 'You cannot provide both :isInterfaceHoldTimerEnabled and :is_interface_hold_timer_enabled' if attributes.key?(:'isInterfaceHoldTimerEnabled') && attributes.key?(:'is_interface_hold_timer_enabled')
+
+      self.is_interface_hold_timer_enabled = attributes[:'is_interface_hold_timer_enabled'] unless attributes[:'is_interface_hold_timer_enabled'].nil?
+
+      self.interface_down_timer_value_in_milliseconds = attributes[:'interfaceDownTimerValueInMilliseconds'] if attributes[:'interfaceDownTimerValueInMilliseconds']
+
+      raise 'You cannot provide both :interfaceDownTimerValueInMilliseconds and :interface_down_timer_value_in_milliseconds' if attributes.key?(:'interfaceDownTimerValueInMilliseconds') && attributes.key?(:'interface_down_timer_value_in_milliseconds')
+
+      self.interface_down_timer_value_in_milliseconds = attributes[:'interface_down_timer_value_in_milliseconds'] if attributes[:'interface_down_timer_value_in_milliseconds']
+
+      self.is_qos_enabled = attributes[:'isQosEnabled'] unless attributes[:'isQosEnabled'].nil?
+
+      raise 'You cannot provide both :isQosEnabled and :is_qos_enabled' if attributes.key?(:'isQosEnabled') && attributes.key?(:'is_qos_enabled')
+
+      self.is_qos_enabled = attributes[:'is_qos_enabled'] unless attributes[:'is_qos_enabled'].nil?
+
       self.interface_name = attributes[:'interfaceName'] if attributes[:'interfaceName']
 
       raise 'You cannot provide both :interfaceName and :interface_name' if attributes.key?(:'interfaceName') && attributes.key?(:'interface_name')
@@ -330,6 +369,9 @@ module OCI
         macsec_properties == other.macsec_properties &&
         oci_physical_device_name == other.oci_physical_device_name &&
         oci_logical_device_name == other.oci_logical_device_name &&
+        is_interface_hold_timer_enabled == other.is_interface_hold_timer_enabled &&
+        interface_down_timer_value_in_milliseconds == other.interface_down_timer_value_in_milliseconds &&
+        is_qos_enabled == other.is_qos_enabled &&
         interface_name == other.interface_name
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -346,7 +388,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, cross_connect_group_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, location_name, port_name, port_speed_shape_name, customer_reference_name, time_created, macsec_properties, oci_physical_device_name, oci_logical_device_name, interface_name].hash
+      [compartment_id, cross_connect_group_id, defined_tags, display_name, freeform_tags, id, lifecycle_state, location_name, port_name, port_speed_shape_name, customer_reference_name, time_created, macsec_properties, oci_physical_device_name, oci_logical_device_name, is_interface_hold_timer_enabled, interface_down_timer_value_in_milliseconds, is_qos_enabled, interface_name].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

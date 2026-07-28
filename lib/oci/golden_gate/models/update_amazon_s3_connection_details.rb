@@ -11,14 +11,16 @@ module OCI
   #
   class GoldenGate::Models::UpdateAmazonS3ConnectionDetails < GoldenGate::Models::UpdateConnectionDetails
     # Access key ID to access the Amazon S3 bucket.
-    # e.g.: \"this-is-not-the-secret\"
+    # Note: Despite the \"Id\" suffix, this value is not an OCI OCID.
     #
     # @return [String]
     attr_accessor :access_key_id
 
     # Secret access key to access the Amazon S3 bucket.
-    # e.g.: \"this-is-not-the-secret\"
-    # Deprecated: This field is deprecated and replaced by \"secretAccessKeySecretId\". This field will be removed after February 15 2026.
+    #
+    # Deprecated: This field is deprecated and replaced by \"secretAccessKeySecretId\".
+    # This change follows the GoldenGate \"Plain Text Fields in Connections\" deprecation:
+    # https://docs.oracle.com/en-us/iaas/Content/servicechanges.htm#servicechanges_topic-GoldenGate
     #
     # @return [String]
     attr_accessor :secret_access_key

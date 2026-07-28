@@ -24,6 +24,9 @@ module OCI
       ACTION_RESULT_PRIVATE_ACCESS_CHANNEL_UPDATED = 'PRIVATE_ACCESS_CHANNEL_UPDATED'.freeze,
       ACTION_RESULT_PRIVATE_ACCESS_CHANNEL_DELETED = 'PRIVATE_ACCESS_CHANNEL_DELETED'.freeze,
       ACTION_RESULT_NONE = 'NONE'.freeze,
+      ACTION_RESULT_RESOURCE_GROUP_CREATED = 'RESOURCE_GROUP_CREATED'.freeze,
+      ACTION_RESULT_RESOURCE_GROUP_UPDATED = 'RESOURCE_GROUP_UPDATED'.freeze,
+      ACTION_RESULT_RESOURCE_GROUP_DELETED = 'RESOURCE_GROUP_DELETED'.freeze,
       ACTION_RESULT_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
@@ -32,7 +35,7 @@ module OCI
       RESOURCE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
-    # **[Required]** The way in which this resource was affected by this work request.
+    # **[Required]** The way this resource was affected by this work request.
     #
     # @return [String]
     attr_reader :action_result

@@ -16,6 +16,10 @@ module OCI
     # @return [String]
     attr_accessor :approval_action
 
+    # The group level at which the approver approved.
+    # @return [Integer]
+    attr_accessor :approver_group_level
+
     # Comment specified by the approver of the request.
     # @return [String]
     attr_accessor :approval_comment
@@ -36,6 +40,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'approver_id': :'approverId',
         'approval_action': :'approvalAction',
+        'approver_group_level': :'approverGroupLevel',
         'approval_comment': :'approvalComment',
         'time_of_authorization': :'timeOfAuthorization',
         'time_approved_for_access': :'timeApprovedForAccess'
@@ -49,6 +54,7 @@ module OCI
         # rubocop:disable Style/SymbolLiteral
         'approver_id': :'String',
         'approval_action': :'String',
+        'approver_group_level': :'Integer',
         'approval_comment': :'String',
         'time_of_authorization': :'DateTime',
         'time_approved_for_access': :'DateTime'
@@ -64,6 +70,7 @@ module OCI
     # @param [Hash] attributes Model attributes in the form of hash
     # @option attributes [String] :approver_id The value to assign to the {#approver_id} property
     # @option attributes [String] :approval_action The value to assign to the {#approval_action} property
+    # @option attributes [Integer] :approver_group_level The value to assign to the {#approver_group_level} property
     # @option attributes [String] :approval_comment The value to assign to the {#approval_comment} property
     # @option attributes [DateTime] :time_of_authorization The value to assign to the {#time_of_authorization} property
     # @option attributes [DateTime] :time_approved_for_access The value to assign to the {#time_approved_for_access} property
@@ -84,6 +91,12 @@ module OCI
       raise 'You cannot provide both :approvalAction and :approval_action' if attributes.key?(:'approvalAction') && attributes.key?(:'approval_action')
 
       self.approval_action = attributes[:'approval_action'] if attributes[:'approval_action']
+
+      self.approver_group_level = attributes[:'approverGroupLevel'] if attributes[:'approverGroupLevel']
+
+      raise 'You cannot provide both :approverGroupLevel and :approver_group_level' if attributes.key?(:'approverGroupLevel') && attributes.key?(:'approver_group_level')
+
+      self.approver_group_level = attributes[:'approver_group_level'] if attributes[:'approver_group_level']
 
       self.approval_comment = attributes[:'approvalComment'] if attributes[:'approvalComment']
 
@@ -117,6 +130,7 @@ module OCI
       self.class == other.class &&
         approver_id == other.approver_id &&
         approval_action == other.approval_action &&
+        approver_group_level == other.approver_group_level &&
         approval_comment == other.approval_comment &&
         time_of_authorization == other.time_of_authorization &&
         time_approved_for_access == other.time_approved_for_access
@@ -135,7 +149,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [approver_id, approval_action, approval_comment, time_of_authorization, time_approved_for_access].hash
+      [approver_id, approval_action, approver_group_level, approval_comment, time_of_authorization, time_approved_for_access].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

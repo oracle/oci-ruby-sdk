@@ -4,7 +4,7 @@ This is Oracle Cloud Infrastructure SDK for Ruby. This project is open source an
 
 This project is no longer being actively developed by Oracle. We will continue to address security vulnerabilities for the foreseeable future, and will respond to questions on github, but have no plans to introduce any new functionality, and may not be able to address any non-security related issues. We encourage developers to migrate to other OCI SDKs, and developers may fork this project and enhance it as they desire.
 
-**Version 2.23.0**
+**Version 2.24.0**
 
 This topic describes how to install, configure, and use the Oracle Cloud Infrastructure Ruby SDK.
 
@@ -763,6 +763,14 @@ You can find information on any known issues with the SDK [here](https://docs.cl
 For SSE response, Ruby SDK is having some performance issue where the response is not returning as a TRUE streaming mode. It's actually returning 
 in a chunked mode, which waits until it receive multiple lines of SSE response into one block and then return the result. This behavior is caused by the base HTTP
 client package(Net::HTTP) which is the only HTTP package we use in Ruby SDK Please refer genai_generate_text_example in examples-oci folder to use SSE support.
+
+## Dualstack Endpoint
+
+Ruby SDK does not currently support dual-stack endpoints. When an endpoint template contains a `dualStack` option in the form
+`{dualStack?enabled_value:fallback_value}`, the SDK resolves it to the non-dual-stack fallback value. For example,
+`{dualStack?ds.oci.:}` resolves to an empty string, and
+`{dualStack?download.javamanagement:javamanagementservice-download}` resolves to
+`javamanagementservice-download`.
 
 ## Questions or Feedback?
 You can post an issue on the [Issues](https://github.com/oracle/oci-ruby-sdk/issues) tab of this project's [GitHub repository](https://github.com/oracle/oci-ruby-sdk).

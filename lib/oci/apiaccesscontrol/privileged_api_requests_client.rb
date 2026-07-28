@@ -379,10 +379,10 @@ module OCI
 
     # Lists all privilegedApi requests in the compartment.
     #
+    # @param [String] compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment in which to list resources.
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
     #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
-    # @option opts [String] :compartment_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment in which to list resources.
     # @option opts [String] :id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the PrivilegedApiRequest.
     # @option opts [String] :display_name A filter to return only resources that match the given display name exactly.
     # @option opts [String] :resource_id The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the resource .
@@ -413,9 +413,10 @@ module OCI
     #
     # @return [Response] A Response object with data of type {OCI::Apiaccesscontrol::Models::PrivilegedApiRequestCollection PrivilegedApiRequestCollection}
     # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/apiaccesscontrol/list_privileged_api_requests.rb.html) to see an example of how to use list_privileged_api_requests API.
-    def list_privileged_api_requests(opts = {})
+    def list_privileged_api_requests(compartment_id, opts = {})
       logger.debug 'Calling operation PrivilegedApiRequestsClient#list_privileged_api_requests.' if logger
 
+      raise "Missing the required parameter 'compartment_id' when calling list_privileged_api_requests." if compartment_id.nil?
 
       if opts[:lifecycle_state] && !OCI::Apiaccesscontrol::Models::PrivilegedApiRequest::LIFECYCLE_STATE_ENUM.include?(opts[:lifecycle_state])
         raise 'Invalid value for "lifecycle_state", must be one of the values in OCI::Apiaccesscontrol::Models::PrivilegedApiRequest::LIFECYCLE_STATE_ENUM.'
@@ -439,7 +440,7 @@ module OCI
       # rubocop:disable Style/NegatedIf
       # Query Params
       query_params = {}
-      query_params[:compartmentId] = opts[:compartment_id] if opts[:compartment_id]
+      query_params[:compartmentId] = compartment_id
       query_params[:id] = opts[:id] if opts[:id]
       query_params[:displayName] = opts[:display_name] if opts[:display_name]
       query_params[:resourceId] = opts[:resource_id] if opts[:resource_id]

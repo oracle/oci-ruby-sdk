@@ -20,7 +20,7 @@ module OCI
     # @return [String]
     attr_accessor :subnet_id
 
-    # Network Security Group OCIDs for an Analytics instance.
+    # Network Security Group OCIDs for the Analytics instance.
     #
     # @return [Array<String>]
     attr_accessor :network_security_group_ids

@@ -96,7 +96,14 @@ module OCI
         return "https://#{service_name}.#{region}" if service_name
       end
 
-      endpoint = endpoint_template.clone
+      endpoint = endpoint_template.dup
+
+      # Ruby SDK does not currently support dual-stack endpoints. Resolve each `dualStack` template
+      # option, `{dualStack?enabled_value:fallback_value}`, to its non-dual-stack fallback.
+      # For example, `{dualStack?ds.oci.:}` resolves to an empty string, and
+      # `{dualStack?download.javamanagement:javamanagementservice-download}` resolves to
+      # `javamanagementservice-download`.
+      endpoint.gsub!(/\{dualStack\?[^:}]*:([^}]*)\}/, '\\1')
 
       # replace the token inside service_endpoint_template if exists
       [

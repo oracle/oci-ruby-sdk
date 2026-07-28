@@ -6,8 +6,8 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Input payload to update an Analytics instance. Fields that are not provided
-  # will not be updated.
+  # Input payload to update an Analytics instance. Fields that aren't provided
+  # won't be updated.
   #
   class Analytics::Models::UpdateAnalyticsInstanceDetails
     LICENSE_TYPE_ENUM = [
@@ -53,7 +53,7 @@ module OCI
     # @return [Hash<String, String>]
     attr_accessor :freeform_tags
 
-    # Analytics instance update channel.
+    # The Analytics instance update cycle.
     #
     # @return [String]
     attr_reader :update_channel

@@ -66,6 +66,11 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_memory_encryption_enabled
 
+    # Specifies if the Dedicated Virtual Machine Host (DVMH) is to running only Burstable VMs. If `true`, only Burstable VMs can be launched. If `false`, Burstable VMs cannot be launched.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_burstable
+
     # **[Required]** The current state of the dedicated VM host.
     #
     # @return [String]
@@ -119,6 +124,7 @@ module OCI
         'fault_domain': :'faultDomain',
         'id': :'id',
         'is_memory_encryption_enabled': :'isMemoryEncryptionEnabled',
+        'is_burstable': :'isBurstable',
         'lifecycle_state': :'lifecycleState',
         'time_created': :'timeCreated',
         'remaining_ocpus': :'remainingOcpus',
@@ -142,6 +148,7 @@ module OCI
         'fault_domain': :'String',
         'id': :'String',
         'is_memory_encryption_enabled': :'BOOLEAN',
+        'is_burstable': :'BOOLEAN',
         'lifecycle_state': :'String',
         'time_created': :'DateTime',
         'remaining_ocpus': :'Float',
@@ -167,6 +174,7 @@ module OCI
     # @option attributes [String] :fault_domain The value to assign to the {#fault_domain} property
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [BOOLEAN] :is_memory_encryption_enabled The value to assign to the {#is_memory_encryption_enabled} property
+    # @option attributes [BOOLEAN] :is_burstable The value to assign to the {#is_burstable} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [Float] :remaining_ocpus The value to assign to the {#remaining_ocpus} property
@@ -220,6 +228,14 @@ module OCI
 
       self.is_memory_encryption_enabled = attributes[:'is_memory_encryption_enabled'] unless attributes[:'is_memory_encryption_enabled'].nil?
       self.is_memory_encryption_enabled = false if is_memory_encryption_enabled.nil? && !attributes.key?(:'isMemoryEncryptionEnabled') && !attributes.key?(:'is_memory_encryption_enabled') # rubocop:disable Style/StringLiterals
+
+      self.is_burstable = attributes[:'isBurstable'] unless attributes[:'isBurstable'].nil?
+      self.is_burstable = false if is_burstable.nil? && !attributes.key?(:'isBurstable') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isBurstable and :is_burstable' if attributes.key?(:'isBurstable') && attributes.key?(:'is_burstable')
+
+      self.is_burstable = attributes[:'is_burstable'] unless attributes[:'is_burstable'].nil?
+      self.is_burstable = false if is_burstable.nil? && !attributes.key?(:'isBurstable') && !attributes.key?(:'is_burstable') # rubocop:disable Style/StringLiterals
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -301,6 +317,7 @@ module OCI
         fault_domain == other.fault_domain &&
         id == other.id &&
         is_memory_encryption_enabled == other.is_memory_encryption_enabled &&
+        is_burstable == other.is_burstable &&
         lifecycle_state == other.lifecycle_state &&
         time_created == other.time_created &&
         remaining_ocpus == other.remaining_ocpus &&
@@ -324,7 +341,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, dedicated_vm_host_shape, display_name, fault_domain, id, is_memory_encryption_enabled, lifecycle_state, time_created, remaining_ocpus, total_ocpus, total_memory_in_gbs, remaining_memory_in_gbs, total_local_volume_in_gbs, remaining_local_volume_in_gbs].hash
+      [availability_domain, compartment_id, dedicated_vm_host_shape, display_name, fault_domain, id, is_memory_encryption_enabled, is_burstable, lifecycle_state, time_created, remaining_ocpus, total_ocpus, total_memory_in_gbs, remaining_memory_in_gbs, total_local_volume_in_gbs, remaining_local_volume_in_gbs].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

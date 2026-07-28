@@ -7,7 +7,7 @@ require 'logger'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Analytics Instance metadata.
+  # Analytics instance metadata.
   #
   class Analytics::Models::AnalyticsInstance
     LIFECYCLE_STATE_ENUM = [
@@ -44,6 +44,7 @@ module OCI
     FEATURE_BUNDLE_ENUM = [
       FEATURE_BUNDLE_FAW_PAID = 'FAW_PAID'.freeze,
       FEATURE_BUNDLE_FAW_FREE = 'FAW_FREE'.freeze,
+      FEATURE_BUNDLE_FDI_BASE = 'FDI_BASE'.freeze,
       FEATURE_BUNDLE_EE_EMBEDDED = 'EE_EMBEDDED'.freeze,
       FEATURE_BUNDLE_SE_EMBEDDED = 'SE_EMBEDDED'.freeze,
       FEATURE_BUNDLE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
@@ -54,7 +55,8 @@ module OCI
     # @return [String]
     attr_accessor :id
 
-    # **[Required]** The name of the Analytics instance. This name must be unique in the tenancy and cannot be changed.
+    # **[Required]** The name of the Analytics instance. This name must be unique in the tenancy and can't be changed.
+    # The name must start with a letter and can contain only letters, numbers and dash (-).
     #
     # @return [String]
     attr_accessor :name
@@ -69,12 +71,12 @@ module OCI
     # @return [String]
     attr_accessor :compartment_id
 
-    # **[Required]** The current state of an instance.
+    # **[Required]** The current state of the Analytics instance.
     #
     # @return [String]
     attr_reader :lifecycle_state
 
-    # **[Required]** Analytics feature set.
+    # **[Required]** The feature set. Either `SELF_SERVICE_ANALYTICS` (Professional Edition) or `ENTERPRISE_ANALYTICS` (Enterprise Edition).
     #
     # @return [String]
     attr_reader :feature_set
@@ -93,7 +95,7 @@ module OCI
     # @return [String]
     attr_accessor :email_notification
 
-    # Analytics instance update channel.
+    # The Analytics instance update cycle.
     #
     # @return [String]
     attr_reader :update_channel
@@ -112,7 +114,7 @@ module OCI
     # @return [Hash<String, OCI::Analytics::Models::VanityUrlDetails>]
     attr_accessor :vanity_url_details
 
-    # URL of the Analytics service.
+    # URL of the Analytics instance.
     #
     # @return [String]
     attr_accessor :service_url
@@ -139,21 +141,21 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :system_tags
 
-    # OCID of the OCI Vault Key encrypting the customer data stored in this Analytics instance. A null value indicates Oracle managed default encryption.
+    # OCID of the OCI Vault Key encrypting the customer data stored in this Analytics instance. A null value indicates that the default Oracle-managed encryption is used.
     #
     # @return [String]
     attr_accessor :kms_key_id
 
-    # **[Required]** The date and time the instance was created, in the format defined by RFC3339.
+    # **[Required]** The date and time the Analytics instance was created, in the format defined by RFC3339.
     #
     # Example: `2016-08-25T21:10:29.600Z`
     #
     # @return [DateTime]
     attr_accessor :time_created
 
-    # The date and time the instance was last updated (in the format defined by RFC3339).
-    # This timestamp represents updates made through this API. External events do not
-    # influence it.
+    # The date and time the Analytics instance was last updated (in the format defined by RFC3339).
+    # This timestamp represents updates made through this API. External events don't
+    # affect it.
     #
     # @return [DateTime]
     attr_accessor :time_updated
@@ -167,6 +169,11 @@ module OCI
     #
     # @return [String]
     attr_accessor :domain_id
+
+    # List of resource groups for this Analytics instance. The resource group id must be unique within the instance.
+    #
+    # @return [Array<OCI::Analytics::Models::InstanceResourceGroup>]
+    attr_accessor :resource_groups
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -193,7 +200,8 @@ module OCI
         'time_created': :'timeCreated',
         'time_updated': :'timeUpdated',
         'feature_bundle': :'featureBundle',
-        'domain_id': :'domainId'
+        'domain_id': :'domainId',
+        'resource_groups': :'resourceGroups'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -223,7 +231,8 @@ module OCI
         'time_created': :'DateTime',
         'time_updated': :'DateTime',
         'feature_bundle': :'String',
-        'domain_id': :'String'
+        'domain_id': :'String',
+        'resource_groups': :'Array<OCI::Analytics::Models::InstanceResourceGroup>'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -256,6 +265,7 @@ module OCI
     # @option attributes [DateTime] :time_updated The value to assign to the {#time_updated} property
     # @option attributes [String] :feature_bundle The value to assign to the {#feature_bundle} property
     # @option attributes [String] :domain_id The value to assign to the {#domain_id} property
+    # @option attributes [Array<OCI::Analytics::Models::InstanceResourceGroup>] :resource_groups The value to assign to the {#resource_groups} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -377,6 +387,12 @@ module OCI
       raise 'You cannot provide both :domainId and :domain_id' if attributes.key?(:'domainId') && attributes.key?(:'domain_id')
 
       self.domain_id = attributes[:'domain_id'] if attributes[:'domain_id']
+
+      self.resource_groups = attributes[:'resourceGroups'] if attributes[:'resourceGroups']
+
+      raise 'You cannot provide both :resourceGroups and :resource_groups' if attributes.key?(:'resourceGroups') && attributes.key?(:'resource_groups')
+
+      self.resource_groups = attributes[:'resource_groups'] if attributes[:'resource_groups']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -476,7 +492,8 @@ module OCI
         time_created == other.time_created &&
         time_updated == other.time_updated &&
         feature_bundle == other.feature_bundle &&
-        domain_id == other.domain_id
+        domain_id == other.domain_id &&
+        resource_groups == other.resource_groups
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -492,7 +509,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, name, description, compartment_id, lifecycle_state, feature_set, capacity, license_type, email_notification, update_channel, network_endpoint_details, private_access_channels, vanity_url_details, service_url, defined_tags, freeform_tags, system_tags, kms_key_id, time_created, time_updated, feature_bundle, domain_id].hash
+      [id, name, description, compartment_id, lifecycle_state, feature_set, capacity, license_type, email_notification, update_channel, network_endpoint_details, private_access_channels, vanity_url_details, service_url, defined_tags, freeform_tags, system_tags, kms_key_id, time_created, time_updated, feature_bundle, domain_id, resource_groups].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

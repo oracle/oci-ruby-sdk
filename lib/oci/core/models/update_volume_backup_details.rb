@@ -38,6 +38,21 @@ module OCI
     # @return [String]
     attr_accessor :kms_key_id
 
+    # @return [OCI::Core::Models::RetentionDuration]
+    attr_accessor :retention_period
+
+    # Prevent backups from being deleted during the configured retention period. This is an optional field. If it is not specified, it is set to null, prevent deletion will not be applied to the backups.
+    # @return [BOOLEAN]
+    attr_accessor :is_prevent_deletion_enabled
+
+    # feature that prevents deletion or alteration of backup data for a specified period to ensure data protection and regulatory compliance. This is an optional field. If it is not specified, it is set to null, no retention lock will be applied to the backups. This feature should be used in conjunction with the retention-period field.
+    # @return [BOOLEAN]
+    attr_accessor :is_retention_lock_enabled
+
+    # feature that preserves backup data from modification or deletion to ensure it remains available for legal or regulatory investigations or litigation, regardless of standard retention policies. This is an optional field. If it is not specified, it is set to null, no legal hold will be applied to the backups.
+    # @return [BOOLEAN]
+    attr_accessor :is_indefinite_retention_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -45,7 +60,11 @@ module OCI
         'defined_tags': :'definedTags',
         'display_name': :'displayName',
         'freeform_tags': :'freeformTags',
-        'kms_key_id': :'kmsKeyId'
+        'kms_key_id': :'kmsKeyId',
+        'retention_period': :'retentionPeriod',
+        'is_prevent_deletion_enabled': :'isPreventDeletionEnabled',
+        'is_retention_lock_enabled': :'isRetentionLockEnabled',
+        'is_indefinite_retention_enabled': :'isIndefiniteRetentionEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -57,7 +76,11 @@ module OCI
         'defined_tags': :'Hash<String, Hash<String, Object>>',
         'display_name': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'kms_key_id': :'String'
+        'kms_key_id': :'String',
+        'retention_period': :'OCI::Core::Models::RetentionDuration',
+        'is_prevent_deletion_enabled': :'BOOLEAN',
+        'is_retention_lock_enabled': :'BOOLEAN',
+        'is_indefinite_retention_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -72,6 +95,10 @@ module OCI
     # @option attributes [String] :display_name The value to assign to the {#display_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [String] :kms_key_id The value to assign to the {#kms_key_id} property
+    # @option attributes [OCI::Core::Models::RetentionDuration] :retention_period The value to assign to the {#retention_period} property
+    # @option attributes [BOOLEAN] :is_prevent_deletion_enabled The value to assign to the {#is_prevent_deletion_enabled} property
+    # @option attributes [BOOLEAN] :is_retention_lock_enabled The value to assign to the {#is_retention_lock_enabled} property
+    # @option attributes [BOOLEAN] :is_indefinite_retention_enabled The value to assign to the {#is_indefinite_retention_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -101,6 +128,30 @@ module OCI
       raise 'You cannot provide both :kmsKeyId and :kms_key_id' if attributes.key?(:'kmsKeyId') && attributes.key?(:'kms_key_id')
 
       self.kms_key_id = attributes[:'kms_key_id'] if attributes[:'kms_key_id']
+
+      self.retention_period = attributes[:'retentionPeriod'] if attributes[:'retentionPeriod']
+
+      raise 'You cannot provide both :retentionPeriod and :retention_period' if attributes.key?(:'retentionPeriod') && attributes.key?(:'retention_period')
+
+      self.retention_period = attributes[:'retention_period'] if attributes[:'retention_period']
+
+      self.is_prevent_deletion_enabled = attributes[:'isPreventDeletionEnabled'] unless attributes[:'isPreventDeletionEnabled'].nil?
+
+      raise 'You cannot provide both :isPreventDeletionEnabled and :is_prevent_deletion_enabled' if attributes.key?(:'isPreventDeletionEnabled') && attributes.key?(:'is_prevent_deletion_enabled')
+
+      self.is_prevent_deletion_enabled = attributes[:'is_prevent_deletion_enabled'] unless attributes[:'is_prevent_deletion_enabled'].nil?
+
+      self.is_retention_lock_enabled = attributes[:'isRetentionLockEnabled'] unless attributes[:'isRetentionLockEnabled'].nil?
+
+      raise 'You cannot provide both :isRetentionLockEnabled and :is_retention_lock_enabled' if attributes.key?(:'isRetentionLockEnabled') && attributes.key?(:'is_retention_lock_enabled')
+
+      self.is_retention_lock_enabled = attributes[:'is_retention_lock_enabled'] unless attributes[:'is_retention_lock_enabled'].nil?
+
+      self.is_indefinite_retention_enabled = attributes[:'isIndefiniteRetentionEnabled'] unless attributes[:'isIndefiniteRetentionEnabled'].nil?
+
+      raise 'You cannot provide both :isIndefiniteRetentionEnabled and :is_indefinite_retention_enabled' if attributes.key?(:'isIndefiniteRetentionEnabled') && attributes.key?(:'is_indefinite_retention_enabled')
+
+      self.is_indefinite_retention_enabled = attributes[:'is_indefinite_retention_enabled'] unless attributes[:'is_indefinite_retention_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -117,7 +168,11 @@ module OCI
         defined_tags == other.defined_tags &&
         display_name == other.display_name &&
         freeform_tags == other.freeform_tags &&
-        kms_key_id == other.kms_key_id
+        kms_key_id == other.kms_key_id &&
+        retention_period == other.retention_period &&
+        is_prevent_deletion_enabled == other.is_prevent_deletion_enabled &&
+        is_retention_lock_enabled == other.is_retention_lock_enabled &&
+        is_indefinite_retention_enabled == other.is_indefinite_retention_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -133,7 +188,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [defined_tags, display_name, freeform_tags, kms_key_id].hash
+      [defined_tags, display_name, freeform_tags, kms_key_id, retention_period, is_prevent_deletion_enabled, is_retention_lock_enabled, is_indefinite_retention_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

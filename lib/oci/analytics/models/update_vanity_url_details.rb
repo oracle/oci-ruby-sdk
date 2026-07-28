@@ -6,15 +6,15 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Input payload to update a vanity url.
+  # Input payload to update a vanity URL.
   #
   class Analytics::Models::UpdateVanityUrlDetails
-    # Passphrase for the PEM Private key (if any).
+    # Passphrase for the PEM private key (if any).
     #
     # @return [String]
     attr_accessor :passphrase
 
-    # **[Required]** PEM Private key for HTTPS connections.
+    # **[Required]** PEM private key for HTTPS connections.
     #
     # @return [String]
     attr_accessor :private_key
@@ -24,7 +24,7 @@ module OCI
     # @return [String]
     attr_accessor :public_certificate
 
-    # **[Required]** PEM CA certificate(s) for HTTPS connections. This may include multiple PEM certificates.
+    # **[Required]** PEM CA certificates for HTTPS connections. This may include multiple PEM certificates.
     #
     # @return [String]
     attr_accessor :ca_certificate

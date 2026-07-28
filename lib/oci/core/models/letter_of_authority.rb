@@ -49,6 +49,13 @@ module OCI
     # @return [DateTime]
     attr_accessor :time_issued
 
+    # Name of a customer authorized agent which will be appended to the LOA as 'Authorized Agent'.
+    # @return [String]
+    attr_accessor :authorized_agent
+
+    # @return [OCI::Core::Models::LoaExtensionData]
+    attr_accessor :extension_details
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -59,7 +66,9 @@ module OCI
         'facility_location': :'facilityLocation',
         'port_name': :'portName',
         'time_expires': :'timeExpires',
-        'time_issued': :'timeIssued'
+        'time_issued': :'timeIssued',
+        'authorized_agent': :'authorizedAgent',
+        'extension_details': :'extensionDetails'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -74,7 +83,9 @@ module OCI
         'facility_location': :'String',
         'port_name': :'String',
         'time_expires': :'DateTime',
-        'time_issued': :'DateTime'
+        'time_issued': :'DateTime',
+        'authorized_agent': :'String',
+        'extension_details': :'OCI::Core::Models::LoaExtensionData'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -92,6 +103,8 @@ module OCI
     # @option attributes [String] :port_name The value to assign to the {#port_name} property
     # @option attributes [DateTime] :time_expires The value to assign to the {#time_expires} property
     # @option attributes [DateTime] :time_issued The value to assign to the {#time_issued} property
+    # @option attributes [String] :authorized_agent The value to assign to the {#authorized_agent} property
+    # @option attributes [OCI::Core::Models::LoaExtensionData] :extension_details The value to assign to the {#extension_details} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -139,6 +152,18 @@ module OCI
       raise 'You cannot provide both :timeIssued and :time_issued' if attributes.key?(:'timeIssued') && attributes.key?(:'time_issued')
 
       self.time_issued = attributes[:'time_issued'] if attributes[:'time_issued']
+
+      self.authorized_agent = attributes[:'authorizedAgent'] if attributes[:'authorizedAgent']
+
+      raise 'You cannot provide both :authorizedAgent and :authorized_agent' if attributes.key?(:'authorizedAgent') && attributes.key?(:'authorized_agent')
+
+      self.authorized_agent = attributes[:'authorized_agent'] if attributes[:'authorized_agent']
+
+      self.extension_details = attributes[:'extensionDetails'] if attributes[:'extensionDetails']
+
+      raise 'You cannot provide both :extensionDetails and :extension_details' if attributes.key?(:'extensionDetails') && attributes.key?(:'extension_details')
+
+      self.extension_details = attributes[:'extension_details'] if attributes[:'extension_details']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -171,7 +196,9 @@ module OCI
         facility_location == other.facility_location &&
         port_name == other.port_name &&
         time_expires == other.time_expires &&
-        time_issued == other.time_issued
+        time_issued == other.time_issued &&
+        authorized_agent == other.authorized_agent &&
+        extension_details == other.extension_details
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -187,7 +214,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [authorized_entity_name, circuit_type, cross_connect_id, facility_location, port_name, time_expires, time_issued].hash
+      [authorized_entity_name, circuit_type, cross_connect_id, facility_location, port_name, time_expires, time_issued, authorized_agent, extension_details].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

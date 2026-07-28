@@ -39,6 +39,14 @@ module OCI
       SHAPE_ATTRIBUTE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    TDE_KEY_STORE_TYPE_ENUM = [
+      TDE_KEY_STORE_TYPE_AZURE = 'AZURE'.freeze,
+      TDE_KEY_STORE_TYPE_OCI = 'OCI'.freeze,
+      TDE_KEY_STORE_TYPE_GCP = 'GCP'.freeze,
+      TDE_KEY_STORE_TYPE_AWS = 'AWS'.freeze,
+      TDE_KEY_STORE_TYPE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # @return [OCI::Database::Models::ExadataIormConfig]
     attr_accessor :iorm_config_cache
 
@@ -286,6 +294,14 @@ module OCI
     # @return [String]
     attr_reader :shape_attribute
 
+    # Details of the multi cloud identity connectors of the VM cluster.
+    # @return [Array<OCI::Database::Models::IdentityConnectorDetails>]
+    attr_accessor :multi_cloud_identity_connector_configs
+
+    # TDE keystore type
+    # @return [String]
+    attr_reader :tde_key_store_type
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -338,7 +354,9 @@ module OCI
         'memory_size_in_gbs': :'memorySizeInGBs',
         'cluster_placement_group_id': :'clusterPlacementGroupId',
         'subscription_id': :'subscriptionId',
-        'shape_attribute': :'shapeAttribute'
+        'shape_attribute': :'shapeAttribute',
+        'multi_cloud_identity_connector_configs': :'multiCloudIdentityConnectorConfigs',
+        'tde_key_store_type': :'tdeKeyStoreType'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -395,7 +413,9 @@ module OCI
         'memory_size_in_gbs': :'Integer',
         'cluster_placement_group_id': :'String',
         'subscription_id': :'String',
-        'shape_attribute': :'String'
+        'shape_attribute': :'String',
+        'multi_cloud_identity_connector_configs': :'Array<OCI::Database::Models::IdentityConnectorDetails>',
+        'tde_key_store_type': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -455,6 +475,8 @@ module OCI
     # @option attributes [String] :cluster_placement_group_id The value to assign to the {#cluster_placement_group_id} property
     # @option attributes [String] :subscription_id The value to assign to the {#subscription_id} property
     # @option attributes [String] :shape_attribute The value to assign to the {#shape_attribute} property
+    # @option attributes [Array<OCI::Database::Models::IdentityConnectorDetails>] :multi_cloud_identity_connector_configs The value to assign to the {#multi_cloud_identity_connector_configs} property
+    # @option attributes [String] :tde_key_store_type The value to assign to the {#tde_key_store_type} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -738,6 +760,18 @@ module OCI
       raise 'You cannot provide both :shapeAttribute and :shape_attribute' if attributes.key?(:'shapeAttribute') && attributes.key?(:'shape_attribute')
 
       self.shape_attribute = attributes[:'shape_attribute'] if attributes[:'shape_attribute']
+
+      self.multi_cloud_identity_connector_configs = attributes[:'multiCloudIdentityConnectorConfigs'] if attributes[:'multiCloudIdentityConnectorConfigs']
+
+      raise 'You cannot provide both :multiCloudIdentityConnectorConfigs and :multi_cloud_identity_connector_configs' if attributes.key?(:'multiCloudIdentityConnectorConfigs') && attributes.key?(:'multi_cloud_identity_connector_configs')
+
+      self.multi_cloud_identity_connector_configs = attributes[:'multi_cloud_identity_connector_configs'] if attributes[:'multi_cloud_identity_connector_configs']
+
+      self.tde_key_store_type = attributes[:'tdeKeyStoreType'] if attributes[:'tdeKeyStoreType']
+
+      raise 'You cannot provide both :tdeKeyStoreType and :tde_key_store_type' if attributes.key?(:'tdeKeyStoreType') && attributes.key?(:'tde_key_store_type')
+
+      self.tde_key_store_type = attributes[:'tde_key_store_type'] if attributes[:'tde_key_store_type']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -790,6 +824,19 @@ module OCI
         @shape_attribute = SHAPE_ATTRIBUTE_UNKNOWN_ENUM_VALUE
       else
         @shape_attribute = shape_attribute
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] tde_key_store_type Object to be assigned
+    def tde_key_store_type=(tde_key_store_type)
+      # rubocop:disable Style/ConditionalAssignment
+      if tde_key_store_type && !TDE_KEY_STORE_TYPE_ENUM.include?(tde_key_store_type)
+        OCI.logger.debug("Unknown value for 'tde_key_store_type' [" + tde_key_store_type + "]. Mapping to 'TDE_KEY_STORE_TYPE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @tde_key_store_type = TDE_KEY_STORE_TYPE_UNKNOWN_ENUM_VALUE
+      else
+        @tde_key_store_type = tde_key_store_type
       end
       # rubocop:enable Style/ConditionalAssignment
     end
@@ -851,7 +898,9 @@ module OCI
         memory_size_in_gbs == other.memory_size_in_gbs &&
         cluster_placement_group_id == other.cluster_placement_group_id &&
         subscription_id == other.subscription_id &&
-        shape_attribute == other.shape_attribute
+        shape_attribute == other.shape_attribute &&
+        multi_cloud_identity_connector_configs == other.multi_cloud_identity_connector_configs &&
+        tde_key_store_type == other.tde_key_store_type
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -867,7 +916,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [iorm_config_cache, id, compartment_id, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, last_update_history_entry_id, listener_port, lifecycle_state, node_count, shape, display_name, time_created, lifecycle_details, time_zone, hostname, domain, cluster_name, gi_version, grid_image_id, grid_image_type, system_version, ssh_public_keys, license_model, scan_ip_ids, vip_ids, scan_dns_record_id, freeform_tags, defined_tags, security_attributes, system_tags, scan_dns_name, zone_id, scan_listener_port_tcp, scan_listener_port_tcp_ssl, private_zone_id, data_collection_options, total_e_cpu_count, enabled_e_cpu_count, vm_file_system_storage, snapshot_file_system_storage, total_file_system_storage, exascale_db_storage_vault_id, memory_size_in_gbs, cluster_placement_group_id, subscription_id, shape_attribute].hash
+      [iorm_config_cache, id, compartment_id, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, last_update_history_entry_id, listener_port, lifecycle_state, node_count, shape, display_name, time_created, lifecycle_details, time_zone, hostname, domain, cluster_name, gi_version, grid_image_id, grid_image_type, system_version, ssh_public_keys, license_model, scan_ip_ids, vip_ids, scan_dns_record_id, freeform_tags, defined_tags, security_attributes, system_tags, scan_dns_name, zone_id, scan_listener_port_tcp, scan_listener_port_tcp_ssl, private_zone_id, data_collection_options, total_e_cpu_count, enabled_e_cpu_count, vm_file_system_storage, snapshot_file_system_storage, total_file_system_storage, exascale_db_storage_vault_id, memory_size_in_gbs, cluster_placement_group_id, subscription_id, shape_attribute, multi_cloud_identity_connector_configs, tde_key_store_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

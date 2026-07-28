@@ -31,6 +31,11 @@ module OCI
     # @return [BOOLEAN]
     attr_accessor :is_memory_encryption_enabled
 
+    # Specifies if the Dedicated Virtual Machine Host (DVMH) is to running only Burstable VMs. If `true`, only Burstable VMs can be launched. If `false`, Burstable VMs cannot be launched.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_burstable
+
     # **[Required]** The shape of the VM instance.
     #
     # @return [String]
@@ -51,6 +56,7 @@ module OCI
         'compartment_id': :'compartmentId',
         'instance_id': :'instanceId',
         'is_memory_encryption_enabled': :'isMemoryEncryptionEnabled',
+        'is_burstable': :'isBurstable',
         'shape': :'shape',
         'time_created': :'timeCreated'
         # rubocop:enable Style/SymbolLiteral
@@ -65,6 +71,7 @@ module OCI
         'compartment_id': :'String',
         'instance_id': :'String',
         'is_memory_encryption_enabled': :'BOOLEAN',
+        'is_burstable': :'BOOLEAN',
         'shape': :'String',
         'time_created': :'DateTime'
         # rubocop:enable Style/SymbolLiteral
@@ -81,6 +88,7 @@ module OCI
     # @option attributes [String] :compartment_id The value to assign to the {#compartment_id} property
     # @option attributes [String] :instance_id The value to assign to the {#instance_id} property
     # @option attributes [BOOLEAN] :is_memory_encryption_enabled The value to assign to the {#is_memory_encryption_enabled} property
+    # @option attributes [BOOLEAN] :is_burstable The value to assign to the {#is_burstable} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     def initialize(attributes = {})
@@ -115,6 +123,14 @@ module OCI
       self.is_memory_encryption_enabled = attributes[:'is_memory_encryption_enabled'] unless attributes[:'is_memory_encryption_enabled'].nil?
       self.is_memory_encryption_enabled = false if is_memory_encryption_enabled.nil? && !attributes.key?(:'isMemoryEncryptionEnabled') && !attributes.key?(:'is_memory_encryption_enabled') # rubocop:disable Style/StringLiterals
 
+      self.is_burstable = attributes[:'isBurstable'] unless attributes[:'isBurstable'].nil?
+      self.is_burstable = false if is_burstable.nil? && !attributes.key?(:'isBurstable') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isBurstable and :is_burstable' if attributes.key?(:'isBurstable') && attributes.key?(:'is_burstable')
+
+      self.is_burstable = attributes[:'is_burstable'] unless attributes[:'is_burstable'].nil?
+      self.is_burstable = false if is_burstable.nil? && !attributes.key?(:'isBurstable') && !attributes.key?(:'is_burstable') # rubocop:disable Style/StringLiterals
+
       self.shape = attributes[:'shape'] if attributes[:'shape']
 
       self.time_created = attributes[:'timeCreated'] if attributes[:'timeCreated']
@@ -139,6 +155,7 @@ module OCI
         compartment_id == other.compartment_id &&
         instance_id == other.instance_id &&
         is_memory_encryption_enabled == other.is_memory_encryption_enabled &&
+        is_burstable == other.is_burstable &&
         shape == other.shape &&
         time_created == other.time_created
     end
@@ -156,7 +173,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, compartment_id, instance_id, is_memory_encryption_enabled, shape, time_created].hash
+      [availability_domain, compartment_id, instance_id, is_memory_encryption_enabled, is_burstable, shape, time_created].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

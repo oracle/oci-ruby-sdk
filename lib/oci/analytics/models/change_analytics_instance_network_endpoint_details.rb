@@ -6,7 +6,7 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Input payload to update an Analytics instance endpoint details.
+  # Input payload to update endpoint details for an Analytics instance.
   #
   class Analytics::Models::ChangeAnalyticsInstanceNetworkEndpointDetails
     # This attribute is required.

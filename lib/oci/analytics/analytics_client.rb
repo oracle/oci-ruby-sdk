@@ -101,9 +101,9 @@ module OCI
 
 
     # Change the compartment of an Analytics instance. The operation is long-running
-    # and creates a new WorkRequest.
+    # and creates a new work request.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [OCI::Analytics::Models::ChangeCompartmentDetails] change_compartment_details Input payload to move the resource to a different compartment.
     #
@@ -174,12 +174,12 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Change an Analytics instance network endpoint. The operation is long-running
-    # and creates a new WorkRequest.
+    # Change the network endpoint for an Analytics instance. The operation is long-running
+    # and creates a new work request.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
-    # @param [OCI::Analytics::Models::ChangeAnalyticsInstanceNetworkEndpointDetails] change_analytics_instance_network_endpoint_details Input payload for changing an Analytics instance network endpoint.
+    # @param [OCI::Analytics::Models::ChangeAnalyticsInstanceNetworkEndpointDetails] change_analytics_instance_network_endpoint_details Input payload for changing a network endpoint for an Analytics instance.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -248,10 +248,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Create a new AnalyticsInstance in the specified compartment. The operation is long-running
-    # and creates a new WorkRequest.
+    # Create a new Analytics instance in the specified compartment. The operation is long-running
+    # and creates a new work request.
     #
-    # @param [OCI::Analytics::Models::CreateAnalyticsInstanceDetails] create_analytics_instance_details Analytics Instance details.
+    # @param [OCI::Analytics::Models::CreateAnalyticsInstanceDetails] create_analytics_instance_details Analytics instance details.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -314,10 +314,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Create an Private access Channel for the Analytics instance. The operation is long-running
-    # and creates a new WorkRequest.
+    # Create an private access channel for the Analytics instance. The operation is long-running
+    # and creates a new work request.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [OCI::Analytics::Models::CreatePrivateAccessChannelDetails] create_private_access_channel_details Input payload for creating a private access channel for an Analytics instance.
     #
@@ -383,12 +383,80 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Allows specifying a custom host name to be used to access the analytics instance.  This requires prior setup of DNS entry and certificate
-    # for this host.
+    # Create a new resource group for the instance
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
-    # @param [OCI::Analytics::Models::CreateVanityUrlDetails] create_vanity_url_details Vanity url details.
+    # @param [OCI::Analytics::Models::CreateResourceGroupDetails] create_resource_group_details Resource group details
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Analytics::Models::InstanceResourceGroup InstanceResourceGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/create_resource_group.rb.html) to see an example of how to use create_resource_group API.
+    def create_resource_group(analytics_instance_id, create_resource_group_details, opts = {})
+      logger.debug 'Calling operation AnalyticsClient#create_resource_group.' if logger
+
+      raise "Missing the required parameter 'analytics_instance_id' when calling create_resource_group." if analytics_instance_id.nil?
+      raise "Missing the required parameter 'create_resource_group_details' when calling create_resource_group." if create_resource_group_details.nil?
+      raise "Parameter value for 'analytics_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(analytics_instance_id)
+
+      path = '/analyticsInstances/{analyticsInstanceId}/resourceGroups'.sub('{analyticsInstanceId}', analytics_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(create_resource_group_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnalyticsClient#create_resource_group') do
+        @api_client.call_api(
+          :POST,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Analytics::Models::InstanceResourceGroup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Allows you to specify a custom host name to be used to access the Analytics instance.  You must set up a DNS entry and certificate for this host in advance.
+    #
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
+    #
+    # @param [OCI::Analytics::Models::CreateVanityUrlDetails] create_vanity_url_details Vanity URL details.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -452,10 +520,10 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Terminates the specified Analytics instance. The operation is long-running
-    # and creates a new WorkRequest.
+    # Deletes the specified Analytics instance. The operation is long-running
+    # and creates a new work request.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -523,11 +591,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Delete an Analytics instance's Private access channel with the given unique identifier key.
+    # Delete a private access channel with a given unique identifier key, for an Analytics instance.
     #
-    # @param [String] private_access_channel_key The unique identifier key of the Private Access Channel.
+    # @param [String] private_access_channel_key The unique identifier key of the private access channel.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -597,11 +665,85 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Allows deleting a previously created vanity url.
+    # Allows deleting a previously created resource group.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
-    # @param [String] vanity_url_key Specify unique identifier key of a vanity url to update or delete.
+    # @param [String] analytics_instance_resource_group_id Specify unique id of a resource group within an Analytics instance.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type nil
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/delete_resource_group.rb.html) to see an example of how to use delete_resource_group API.
+    def delete_resource_group(analytics_instance_id, analytics_instance_resource_group_id, opts = {})
+      logger.debug 'Calling operation AnalyticsClient#delete_resource_group.' if logger
+
+      raise "Missing the required parameter 'analytics_instance_id' when calling delete_resource_group." if analytics_instance_id.nil?
+      raise "Missing the required parameter 'analytics_instance_resource_group_id' when calling delete_resource_group." if analytics_instance_resource_group_id.nil?
+      raise "Parameter value for 'analytics_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(analytics_instance_id)
+      raise "Parameter value for 'analytics_instance_resource_group_id' must not be blank" if OCI::Internal::Util.blank_string?(analytics_instance_resource_group_id)
+
+      path = '/analyticsInstances/{analyticsInstanceId}/resourceGroups/{analyticsInstanceResourceGroupId}'.sub('{analyticsInstanceId}', analytics_instance_id.to_s).sub('{analyticsInstanceResourceGroupId}', analytics_instance_resource_group_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnalyticsClient#delete_resource_group') do
+        @api_client.call_api(
+          :DELETE,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Deletes a previously created vanity URL.
+    #
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
+    #
+    # @param [String] vanity_url_key Specify unique identifier key of a vanity URL to update or delete.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -671,7 +813,7 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Cancel a work request that has not started yet.
+    # Cancel a work request that hasn't started yet.
     #
     # @param [String] work_request_id The OCID of the work request.
     #
@@ -733,9 +875,9 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Info for a specific Analytics instance.
+    # Information about a specific Analytics instance.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -791,11 +933,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Retrieve private access channel in the specified Analytics Instance.
+    # Retrieve private access channel for the specified Analytics Instance.
     #
-    # @param [String] private_access_channel_key The unique identifier key of the Private Access Channel.
+    # @param [String] private_access_channel_key The unique identifier key of the private access channel.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -840,6 +982,68 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'OCI::Analytics::Models::PrivateAccessChannel'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Get details of a resource group for an instance
+    #
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
+    #
+    # @param [String] analytics_instance_resource_group_id Specify unique id of a resource group within an Analytics instance.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @return [Response] A Response object with data of type {OCI::Analytics::Models::InstanceResourceGroup InstanceResourceGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/get_resource_group.rb.html) to see an example of how to use get_resource_group API.
+    def get_resource_group(analytics_instance_id, analytics_instance_resource_group_id, opts = {})
+      logger.debug 'Calling operation AnalyticsClient#get_resource_group.' if logger
+
+      raise "Missing the required parameter 'analytics_instance_id' when calling get_resource_group." if analytics_instance_id.nil?
+      raise "Missing the required parameter 'analytics_instance_resource_group_id' when calling get_resource_group." if analytics_instance_resource_group_id.nil?
+      raise "Parameter value for 'analytics_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(analytics_instance_id)
+      raise "Parameter value for 'analytics_instance_resource_group_id' must not be blank" if OCI::Internal::Util.blank_string?(analytics_instance_resource_group_id)
+
+      path = '/analyticsInstances/{analyticsInstanceId}/resourceGroups/{analyticsInstanceResourceGroupId}'.sub('{analyticsInstanceId}', analytics_instance_id.to_s).sub('{analyticsInstanceResourceGroupId}', analytics_instance_resource_group_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnalyticsClient#get_resource_group') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Analytics::Models::InstanceResourceGroup'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1010,6 +1214,94 @@ module OCI
           operation_signing_strategy: operation_signing_strategy,
           body: post_body,
           return_type: 'Array<OCI::Analytics::Models::AnalyticsInstanceSummary>'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # List resource groups associated with an instance.
+    #
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :name A filter to return only resources that match the given name exactly.
+    #
+    # @option opts [Integer] :limit For list pagination. The maximum number of results per page, or items to return in a paginated
+    #   \"List\" call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    #   Example: `50`
+    #
+    # @option opts [String] :page For list pagination. The value of the `opc-next-page` response header from the previous \"List\"
+    #   call. For important details about how pagination works, see
+    #   [List Pagination](https://docs.cloud.oracle.com/iaas/Content/API/Concepts/usingapi.htm#nine).
+    #
+    # @option opts [String] :sort_by The field to sort by (one column only). Default sort order is
+    #   default group first, then sort by resource name, ascending.
+    #
+    # @option opts [String] :sort_order The sort order to use, either ascending (`ASC`) or descending (`DESC`).
+    #
+    # @return [Response] A Response object with data of type Array<{OCI::Analytics::Models::InstanceResourceGroupSummary InstanceResourceGroupSummary}>
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/list_resource_groups.rb.html) to see an example of how to use list_resource_groups API.
+    def list_resource_groups(analytics_instance_id, opts = {})
+      logger.debug 'Calling operation AnalyticsClient#list_resource_groups.' if logger
+
+      raise "Missing the required parameter 'analytics_instance_id' when calling list_resource_groups." if analytics_instance_id.nil?
+
+      if opts[:sort_by] && !OCI::Analytics::Models::RESOURCE_GROUP_SORT_BY_ENUM.include?(opts[:sort_by])
+        raise 'Invalid value for "sort_by", must be one of the values in OCI::Analytics::Models::RESOURCE_GROUP_SORT_BY_ENUM.'
+      end
+
+      if opts[:sort_order] && !OCI::Analytics::Models::SORT_ORDER_ENUM.include?(opts[:sort_order])
+        raise 'Invalid value for "sort_order", must be one of the values in OCI::Analytics::Models::SORT_ORDER_ENUM.'
+      end
+      raise "Parameter value for 'analytics_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(analytics_instance_id)
+
+      path = '/analyticsInstances/{analyticsInstanceId}/resourceGroups'.sub('{analyticsInstanceId}', analytics_instance_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+      query_params[:name] = opts[:name] if opts[:name]
+      query_params[:limit] = opts[:limit] if opts[:limit]
+      query_params[:page] = opts[:page] if opts[:page]
+      query_params[:sortBy] = opts[:sort_by] if opts[:sort_by]
+      query_params[:sortOrder] = opts[:sort_order] if opts[:sort_order]
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      # rubocop:enable Style/NegatedIf
+
+      post_body = nil
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnalyticsClient#list_resource_groups') do
+        @api_client.call_api(
+          :GET,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'Array<OCI::Analytics::Models::InstanceResourceGroupSummary>'
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -1272,9 +1564,9 @@ module OCI
 
 
     # Scale an Analytics instance up or down. The operation is long-running
-    # and creates a new WorkRequest.
+    # and creates a new work request.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [OCI::Analytics::Models::ScaleAnalyticsInstanceDetails] scale_analytics_instance_details Input payload for scaling an Analytics instance up or down.
     #
@@ -1347,7 +1639,7 @@ module OCI
 
     # Set the external service properties of an Analytics instance.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [OCI::Analytics::Models::SetFeatureBundleDetails] set_feature_bundle_details Input payload for the feature set of an Analytics instance.
     #
@@ -1418,11 +1710,11 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Encrypts the customer data of this Analytics instance using either a customer OCI Vault Key or Oracle managed default key.
+    # Encrypts the customer data of this Analytics instance using either a customer OCI vault key or default Oracle-managed key.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
-    # @param [OCI::Analytics::Models::SetKmsKeyDetails] set_kms_key_details Input payload to reset the OCI Vault encryption key.
+    # @param [OCI::Analytics::Models::SetKmsKeyDetails] set_kms_key_details Input payload to reset the OCI vault encryption key.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1492,9 +1784,9 @@ module OCI
 
 
     # Starts the specified Analytics instance. The operation is long-running
-    # and creates a new WorkRequest.
+    # and creates a new work request.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1563,9 +1855,9 @@ module OCI
 
 
     # Stop the specified Analytics instance. The operation is long-running
-    # and creates a new WorkRequest.
+    # and creates a new work request.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1636,10 +1928,10 @@ module OCI
     # Updates certain fields of an Analytics instance. Fields that are not provided in the
     # request will not be updated.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
-    # @param [OCI::Analytics::Models::UpdateAnalyticsInstanceDetails] update_analytics_instance_details The Analytics Instance fields to update. Fields that are not provided
-    #   will not be updated.
+    # @param [OCI::Analytics::Models::UpdateAnalyticsInstanceDetails] update_analytics_instance_details Update specified fields for an Analytics instance. Fields that aren't provided
+    #    won't be updated.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1701,13 +1993,13 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Update the Private Access Channel with the given unique identifier key in the specified Analytics Instance.
+    # Update the private access channel with the given unique identifier key in the specified Analytics instance.
     #
-    # @param [String] private_access_channel_key The unique identifier key of the Private Access Channel.
+    # @param [String] private_access_channel_key The unique identifier key of the private access channel.
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
-    # @param [OCI::Analytics::Models::UpdatePrivateAccessChannelDetails] update_private_access_channel_details Update the Private Access Channel with the given unique identifier key in the specified Analytics Instance.
+    # @param [OCI::Analytics::Models::UpdatePrivateAccessChannelDetails] update_private_access_channel_details Update the private access channel with the given unique identifier key in the specified Analytics instance.
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
@@ -1778,13 +2070,91 @@ module OCI
     # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
 
 
-    # Allows uploading a new certificate for a vanity url, which will have to be done when the current certificate is expiring.
+    # Update any fields in a resource group
     #
-    # @param [String] analytics_instance_id The OCID of the AnalyticsInstance.
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
     #
-    # @param [String] vanity_url_key Specify unique identifier key of a vanity url to update or delete.
+    # @param [String] analytics_instance_resource_group_id Specify unique id of a resource group within an Analytics instance.
     #
-    # @param [OCI::Analytics::Models::UpdateVanityUrlDetails] update_vanity_url_details Vanity url details to update (certificate).
+    # @param [OCI::Analytics::Models::UpdateResourceGroupDetails] update_resource_group_details Resource group details to update (certificate).
+    #
+    # @param [Hash] opts the optional parameters
+    # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level
+    #   retry configuration defined by {#retry_config} will be used. If an explicit `nil` value is provided then the operation will not retry
+    # @option opts [String] :if_match For optimistic concurrency control. In the PUT or DELETE call for a resource, set the `if-match`
+    #   parameter to the value of the etag from a previous GET or POST response for that resource.  The resource
+    #   will be updated or deleted only if the etag you provide matches the resource's current etag value.
+    #
+    # @option opts [String] :opc_request_id Unique identifier for the request.
+    #   If you need to contact Oracle about a particular request, please provide the request ID.
+    #
+    # @option opts [String] :opc_retry_token A token that uniquely identifies a request so it can be retried in case of a timeout or
+    #   server error without risk of executing that same action again. Retry tokens expire after 24
+    #   hours, but can be invalidated before then due to conflicting operations (for example, if a resource
+    #   has been deleted and purged from the system, then a retry of the original creation request
+    #   may be rejected).
+    #
+    # @return [Response] A Response object with data of type {OCI::Analytics::Models::InstanceResourceGroup InstanceResourceGroup}
+    # @note Click [here](https://docs.cloud.oracle.com/en-us/iaas/tools/ruby-sdk-examples/latest/analytics/update_resource_group.rb.html) to see an example of how to use update_resource_group API.
+    def update_resource_group(analytics_instance_id, analytics_instance_resource_group_id, update_resource_group_details, opts = {})
+      logger.debug 'Calling operation AnalyticsClient#update_resource_group.' if logger
+
+      raise "Missing the required parameter 'analytics_instance_id' when calling update_resource_group." if analytics_instance_id.nil?
+      raise "Missing the required parameter 'analytics_instance_resource_group_id' when calling update_resource_group." if analytics_instance_resource_group_id.nil?
+      raise "Missing the required parameter 'update_resource_group_details' when calling update_resource_group." if update_resource_group_details.nil?
+      raise "Parameter value for 'analytics_instance_id' must not be blank" if OCI::Internal::Util.blank_string?(analytics_instance_id)
+      raise "Parameter value for 'analytics_instance_resource_group_id' must not be blank" if OCI::Internal::Util.blank_string?(analytics_instance_resource_group_id)
+
+      path = '/analyticsInstances/{analyticsInstanceId}/resourceGroups/{analyticsInstanceResourceGroupId}'.sub('{analyticsInstanceId}', analytics_instance_id.to_s).sub('{analyticsInstanceResourceGroupId}', analytics_instance_resource_group_id.to_s)
+      operation_signing_strategy = :standard
+
+      # rubocop:disable Style/NegatedIf
+      # Query Params
+      query_params = {}
+
+      # Header Params
+      header_params = {}
+      header_params[:accept] = 'application/json'
+      header_params[:'content-type'] = 'application/json'
+      header_params[:'if-match'] = opts[:if_match] if opts[:if_match]
+      header_params[:'opc-request-id'] = opts[:opc_request_id] if opts[:opc_request_id]
+      header_params[:'opc-retry-token'] = opts[:opc_retry_token] if opts[:opc_retry_token]
+      # rubocop:enable Style/NegatedIf
+      header_params[:'opc-retry-token'] ||= OCI::Retry.generate_opc_retry_token
+
+      post_body = @api_client.object_to_http_body(update_resource_group_details)
+
+      # rubocop:disable Metrics/BlockLength
+      OCI::Retry.make_retrying_call(applicable_retry_config(opts), call_name: 'AnalyticsClient#update_resource_group') do
+        @api_client.call_api(
+          :PUT,
+          path,
+          endpoint,
+          header_params: header_params,
+          query_params: query_params,
+          operation_signing_strategy: operation_signing_strategy,
+          body: post_body,
+          return_type: 'OCI::Analytics::Models::InstanceResourceGroup'
+        )
+      end
+      # rubocop:enable Metrics/BlockLength
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:enable Metrics/MethodLength, Layout/EmptyLines
+
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Style/IfUnlessModifier, Metrics/ParameterLists
+    # rubocop:disable Metrics/MethodLength, Layout/EmptyLines
+
+
+    # Uploads a new certificate for a vanity URL. Required before the current certificate expires.
+    #
+    # @param [String] analytics_instance_id The OCID of the Analytics instance.
+    #
+    # @param [String] vanity_url_key Specify unique identifier key of a vanity URL to update or delete.
+    #
+    # @param [OCI::Analytics::Models::UpdateVanityUrlDetails] update_vanity_url_details Vanity URL details to update (certificate).
     #
     # @param [Hash] opts the optional parameters
     # @option opts [OCI::Retry::RetryConfig] :retry_config The retry configuration to apply to this operation. If no key is provided then the service-level

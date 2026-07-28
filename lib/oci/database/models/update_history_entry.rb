@@ -17,6 +17,17 @@ module OCI
       UPDATE_ACTION_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    UPDATE_MODE_ENUM = [
+      UPDATE_MODE_ONLINE_HIGHCVSS = 'ONLINE_HIGHCVSS'.freeze,
+      UPDATE_MODE_ONLINE_ALLCVSS = 'ONLINE_ALLCVSS'.freeze,
+      UPDATE_MODE_ONLINE_ALL_UPDATES = 'ONLINE_ALL_UPDATES'.freeze,
+      UPDATE_MODE_PENDING_UPDATES_HIGHCVSS = 'PENDING_UPDATES_HIGHCVSS'.freeze,
+      UPDATE_MODE_PENDING_UPDATES_ALLCVSS = 'PENDING_UPDATES_ALLCVSS'.freeze,
+      UPDATE_MODE_PENDING_ALL_UPDATES = 'PENDING_ALL_UPDATES'.freeze,
+      UPDATE_MODE_FULL_UPDATE = 'FULL_UPDATE'.freeze,
+      UPDATE_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     UPDATE_TYPE_ENUM = [
       UPDATE_TYPE_GI_UPGRADE = 'GI_UPGRADE'.freeze,
       UPDATE_TYPE_GI_PATCH = 'GI_PATCH'.freeze,
@@ -42,6 +53,10 @@ module OCI
     # The update action.
     # @return [String]
     attr_reader :update_action
+
+    # The OS update mode performed using this maintenance update.
+    # @return [String]
+    attr_reader :update_mode
 
     # **[Required]** The type of cloud VM cluster maintenance update.
     # @return [String]
@@ -71,6 +86,7 @@ module OCI
         'id': :'id',
         'update_id': :'updateId',
         'update_action': :'updateAction',
+        'update_mode': :'updateMode',
         'update_type': :'updateType',
         'lifecycle_state': :'lifecycleState',
         'lifecycle_details': :'lifecycleDetails',
@@ -87,6 +103,7 @@ module OCI
         'id': :'String',
         'update_id': :'String',
         'update_action': :'String',
+        'update_mode': :'String',
         'update_type': :'String',
         'lifecycle_state': :'String',
         'lifecycle_details': :'String',
@@ -105,6 +122,7 @@ module OCI
     # @option attributes [String] :id The value to assign to the {#id} property
     # @option attributes [String] :update_id The value to assign to the {#update_id} property
     # @option attributes [String] :update_action The value to assign to the {#update_action} property
+    # @option attributes [String] :update_mode The value to assign to the {#update_mode} property
     # @option attributes [String] :update_type The value to assign to the {#update_type} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
@@ -126,6 +144,12 @@ module OCI
       raise 'You cannot provide both :updateAction and :update_action' if attributes.key?(:'updateAction') && attributes.key?(:'update_action')
 
       self.update_action = attributes[:'update_action'] if attributes[:'update_action']
+
+      self.update_mode = attributes[:'updateMode'] if attributes[:'updateMode']
+
+      raise 'You cannot provide both :updateMode and :update_mode' if attributes.key?(:'updateMode') && attributes.key?(:'update_mode')
+
+      self.update_mode = attributes[:'update_mode'] if attributes[:'update_mode']
 
       self.update_type = attributes[:'updateType'] if attributes[:'updateType']
 
@@ -174,6 +198,19 @@ module OCI
     end
 
     # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] update_mode Object to be assigned
+    def update_mode=(update_mode)
+      # rubocop:disable Style/ConditionalAssignment
+      if update_mode && !UPDATE_MODE_ENUM.include?(update_mode)
+        OCI.logger.debug("Unknown value for 'update_mode' [" + update_mode + "]. Mapping to 'UPDATE_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @update_mode = UPDATE_MODE_UNKNOWN_ENUM_VALUE
+      else
+        @update_mode = update_mode
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
     # @param [Object] update_type Object to be assigned
     def update_type=(update_type)
       # rubocop:disable Style/ConditionalAssignment
@@ -211,6 +248,7 @@ module OCI
         id == other.id &&
         update_id == other.update_id &&
         update_action == other.update_action &&
+        update_mode == other.update_mode &&
         update_type == other.update_type &&
         lifecycle_state == other.lifecycle_state &&
         lifecycle_details == other.lifecycle_details &&
@@ -231,7 +269,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, update_id, update_action, update_type, lifecycle_state, lifecycle_details, time_started, time_completed].hash
+      [id, update_id, update_action, update_mode, update_type, lifecycle_state, lifecycle_details, time_started, time_completed].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

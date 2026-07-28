@@ -6,15 +6,15 @@ require 'date'
 
 # rubocop:disable Lint/UnneededCopDisableDirective, Metrics/LineLength
 module OCI
-  # Private source DNS Zone model.
+  # Private source DNS zone model.
   #
   class Analytics::Models::PrivateSourceDnsZone
-    # **[Required]** Private Source DNS Zone. Ex: example-vcn.oraclevcn.com, corp.example.com.
+    # **[Required]** Private source DNS zone. For example: example-vcn.oraclevcn.com, corp.example.com.
     #
     # @return [String]
     attr_accessor :dns_zone
 
-    # Description of private source dns zone.
+    # Description of the private source DNS zone.
     #
     # @return [String]
     attr_accessor :description

@@ -98,6 +98,25 @@ module OCI
     # @return [String]
     attr_accessor :oci_logical_device_name
 
+    # Minimum number of active cross-connects required for the cross-connect group to be considered operational.
+    # If the number of active cross-connects falls below this value, the group is not considered operational.
+    # If this value was not explicitly set when the group was created or updated, it defaults to 1.
+    #
+    # @return [Integer]
+    attr_accessor :minimum_links
+
+    # The flag to enable or disable the down timer for the interface.
+    # @return [BOOLEAN]
+    attr_accessor :is_interface_hold_timer_enabled
+
+    # The duration of the interface down timer in milliseconds between 0 and 3000 in multiples of 500.
+    # @return [Integer]
+    attr_accessor :interface_down_timer_value_in_milliseconds
+
+    # The flag to enable or disable the Qos for the cross-connect-group.
+    # @return [BOOLEAN]
+    attr_accessor :is_qos_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -113,7 +132,11 @@ module OCI
         'time_created': :'timeCreated',
         'macsec_properties': :'macsecProperties',
         'oci_physical_device_name': :'ociPhysicalDeviceName',
-        'oci_logical_device_name': :'ociLogicalDeviceName'
+        'oci_logical_device_name': :'ociLogicalDeviceName',
+        'minimum_links': :'minimumLinks',
+        'is_interface_hold_timer_enabled': :'isInterfaceHoldTimerEnabled',
+        'interface_down_timer_value_in_milliseconds': :'interfaceDownTimerValueInMilliseconds',
+        'is_qos_enabled': :'isQosEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -133,7 +156,11 @@ module OCI
         'time_created': :'DateTime',
         'macsec_properties': :'OCI::Core::Models::MacsecProperties',
         'oci_physical_device_name': :'String',
-        'oci_logical_device_name': :'String'
+        'oci_logical_device_name': :'String',
+        'minimum_links': :'Integer',
+        'is_interface_hold_timer_enabled': :'BOOLEAN',
+        'interface_down_timer_value_in_milliseconds': :'Integer',
+        'is_qos_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -156,6 +183,10 @@ module OCI
     # @option attributes [OCI::Core::Models::MacsecProperties] :macsec_properties The value to assign to the {#macsec_properties} property
     # @option attributes [String] :oci_physical_device_name The value to assign to the {#oci_physical_device_name} property
     # @option attributes [String] :oci_logical_device_name The value to assign to the {#oci_logical_device_name} property
+    # @option attributes [Integer] :minimum_links The value to assign to the {#minimum_links} property
+    # @option attributes [BOOLEAN] :is_interface_hold_timer_enabled The value to assign to the {#is_interface_hold_timer_enabled} property
+    # @option attributes [Integer] :interface_down_timer_value_in_milliseconds The value to assign to the {#interface_down_timer_value_in_milliseconds} property
+    # @option attributes [BOOLEAN] :is_qos_enabled The value to assign to the {#is_qos_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -229,6 +260,30 @@ module OCI
       raise 'You cannot provide both :ociLogicalDeviceName and :oci_logical_device_name' if attributes.key?(:'ociLogicalDeviceName') && attributes.key?(:'oci_logical_device_name')
 
       self.oci_logical_device_name = attributes[:'oci_logical_device_name'] if attributes[:'oci_logical_device_name']
+
+      self.minimum_links = attributes[:'minimumLinks'] if attributes[:'minimumLinks']
+
+      raise 'You cannot provide both :minimumLinks and :minimum_links' if attributes.key?(:'minimumLinks') && attributes.key?(:'minimum_links')
+
+      self.minimum_links = attributes[:'minimum_links'] if attributes[:'minimum_links']
+
+      self.is_interface_hold_timer_enabled = attributes[:'isInterfaceHoldTimerEnabled'] unless attributes[:'isInterfaceHoldTimerEnabled'].nil?
+
+      raise 'You cannot provide both :isInterfaceHoldTimerEnabled and :is_interface_hold_timer_enabled' if attributes.key?(:'isInterfaceHoldTimerEnabled') && attributes.key?(:'is_interface_hold_timer_enabled')
+
+      self.is_interface_hold_timer_enabled = attributes[:'is_interface_hold_timer_enabled'] unless attributes[:'is_interface_hold_timer_enabled'].nil?
+
+      self.interface_down_timer_value_in_milliseconds = attributes[:'interfaceDownTimerValueInMilliseconds'] if attributes[:'interfaceDownTimerValueInMilliseconds']
+
+      raise 'You cannot provide both :interfaceDownTimerValueInMilliseconds and :interface_down_timer_value_in_milliseconds' if attributes.key?(:'interfaceDownTimerValueInMilliseconds') && attributes.key?(:'interface_down_timer_value_in_milliseconds')
+
+      self.interface_down_timer_value_in_milliseconds = attributes[:'interface_down_timer_value_in_milliseconds'] if attributes[:'interface_down_timer_value_in_milliseconds']
+
+      self.is_qos_enabled = attributes[:'isQosEnabled'] unless attributes[:'isQosEnabled'].nil?
+
+      raise 'You cannot provide both :isQosEnabled and :is_qos_enabled' if attributes.key?(:'isQosEnabled') && attributes.key?(:'is_qos_enabled')
+
+      self.is_qos_enabled = attributes[:'is_qos_enabled'] unless attributes[:'is_qos_enabled'].nil?
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -266,7 +321,11 @@ module OCI
         time_created == other.time_created &&
         macsec_properties == other.macsec_properties &&
         oci_physical_device_name == other.oci_physical_device_name &&
-        oci_logical_device_name == other.oci_logical_device_name
+        oci_logical_device_name == other.oci_logical_device_name &&
+        minimum_links == other.minimum_links &&
+        is_interface_hold_timer_enabled == other.is_interface_hold_timer_enabled &&
+        interface_down_timer_value_in_milliseconds == other.interface_down_timer_value_in_milliseconds &&
+        is_qos_enabled == other.is_qos_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -282,7 +341,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, freeform_tags, id, system_tags, lifecycle_state, customer_reference_name, time_created, macsec_properties, oci_physical_device_name, oci_logical_device_name].hash
+      [compartment_id, defined_tags, display_name, freeform_tags, id, system_tags, lifecycle_state, customer_reference_name, time_created, macsec_properties, oci_physical_device_name, oci_logical_device_name, minimum_links, is_interface_hold_timer_enabled, interface_down_timer_value_in_milliseconds, is_qos_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

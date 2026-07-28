@@ -39,7 +39,8 @@ module OCI
       CONNECTION_TYPE_DATABRICKS = 'DATABRICKS'.freeze,
       CONNECTION_TYPE_GOOGLE_PUBSUB = 'GOOGLE_PUBSUB'.freeze,
       CONNECTION_TYPE_MICROSOFT_FABRIC = 'MICROSOFT_FABRIC'.freeze,
-      CONNECTION_TYPE_ICEBERG = 'ICEBERG'.freeze
+      CONNECTION_TYPE_ICEBERG = 'ICEBERG'.freeze,
+      CONNECTION_TYPE_AI_MODEL = 'AI_MODEL'.freeze
     ].freeze
 
     ROUTING_METHOD_ENUM = [
@@ -87,15 +88,30 @@ module OCI
     # @return [Array<OCI::GoldenGate::Models::AddResourceLockDetails>]
     attr_accessor :locks
 
-    # Refers to the customer's vault OCID.
-    # If provided, it references a vault where GoldenGate can manage secrets. Customers must add policies to permit GoldenGate
-    # to manage secrets contained within this vault.
+    # References the OCI Vault that contains the customer-managed encryption key identified by `keyId`.
+    #
+    # Deprecated: This field is deprecated for GoldenGate connections. Sensitive attributes should be provided using the
+    # corresponding Secret OCID attributes of the connection (for example, `passwordSecretId`) instead of plain-text
+    # attributes encrypted with `vaultId` and `keyId`. This change follows the GoldenGate \"Plain Text Fields in Connections\" deprecation:
+    # https://docs.oracle.com/en-us/iaas/Content/servicechanges.htm#servicechanges_topic-GoldenGate
+    #
+    # This field is applicable only when `doesUseSecretIds` is set to `false`.
+    # If `vaultId` is provided, `keyId` must also be provided.
     #
     # @return [String]
     attr_accessor :vault_id
 
-    # Refers to the customer's master key OCID.
-    # If provided, it references a key to manage secrets. Customers must add policies to permit GoldenGate to use this key.
+    # References the OCI Vault key in the OCI Vault identified by `vaultId`.
+    #
+    # Deprecated: This field is deprecated for GoldenGate connections. Sensitive attributes should be provided using the
+    # corresponding Secret OCID attributes of the connection (for example, `passwordSecretId`) instead of plain-text
+    # attributes encrypted with `vaultId` and `keyId`. This change follows the GoldenGate \"Plain Text Fields in Connections\" deprecation:
+    # https://docs.oracle.com/en-us/iaas/Content/servicechanges.htm#servicechanges_topic-GoldenGate
+    #
+    # The GoldenGate service uses this key to encrypt sensitive information (for example, `password`) that is provided in plain-text connection attributes through the API.
+    # This field is applicable only when `doesUseSecretIds` is set to `false`. If both `vaultId` and `keyId` are provided,
+    # the GoldenGate service uses the specified customer-managed key to encrypt the sensitive data.
+    # If neither `vaultId` nor `keyId` is provided, the GoldenGate service uses Oracle-managed encryption keys.
     #
     # @return [String]
     attr_accessor :key_id
@@ -111,14 +127,33 @@ module OCI
     attr_accessor :subnet_id
 
     # Controls the network traffic direction to the target:
-    # SHARED_SERVICE_ENDPOINT: Traffic flows through the Goldengate Service's network to public hosts. Cannot be used for private targets.
     # SHARED_DEPLOYMENT_ENDPOINT: Network traffic flows from the assigned deployment's private endpoint through the deployment's subnet.
     # DEDICATED_ENDPOINT: A dedicated private endpoint is created in the target VCN subnet for the connection. The subnetId is required when DEDICATED_ENDPOINT networking is selected.
+    # SHARED_SERVICE_ENDPOINT: Traffic flows through the Goldengate Service's network to public hosts. Cannot be used for private targets.
+    #
+    # Deprecated: SHARED_SERVICE_ENDPOINT is deprecated. Use another supported routingMethod value, or update existing connections to use a supported routing method.
+    # This change follows the GoldenGate \"Plain Text Fields in Connections\" deprecation:
+    # https://docs.oracle.com/en-us/iaas/Content/servicechanges.htm#servicechanges_topic-GoldenGate
     #
     # @return [String]
     attr_reader :routing_method
 
     # Indicates that sensitive attributes are provided via Secrets.
+    #
+    # Deprecated: This field is deprecated. Sensitive attributes should be provided using the corresponding Secret OCID
+    # attributes of the connection (for example, `passwordSecretId`) instead of plain-text attributes. This change follows
+    # the GoldenGate \"Plain Text Fields in Connections\" deprecation:
+    # https://docs.oracle.com/en-us/iaas/Content/servicechanges.htm#servicechanges_topic-GoldenGate
+    #
+    # When set to `true`, all sensitive information must be provided as OCI Vault secrets using the corresponding
+    # `*SecretId` attributes of the connection (for example, `passwordSecretId`). Plain-text sensitive attributes (for example, `password`) must not be used.
+    # This ensures that sensitive information remains stored and managed in the customer's OCI Vault rather than by the GoldenGate service.
+    #
+    # When set to false, sensitive information must be provided in the corresponding plain-text attributes (for example, `password`) rather than in secret OCID attributes.
+    # In this mode, the sensitive information is stored by the GoldenGate service. If `vaultId` and `keyId` are not specified,
+    # the GoldenGate service uses Oracle-managed encryption keys to encrypt the stored data.
+    #
+    # If `vaultId` and `keyId` are provided, the specified customer-managed key is used.
     #
     # @return [BOOLEAN]
     attr_accessor :does_use_secret_ids
@@ -220,6 +255,7 @@ module OCI
       return 'OCI::GoldenGate::Models::CreateDatabricksConnectionDetails' if type == 'DATABRICKS'
       return 'OCI::GoldenGate::Models::CreateDb2ConnectionDetails' if type == 'DB2'
       return 'OCI::GoldenGate::Models::CreateElasticsearchConnectionDetails' if type == 'ELASTICSEARCH'
+      return 'OCI::GoldenGate::Models::CreateAiModelConnectionDetails' if type == 'AI_MODEL'
       return 'OCI::GoldenGate::Models::CreateAzureSynapseConnectionDetails' if type == 'AZURE_SYNAPSE_ANALYTICS'
       return 'OCI::GoldenGate::Models::CreateIcebergConnectionDetails' if type == 'ICEBERG'
       return 'OCI::GoldenGate::Models::CreateMysqlConnectionDetails' if type == 'MYSQL'

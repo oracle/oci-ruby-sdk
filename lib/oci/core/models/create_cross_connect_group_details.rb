@@ -43,6 +43,29 @@ module OCI
     # @return [OCI::Core::Models::CreateMacsecProperties]
     attr_accessor :macsec_properties
 
+    # (Optional) Minimum number of active cross-connects required for the cross-connect group to be considered
+    # operational. During create cross-connect-group operation this value can only be set to 1 (If not specified,
+    # this value defaults to 1) and can be edited using the update cross-connect group operation. Value must not
+    # exceed the total number of cross-connects in the cross-connect group.
+    #
+    # @return [Integer]
+    attr_accessor :minimum_links
+
+    # The flag to enable or disable the down timer for the interface.
+    # @return [BOOLEAN]
+    attr_accessor :is_interface_hold_timer_enabled
+
+    # The duration of the interface down timer in milliseconds between 0 and 3000 in multiples of 500.
+    # @return [Integer]
+    attr_accessor :interface_down_timer_value_in_milliseconds
+
+    # (Optional) When true, restricts placement so cross-connects lands only on QoS-capable devices.
+    # When false (default), placement may use any supported device. If no QoS-capable devices are available
+    # in the selected location, the request fails.
+    #
+    # @return [BOOLEAN]
+    attr_accessor :is_qos_enabled
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -52,7 +75,11 @@ module OCI
         'display_name': :'displayName',
         'customer_reference_name': :'customerReferenceName',
         'freeform_tags': :'freeformTags',
-        'macsec_properties': :'macsecProperties'
+        'macsec_properties': :'macsecProperties',
+        'minimum_links': :'minimumLinks',
+        'is_interface_hold_timer_enabled': :'isInterfaceHoldTimerEnabled',
+        'interface_down_timer_value_in_milliseconds': :'interfaceDownTimerValueInMilliseconds',
+        'is_qos_enabled': :'isQosEnabled'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -66,7 +93,11 @@ module OCI
         'display_name': :'String',
         'customer_reference_name': :'String',
         'freeform_tags': :'Hash<String, String>',
-        'macsec_properties': :'OCI::Core::Models::CreateMacsecProperties'
+        'macsec_properties': :'OCI::Core::Models::CreateMacsecProperties',
+        'minimum_links': :'Integer',
+        'is_interface_hold_timer_enabled': :'BOOLEAN',
+        'interface_down_timer_value_in_milliseconds': :'Integer',
+        'is_qos_enabled': :'BOOLEAN'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -83,6 +114,10 @@ module OCI
     # @option attributes [String] :customer_reference_name The value to assign to the {#customer_reference_name} property
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [OCI::Core::Models::CreateMacsecProperties] :macsec_properties The value to assign to the {#macsec_properties} property
+    # @option attributes [Integer] :minimum_links The value to assign to the {#minimum_links} property
+    # @option attributes [BOOLEAN] :is_interface_hold_timer_enabled The value to assign to the {#is_interface_hold_timer_enabled} property
+    # @option attributes [Integer] :interface_down_timer_value_in_milliseconds The value to assign to the {#interface_down_timer_value_in_milliseconds} property
+    # @option attributes [BOOLEAN] :is_qos_enabled The value to assign to the {#is_qos_enabled} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -124,6 +159,34 @@ module OCI
       raise 'You cannot provide both :macsecProperties and :macsec_properties' if attributes.key?(:'macsecProperties') && attributes.key?(:'macsec_properties')
 
       self.macsec_properties = attributes[:'macsec_properties'] if attributes[:'macsec_properties']
+
+      self.minimum_links = attributes[:'minimumLinks'] if attributes[:'minimumLinks']
+
+      raise 'You cannot provide both :minimumLinks and :minimum_links' if attributes.key?(:'minimumLinks') && attributes.key?(:'minimum_links')
+
+      self.minimum_links = attributes[:'minimum_links'] if attributes[:'minimum_links']
+
+      self.is_interface_hold_timer_enabled = attributes[:'isInterfaceHoldTimerEnabled'] unless attributes[:'isInterfaceHoldTimerEnabled'].nil?
+      self.is_interface_hold_timer_enabled = false if is_interface_hold_timer_enabled.nil? && !attributes.key?(:'isInterfaceHoldTimerEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isInterfaceHoldTimerEnabled and :is_interface_hold_timer_enabled' if attributes.key?(:'isInterfaceHoldTimerEnabled') && attributes.key?(:'is_interface_hold_timer_enabled')
+
+      self.is_interface_hold_timer_enabled = attributes[:'is_interface_hold_timer_enabled'] unless attributes[:'is_interface_hold_timer_enabled'].nil?
+      self.is_interface_hold_timer_enabled = false if is_interface_hold_timer_enabled.nil? && !attributes.key?(:'isInterfaceHoldTimerEnabled') && !attributes.key?(:'is_interface_hold_timer_enabled') # rubocop:disable Style/StringLiterals
+
+      self.interface_down_timer_value_in_milliseconds = attributes[:'interfaceDownTimerValueInMilliseconds'] if attributes[:'interfaceDownTimerValueInMilliseconds']
+
+      raise 'You cannot provide both :interfaceDownTimerValueInMilliseconds and :interface_down_timer_value_in_milliseconds' if attributes.key?(:'interfaceDownTimerValueInMilliseconds') && attributes.key?(:'interface_down_timer_value_in_milliseconds')
+
+      self.interface_down_timer_value_in_milliseconds = attributes[:'interface_down_timer_value_in_milliseconds'] if attributes[:'interface_down_timer_value_in_milliseconds']
+
+      self.is_qos_enabled = attributes[:'isQosEnabled'] unless attributes[:'isQosEnabled'].nil?
+      self.is_qos_enabled = false if is_qos_enabled.nil? && !attributes.key?(:'isQosEnabled') # rubocop:disable Style/StringLiterals
+
+      raise 'You cannot provide both :isQosEnabled and :is_qos_enabled' if attributes.key?(:'isQosEnabled') && attributes.key?(:'is_qos_enabled')
+
+      self.is_qos_enabled = attributes[:'is_qos_enabled'] unless attributes[:'is_qos_enabled'].nil?
+      self.is_qos_enabled = false if is_qos_enabled.nil? && !attributes.key?(:'isQosEnabled') && !attributes.key?(:'is_qos_enabled') # rubocop:disable Style/StringLiterals
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -142,7 +205,11 @@ module OCI
         display_name == other.display_name &&
         customer_reference_name == other.customer_reference_name &&
         freeform_tags == other.freeform_tags &&
-        macsec_properties == other.macsec_properties
+        macsec_properties == other.macsec_properties &&
+        minimum_links == other.minimum_links &&
+        is_interface_hold_timer_enabled == other.is_interface_hold_timer_enabled &&
+        interface_down_timer_value_in_milliseconds == other.interface_down_timer_value_in_milliseconds &&
+        is_qos_enabled == other.is_qos_enabled
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -158,7 +225,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [compartment_id, defined_tags, display_name, customer_reference_name, freeform_tags, macsec_properties].hash
+      [compartment_id, defined_tags, display_name, customer_reference_name, freeform_tags, macsec_properties, minimum_links, is_interface_hold_timer_enabled, interface_down_timer_value_in_milliseconds, is_qos_enabled].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

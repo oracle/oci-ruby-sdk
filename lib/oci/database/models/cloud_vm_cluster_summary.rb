@@ -131,6 +131,13 @@ module OCI
     # @return [Integer]
     attr_accessor :listener_port
 
+    # @return [OCI::Database::Models::ExadataLiveImageVersionDetails]
+    attr_accessor :live_image_version_details
+
+    # Oracle Linux version for the respective Exadata Image.
+    # @return [String]
+    attr_accessor :oracle_linux_version
+
     # **[Required]** The current state of the cloud VM cluster.
     # @return [String]
     attr_reader :lifecycle_state
@@ -397,6 +404,8 @@ module OCI
         'last_update_history_entry_id': :'lastUpdateHistoryEntryId',
         'shape': :'shape',
         'listener_port': :'listenerPort',
+        'live_image_version_details': :'liveImageVersionDetails',
+        'oracle_linux_version': :'oracleLinuxVersion',
         'lifecycle_state': :'lifecycleState',
         'node_count': :'nodeCount',
         'storage_size_in_gbs': :'storageSizeInGBs',
@@ -468,6 +477,8 @@ module OCI
         'last_update_history_entry_id': :'String',
         'shape': :'String',
         'listener_port': :'Integer',
+        'live_image_version_details': :'OCI::Database::Models::ExadataLiveImageVersionDetails',
+        'oracle_linux_version': :'String',
         'lifecycle_state': :'String',
         'node_count': :'Integer',
         'storage_size_in_gbs': :'Integer',
@@ -541,6 +552,8 @@ module OCI
     # @option attributes [String] :last_update_history_entry_id The value to assign to the {#last_update_history_entry_id} property
     # @option attributes [String] :shape The value to assign to the {#shape} property
     # @option attributes [Integer] :listener_port The value to assign to the {#listener_port} property
+    # @option attributes [OCI::Database::Models::ExadataLiveImageVersionDetails] :live_image_version_details The value to assign to the {#live_image_version_details} property
+    # @option attributes [String] :oracle_linux_version The value to assign to the {#oracle_linux_version} property
     # @option attributes [String] :lifecycle_state The value to assign to the {#lifecycle_state} property
     # @option attributes [Integer] :node_count The value to assign to the {#node_count} property
     # @option attributes [Integer] :storage_size_in_gbs The value to assign to the {#storage_size_in_gbs} property
@@ -656,6 +669,18 @@ module OCI
       raise 'You cannot provide both :listenerPort and :listener_port' if attributes.key?(:'listenerPort') && attributes.key?(:'listener_port')
 
       self.listener_port = attributes[:'listener_port'] if attributes[:'listener_port']
+
+      self.live_image_version_details = attributes[:'liveImageVersionDetails'] if attributes[:'liveImageVersionDetails']
+
+      raise 'You cannot provide both :liveImageVersionDetails and :live_image_version_details' if attributes.key?(:'liveImageVersionDetails') && attributes.key?(:'live_image_version_details')
+
+      self.live_image_version_details = attributes[:'live_image_version_details'] if attributes[:'live_image_version_details']
+
+      self.oracle_linux_version = attributes[:'oracleLinuxVersion'] if attributes[:'oracleLinuxVersion']
+
+      raise 'You cannot provide both :oracleLinuxVersion and :oracle_linux_version' if attributes.key?(:'oracleLinuxVersion') && attributes.key?(:'oracle_linux_version')
+
+      self.oracle_linux_version = attributes[:'oracle_linux_version'] if attributes[:'oracle_linux_version']
 
       self.lifecycle_state = attributes[:'lifecycleState'] if attributes[:'lifecycleState']
 
@@ -1103,6 +1128,8 @@ module OCI
         last_update_history_entry_id == other.last_update_history_entry_id &&
         shape == other.shape &&
         listener_port == other.listener_port &&
+        live_image_version_details == other.live_image_version_details &&
+        oracle_linux_version == other.oracle_linux_version &&
         lifecycle_state == other.lifecycle_state &&
         node_count == other.node_count &&
         storage_size_in_gbs == other.storage_size_in_gbs &&
@@ -1170,7 +1197,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, compartment_id, subscription_id, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, last_update_history_entry_id, shape, listener_port, lifecycle_state, node_count, storage_size_in_gbs, display_name, time_created, lifecycle_details, time_zone, hostname, domain, cpu_core_count, ocpu_count, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, db_servers, cluster_name, data_storage_percentage, reco_storage_percentage, sparse_storage_percentage, is_local_backup_enabled, cloud_exadata_infrastructure_id, is_sparse_diskgroup_enabled, gi_version, system_version, ssh_public_keys, license_model, disk_redundancy, scan_ip_ids, vip_ids, scan_ipv6_ids, vipv6_ids, scan_dns_record_id, freeform_tags, defined_tags, security_attributes, system_tags, scan_dns_name, zone_id, scan_listener_port_tcp, scan_listener_port_tcp_ssl, data_collection_options, gi_software_image_id, file_system_configuration_details, cloud_automation_update_details, exascale_db_storage_vault_id, storage_management_type, vm_cluster_type, compute_model, multi_cloud_identity_connector_configs, tde_key_store_type, vm_file_system_storage_type, vm_backup_storage_type].hash
+      [id, compartment_id, subscription_id, availability_domain, subnet_id, backup_subnet_id, nsg_ids, backup_network_nsg_ids, last_update_history_entry_id, shape, listener_port, live_image_version_details, oracle_linux_version, lifecycle_state, node_count, storage_size_in_gbs, display_name, time_created, lifecycle_details, time_zone, hostname, domain, cpu_core_count, ocpu_count, memory_size_in_gbs, db_node_storage_size_in_gbs, data_storage_size_in_tbs, db_servers, cluster_name, data_storage_percentage, reco_storage_percentage, sparse_storage_percentage, is_local_backup_enabled, cloud_exadata_infrastructure_id, is_sparse_diskgroup_enabled, gi_version, system_version, ssh_public_keys, license_model, disk_redundancy, scan_ip_ids, vip_ids, scan_ipv6_ids, vipv6_ids, scan_dns_record_id, freeform_tags, defined_tags, security_attributes, system_tags, scan_dns_name, zone_id, scan_listener_port_tcp, scan_listener_port_tcp_ssl, data_collection_options, gi_software_image_id, file_system_configuration_details, cloud_automation_update_details, exascale_db_storage_vault_id, storage_management_type, vm_cluster_type, compute_model, multi_cloud_identity_connector_configs, tde_key_store_type, vm_file_system_storage_type, vm_backup_storage_type].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

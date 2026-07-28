@@ -39,7 +39,9 @@ module OCI
 
     # The password Oracle GoldenGate uses to connect the associated system of the given technology.
     # It must conform to the specific security requirements including length, case sensitivity, and so on.
-    # Deprecated: This field is deprecated and replaced by \"passwordSecretId\". This field will be removed after February 15 2026.
+    # Deprecated: This field is deprecated and replaced by \"passwordSecretId\".
+    # This change follows the GoldenGate \"Plain Text Fields in Connections\" deprecation:
+    # https://docs.oracle.com/en-us/iaas/Content/servicechanges.htm#servicechanges_topic-GoldenGate
     #
     # @return [String]
     attr_accessor :password
@@ -54,7 +56,9 @@ module OCI
     attr_accessor :password_secret_id
 
     # The base64 encoded content of the TrustStore file.
-    # Deprecated: This field is deprecated and replaced by \"trustStoreSecretId\". This field will be removed after February 15 2026.
+    # Deprecated: This field is deprecated and replaced by \"trustStoreSecretId\".
+    # This change follows the GoldenGate \"Plain Text Fields in Connections\" deprecation:
+    # https://docs.oracle.com/en-us/iaas/Content/servicechanges.htm#servicechanges_topic-GoldenGate
     #
     # @return [String]
     attr_accessor :trust_store
@@ -66,7 +70,9 @@ module OCI
     attr_accessor :trust_store_secret_id
 
     # The TrustStore password.
-    # Deprecated: This field is deprecated and replaced by \"trustStorePasswordSecretId\". This field will be removed after February 15 2026.
+    # Deprecated: This field is deprecated and replaced by \"trustStorePasswordSecretId\".
+    # This change follows the GoldenGate \"Plain Text Fields in Connections\" deprecation:
+    # https://docs.oracle.com/en-us/iaas/Content/servicechanges.htm#servicechanges_topic-GoldenGate
     #
     # @return [String]
     attr_accessor :trust_store_password
@@ -78,7 +84,9 @@ module OCI
     attr_accessor :trust_store_password_secret_id
 
     # The base64 encoded content of the KeyStore file.
-    # Deprecated: This field is deprecated and replaced by \"keyStoreSecretId\". This field will be removed after February 15 2026.
+    # Deprecated: This field is deprecated and replaced by \"keyStoreSecretId\".
+    # This change follows the GoldenGate \"Plain Text Fields in Connections\" deprecation:
+    # https://docs.oracle.com/en-us/iaas/Content/servicechanges.htm#servicechanges_topic-GoldenGate
     #
     # @return [String]
     attr_accessor :key_store
@@ -90,7 +98,9 @@ module OCI
     attr_accessor :key_store_secret_id
 
     # The KeyStore password.
-    # Deprecated: This field is deprecated and replaced by \"keyStorePasswordSecretId\". This field will be removed after February 15 2026.
+    # Deprecated: This field is deprecated and replaced by \"keyStorePasswordSecretId\".
+    # This change follows the GoldenGate \"Plain Text Fields in Connections\" deprecation:
+    # https://docs.oracle.com/en-us/iaas/Content/servicechanges.htm#servicechanges_topic-GoldenGate
     #
     # @return [String]
     attr_accessor :key_store_password

@@ -28,7 +28,7 @@ module OCI
     # @return [String]
     attr_accessor :reason_summary
 
-    # The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
+    # **[Required]** The [OCID](https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm) of the compartment.
     # @return [String]
     attr_accessor :compartment_id
 

@@ -37,6 +37,12 @@ module OCI
       QUOTA_ENFORCEMENT_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    COMPARTMENT_QUOTA_ENFORCEMENT_STATE_ENUM = [
+      COMPARTMENT_QUOTA_ENFORCEMENT_STATE_NOT_BLOCKED = 'NOT_BLOCKED'.freeze,
+      COMPARTMENT_QUOTA_ENFORCEMENT_STATE_BLOCKED = 'BLOCKED'.freeze,
+      COMPARTMENT_QUOTA_ENFORCEMENT_STATE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # The availability domain the file system is in. May be unset
     # as a blank or NULL value.
     #
@@ -144,6 +150,10 @@ module OCI
     # @return [String]
     attr_reader :quota_enforcement_state
 
+    # Displays the compartment-level quota enforcement state affecting this file system.
+    # @return [String]
+    attr_reader :compartment_quota_enforcement_state
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -166,7 +176,8 @@ module OCI
         'is_hydrated': :'isHydrated',
         'lifecycle_details': :'lifecycleDetails',
         'clone_attach_status': :'cloneAttachStatus',
-        'quota_enforcement_state': :'quotaEnforcementState'
+        'quota_enforcement_state': :'quotaEnforcementState',
+        'compartment_quota_enforcement_state': :'compartmentQuotaEnforcementState'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -193,7 +204,8 @@ module OCI
         'is_hydrated': :'BOOLEAN',
         'lifecycle_details': :'String',
         'clone_attach_status': :'String',
-        'quota_enforcement_state': :'String'
+        'quota_enforcement_state': :'String',
+        'compartment_quota_enforcement_state': :'String'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -223,6 +235,7 @@ module OCI
     # @option attributes [String] :lifecycle_details The value to assign to the {#lifecycle_details} property
     # @option attributes [String] :clone_attach_status The value to assign to the {#clone_attach_status} property
     # @option attributes [String] :quota_enforcement_state The value to assign to the {#quota_enforcement_state} property
+    # @option attributes [String] :compartment_quota_enforcement_state The value to assign to the {#compartment_quota_enforcement_state} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -334,6 +347,12 @@ module OCI
       raise 'You cannot provide both :quotaEnforcementState and :quota_enforcement_state' if attributes.key?(:'quotaEnforcementState') && attributes.key?(:'quota_enforcement_state')
 
       self.quota_enforcement_state = attributes[:'quota_enforcement_state'] if attributes[:'quota_enforcement_state']
+
+      self.compartment_quota_enforcement_state = attributes[:'compartmentQuotaEnforcementState'] if attributes[:'compartmentQuotaEnforcementState']
+
+      raise 'You cannot provide both :compartmentQuotaEnforcementState and :compartment_quota_enforcement_state' if attributes.key?(:'compartmentQuotaEnforcementState') && attributes.key?(:'compartment_quota_enforcement_state')
+
+      self.compartment_quota_enforcement_state = attributes[:'compartment_quota_enforcement_state'] if attributes[:'compartment_quota_enforcement_state']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -377,6 +396,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] compartment_quota_enforcement_state Object to be assigned
+    def compartment_quota_enforcement_state=(compartment_quota_enforcement_state)
+      # rubocop:disable Style/ConditionalAssignment
+      if compartment_quota_enforcement_state && !COMPARTMENT_QUOTA_ENFORCEMENT_STATE_ENUM.include?(compartment_quota_enforcement_state)
+        OCI.logger.debug("Unknown value for 'compartment_quota_enforcement_state' [" + compartment_quota_enforcement_state + "]. Mapping to 'COMPARTMENT_QUOTA_ENFORCEMENT_STATE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @compartment_quota_enforcement_state = COMPARTMENT_QUOTA_ENFORCEMENT_STATE_UNKNOWN_ENUM_VALUE
+      else
+        @compartment_quota_enforcement_state = compartment_quota_enforcement_state
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -404,7 +436,8 @@ module OCI
         is_hydrated == other.is_hydrated &&
         lifecycle_details == other.lifecycle_details &&
         clone_attach_status == other.clone_attach_status &&
-        quota_enforcement_state == other.quota_enforcement_state
+        quota_enforcement_state == other.quota_enforcement_state &&
+        compartment_quota_enforcement_state == other.compartment_quota_enforcement_state
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -420,7 +453,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [availability_domain, metered_bytes, compartment_id, display_name, id, lifecycle_state, time_created, locks, freeform_tags, defined_tags, system_tags, replication_source_count, kms_key_id, source_details, is_clone_parent, is_hydrated, lifecycle_details, clone_attach_status, quota_enforcement_state].hash
+      [availability_domain, metered_bytes, compartment_id, display_name, id, lifecycle_state, time_created, locks, freeform_tags, defined_tags, system_tags, replication_source_count, kms_key_id, source_details, is_clone_parent, is_hydrated, lifecycle_details, clone_attach_status, quota_enforcement_state, compartment_quota_enforcement_state].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

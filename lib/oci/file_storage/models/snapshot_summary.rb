@@ -123,6 +123,11 @@ module OCI
     # @return [Hash<String, Hash<String, Object>>]
     attr_accessor :system_tags
 
+    # Bytes referenced only by this snapshot; deducted from compartment usage immediately upon deletion.
+    #
+    # @return [Integer]
+    attr_accessor :exclusive_bytes
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -142,7 +147,8 @@ module OCI
         'lifecycle_details': :'lifecycleDetails',
         'freeform_tags': :'freeformTags',
         'defined_tags': :'definedTags',
-        'system_tags': :'systemTags'
+        'system_tags': :'systemTags',
+        'exclusive_bytes': :'exclusiveBytes'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -166,7 +172,8 @@ module OCI
         'lifecycle_details': :'String',
         'freeform_tags': :'Hash<String, String>',
         'defined_tags': :'Hash<String, Hash<String, Object>>',
-        'system_tags': :'Hash<String, Hash<String, Object>>'
+        'system_tags': :'Hash<String, Hash<String, Object>>',
+        'exclusive_bytes': :'Integer'
         # rubocop:enable Style/SymbolLiteral
       }
     end
@@ -193,6 +200,7 @@ module OCI
     # @option attributes [Hash<String, String>] :freeform_tags The value to assign to the {#freeform_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :defined_tags The value to assign to the {#defined_tags} property
     # @option attributes [Hash<String, Hash<String, Object>>] :system_tags The value to assign to the {#system_tags} property
+    # @option attributes [Integer] :exclusive_bytes The value to assign to the {#exclusive_bytes} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
 
@@ -282,6 +290,12 @@ module OCI
       raise 'You cannot provide both :systemTags and :system_tags' if attributes.key?(:'systemTags') && attributes.key?(:'system_tags')
 
       self.system_tags = attributes[:'system_tags'] if attributes[:'system_tags']
+
+      self.exclusive_bytes = attributes[:'exclusiveBytes'] if attributes[:'exclusiveBytes']
+
+      raise 'You cannot provide both :exclusiveBytes and :exclusive_bytes' if attributes.key?(:'exclusiveBytes') && attributes.key?(:'exclusive_bytes')
+
+      self.exclusive_bytes = attributes[:'exclusive_bytes'] if attributes[:'exclusive_bytes']
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength, Layout/EmptyLines, Style/SymbolLiteral
@@ -336,7 +350,8 @@ module OCI
         lifecycle_details == other.lifecycle_details &&
         freeform_tags == other.freeform_tags &&
         defined_tags == other.defined_tags &&
-        system_tags == other.system_tags
+        system_tags == other.system_tags &&
+        exclusive_bytes == other.exclusive_bytes
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
@@ -352,7 +367,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [file_system_id, id, lifecycle_state, name, time_created, locks, lock_duration_details, snapshot_type, snapshot_time, expiration_time, provenance_id, is_clone_source, lifecycle_details, freeform_tags, defined_tags, system_tags].hash
+      [file_system_id, id, lifecycle_state, name, time_created, locks, lock_duration_details, snapshot_type, snapshot_time, expiration_time, provenance_id, is_clone_source, lifecycle_details, freeform_tags, defined_tags, system_tags, exclusive_bytes].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 

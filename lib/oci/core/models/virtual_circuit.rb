@@ -98,6 +98,12 @@ module OCI
       IP_MTU_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
     ].freeze
 
+    TRAFFIC_MODE_ENUM = [
+      TRAFFIC_MODE_NORMAL = 'NORMAL'.freeze,
+      TRAFFIC_MODE_DRAIN = 'DRAIN'.freeze,
+      TRAFFIC_MODE_UNKNOWN_ENUM_VALUE = 'UNKNOWN_ENUM_VALUE'.freeze
+    ].freeze
+
     # The provisioned data rate of the connection. To get a list of the
     # available bandwidth levels (that is, shapes), see
     # {#list_fast_connect_provider_virtual_circuit_bandwidth_shapes list_fast_connect_provider_virtual_circuit_bandwidth_shapes}.
@@ -284,6 +290,26 @@ module OCI
     # @return [String]
     attr_reader :ip_mtu
 
+    # The OCI's FastConnect MultiCloud Provider/Partner remote region name associated with the OCI region.
+    # To get the list of associated provider remote region use the ListProviderRemoteRegions operation
+    #
+    # @return [String]
+    attr_accessor :provider_remote_region
+
+    # The Shared unique identifier for the connection between the multicloud interconnect providers
+    # @return [String]
+    attr_accessor :shared_connection_uuid
+
+    # Customer's account on Provider/Partner cloud (AWS, GCP or any other)
+    # @return [String]
+    attr_accessor :remote_account_id
+
+    # The current traffic mode for the Virtual Circuit. This indicates whether the traffic is drained for the
+    # associated Virtual Circuit or not.
+    #
+    # @return [String]
+    attr_reader :traffic_mode
+
     # @return [OCI::Core::Models::VirtualCircuitRedundancyMetadata]
     attr_accessor :virtual_circuit_redundancy_metadata
 
@@ -322,6 +348,10 @@ module OCI
         'time_created': :'timeCreated',
         'type': :'type',
         'ip_mtu': :'ipMtu',
+        'provider_remote_region': :'providerRemoteRegion',
+        'shared_connection_uuid': :'sharedConnectionUuid',
+        'remote_account_id': :'remoteAccountId',
+        'traffic_mode': :'trafficMode',
         'virtual_circuit_redundancy_metadata': :'virtualCircuitRedundancyMetadata'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -362,6 +392,10 @@ module OCI
         'time_created': :'DateTime',
         'type': :'String',
         'ip_mtu': :'String',
+        'provider_remote_region': :'String',
+        'shared_connection_uuid': :'String',
+        'remote_account_id': :'String',
+        'traffic_mode': :'String',
         'virtual_circuit_redundancy_metadata': :'OCI::Core::Models::VirtualCircuitRedundancyMetadata'
         # rubocop:enable Style/SymbolLiteral
       }
@@ -404,6 +438,10 @@ module OCI
     # @option attributes [DateTime] :time_created The value to assign to the {#time_created} property
     # @option attributes [String] :type The value to assign to the {#type} property
     # @option attributes [String] :ip_mtu The value to assign to the {#ip_mtu} property
+    # @option attributes [String] :provider_remote_region The value to assign to the {#provider_remote_region} property
+    # @option attributes [String] :shared_connection_uuid The value to assign to the {#shared_connection_uuid} property
+    # @option attributes [String] :remote_account_id The value to assign to the {#remote_account_id} property
+    # @option attributes [String] :traffic_mode The value to assign to the {#traffic_mode} property
     # @option attributes [OCI::Core::Models::VirtualCircuitRedundancyMetadata] :virtual_circuit_redundancy_metadata The value to assign to the {#virtual_circuit_redundancy_metadata} property
     def initialize(attributes = {})
       return unless attributes.is_a?(Hash)
@@ -589,6 +627,30 @@ module OCI
 
       self.ip_mtu = attributes[:'ip_mtu'] if attributes[:'ip_mtu']
 
+      self.provider_remote_region = attributes[:'providerRemoteRegion'] if attributes[:'providerRemoteRegion']
+
+      raise 'You cannot provide both :providerRemoteRegion and :provider_remote_region' if attributes.key?(:'providerRemoteRegion') && attributes.key?(:'provider_remote_region')
+
+      self.provider_remote_region = attributes[:'provider_remote_region'] if attributes[:'provider_remote_region']
+
+      self.shared_connection_uuid = attributes[:'sharedConnectionUuid'] if attributes[:'sharedConnectionUuid']
+
+      raise 'You cannot provide both :sharedConnectionUuid and :shared_connection_uuid' if attributes.key?(:'sharedConnectionUuid') && attributes.key?(:'shared_connection_uuid')
+
+      self.shared_connection_uuid = attributes[:'shared_connection_uuid'] if attributes[:'shared_connection_uuid']
+
+      self.remote_account_id = attributes[:'remoteAccountId'] if attributes[:'remoteAccountId']
+
+      raise 'You cannot provide both :remoteAccountId and :remote_account_id' if attributes.key?(:'remoteAccountId') && attributes.key?(:'remote_account_id')
+
+      self.remote_account_id = attributes[:'remote_account_id'] if attributes[:'remote_account_id']
+
+      self.traffic_mode = attributes[:'trafficMode'] if attributes[:'trafficMode']
+
+      raise 'You cannot provide both :trafficMode and :traffic_mode' if attributes.key?(:'trafficMode') && attributes.key?(:'traffic_mode')
+
+      self.traffic_mode = attributes[:'traffic_mode'] if attributes[:'traffic_mode']
+
       self.virtual_circuit_redundancy_metadata = attributes[:'virtualCircuitRedundancyMetadata'] if attributes[:'virtualCircuitRedundancyMetadata']
 
       raise 'You cannot provide both :virtualCircuitRedundancyMetadata and :virtual_circuit_redundancy_metadata' if attributes.key?(:'virtualCircuitRedundancyMetadata') && attributes.key?(:'virtual_circuit_redundancy_metadata')
@@ -735,6 +797,19 @@ module OCI
       # rubocop:enable Style/ConditionalAssignment
     end
 
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] traffic_mode Object to be assigned
+    def traffic_mode=(traffic_mode)
+      # rubocop:disable Style/ConditionalAssignment
+      if traffic_mode && !TRAFFIC_MODE_ENUM.include?(traffic_mode)
+        OCI.logger.debug("Unknown value for 'traffic_mode' [" + traffic_mode + "]. Mapping to 'TRAFFIC_MODE_UNKNOWN_ENUM_VALUE'") if OCI.logger
+        @traffic_mode = TRAFFIC_MODE_UNKNOWN_ENUM_VALUE
+      else
+        @traffic_mode = traffic_mode
+      end
+      # rubocop:enable Style/ConditionalAssignment
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
 
 
@@ -775,6 +850,10 @@ module OCI
         time_created == other.time_created &&
         type == other.type &&
         ip_mtu == other.ip_mtu &&
+        provider_remote_region == other.provider_remote_region &&
+        shared_connection_uuid == other.shared_connection_uuid &&
+        remote_account_id == other.remote_account_id &&
+        traffic_mode == other.traffic_mode &&
         virtual_circuit_redundancy_metadata == other.virtual_circuit_redundancy_metadata
     end
     # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity, Layout/EmptyLines
@@ -791,7 +870,7 @@ module OCI
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bandwidth_shape_name, bgp_management, bgp_session_state, bgp_ipv6_session_state, compartment_id, cross_connect_mappings, routing_policy, bgp_admin_state, is_bfd_enabled, is_transport_mode, customer_bgp_asn, customer_asn, defined_tags, display_name, freeform_tags, gateway_id, id, lifecycle_state, oracle_bgp_asn, provider_name, provider_service_id, provider_service_key_name, provider_service_name, provider_state, public_prefixes, reference_comment, region, service_type, time_created, type, ip_mtu, virtual_circuit_redundancy_metadata].hash
+      [bandwidth_shape_name, bgp_management, bgp_session_state, bgp_ipv6_session_state, compartment_id, cross_connect_mappings, routing_policy, bgp_admin_state, is_bfd_enabled, is_transport_mode, customer_bgp_asn, customer_asn, defined_tags, display_name, freeform_tags, gateway_id, id, lifecycle_state, oracle_bgp_asn, provider_name, provider_service_id, provider_service_key_name, provider_service_name, provider_state, public_prefixes, reference_comment, region, service_type, time_created, type, ip_mtu, provider_remote_region, shared_connection_uuid, remote_account_id, traffic_mode, virtual_circuit_redundancy_metadata].hash
     end
     # rubocop:enable Metrics/AbcSize, Layout/EmptyLines
 
