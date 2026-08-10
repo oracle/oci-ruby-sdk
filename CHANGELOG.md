@@ -1243,7 +1243,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - Support for Java Management Service Downloads
 - Support for creating autonomous dataguard associations in the Database service
 - Support for SaaS administrative user configurations for autonomous database in the Database service
-- Support for macOS in the the Java Management service
+- Support for macOS in the Java Management service
 - Support for distribution and management of deployment rule sets in the Java Management service
 - Support for new download location of Oracle Java runtime binaries in the Java Management service
 - Support for exporting data across regions in the Java Management service
@@ -1276,7 +1276,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - Property `applications` is replaced by `application` and property `urls` is replaced by `url` in model `SecurityRuleMatchCriteria`in the Network Firewall Service
 - Support for retries by default on operations of the Database Tools service
 - Support for retries by default on operations of the Monitoring service
-- The paremeter `opc_retry_token` was removed from operations `change_database_tools_connection_compartment` and `change_database_tools_private_endpoint_compartment` in the Database Tools service
+- The parameter `opc_retry_token` was removed from operations `change_database_tools_connection_compartment` and `change_database_tools_private_endpoint_compartment` in the Database Tools service
 - Properties `user_password`, `connection_string` and `user_name` were removed from models `CreateDatabaseToolsConnectionOracleDatabaseDetails` and `CreateDatabaseToolsConnectionMySqlDetails` in the Database Tools service
 - The properties `compartment_id` and `user_assessment_id` were removed from the `ProfileAggregation` model in the Data Safe service
 - Model `MyRequest` in the Identity Domains service now allows only certain restricted values. For more information please see https://docs.public.oneportal.content.oci.oraclecloud.com/en-us/iaas/tools/python/latest/api/identity_domains/models/oci.identity_domains.models.MyRequest.html#oci.identity_domains.models.MyRequest
@@ -2258,7 +2258,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 - Support for listing flex components in Database service
 - Support for APEX service for ADBS on OCI console for Database service
 - Support for Customer-Managed Key features as a part of the Database service
-- Support for Github configuration source provider as part of the Resource Manager service
+- Support for GitHub configuration source provider as part of the Resource Manager service
 
 ### Breaking
 - Parameter `compartment_id` changed from optional to required for method `list_work_requests` in the Data Safe service
@@ -2588,7 +2588,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 
 ## 2.6.0 - 2019-08-27 
 ### Added
-- Support for the Sao Paulo (GRU) region
+- Support for the São Paulo (GRU) region
 - Support for dedicated virtual machine hosts in the Compute service
 - Support for resource groups in metrics and alarms in the Monitoring service
 - Support for the Data Transfer service
@@ -2870,7 +2870,7 @@ where specifying an optional `content_type` for `ObjectStorageClient#put_object`
 ### Added
 - Support for tagging Load Balancers in the Load Balancing service
 - Support for export options in the File Storage service
-- Support for retrieving compartment name and user name as part of events in the Audit service
+- Support for retrieving compartment name and username as part of events in the Audit service
 
 
 ## 2.3.1 - 2018-06-28
